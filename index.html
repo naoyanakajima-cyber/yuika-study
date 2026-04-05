@@ -613,6 +613,53 @@ function FlashScreen({ unit, onBack, email }) {
   );
 
   const card = cards[ci];
+  const [userInput, setUserInput] = useState("");
+  const [judged, setJudged] = useState(null); // null | "correct" | "wrong"
+  const inputRef = useRef(null);
+
+  // Normalize for flexible matching: lowercase, trim, remove spaces/punctuation, convert katakana to hiragana
+  const normalize = (s) => {
+    return s.toLowerCase().trim()
+      .replace(/[\s　・、。（）()「」\-\/]/g, "")
+      .replace(/[ァ-ヶ]/g, m => String.fromCharCode(m.charCodeAt(0) - 0x60)) // katakana→hiragana
+      .replace(/[０-９]/g, m => String.fromCharCode(m.charCodeAt(0) - 0xFEE0)) // fullwidth→ascii
+      .replace(/[Ａ-Ｚａ-ｚ]/g, m => String.fromCharCode(m.charCodeAt(0) - 0xFEE0));
+  };
+
+  // Check if user answer matches (partial match for long answers)
+  const checkAnswer = (input, answer) => {
+    const ni = normalize(input);
+    const na = normalize(answer);
+    if (!ni) return false;
+    // Exact match
+    if (ni === na) return true;
+    // Answer contains the input (for long answers like "青森県／秋田県 1993年")
+    if (na.includes(ni) && ni.length >= 2) return true;
+    // Input contains core of the answer
+    if (ni.includes(na)) return true;
+    // Split answer by common delimiters and check if any part matches
+    const parts = answer.split(/[／\/、。（）()・\n]/).map(normalize).filter(p => p.length > 0);
+    if (parts.some(p => p === ni || ni.includes(p) || p.includes(ni))) return true;
+    return false;
+  };
+
+  const handleSubmitAnswer = () => {
+    if (judged || !userInput.trim()) return;
+    const isCorrect = checkAnswer(userInput, card.a);
+    setJudged(isCorrect ? "correct" : "wrong");
+  };
+
+  const handleNext = () => {
+    const knew = judged === "correct";
+    handleRes(knew);
+    setUserInput("");
+    setJudged(null);
+    setTimeout(() => inputRef.current?.focus(), 100);
+  };
+
+  // Auto-focus input
+  useEffect(() => { setTimeout(() => inputRef.current?.focus(), 200); }, [ci]);
+
   return (<Wrapper>
     <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:16}}>
       <button onClick={()=>setPhase("select")} style={{background:T.smoke,border:"none",borderRadius:10,padding:"8px 14px",color:T.textDim,fontSize:14,cursor:"pointer",fontFamily:"'Noto Sans JP',sans-serif"}}>← 戻る</button>
@@ -620,30 +667,80 @@ function FlashScreen({ unit, onBack, email }) {
     </div>
     {retry>0&&<div style={{textAlign:"center",marginBottom:8}}><span style={{background:T.wrong,color:T.white,borderRadius:6,padding:"2px 10px",fontSize:11,fontWeight:700}}>リトライ {retry}</span></div>}
     <div style={{display:"flex",justifyContent:"center",gap:20,marginBottom:16}}>
-      <div style={{textAlign:"center"}}><div style={{fontSize:22,fontWeight:900,color:T.correct}}>{res.c}</div><div style={{fontSize:11,color:T.textDim}}>覚えてた</div></div>
-      <div style={{textAlign:"center"}}><div style={{fontSize:22,fontWeight:900,color:T.wrong}}>{res.w}</div><div style={{fontSize:11,color:T.textDim}}>もう1回</div></div>
+      <div style={{textAlign:"center"}}><div style={{fontSize:22,fontWeight:900,color:T.correct}}>{res.c}</div><div style={{fontSize:11,color:T.textDim}}>正解</div></div>
+      <div style={{textAlign:"center"}}><div style={{fontSize:22,fontWeight:900,color:T.wrong}}>{res.w}</div><div style={{fontSize:11,color:T.textDim}}>不正解</div></div>
     </div>
-    <div onClick={!flipped?()=>setFlipped(true):undefined} style={{
-      minHeight:240,borderRadius:24,padding:"32px 24px",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",textAlign:"center",
-      cursor:!flipped?"pointer":"default",position:"relative",overflow:"hidden",
-      background:flipped?`linear-gradient(145deg, rgba(245,240,232,0.1), rgba(245,240,232,0.03))`:`linear-gradient(145deg, rgba(245,240,232,0.06), rgba(245,240,232,0.01))`,
-      border:`1px solid ${flipped?`${T.crimson}44`:T.textMuted}`,
-      boxShadow:flipped?`0 8px 40px ${T.crimson}22`:`0 4px 20px rgba(0,0,0,0.3)`,
+    {/* Question card */}
+    <div style={{
+      borderRadius:24,padding:"32px 24px",textAlign:"center",
+      position:"relative",overflow:"hidden",
+      background:`linear-gradient(145deg, rgba(245,240,232,0.06), rgba(245,240,232,0.01))`,
+      border:`1px solid ${judged==="correct"?`${T.correct}66`:judged==="wrong"?`${T.wrong}66`:T.textMuted}`,
+      boxShadow:judged?`0 8px 40px ${judged==="correct"?T.correct:T.wrong}22`:`0 4px 20px rgba(0,0,0,0.3)`,
+      transition:"all 0.3s",
     }} className="ichimatsu">
-      {!flipped?(<>
-        <div style={{fontSize:13,color:T.textMuted,marginBottom:16,fontWeight:700}}>問題</div>
-        <div style={{fontSize:20,fontWeight:700,color:T.text,lineHeight:1.7,fontFamily:"'Zen Maru Gothic',sans-serif"}}>{card.q}</div>
-        <div style={{marginTop:24,fontSize:13,color:T.textMuted}}>👆 タップで答えを見る</div>
-      </>):(<>
-        <div style={{fontSize:13,color:T.crimson,marginBottom:16,fontWeight:700}}>答え</div>
-        <div style={{fontSize:26,fontWeight:900,lineHeight:1.6,color:T.text,fontFamily:"'Zen Maru Gothic',sans-serif"}}>{card.a}</div>
-      </>)}
+      <div style={{fontSize:13,color:T.textMuted,marginBottom:16,fontWeight:700}}>問題</div>
+      <div style={{fontSize:20,fontWeight:700,color:T.text,lineHeight:1.7,fontFamily:"'Zen Maru Gothic',sans-serif",marginBottom:24}}>{card.q}</div>
+
+      {/* Input area */}
+      {!judged && (
+        <div>
+          <input
+            ref={inputRef}
+            type="text"
+            value={userInput}
+            onChange={e=>setUserInput(e.target.value)}
+            onKeyDown={e=>{ if(e.key==="Enter") handleSubmitAnswer(); }}
+            placeholder="答えを入力…"
+            style={{
+              width:"100%",padding:"14px 16px",borderRadius:12,
+              border:`2px solid ${T.textMuted}`,background:"rgba(245,240,232,0.05)",
+              color:T.text,fontSize:18,fontFamily:"'Noto Sans JP',sans-serif",
+              textAlign:"center",outline:"none",boxSizing:"border-box",
+            }}
+            onFocus={e=>{e.target.style.borderColor=T.crimson;}}
+            onBlur={e=>{e.target.style.borderColor=T.textMuted;}}
+          />
+          <div style={{display:"flex",gap:8,marginTop:12}}>
+            <button onClick={handleSubmitAnswer}
+              disabled={!userInput.trim()}
+              style={{...btnPrimary,flex:1,opacity:userInput.trim()?1:0.5}}>
+              答え合わせ
+            </button>
+            <button onClick={()=>{setJudged("wrong");setUserInput("");}}
+              style={{...btnDunno,flex:1,marginTop:8}}>
+              🤔 わからない
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Result */}
+      {judged && (
+        <div style={{animation:"fadeIn 0.3s ease"}}>
+          <div style={{
+            padding:"16px",borderRadius:14,marginBottom:12,
+            background:judged==="correct"?`${T.correct}15`:`${T.wrong}15`,
+            border:`1px solid ${judged==="correct"?`${T.correct}44`:`${T.wrong}44`}`,
+          }}>
+            <div style={{fontSize:18,fontWeight:900,color:judged==="correct"?T.correct:T.wrong,marginBottom:8,fontFamily:"'Zen Maru Gothic',sans-serif"}}>
+              {judged==="correct"?"⭕ 正解！":"❌ 不正解"}
+            </div>
+            {judged==="wrong"&&userInput&&(
+              <div style={{fontSize:13,color:T.textDim,marginBottom:8}}>
+                あなたの答え: <span style={{color:T.wrong,textDecoration:"line-through"}}>{userInput}</span>
+              </div>
+            )}
+            <div style={{fontSize:13,color:T.textDim}}>正解:</div>
+            <div style={{fontSize:22,fontWeight:900,color:T.text,marginTop:4,fontFamily:"'Zen Maru Gothic',sans-serif"}}>{card.a}</div>
+          </div>
+          <button onClick={handleNext} style={{...btnPrimary,marginTop:4}}>
+            {ci+1>=cards.length?"結果を見る →":"次のカード →"}
+          </button>
+        </div>
+      )}
     </div>
-    {flipped&&<div style={{display:"flex",gap:12,marginTop:20}}>
-      <button onClick={()=>handleRes(false)} style={{flex:1,padding:16,borderRadius:14,border:`2px solid ${T.wrong}`,background:`${T.wrong}11`,color:T.wrong,fontSize:16,fontWeight:700,cursor:"pointer",fontFamily:"'Zen Maru Gothic',sans-serif"}}>😅 わからなかった</button>
-      <button onClick={()=>handleRes(true)} style={{flex:1,padding:16,borderRadius:14,border:`2px solid ${T.correct}`,background:`${T.correct}11`,color:T.correct,fontSize:16,fontWeight:700,cursor:"pointer",fontFamily:"'Zen Maru Gothic',sans-serif"}}>😊 覚えてた！</button>
-    </div>}
-    {flipped&&<p style={{textAlign:"center",fontSize:12,color:T.textMuted,marginTop:12}}>※「わからなかった」カードは最後にもう一度出ます</p>}
+    {!judged&&<p style={{textAlign:"center",fontSize:12,color:T.textMuted,marginTop:12}}>※ ひらがな・カタカナどちらでもOK</p>}
   </Wrapper>);
 }
 
