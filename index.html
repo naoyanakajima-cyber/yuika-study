@@ -4,13 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="ゆいかの学習帳" />
   <title>ゆいかの学習帳</title>
-  <link rel="apple-touch-icon" href="data:image/svg+xml;charset=utf-8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231a1a2e'/><text x='50' y='68' text-anchor='middle' font-size='55'>⚔️</text></svg>" />
+  <link rel="apple-touch-icon" href="data:image/svg+xml;charset=utf-8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23FFE0EB'/><text x='50' y='68' text-anchor='middle' font-size='55'>💖</text></svg>" />
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-    body { background: #1a1a2e; overflow-x: hidden; -webkit-text-size-adjust: 100%; }
+    body { background: #FFF5F7; overflow-x: hidden; -webkit-text-size-adjust: 100%; }
     input { -webkit-appearance: none; appearance: none; }
   </style>
 </head>
@@ -47,14 +47,15 @@
 // --- FONTS ---
 const FONT_LINK = "https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700;900&family=Noto+Sans+JP:wght@400;700;900&display=swap";
 
-// --- THEME (恋の呼吸: 蜜璃カラー ピンク×グリーン) ---
+// --- THEME (恋の呼吸: 蜜璃カラー ライトモード) ---
 const T = {
-  bg: "#1a0f1e", bgMid: "#2a1528", bgDeep: "#1e0a20",
+  bg: "#FFF5F7", bgMid: "#FFF0F3", bgDeep: "#FFEBEF",
   pink: "#E84887", pinkLight: "#FF6B9D", pinkPale: "#FFB6C1",
-  green: "#7BC67E", greenDark: "#4CAF50",
-  gold: "#FFD700", white: "#FFF5F7", smoke: "rgba(255,245,247,0.07)",
-  text: "#FFF5F7", textDim: "rgba(255,245,247,0.55)", textMuted: "rgba(255,245,247,0.3)",
-  correct: "#7BC67E", wrong: "#EF5350", dunno: "#FFB74D",
+  green: "#4CAF50", greenLight: "#7BC67E",
+  gold: "#FFD700", white: "#FFFFFF", smoke: "rgba(232,72,135,0.05)",
+  text: "#3D2B33", textDim: "rgba(61,43,51,0.6)", textMuted: "rgba(61,43,51,0.3)",
+  correct: "#4CAF50", wrong: "#E53935", dunno: "#FF9800",
+  card: "#FFFFFF",
 };
 
 // --- CSS Keyframes (injected once) ---
@@ -93,9 +94,9 @@ function injectStyles() {
     }
     .sakura-bg {
       background-image:
-        radial-gradient(ellipse at 20% 50%, rgba(232,72,135,0.06) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 20%, rgba(123,198,126,0.04) 0%, transparent 50%),
-        radial-gradient(ellipse at 50% 80%, rgba(255,107,157,0.05) 0%, transparent 50%);
+        radial-gradient(ellipse at 20% 50%, rgba(232,72,135,0.04) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(76,175,80,0.03) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 80%, rgba(255,107,157,0.04) 0%, transparent 50%);
     }
   `;
   document.head.appendChild(style);
@@ -290,7 +291,7 @@ function FeedbackBox({ question, answer, subject, unit }) {
       <div style={{display:"flex",gap:8}}>
         <input type="text" value={text} onChange={e=>setText(e.target.value)}
           placeholder="例: 答えが合ってるはず…"
-          style={{flex:1,padding:"10px 12px",borderRadius:10,border:`1px solid ${T.textMuted}`,background:"rgba(245,240,232,0.05)",color:T.text,fontSize:13,fontFamily:"'Noto Sans JP',sans-serif",outline:"none",boxSizing:"border-box"}}
+          style={{flex:1,padding:"10px 12px",borderRadius:10,border:`1px solid ${T.textMuted}`,background:"rgba(232,72,135,0.03)",color:T.text,fontSize:13,fontFamily:"'Noto Sans JP',sans-serif",outline:"none",boxSizing:"border-box"}}
           onFocus={e=>{e.target.style.borderColor=T.pinkLight;}} onBlur={e=>{e.target.style.borderColor=T.textMuted;}}
         />
         <button onClick={()=>{
@@ -322,7 +323,7 @@ function FeedbackViewer() {
   return (
     <div style={{maxHeight:300,overflowY:"auto"}}>
       {items.slice(0,30).map((fb,i) => (
-        <div key={i} style={{background:T.smoke,borderRadius:10,padding:12,marginBottom:8,border:`1px solid rgba(245,240,232,0.06)`}}>
+        <div key={i} style={{background:T.card||T.smoke,borderRadius:10,padding:12,marginBottom:8,border:`1px solid rgba(232,72,135,0.04)`}}>
           <div style={{fontSize:11,color:T.textMuted,marginBottom:4}}>{formatDate(fb.ts)} ・ {fb.subject}・{fb.unit}</div>
           <div style={{fontSize:12,color:T.textDim,marginBottom:4}}>問題: {fb.question}</div>
           <div style={{fontSize:14,color:T.pinkLight,fontWeight:700}}>{fb.text}</div>
@@ -372,7 +373,7 @@ function SlashEffect({ show, streak }) {
 const btnPrimary = {
   width:"100%", padding:"14px", borderRadius:12, border:"none",
   background:`linear-gradient(135deg, ${T.pink}, ${T.pinkLight})`,
-  color:T.white, fontSize:17, fontWeight:700, cursor:"pointer",
+  color:"#fff", fontSize:17, fontWeight:700, cursor:"pointer",
   fontFamily:"'Zen Maru Gothic',sans-serif", marginTop:8,
 };
 const btnDunno = {
@@ -382,8 +383,8 @@ const btnDunno = {
   fontFamily:"'Zen Maru Gothic',sans-serif", marginTop:6,
 };
 const cardBase = {
-  background:T.smoke, borderRadius:20, border:`1px solid rgba(255,245,247,0.08)`,
-  overflow:"hidden",
+  background:T.card, borderRadius:20, border:`1px solid rgba(232,72,135,0.12)`,
+  overflow:"hidden", boxShadow:"0 2px 12px rgba(232,72,135,0.06)",
 };
 
 // ============================================================
@@ -428,7 +429,7 @@ function FillQ({ q, onAnswer }) {
   const parts = q.template.split(/（　[①②③④⑤]　）/);
   const matches = q.template.match(/（　[①②③④⑤]　）/g)||[];
   return (<div>
-    <div style={{background:T.smoke,borderRadius:12,padding:20,fontSize:16,lineHeight:2,marginBottom:16,fontFamily:"'Noto Sans JP',sans-serif",color:T.text,border:`1px solid ${T.textMuted}`}}>
+    <div style={{background:T.card||T.smoke,borderRadius:12,padding:20,fontSize:16,lineHeight:2,marginBottom:16,fontFamily:"'Noto Sans JP',sans-serif",color:T.text,border:`1px solid ${T.textMuted}`}}>
       {parts.map((part,i)=>(<span key={i}>{part}{i<matches.length&&(
         <span style={{display:"inline-block",padding:"2px 8px",margin:"2px 4px",borderRadius:8,
           border:`2px solid ${done?(ans[q.blanks[i].id]===q.blanks[i].correct?T.correct:T.wrong):T.dunno}`,
@@ -619,13 +620,13 @@ function QuizScreen({ unit, onBack, email, onSessionSaved }) {
     <SlashEffect show={showSlash} streak={streak}/>
     <div ref={topRef}/>
     <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:16}}>
-      <button onClick={onBack} style={{background:T.smoke,border:"none",borderRadius:10,padding:"8px 14px",color:T.textDim,fontSize:14,cursor:"pointer",fontFamily:"'Noto Sans JP',sans-serif"}}>← 戻る</button>
+      <button onClick={onBack} style={{background:T.card||T.smoke,border:"none",borderRadius:10,padding:"8px 14px",color:T.textDim,fontSize:14,cursor:"pointer",fontFamily:"'Noto Sans JP',sans-serif"}}>← 戻る</button>
       <div style={{display:"flex",gap:8,alignItems:"center"}}>
         <span style={{fontSize:12,fontWeight:700}}><span style={{color:T.correct}}>⭕{cc}</span> <span style={{color:T.wrong}}>❌{wc}</span> <span style={{color:T.dunno}}>🤔{dc}</span></span>
-        <span style={{background:T.smoke,borderRadius:10,padding:"6px 12px",fontSize:14,fontWeight:700,color:T.pink}}>{idx+1}/{qs.length}</span>
+        <span style={{background:T.card||T.smoke,borderRadius:10,padding:"6px 12px",fontSize:14,fontWeight:700,color:T.pink}}>{idx+1}/{qs.length}</span>
       </div>
     </div>
-    <div style={{height:4,borderRadius:2,background:T.smoke,marginBottom:20,overflow:"hidden"}}>
+    <div style={{height:4,borderRadius:2,background:T.card||T.smoke,marginBottom:20,overflow:"hidden"}}>
       <div style={{height:"100%",borderRadius:2,background:`linear-gradient(90deg, ${T.pink}, ${T.gold})`,width:`${(idx/qs.length)*100}%`,transition:"width 0.4s"}}/>
     </div>
     {streak >= 3 && <div style={{textAlign:"center",fontSize:13,color:T.pink,fontWeight:700,marginBottom:8,fontFamily:"'Zen Maru Gothic',sans-serif"}}>🔥 {streak}連続正解中！</div>}
@@ -724,7 +725,7 @@ function FlashScreen({ unit, onBack, email, onSessionSaved }) {
 
   if (phase==="select") return (
     <Wrapper>
-      <button onClick={onBack} style={{background:T.smoke,border:"none",borderRadius:10,padding:"8px 14px",color:T.textDim,fontSize:14,cursor:"pointer",fontFamily:"'Noto Sans JP',sans-serif",marginBottom:20}}>← 戻る</button>
+      <button onClick={onBack} style={{background:T.card||T.smoke,border:"none",borderRadius:10,padding:"8px 14px",color:T.textDim,fontSize:14,cursor:"pointer",fontFamily:"'Noto Sans JP',sans-serif",marginBottom:20}}>← 戻る</button>
       <div style={{textAlign:"center",marginBottom:28}}>
         <div style={{fontSize:42,marginBottom:4}}>🧠</div>
         <h2 style={{fontSize:22,fontWeight:900,color:T.text,fontFamily:"'Zen Maru Gothic',sans-serif",margin:"0 0 4px"}}>暗記トレーニング</h2>
@@ -735,7 +736,7 @@ function FlashScreen({ unit, onBack, email, onSessionSaved }) {
       </button>
       <p style={{fontSize:12,color:T.textMuted,textAlign:"center",marginBottom:12}}>または分野を選ぶ</p>
       {unit.flashDecks.map((d,i)=>(
-        <button key={i} onClick={()=>startDeck(i)} style={{width:"100%",padding:"14px 18px",borderRadius:14,marginBottom:8,border:`1px solid ${T.textMuted}`,background:T.smoke,cursor:"pointer",fontFamily:"'Noto Sans JP',sans-serif",display:"flex",alignItems:"center",gap:14,textAlign:"left"}}>
+        <button key={i} onClick={()=>startDeck(i)} style={{width:"100%",padding:"14px 18px",borderRadius:14,marginBottom:8,border:`1px solid ${T.textMuted}`,background:T.card||T.smoke,cursor:"pointer",fontFamily:"'Noto Sans JP',sans-serif",display:"flex",alignItems:"center",gap:14,textAlign:"left"}}>
           <span style={{fontSize:26,width:44,height:44,display:"flex",alignItems:"center",justifyContent:"center",background:`${d.color}22`,borderRadius:12}}>{d.icon}</span>
           <div><div style={{fontSize:15,fontWeight:700,color:T.text}}>{d.name}</div><div style={{fontSize:12,color:T.textDim,marginTop:2}}>{d.cards.length}問</div></div>
           <span style={{marginLeft:"auto",color:T.textMuted,fontSize:18}}>→</span>
@@ -818,8 +819,8 @@ function FlashScreen({ unit, onBack, email, onSessionSaved }) {
 
   return (<Wrapper>
     <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:16}}>
-      <button onClick={()=>setPhase("select")} style={{background:T.smoke,border:"none",borderRadius:10,padding:"8px 14px",color:T.textDim,fontSize:14,cursor:"pointer",fontFamily:"'Noto Sans JP',sans-serif"}}>← 戻る</button>
-      <span style={{background:T.smoke,borderRadius:10,padding:"6px 12px",fontSize:14,fontWeight:700,color:T.text}}>{ci+1}/{cards.length}</span>
+      <button onClick={()=>setPhase("select")} style={{background:T.card||T.smoke,border:"none",borderRadius:10,padding:"8px 14px",color:T.textDim,fontSize:14,cursor:"pointer",fontFamily:"'Noto Sans JP',sans-serif"}}>← 戻る</button>
+      <span style={{background:T.card||T.smoke,borderRadius:10,padding:"6px 12px",fontSize:14,fontWeight:700,color:T.text}}>{ci+1}/{cards.length}</span>
     </div>
     {retry>0&&<div style={{textAlign:"center",marginBottom:8}}><span style={{background:T.wrong,color:T.white,borderRadius:6,padding:"2px 10px",fontSize:11,fontWeight:700}}>リトライ {retry}</span></div>}
     <div style={{display:"flex",justifyContent:"center",gap:20,marginBottom:16}}>
@@ -830,9 +831,9 @@ function FlashScreen({ unit, onBack, email, onSessionSaved }) {
     <div style={{
       borderRadius:24,padding:"32px 24px",textAlign:"center",
       position:"relative",overflow:"hidden",
-      background:`linear-gradient(145deg, rgba(245,240,232,0.06), rgba(245,240,232,0.01))`,
+      background:`linear-gradient(145deg, rgba(232,72,135,0.04), rgba(255,255,255,0.8))`,
       border:`1px solid ${judged==="correct"?`${T.correct}66`:judged==="wrong"?`${T.wrong}66`:T.textMuted}`,
-      boxShadow:judged?`0 8px 40px ${judged==="correct"?T.correct:T.wrong}22`:`0 4px 20px rgba(0,0,0,0.3)`,
+      boxShadow:judged?`0 8px 40px ${judged==="correct"?T.correct:T.wrong}22`:`0 4px 20px rgba(232,72,135,0.08)`,
       transition:"all 0.3s",
     }} className="sakura-bg">
       <div style={{fontSize:13,color:T.textMuted,marginBottom:16,fontWeight:700}}>問題</div>
@@ -850,7 +851,7 @@ function FlashScreen({ unit, onBack, email, onSessionSaved }) {
             placeholder="答えを入力…"
             style={{
               width:"100%",padding:"14px 16px",borderRadius:12,
-              border:`2px solid ${T.textMuted}`,background:"rgba(245,240,232,0.05)",
+              border:`2px solid ${T.textMuted}`,background:"rgba(232,72,135,0.03)",
               color:T.text,fontSize:18,fontFamily:"'Noto Sans JP',sans-serif",
               textAlign:"center",outline:"none",boxSizing:"border-box",
             }}
@@ -909,7 +910,7 @@ function UnitScreen({ unit, onBack, email, onSessionSaved }) {
   if (mode==="quiz") return <QuizScreen unit={unit} onBack={()=>setMode(null)} email={email} onSessionSaved={onSessionSaved}/>;
   if (mode==="flash") return <FlashScreen unit={unit} onBack={()=>setMode(null)} email={email} onSessionSaved={onSessionSaved}/>;
   return (<Wrapper>
-    <button onClick={onBack} style={{background:T.smoke,border:"none",borderRadius:10,padding:"8px 14px",color:T.textDim,fontSize:14,cursor:"pointer",fontFamily:"'Noto Sans JP',sans-serif",marginBottom:20}}>← ホーム</button>
+    <button onClick={onBack} style={{background:T.card||T.smoke,border:"none",borderRadius:10,padding:"8px 14px",color:T.textDim,fontSize:14,cursor:"pointer",fontFamily:"'Noto Sans JP',sans-serif",marginBottom:20}}>← ホーム</button>
     <div style={{textAlign:"center",marginBottom:28}}>
       <div style={{fontSize:42,marginBottom:4}}>{unit.subjectIcon}</div>
       <h2 style={{fontSize:22,fontWeight:900,color:T.text,fontFamily:"'Zen Maru Gothic',sans-serif",margin:"0 0 4px"}}>{unit.name}</h2>
@@ -951,10 +952,10 @@ function HomeScreen({ onSelectUnit, onSettings, onHistory, email }) {
   return (<Wrapper>
     <div style={{textAlign:"center",marginBottom:32,paddingTop:16}}>
       <div style={{display:"flex",justifyContent:"flex-end",marginBottom:8,gap:8}}>
-        <button onClick={onHistory} style={{background:T.smoke,border:`1px solid ${T.textMuted}`,borderRadius:10,padding:"8px 14px",color:T.textDim,fontSize:14,cursor:"pointer",fontFamily:"'Noto Sans JP',sans-serif",display:"flex",alignItems:"center",gap:6}}>
+        <button onClick={onHistory} style={{background:T.card||T.smoke,border:`1px solid ${T.textMuted}`,borderRadius:10,padding:"8px 14px",color:T.textDim,fontSize:14,cursor:"pointer",fontFamily:"'Noto Sans JP',sans-serif",display:"flex",alignItems:"center",gap:6}}>
           📊 きろく
         </button>
-        <button onClick={onSettings} style={{background:T.smoke,border:`1px solid ${T.textMuted}`,borderRadius:10,padding:"8px 14px",color:T.textDim,fontSize:14,cursor:"pointer",fontFamily:"'Noto Sans JP',sans-serif",display:"flex",alignItems:"center",gap:6}}>
+        <button onClick={onSettings} style={{background:T.card||T.smoke,border:`1px solid ${T.textMuted}`,borderRadius:10,padding:"8px 14px",color:T.textDim,fontSize:14,cursor:"pointer",fontFamily:"'Noto Sans JP',sans-serif",display:"flex",alignItems:"center",gap:6}}>
           ⚙️ 設定
         </button>
       </div>
@@ -1027,7 +1028,7 @@ function Wrapper({ children }) {
       minHeight:"100vh",
       background:`linear-gradient(180deg, ${T.bg} 0%, ${T.bgMid} 40%, ${T.bgDeep} 100%)`,
       color:T.text,
-    }}>
+    }} className="sakura-bg">
       <link href={FONT_LINK} rel="stylesheet"/>
       {children}
     </div>
@@ -1057,7 +1058,7 @@ function SettingsScreen({ email, onSave, onBack }) {
 
   return (
     <Wrapper>
-      <button onClick={onBack} style={{background:T.smoke,border:"none",borderRadius:10,padding:"8px 14px",color:T.textDim,fontSize:14,cursor:"pointer",fontFamily:"'Noto Sans JP',sans-serif",marginBottom:24}}>← ホーム</button>
+      <button onClick={onBack} style={{background:T.card||T.smoke,border:"none",borderRadius:10,padding:"8px 14px",color:T.textDim,fontSize:14,cursor:"pointer",fontFamily:"'Noto Sans JP',sans-serif",marginBottom:24}}>← ホーム</button>
       <div style={{textAlign:"center",marginBottom:32}}>
         <div style={{fontSize:42,marginBottom:4}}>⚙️</div>
         <h2 style={{fontSize:22,fontWeight:900,color:T.text,fontFamily:"'Zen Maru Gothic',sans-serif",margin:"0 0 4px"}}>設定</h2>
@@ -1080,7 +1081,7 @@ function SettingsScreen({ email, onSave, onBack }) {
           placeholder="example@email.com"
           style={{
             width:"100%",padding:"14px 16px",borderRadius:12,
-            border:`2px solid ${T.textMuted}`,background:"rgba(245,240,232,0.05)",
+            border:`2px solid ${T.textMuted}`,background:"rgba(232,72,135,0.03)",
             color:T.text,fontSize:16,fontFamily:"'Noto Sans JP',sans-serif",
             outline:"none",boxSizing:"border-box",
           }}
@@ -1147,7 +1148,7 @@ function HistoryScreen({ onBack }) {
     const points = pts.map((v, i) => `${i * px},${h - v * h / 100}`).join(" ");
     return (
       <svg viewBox={`0 0 ${w} ${h}`} style={{width:"100%",height:h}}>
-        <line x1="0" y1={h/2} x2={w} y2={h/2} stroke="rgba(245,240,232,0.06)" strokeDasharray="4"/>
+        <line x1="0" y1={h/2} x2={w} y2={h/2} stroke="rgba(232,72,135,0.04)" strokeDasharray="4"/>
         <polyline points={points} fill="none" stroke={color} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
         {pts.length > 0 && <circle cx={(pts.length-1)*px} cy={h - pts[pts.length-1]*h/100} r="4" fill={color}/>}
       </svg>
@@ -1170,7 +1171,7 @@ function HistoryScreen({ onBack }) {
 
   return (
     <Wrapper>
-      <button onClick={onBack} style={{background:T.smoke,border:"none",borderRadius:10,padding:"8px 14px",color:T.textDim,fontSize:14,cursor:"pointer",fontFamily:"'Noto Sans JP',sans-serif",marginBottom:20}}>← ホーム</button>
+      <button onClick={onBack} style={{background:T.card||T.smoke,border:"none",borderRadius:10,padding:"8px 14px",color:T.textDim,fontSize:14,cursor:"pointer",fontFamily:"'Noto Sans JP',sans-serif",marginBottom:20}}>← ホーム</button>
 
       <div style={{textAlign:"center",marginBottom:24}}>
         <div style={{fontSize:11,color:T.textMuted,letterSpacing:3,marginBottom:4}}>学 習 き ろ く</div>
@@ -1179,15 +1180,15 @@ function HistoryScreen({ onBack }) {
 
       {/* Summary cards */}
       <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:8,marginBottom:20}}>
-        <div style={{background:T.smoke,borderRadius:12,padding:"12px 8px",textAlign:"center"}}>
+        <div style={{background:T.card||T.smoke,borderRadius:12,padding:"12px 8px",textAlign:"center"}}>
           <div style={{fontSize:24,fontWeight:900,color:T.gold}}>{stats.streak}</div>
           <div style={{fontSize:11,color:T.textMuted}}>連続学習日</div>
         </div>
-        <div style={{background:T.smoke,borderRadius:12,padding:"12px 8px",textAlign:"center"}}>
+        <div style={{background:T.card||T.smoke,borderRadius:12,padding:"12px 8px",textAlign:"center"}}>
           <div style={{fontSize:24,fontWeight:900,color:T.correct}}>{stats.avgRate}%</div>
           <div style={{fontSize:11,color:T.textMuted}}>平均正答率</div>
         </div>
-        <div style={{background:T.smoke,borderRadius:12,padding:"12px 8px",textAlign:"center"}}>
+        <div style={{background:T.card||T.smoke,borderRadius:12,padding:"12px 8px",textAlign:"center"}}>
           <div style={{fontSize:24,fontWeight:900,color:titleColors[stats.bestTitle]||T.text}}>{stats.bestTitle}</div>
           <div style={{fontSize:11,color:T.textMuted}}>最高称号</div>
         </div>
@@ -1197,7 +1198,7 @@ function HistoryScreen({ onBack }) {
       {quizRates.length > 0 && (
         <div style={{marginBottom:20}}>
           <div style={{fontSize:13,fontWeight:700,marginBottom:10,color:T.textDim}}>正答率の推移（クイズ）</div>
-          <div style={{background:T.smoke,borderRadius:12,padding:14,border:`1px solid rgba(245,240,232,0.06)`}}>
+          <div style={{background:T.card||T.smoke,borderRadius:12,padding:14,border:`1px solid rgba(232,72,135,0.04)`}}>
             {sparkline(quizRates, T.pink, 10)}
             <div style={{display:"flex",justifyContent:"space-between",fontSize:10,color:T.textMuted,marginTop:4}}>
               <span>過去</span>
@@ -1211,7 +1212,7 @@ function HistoryScreen({ onBack }) {
       {dunnoRates.length > 0 && dunnoRates.some(v=>v>0) && (
         <div style={{marginBottom:20}}>
           <div style={{fontSize:13,fontWeight:700,marginBottom:10,color:T.textDim}}>「わからない」率の推移</div>
-          <div style={{background:T.smoke,borderRadius:12,padding:14,border:`1px solid rgba(245,240,232,0.06)`}}>
+          <div style={{background:T.card||T.smoke,borderRadius:12,padding:14,border:`1px solid rgba(232,72,135,0.04)`}}>
             {sparkline(dunnoRates, T.dunno, 10)}
             <div style={{fontSize:10,color:T.dunno,textAlign:"right",marginTop:4}}>
               {dunnoRates.length>=2 && dunnoRates[dunnoRates.length-1] <= dunnoRates[0] ? "↓ 減少中 = 暗記が定着してきた" : ""}
@@ -1225,7 +1226,7 @@ function HistoryScreen({ onBack }) {
         <div style={{fontSize:13,fontWeight:700,marginBottom:10,color:T.textDim}}>最近のセッション</div>
         {sessions.length === 0 && <p style={{fontSize:13,color:T.textMuted,textAlign:"center",padding:20}}>まだ学習記録がありません。クイズや暗記カードに挑戦しよう！</p>}
         {sessions.slice(0, 20).map((s, i) => (
-          <div key={i} style={{background:T.smoke,borderRadius:12,padding:"12px 14px",marginBottom:8,border:`1px solid rgba(245,240,232,0.06)`,display:"flex",alignItems:"center",gap:12}}>
+          <div key={i} style={{background:T.card||T.smoke,borderRadius:12,padding:"12px 14px",marginBottom:8,border:`1px solid rgba(232,72,135,0.04)`,display:"flex",alignItems:"center",gap:12}}>
             <div style={{fontSize:20}}>{s.mode==="quiz"?"⚔️":"🧠"}</div>
             <div style={{flex:1}}>
               <div style={{fontSize:13,fontWeight:700,color:T.text}}>{s.subject}・{s.unit}</div>
