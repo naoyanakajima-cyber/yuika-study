@@ -143,6 +143,48 @@ const UNITS = [
         {q:"2022年の排出量1位の国と割合は？",a:"中国 約29.7%"},{q:"2022年の日本の排出割合は？",a:"約2.6%"},{q:"CO₂が急増したのは何世紀後半？理由は？",a:"18世紀後半・産業革命で化石燃料を大量消費"},{q:"2022年の世界の排出量合計は？",a:"約384億トン"},
       ]},
     ],
+  },
+  {
+    subject: "理科", subjectIcon: "🔬", subjectColor: "#4fc3f7",
+    id: "rika-earth-sun",
+    name: "地球と太陽",
+    textbook: "地理クイズ",
+    quizQuestions: [
+      { id:101, category:"自転・公転", type:"multi_choice", question:"地球の自転の向きはどれですか？（北極の上から見て）", hint:"太陽が東から昇る理由を考えよう", options:[{text:"時計回り",correct:false},{text:"反時計回り",correct:true},{text:"南から北へ",correct:false},{text:"北から南へ",correct:false}], explanation:"地球は北極の上から見ると反時計回り（西→東）に自転。これが太陽が東から昇る理由！" },
+      { id:102, category:"自転・公転", type:"multi_choice", question:"地球の公転の向きはどれですか？（北極側から見て）", hint:"自転と同じ向き？違う向き？", options:[{text:"時計回り",correct:false},{text:"反時計回り",correct:true},{text:"上から下へ",correct:false},{text:"ランダム",correct:false}], explanation:"公転も自転と同じく反時計回り。地球は太陽のまわりを反時計回りに1年かけて回る。" },
+      { id:103, category:"自転・公転", type:"multi_choice", question:"地球が1回自転するのにかかる時間は？", hint:"昼と夜が1セット＝？", options:[{text:"12時間",correct:false},{text:"24時間（約1日）",correct:true},{text:"365日",correct:false},{text:"1ヶ月",correct:false}], explanation:"地球の自転周期は約24時間（1日）。これにより昼と夜が交互にやってくる。" },
+      { id:104, category:"自転・公転", type:"multi_choice", question:"太陽が東から昇って西に沈むのはなぜ？", hint:"動いているのは太陽？地球？", options:[{text:"太陽が動いているから",correct:false},{text:"地球が西から東に自転しているから",correct:true},{text:"地球が東から西に自転しているから",correct:false},{text:"月の引力の影響",correct:false}], explanation:"地球が西→東に自転しているため、太陽は相対的に東→西に動いて見える。" },
+      { id:105, category:"経度・時差", type:"multi_choice", question:"日本の標準時子午線は東経何度？", hint:"兵庫県明石市を通る線", options:[{text:"東経120度",correct:false},{text:"東経135度",correct:true},{text:"東経140度",correct:false},{text:"東経150度",correct:false}], explanation:"日本の標準時子午線は東経135度で、兵庫県明石市を通っている。" },
+      { id:106, category:"経度・時差", type:"multi_choice", question:"経度15度の差は、時間にすると何時間の差？", hint:"360度÷24時間＝？", options:[{text:"30分",correct:false},{text:"1時間",correct:true},{text:"2時間",correct:false},{text:"4時間",correct:false}], explanation:"地球は24時間で360度自転するので、360÷24＝15度で1時間の時差。" },
+      { id:107, category:"経度・時差", type:"multi_choice", question:"経度1度の差は、時間にすると何分の差？", hint:"15度で1時間（60分）なら…", options:[{text:"1分",correct:false},{text:"2分",correct:false},{text:"4分",correct:true},{text:"10分",correct:false}], explanation:"15度で1時間（60分）なので、1度あたり 60÷15＝4分の差。" },
+      { id:108, category:"経度・時差", type:"multi_choice", question:"東経135度で正午のとき、東経130度は？", hint:"西にある＝太陽がまだ来ていない＝時刻が…", options:[{text:"11時40分",correct:true},{text:"12時20分",correct:false},{text:"11時50分",correct:false},{text:"12時10分",correct:false}], explanation:"東経130度は135度より5度西 → 5×4＝20分遅れ → 11時40分。太陽はまだ南中していない。" },
+      { id:109, category:"季節と地軸", type:"multi_choice", question:"北半球が夏至のとき、地球はどのような状態？", hint:"地軸の傾きがカギ", options:[{text:"北極側が太陽の方に傾いている",correct:true},{text:"南極側が太陽の方に傾いている",correct:false},{text:"地軸が太陽に対して垂直",correct:false},{text:"地球が太陽に最も近い",correct:false}], explanation:"夏至のとき、北極側が太陽の方に傾いているため、北半球に太陽の光が多く当たり、昼が長くなる。" },
+      { id:110, category:"季節と地軸", type:"multi_choice", question:"春分・秋分の日に正しいのはどれ？", hint:"太陽が赤道の真上を通ると…", options:[{text:"北半球だけ昼が長い",correct:false},{text:"昼と夜の長さがほぼ同じ",correct:true},{text:"南半球だけ昼が長い",correct:false},{text:"太陽が沈まない",correct:false}], explanation:"春分・秋分は太陽が赤道の真上を通るため、地球上のどこでも昼と夜がほぼ同じ長さ（12時間ずつ）。" },
+      { id:111, category:"季節と地軸", type:"multi_choice", question:"夏至の日、日本での太陽の日周運動の特徴は？", hint:"昼が最も長い日の太陽の高さは…", options:[{text:"最も低く、弧が小さい",correct:false},{text:"真東から昇り真西に沈む",correct:false},{text:"最も高く、弧が大きい",correct:true},{text:"太陽が動かない",correct:false}], explanation:"夏至は太陽の南中高度が最も高く、日の出から日の入りまでの弧が最も大きい。昼が最も長い日。" },
+      { id:112, category:"季節と地軸", type:"multi_choice", question:"冬至の日、日本で太陽はどの方角から昇る？", hint:"真東ではない。もっと…", options:[{text:"真東",correct:false},{text:"南東（東よりやや南寄り）",correct:true},{text:"北東（東よりやや北寄り）",correct:false},{text:"真南",correct:false}], explanation:"冬至は日の出が南東、日の入りが南西。真東・真西から昇り沈むのは春分・秋分。" },
+      { id:113, category:"季節と地軸", type:"multi_choice", question:"北半球が夏至のとき、南半球の季節は？", hint:"北と南は季節が…", options:[{text:"夏",correct:false},{text:"冬",correct:true},{text:"春",correct:false},{text:"秋",correct:false}], explanation:"北半球と南半球は季節が逆。北半球が夏至のとき、南半球は冬至。" },
+      { id:114, category:"南中高度", type:"multi_choice", question:"春分の日、北緯36度での太陽の南中高度は？", hint:"公式: 90° − 緯度", options:[{text:"36度",correct:false},{text:"54度",correct:true},{text:"66度",correct:false},{text:"90度",correct:false}], explanation:"春分・秋分の南中高度 ＝ 90° − 緯度。90 − 36 ＝ 54度。" },
+      { id:115, category:"南中高度", type:"multi_choice", question:"夏至の日、北緯36度での太陽の南中高度は？", hint:"公式: 90° − 緯度 + 23.4°", options:[{text:"54度",correct:false},{text:"66.5度",correct:false},{text:"77.4度",correct:true},{text:"90度",correct:false}], explanation:"夏至の南中高度 ＝ 90° − 緯度 + 23.4°。90 − 36 + 23.4 ＝ 77.4度。" },
+      { id:116, category:"南中高度", type:"multi_choice", question:"冬至の日、北緯36度での太陽の南中高度は？", hint:"公式: 90° − 緯度 − 23.4°", options:[{text:"30.6度",correct:true},{text:"36度",correct:false},{text:"54度",correct:false},{text:"77.4度",correct:false}], explanation:"冬至の南中高度 ＝ 90° − 緯度 − 23.4°。90 − 36 − 23.4 ＝ 30.6度。1年で最も太陽が低い。" },
+      { id:117, category:"南中高度", type:"multi_choice", question:"赤道（緯度0度）での春分の日の南中高度は？", hint:"90° − 0° ＝ ？", options:[{text:"0度",correct:false},{text:"45度",correct:false},{text:"66.6度",correct:false},{text:"90度",correct:true}], explanation:"90° − 0° ＝ 90度。赤道では春分・秋分の日に太陽が真上（天頂）に来る。" },
+      { id:118, category:"南中高度", type:"multi_choice", question:"緯度が高くなるほど、南中高度はどうなる？", hint:"北極に近いほど太陽は…", options:[{text:"高くなる",correct:false},{text:"低くなる",correct:true},{text:"変わらない",correct:false},{text:"季節による",correct:false}], explanation:"南中高度＝ 90° − 緯度 ± 23.4° なので、緯度が高くなるほど南中高度は低くなる。" },
+      { id:119, category:"経度・時差", type:"multi_choice", question:"経度は東経と西経を合わせて何度？", hint:"本初子午線から東へ180度、西へ180度", options:[{text:"180度",correct:false},{text:"270度",correct:false},{text:"360度",correct:true},{text:"90度",correct:false}], explanation:"経度は本初子午線（0度）から東へ180度、西へ180度あるので、合わせて360度。" },
+      { id:120, category:"季節と地軸", type:"order", question:"太陽の南中高度を高い順に並べましょう（北緯36度の場合）。", hint:"夏至が一番高くて、冬至が一番低い", items:["冬至（30.6度）","春分・秋分（54度）","夏至（77.4度）"], correctOrder:[2,1,0], explanation:"夏至 77.4度 → 春分・秋分 54度 → 冬至 30.6度。\n地軸の傾き23.4度が季節ごとの高度差を生む！" },
+    ],
+    flashDecks: [
+      { name:"自転・公転", icon:"🔄", color:"#4fc3f7", cards:[
+        {q:"地球の自転の向きは？（北極上から見て）",a:"反時計回り（西→東）"},{q:"地球の公転の向きは？",a:"反時計回り（自転と同じ）"},{q:"自転の周期は？",a:"約24時間（1日）"},{q:"公転の周期は？",a:"約365日（1年）"},{q:"太陽が東から昇る理由は？",a:"地球が西→東に自転しているから"},
+      ]},
+      { name:"経度・時差", icon:"🌐", color:"#ffb74d", cards:[
+        {q:"日本の標準時子午線は？",a:"東経135度（明石市）"},{q:"経度15度＝何時間の時差？",a:"1時間"},{q:"経度1度＝何分の時差？",a:"4分"},{q:"東にあるほど時刻は？",a:"進んでいる（早い）"},{q:"本初子午線（経度0度）はどこ？",a:"イギリスのグリニッジ天文台"},
+      ]},
+      { name:"季節と地軸", icon:"🌸", color:"#81c784", cards:[
+        {q:"地軸の傾きは何度？",a:"約23.4度"},{q:"夏至のとき北極側は？",a:"太陽の方に傾いている"},{q:"春分・秋分の昼夜は？",a:"ほぼ同じ長さ（12時間ずつ）"},{q:"北半球が夏至 → 南半球は？",a:"冬至（季節が逆）"},{q:"夏至の日の出の方角は？（日本）",a:"北東（東よりやや北寄り）"},{q:"冬至の日の出の方角は？（日本）",a:"南東（東よりやや南寄り）"},
+      ]},
+      { name:"南中高度の公式", icon:"☀️", color:"#ce93d8", cards:[
+        {q:"春分・秋分の南中高度の公式は？",a:"90° − 緯度"},{q:"夏至の南中高度の公式は？",a:"90° − 緯度 + 23.4°"},{q:"冬至の南中高度の公式は？",a:"90° − 緯度 − 23.4°"},{q:"赤道での春分の南中高度は？",a:"90度（真上）"},{q:"北緯36度・夏至の南中高度は？",a:"77.4度"},{q:"北緯36度・冬至の南中高度は？",a:"30.6度"},
+      ]},
+    ],
   }
 ];
 
@@ -473,7 +515,7 @@ function QuizScreen({ unit, onBack, email }) {
 // ============================================================
 //  FLASHCARD SCREEN
 // ============================================================
-function FlashScreen({ unit, onBack }) {
+function FlashScreen({ unit, onBack, email }) {
   const [deckIdx, setDeckIdx] = useState(null);
   const [cards, setCards] = useState([]);
   const [ci, setCi] = useState(0);
@@ -482,20 +524,40 @@ function FlashScreen({ unit, onBack }) {
   const [wrongs, setWrongs] = useState([]);
   const [phase, setPhase] = useState("select");
   const [retry, setRetry] = useState(0);
+  const [totalCards, setTotalCards] = useState(0);
+  const [firstRoundWrongs, setFirstRoundWrongs] = useState([]);
+  const [emailSent, setEmailSent] = useState(false);
 
   const startDeck = (di) => {
     const d = di===-1 ? unit.flashDecks.flatMap(d=>d.cards) : unit.flashDecks[di].cards;
     setCards(shuffle([...d])); setCi(0); setFlipped(false); setRes({c:0,w:0}); setWrongs([]); setRetry(0);
+    setTotalCards(d.length); setFirstRoundWrongs([]); setEmailSent(false);
     setDeckIdx(di); setPhase("play");
   };
 
   const handleRes = (knew) => {
     if(knew) setRes(p=>({...p,c:p.c+1}));
-    else { setRes(p=>({...p,w:p.w+1})); setWrongs(p=>[...p,cards[ci]]); }
+    else {
+      setRes(p=>({...p,w:p.w+1}));
+      setWrongs(p=>[...p,cards[ci]]);
+      if(retry===0) setFirstRoundWrongs(p=>[...p,cards[ci]]);
+    }
     if(ci+1>=cards.length) {
-      if(!knew && wrongs.length===0) { setTimeout(()=>{setCards(shuffle([cards[ci]]));setCi(0);setFlipped(false);setRes({c:0,w:0});setWrongs([]);setRetry(r=>r+1);setPhase("play");},300); }
-      else { const finalW = knew ? [...wrongs] : [...wrongs,cards[ci]]; if(finalW.length>0){setTimeout(()=>{setCards(shuffle(finalW));setCi(0);setFlipped(false);setRes({c:0,w:0});setWrongs([]);setRetry(r=>r+1);setPhase("play");},300);} else setPhase("done"); }
+      if(!knew && wrongs.length===0) { const lastCard=cards[ci]; setTimeout(()=>{setCards(shuffle([lastCard]));setCi(0);setFlipped(false);setRes({c:0,w:0});setWrongs([]);setRetry(r=>r+1);setPhase("play");},300); }
+      else { const finalW = knew ? [...wrongs] : [...wrongs,cards[ci]]; if(!knew&&retry===0) setFirstRoundWrongs(p=>[...p,cards[ci]]); if(finalW.length>0){setTimeout(()=>{setCards(shuffle(finalW));setCi(0);setFlipped(false);setRes({c:0,w:0});setWrongs([]);setRetry(r=>r+1);setPhase("play");},300);} else setPhase("done"); }
     } else { setCi(i=>i+1); setFlipped(false); }
+  };
+
+  const deckName = deckIdx===-1 ? "全問チャレンジ" : unit.flashDecks[deckIdx]?.name || "";
+  const firstCorrect = totalCards - firstRoundWrongs.length;
+
+  const sendFlashEmail = () => {
+    if (!email) return;
+    const wrongList = firstRoundWrongs.map(c=>`  ・${c.q} → ${c.a}`).join("\n");
+    const body = `📅 ${new Date().toLocaleDateString("ja-JP")}\n📚 ${unit.subject} ＞ ${unit.name}\n🧠 モード: 暗記カード（${deckName}）\n\n😊 1回目で覚えてた: ${firstCorrect}問 / ${totalCards}問\n😅 わからなかった: ${firstRoundWrongs.length}問\n🔄 リトライ回数: ${retry}回\n\n${firstRoundWrongs.length>0?`😅 わからなかったカード:\n${wrongList}\n`:"🎉 1回目で全問正解！"}\n`;
+    const subj = encodeURIComponent(`[ゆいか学習] 🧠暗記 ${unit.subject}・${unit.name}（${deckName}）`);
+    window.open(`mailto:${encodeURIComponent(email)}?subject=${subj}&body=${encodeURIComponent(body)}`);
+    setEmailSent(true);
   };
 
   if (phase==="select") return (
@@ -522,11 +584,27 @@ function FlashScreen({ unit, onBack }) {
 
   if (phase==="done") return (
     <Wrapper>
-      <div style={{...cardBase,textAlign:"center",padding:"50px 20px",marginTop:30}} className="ichimatsu">
+      <div style={{...cardBase,textAlign:"center",padding:"40px 20px",marginTop:30}} className="ichimatsu">
         <div style={{fontSize:64,marginBottom:12}}>🎊</div>
         <h2 style={{fontSize:24,fontWeight:900,color:T.gold,fontFamily:"'Zen Maru Gothic',sans-serif",textShadow:`0 0 20px ${T.gold}44`}}>全集中・暗記完了！</h2>
         {retry>0&&<p style={{fontSize:14,color:T.textDim,margin:"8px 0"}}>リトライ {retry}回で完全制覇</p>}
-        <div style={{display:"flex",gap:12,justifyContent:"center",marginTop:24}}>
+        <div style={{display:"flex",justifyContent:"center",gap:20,margin:"20px 0"}}>
+          <div style={{textAlign:"center"}}><div style={{fontSize:32,fontWeight:900,color:T.correct}}>{firstCorrect}</div><div style={{fontSize:11,color:T.textDim}}>1回目で正解</div></div>
+          <div style={{textAlign:"center"}}><div style={{fontSize:32,fontWeight:900,color:T.wrong}}>{firstRoundWrongs.length}</div><div style={{fontSize:11,color:T.textDim}}>リトライした</div></div>
+          <div style={{textAlign:"center"}}><div style={{fontSize:32,fontWeight:900,color:T.text}}>{totalCards}</div><div style={{fontSize:11,color:T.textDim}}>全カード数</div></div>
+        </div>
+        {firstRoundWrongs.length>0&&<div style={{textAlign:"left",background:`${T.wrong}11`,borderRadius:12,padding:14,marginBottom:16,border:`1px solid ${T.wrong}33`}}>
+          <p style={{fontWeight:700,fontSize:13,color:T.wrong,marginBottom:6}}>😅 1回目でわからなかったカード：</p>
+          {firstRoundWrongs.map((c,i)=><div key={i} style={{fontSize:13,color:T.textDim,padding:"3px 0"}}>• {c.q} → <span style={{color:T.dunno}}>{c.a}</span></div>)}
+        </div>}
+        {email ? (
+          emailSent
+            ? <div style={{...btnPrimary,background:`linear-gradient(135deg, ${T.jade}, #1B5E20)`,marginBottom:8,textAlign:"center",opacity:0.7,cursor:"default"}}>✅ メール送信済み</div>
+            : <button onClick={sendFlashEmail} style={{...btnPrimary,background:`linear-gradient(135deg, ${T.jade}, #1B5E20)`,marginBottom:8}}>📧 結果を保護者に送る</button>
+        ) : (
+          <div style={{fontSize:12,color:T.textDim,textAlign:"center",marginBottom:8,padding:8}}>⚙️ 設定からメールアドレスを登録すると結果を送信できます</div>
+        )}
+        <div style={{display:"flex",gap:12,justifyContent:"center",marginTop:8}}>
           <button onClick={onBack} style={{padding:"14px 28px",borderRadius:12,border:`1px solid ${T.textMuted}`,background:"transparent",color:T.text,fontSize:15,fontWeight:700,cursor:"pointer",fontFamily:"'Zen Maru Gothic',sans-serif"}}>戻る</button>
           <button onClick={()=>startDeck(deckIdx)} style={{padding:"14px 28px",borderRadius:12,border:"none",background:T.crimson,color:T.white,fontSize:15,fontWeight:700,cursor:"pointer",fontFamily:"'Zen Maru Gothic',sans-serif"}}>もう1回</button>
         </div>
@@ -575,7 +653,7 @@ function FlashScreen({ unit, onBack }) {
 function UnitScreen({ unit, onBack, email }) {
   const [mode, setMode] = useState(null);
   if (mode==="quiz") return <QuizScreen unit={unit} onBack={()=>setMode(null)} email={email}/>;
-  if (mode==="flash") return <FlashScreen unit={unit} onBack={()=>setMode(null)}/>;
+  if (mode==="flash") return <FlashScreen unit={unit} onBack={()=>setMode(null)} email={email}/>;
   return (<Wrapper>
     <button onClick={onBack} style={{background:T.smoke,border:"none",borderRadius:10,padding:"8px 14px",color:T.textDim,fontSize:14,cursor:"pointer",fontFamily:"'Noto Sans JP',sans-serif",marginBottom:20}}>← ホーム</button>
     <div style={{textAlign:"center",marginBottom:28}}>
