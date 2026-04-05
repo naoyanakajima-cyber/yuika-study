@@ -41,19 +41,20 @@
     const { useState, useEffect, useRef, useCallback } = React;
 
 // ============================================================
-//  ゆいか学習アプリ v1.0 — 和風テーマ（鬼滅インスパイア）
+//  ゆいか学習アプリ v2.0 — 恋の呼吸テーマ
 // ============================================================
 
 // --- FONTS ---
 const FONT_LINK = "https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700;900&family=Noto+Sans+JP:wght@400;700;900&display=swap";
 
-// --- THEME ---
+// --- THEME (恋の呼吸: 蜜璃カラー ピンク×グリーン) ---
 const T = {
-  bg: "#1a1a2e", bgMid: "#16213e", bgDeep: "#0f3460",
-  crimson: "#C41E3A", jade: "#2E8B57", wisteria: "#8A2BE2",
-  gold: "#D4A017", white: "#F5F0E8", smoke: "rgba(245,240,232,0.08)",
-  text: "#F5F0E8", textDim: "rgba(245,240,232,0.5)", textMuted: "rgba(245,240,232,0.3)",
-  correct: "#4CAF50", wrong: "#EF5350", dunno: "#FF9800",
+  bg: "#1a0f1e", bgMid: "#2a1528", bgDeep: "#1e0a20",
+  pink: "#E84887", pinkLight: "#FF6B9D", pinkPale: "#FFB6C1",
+  green: "#7BC67E", greenDark: "#4CAF50",
+  gold: "#FFD700", white: "#FFF5F7", smoke: "rgba(255,245,247,0.07)",
+  text: "#FFF5F7", textDim: "rgba(255,245,247,0.55)", textMuted: "rgba(255,245,247,0.3)",
+  correct: "#7BC67E", wrong: "#EF5350", dunno: "#FFB74D",
 };
 
 // --- CSS Keyframes (injected once) ---
@@ -64,9 +65,9 @@ function injectStyles() {
   style.id = STYLE_ID;
   style.textContent = `
     @keyframes slashIn {
-      0% { transform: rotate(-45deg) scaleX(0); opacity: 1; }
-      50% { transform: rotate(-45deg) scaleX(1.2); opacity: 1; }
-      100% { transform: rotate(-45deg) scaleX(0); opacity: 0; }
+      0% { transform: rotate(-30deg) scaleX(0); opacity: 1; }
+      50% { transform: rotate(-30deg) scaleX(1.2); opacity: 1; }
+      100% { transform: rotate(-30deg) scaleX(0); opacity: 0; }
     }
     @keyframes fadeUp {
       0% { opacity: 0; transform: translateY(20px); }
@@ -74,31 +75,27 @@ function injectStyles() {
       80% { opacity: 1; }
       100% { opacity: 0; transform: translateY(-10px); }
     }
-    @keyframes ripple {
-      0% { transform: scale(0); opacity: 0.6; }
-      100% { transform: scale(4); opacity: 0; }
-    }
     @keyframes fireGlow {
       0% { opacity: 0; }
       50% { opacity: 0.7; }
       100% { opacity: 0; }
     }
-    @keyframes shimmer {
-      0% { background-position: -200% 0; }
-      100% { background-position: 200% 0; }
+    @keyframes heartBeat {
+      0% { transform: scale(1); }
+      15% { transform: scale(1.15); }
+      30% { transform: scale(1); }
+      45% { transform: scale(1.1); }
+      60% { transform: scale(1); }
     }
-    @keyframes inkSplash {
-      0% { transform: scale(0) rotate(0deg); opacity: 0.8; }
-      100% { transform: scale(1.5) rotate(15deg); opacity: 0; }
+    @keyframes floatHeart {
+      0% { opacity: 1; transform: translateY(0) scale(1); }
+      100% { opacity: 0; transform: translateY(-60px) scale(0.5); }
     }
-    .ichimatsu {
+    .sakura-bg {
       background-image:
-        linear-gradient(45deg, rgba(245,240,232,0.03) 25%, transparent 25%),
-        linear-gradient(-45deg, rgba(245,240,232,0.03) 25%, transparent 25%),
-        linear-gradient(45deg, transparent 75%, rgba(245,240,232,0.03) 75%),
-        linear-gradient(-45deg, transparent 75%, rgba(245,240,232,0.03) 75%);
-      background-size: 20px 20px;
-      background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+        radial-gradient(ellipse at 20% 50%, rgba(232,72,135,0.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(123,198,126,0.04) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 80%, rgba(255,107,157,0.05) 0%, transparent 50%);
     }
   `;
   document.head.appendChild(style);
@@ -107,7 +104,7 @@ function injectStyles() {
 // --- QUESTION DATA ---
 const UNITS = [
   {
-    subject: "社会", subjectIcon: "🌍", subjectColor: T.jade,
+    subject: "社会", subjectIcon: "🌍", subjectColor: T.green,
     id: "shakai-env",
     name: "環境問題・公害",
     textbook: "H54-01 / H54-02",
@@ -124,23 +121,23 @@ const UNITS = [
       { id:10, category:"記述の型", type:"fill_blanks", question:"「18世紀後半以降にCO₂が急増した理由」の記述を完成させましょう。", hint:"18世紀後半に何が始まった？", template:"18世紀後半に（　①　）が起こり、（　②　）が大量に使われるようになったから。", blanks:[{id:"①",correct:"産業革命",options:["産業革命","フランス革命","明治維新","市民革命"]},{id:"②",correct:"化石燃料",options:["化石燃料","原子力","木材","太陽光"]}], explanation:"産業革命 → 化石燃料の大量消費 → CO₂急増。「産業革命」は必ず書くキーワード！" },
     ],
     flashDecks: [
-      { name:"環境問題と原因", icon:"🌍", color:T.jade, cards:[
-        {q:"オゾン層の破壊の原因は？",a:"フロンガス"},{q:"地球温暖化の主な原因は？",a:"二酸化炭素（CO₂）"},{q:"酸性雨の原因物質は？（2つ）",a:"硫黄酸化物と窒素酸化物"},{q:"砂漠化の主な原因は？",a:"過放牧・過度な耕作・過伐採"},{q:"熱帯雨林減少の主な原因は？",a:"大規模な伐採"},
+      { name:"環境問題と原因", icon:"🌍", color:T.green, cards:[
+        {q:"オゾン層の破壊の原因は？",a:"フロンガス"},{q:"地球温暖化の主な原因となる気体は？",a:"二酸化炭素"},{q:"酸性雨の原因物質①は？",a:"硫黄酸化物"},{q:"酸性雨の原因物質②は？",a:"窒素酸化物"},{q:"熱帯雨林減少の主な原因は？",a:"大規模な伐採"},{q:"砂漠化の原因①（家畜関連）は？",a:"過放牧"},{q:"砂漠化の原因②（農業関連）は？",a:"過度な耕作"},
       ]},
       { name:"国際会議", icon:"🏛️", color:"#1565C0", cards:[
-        {q:"1972年の国連人間環境会議はどこ？",a:"ストックホルム（スウェーデン）"},{q:"1992年の地球サミットはどこ？",a:"リオデジャネイロ（ブラジル）"},{q:"2002年の環境開発サミットはどこ？",a:"ヨハネスブルグ（南アフリカ）"},{q:"2015年のCOP21で採択されたのは？",a:"パリ協定"},{q:"1997年に京都で決まったことは？",a:"温室効果ガス削減目標（京都議定書）"},
+        {q:"1972年の国連人間環境会議の開催都市は？",a:"ストックホルム"},{q:"国連人間環境会議の開催国は？",a:"スウェーデン"},{q:"1992年の地球サミットの開催都市は？",a:"リオデジャネイロ"},{q:"地球サミットの開催国は？",a:"ブラジル"},{q:"2002年の環境開発サミットの開催都市は？",a:"ヨハネスブルグ"},{q:"環境開発サミットの開催国は？",a:"南アフリカ"},{q:"2015年のCOP21で採択されたものは？",a:"パリ協定"},{q:"1997年に京都で採択された議定書は？",a:"京都議定書"},
       ]},
-      { name:"条約・制度", icon:"📜", color:T.wisteria, cards:[
-        {q:"ラムサール条約は何を守る？",a:"重要な湿地と水鳥の生息地"},{q:"世界遺産条約を進める国連機関は？",a:"ユネスコ"},{q:"ワシントン条約は何を規制？",a:"絶滅のおそれのある野生動植物の国際取引"},{q:"ナショナルトラストとは？",a:"市民が自然や歴史的環境を買い取って保護する運動"},
+      { name:"条約・制度", icon:"📜", color:T.pinkLight, cards:[
+        {q:"湿地と水鳥の生息地を守る条約は？",a:"ラムサール条約"},{q:"世界遺産条約を進める国連機関は？",a:"ユネスコ"},{q:"絶滅のおそれのある動植物の取引を規制する条約は？",a:"ワシントン条約"},{q:"市民が自然や歴史的環境を保護する運動を何という？",a:"ナショナルトラスト"},
       ]},
       { name:"自然遺産", icon:"🏔️", color:"#00695C", cards:[
-        {q:"白神山地はどこ？登録年は？",a:"青森県／秋田県 1993年"},{q:"屋久島はどこ？登録年は？",a:"鹿児島県 1993年"},{q:"知床はどこ？登録年は？",a:"北海道 2005年"},{q:"小笠原諸島はどこ？登録年は？",a:"東京都 2011年"},{q:"日本最大の湿原は？",a:"釧路湿原（北海道）"},
+        {q:"白神山地がある県は？（2つのうち1つ）",a:"青森県"},{q:"白神山地の世界遺産登録年は？",a:"1993年"},{q:"屋久島がある県は？",a:"鹿児島県"},{q:"屋久島の世界遺産登録年は？",a:"1993年"},{q:"知床がある都道府県は？",a:"北海道"},{q:"知床の世界遺産登録年は？",a:"2005年"},{q:"小笠原諸島がある都道府県は？",a:"東京都"},{q:"小笠原諸島の登録年は？",a:"2011年"},{q:"日本最大の湿原は？",a:"釧路湿原"},
       ]},
-      { name:"四大公害", icon:"⚠️", color:T.crimson, cards:[
-        {q:"水俣病の原因物質は？",a:"有機水銀（メチル水銀）"},{q:"水俣病の地域は？",a:"熊本県水俣市"},{q:"四日市ぜんそくの原因は？",a:"亜硫酸ガス（大気汚染）"},{q:"イタイイタイ病の原因物質は？",a:"カドミウム"},{q:"イタイイタイ病の川は？",a:"神通川（富山県）"},{q:"新潟水俣病の川は？",a:"阿賀野川（新潟県）"},{q:"1967年に制定された法律は？",a:"公害対策基本法"},
+      { name:"四大公害", icon:"⚠️", color:T.pink, cards:[
+        {q:"水俣病の原因物質は？",a:"有機水銀"},{q:"水俣病が発生した県は？",a:"熊本県"},{q:"四日市ぜんそくの原因は？",a:"亜硫酸ガス"},{q:"イタイイタイ病の原因物質は？",a:"カドミウム"},{q:"イタイイタイ病が発生した川は？",a:"神通川"},{q:"新潟水俣病が発生した川は？",a:"阿賀野川"},{q:"1967年に制定された公害対策の法律は？",a:"公害対策基本法"},
       ]},
       { name:"データ・数値", icon:"📊", color:T.dunno, cards:[
-        {q:"2022年の排出量1位の国と割合は？",a:"中国 約29.7%"},{q:"2022年の日本の排出割合は？",a:"約2.6%"},{q:"CO₂が急増したのは何世紀後半？理由は？",a:"18世紀後半・産業革命で化石燃料を大量消費"},{q:"2022年の世界の排出量合計は？",a:"約384億トン"},
+        {q:"2022年の温室効果ガス排出量1位の国は？",a:"中国"},{q:"2022年の中国の排出割合は約何%？",a:"29.7%"},{q:"2022年の日本の排出割合は約何%？",a:"2.6%"},{q:"CO₂が急増し始めたきっかけ（18世紀後半）は？",a:"産業革命"},{q:"2022年の世界の排出量合計は？",a:"約384億トン"},
       ]},
     ],
   },
@@ -173,16 +170,16 @@ const UNITS = [
     ],
     flashDecks: [
       { name:"自転・公転", icon:"🔄", color:"#4fc3f7", cards:[
-        {q:"地球の自転の向きは？（北極上から見て）",a:"反時計回り（西→東）"},{q:"地球の公転の向きは？",a:"反時計回り（自転と同じ）"},{q:"自転の周期は？",a:"約24時間（1日）"},{q:"公転の周期は？",a:"約365日（1年）"},{q:"太陽が東から昇る理由は？",a:"地球が西→東に自転しているから"},
+        {q:"地球の自転の向きは？（北極上から見て）",a:"反時計回り"},{q:"地球の公転の向きは？",a:"反時計回り"},{q:"自転の周期は約何時間？",a:"24時間"},{q:"公転の周期は約何日？",a:"365日"},{q:"太陽が東から昇るのは地球がどっちに自転するから？",a:"西から東"},
       ]},
       { name:"経度・時差", icon:"🌐", color:"#ffb74d", cards:[
-        {q:"日本の標準時子午線は？",a:"東経135度（明石市）"},{q:"経度15度＝何時間の時差？",a:"1時間"},{q:"経度1度＝何分の時差？",a:"4分"},{q:"東にあるほど時刻は？",a:"進んでいる（早い）"},{q:"本初子午線（経度0度）はどこ？",a:"イギリスのグリニッジ天文台"},
+        {q:"日本の標準時子午線は東経何度？",a:"135度"},{q:"標準時子午線が通る都市は？",a:"明石市"},{q:"経度15度＝何時間の時差？",a:"1時間"},{q:"経度1度＝何分の時差？",a:"4分"},{q:"本初子午線（経度0度）がある国は？",a:"イギリス"},
       ]},
       { name:"季節と地軸", icon:"🌸", color:"#81c784", cards:[
-        {q:"地軸の傾きは何度？",a:"約23.4度"},{q:"夏至のとき北極側は？",a:"太陽の方に傾いている"},{q:"春分・秋分の昼夜は？",a:"ほぼ同じ長さ（12時間ずつ）"},{q:"北半球が夏至 → 南半球は？",a:"冬至（季節が逆）"},{q:"夏至の日の出の方角は？（日本）",a:"北東（東よりやや北寄り）"},{q:"冬至の日の出の方角は？（日本）",a:"南東（東よりやや南寄り）"},
+        {q:"地軸の傾きは約何度？",a:"23.4度"},{q:"北半球が夏至のとき南半球は？",a:"冬至"},{q:"夏至の日の出の方角は？（日本）",a:"北東"},{q:"冬至の日の出の方角は？（日本）",a:"南東"},{q:"春分・秋分の日の出の方角は？",a:"真東"},
       ]},
       { name:"南中高度の公式", icon:"☀️", color:"#ce93d8", cards:[
-        {q:"春分・秋分の南中高度の公式は？",a:"90° − 緯度"},{q:"夏至の南中高度の公式は？",a:"90° − 緯度 + 23.4°"},{q:"冬至の南中高度の公式は？",a:"90° − 緯度 − 23.4°"},{q:"赤道での春分の南中高度は？",a:"90度（真上）"},{q:"北緯36度・夏至の南中高度は？",a:"77.4度"},{q:"北緯36度・冬至の南中高度は？",a:"30.6度"},
+        {q:"春分・秋分の南中高度の公式は？",a:"90° − 緯度"},{q:"夏至の南中高度の公式は？",a:"90° − 緯度 + 23.4°"},{q:"冬至の南中高度の公式は？",a:"90° − 緯度 − 23.4°"},{q:"赤道での春分の南中高度は何度？",a:"90度"},{q:"北緯36度・夏至の南中高度は？",a:"77.4度"},{q:"北緯36度・冬至の南中高度は？",a:"30.6度"},
       ]},
     ],
   }
@@ -195,14 +192,14 @@ function shuffle(arr) {
   return a;
 }
 
-// --- TITLE SYSTEM ---
+// --- TITLE SYSTEM (恋の呼吸) ---
 const KATA_NAMES = ["壱ノ型","弐ノ型","参ノ型","肆ノ型","伍ノ型","陸ノ型","漆ノ型","捌ノ型","玖ノ型","拾ノ型"];
 function getTitle(correct, total, dunno) {
   const rate = total > 0 ? correct / total : 0;
-  if (correct === total && dunno === 0) return { label:"柱", icon:"🏆", color:T.gold, msg:"全問正解！最高位！" };
-  if (rate >= 0.8) return { label:"甲", icon:"⚔️", color:T.crimson, msg:"見事な成績！" };
-  if (rate >= 0.6) return { label:"丙", icon:"🗡️", color:T.text, msg:"いい調子！" };
-  return { label:"修行中", icon:"📖", color:T.textDim, msg:"次こそ！くり返しが力になる！" };
+  if (correct === total && dunno === 0) return { label:"恋柱", icon:"💖", color:T.gold, msg:"全問正解！恋の呼吸、極めたり！" };
+  if (rate >= 0.8) return { label:"甲", icon:"🌸", color:T.pink, msg:"見事！もう少しで恋柱！" };
+  if (rate >= 0.6) return { label:"丙", icon:"🎀", color:T.pinkPale, msg:"いい調子！" };
+  return { label:"修行中", icon:"📖", color:T.textDim, msg:"次こそ！恋は何度でも挑戦できる！" };
 }
 
 // --- SESSION HISTORY ---
@@ -238,7 +235,7 @@ function calcStats(sessions) {
   }
   const rates = sessions.filter(s=>s.total>0).map(s=>s.correct/s.total);
   const avgRate = rates.length ? Math.round(rates.reduce((a,b)=>a+b,0)/rates.length*100) : 0;
-  const titles = ["柱","甲","丙","修行中"];
+  const titles = ["恋柱","甲","丙","修行中"];
   let bestIdx = 3;
   sessions.forEach(s => {
     const t = getTitle(s.correct, s.total, s.dunno || 0);
@@ -247,6 +244,94 @@ function calcStats(sessions) {
   });
   return { streak, avgRate, bestTitle: titles[bestIdx], totalSessions: sessions.length };
 }
+
+// --- UNLOCK / CLEAR TRACKING ---
+async function loadCleared() {
+  try { const r = await window.storage.get("cleared"); if (r && r.value) return JSON.parse(r.value); } catch(e) {}
+  return {};
+}
+async function saveClear(unitId, mode, score, total) {
+  try {
+    let cleared = {};
+    try { const r = await window.storage.get("cleared"); if (r && r.value) cleared = JSON.parse(r.value); } catch(e) {}
+    const key = unitId + "_" + mode;
+    const rate = total > 0 ? score / total : 0;
+    const prev = cleared[key];
+    if (!prev || rate > prev.rate) {
+      cleared[key] = { rate, score, total, ts: new Date().toISOString() };
+    }
+    await window.storage.set("cleared", JSON.stringify(cleared));
+    return cleared;
+  } catch(e) { console.error("Save clear error:", e); return {}; }
+}
+
+// --- FEEDBACK ---
+async function saveFeedback(fb) {
+  try {
+    let list = [];
+    try { const r = await window.storage.get("feedback"); if (r && r.value) list = JSON.parse(r.value); } catch(e) {}
+    list.unshift(fb);
+    if (list.length > 200) list = list.slice(0, 200);
+    await window.storage.set("feedback", JSON.stringify(list));
+  } catch(e) { console.error("Save feedback error:", e); }
+}
+async function loadFeedback() {
+  try { const r = await window.storage.get("feedback"); if (r && r.value) return JSON.parse(r.value); } catch(e) {}
+  return [];
+}
+
+function FeedbackBox({ question, answer, subject, unit }) {
+  const [text, setText] = useState("");
+  const [sent, setSent] = useState(false);
+  if (sent) return <div style={{fontSize:12,color:T.green,textAlign:"center",marginTop:8}}>✅ 送信しました</div>;
+  return (
+    <div style={{marginTop:12}}>
+      <div style={{fontSize:12,color:T.textMuted,marginBottom:6}}>💬 この問題について改善リクエスト（任意）</div>
+      <div style={{display:"flex",gap:8}}>
+        <input type="text" value={text} onChange={e=>setText(e.target.value)}
+          placeholder="例: 答えが合ってるはず…"
+          style={{flex:1,padding:"10px 12px",borderRadius:10,border:`1px solid ${T.textMuted}`,background:"rgba(245,240,232,0.05)",color:T.text,fontSize:13,fontFamily:"'Noto Sans JP',sans-serif",outline:"none",boxSizing:"border-box"}}
+          onFocus={e=>{e.target.style.borderColor=T.pinkLight;}} onBlur={e=>{e.target.style.borderColor=T.textMuted;}}
+        />
+        <button onClick={()=>{
+          if(!text.trim()) return;
+          saveFeedback({ts:new Date().toISOString(),subject,unit,question,answer,text:text.trim()});
+          setSent(true);
+        }} disabled={!text.trim()}
+          style={{padding:"10px 16px",borderRadius:10,border:"none",background:text.trim()?T.pinkLight:`${T.pinkLight}44`,color:T.white,fontSize:13,fontWeight:700,cursor:text.trim()?"pointer":"default",fontFamily:"'Noto Sans JP',sans-serif",whiteSpace:"nowrap"}}>
+          送信
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function FeedbackViewer() {
+  const [items, setItems] = useState([]);
+  const [loaded, setLoaded] = useState(false);
+  useEffect(() => { loadFeedback().then(f => { setItems(f); setLoaded(true); }); }, []);
+
+  const formatDate = (ts) => {
+    const d = new Date(ts);
+    const days = ["日","月","火","水","木","金","土"];
+    return `${d.getMonth()+1}/${d.getDate()}（${days[d.getDay()]}）${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`;
+  };
+
+  if (!loaded) return <p style={{fontSize:13,color:T.textDim}}>読み込み中…</p>;
+  if (!items.length) return <p style={{fontSize:13,color:T.textMuted}}>まだリクエストはありません</p>;
+  return (
+    <div style={{maxHeight:300,overflowY:"auto"}}>
+      {items.slice(0,30).map((fb,i) => (
+        <div key={i} style={{background:T.smoke,borderRadius:10,padding:12,marginBottom:8,border:`1px solid rgba(245,240,232,0.06)`}}>
+          <div style={{fontSize:11,color:T.textMuted,marginBottom:4}}>{formatDate(fb.ts)} ・ {fb.subject}・{fb.unit}</div>
+          <div style={{fontSize:12,color:T.textDim,marginBottom:4}}>問題: {fb.question}</div>
+          <div style={{fontSize:14,color:T.pinkLight,fontWeight:700}}>{fb.text}</div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function SlashEffect({ show, streak }) {
   if (!show) return null;
   return (
@@ -254,7 +339,7 @@ function SlashEffect({ show, streak }) {
       <div style={{
         position:"absolute", top:"50%", left:"50%",
         width:"150vw", height:4,
-        background:`linear-gradient(90deg, transparent, ${T.crimson}, ${T.gold}, ${T.crimson}, transparent)`,
+        background:`linear-gradient(90deg, transparent, ${T.pink}, ${T.pinkLight}, ${T.green}, transparent)`,
         animation:"slashIn 0.5s ease-out forwards",
         transformOrigin:"center",
       }}/>
@@ -262,19 +347,20 @@ function SlashEffect({ show, streak }) {
         <div style={{
           position:"absolute", top:"40%", left:"50%", transform:"translateX(-50%)",
           fontFamily:"'Zen Maru Gothic',sans-serif", fontSize: streak >= 5 ? 36 : 28,
-          fontWeight:900, color: streak >= 5 ? T.gold : T.crimson,
-          textShadow:`0 0 20px ${streak >= 5 ? T.gold : T.crimson}66`,
+          fontWeight:900, color: streak >= 5 ? T.gold : T.pink,
+          textShadow:`0 0 20px ${streak >= 5 ? T.gold : T.pink}66`,
           animation:"fadeUp 1.2s ease-out forwards",
           whiteSpace:"nowrap",
         }}>
           {KATA_NAMES[Math.min(streak - 1, 9)]}
-          {streak >= 5 && " — 集中！"}
+          {streak >= 3 && " 💕"}
+          {streak >= 5 && " きゅん！"}
         </div>
       )}
       {streak >= 3 && (
         <div style={{
           position:"absolute", inset:0,
-          background:`radial-gradient(ellipse at bottom, ${T.crimson}33 0%, transparent 60%)`,
+          background:`radial-gradient(ellipse at bottom, ${T.pink}33 0%, transparent 60%)`,
           animation:"fireGlow 1s ease-out forwards",
         }}/>
       )}
@@ -285,7 +371,7 @@ function SlashEffect({ show, streak }) {
 // --- SHARED BTN ---
 const btnPrimary = {
   width:"100%", padding:"14px", borderRadius:12, border:"none",
-  background:`linear-gradient(135deg, ${T.crimson}, #8B0000)`,
+  background:`linear-gradient(135deg, ${T.pink}, ${T.pinkLight})`,
   color:T.white, fontSize:17, fontWeight:700, cursor:"pointer",
   fontFamily:"'Zen Maru Gothic',sans-serif", marginTop:8,
 };
@@ -296,7 +382,7 @@ const btnDunno = {
   fontFamily:"'Zen Maru Gothic',sans-serif", marginTop:6,
 };
 const cardBase = {
-  background:T.smoke, borderRadius:20, border:`1px solid rgba(245,240,232,0.08)`,
+  background:T.smoke, borderRadius:20, border:`1px solid rgba(255,245,247,0.08)`,
   overflow:"hidden",
 };
 
@@ -315,7 +401,7 @@ function OrderQ({ q, onAnswer }) {
   return (<div>
     {items.map((idx,pos) => (
       <div key={idx} draggable={!done} onDragStart={()=>setDragIdx(pos)} onDragOver={e=>e.preventDefault()} onDrop={()=>{move(dragIdx,pos);setDragIdx(null);}}
-        style={{ padding:"14px 16px", margin:"8px 0", background:done?(q.correctOrder[pos]===idx?`${T.correct}22`:`${T.wrong}22`):dragIdx===pos?`${T.wisteria}22`:T.smoke,
+        style={{ padding:"14px 16px", margin:"8px 0", background:done?(q.correctOrder[pos]===idx?`${T.correct}22`:`${T.wrong}22`):dragIdx===pos?`${T.pinkLight}22`:T.smoke,
           border:`2px solid ${done?(q.correctOrder[pos]===idx?T.correct:T.wrong):T.textMuted}`, borderRadius:12, cursor:done?"default":"grab",
           fontSize:16, fontFamily:"'Noto Sans JP',sans-serif", color:T.text, display:"flex", alignItems:"center", gap:12, userSelect:"none" }}>
         <span style={{ width:28,height:28,borderRadius:"50%",background:done?(q.correctOrder[pos]===idx?T.correct:T.wrong):T.textMuted,
@@ -477,6 +563,7 @@ function QuizScreen({ unit, onBack, email, onSessionSaved }) {
         correct: cc, wrong: wc, dunno: dc, total: qs.length,
         title: t.label, retry: 0,
       }).then(() => { if (onSessionSaved) onSessionSaved(); });
+      saveClear(unit.id, "quiz", cc, qs.length);
     }
   }, [done]);
 
@@ -496,12 +583,12 @@ function QuizScreen({ unit, onBack, email, onSessionSaved }) {
 
   if (done) {
     return (<Wrapper><div ref={topRef}/>
-      <div style={{...cardBase,textAlign:"center",padding:"40px 20px",position:"relative"}} className="ichimatsu">
+      <div style={{...cardBase,textAlign:"center",padding:"40px 20px",position:"relative"}} className="sakura-bg">
         {cc===qs.length&&dc===0 && <div style={{position:"absolute",inset:0,background:`radial-gradient(circle at center, ${T.gold}22 0%, transparent 60%)`,pointerEvents:"none"}}/>}
         <div style={{fontSize:64,marginBottom:8}}>{title.icon}</div>
         <h2 style={{fontSize:28,fontWeight:900,margin:"8px 0",color:title.color,fontFamily:"'Zen Maru Gothic',sans-serif",textShadow:title.color===T.gold?`0 0 20px ${T.gold}66`:"none"}}>{title.label}</h2>
         <p style={{fontSize:15,color:T.textDim,margin:"4px 0 20px"}}>{title.msg}</p>
-        {honestBadge && <div style={{display:"inline-block",background:`${T.wisteria}22`,border:`1px solid ${T.wisteria}`,borderRadius:20,padding:"6px 16px",fontSize:13,color:T.wisteria,fontWeight:700,marginBottom:16}}>🌸 正直者の呼吸</div>}
+        {honestBadge && <div style={{display:"inline-block",background:`${T.pinkLight}22`,border:`1px solid ${T.pinkLight}`,borderRadius:20,padding:"6px 16px",fontSize:13,color:T.pinkLight,fontWeight:700,marginBottom:16}}>🌸 正直者の呼吸</div>}
         <div style={{display:"flex",justifyContent:"center",gap:20,margin:"20px 0"}}>
           <div><div style={{fontSize:36,fontWeight:900,color:T.correct}}>{cc}</div><div style={{fontSize:12,color:T.textDim}}>⭕正解</div></div>
           <div><div style={{fontSize:36,fontWeight:900,color:T.wrong}}>{wc}</div><div style={{fontSize:12,color:T.textDim}}>❌まちがい</div></div>
@@ -517,12 +604,12 @@ function QuizScreen({ unit, onBack, email, onSessionSaved }) {
         </div>}
         {email ? (
           emailSent
-            ? <div style={{...btnPrimary,background:`linear-gradient(135deg, ${T.jade}, #1B5E20)`,marginBottom:8,textAlign:"center",opacity:0.7,cursor:"default"}}>✅ メール送信済み</div>
-            : <button onClick={sendEmail} style={{...btnPrimary,background:`linear-gradient(135deg, ${T.jade}, #1B5E20)`,marginBottom:8}}>📧 結果を保護者に送る</button>
+            ? <div style={{...btnPrimary,background:`linear-gradient(135deg, ${T.green}, #2E7D32)`,marginBottom:8,textAlign:"center",opacity:0.7,cursor:"default"}}>✅ メール送信済み</div>
+            : <button onClick={sendEmail} style={{...btnPrimary,background:`linear-gradient(135deg, ${T.green}, #2E7D32)`,marginBottom:8}}>📧 結果を保護者に送る</button>
         ) : (
           <div style={{fontSize:12,color:T.textDim,textAlign:"center",marginBottom:8,padding:8}}>⚙️ 設定からメールアドレスを登録すると、結果を自動送信できます</div>
         )}
-        <button onClick={()=>{setIdx(0);setResults([]);setShowExp(false);setDone(false);setStreak(0);setEmailSent(false);setSaved(false);}} style={{...btnPrimary,background:`linear-gradient(135deg, ${T.crimson}, #8B0000)`}}>もう一度チャレンジ</button>
+        <button onClick={()=>{setIdx(0);setResults([]);setShowExp(false);setDone(false);setStreak(0);setEmailSent(false);setSaved(false);}} style={{...btnPrimary,background:`linear-gradient(135deg, ${T.pink}, #C2185B)`}}>もう一度チャレンジ</button>
         <button onClick={onBack} style={{...btnDunno,marginTop:12}}>ホームに戻る</button>
       </div>
     </Wrapper>);
@@ -535,16 +622,16 @@ function QuizScreen({ unit, onBack, email, onSessionSaved }) {
       <button onClick={onBack} style={{background:T.smoke,border:"none",borderRadius:10,padding:"8px 14px",color:T.textDim,fontSize:14,cursor:"pointer",fontFamily:"'Noto Sans JP',sans-serif"}}>← 戻る</button>
       <div style={{display:"flex",gap:8,alignItems:"center"}}>
         <span style={{fontSize:12,fontWeight:700}}><span style={{color:T.correct}}>⭕{cc}</span> <span style={{color:T.wrong}}>❌{wc}</span> <span style={{color:T.dunno}}>🤔{dc}</span></span>
-        <span style={{background:T.smoke,borderRadius:10,padding:"6px 12px",fontSize:14,fontWeight:700,color:T.crimson}}>{idx+1}/{qs.length}</span>
+        <span style={{background:T.smoke,borderRadius:10,padding:"6px 12px",fontSize:14,fontWeight:700,color:T.pink}}>{idx+1}/{qs.length}</span>
       </div>
     </div>
     <div style={{height:4,borderRadius:2,background:T.smoke,marginBottom:20,overflow:"hidden"}}>
-      <div style={{height:"100%",borderRadius:2,background:`linear-gradient(90deg, ${T.crimson}, ${T.gold})`,width:`${(idx/qs.length)*100}%`,transition:"width 0.4s"}}/>
+      <div style={{height:"100%",borderRadius:2,background:`linear-gradient(90deg, ${T.pink}, ${T.gold})`,width:`${(idx/qs.length)*100}%`,transition:"width 0.4s"}}/>
     </div>
-    {streak >= 3 && <div style={{textAlign:"center",fontSize:13,color:T.crimson,fontWeight:700,marginBottom:8,fontFamily:"'Zen Maru Gothic',sans-serif"}}>🔥 {streak}連続正解中！</div>}
+    {streak >= 3 && <div style={{textAlign:"center",fontSize:13,color:T.pink,fontWeight:700,marginBottom:8,fontFamily:"'Zen Maru Gothic',sans-serif"}}>🔥 {streak}連続正解中！</div>}
     <div style={cardBase}>
-      <div style={{background:`${T.crimson}11`,borderBottom:`2px solid ${T.crimson}33`,padding:"10px 20px",display:"flex",alignItems:"center",gap:8}} className="ichimatsu">
-        <span style={{background:T.crimson,color:T.white,borderRadius:6,padding:"3px 10px",fontSize:12,fontWeight:700}}>{q.category}</span>
+      <div style={{background:`${T.pink}11`,borderBottom:`2px solid ${T.pink}33`,padding:"10px 20px",display:"flex",alignItems:"center",gap:8}} className="sakura-bg">
+        <span style={{background:T.pink,color:T.white,borderRadius:6,padding:"3px 10px",fontSize:12,fontWeight:700}}>{q.category}</span>
         <span style={{fontSize:12,color:T.textDim,fontWeight:600}}>Q{idx+1}</span>
       </div>
       <div style={{padding:20}}>
@@ -560,6 +647,7 @@ function QuizScreen({ unit, onBack, email, onSessionSaved }) {
             {lastR==="correct"?"⭕ 正解！":lastR==="dunno"?"🤔 わからなかった → 覚えよう！":"❌ おしい！"}
           </div>
           <p style={{fontSize:14,lineHeight:1.8,color:T.text,whiteSpace:"pre-line",margin:0}}>{q.explanation}</p>
+          <FeedbackBox question={q.question} answer={q.explanation} subject={unit.subject} unit={unit.name}/>
         </div>)}
         {showExp&&<button onClick={next} style={{...btnPrimary,marginTop:16}}>{idx+1>=qs.length?"結果を見る →":"次の問題へ →"}</button>}
       </div>
@@ -619,6 +707,7 @@ function FlashScreen({ unit, onBack, email, onSessionSaved }) {
         correct: firstCorrect, wrong: firstRoundWrongs.length, dunno: 0,
         total: totalCards, title: "", retry: retry,
       }).then(() => { if (onSessionSaved) onSessionSaved(); });
+      saveClear(unit.id, "flash", firstCorrect, totalCards);
     }
   }, [phase]);
 
@@ -657,7 +746,7 @@ function FlashScreen({ unit, onBack, email, onSessionSaved }) {
 
   if (phase==="done") return (
     <Wrapper>
-      <div style={{...cardBase,textAlign:"center",padding:"40px 20px",marginTop:30}} className="ichimatsu">
+      <div style={{...cardBase,textAlign:"center",padding:"40px 20px",marginTop:30}} className="sakura-bg">
         <div style={{fontSize:64,marginBottom:12}}>🎊</div>
         <h2 style={{fontSize:24,fontWeight:900,color:T.gold,fontFamily:"'Zen Maru Gothic',sans-serif",textShadow:`0 0 20px ${T.gold}44`}}>全集中・暗記完了！</h2>
         {retry>0&&<p style={{fontSize:14,color:T.textDim,margin:"8px 0"}}>リトライ {retry}回で完全制覇</p>}
@@ -672,14 +761,14 @@ function FlashScreen({ unit, onBack, email, onSessionSaved }) {
         </div>}
         {email ? (
           emailSent
-            ? <div style={{...btnPrimary,background:`linear-gradient(135deg, ${T.jade}, #1B5E20)`,marginBottom:8,textAlign:"center",opacity:0.7,cursor:"default"}}>✅ メール送信済み</div>
-            : <button onClick={sendFlashEmail} style={{...btnPrimary,background:`linear-gradient(135deg, ${T.jade}, #1B5E20)`,marginBottom:8}}>📧 結果を保護者に送る</button>
+            ? <div style={{...btnPrimary,background:`linear-gradient(135deg, ${T.green}, #2E7D32)`,marginBottom:8,textAlign:"center",opacity:0.7,cursor:"default"}}>✅ メール送信済み</div>
+            : <button onClick={sendFlashEmail} style={{...btnPrimary,background:`linear-gradient(135deg, ${T.green}, #2E7D32)`,marginBottom:8}}>📧 結果を保護者に送る</button>
         ) : (
           <div style={{fontSize:12,color:T.textDim,textAlign:"center",marginBottom:8,padding:8}}>⚙️ 設定からメールアドレスを登録すると結果を送信できます</div>
         )}
         <div style={{display:"flex",gap:12,justifyContent:"center",marginTop:8}}>
           <button onClick={onBack} style={{padding:"14px 28px",borderRadius:12,border:`1px solid ${T.textMuted}`,background:"transparent",color:T.text,fontSize:15,fontWeight:700,cursor:"pointer",fontFamily:"'Zen Maru Gothic',sans-serif"}}>戻る</button>
-          <button onClick={()=>startDeck(deckIdx)} style={{padding:"14px 28px",borderRadius:12,border:"none",background:T.crimson,color:T.white,fontSize:15,fontWeight:700,cursor:"pointer",fontFamily:"'Zen Maru Gothic',sans-serif"}}>もう1回</button>
+          <button onClick={()=>startDeck(deckIdx)} style={{padding:"14px 28px",borderRadius:12,border:"none",background:T.pink,color:T.white,fontSize:15,fontWeight:700,cursor:"pointer",fontFamily:"'Zen Maru Gothic',sans-serif"}}>もう1回</button>
         </div>
       </div>
     </Wrapper>
@@ -745,7 +834,7 @@ function FlashScreen({ unit, onBack, email, onSessionSaved }) {
       border:`1px solid ${judged==="correct"?`${T.correct}66`:judged==="wrong"?`${T.wrong}66`:T.textMuted}`,
       boxShadow:judged?`0 8px 40px ${judged==="correct"?T.correct:T.wrong}22`:`0 4px 20px rgba(0,0,0,0.3)`,
       transition:"all 0.3s",
-    }} className="ichimatsu">
+    }} className="sakura-bg">
       <div style={{fontSize:13,color:T.textMuted,marginBottom:16,fontWeight:700}}>問題</div>
       <div style={{fontSize:20,fontWeight:700,color:T.text,lineHeight:1.7,fontFamily:"'Zen Maru Gothic',sans-serif",marginBottom:24}}>{card.q}</div>
 
@@ -765,7 +854,7 @@ function FlashScreen({ unit, onBack, email, onSessionSaved }) {
               color:T.text,fontSize:18,fontFamily:"'Noto Sans JP',sans-serif",
               textAlign:"center",outline:"none",boxSizing:"border-box",
             }}
-            onFocus={e=>{e.target.style.borderColor=T.crimson;}}
+            onFocus={e=>{e.target.style.borderColor=T.pink;}}
             onBlur={e=>{e.target.style.borderColor=T.textMuted;}}
           />
           <div style={{display:"flex",gap:8,marginTop:12}}>
@@ -801,6 +890,7 @@ function FlashScreen({ unit, onBack, email, onSessionSaved }) {
             <div style={{fontSize:13,color:T.textDim}}>正解:</div>
             <div style={{fontSize:22,fontWeight:900,color:T.text,marginTop:4,fontFamily:"'Zen Maru Gothic',sans-serif"}}>{card.a}</div>
           </div>
+          <FeedbackBox question={card.q} answer={card.a} subject={unit.subject} unit={unit.name}/>
           <button onClick={handleNext} style={{...btnPrimary,marginTop:4}}>
             {ci+1>=cards.length?"結果を見る →":"次のカード →"}
           </button>
@@ -826,13 +916,13 @@ function UnitScreen({ unit, onBack, email, onSessionSaved }) {
       <p style={{fontSize:13,color:T.textDim,margin:0}}>{unit.subject} ・ {unit.textbook}</p>
     </div>
     <div style={{display:"flex",flexDirection:"column",gap:12}}>
-      <button onClick={()=>setMode("quiz")} style={{...cardBase,padding:"24px 20px",cursor:"pointer",display:"flex",alignItems:"center",gap:16,border:`1px solid ${T.crimson}44`,textAlign:"left"}}>
-        <span style={{fontSize:36,width:56,height:56,display:"flex",alignItems:"center",justifyContent:"center",background:`${T.crimson}22`,borderRadius:16}}>⚔️</span>
+      <button onClick={()=>setMode("quiz")} style={{...cardBase,padding:"24px 20px",cursor:"pointer",display:"flex",alignItems:"center",gap:16,border:`1px solid ${T.pink}44`,textAlign:"left"}}>
+        <span style={{fontSize:36,width:56,height:56,display:"flex",alignItems:"center",justifyContent:"center",background:`${T.pink}22`,borderRadius:16}}>⚔️</span>
         <div><div style={{fontSize:18,fontWeight:900,color:T.text,fontFamily:"'Zen Maru Gothic',sans-serif"}}>復習クイズ</div>
           <div style={{fontSize:13,color:T.textDim,marginTop:4}}>テストの弱点を重点的に・{unit.quizQuestions.length}問</div></div>
       </button>
-      <button onClick={()=>setMode("flash")} style={{...cardBase,padding:"24px 20px",cursor:"pointer",display:"flex",alignItems:"center",gap:16,border:`1px solid ${T.jade}44`,textAlign:"left"}}>
-        <span style={{fontSize:36,width:56,height:56,display:"flex",alignItems:"center",justifyContent:"center",background:`${T.jade}22`,borderRadius:16}}>🧠</span>
+      <button onClick={()=>setMode("flash")} style={{...cardBase,padding:"24px 20px",cursor:"pointer",display:"flex",alignItems:"center",gap:16,border:`1px solid ${T.green}44`,textAlign:"left"}}>
+        <span style={{fontSize:36,width:56,height:56,display:"flex",alignItems:"center",justifyContent:"center",background:`${T.green}22`,borderRadius:16}}>🧠</span>
         <div><div style={{fontSize:18,fontWeight:900,color:T.text,fontFamily:"'Zen Maru Gothic',sans-serif"}}>暗記カード</div>
           <div style={{fontSize:13,color:T.textDim,marginTop:4}}>フラッシュカードで定着・{unit.flashDecks.reduce((s,d)=>s+d.cards.length,0)}問</div></div>
       </button>
@@ -845,6 +935,19 @@ function UnitScreen({ unit, onBack, email, onSessionSaved }) {
 // ============================================================
 function HomeScreen({ onSelectUnit, onSettings, onHistory, email }) {
   const subjects = [...new Set(UNITS.map(u=>u.subject))];
+  const [cleared, setCleared] = useState({});
+  useEffect(() => { loadCleared().then(setCleared); }, []);
+
+  const getBadge = (unitId, mode) => {
+    const key = unitId + "_" + mode;
+    const c = cleared[key];
+    if (!c) return null;
+    if (c.rate >= 1) return {icon:"💖",label:"恋柱",color:T.gold};
+    if (c.rate >= 0.8) return {icon:"🌸",label:"甲",color:T.pink};
+    if (c.rate >= 0.6) return {icon:"🎀",label:"丙",color:T.pinkPale};
+    return {icon:"📖",label:"挑戦済",color:T.textDim};
+  };
+
   return (<Wrapper>
     <div style={{textAlign:"center",marginBottom:32,paddingTop:16}}>
       <div style={{display:"flex",justifyContent:"flex-end",marginBottom:8,gap:8}}>
@@ -855,11 +958,11 @@ function HomeScreen({ onSelectUnit, onSettings, onHistory, email }) {
           ⚙️ 設定
         </button>
       </div>
-      <div style={{fontSize:14,color:T.crimson,fontWeight:700,letterSpacing:4,marginBottom:8,fontFamily:"'Zen Maru Gothic',sans-serif"}}>全　集　中</div>
+      <div style={{fontSize:14,color:T.pink,fontWeight:700,letterSpacing:4,marginBottom:8,fontFamily:"'Zen Maru Gothic',sans-serif"}}>恋 の 呼 吸</div>
       <h1 style={{fontSize:28,fontWeight:900,color:T.text,fontFamily:"'Zen Maru Gothic',sans-serif",margin:"0 0 4px",letterSpacing:2}}>ゆいかの学習帳</h1>
-      <div style={{width:60,height:3,background:`linear-gradient(90deg, ${T.crimson}, ${T.gold})`,margin:"12px auto",borderRadius:2}}/>
+      <div style={{width:60,height:3,background:`linear-gradient(90deg, ${T.pink}, ${T.green})`,margin:"12px auto",borderRadius:2}}/>
       <p style={{fontSize:13,color:T.textDim,margin:0}}>SAPIX 中学受験対策</p>
-      {email && <p style={{fontSize:11,color:T.jade,margin:"8px 0 0"}}>📧 通知先: {email}</p>}
+      {email && <p style={{fontSize:11,color:T.green,margin:"8px 0 0"}}>📧 通知先: {email}</p>}
     </div>
     {subjects.map(subj => {
       const units = UNITS.filter(u=>u.subject===subj);
@@ -869,19 +972,41 @@ function HomeScreen({ onSelectUnit, onSettings, onHistory, email }) {
             <span style={{fontSize:24}}>{units[0].subjectIcon}</span>
             <h2 style={{fontSize:18,fontWeight:900,color:T.text,fontFamily:"'Zen Maru Gothic',sans-serif",margin:0}}>{subj}</h2>
           </div>
-          {units.map(u=>(
-            <button key={u.id} onClick={()=>onSelectUnit(u)} style={{
-              width:"100%",padding:"18px 20px",borderRadius:16,marginBottom:8,
-              border:`1px solid ${T.textMuted}`,background:T.smoke,cursor:"pointer",
-              fontFamily:"'Noto Sans JP',sans-serif",display:"flex",alignItems:"center",gap:14,textAlign:"left",
-            }} className="ichimatsu">
-              <div style={{flex:1}}>
-                <div style={{fontSize:16,fontWeight:700,color:T.text}}>{u.name}</div>
-                <div style={{fontSize:12,color:T.textDim,marginTop:4}}>{u.textbook} ・ クイズ{u.quizQuestions.length}問 + 暗記{u.flashDecks.reduce((s,d)=>s+d.cards.length,0)}問</div>
-              </div>
-              <span style={{color:T.crimson,fontSize:20,fontWeight:700}}>→</span>
-            </button>
-          ))}
+          {units.map(u=>{
+            const qBadge = getBadge(u.id, "quiz");
+            const fBadge = getBadge(u.id, "flash");
+            return (
+              <button key={u.id} onClick={()=>onSelectUnit(u)} style={{
+                width:"100%",padding:"18px 20px",borderRadius:16,marginBottom:8,
+                border:`1px solid ${(qBadge?.color===T.gold||fBadge?.color===T.gold)?`${T.gold}44`:T.textMuted}`,
+                background:(qBadge?.color===T.gold&&fBadge?.color===T.gold)?`${T.gold}08`:T.smoke,
+                cursor:"pointer",fontFamily:"'Noto Sans JP',sans-serif",display:"flex",alignItems:"center",gap:14,textAlign:"left",
+              }} className="sakura-bg">
+                <div style={{flex:1}}>
+                  <div style={{fontSize:16,fontWeight:700,color:T.text,display:"flex",alignItems:"center",gap:8}}>
+                    {u.name}
+                    {qBadge?.color===T.gold&&fBadge?.color===T.gold&&<span style={{fontSize:14}}>💖</span>}
+                  </div>
+                  <div style={{fontSize:12,color:T.textDim,marginTop:4}}>{u.textbook}</div>
+                  <div style={{display:"flex",gap:8,marginTop:6}}>
+                    <span style={{fontSize:11,padding:"2px 8px",borderRadius:8,
+                      background:qBadge?`${qBadge.color}22`:T.smoke,
+                      border:`1px solid ${qBadge?`${qBadge.color}44`:T.textMuted}`,
+                      color:qBadge?qBadge.color:T.textMuted}}>
+                      ⚔️ クイズ {qBadge?qBadge.icon:"🔒"}
+                    </span>
+                    <span style={{fontSize:11,padding:"2px 8px",borderRadius:8,
+                      background:fBadge?`${fBadge.color}22`:T.smoke,
+                      border:`1px solid ${fBadge?`${fBadge.color}44`:T.textMuted}`,
+                      color:fBadge?fBadge.color:T.textMuted}}>
+                      🧠 暗記 {fBadge?fBadge.icon:"🔒"}
+                    </span>
+                  </div>
+                </div>
+                <span style={{color:T.pink,fontSize:20,fontWeight:700}}>→</span>
+              </button>
+            );
+          })}
         </div>
       );
     })}
@@ -959,7 +1084,7 @@ function SettingsScreen({ email, onSave, onBack }) {
             color:T.text,fontSize:16,fontFamily:"'Noto Sans JP',sans-serif",
             outline:"none",boxSizing:"border-box",
           }}
-          onFocus={e => { e.target.style.borderColor = T.crimson; }}
+          onFocus={e => { e.target.style.borderColor = T.pink; }}
           onBlur={e => { e.target.style.borderColor = T.textMuted; }}
         />
 
@@ -967,19 +1092,24 @@ function SettingsScreen({ email, onSave, onBack }) {
           ...btnPrimary,
           marginTop:16,
           background: saved
-            ? `linear-gradient(135deg, ${T.jade}, #1B5E20)`
-            : `linear-gradient(135deg, ${T.crimson}, #8B0000)`,
+            ? `linear-gradient(135deg, ${T.green}, #2E7D32)`
+            : `linear-gradient(135deg, ${T.pink}, #C2185B)`,
         }}>
           {saved ? "✅ 保存しました" : "保存する"}
         </button>
 
         {email && (
-          <div style={{marginTop:16,padding:12,borderRadius:10,background:`${T.jade}11`,border:`1px solid ${T.jade}33`}}>
-            <p style={{fontSize:13,color:T.jade,margin:0}}>
+          <div style={{marginTop:16,padding:12,borderRadius:10,background:`${T.green}11`,border:`1px solid ${T.green}33`}}>
+            <p style={{fontSize:13,color:T.green,margin:0}}>
               ✅ 現在の送信先: {email}
             </p>
           </div>
         )}
+      </div>
+
+      <div style={{...cardBase,padding:24,marginTop:16}}>
+        <h3 style={{fontSize:16,fontWeight:700,color:T.text,fontFamily:"'Zen Maru Gothic',sans-serif",margin:"0 0 12px"}}>💬 ゆいかからの改善リクエスト</h3>
+        <FeedbackViewer/>
       </div>
 
       <div style={{...cardBase,padding:24,marginTop:16}}>
@@ -1033,8 +1163,8 @@ function HistoryScreen({ onBack }) {
     return `${d.getMonth()+1}/${d.getDate()}（${days[d.getDay()]}）${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`;
   };
 
-  const titleIcons = {"柱":"🏆","甲":"⚔️","丙":"🗡️","修行中":"📖"};
-  const titleColors = {"柱":T.gold,"甲":T.crimson,"丙":T.text,"修行中":T.textDim};
+  const titleIcons = {"恋柱":"💖","甲":"🌸","丙":"🎀","修行中":"📖"};
+  const titleColors = {"恋柱":T.gold,"甲":T.pink,"丙":T.text,"修行中":T.textDim};
 
   if (loading) return (<Wrapper><div style={{textAlign:"center",paddingTop:80}}><p style={{color:T.textDim}}>読み込み中…</p></div></Wrapper>);
 
@@ -1068,7 +1198,7 @@ function HistoryScreen({ onBack }) {
         <div style={{marginBottom:20}}>
           <div style={{fontSize:13,fontWeight:700,marginBottom:10,color:T.textDim}}>正答率の推移（クイズ）</div>
           <div style={{background:T.smoke,borderRadius:12,padding:14,border:`1px solid rgba(245,240,232,0.06)`}}>
-            {sparkline(quizRates, T.crimson, 10)}
+            {sparkline(quizRates, T.pink, 10)}
             <div style={{display:"flex",justifyContent:"space-between",fontSize:10,color:T.textMuted,marginTop:4}}>
               <span>過去</span>
               <span>最新 {quizRates[quizRates.length-1]}%</span>
