@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="ゆいかの学習帳" />
+  <title>ゆいかの学習帳</title>
+  <link rel="apple-touch-icon" href="data:image/svg+xml;charset=utf-8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231a1a2e'/><text x='50' y='68' text-anchor='middle' font-size='55'>⚔️</text></svg>" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body { background: #1a1a2e; overflow-x: hidden; -webkit-text-size-adjust: 100%; }
+    input { -webkit-appearance: none; appearance: none; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone@7/babel.min.js"></script>
+  <script>
+    // localStorage-based storage for iPad
+    window.storage = {
+      async get(key) {
+        const v = localStorage.getItem('yuika_' + key);
+        if (v === null) throw new Error('Key not found');
+        return { key: key, value: v };
+      },
+      async set(key, value) {
+        localStorage.setItem('yuika_' + key, value);
+        return { key: key, value: value };
+      },
+      async delete(key) {
+        localStorage.removeItem('yuika_' + key);
+        return { key: key, deleted: true };
+      }
+    };
+  </script>
+  <script type="text/babel">
+    const { useState, useEffect, useRef, useCallback } = React;
+
+// ============================================================
+//  ゆいか学習アプリ v1.0 — 和風テーマ（鬼滅インスパイア）
+// ============================================================
+
+// --- FONTS ---
+const FONT_LINK = "https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700;900&family=Noto+Sans+JP:wght@400;700;900&display=swap";
+
+// --- THEME ---
+const T = {
+  bg: "#1a1a2e", bgMid: "#16213e", bgDeep: "#0f3460",
+  crimson: "#C41E3A", jade: "#2E8B57", wisteria: "#8A2BE2",
+  gold: "#D4A017", white: "#F5F0E8", smoke: "rgba(245,240,232,0.08)",
+  text: "#F5F0E8", textDim: "rgba(245,240,232,0.5)", textMuted: "rgba(245,240,232,0.3)",
+  correct: "#4CAF50", wrong: "#EF5350", dunno: "#FF9800",
+};
+
+// --- CSS Keyframes (injected once) ---
+const STYLE_ID = "yuika-app-styles";
+function injectStyles() {
+  if (document.getElementById(STYLE_ID)) return;
+  const style = document.createElement("style");
+  style.id = STYLE_ID;
+  style.textContent = `
+    @keyframes slashIn {
+      0% { transform: rotate(-45deg) scaleX(0); opacity: 1; }
+      50% { transform: rotate(-45deg) scaleX(1.2); opacity: 1; }
+      100% { transform: rotate(-45deg) scaleX(0); opacity: 0; }
+    }
+    @keyframes fadeUp {
+      0% { opacity: 0; transform: translateY(20px); }
+      30% { opacity: 1; transform: translateY(0); }
+      80% { opacity: 1; }
+      100% { opacity: 0; transform: translateY(-10px); }
+    }
+    @keyframes ripple {
+      0% { transform: scale(0); opacity: 0.6; }
+      100% { transform: scale(4); opacity: 0; }
+    }
+    @keyframes fireGlow {
+      0% { opacity: 0; }
+      50% { opacity: 0.7; }
+      100% { opacity: 0; }
+    }
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+    @keyframes inkSplash {
+      0% { transform: scale(0) rotate(0deg); opacity: 0.8; }
+      100% { transform: scale(1.5) rotate(15deg); opacity: 0; }
+    }
+    .ichimatsu {
+      background-image:
+        linear-gradient(45deg, rgba(245,240,232,0.03) 25%, transparent 25%),
+        linear-gradient(-45deg, rgba(245,240,232,0.03) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, rgba(245,240,232,0.03) 75%),
+        linear-gradient(-45deg, transparent 75%, rgba(245,240,232,0.03) 75%);
+      background-size: 20px 20px;
+      background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+    }
+  `;
+  document.head.appendChild(style);
+}
+
+// --- QUESTION DATA ---
+const UNITS = [
+  {
+    subject: "社会", subjectIcon: "🌍", subjectColor: T.jade,
+    id: "shakai-env",
+    name: "環境問題・公害",
+    textbook: "H54-01 / H54-02",
+    quizQuestions: [
+      { id:1, category:"記述の型", type:"order", question:"次の文を「原因→結果」の順に並べかえて、正しい記述解答を完成させましょう。", hint:"「〜ため、〜が起こる」の型を意識しよう", items:["海面が上昇するおそれがある","地球の気温が上がり","大気中の二酸化炭素が増えると","南極や北極の氷がとけて"], correctOrder:[2,1,3,0], explanation:"「大気中の二酸化炭素が増えると → 地球の気温が上がり → 南極や北極の氷がとけて → 海面が上昇するおそれがある」\n因果関係を順番に書くと、採点者に伝わりやすい記述になるよ！" },
+      { id:2, category:"記述の型", type:"order", question:"森林破壊の影響について、正しい因果関係の順に並べましょう。", hint:"原因から結果へ、順番に考えよう", items:["洪水や土砂くずれが起こりやすくなる","大規模な伐採が行われると","雨水をたくわえる力が失われ","森林が広い範囲で失われて"], correctOrder:[1,3,2,0], explanation:"「大規模な伐採が行われると → 森林が広い範囲で失われて → 雨水をたくわえる力が失われ → 洪水や土砂くずれが起こりやすくなる」\n記述では、途中の過程も書くと高得点！" },
+      { id:3, category:"用語の定義", type:"fill_blanks", question:"酸性雨の定義を完成させましょう。", hint:"「味」ではなく科学的な性質で説明しよう", template:"工場や自動車から出る（　①　）や（　②　）が大気中で変化し、（　③　）の強い雨となって降ること。", blanks:[{id:"①",correct:"硫黄酸化物",options:["二酸化炭素","硫黄酸化物","フロンガス","メタン"]},{id:"②",correct:"窒素酸化物",options:["酸素","窒素酸化物","水蒸気","オゾン"]},{id:"③",correct:"酸性",options:["酸性","アルカリ性","中性","酸味"]}], explanation:"酸性雨は「すっぱい雨」ではなく、硫黄酸化物や窒素酸化物が原因で酸性度が高くなった雨のこと。" },
+      { id:4, category:"知識の整理", type:"matching", question:"環境問題と、その直接の原因を正しく結びつけましょう。", hint:"それぞれの問題が「何が原因で起こるか」を考えよう", pairs:[{left:"オゾン層の破壊",right:"フロンガスの排出"},{left:"地球温暖化",right:"二酸化炭素の増加"},{left:"砂漠化",right:"過度な放牧や耕作"},{left:"酸性雨",right:"硫黄・窒素酸化物"},{left:"熱帯雨林の減少",right:"大規模な伐採"}], explanation:"5つの環境問題と原因のセットは、記述問題でもよく出るよ！" },
+      { id:5, category:"国際会議", type:"order", question:"環境に関する国際会議を、古い順に並べましょう。", hint:"1972年→1992年→2002年→2015年", items:["パリ協定（COP21）","国連人間環境会議（ストックホルム）","地球サミット（リオデジャネイロ）","環境開発サミット（ヨハネスブルグ）"], correctOrder:[1,2,3,0], explanation:"1972年 ストックホルム → 1992年 リオ → 2002年 ヨハネスブルグ → 2015年 パリ\nこの順番は頻出！" },
+      { id:6, category:"グラフ読み取り", type:"multi_choice", question:"温室効果ガス排出量（2022年）で最も多い国と割合は？", hint:"グラフBの数値を思い出そう", options:[{text:"アメリカ 約21.4%",correct:false},{text:"中国 約29.7%",correct:true},{text:"インド 約13.3%",correct:false},{text:"ロシア 約10.9%",correct:false}], explanation:"2022年時点で中国が約29.7%で世界最大。1990年の10.5%から大幅増加！" },
+      { id:7, category:"記述の型", type:"fill_blanks", question:"「発展途上国が排出量削減に積極的でない理由」の記述を完成させましょう。", hint:"経済発展と化石燃料の関係を考えよう", template:"発展途上国にとって、排出量の（　①　）をすると、（　②　）の利用が制限され、（　③　）が難しくなるおそれがあるから。", blanks:[{id:"①",correct:"規制",options:["規制","計算","報告","増加"]},{id:"②",correct:"化石燃料",options:["太陽光","化石燃料","原子力","水力"]},{id:"③",correct:"経済発展",options:["環境保護","経済発展","人口増加","食料生産"]}], explanation:"発展途上国は経済成長のために化石燃料が必要。この「立場の違い」を説明できると高得点！" },
+      { id:8, category:"条約・制度", type:"matching", question:"条約・制度と内容を結びつけましょう。", hint:"何を守るための条約かを考えよう", pairs:[{left:"ラムサール条約",right:"湿地・水鳥の生息地の保全"},{left:"世界遺産条約",right:"自然遺産・文化遺産の登録と保護"},{left:"ワシントン条約",right:"絶滅のおそれのある動植物の取引規制"},{left:"ナショナルトラスト",right:"市民による自然・歴史環境の保護運動"}], explanation:"ラムサール（湿地）、世界遺産（ユネスコ）、ワシントン（動植物取引）、ナショナルトラスト（市民運動）のセットで覚えよう！" },
+      { id:9, category:"記述の型", type:"multi_select", question:"「CO₂削減のために家庭でできること」として記述に書いてOKなものをすべて選びましょう。", hint:"「CO₂を減らす」に直接つながるものを選ぼう", options:[{text:"電気をこまめに消す",correct:true},{text:"公共交通機関を利用する",correct:true},{text:"ゴミの分別をする",correct:false},{text:"冷暖房の設定温度を控えめに",correct:true},{text:"水を出しっぱなしにしない",correct:false}], explanation:"CO₂削減に直接つながるのは「エネルギー使用を減らす」こと。問われていることに合った答えを書こう！" },
+      { id:10, category:"記述の型", type:"fill_blanks", question:"「18世紀後半以降にCO₂が急増した理由」の記述を完成させましょう。", hint:"18世紀後半に何が始まった？", template:"18世紀後半に（　①　）が起こり、（　②　）が大量に使われるようになったから。", blanks:[{id:"①",correct:"産業革命",options:["産業革命","フランス革命","明治維新","市民革命"]},{id:"②",correct:"化石燃料",options:["化石燃料","原子力","木材","太陽光"]}], explanation:"産業革命 → 化石燃料の大量消費 → CO₂急増。「産業革命」は必ず書くキーワード！" },
+    ],
+    flashDecks: [
+      { name:"環境問題と原因", icon:"🌍", color:T.jade, cards:[
+        {q:"オゾン層の破壊の原因は？",a:"フロンガス"},{q:"地球温暖化の主な原因は？",a:"二酸化炭素（CO₂）"},{q:"酸性雨の原因物質は？（2つ）",a:"硫黄酸化物と窒素酸化物"},{q:"砂漠化の主な原因は？",a:"過放牧・過度な耕作・過伐採"},{q:"熱帯雨林減少の主な原因は？",a:"大規模な伐採"},
+      ]},
+      { name:"国際会議", icon:"🏛️", color:"#1565C0", cards:[
+        {q:"1972年の国連人間環境会議はどこ？",a:"ストックホルム（スウェーデン）"},{q:"1992年の地球サミットはどこ？",a:"リオデジャネイロ（ブラジル）"},{q:"2002年の環境開発サミットはどこ？",a:"ヨハネスブルグ（南アフリカ）"},{q:"2015年のCOP21で採択されたのは？",a:"パリ協定"},{q:"1997年に京都で決まったことは？",a:"温室効果ガス削減目標（京都議定書）"},
+      ]},
+      { name:"条約・制度", icon:"📜", color:T.wisteria, cards:[
+        {q:"ラムサール条約は何を守る？",a:"重要な湿地と水鳥の生息地"},{q:"世界遺産条約を進める国連機関は？",a:"ユネスコ"},{q:"ワシントン条約は何を規制？",a:"絶滅のおそれのある野生動植物の国際取引"},{q:"ナショナルトラストとは？",a:"市民が自然や歴史的環境を買い取って保護する運動"},
+      ]},
+      { name:"自然遺産", icon:"🏔️", color:"#00695C", cards:[
+        {q:"白神山地はどこ？登録年は？",a:"青森県／秋田県 1993年"},{q:"屋久島はどこ？登録年は？",a:"鹿児島県 1993年"},{q:"知床はどこ？登録年は？",a:"北海道 2005年"},{q:"小笠原諸島はどこ？登録年は？",a:"東京都 2011年"},{q:"日本最大の湿原は？",a:"釧路湿原（北海道）"},
+      ]},
+      { name:"四大公害", icon:"⚠️", color:T.crimson, cards:[
+        {q:"水俣病の原因物質は？",a:"有機水銀（メチル水銀）"},{q:"水俣病の地域は？",a:"熊本県水俣市"},{q:"四日市ぜんそくの原因は？",a:"亜硫酸ガス（大気汚染）"},{q:"イタイイタイ病の原因物質は？",a:"カドミウム"},{q:"イタイイタイ病の川は？",a:"神通川（富山県）"},{q:"新潟水俣病の川は？",a:"阿賀野川（新潟県）"},{q:"1967年に制定された法律は？",a:"公害対策基本法"},
+      ]},
+      { name:"データ・数値", icon:"📊", color:T.dunno, cards:[
+        {q:"2022年の排出量1位の国と割合は？",a:"中国 約29.7%"},{q:"2022年の日本の排出割合は？",a:"約2.6%"},{q:"CO₂が急増したのは何世紀後半？理由は？",a:"18世紀後半・産業革命で化石燃料を大量消費"},{q:"2022年の世界の排出量合計は？",a:"約384億トン"},
+      ]},
+    ],
+  }
+];
+
+// --- UTILS ---
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
+  return a;
+}
+
+// --- TITLE SYSTEM ---
+const KATA_NAMES = ["壱ノ型","弐ノ型","参ノ型","肆ノ型","伍ノ型","陸ノ型","漆ノ型","捌ノ型","玖ノ型","拾ノ型"];
+function getTitle(correct, total, dunno) {
+  const rate = total > 0 ? correct / total : 0;
+  if (correct === total && dunno === 0) return { label:"柱", icon:"🏆", color:T.gold, msg:"全問正解！最高位！" };
+  if (rate >= 0.8) return { label:"甲", icon:"⚔️", color:T.crimson, msg:"見事な成績！" };
+  if (rate >= 0.6) return { label:"丙", icon:"🗡️", color:T.text, msg:"いい調子！" };
+  return { label:"修行中", icon:"📖", color:T.textDim, msg:"次こそ！くり返しが力になる！" };
+}
+
+// --- SLASH EFFECT COMPONENT ---
+function SlashEffect({ show, streak }) {
+  if (!show) return null;
+  return (
+    <div style={{ position:"fixed", inset:0, pointerEvents:"none", zIndex:9999 }}>
+      <div style={{
+        position:"absolute", top:"50%", left:"50%",
+        width:"150vw", height:4,
+        background:`linear-gradient(90deg, transparent, ${T.crimson}, ${T.gold}, ${T.crimson}, transparent)`,
+        animation:"slashIn 0.5s ease-out forwards",
+        transformOrigin:"center",
+      }}/>
+      {streak > 0 && (
+        <div style={{
+          position:"absolute", top:"40%", left:"50%", transform:"translateX(-50%)",
+          fontFamily:"'Zen Maru Gothic',sans-serif", fontSize: streak >= 5 ? 36 : 28,
+          fontWeight:900, color: streak >= 5 ? T.gold : T.crimson,
+          textShadow:`0 0 20px ${streak >= 5 ? T.gold : T.crimson}66`,
+          animation:"fadeUp 1.2s ease-out forwards",
+          whiteSpace:"nowrap",
+        }}>
+          {KATA_NAMES[Math.min(streak - 1, 9)]}
+          {streak >= 5 && " — 集中！"}
+        </div>
+      )}
+      {streak >= 3 && (
+        <div style={{
+          position:"absolute", inset:0,
+          background:`radial-gradient(ellipse at bottom, ${T.crimson}33 0%, transparent 60%)`,
+          animation:"fireGlow 1s ease-out forwards",
+        }}/>
+      )}
+    </div>
+  );
+}
+
+// --- SHARED BTN ---
+const btnPrimary = {
+  width:"100%", padding:"14px", borderRadius:12, border:"none",
+  background:`linear-gradient(135deg, ${T.crimson}, #8B0000)`,
+  color:T.white, fontSize:17, fontWeight:700, cursor:"pointer",
+  fontFamily:"'Zen Maru Gothic',sans-serif", marginTop:8,
+};
+const btnDunno = {
+  width:"100%", padding:"12px", borderRadius:12,
+  border:`2px dashed ${T.textMuted}`, background:"transparent",
+  color:T.textDim, fontSize:15, fontWeight:700, cursor:"pointer",
+  fontFamily:"'Zen Maru Gothic',sans-serif", marginTop:6,
+};
+const cardBase = {
+  background:T.smoke, borderRadius:20, border:`1px solid rgba(245,240,232,0.08)`,
+  overflow:"hidden",
+};
+
+// ============================================================
+//  QUESTION COMPONENTS (with wafuu theme)
+// ============================================================
+
+function OrderQ({ q, onAnswer }) {
+  const [items, setItems] = useState([]);
+  const [dragIdx, setDragIdx] = useState(null);
+  const [done, setDone] = useState(false);
+  useEffect(() => { setItems(shuffle(q.items.map((_,i)=>i))); setDone(false); }, [q.id]);
+  const move = (f,t) => { if(done) return; const n=[...items]; const [m]=n.splice(f,1); n.splice(t,0,m); setItems(n); };
+  const check = () => { setDone(true); onAnswer(items.every((v,i)=>v===q.correctOrder[i])?"correct":"wrong"); };
+  const dunno = () => { setItems([...q.correctOrder]); setDone(true); onAnswer("dunno"); };
+  return (<div>
+    {items.map((idx,pos) => (
+      <div key={idx} draggable={!done} onDragStart={()=>setDragIdx(pos)} onDragOver={e=>e.preventDefault()} onDrop={()=>{move(dragIdx,pos);setDragIdx(null);}}
+        style={{ padding:"14px 16px", margin:"8px 0", background:done?(q.correctOrder[pos]===idx?`${T.correct}22`:`${T.wrong}22`):dragIdx===pos?`${T.wisteria}22`:T.smoke,
+          border:`2px solid ${done?(q.correctOrder[pos]===idx?T.correct:T.wrong):T.textMuted}`, borderRadius:12, cursor:done?"default":"grab",
+          fontSize:16, fontFamily:"'Noto Sans JP',sans-serif", color:T.text, display:"flex", alignItems:"center", gap:12, userSelect:"none" }}>
+        <span style={{ width:28,height:28,borderRadius:"50%",background:done?(q.correctOrder[pos]===idx?T.correct:T.wrong):T.textMuted,
+          color:T.bg,display:"flex",alignItems:"center",justifyContent:"center",fontSize:14,fontWeight:700,flexShrink:0 }}>{pos+1}</span>
+        <span>{q.items[idx]}</span>
+        {!done && <span style={{marginLeft:"auto",color:T.textMuted,fontSize:20}}>☰</span>}
+      </div>
+    ))}
+    {!done && <div style={{display:"flex",gap:6,flexWrap:"wrap",marginBottom:12,marginTop:8}}>
+      {items.map((_,pos)=>(<button key={pos} onClick={()=>{if(pos<items.length-1)move(pos,pos+1);}}
+        style={{padding:"6px 14px",borderRadius:8,border:`1px solid ${T.textMuted}`,background:"transparent",color:T.textDim,cursor:"pointer",fontSize:13,fontFamily:"'Noto Sans JP',sans-serif"}}>{pos+1}↓</button>))}
+    </div>}
+    {!done && <><button onClick={check} style={btnPrimary}>答え合わせ</button><button onClick={dunno} style={btnDunno}>🤔 わからない（正解を見る）</button></>}
+  </div>);
+}
+
+function FillQ({ q, onAnswer }) {
+  const [ans, setAns] = useState({});
+  const [done, setDone] = useState(false);
+  useEffect(() => { setAns({}); setDone(false); }, [q.id]);
+  const sel = (bid,v) => { if(!done) setAns(p=>({...p,[bid]:v})); };
+  const check = () => { setDone(true); onAnswer(q.blanks.every(b=>ans[b.id]===b.correct)?"correct":"wrong"); };
+  const dunno = () => { const c={}; q.blanks.forEach(b=>{c[b.id]=b.correct;}); setAns(c); setDone(true); onAnswer("dunno"); };
+  const parts = q.template.split(/（　[①②③④⑤]　）/);
+  const matches = q.template.match(/（　[①②③④⑤]　）/g)||[];
+  return (<div>
+    <div style={{background:T.smoke,borderRadius:12,padding:20,fontSize:16,lineHeight:2,marginBottom:16,fontFamily:"'Noto Sans JP',sans-serif",color:T.text,border:`1px solid ${T.textMuted}`}}>
+      {parts.map((part,i)=>(<span key={i}>{part}{i<matches.length&&(
+        <span style={{display:"inline-block",padding:"2px 8px",margin:"2px 4px",borderRadius:8,
+          border:`2px solid ${done?(ans[q.blanks[i].id]===q.blanks[i].correct?T.correct:T.wrong):T.dunno}`,
+          background:done?(ans[q.blanks[i].id]===q.blanks[i].correct?`${T.correct}22`:`${T.wrong}22`):`${T.dunno}22`,
+          fontWeight:700,minWidth:70,textAlign:"center"}}>{ans[q.blanks[i].id]||q.blanks[i].id}</span>
+      )}</span>))}
+    </div>
+    {q.blanks.map(b=>(<div key={b.id} style={{marginBottom:14}}>
+      <div style={{fontSize:13,fontWeight:700,marginBottom:6,color:T.textDim,fontFamily:"'Noto Sans JP',sans-serif"}}>{b.id} を選ぼう：</div>
+      <div style={{display:"flex",gap:8,flexWrap:"wrap"}}>{b.options.map(o=>(
+        <button key={o} onClick={()=>sel(b.id,o)} disabled={done} style={{
+          padding:"8px 16px",borderRadius:10,border:`2px solid ${ans[b.id]===o?(done?o===b.correct?T.correct:T.wrong:T.dunno):T.textMuted}`,
+          background:ans[b.id]===o?(done?o===b.correct?`${T.correct}22`:`${T.wrong}22`:`${T.dunno}22`):"transparent",
+          color:T.text,cursor:done?"default":"pointer",fontSize:15,fontFamily:"'Noto Sans JP',sans-serif",fontWeight:ans[b.id]===o?700:400}}>{o}</button>
+      ))}</div>
+    </div>))}
+    {!done && <><button onClick={check} disabled={Object.keys(ans).length<q.blanks.length} style={{...btnPrimary,opacity:Object.keys(ans).length<q.blanks.length?0.5:1}}>答え合わせ</button><button onClick={dunno} style={btnDunno}>🤔 わからない（正解を見る）</button></>}
+  </div>);
+}
+
+function MatchQ({ q, onAnswer }) {
+  const [sR, setSR] = useState([]);
+  const [sel, setSel] = useState({});
+  const [act, setAct] = useState(null);
+  const [done, setDone] = useState(false);
+  useEffect(() => { setSR(shuffle(q.pairs.map(p=>p.right))); setSel({}); setAct(null); setDone(false); }, [q.id]);
+  const check = () => { setDone(true); onAnswer(q.pairs.every(p=>sel[p.left]===p.right)?"correct":"wrong"); };
+  const dunno = () => { const c={}; q.pairs.forEach(p=>{c[p.left]=p.right;}); setSel(c); setDone(true); onAnswer("dunno"); };
+  return (<div>
+    <p style={{fontSize:13,color:T.textDim,margin:"0 0 8px",fontFamily:"'Noto Sans JP',sans-serif"}}>左をタップ → 右をタップ</p>
+    <div style={{display:"grid",gridTemplateColumns:"1fr 1fr",gap:10,marginBottom:16}}>
+      <div>{q.pairs.map(p=>(<div key={p.left} onClick={()=>{if(!done)setAct(p.left);}} style={{
+        padding:"11px 12px",margin:"5px 0",borderRadius:10,fontSize:13,fontFamily:"'Noto Sans JP',sans-serif",fontWeight:600,color:T.text,cursor:done?"default":"pointer",
+        border:`2px solid ${act===p.left?T.dunno:done?sel[p.left]===p.right?T.correct:T.wrong:sel[p.left]?"#90CAF9":T.textMuted}`,
+        background:act===p.left?`${T.dunno}22`:done?sel[p.left]===p.right?`${T.correct}22`:`${T.wrong}22`:sel[p.left]?"rgba(144,202,249,0.1)":"transparent"
+      }}>{p.left}</div>))}</div>
+      <div>{sR.map(r=>{const used=Object.values(sel).includes(r);return(
+        <div key={r} onClick={()=>{if(done||!act)return;setSel(p=>({...p,[act]:r}));setAct(null);}} style={{
+          padding:"11px 12px",margin:"5px 0",borderRadius:10,fontSize:13,fontFamily:"'Noto Sans JP',sans-serif",color:T.text,
+          cursor:done||!act?"default":"pointer",border:`2px solid ${used?"#90CAF9":T.textMuted}`,
+          background:used?"rgba(144,202,249,0.1)":"transparent",opacity:used&&!done?0.6:1
+        }}>{r}</div>
+      );})}</div>
+    </div>
+    {!done && <><button onClick={check} disabled={Object.keys(sel).length<q.pairs.length} style={{...btnPrimary,opacity:Object.keys(sel).length<q.pairs.length?0.5:1}}>答え合わせ</button><button onClick={dunno} style={btnDunno}>🤔 わからない（正解を見る）</button></>}
+  </div>);
+}
+
+function McQ({ q, onAnswer }) {
+  const [sel, setSel] = useState(null);
+  const [done, setDone] = useState(false);
+  useEffect(() => { setSel(null); setDone(false); }, [q.id]);
+  const check = () => { setDone(true); onAnswer(q.options[sel].correct?"correct":"wrong"); };
+  const dunno = () => { setSel(q.options.findIndex(o=>o.correct)); setDone(true); onAnswer("dunno"); };
+  return (<div>
+    {q.options.map((o,i)=>(<div key={i} onClick={()=>{if(!done)setSel(i);}} style={{
+      padding:"14px 16px",margin:"8px 0",borderRadius:12,fontSize:15,fontFamily:"'Noto Sans JP',sans-serif",color:T.text,cursor:done?"default":"pointer",
+      border:`2px solid ${sel===i?(done?o.correct?T.correct:T.wrong:T.dunno):done&&o.correct?T.correct:T.textMuted}`,
+      background:sel===i?(done?o.correct?`${T.correct}22`:`${T.wrong}22`:`${T.dunno}22`):done&&o.correct?`${T.correct}22`:"transparent"
+    }}>{o.text}</div>))}
+    {!done && <><button onClick={check} disabled={sel===null} style={{...btnPrimary,opacity:sel===null?0.5:1}}>答え合わせ</button><button onClick={dunno} style={btnDunno}>🤔 わからない（正解を見る）</button></>}
+  </div>);
+}
+
+function MsQ({ q, onAnswer }) {
+  const [sel, setSel] = useState(new Set());
+  const [done, setDone] = useState(false);
+  useEffect(() => { setSel(new Set()); setDone(false); }, [q.id]);
+  const tog = i => { if(done) return; setSel(p=>{const n=new Set(p);n.has(i)?n.delete(i):n.add(i);return n;}); };
+  const check = () => { setDone(true); onAnswer(q.options.every((o,i)=>o.correct===sel.has(i))?"correct":"wrong"); };
+  const dunno = () => { const c=new Set(); q.options.forEach((o,i)=>{if(o.correct)c.add(i);}); setSel(c); setDone(true); onAnswer("dunno"); };
+  return (<div>
+    <p style={{fontSize:13,color:T.textDim,marginBottom:8,fontFamily:"'Noto Sans JP',sans-serif"}}>※ あてはまるものをすべてタップ</p>
+    {q.options.map((o,i)=>(<div key={i} onClick={()=>tog(i)} style={{
+      padding:"14px 16px",margin:"8px 0",borderRadius:12,fontSize:15,fontFamily:"'Noto Sans JP',sans-serif",color:T.text,
+      cursor:done?"default":"pointer",display:"flex",alignItems:"center",gap:10,
+      border:`2px solid ${done?o.correct?T.correct:sel.has(i)?T.wrong:T.textMuted:sel.has(i)?T.dunno:T.textMuted}`,
+      background:done?o.correct?`${T.correct}22`:sel.has(i)?`${T.wrong}22`:"transparent":sel.has(i)?`${T.dunno}22`:"transparent"
+    }}>
+      <span style={{width:22,height:22,borderRadius:6,border:`2px solid ${sel.has(i)?T.dunno:T.textMuted}`,background:sel.has(i)?T.dunno:"transparent",
+        display:"flex",alignItems:"center",justifyContent:"center",color:T.bg,fontSize:14,fontWeight:700,flexShrink:0}}>{sel.has(i)?"✓":""}</span>
+      {o.text}
+    </div>))}
+    {!done && <><button onClick={check} style={btnPrimary}>答え合わせ</button><button onClick={dunno} style={btnDunno}>🤔 わからない（正解を見る）</button></>}
+  </div>);
+}
+
+// ============================================================
+//  QUIZ SCREEN
+// ============================================================
+function QuizScreen({ unit, onBack, email }) {
+  const [idx, setIdx] = useState(0);
+  const [results, setResults] = useState([]);
+  const [showExp, setShowExp] = useState(false);
+  const [done, setDone] = useState(false);
+  const [streak, setStreak] = useState(0);
+  const [showSlash, setShowSlash] = useState(false);
+  const [emailSent, setEmailSent] = useState(false);
+  const topRef = useRef(null);
+
+  const qs = unit.quizQuestions;
+  const q = qs[idx];
+  const cc = results.filter(r=>r.result==="correct").length;
+  const wc = results.filter(r=>r.result==="wrong").length;
+  const dc = results.filter(r=>r.result==="dunno").length;
+
+  const handleAnswer = (result) => {
+    setResults(p=>[...p,{id:q.id,result}]);
+    if (result==="correct") {
+      const newStreak = streak + 1;
+      setStreak(newStreak);
+      setShowSlash(true);
+      setTimeout(()=>setShowSlash(false), 1200);
+    } else { setStreak(0); }
+    setShowExp(true);
+  };
+
+  const next = () => {
+    if (idx+1>=qs.length) { setDone(true); }
+    else { setIdx(i=>i+1); setShowExp(false); }
+    topRef.current?.scrollIntoView({behavior:"smooth"});
+  };
+
+  const title = getTitle(cc, qs.length, dc);
+  const lastR = results.length>0?results[results.length-1]?.result:null;
+  const honestBadge = dc > 0;
+
+  const sendEmail = () => {
+    if (!email) return;
+    const wrongList = results.map((r,i)=>r.result==="wrong"?`  ❌ Q${i+1}: ${qs[i].category}`:null).filter(Boolean).join("\n");
+    const dunnoList = results.map((r,i)=>r.result==="dunno"?`  🤔 Q${i+1}: ${qs[i].category}`:null).filter(Boolean).join("\n");
+    const body = `📅 ${new Date().toLocaleDateString("ja-JP")}\n📚 ${unit.subject} ＞ ${unit.name}\n\n${title.icon} 称号: ${title.label}\n\n⭕ 正解: ${cc}問\n❌ まちがい: ${wc}問\n🤔 わからない: ${dc}問\n\n${wrongList?`❌まちがえた問題:\n${wrongList}\n`:""}\n${dunnoList?`🤔わからなかった問題:\n${dunnoList}\n`:""}`;
+    const subj = encodeURIComponent(`[ゆいか学習] ${title.icon}${title.label} ${unit.subject}・${unit.name}`);
+    window.open(`mailto:${encodeURIComponent(email)}?subject=${subj}&body=${encodeURIComponent(body)}`);
+    setEmailSent(true);
+  };
+
+  if (done) {
+    return (<Wrapper><div ref={topRef}/>
+      <div style={{...cardBase,textAlign:"center",padding:"40px 20px",position:"relative"}} className="ichimatsu">
+        {cc===qs.length&&dc===0 && <div style={{position:"absolute",inset:0,background:`radial-gradient(circle at center, ${T.gold}22 0%, transparent 60%)`,pointerEvents:"none"}}/>}
+        <div style={{fontSize:64,marginBottom:8}}>{title.icon}</div>
+        <h2 style={{fontSize:28,fontWeight:900,margin:"8px 0",color:title.color,fontFamily:"'Zen Maru Gothic',sans-serif",textShadow:title.color===T.gold?`0 0 20px ${T.gold}66`:"none"}}>{title.label}</h2>
+        <p style={{fontSize:15,color:T.textDim,margin:"4px 0 20px"}}>{title.msg}</p>
+        {honestBadge && <div style={{display:"inline-block",background:`${T.wisteria}22`,border:`1px solid ${T.wisteria}`,borderRadius:20,padding:"6px 16px",fontSize:13,color:T.wisteria,fontWeight:700,marginBottom:16}}>🌸 正直者の呼吸</div>}
+        <div style={{display:"flex",justifyContent:"center",gap:20,margin:"20px 0"}}>
+          <div><div style={{fontSize:36,fontWeight:900,color:T.correct}}>{cc}</div><div style={{fontSize:12,color:T.textDim}}>⭕正解</div></div>
+          <div><div style={{fontSize:36,fontWeight:900,color:T.wrong}}>{wc}</div><div style={{fontSize:12,color:T.textDim}}>❌まちがい</div></div>
+          <div><div style={{fontSize:36,fontWeight:900,color:T.dunno}}>{dc}</div><div style={{fontSize:12,color:T.textDim}}>🤔わからない</div></div>
+        </div>
+        {wc>0&&<div style={{textAlign:"left",background:`${T.wrong}11`,borderRadius:12,padding:14,marginBottom:10,border:`1px solid ${T.wrong}33`}}>
+          <p style={{fontWeight:700,fontSize:13,color:T.wrong,marginBottom:6}}>❌ まちがえた問題：</p>
+          {results.map((r,i)=>r.result==="wrong"?<div key={i} style={{fontSize:13,color:T.textDim,padding:"3px 0"}}>• Q{i+1}: {qs[i].category}</div>:null)}
+        </div>}
+        {dc>0&&<div style={{textAlign:"left",background:`${T.dunno}11`,borderRadius:12,padding:14,marginBottom:16,border:`1px solid ${T.dunno}33`}}>
+          <p style={{fontWeight:700,fontSize:13,color:T.dunno,marginBottom:6}}>🤔 わからなかった → 暗記カードで復習！</p>
+          {results.map((r,i)=>r.result==="dunno"?<div key={i} style={{fontSize:13,color:T.textDim,padding:"3px 0"}}>• Q{i+1}: {qs[i].category}</div>:null)}
+        </div>}
+        {email ? (
+          emailSent
+            ? <div style={{...btnPrimary,background:`linear-gradient(135deg, ${T.jade}, #1B5E20)`,marginBottom:8,textAlign:"center",opacity:0.7,cursor:"default"}}>✅ メール送信済み</div>
+            : <button onClick={sendEmail} style={{...btnPrimary,background:`linear-gradient(135deg, ${T.jade}, #1B5E20)`,marginBottom:8}}>📧 結果を保護者に送る</button>
+        ) : (
+          <div style={{fontSize:12,color:T.textDim,textAlign:"center",marginBottom:8,padding:8}}>⚙️ 設定からメールアドレスを登録すると、結果を自動送信できます</div>
+        )}
+        <button onClick={()=>{setIdx(0);setResults([]);setShowExp(false);setDone(false);setStreak(0);setEmailSent(false);}} style={{...btnPrimary,background:`linear-gradient(135deg, ${T.crimson}, #8B0000)`}}>もう一度チャレンジ</button>
+        <button onClick={onBack} style={{...btnDunno,marginTop:12}}>ホームに戻る</button>
+      </div>
+    </Wrapper>);
+  }
+
+  return (<Wrapper>
+    <SlashEffect show={showSlash} streak={streak}/>
+    <div ref={topRef}/>
+    <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:16}}>
+      <button onClick={onBack} style={{background:T.smoke,border:"none",borderRadius:10,padding:"8px 14px",color:T.textDim,fontSize:14,cursor:"pointer",fontFamily:"'Noto Sans JP',sans-serif"}}>← 戻る</button>
+      <div style={{display:"flex",gap:8,alignItems:"center"}}>
+        <span style={{fontSize:12,fontWeight:700}}><span style={{color:T.correct}}>⭕{cc}</span> <span style={{color:T.wrong}}>❌{wc}</span> <span style={{color:T.dunno}}>🤔{dc}</span></span>
+        <span style={{background:T.smoke,borderRadius:10,padding:"6px 12px",fontSize:14,fontWeight:700,color:T.crimson}}>{idx+1}/{qs.length}</span>
+      </div>
+    </div>
+    <div style={{height:4,borderRadius:2,background:T.smoke,marginBottom:20,overflow:"hidden"}}>
+      <div style={{height:"100%",borderRadius:2,background:`linear-gradient(90deg, ${T.crimson}, ${T.gold})`,width:`${(idx/qs.length)*100}%`,transition:"width 0.4s"}}/>
+    </div>
+    {streak >= 3 && <div style={{textAlign:"center",fontSize:13,color:T.crimson,fontWeight:700,marginBottom:8,fontFamily:"'Zen Maru Gothic',sans-serif"}}>🔥 {streak}連続正解中！</div>}
+    <div style={cardBase}>
+      <div style={{background:`${T.crimson}11`,borderBottom:`2px solid ${T.crimson}33`,padding:"10px 20px",display:"flex",alignItems:"center",gap:8}} className="ichimatsu">
+        <span style={{background:T.crimson,color:T.white,borderRadius:6,padding:"3px 10px",fontSize:12,fontWeight:700}}>{q.category}</span>
+        <span style={{fontSize:12,color:T.textDim,fontWeight:600}}>Q{idx+1}</span>
+      </div>
+      <div style={{padding:20}}>
+        <h2 style={{fontSize:17,fontWeight:700,lineHeight:1.6,color:T.text,margin:"0 0 8px",fontFamily:"'Zen Maru Gothic',sans-serif"}}>{q.question}</h2>
+        <div style={{fontSize:13,color:T.dunno,background:`${T.dunno}11`,borderRadius:8,padding:"8px 12px",marginBottom:16,border:`1px solid ${T.dunno}33`}}>💡 {q.hint}</div>
+        {q.type==="order"&&<OrderQ q={q} onAnswer={handleAnswer}/>}
+        {q.type==="fill_blanks"&&<FillQ q={q} onAnswer={handleAnswer}/>}
+        {q.type==="matching"&&<MatchQ q={q} onAnswer={handleAnswer}/>}
+        {q.type==="multi_choice"&&<McQ q={q} onAnswer={handleAnswer}/>}
+        {q.type==="multi_select"&&<MsQ q={q} onAnswer={handleAnswer}/>}
+        {showExp&&(<div style={{marginTop:20,background:lastR==="correct"?`${T.correct}11`:lastR==="dunno"?`${T.dunno}11`:`${T.wrong}11`,borderRadius:14,padding:18,border:`1px solid ${lastR==="correct"?`${T.correct}33`:lastR==="dunno"?`${T.dunno}33`:`${T.wrong}33`}`}}>
+          <div style={{fontSize:16,fontWeight:700,marginBottom:8,color:lastR==="correct"?T.correct:lastR==="dunno"?T.dunno:T.wrong,fontFamily:"'Zen Maru Gothic',sans-serif"}}>
+            {lastR==="correct"?"⭕ 正解！":lastR==="dunno"?"🤔 わからなかった → 覚えよう！":"❌ おしい！"}
+          </div>
+          <p style={{fontSize:14,lineHeight:1.8,color:T.text,whiteSpace:"pre-line",margin:0}}>{q.explanation}</p>
+        </div>)}
+        {showExp&&<button onClick={next} style={{...btnPrimary,marginTop:16}}>{idx+1>=qs.length?"結果を見る →":"次の問題へ →"}</button>}
+      </div>
+    </div>
+  </Wrapper>);
+}
+
+// ============================================================
+//  FLASHCARD SCREEN
+// ============================================================
+function FlashScreen({ unit, onBack }) {
+  const [deckIdx, setDeckIdx] = useState(null);
+  const [cards, setCards] = useState([]);
+  const [ci, setCi] = useState(0);
+  const [flipped, setFlipped] = useState(false);
+  const [res, setRes] = useState({c:0,w:0});
+  const [wrongs, setWrongs] = useState([]);
+  const [phase, setPhase] = useState("select");
+  const [retry, setRetry] = useState(0);
+
+  const startDeck = (di) => {
+    const d = di===-1 ? unit.flashDecks.flatMap(d=>d.cards) : unit.flashDecks[di].cards;
+    setCards(shuffle([...d])); setCi(0); setFlipped(false); setRes({c:0,w:0}); setWrongs([]); setRetry(0);
+    setDeckIdx(di); setPhase("play");
+  };
+
+  const handleRes = (knew) => {
+    if(knew) setRes(p=>({...p,c:p.c+1}));
+    else { setRes(p=>({...p,w:p.w+1})); setWrongs(p=>[...p,cards[ci]]); }
+    if(ci+1>=cards.length) {
+      if(!knew && wrongs.length===0) { setTimeout(()=>{setCards(shuffle([cards[ci]]));setCi(0);setFlipped(false);setRes({c:0,w:0});setWrongs([]);setRetry(r=>r+1);setPhase("play");},300); }
+      else { const finalW = knew ? [...wrongs] : [...wrongs,cards[ci]]; if(finalW.length>0){setTimeout(()=>{setCards(shuffle(finalW));setCi(0);setFlipped(false);setRes({c:0,w:0});setWrongs([]);setRetry(r=>r+1);setPhase("play");},300);} else setPhase("done"); }
+    } else { setCi(i=>i+1); setFlipped(false); }
+  };
+
+  if (phase==="select") return (
+    <Wrapper>
+      <button onClick={onBack} style={{background:T.smoke,border:"none",borderRadius:10,padding:"8px 14px",color:T.textDim,fontSize:14,cursor:"pointer",fontFamily:"'Noto Sans JP',sans-serif",marginBottom:20}}>← 戻る</button>
+      <div style={{textAlign:"center",marginBottom:28}}>
+        <div style={{fontSize:42,marginBottom:4}}>🧠</div>
+        <h2 style={{fontSize:22,fontWeight:900,color:T.text,fontFamily:"'Zen Maru Gothic',sans-serif",margin:"0 0 4px"}}>暗記トレーニング</h2>
+        <p style={{fontSize:13,color:T.textDim,margin:0}}>{unit.name}</p>
+      </div>
+      <button onClick={()=>startDeck(-1)} style={{...btnPrimary,marginBottom:20,display:"flex",alignItems:"center",justifyContent:"center",gap:10}}>
+        <span style={{fontSize:20}}>🔥</span> 全{unit.flashDecks.reduce((s,d)=>s+d.cards.length,0)}問チャレンジ
+      </button>
+      <p style={{fontSize:12,color:T.textMuted,textAlign:"center",marginBottom:12}}>または分野を選ぶ</p>
+      {unit.flashDecks.map((d,i)=>(
+        <button key={i} onClick={()=>startDeck(i)} style={{width:"100%",padding:"14px 18px",borderRadius:14,marginBottom:8,border:`1px solid ${T.textMuted}`,background:T.smoke,cursor:"pointer",fontFamily:"'Noto Sans JP',sans-serif",display:"flex",alignItems:"center",gap:14,textAlign:"left"}}>
+          <span style={{fontSize:26,width:44,height:44,display:"flex",alignItems:"center",justifyContent:"center",background:`${d.color}22`,borderRadius:12}}>{d.icon}</span>
+          <div><div style={{fontSize:15,fontWeight:700,color:T.text}}>{d.name}</div><div style={{fontSize:12,color:T.textDim,marginTop:2}}>{d.cards.length}問</div></div>
+          <span style={{marginLeft:"auto",color:T.textMuted,fontSize:18}}>→</span>
+        </button>
+      ))}
+    </Wrapper>
+  );
+
+  if (phase==="done") return (
+    <Wrapper>
+      <div style={{...cardBase,textAlign:"center",padding:"50px 20px",marginTop:30}} className="ichimatsu">
+        <div style={{fontSize:64,marginBottom:12}}>🎊</div>
+        <h2 style={{fontSize:24,fontWeight:900,color:T.gold,fontFamily:"'Zen Maru Gothic',sans-serif",textShadow:`0 0 20px ${T.gold}44`}}>全集中・暗記完了！</h2>
+        {retry>0&&<p style={{fontSize:14,color:T.textDim,margin:"8px 0"}}>リトライ {retry}回で完全制覇</p>}
+        <div style={{display:"flex",gap:12,justifyContent:"center",marginTop:24}}>
+          <button onClick={onBack} style={{padding:"14px 28px",borderRadius:12,border:`1px solid ${T.textMuted}`,background:"transparent",color:T.text,fontSize:15,fontWeight:700,cursor:"pointer",fontFamily:"'Zen Maru Gothic',sans-serif"}}>戻る</button>
+          <button onClick={()=>startDeck(deckIdx)} style={{padding:"14px 28px",borderRadius:12,border:"none",background:T.crimson,color:T.white,fontSize:15,fontWeight:700,cursor:"pointer",fontFamily:"'Zen Maru Gothic',sans-serif"}}>もう1回</button>
+        </div>
+      </div>
+    </Wrapper>
+  );
+
+  const card = cards[ci];
+  return (<Wrapper>
+    <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:16}}>
+      <button onClick={()=>setPhase("select")} style={{background:T.smoke,border:"none",borderRadius:10,padding:"8px 14px",color:T.textDim,fontSize:14,cursor:"pointer",fontFamily:"'Noto Sans JP',sans-serif"}}>← 戻る</button>
+      <span style={{background:T.smoke,borderRadius:10,padding:"6px 12px",fontSize:14,fontWeight:700,color:T.text}}>{ci+1}/{cards.length}</span>
+    </div>
+    {retry>0&&<div style={{textAlign:"center",marginBottom:8}}><span style={{background:T.wrong,color:T.white,borderRadius:6,padding:"2px 10px",fontSize:11,fontWeight:700}}>リトライ {retry}</span></div>}
+    <div style={{display:"flex",justifyContent:"center",gap:20,marginBottom:16}}>
+      <div style={{textAlign:"center"}}><div style={{fontSize:22,fontWeight:900,color:T.correct}}>{res.c}</div><div style={{fontSize:11,color:T.textDim}}>覚えてた</div></div>
+      <div style={{textAlign:"center"}}><div style={{fontSize:22,fontWeight:900,color:T.wrong}}>{res.w}</div><div style={{fontSize:11,color:T.textDim}}>もう1回</div></div>
+    </div>
+    <div onClick={!flipped?()=>setFlipped(true):undefined} style={{
+      minHeight:240,borderRadius:24,padding:"32px 24px",display:"flex",flexDirection:"column",alignItems:"center",justifyContent:"center",textAlign:"center",
+      cursor:!flipped?"pointer":"default",position:"relative",overflow:"hidden",
+      background:flipped?`linear-gradient(145deg, rgba(245,240,232,0.1), rgba(245,240,232,0.03))`:`linear-gradient(145deg, rgba(245,240,232,0.06), rgba(245,240,232,0.01))`,
+      border:`1px solid ${flipped?`${T.crimson}44`:T.textMuted}`,
+      boxShadow:flipped?`0 8px 40px ${T.crimson}22`:`0 4px 20px rgba(0,0,0,0.3)`,
+    }} className="ichimatsu">
+      {!flipped?(<>
+        <div style={{fontSize:13,color:T.textMuted,marginBottom:16,fontWeight:700}}>問題</div>
+        <div style={{fontSize:20,fontWeight:700,color:T.text,lineHeight:1.7,fontFamily:"'Zen Maru Gothic',sans-serif"}}>{card.q}</div>
+        <div style={{marginTop:24,fontSize:13,color:T.textMuted}}>👆 タップで答えを見る</div>
+      </>):(<>
+        <div style={{fontSize:13,color:T.crimson,marginBottom:16,fontWeight:700}}>答え</div>
+        <div style={{fontSize:26,fontWeight:900,lineHeight:1.6,color:T.text,fontFamily:"'Zen Maru Gothic',sans-serif"}}>{card.a}</div>
+      </>)}
+    </div>
+    {flipped&&<div style={{display:"flex",gap:12,marginTop:20}}>
+      <button onClick={()=>handleRes(false)} style={{flex:1,padding:16,borderRadius:14,border:`2px solid ${T.wrong}`,background:`${T.wrong}11`,color:T.wrong,fontSize:16,fontWeight:700,cursor:"pointer",fontFamily:"'Zen Maru Gothic',sans-serif"}}>😅 わからなかった</button>
+      <button onClick={()=>handleRes(true)} style={{flex:1,padding:16,borderRadius:14,border:`2px solid ${T.correct}`,background:`${T.correct}11`,color:T.correct,fontSize:16,fontWeight:700,cursor:"pointer",fontFamily:"'Zen Maru Gothic',sans-serif"}}>😊 覚えてた！</button>
+    </div>}
+    {flipped&&<p style={{textAlign:"center",fontSize:12,color:T.textMuted,marginTop:12}}>※「わからなかった」カードは最後にもう一度出ます</p>}
+  </Wrapper>);
+}
+
+// ============================================================
+//  UNIT SCREEN (choose quiz or flash)
+// ============================================================
+function UnitScreen({ unit, onBack, email }) {
+  const [mode, setMode] = useState(null);
+  if (mode==="quiz") return <QuizScreen unit={unit} onBack={()=>setMode(null)} email={email}/>;
+  if (mode==="flash") return <FlashScreen unit={unit} onBack={()=>setMode(null)}/>;
+  return (<Wrapper>
+    <button onClick={onBack} style={{background:T.smoke,border:"none",borderRadius:10,padding:"8px 14px",color:T.textDim,fontSize:14,cursor:"pointer",fontFamily:"'Noto Sans JP',sans-serif",marginBottom:20}}>← ホーム</button>
+    <div style={{textAlign:"center",marginBottom:28}}>
+      <div style={{fontSize:42,marginBottom:4}}>{unit.subjectIcon}</div>
+      <h2 style={{fontSize:22,fontWeight:900,color:T.text,fontFamily:"'Zen Maru Gothic',sans-serif",margin:"0 0 4px"}}>{unit.name}</h2>
+      <p style={{fontSize:13,color:T.textDim,margin:0}}>{unit.subject} ・ {unit.textbook}</p>
+    </div>
+    <div style={{display:"flex",flexDirection:"column",gap:12}}>
+      <button onClick={()=>setMode("quiz")} style={{...cardBase,padding:"24px 20px",cursor:"pointer",display:"flex",alignItems:"center",gap:16,border:`1px solid ${T.crimson}44`,textAlign:"left"}}>
+        <span style={{fontSize:36,width:56,height:56,display:"flex",alignItems:"center",justifyContent:"center",background:`${T.crimson}22`,borderRadius:16}}>⚔️</span>
+        <div><div style={{fontSize:18,fontWeight:900,color:T.text,fontFamily:"'Zen Maru Gothic',sans-serif"}}>復習クイズ</div>
+          <div style={{fontSize:13,color:T.textDim,marginTop:4}}>テストの弱点を重点的に・{unit.quizQuestions.length}問</div></div>
+      </button>
+      <button onClick={()=>setMode("flash")} style={{...cardBase,padding:"24px 20px",cursor:"pointer",display:"flex",alignItems:"center",gap:16,border:`1px solid ${T.jade}44`,textAlign:"left"}}>
+        <span style={{fontSize:36,width:56,height:56,display:"flex",alignItems:"center",justifyContent:"center",background:`${T.jade}22`,borderRadius:16}}>🧠</span>
+        <div><div style={{fontSize:18,fontWeight:900,color:T.text,fontFamily:"'Zen Maru Gothic',sans-serif"}}>暗記カード</div>
+          <div style={{fontSize:13,color:T.textDim,marginTop:4}}>フラッシュカードで定着・{unit.flashDecks.reduce((s,d)=>s+d.cards.length,0)}問</div></div>
+      </button>
+    </div>
+  </Wrapper>);
+}
+
+// ============================================================
+//  HOME SCREEN
+// ============================================================
+function HomeScreen({ onSelectUnit, onSettings, email }) {
+  const subjects = [...new Set(UNITS.map(u=>u.subject))];
+  return (<Wrapper>
+    <div style={{textAlign:"center",marginBottom:32,paddingTop:16}}>
+      <div style={{display:"flex",justifyContent:"flex-end",marginBottom:8}}>
+        <button onClick={onSettings} style={{background:T.smoke,border:`1px solid ${T.textMuted}`,borderRadius:10,padding:"8px 14px",color:T.textDim,fontSize:14,cursor:"pointer",fontFamily:"'Noto Sans JP',sans-serif",display:"flex",alignItems:"center",gap:6}}>
+          ⚙️ 設定
+        </button>
+      </div>
+      <div style={{fontSize:14,color:T.crimson,fontWeight:700,letterSpacing:4,marginBottom:8,fontFamily:"'Zen Maru Gothic',sans-serif"}}>全　集　中</div>
+      <h1 style={{fontSize:28,fontWeight:900,color:T.text,fontFamily:"'Zen Maru Gothic',sans-serif",margin:"0 0 4px",letterSpacing:2}}>ゆいかの学習帳</h1>
+      <div style={{width:60,height:3,background:`linear-gradient(90deg, ${T.crimson}, ${T.gold})`,margin:"12px auto",borderRadius:2}}/>
+      <p style={{fontSize:13,color:T.textDim,margin:0}}>SAPIX 中学受験対策</p>
+      {email && <p style={{fontSize:11,color:T.jade,margin:"8px 0 0"}}>📧 通知先: {email}</p>}
+    </div>
+    {subjects.map(subj => {
+      const units = UNITS.filter(u=>u.subject===subj);
+      return (
+        <div key={subj} style={{marginBottom:24}}>
+          <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:12}}>
+            <span style={{fontSize:24}}>{units[0].subjectIcon}</span>
+            <h2 style={{fontSize:18,fontWeight:900,color:T.text,fontFamily:"'Zen Maru Gothic',sans-serif",margin:0}}>{subj}</h2>
+          </div>
+          {units.map(u=>(
+            <button key={u.id} onClick={()=>onSelectUnit(u)} style={{
+              width:"100%",padding:"18px 20px",borderRadius:16,marginBottom:8,
+              border:`1px solid ${T.textMuted}`,background:T.smoke,cursor:"pointer",
+              fontFamily:"'Noto Sans JP',sans-serif",display:"flex",alignItems:"center",gap:14,textAlign:"left",
+            }} className="ichimatsu">
+              <div style={{flex:1}}>
+                <div style={{fontSize:16,fontWeight:700,color:T.text}}>{u.name}</div>
+                <div style={{fontSize:12,color:T.textDim,marginTop:4}}>{u.textbook} ・ クイズ{u.quizQuestions.length}問 + 暗記{u.flashDecks.reduce((s,d)=>s+d.cards.length,0)}問</div>
+              </div>
+              <span style={{color:T.crimson,fontSize:20,fontWeight:700}}>→</span>
+            </button>
+          ))}
+        </div>
+      );
+    })}
+    <div style={{textAlign:"center",marginTop:24,padding:"16px 0",borderTop:`1px solid ${T.textMuted}`}}>
+      <p style={{fontSize:12,color:T.textMuted,margin:0}}>教科・単元はテスト答案をClaudeに送って追加できます</p>
+    </div>
+  </Wrapper>);
+}
+
+// ============================================================
+//  WRAPPER
+// ============================================================
+function Wrapper({ children }) {
+  return (
+    <div style={{
+      maxWidth:500, margin:"0 auto", padding:"16px 16px 40px",
+      fontFamily:"'Noto Sans JP',sans-serif",
+      minHeight:"100vh",
+      background:`linear-gradient(180deg, ${T.bg} 0%, ${T.bgMid} 40%, ${T.bgDeep} 100%)`,
+      color:T.text,
+    }}>
+      <link href={FONT_LINK} rel="stylesheet"/>
+      {children}
+    </div>
+  );
+}
+
+// ============================================================
+//  SETTINGS SCREEN
+// ============================================================
+function SettingsScreen({ email, onSave, onBack }) {
+  const [input, setInput] = useState(email || "");
+  const [saved, setSaved] = useState(false);
+
+  const handleSave = async () => {
+    const trimmed = input.trim();
+    onSave(trimmed);
+    try {
+      if (trimmed) {
+        await window.storage.set("parent-email", trimmed);
+      } else {
+        await window.storage.delete("parent-email");
+      }
+    } catch (e) { console.error("Storage error:", e); }
+    setSaved(true);
+    setTimeout(() => setSaved(false), 2000);
+  };
+
+  return (
+    <Wrapper>
+      <button onClick={onBack} style={{background:T.smoke,border:"none",borderRadius:10,padding:"8px 14px",color:T.textDim,fontSize:14,cursor:"pointer",fontFamily:"'Noto Sans JP',sans-serif",marginBottom:24}}>← ホーム</button>
+      <div style={{textAlign:"center",marginBottom:32}}>
+        <div style={{fontSize:42,marginBottom:4}}>⚙️</div>
+        <h2 style={{fontSize:22,fontWeight:900,color:T.text,fontFamily:"'Zen Maru Gothic',sans-serif",margin:"0 0 4px"}}>設定</h2>
+        <p style={{fontSize:13,color:T.textDim,margin:0}}>保護者の方が設定してください</p>
+      </div>
+
+      <div style={{...cardBase,padding:24}}>
+        <h3 style={{fontSize:16,fontWeight:700,color:T.text,fontFamily:"'Zen Maru Gothic',sans-serif",margin:"0 0 16px"}}>📧 進捗メール通知</h3>
+        <p style={{fontSize:13,color:T.textDim,marginBottom:16,lineHeight:1.7}}>
+          メールアドレスを登録すると、ゆいかがクイズを完了したときに結果を送信できます。ゆいかは「結果を送る」ボタンを押すだけでOK。
+        </p>
+
+        <label style={{fontSize:13,fontWeight:700,color:T.textDim,marginBottom:8,display:"block"}}>
+          保護者のメールアドレス
+        </label>
+        <input
+          type="email"
+          value={input}
+          onChange={e => setInput(e.target.value)}
+          placeholder="example@email.com"
+          style={{
+            width:"100%",padding:"14px 16px",borderRadius:12,
+            border:`2px solid ${T.textMuted}`,background:"rgba(245,240,232,0.05)",
+            color:T.text,fontSize:16,fontFamily:"'Noto Sans JP',sans-serif",
+            outline:"none",boxSizing:"border-box",
+          }}
+          onFocus={e => { e.target.style.borderColor = T.crimson; }}
+          onBlur={e => { e.target.style.borderColor = T.textMuted; }}
+        />
+
+        <button onClick={handleSave} style={{
+          ...btnPrimary,
+          marginTop:16,
+          background: saved
+            ? `linear-gradient(135deg, ${T.jade}, #1B5E20)`
+            : `linear-gradient(135deg, ${T.crimson}, #8B0000)`,
+        }}>
+          {saved ? "✅ 保存しました" : "保存する"}
+        </button>
+
+        {email && (
+          <div style={{marginTop:16,padding:12,borderRadius:10,background:`${T.jade}11`,border:`1px solid ${T.jade}33`}}>
+            <p style={{fontSize:13,color:T.jade,margin:0}}>
+              ✅ 現在の送信先: {email}
+            </p>
+          </div>
+        )}
+      </div>
+
+      <div style={{...cardBase,padding:24,marginTop:16}}>
+        <h3 style={{fontSize:16,fontWeight:700,color:T.text,fontFamily:"'Zen Maru Gothic',sans-serif",margin:"0 0 12px"}}>ℹ️ このアプリについて</h3>
+        <p style={{fontSize:13,color:T.textDim,lineHeight:1.8,margin:0}}>
+          SAPIXのテスト答案をClaudeに送ることで、弱点を分析して復習問題を自動生成できます。今後、理科・算数・国語にも対応予定です。
+        </p>
+      </div>
+    </Wrapper>
+  );
+}
+
+// ============================================================
+//  APP ROOT
+// ============================================================
+function App() {
+  const [activeUnit, setActiveUnit] = useState(null);
+  const [screen, setScreen] = useState("home"); // home | settings
+  const [email, setEmail] = useState("");
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    injectStyles();
+    // Load email from persistent storage
+    (async () => {
+      try {
+        const result = await window.storage.get("parent-email");
+        if (result && result.value) setEmail(result.value);
+      } catch (e) { /* key doesn't exist yet */ }
+      setLoaded(true);
+    })();
+  }, []);
+
+  if (!loaded) return (
+    <Wrapper>
+      <div style={{textAlign:"center",paddingTop:100}}>
+        <div style={{fontSize:36,marginBottom:12}}>⏳</div>
+        <p style={{color:T.textDim,fontFamily:"'Zen Maru Gothic',sans-serif"}}>読み込み中…</p>
+      </div>
+    </Wrapper>
+  );
+
+  if (screen === "settings") {
+    return <SettingsScreen email={email} onSave={setEmail} onBack={() => setScreen("home")} />;
+  }
+
+  if (activeUnit) {
+    return <UnitScreen unit={activeUnit} onBack={() => setActiveUnit(null)} email={email} />;
+  }
+
+  return <HomeScreen onSelectUnit={setActiveUnit} onSettings={() => setScreen("settings")} email={email} />;
+}
+
+
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(React.createElement(App));
+  </script>
+</body>
+</html>
