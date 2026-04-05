@@ -205,7 +205,48 @@ function getTitle(correct, total, dunno) {
   return { label:"修行中", icon:"📖", color:T.textDim, msg:"次こそ！くり返しが力になる！" };
 }
 
-// --- SLASH EFFECT COMPONENT ---
+// --- SESSION HISTORY ---
+async function saveSession(session) {
+  try {
+    let sessions = [];
+    try {
+      const r = await window.storage.get("sessions");
+      if (r && r.value) sessions = JSON.parse(r.value);
+    } catch(e) {}
+    sessions.unshift(session);
+    if (sessions.length > 100) sessions = sessions.slice(0, 100);
+    await window.storage.set("sessions", JSON.stringify(sessions));
+  } catch(e) { console.error("Save session error:", e); }
+}
+
+async function loadSessions() {
+  try {
+    const r = await window.storage.get("sessions");
+    if (r && r.value) return JSON.parse(r.value);
+  } catch(e) {}
+  return [];
+}
+
+function calcStats(sessions) {
+  if (!sessions.length) return { streak: 0, avgRate: 0, bestTitle: "修行中", totalSessions: 0 };
+  const today = new Date(); today.setHours(0,0,0,0);
+  let streak = 0;
+  const daySet = new Set(sessions.map(s => { const d = new Date(s.ts); d.setHours(0,0,0,0); return d.getTime(); }));
+  for (let i = 0; i < 365; i++) {
+    const d = new Date(today); d.setDate(d.getDate() - i);
+    if (daySet.has(d.getTime())) streak++; else break;
+  }
+  const rates = sessions.filter(s=>s.total>0).map(s=>s.correct/s.total);
+  const avgRate = rates.length ? Math.round(rates.reduce((a,b)=>a+b,0)/rates.length*100) : 0;
+  const titles = ["柱","甲","丙","修行中"];
+  let bestIdx = 3;
+  sessions.forEach(s => {
+    const t = getTitle(s.correct, s.total, s.dunno || 0);
+    const ti = titles.indexOf(t.label);
+    if (ti >= 0 && ti < bestIdx) bestIdx = ti;
+  });
+  return { streak, avgRate, bestTitle: titles[bestIdx], totalSessions: sessions.length };
+}
 function SlashEffect({ show, streak }) {
   if (!show) return null;
   return (
@@ -392,7 +433,7 @@ function MsQ({ q, onAnswer }) {
 // ============================================================
 //  QUIZ SCREEN
 // ============================================================
-function QuizScreen({ unit, onBack, email }) {
+function QuizScreen({ unit, onBack, email, onSessionSaved }) {
   const [idx, setIdx] = useState(0);
   const [results, setResults] = useState([]);
   const [showExp, setShowExp] = useState(false);
@@ -400,6 +441,7 @@ function QuizScreen({ unit, onBack, email }) {
   const [streak, setStreak] = useState(0);
   const [showSlash, setShowSlash] = useState(false);
   const [emailSent, setEmailSent] = useState(false);
+  const [saved, setSaved] = useState(false);
   const topRef = useRef(null);
 
   const qs = unit.quizQuestions;
@@ -424,6 +466,19 @@ function QuizScreen({ unit, onBack, email }) {
     else { setIdx(i=>i+1); setShowExp(false); }
     topRef.current?.scrollIntoView({behavior:"smooth"});
   };
+
+  useEffect(() => {
+    if (done && !saved) {
+      setSaved(true);
+      const t = getTitle(cc, qs.length, dc);
+      saveSession({
+        ts: new Date().toISOString(), mode: "quiz",
+        subject: unit.subject, unit: unit.name,
+        correct: cc, wrong: wc, dunno: dc, total: qs.length,
+        title: t.label, retry: 0,
+      }).then(() => { if (onSessionSaved) onSessionSaved(); });
+    }
+  }, [done]);
 
   const title = getTitle(cc, qs.length, dc);
   const lastR = results.length>0?results[results.length-1]?.result:null;
@@ -467,7 +522,7 @@ function QuizScreen({ unit, onBack, email }) {
         ) : (
           <div style={{fontSize:12,color:T.textDim,textAlign:"center",marginBottom:8,padding:8}}>⚙️ 設定からメールアドレスを登録すると、結果を自動送信できます</div>
         )}
-        <button onClick={()=>{setIdx(0);setResults([]);setShowExp(false);setDone(false);setStreak(0);setEmailSent(false);}} style={{...btnPrimary,background:`linear-gradient(135deg, ${T.crimson}, #8B0000)`}}>もう一度チャレンジ</button>
+        <button onClick={()=>{setIdx(0);setResults([]);setShowExp(false);setDone(false);setStreak(0);setEmailSent(false);setSaved(false);}} style={{...btnPrimary,background:`linear-gradient(135deg, ${T.crimson}, #8B0000)`}}>もう一度チャレンジ</button>
         <button onClick={onBack} style={{...btnDunno,marginTop:12}}>ホームに戻る</button>
       </div>
     </Wrapper>);
@@ -515,7 +570,7 @@ function QuizScreen({ unit, onBack, email }) {
 // ============================================================
 //  FLASHCARD SCREEN
 // ============================================================
-function FlashScreen({ unit, onBack, email }) {
+function FlashScreen({ unit, onBack, email, onSessionSaved }) {
   const [deckIdx, setDeckIdx] = useState(null);
   const [cards, setCards] = useState([]);
   const [ci, setCi] = useState(0);
@@ -553,8 +608,21 @@ function FlashScreen({ unit, onBack, email }) {
     } else { setCi(i=>i+1); setFlipped(false); }
   };
 
-  const deckName = deckIdx===-1 ? "全問チャレンジ" : unit.flashDecks[deckIdx]?.name || "";
   const firstCorrect = totalCards - firstRoundWrongs.length;
+
+  useEffect(() => {
+    if (phase === "done") {
+      const dn = deckIdx===-1 ? "全問" : (unit.flashDecks[deckIdx]?.name || "");
+      saveSession({
+        ts: new Date().toISOString(), mode: "flash",
+        subject: unit.subject, unit: unit.name + "（" + dn + "）",
+        correct: firstCorrect, wrong: firstRoundWrongs.length, dunno: 0,
+        total: totalCards, title: "", retry: retry,
+      }).then(() => { if (onSessionSaved) onSessionSaved(); });
+    }
+  }, [phase]);
+
+  const deckName = deckIdx===-1 ? "全問チャレンジ" : unit.flashDecks[deckIdx]?.name || "";
 
   const sendFlashEmail = () => {
     if (!email) return;
@@ -746,10 +814,10 @@ function FlashScreen({ unit, onBack, email }) {
 // ============================================================
 //  UNIT SCREEN (choose quiz or flash)
 // ============================================================
-function UnitScreen({ unit, onBack, email }) {
+function UnitScreen({ unit, onBack, email, onSessionSaved }) {
   const [mode, setMode] = useState(null);
-  if (mode==="quiz") return <QuizScreen unit={unit} onBack={()=>setMode(null)} email={email}/>;
-  if (mode==="flash") return <FlashScreen unit={unit} onBack={()=>setMode(null)} email={email}/>;
+  if (mode==="quiz") return <QuizScreen unit={unit} onBack={()=>setMode(null)} email={email} onSessionSaved={onSessionSaved}/>;
+  if (mode==="flash") return <FlashScreen unit={unit} onBack={()=>setMode(null)} email={email} onSessionSaved={onSessionSaved}/>;
   return (<Wrapper>
     <button onClick={onBack} style={{background:T.smoke,border:"none",borderRadius:10,padding:"8px 14px",color:T.textDim,fontSize:14,cursor:"pointer",fontFamily:"'Noto Sans JP',sans-serif",marginBottom:20}}>← ホーム</button>
     <div style={{textAlign:"center",marginBottom:28}}>
@@ -775,11 +843,14 @@ function UnitScreen({ unit, onBack, email }) {
 // ============================================================
 //  HOME SCREEN
 // ============================================================
-function HomeScreen({ onSelectUnit, onSettings, email }) {
+function HomeScreen({ onSelectUnit, onSettings, onHistory, email }) {
   const subjects = [...new Set(UNITS.map(u=>u.subject))];
   return (<Wrapper>
     <div style={{textAlign:"center",marginBottom:32,paddingTop:16}}>
-      <div style={{display:"flex",justifyContent:"flex-end",marginBottom:8}}>
+      <div style={{display:"flex",justifyContent:"flex-end",marginBottom:8,gap:8}}>
+        <button onClick={onHistory} style={{background:T.smoke,border:`1px solid ${T.textMuted}`,borderRadius:10,padding:"8px 14px",color:T.textDim,fontSize:14,cursor:"pointer",fontFamily:"'Noto Sans JP',sans-serif",display:"flex",alignItems:"center",gap:6}}>
+          📊 きろく
+        </button>
         <button onClick={onSettings} style={{background:T.smoke,border:`1px solid ${T.textMuted}`,borderRadius:10,padding:"8px 14px",color:T.textDim,fontSize:14,cursor:"pointer",fontFamily:"'Noto Sans JP',sans-serif",display:"flex",alignItems:"center",gap:6}}>
           ⚙️ 設定
         </button>
@@ -922,22 +993,153 @@ function SettingsScreen({ email, onSave, onBack }) {
 }
 
 // ============================================================
+//  HISTORY SCREEN
+// ============================================================
+function HistoryScreen({ onBack }) {
+  const [sessions, setSessions] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadSessions().then(s => { setSessions(s); setLoading(false); });
+  }, []);
+
+  const stats = calcStats(sessions);
+
+  // Build chart data: last 10 sessions grouped
+  const recentQuiz = sessions.filter(s=>s.mode==="quiz").slice(0, 10).reverse();
+  const recentFlash = sessions.filter(s=>s.mode==="flash").slice(0, 10).reverse();
+
+  // Sparkline SVG helper
+  const sparkline = (data, color, maxPts) => {
+    if (!data.length) return null;
+    const pts = data.slice(-maxPts);
+    const w = 300, h = 80, px = w / Math.max(pts.length - 1, 1);
+    const points = pts.map((v, i) => `${i * px},${h - v * h / 100}`).join(" ");
+    return (
+      <svg viewBox={`0 0 ${w} ${h}`} style={{width:"100%",height:h}}>
+        <line x1="0" y1={h/2} x2={w} y2={h/2} stroke="rgba(245,240,232,0.06)" strokeDasharray="4"/>
+        <polyline points={points} fill="none" stroke={color} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+        {pts.length > 0 && <circle cx={(pts.length-1)*px} cy={h - pts[pts.length-1]*h/100} r="4" fill={color}/>}
+      </svg>
+    );
+  };
+
+  const quizRates = recentQuiz.map(s => s.total > 0 ? Math.round(s.correct/s.total*100) : 0);
+  const dunnoRates = sessions.filter(s=>s.mode==="quiz").slice(0,10).reverse().map(s => s.total > 0 ? Math.round((s.dunno||0)/s.total*100) : 0);
+
+  const formatDate = (ts) => {
+    const d = new Date(ts);
+    const days = ["日","月","火","水","木","金","土"];
+    return `${d.getMonth()+1}/${d.getDate()}（${days[d.getDay()]}）${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`;
+  };
+
+  const titleIcons = {"柱":"🏆","甲":"⚔️","丙":"🗡️","修行中":"📖"};
+  const titleColors = {"柱":T.gold,"甲":T.crimson,"丙":T.text,"修行中":T.textDim};
+
+  if (loading) return (<Wrapper><div style={{textAlign:"center",paddingTop:80}}><p style={{color:T.textDim}}>読み込み中…</p></div></Wrapper>);
+
+  return (
+    <Wrapper>
+      <button onClick={onBack} style={{background:T.smoke,border:"none",borderRadius:10,padding:"8px 14px",color:T.textDim,fontSize:14,cursor:"pointer",fontFamily:"'Noto Sans JP',sans-serif",marginBottom:20}}>← ホーム</button>
+
+      <div style={{textAlign:"center",marginBottom:24}}>
+        <div style={{fontSize:11,color:T.textMuted,letterSpacing:3,marginBottom:4}}>学 習 き ろ く</div>
+        <div style={{fontSize:20,fontWeight:900,color:T.text,fontFamily:"'Zen Maru Gothic',sans-serif"}}>ゆいかの成績</div>
+      </div>
+
+      {/* Summary cards */}
+      <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:8,marginBottom:20}}>
+        <div style={{background:T.smoke,borderRadius:12,padding:"12px 8px",textAlign:"center"}}>
+          <div style={{fontSize:24,fontWeight:900,color:T.gold}}>{stats.streak}</div>
+          <div style={{fontSize:11,color:T.textMuted}}>連続学習日</div>
+        </div>
+        <div style={{background:T.smoke,borderRadius:12,padding:"12px 8px",textAlign:"center"}}>
+          <div style={{fontSize:24,fontWeight:900,color:T.correct}}>{stats.avgRate}%</div>
+          <div style={{fontSize:11,color:T.textMuted}}>平均正答率</div>
+        </div>
+        <div style={{background:T.smoke,borderRadius:12,padding:"12px 8px",textAlign:"center"}}>
+          <div style={{fontSize:24,fontWeight:900,color:titleColors[stats.bestTitle]||T.text}}>{stats.bestTitle}</div>
+          <div style={{fontSize:11,color:T.textMuted}}>最高称号</div>
+        </div>
+      </div>
+
+      {/* Accuracy graph */}
+      {quizRates.length > 0 && (
+        <div style={{marginBottom:20}}>
+          <div style={{fontSize:13,fontWeight:700,marginBottom:10,color:T.textDim}}>正答率の推移（クイズ）</div>
+          <div style={{background:T.smoke,borderRadius:12,padding:14,border:`1px solid rgba(245,240,232,0.06)`}}>
+            {sparkline(quizRates, T.crimson, 10)}
+            <div style={{display:"flex",justifyContent:"space-between",fontSize:10,color:T.textMuted,marginTop:4}}>
+              <span>過去</span>
+              <span>最新 {quizRates[quizRates.length-1]}%</span>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Dunno rate graph */}
+      {dunnoRates.length > 0 && dunnoRates.some(v=>v>0) && (
+        <div style={{marginBottom:20}}>
+          <div style={{fontSize:13,fontWeight:700,marginBottom:10,color:T.textDim}}>「わからない」率の推移</div>
+          <div style={{background:T.smoke,borderRadius:12,padding:14,border:`1px solid rgba(245,240,232,0.06)`}}>
+            {sparkline(dunnoRates, T.dunno, 10)}
+            <div style={{fontSize:10,color:T.dunno,textAlign:"right",marginTop:4}}>
+              {dunnoRates.length>=2 && dunnoRates[dunnoRates.length-1] <= dunnoRates[0] ? "↓ 減少中 = 暗記が定着してきた" : ""}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Session list */}
+      <div style={{marginBottom:20}}>
+        <div style={{fontSize:13,fontWeight:700,marginBottom:10,color:T.textDim}}>最近のセッション</div>
+        {sessions.length === 0 && <p style={{fontSize:13,color:T.textMuted,textAlign:"center",padding:20}}>まだ学習記録がありません。クイズや暗記カードに挑戦しよう！</p>}
+        {sessions.slice(0, 20).map((s, i) => (
+          <div key={i} style={{background:T.smoke,borderRadius:12,padding:"12px 14px",marginBottom:8,border:`1px solid rgba(245,240,232,0.06)`,display:"flex",alignItems:"center",gap:12}}>
+            <div style={{fontSize:20}}>{s.mode==="quiz"?"⚔️":"🧠"}</div>
+            <div style={{flex:1}}>
+              <div style={{fontSize:13,fontWeight:700,color:T.text}}>{s.subject}・{s.unit}</div>
+              <div style={{fontSize:11,color:T.textMuted}}>{formatDate(s.ts)}</div>
+            </div>
+            <div style={{textAlign:"right"}}>
+              {s.mode==="quiz" && s.title ? (
+                <>
+                  <div style={{fontSize:15,fontWeight:900,color:titleColors[s.title]||T.text}}>{s.title}</div>
+                  <div style={{fontSize:11,color:T.textMuted}}>{s.correct}/{s.total}</div>
+                </>
+              ) : (
+                <>
+                  <div style={{fontSize:14,fontWeight:700,color:s.correct===s.total?T.correct:T.dunno}}>{s.correct}/{s.total}</div>
+                  {s.retry > 0 && <div style={{fontSize:11,color:T.textMuted}}>リトライ{s.retry}回</div>}
+                </>
+              )}
+            </div>
+          </div>
+        ))}
+      </div>
+    </Wrapper>
+  );
+}
+
+// ============================================================
 //  APP ROOT
 // ============================================================
 function App() {
   const [activeUnit, setActiveUnit] = useState(null);
-  const [screen, setScreen] = useState("home"); // home | settings
+  const [screen, setScreen] = useState("home"); // home | settings | history
   const [email, setEmail] = useState("");
   const [loaded, setLoaded] = useState(false);
+  const [sessionVer, setSessionVer] = useState(0);
+
+  const handleSessionSaved = () => setSessionVer(v => v + 1);
 
   useEffect(() => {
     injectStyles();
-    // Load email from persistent storage
     (async () => {
       try {
         const result = await window.storage.get("parent-email");
         if (result && result.value) setEmail(result.value);
-      } catch (e) { /* key doesn't exist yet */ }
+      } catch (e) {}
       setLoaded(true);
     })();
   }, []);
@@ -955,11 +1157,15 @@ function App() {
     return <SettingsScreen email={email} onSave={setEmail} onBack={() => setScreen("home")} />;
   }
 
-  if (activeUnit) {
-    return <UnitScreen unit={activeUnit} onBack={() => setActiveUnit(null)} email={email} />;
+  if (screen === "history") {
+    return <HistoryScreen onBack={() => setScreen("home")} key={sessionVer} />;
   }
 
-  return <HomeScreen onSelectUnit={setActiveUnit} onSettings={() => setScreen("settings")} email={email} />;
+  if (activeUnit) {
+    return <UnitScreen unit={activeUnit} onBack={() => setActiveUnit(null)} email={email} onSessionSaved={handleSessionSaved} />;
+  }
+
+  return <HomeScreen onSelectUnit={setActiveUnit} onSettings={() => setScreen("settings")} onHistory={() => setScreen("history")} email={email} />;
 }
 
 
