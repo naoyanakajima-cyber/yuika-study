@@ -527,6 +527,11 @@ function FlashScreen({ unit, onBack, email }) {
   const [totalCards, setTotalCards] = useState(0);
   const [firstRoundWrongs, setFirstRoundWrongs] = useState([]);
   const [emailSent, setEmailSent] = useState(false);
+  const [userInput, setUserInput] = useState("");
+  const [judged, setJudged] = useState(null);
+  const inputRef = useRef(null);
+
+  useEffect(() => { if(phase==="play") setTimeout(() => inputRef.current?.focus(), 200); }, [ci, phase]);
 
   const startDeck = (di) => {
     const d = di===-1 ? unit.flashDecks.flatMap(d=>d.cards) : unit.flashDecks[di].cards;
@@ -613,9 +618,6 @@ function FlashScreen({ unit, onBack, email }) {
   );
 
   const card = cards[ci];
-  const [userInput, setUserInput] = useState("");
-  const [judged, setJudged] = useState(null); // null | "correct" | "wrong"
-  const inputRef = useRef(null);
 
   // Normalize for flexible matching: lowercase, trim, remove spaces/punctuation, convert katakana to hiragana
   const normalize = (s) => {
@@ -656,9 +658,6 @@ function FlashScreen({ unit, onBack, email }) {
     setJudged(null);
     setTimeout(() => inputRef.current?.focus(), 100);
   };
-
-  // Auto-focus input
-  useEffect(() => { setTimeout(() => inputRef.current?.focus(), 200); }, [ci]);
 
   return (<Wrapper>
     <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:16}}>
