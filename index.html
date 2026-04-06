@@ -138,7 +138,7 @@ const UNITS = [
         {q:"水俣病の原因物質は？",a:"有機水銀"},{q:"水俣病が発生した県は？",a:"熊本県"},{q:"四日市ぜんそくの原因は？",a:"亜硫酸ガス"},{q:"イタイイタイ病の原因物質は？",a:"カドミウム"},{q:"イタイイタイ病が発生した川は？",a:"神通川"},{q:"新潟水俣病が発生した川は？",a:"阿賀野川"},{q:"1967年に制定された公害対策の法律は？",a:"公害対策基本法"},
       ]},
       { name:"データ・数値", icon:"📊", color:T.dunno, cards:[
-        {q:"2022年の温室効果ガス排出量1位の国は？",a:"中国"},{q:"2022年の中国の排出割合は約何%？",a:"29.7%"},{q:"2022年の日本の排出割合は約何%？",a:"2.6%"},{q:"CO₂が急増し始めたきっかけ（18世紀後半）は？",a:"産業革命"},{q:"2022年の世界の排出量合計は？",a:"約384億トン"},
+        {q:"2022年の温室効果ガス排出量1位の国は？",a:"中国",alt:["中華人民共和国"]},{q:"2022年の中国の排出割合は約何%？",a:"29.7%"},{q:"2022年の日本の排出割合は約何%？",a:"2.6%"},{q:"CO₂が急増し始めたきっかけ（18世紀後半）は？",a:"産業革命"},{q:"2022年の世界の排出量合計は？",a:"約384億トン"},
       ]},
     ],
   },
@@ -284,13 +284,13 @@ async function loadFeedback() {
 function FeedbackBox({ question, answer, subject, unit }) {
   const [text, setText] = useState("");
   const [sent, setSent] = useState(false);
-  if (sent) return <div style={{fontSize:12,color:T.green,textAlign:"center",marginTop:8}}>✅ 送信しました</div>;
+  if (sent) return <div style={{fontSize:12,color:T.green,textAlign:"center",marginTop:8}}>✅ おくったよ！</div>;
   return (
     <div style={{marginTop:12}}>
-      <div style={{fontSize:12,color:T.textMuted,marginBottom:6}}>💬 この問題について改善リクエスト（任意）</div>
+      <div style={{fontSize:12,color:T.textMuted,marginBottom:6}}>💬 この問題どう思った？（なおしてほしいときに書いてね）</div>
       <div style={{display:"flex",gap:8}}>
         <input type="text" value={text} onChange={e=>setText(e.target.value)}
-          placeholder="例: 答えが合ってるはず…"
+          placeholder="例: 答えあってるのに×だった、意味がわからなかった…"
           style={{flex:1,padding:"10px 12px",borderRadius:10,border:`1px solid ${T.textMuted}`,background:"rgba(232,72,135,0.03)",color:T.text,fontSize:13,fontFamily:"'Noto Sans JP',sans-serif",outline:"none",boxSizing:"border-box"}}
           onFocus={e=>{e.target.style.borderColor=T.pinkLight;}} onBlur={e=>{e.target.style.borderColor=T.textMuted;}}
         />
@@ -299,8 +299,8 @@ function FeedbackBox({ question, answer, subject, unit }) {
           saveFeedback({ts:new Date().toISOString(),subject,unit,question,answer,text:text.trim()});
           setSent(true);
         }} disabled={!text.trim()}
-          style={{padding:"10px 16px",borderRadius:10,border:"none",background:text.trim()?T.pinkLight:`${T.pinkLight}44`,color:T.white,fontSize:13,fontWeight:700,cursor:text.trim()?"pointer":"default",fontFamily:"'Noto Sans JP',sans-serif",whiteSpace:"nowrap"}}>
-          送信
+          style={{padding:"10px 16px",borderRadius:10,border:"none",background:text.trim()?T.pinkLight:`${T.pinkLight}44`,color:"#fff",fontSize:13,fontWeight:700,cursor:text.trim()?"pointer":"default",fontFamily:"'Noto Sans JP',sans-serif",whiteSpace:"nowrap"}}>
+          おくる
         </button>
       </div>
     </div>
@@ -319,7 +319,7 @@ function FeedbackViewer() {
   };
 
   if (!loaded) return <p style={{fontSize:13,color:T.textDim}}>読み込み中…</p>;
-  if (!items.length) return <p style={{fontSize:13,color:T.textMuted}}>まだリクエストはありません</p>;
+  if (!items.length) return <p style={{fontSize:13,color:T.textMuted}}>まだメッセージはありません</p>;
   return (
     <div style={{maxHeight:300,overflowY:"auto"}}>
       {items.slice(0,30).map((fb,i) => (
@@ -529,6 +529,8 @@ function QuizScreen({ unit, onBack, email, onSessionSaved }) {
   const [showSlash, setShowSlash] = useState(false);
   const [emailSent, setEmailSent] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [qStart, setQStart] = useState(Date.now());
+  const [sessionStart] = useState(Date.now());
   const topRef = useRef(null);
 
   const qs = unit.quizQuestions;
@@ -536,9 +538,17 @@ function QuizScreen({ unit, onBack, email, onSessionSaved }) {
   const cc = results.filter(r=>r.result==="correct").length;
   const wc = results.filter(r=>r.result==="wrong").length;
   const dc = results.filter(r=>r.result==="dunno").length;
+  const totalSec = results.reduce((s,r)=>s+(r.sec||0),0);
+  const avgSec = results.length>0?Math.round(totalSec/results.length):0;
+
+  const fmtTime = (sec) => {
+    if (sec < 60) return `${sec}秒`;
+    return `${Math.floor(sec/60)}分${sec%60}秒`;
+  };
 
   const handleAnswer = (result) => {
-    setResults(p=>[...p,{id:q.id,result}]);
+    const sec = Math.round((Date.now()-qStart)/1000);
+    setResults(p=>[...p,{id:q.id,result,sec}]);
     if (result==="correct") {
       const newStreak = streak + 1;
       setStreak(newStreak);
@@ -550,7 +560,7 @@ function QuizScreen({ unit, onBack, email, onSessionSaved }) {
 
   const next = () => {
     if (idx+1>=qs.length) { setDone(true); }
-    else { setIdx(i=>i+1); setShowExp(false); }
+    else { setIdx(i=>i+1); setShowExp(false); setQStart(Date.now()); }
     topRef.current?.scrollIntoView({behavior:"smooth"});
   };
 
@@ -562,7 +572,7 @@ function QuizScreen({ unit, onBack, email, onSessionSaved }) {
         ts: new Date().toISOString(), mode: "quiz",
         subject: unit.subject, unit: unit.name,
         correct: cc, wrong: wc, dunno: dc, total: qs.length,
-        title: t.label, retry: 0,
+        title: t.label, retry: 0, totalSec, avgSec,
       }).then(() => { if (onSessionSaved) onSessionSaved(); });
       saveClear(unit.id, "quiz", cc, qs.length);
     }
@@ -574,9 +584,10 @@ function QuizScreen({ unit, onBack, email, onSessionSaved }) {
 
   const sendEmail = () => {
     if (!email) return;
-    const wrongList = results.map((r,i)=>r.result==="wrong"?`  ❌ Q${i+1}: ${qs[i].category}`:null).filter(Boolean).join("\n");
-    const dunnoList = results.map((r,i)=>r.result==="dunno"?`  🤔 Q${i+1}: ${qs[i].category}`:null).filter(Boolean).join("\n");
-    const body = `📅 ${new Date().toLocaleDateString("ja-JP")}\n📚 ${unit.subject} ＞ ${unit.name}\n\n${title.icon} 称号: ${title.label}\n\n⭕ 正解: ${cc}問\n❌ まちがい: ${wc}問\n🤔 わからない: ${dc}問\n\n${wrongList?`❌まちがえた問題:\n${wrongList}\n`:""}\n${dunnoList?`🤔わからなかった問題:\n${dunnoList}\n`:""}`;
+    const wrongList = results.map((r,i)=>r.result==="wrong"?`  ❌ Q${i+1}: ${qs[i].category}（${r.sec}秒）`:null).filter(Boolean).join("\n");
+    const dunnoList = results.map((r,i)=>r.result==="dunno"?`  🤔 Q${i+1}: ${qs[i].category}（${r.sec}秒）`:null).filter(Boolean).join("\n");
+    const slowList = results.filter(r=>r.sec>=60).map((r,i)=>results.indexOf(r)).map(i=>`  ⏱ Q${i+1}: ${qs[i].category} ${results[i].sec}秒`).join("\n");
+    const body = `📅 ${new Date().toLocaleDateString("ja-JP")}\n📚 ${unit.subject} ＞ ${unit.name}\n\n${title.icon} 称号: ${title.label}\n\n⭕ 正解: ${cc}問\n❌ まちがい: ${wc}問\n🤔 わからない: ${dc}問\n\n⏱ 合計: ${fmtTime(totalSec)} / 平均: ${fmtTime(avgSec)}1問\n\n${wrongList?`❌まちがえた問題:\n${wrongList}\n`:""}\n${dunnoList?`🤔わからなかった問題:\n${dunnoList}\n`:""}${slowList?`\n⏱ 時間がかかった問題（60秒以上）:\n${slowList}\n`:""}`;
     const subj = encodeURIComponent(`[ゆいか学習] ${title.icon}${title.label} ${unit.subject}・${unit.name}`);
     window.open(`mailto:${encodeURIComponent(email)}?subject=${subj}&body=${encodeURIComponent(body)}`);
     setEmailSent(true);
@@ -590,11 +601,13 @@ function QuizScreen({ unit, onBack, email, onSessionSaved }) {
         <h2 style={{fontSize:28,fontWeight:900,margin:"8px 0",color:title.color,fontFamily:"'Zen Maru Gothic',sans-serif",textShadow:title.color===T.gold?`0 0 20px ${T.gold}66`:"none"}}>{title.label}</h2>
         <p style={{fontSize:15,color:T.textDim,margin:"4px 0 20px"}}>{title.msg}</p>
         {honestBadge && <div style={{display:"inline-block",background:`${T.pinkLight}22`,border:`1px solid ${T.pinkLight}`,borderRadius:20,padding:"6px 16px",fontSize:13,color:T.pinkLight,fontWeight:700,marginBottom:16}}>🌸 正直者の呼吸</div>}
-        <div style={{display:"flex",justifyContent:"center",gap:20,margin:"20px 0"}}>
-          <div><div style={{fontSize:36,fontWeight:900,color:T.correct}}>{cc}</div><div style={{fontSize:12,color:T.textDim}}>⭕正解</div></div>
-          <div><div style={{fontSize:36,fontWeight:900,color:T.wrong}}>{wc}</div><div style={{fontSize:12,color:T.textDim}}>❌まちがい</div></div>
-          <div><div style={{fontSize:36,fontWeight:900,color:T.dunno}}>{dc}</div><div style={{fontSize:12,color:T.textDim}}>🤔わからない</div></div>
+        <div style={{display:"flex",justifyContent:"center",gap:16,margin:"20px 0"}}>
+          <div><div style={{fontSize:32,fontWeight:900,color:T.correct}}>{cc}</div><div style={{fontSize:11,color:T.textDim}}>⭕正解</div></div>
+          <div><div style={{fontSize:32,fontWeight:900,color:T.wrong}}>{wc}</div><div style={{fontSize:11,color:T.textDim}}>❌まちがい</div></div>
+          <div><div style={{fontSize:32,fontWeight:900,color:T.dunno}}>{dc}</div><div style={{fontSize:11,color:T.textDim}}>🤔わからない</div></div>
+          <div><div style={{fontSize:32,fontWeight:900,color:T.pink}}>{fmtTime(avgSec)}</div><div style={{fontSize:11,color:T.textDim}}>⏱平均</div></div>
         </div>
+        <div style={{fontSize:13,color:T.textDim,marginBottom:16}}>⏱ 合計 {fmtTime(totalSec)}</div>
         {wc>0&&<div style={{textAlign:"left",background:`${T.wrong}11`,borderRadius:12,padding:14,marginBottom:10,border:`1px solid ${T.wrong}33`}}>
           <p style={{fontWeight:700,fontSize:13,color:T.wrong,marginBottom:6}}>❌ まちがえた問題：</p>
           {results.map((r,i)=>r.result==="wrong"?<div key={i} style={{fontSize:13,color:T.textDim,padding:"3px 0"}}>• Q{i+1}: {qs[i].category}</div>:null)}
@@ -605,7 +618,7 @@ function QuizScreen({ unit, onBack, email, onSessionSaved }) {
         </div>}
         {email ? (
           emailSent
-            ? <div style={{...btnPrimary,background:`linear-gradient(135deg, ${T.green}, #2E7D32)`,marginBottom:8,textAlign:"center",opacity:0.7,cursor:"default"}}>✅ メール送信済み</div>
+            ? <button onClick={()=>setEmailSent(false)} style={{...btnPrimary,background:`linear-gradient(135deg, ${T.green}, #2E7D32)`,marginBottom:8}}>✅ 送信済み（もう一度送る場合はタップ）</button>
             : <button onClick={sendEmail} style={{...btnPrimary,background:`linear-gradient(135deg, ${T.green}, #2E7D32)`,marginBottom:8}}>📧 結果を保護者に送る</button>
         ) : (
           <div style={{fontSize:12,color:T.textDim,textAlign:"center",marginBottom:8,padding:8}}>⚙️ 設定からメールアドレスを登録すると、結果を自動送信できます</div>
@@ -674,17 +687,25 @@ function FlashScreen({ unit, onBack, email, onSessionSaved }) {
   const [userInput, setUserInput] = useState("");
   const [judged, setJudged] = useState(null);
   const inputRef = useRef(null);
+  const [cardStart, setCardStart] = useState(Date.now());
+  const [sessionStart, setSessionStart] = useState(Date.now());
+  const [cardTimes, setCardTimes] = useState([]);
 
   useEffect(() => { if(phase==="play") setTimeout(() => inputRef.current?.focus(), 200); }, [ci, phase]);
+
+  const fmtTime = (sec) => sec < 60 ? `${sec}秒` : `${Math.floor(sec/60)}分${sec%60}秒`;
 
   const startDeck = (di) => {
     const d = di===-1 ? unit.flashDecks.flatMap(d=>d.cards) : unit.flashDecks[di].cards;
     setCards(shuffle([...d])); setCi(0); setFlipped(false); setRes({c:0,w:0}); setWrongs([]); setRetry(0);
     setTotalCards(d.length); setFirstRoundWrongs([]); setEmailSent(false);
+    setCardStart(Date.now()); setSessionStart(Date.now()); setCardTimes([]);
     setDeckIdx(di); setPhase("play");
   };
 
   const handleRes = (knew) => {
+    const sec = Math.round((Date.now()-cardStart)/1000);
+    if (retry===0) setCardTimes(p=>[...p,sec]);
     if(knew) setRes(p=>({...p,c:p.c+1}));
     else {
       setRes(p=>({...p,w:p.w+1}));
@@ -692,12 +713,14 @@ function FlashScreen({ unit, onBack, email, onSessionSaved }) {
       if(retry===0) setFirstRoundWrongs(p=>[...p,cards[ci]]);
     }
     if(ci+1>=cards.length) {
-      if(!knew && wrongs.length===0) { const lastCard=cards[ci]; setTimeout(()=>{setCards(shuffle([lastCard]));setCi(0);setFlipped(false);setRes({c:0,w:0});setWrongs([]);setRetry(r=>r+1);setPhase("play");},300); }
-      else { const finalW = knew ? [...wrongs] : [...wrongs,cards[ci]]; if(!knew&&retry===0) setFirstRoundWrongs(p=>[...p,cards[ci]]); if(finalW.length>0){setTimeout(()=>{setCards(shuffle(finalW));setCi(0);setFlipped(false);setRes({c:0,w:0});setWrongs([]);setRetry(r=>r+1);setPhase("play");},300);} else setPhase("done"); }
-    } else { setCi(i=>i+1); setFlipped(false); }
+      if(!knew && wrongs.length===0) { const lastCard=cards[ci]; setTimeout(()=>{setCards(shuffle([lastCard]));setCi(0);setFlipped(false);setRes({c:0,w:0});setWrongs([]);setRetry(r=>r+1);setPhase("play");setCardStart(Date.now());},300); }
+      else { const finalW = knew ? [...wrongs] : [...wrongs,cards[ci]]; if(!knew&&retry===0) setFirstRoundWrongs(p=>[...p,cards[ci]]); if(finalW.length>0){setTimeout(()=>{setCards(shuffle(finalW));setCi(0);setFlipped(false);setRes({c:0,w:0});setWrongs([]);setRetry(r=>r+1);setPhase("play");setCardStart(Date.now());},300);} else setPhase("done"); }
+    } else { setCi(i=>i+1); setFlipped(false); setCardStart(Date.now()); }
   };
 
   const firstCorrect = totalCards - firstRoundWrongs.length;
+  const totalSec = cardTimes.reduce((s,t)=>s+t,0);
+  const avgSec = cardTimes.length>0?Math.round(totalSec/cardTimes.length):0;
 
   useEffect(() => {
     if (phase === "done") {
@@ -706,7 +729,7 @@ function FlashScreen({ unit, onBack, email, onSessionSaved }) {
         ts: new Date().toISOString(), mode: "flash",
         subject: unit.subject, unit: unit.name + "（" + dn + "）",
         correct: firstCorrect, wrong: firstRoundWrongs.length, dunno: 0,
-        total: totalCards, title: "", retry: retry,
+        total: totalCards, title: "", retry: retry, totalSec, avgSec,
       }).then(() => { if (onSessionSaved) onSessionSaved(); });
       saveClear(unit.id, "flash", firstCorrect, totalCards);
     }
@@ -717,7 +740,7 @@ function FlashScreen({ unit, onBack, email, onSessionSaved }) {
   const sendFlashEmail = () => {
     if (!email) return;
     const wrongList = firstRoundWrongs.map(c=>`  ・${c.q} → ${c.a}`).join("\n");
-    const body = `📅 ${new Date().toLocaleDateString("ja-JP")}\n📚 ${unit.subject} ＞ ${unit.name}\n🧠 モード: 暗記カード（${deckName}）\n\n😊 1回目で覚えてた: ${firstCorrect}問 / ${totalCards}問\n😅 わからなかった: ${firstRoundWrongs.length}問\n🔄 リトライ回数: ${retry}回\n\n${firstRoundWrongs.length>0?`😅 わからなかったカード:\n${wrongList}\n`:"🎉 1回目で全問正解！"}\n`;
+    const body = `📅 ${new Date().toLocaleDateString("ja-JP")}\n📚 ${unit.subject} ＞ ${unit.name}\n🧠 モード: 暗記カード（${deckName}）\n\n😊 1回目で覚えてた: ${firstCorrect}問 / ${totalCards}問\n😅 わからなかった: ${firstRoundWrongs.length}問\n🔄 リトライ回数: ${retry}回\n⏱ 合計: ${fmtTime(totalSec)} / 平均: ${fmtTime(avgSec)}/1問\n\n${firstRoundWrongs.length>0?`😅 わからなかったカード:\n${wrongList}\n`:"🎉 1回目で全問正解！"}\n`;
     const subj = encodeURIComponent(`[ゆいか学習] 🧠暗記 ${unit.subject}・${unit.name}（${deckName}）`);
     window.open(`mailto:${encodeURIComponent(email)}?subject=${subj}&body=${encodeURIComponent(body)}`);
     setEmailSent(true);
@@ -751,18 +774,20 @@ function FlashScreen({ unit, onBack, email, onSessionSaved }) {
         <div style={{fontSize:64,marginBottom:12}}>🎊</div>
         <h2 style={{fontSize:24,fontWeight:900,color:T.gold,fontFamily:"'Zen Maru Gothic',sans-serif",textShadow:`0 0 20px ${T.gold}44`}}>全集中・暗記完了！</h2>
         {retry>0&&<p style={{fontSize:14,color:T.textDim,margin:"8px 0"}}>リトライ {retry}回で完全制覇</p>}
-        <div style={{display:"flex",justifyContent:"center",gap:20,margin:"20px 0"}}>
-          <div style={{textAlign:"center"}}><div style={{fontSize:32,fontWeight:900,color:T.correct}}>{firstCorrect}</div><div style={{fontSize:11,color:T.textDim}}>1回目で正解</div></div>
-          <div style={{textAlign:"center"}}><div style={{fontSize:32,fontWeight:900,color:T.wrong}}>{firstRoundWrongs.length}</div><div style={{fontSize:11,color:T.textDim}}>リトライした</div></div>
-          <div style={{textAlign:"center"}}><div style={{fontSize:32,fontWeight:900,color:T.text}}>{totalCards}</div><div style={{fontSize:11,color:T.textDim}}>全カード数</div></div>
+        <div style={{display:"flex",justifyContent:"center",gap:16,margin:"20px 0"}}>
+          <div style={{textAlign:"center"}}><div style={{fontSize:28,fontWeight:900,color:T.correct}}>{firstCorrect}</div><div style={{fontSize:11,color:T.textDim}}>1回目で正解</div></div>
+          <div style={{textAlign:"center"}}><div style={{fontSize:28,fontWeight:900,color:T.wrong}}>{firstRoundWrongs.length}</div><div style={{fontSize:11,color:T.textDim}}>リトライした</div></div>
+          <div style={{textAlign:"center"}}><div style={{fontSize:28,fontWeight:900,color:T.text}}>{totalCards}</div><div style={{fontSize:11,color:T.textDim}}>全カード数</div></div>
+          <div style={{textAlign:"center"}}><div style={{fontSize:28,fontWeight:900,color:T.pink}}>{fmtTime(avgSec)}</div><div style={{fontSize:11,color:T.textDim}}>⏱平均</div></div>
         </div>
+        <div style={{fontSize:13,color:T.textDim,marginBottom:16}}>⏱ 合計 {fmtTime(totalSec)}</div>
         {firstRoundWrongs.length>0&&<div style={{textAlign:"left",background:`${T.wrong}11`,borderRadius:12,padding:14,marginBottom:16,border:`1px solid ${T.wrong}33`}}>
           <p style={{fontWeight:700,fontSize:13,color:T.wrong,marginBottom:6}}>😅 1回目でわからなかったカード：</p>
           {firstRoundWrongs.map((c,i)=><div key={i} style={{fontSize:13,color:T.textDim,padding:"3px 0"}}>• {c.q} → <span style={{color:T.dunno}}>{c.a}</span></div>)}
         </div>}
         {email ? (
           emailSent
-            ? <div style={{...btnPrimary,background:`linear-gradient(135deg, ${T.green}, #2E7D32)`,marginBottom:8,textAlign:"center",opacity:0.7,cursor:"default"}}>✅ メール送信済み</div>
+            ? <button onClick={()=>setEmailSent(false)} style={{...btnPrimary,background:`linear-gradient(135deg, ${T.green}, #2E7D32)`,marginBottom:8}}>✅ 送信済み（もう一度送る場合はタップ）</button>
             : <button onClick={sendFlashEmail} style={{...btnPrimary,background:`linear-gradient(135deg, ${T.green}, #2E7D32)`,marginBottom:8}}>📧 結果を保護者に送る</button>
         ) : (
           <div style={{fontSize:12,color:T.textDim,textAlign:"center",marginBottom:8,padding:8}}>⚙️ 設定からメールアドレスを登録すると結果を送信できます</div>
@@ -786,26 +811,23 @@ function FlashScreen({ unit, onBack, email, onSessionSaved }) {
       .replace(/[Ａ-Ｚａ-ｚ]/g, m => String.fromCharCode(m.charCodeAt(0) - 0xFEE0));
   };
 
-  // Check if user answer matches (partial match for long answers)
-  const checkAnswer = (input, answer) => {
+  // Check if user answer matches (partial match for long answers, supports alt answers)
+  const checkAnswer = (input, answer, alts) => {
     const ni = normalize(input);
     const na = normalize(answer);
     if (!ni) return false;
-    // Exact match
     if (ni === na) return true;
-    // Answer contains the input (for long answers like "青森県／秋田県 1993年")
     if (na.includes(ni) && ni.length >= 2) return true;
-    // Input contains core of the answer
     if (ni.includes(na)) return true;
-    // Split answer by common delimiters and check if any part matches
     const parts = answer.split(/[／\/、。（）()・\n]/).map(normalize).filter(p => p.length > 0);
     if (parts.some(p => p === ni || ni.includes(p) || p.includes(ni))) return true;
+    if (alts && alts.some(a => { const nalt = normalize(a); return ni === nalt || nalt.includes(ni) || ni.includes(nalt); })) return true;
     return false;
   };
 
   const handleSubmitAnswer = () => {
     if (judged || !userInput.trim()) return;
-    const isCorrect = checkAnswer(userInput, card.a);
+    const isCorrect = checkAnswer(userInput, card.a, card.alt);
     setJudged(isCorrect ? "correct" : "wrong");
   };
 
@@ -1109,7 +1131,7 @@ function SettingsScreen({ email, onSave, onBack }) {
       </div>
 
       <div style={{...cardBase,padding:24,marginTop:16}}>
-        <h3 style={{fontSize:16,fontWeight:700,color:T.text,fontFamily:"'Zen Maru Gothic',sans-serif",margin:"0 0 12px"}}>💬 ゆいかからの改善リクエスト</h3>
+        <h3 style={{fontSize:16,fontWeight:700,color:T.text,fontFamily:"'Zen Maru Gothic',sans-serif",margin:"0 0 12px"}}>💬 ゆいかからのメッセージ</h3>
         <FeedbackViewer/>
       </div>
 
@@ -1236,12 +1258,12 @@ function HistoryScreen({ onBack }) {
               {s.mode==="quiz" && s.title ? (
                 <>
                   <div style={{fontSize:15,fontWeight:900,color:titleColors[s.title]||T.text}}>{s.title}</div>
-                  <div style={{fontSize:11,color:T.textMuted}}>{s.correct}/{s.total}</div>
+                  <div style={{fontSize:11,color:T.textMuted}}>{s.correct}/{s.total}{s.avgSec?` ⏱${s.avgSec}秒`:""}</div>
                 </>
               ) : (
                 <>
                   <div style={{fontSize:14,fontWeight:700,color:s.correct===s.total?T.correct:T.dunno}}>{s.correct}/{s.total}</div>
-                  {s.retry > 0 && <div style={{fontSize:11,color:T.textMuted}}>リトライ{s.retry}回</div>}
+                  <div style={{fontSize:11,color:T.textMuted}}>{s.retry > 0 ? `リトライ${s.retry}回` : ""}{s.avgSec?` ⏱${s.avgSec}秒`:""}</div>
                 </>
               )}
             </div>
