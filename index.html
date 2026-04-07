@@ -250,6 +250,43 @@ const UNITS = [
         {q:"火力発電の悪い点は？（排出物）",a:"二酸化炭素"},{q:"水力発電の悪い点は？（建設の影響）",a:"自然環境の破壊"},{q:"原子力発電の悪い点①は？（事故時）",a:"放射性物質"},{q:"原子力発電の悪い点②は？（燃料の処理）",a:"使用済み燃料の処分"},{q:"太陽光・風力の悪い点は？（安定性）",a:"不安定"},{q:"日本が火力に頼るリスクの原因は？",a:"燃料を輸入に頼っている"},{q:"多様な発電を組み合わせることを何という？",a:"エネルギーミックス"},
       ]},
     ],
+  },
+  // ============================================================
+  //  2026/4/7 新規追加
+  // ============================================================
+  {
+    subject: "理科", subjectIcon: "🔬", subjectColor: "#4fc3f7",
+    id: "rika-plant-0407",
+    name: "植物のはたらき（4/7）",
+    textbook: "光合成・蒸散・分類",
+    quizQuestions: [
+      { id:501, category:"対照実験", type:"multi_choice", question:"葉C「一晩暗所→光を当てた葉」にヨウ素液をつけると何色？", hint:"暗所でリセット→光で光合成→でんぷんは？", options:[{text:"青紫色（でんぷんあり）",correct:true},{text:"茶色のまま（でんぷんなし）",correct:false},{text:"緑色（葉緑体の色）",correct:false},{text:"無色透明",correct:false}], explanation:"一晩暗所→でんぷんリセット。その後光→光合成ででんぷんができた→ヨウ素液で青紫色。" },
+      { id:502, category:"対照実験", type:"multi_choice", question:"葉D「一晩暗所→アルミはくで覆って光を当てなかった葉」にヨウ素液をつけると？", hint:"光が当たっていない→光合成は？", options:[{text:"茶色のまま（でんぷんなし）",correct:true},{text:"青紫色（でんぷんあり）",correct:false},{text:"黄色（エタノールの色）",correct:false},{text:"赤色",correct:false}], explanation:"光なし→光合成できない→でんぷんなし→ヨウ素液は変色しない（茶色のまま）。" },
+      { id:503, category:"対照実験", type:"multi_choice", question:"葉E「ふ入りの葉の白い部分に光を当てた」。ヨウ素液の色は？", hint:"白い部分には葉緑体がある？ない？", options:[{text:"茶色のまま（でんぷんなし）",correct:true},{text:"青紫色（でんぷんあり）",correct:false},{text:"薄い青色（少しだけ光合成）",correct:false},{text:"緑色（葉緑体が染まった）",correct:false}], explanation:"白い部分は葉緑体なし→光が当たっても光合成できない→でんぷんなし→茶色のまま。" },
+      { id:504, category:"対照実験", type:"multi_choice", question:"葉F「ふ入りの葉の緑の部分に光を当てた」。ヨウ素液の色は？", hint:"緑＝葉緑体あり、光あり→光合成は？", options:[{text:"青紫色（でんぷんあり）",correct:true},{text:"茶色のまま（でんぷんなし）",correct:false},{text:"黄緑色（葉緑体の色と混ざる）",correct:false},{text:"無色（エタノールで脱色したから）",correct:false}], explanation:"葉緑体あり＋光あり→光合成できた→でんぷんあり→青紫色。脱色はエタノールで行うが、ヨウ素液は別の手順。" },
+      { id:505, category:"対照実験", type:"multi_choice", question:"CとDを比べると何がわかる？CとDの違いは「光があるかないか」だけ。", hint:"変えた条件が1つだけ→その条件が原因", options:[{text:"光合成には光が必要",correct:true},{text:"光合成には葉緑体が必要",correct:false},{text:"光合成にはCO₂が必要",correct:false},{text:"でんぷんは暗所で分解される",correct:false}], explanation:"CとDの唯一の違いは「光のあるなし」。結果が違う→光が原因→光合成に光が必要と証明。これが対照実験の読み方！" },
+      { id:506, category:"対照実験", type:"multi_choice", question:"EとFを比べると何がわかる？EとFの違いは「葉緑体があるかないか」だけ。", hint:"E＝葉緑体なし（茶色）、F＝葉緑体あり（青紫）", options:[{text:"光合成には葉緑体が必要",correct:true},{text:"光合成には光が必要",correct:false},{text:"葉緑体は光で作られる",correct:false},{text:"白い部分は蒸散しない",correct:false}], explanation:"唯一の違いは「葉緑体のあるなし」。結果が違う→葉緑体が原因。対照実験では「変えた条件は1つだけ」がルール！" },
+      { id:507, category:"対照実験", type:"multi_select", question:"光合成に必要な条件をすべて選びなさい。", hint:"対照実験で確認した条件＋もう1つ", options:[{text:"光",correct:true},{text:"葉緑体",correct:true},{text:"二酸化炭素",correct:true},{text:"酸素",correct:false},{text:"ヨウ素液",correct:false},{text:"エタノール",correct:false}], explanation:"①光 ②葉緑体 ③二酸化炭素の3つ。酸素は「出すもの」。ヨウ素液・エタノールは実験道具で条件ではない！" },
+      { id:508, category:"蒸散", type:"fill_blanks", question:"蒸散の仕組みを3箇所埋めよう。", hint:"水の通り道→水が出る穴→この現象の名前", template:"植物は根から吸い上げた水を（　①　）という管で全身に運ぶ。葉の裏側に多い（　②　）から水蒸気が出ていく現象を（　③　）という。", blanks:[{id:"①",correct:"道管",options:["道管","師管","気孔","維管束","根毛","葉脈"]},{id:"②",correct:"気孔",options:["気孔","道管","師管","葉緑体","表皮","根毛"]},{id:"③",correct:"蒸散",options:["蒸散","光合成","呼吸","吸収","浸透","蒸発"]}], explanation:"道管＝水の通り道、気孔＝水蒸気の出口、蒸散＝葉から水蒸気が出る現象。3つの関係をセットで覚えよう。" },
+      { id:509, category:"蒸散", type:"multi_choice", question:"蒸散が最もさかんに行われるのはどこ？", hint:"気孔が最も多い場所は？", options:[{text:"葉の裏側",correct:true},{text:"葉の表側",correct:false},{text:"茎の表面",correct:false},{text:"根の先端",correct:false}], explanation:"蒸散は葉の裏側の気孔から最もさかん。葉の表にも少しあるが、裏が圧倒的に多い。" },
+      { id:510, category:"蒸散", type:"multi_choice", question:"気孔のはたらきとして正しくないものはどれ？", hint:"気孔は蒸散以外にも大事な役割がある", options:[{text:"でんぷんを外に出す",correct:true},{text:"水蒸気を外に出す（蒸散）",correct:false},{text:"二酸化炭素を取り込む",correct:false},{text:"酸素を外に出す",correct:false}], explanation:"気孔の役割：①蒸散 ②CO₂の取り込み ③O₂の放出。でんぷんは気孔からは出ない（師管で運ばれる）。" },
+      { id:511, category:"気体の出入り", type:"multi_choice", question:"光合成で植物が吸収する気体は？", hint:"光合成の材料になる気体", options:[{text:"二酸化炭素",correct:true},{text:"酸素",correct:false},{text:"窒素",correct:false},{text:"水素",correct:false}], explanation:"光合成：CO₂＋水 →（光・葉緑体）→ でんぷん＋O₂。吸うのはCO₂、出すのはO₂。呼吸とは逆！" },
+      { id:512, category:"気体の出入り", type:"multi_choice", question:"植物の呼吸について正しいのはどれ？", hint:"呼吸は昼だけ？夜だけ？", options:[{text:"昼も夜も24時間行う",correct:true},{text:"夜だけ行う",correct:false},{text:"昼だけ行う",correct:false},{text:"光合成しているときは呼吸しない",correct:false}], explanation:"植物の呼吸は24時間休みなし。昼は光合成も同時に行うので、見かけ上CO₂を吸ってO₂を出しているように見えるだけ。" },
+      { id:513, category:"気体の出入り", type:"fill_blanks", question:"光合成と呼吸の気体を比べて3箇所埋めよう。", hint:"光合成と呼吸は逆の反応", template:"光合成：（　①　）を吸収し（　②　）を放出。\n呼吸：（　②　）を吸収し（　①　）を放出。\n呼吸は（　③　）行われる。", blanks:[{id:"①",correct:"二酸化炭素",options:["二酸化炭素","酸素","窒素","水素","でんぷん","水蒸気"]},{id:"②",correct:"酸素",options:["酸素","二酸化炭素","窒素","水素","でんぷん","水蒸気"]},{id:"③",correct:"24時間",options:["24時間","昼だけ","夜だけ","光が当たるときだけ","春と秋だけ","気温が高いときだけ"]}], explanation:"光合成と呼吸は吸う気体と出す気体が逆。光合成は光があるときだけ、呼吸は24時間。" },
+      { id:514, category:"植物の分類", type:"multi_choice", question:"チューリップの花びらは何枚？", hint:"チューリップは単子葉類。単子葉の花は3の倍数", options:[{text:"6枚（花びら3枚＋がく3枚）",correct:true},{text:"5枚（花びら5枚）",correct:false},{text:"4枚（花びら4枚）",correct:false},{text:"3枚（花びら3枚のみ）",correct:false}], explanation:"見た目は6枚だが、実は花びら3枚＋がく3枚。単子葉類は3の倍数、双子葉類は4か5の倍数が基本。" },
+      { id:515, category:"植物の分類", type:"multi_select", question:"単子葉類をすべて選びなさい。", hint:"葉脈が平行、根がひげ根、花は3の倍数", options:[{text:"イネ",correct:true},{text:"トウモロコシ",correct:true},{text:"ユリ",correct:true},{text:"アサガオ",correct:false},{text:"サクラ",correct:false},{text:"ヒマワリ",correct:false}], explanation:"単子葉類：イネ・トウモロコシ・ユリ・チューリップ・ススキ。双子葉類：アサガオ・サクラ・ヒマワリ。見分け：平行脈＝単子葉、網目脈＝双子葉。" },
+    ],
+    flashDecks: [
+      { name:"光合成の基本", icon:"🌿", color:"#4CAF50", cards:[
+        {q:"光合成で作られる栄養分は？",a:"でんぷん"},{q:"でんぷんがあるとヨウ素液は何色？",a:"青紫色"},{q:"光合成が行われる場所（細胞内）は？",a:"葉緑体"},{q:"光合成で吸収する気体は？",a:"二酸化炭素"},{q:"光合成で放出する気体は？",a:"酸素"},{q:"対照実験で変える条件はいくつ？",a:"1つだけ"},
+      ]},
+      { name:"蒸散と管", icon:"💧", color:"#29B6F6", cards:[
+        {q:"葉から水蒸気が出る現象は？",a:"蒸散"},{q:"水蒸気が出る穴は？",a:"気孔"},{q:"気孔はおもにどこに多い？",a:"葉の裏側"},{q:"水の通り道の管は？",a:"道管"},{q:"養分の通り道の管は？",a:"師管"},{q:"道管と師管をまとめて？",a:"維管束"},
+      ]},
+      { name:"植物の分類", icon:"🌱", color:"#66BB6A", cards:[
+        {q:"単子葉類の葉脈は？",a:"平行"},{q:"双子葉類の葉脈は？",a:"網目状"},{q:"単子葉類の根は？",a:"ひげ根"},{q:"双子葉類の根は？",a:"主根と側根"},{q:"チューリップの花びらは何枚？",a:"6枚"},{q:"イネは単子葉？双子葉？",a:"単子葉類"},{q:"呼吸で植物が出す気体は？",a:"二酸化炭素"},{q:"植物の呼吸はいつ行う？",a:"24時間"},
+      ]},
+    ],
   }
 ];
 
