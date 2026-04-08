@@ -287,11 +287,96 @@ const UNITS = [
         {q:"単子葉類の葉脈は？",a:"平行"},{q:"双子葉類の葉脈は？",a:"網目状"},{q:"単子葉類の根は？",a:"ひげ根"},{q:"双子葉類の根は？",a:"主根と側根"},{q:"チューリップの花びらは何枚？",a:"6枚"},{q:"イネは単子葉？双子葉？",a:"単子葉類"},{q:"呼吸で植物が出す気体は？",a:"二酸化炭素"},{q:"植物の呼吸はいつ行う？",a:"24時間"},
       ]},
     ],
+  },
+  // ============================================================
+  //  2026/4/8 新規追加
+  // ============================================================
+  {
+    subject: "理科", subjectIcon: "🔬", subjectColor: "#4fc3f7",
+    id: "rika-sekitsui-0408",
+    name: "セキツイ動物の分類（4/8）",
+    textbook: "コアプラス 106〜120",
+    quizQuestions: [
+      // --- 哺乳類の特徴 ---
+      { id:601, category:"哺乳類", type:"multi_choice", question:"哺乳類の胎児と母体をつなぐ管Xの名前は？", hint:"お母さんのお腹の中で栄養や酸素を受け取るための管", options:[{text:"へそのお（臍帯）",correct:true},{text:"たいばん（胎盤）",correct:false},{text:"卵管",correct:false},{text:"血管",correct:false}], explanation:"へそのお＝胎児と胎盤をつなぐ管。たいばんは母体側にある器官。へそのおを通して栄養・酸素をもらい、不要物を返す。" },
+      { id:602, category:"哺乳類", type:"multi_choice", question:"胎盤（たいばん）の役割は？", hint:"へそのおの先にあるもの", options:[{text:"母体の血液から栄養と酸素を胎児に渡す",correct:true},{text:"胎児の体温を調節する",correct:false},{text:"胎児を外敵から守る殻",correct:false},{text:"胎児が呼吸するための肺の代わり",correct:false}], explanation:"胎盤は母体の子宮の壁にできる器官。母体の血液と胎児の血液は直接混ざらず、胎盤を通して栄養・酸素を交換する。" },
+      { id:603, category:"哺乳類", type:"multi_select", question:"次のうち哺乳類をすべて選びなさい。", hint:"胎生（母体の中で育つ）＋母乳で育てる動物", options:[{text:"コウモリ",correct:true},{text:"シャチ",correct:true},{text:"クジラ",correct:true},{text:"ペンギン",correct:false},{text:"ワニ",correct:false},{text:"イモリ",correct:false}], explanation:"コウモリは空を飛ぶが哺乳類。シャチ・クジラは海にいるが哺乳類。ペンギンは鳥類、ワニは爬虫類、イモリは両生類。見た目にだまされない！" },
+      // --- 鳥類 ---
+      { id:604, category:"鳥類", type:"multi_choice", question:"カッコウは他の鳥の巣に卵を産む習性がある。この習性を何という？", hint:"自分では巣を作らず、他の鳥に育ててもらう", options:[{text:"托卵（たくらん）",correct:true},{text:"抱卵（ほうらん）",correct:false},{text:"産卵（さんらん）",correct:false},{text:"孵化（ふか）",correct:false}], explanation:"托卵＝他の鳥の巣に卵を産みつけて育てさせること。カッコウ、ホトトギスなどが有名。テストで出た⑤の鳥がカッコウ。" },
+      { id:605, category:"鳥類", type:"multi_choice", question:"カッコウの托卵で、巣に残されたカッコウの雛はどうする？", hint:"カッコウの雛は生まれて最初に何をする？", options:[{text:"他の卵を巣の外に押し出す",correct:true},{text:"他の雛と仲良く育つ",correct:false},{text:"すぐに巣を飛び立つ",correct:false},{text:"親鳥が他の卵を取り除く",correct:false}], explanation:"カッコウの雛は生まれてすぐ、背中で他の卵を巣の外に押し出す本能がある。こうして育ての親の餌を独占する。" },
+      // --- ニワトリの卵 ---
+      { id:606, category:"卵のつくり", type:"multi_choice", question:"ニワトリの卵で、ひなになる部分（胚）はどこにある？", hint:"卵の黄身の表面をよく見ると…", options:[{text:"黄身の表面にある小さな白い点（胚盤）",correct:true},{text:"黄身の中心部",correct:false},{text:"白身の中",correct:false},{text:"殻のすぐ内側",correct:false}], explanation:"胚（はい）は黄身の表面にある小さな白い点（胚盤）。黄身は胚が育つための栄養、白身は胚を守るクッション。" },
+      { id:607, category:"卵のつくり", type:"fill_blanks", question:"ニワトリの卵のつくりを3箇所埋めよう。", hint:"黄身・白身・殻、それぞれの役割は？", template:"卵の（　①　）は胚が育つための栄養を含む。（　②　）は胚を衝撃から守るクッションの役割がある。（　③　）は外部から胚を守り、小さな穴から空気を通す。", blanks:[{id:"①",correct:"黄身（卵黄）",options:["黄身（卵黄）","白身（卵白）","殻","胚盤","からざ","気室"]},{id:"②",correct:"白身（卵白）",options:["白身（卵白）","黄身（卵黄）","殻","胚盤","からざ","気室"]},{id:"③",correct:"殻",options:["殻","白身（卵白）","黄身（卵黄）","胚盤","からざ","気室"]}], explanation:"黄身＝栄養、白身＝クッション、殻＝保護＋呼吸。この3つの役割をセットで覚えよう！" },
+      // --- ヤモリ vs イモリ（テストの最大の弱点） ---
+      { id:608, category:"爬虫類と両生類", type:"multi_choice", question:"ヤモリはどの分類？", hint:"「ヤ」モリ＝「家」守。家の壁にいる＝陸上生活", options:[{text:"爬虫類",correct:true},{text:"両生類",correct:false},{text:"哺乳類",correct:false},{text:"鳥類",correct:false}], explanation:"ヤモリ＝爬虫類。「家守」と書き、家の壁でよく見かける。体は乾いたうろこで覆われ、一生陸上で暮らす。" },
+      { id:609, category:"爬虫類と両生類", type:"multi_choice", question:"イモリはどの分類？", hint:"「イ」モリ＝「井」守。井戸＝水辺に住む", options:[{text:"両生類",correct:true},{text:"爬虫類",correct:false},{text:"魚類",correct:false},{text:"哺乳類",correct:false}], explanation:"イモリ＝両生類。「井守」と書き、水辺にすむ。お腹が赤いのが特徴（アカハライモリ）。子どもの頃はエラ呼吸、大人は肺呼吸＋皮膚呼吸。" },
+      { id:610, category:"爬虫類と両生類", type:"multi_choice", question:"ヤモリとイモリ、卵に殻があるのはどっち？", hint:"殻がある＝陸上に産める＝爬虫類の特徴", options:[{text:"ヤモリ（爬虫類）の卵に殻がある",correct:true},{text:"イモリ（両生類）の卵に殻がある",correct:false},{text:"どちらも殻がある",correct:false},{text:"どちらも殻がない",correct:false}], explanation:"爬虫類の卵は殻あり（陸上に産める）。両生類の卵は殻なし・ゼリー状（水中に産む）。これは超頻出の区別ポイント！" },
+      // --- 5分類の特徴 ---
+      { id:611, category:"5分類", type:"matching", question:"セキツイ動物の分類と体温の特徴を結びつけよう。", hint:"恒温動物と変温動物の区別", pairs:[{left:"哺乳類",right:"恒温動物"},{left:"鳥類",right:"恒温動物"},{left:"爬虫類",right:"変温動物"},{left:"両生類",right:"変温動物"},{left:"魚類",right:"変温動物"}], explanation:"恒温動物は哺乳類と鳥類だけ！爬虫類・両生類・魚類は変温動物。「鳥と哺乳類だけ恒温」と覚えよう。" },
+      { id:612, category:"5分類", type:"multi_select", question:"卵生（卵を産む）の動物をすべて選びなさい。", hint:"胎生（お腹で育てる）は哺乳類だけ", options:[{text:"鳥類",correct:true},{text:"爬虫類",correct:true},{text:"両生類",correct:true},{text:"魚類",correct:true},{text:"哺乳類",correct:false}], explanation:"胎生は哺乳類だけ。他の4つ（鳥類・爬虫類・両生類・魚類）はすべて卵生。カモノハシなど例外もあるが基本はこれ。" },
+      { id:613, category:"5分類", type:"fill_blanks", question:"セキツイ動物5分類の呼吸の仕方を整理しよう。", hint:"一生肺呼吸？子どもの頃はエラ？", template:"哺乳類と爬虫類と鳥類は一生（　①　）呼吸。魚類は一生（　②　）呼吸。両生類は子どもの頃は（　②　）呼吸、大人になると（　①　）呼吸と（　③　）呼吸。", blanks:[{id:"①",correct:"肺",options:["肺","エラ","皮膚","気管","えら","口"]},{id:"②",correct:"エラ",options:["エラ","肺","皮膚","気管","口","鼻"]},{id:"③",correct:"皮膚",options:["皮膚","エラ","気管","肺","口","鼻"]}], explanation:"両生類の「両」は水中と陸上の両方で生きる意味。子ども＝エラ呼吸（水中）、大人＝肺＋皮膚呼吸（陸上）。" },
+      { id:614, category:"5分類", type:"order", question:"セキツイ動物を「水中生活 → 陸上生活」の順に並べよう。", hint:"一生水中 → 水中から陸上へ → 一生陸上", items:["爬虫類（一生陸上・殻あり卵）","魚類（一生水中・エラ呼吸）","鳥類（一生陸上・殻あり卵）","両生類（水中→陸上）"], correctOrder:[1,3,0,2], explanation:"魚類（水中）→ 両生類（水中→陸上）→ 爬虫類（陸上）→ 鳥類（陸上）。進化の順番とも一致する。" },
+      // --- 間違えやすい見た目問題 ---
+      { id:615, category:"見た目のワナ", type:"multi_choice", question:"次のうち、見た目と分類が一致しないのはどれ？", hint:"飛ぶから鳥、海にいるから魚…ではない！", options:[{text:"コウモリは空を飛ぶが哺乳類",correct:true},{text:"スズメは空を飛ぶ鳥類",correct:false},{text:"サケは水中にいる魚類",correct:false},{text:"カエルは水辺にいる両生類",correct:false}], explanation:"コウモリは翼があって飛ぶが、母乳で子を育てる哺乳類。シャチやクジラも海にいるが哺乳類。見た目にだまされないのがこの単元のポイント！" },
+    ],
+    flashDecks: [
+      { name:"哺乳類・鳥類", icon:"🦇", color:"#E84887", cards:[
+        {q:"胎児と母体をつなぐ管は？",a:"へそのお"},{q:"母体の子宮にできる栄養交換の器官は？",a:"胎盤"},{q:"哺乳類の子の育て方は？",a:"胎生＋母乳"},{q:"コウモリは何類？",a:"哺乳類"},{q:"シャチは何類？",a:"哺乳類"},{q:"クジラは何類？",a:"哺乳類"},{q:"カッコウが他の鳥の巣に卵を産む習性は？",a:"托卵"},
+      ]},
+      { name:"ヤモリ vs イモリ", icon:"🦎", color:"#FF9800", cards:[
+        {q:"ヤモリは何類？",a:"爬虫類"},{q:"イモリは何類？",a:"両生類"},{q:"「家守」はどっち？",a:"ヤモリ"},{q:"「井守」はどっち？",a:"イモリ"},{q:"卵に殻があるのは？",a:"ヤモリ（爬虫類）"},{q:"お腹が赤いのは？",a:"イモリ"},
+      ]},
+      { name:"5分類の特徴", icon:"🐾", color:"#4fc3f7", cards:[
+        {q:"恒温動物は何類と何類？",a:"哺乳類と鳥類"},{q:"胎生の動物は何類だけ？",a:"哺乳類"},{q:"一生エラ呼吸なのは？",a:"魚類"},{q:"子どもエラ→大人は肺＋皮膚呼吸は？",a:"両生類"},{q:"体がうろこで覆われた陸上動物は？",a:"爬虫類"},{q:"卵に殻がある分類は？（2つ）",a:"鳥類と爬虫類"},
+      ]},
+      { name:"卵のつくり", icon:"🥚", color:"#FFB74D", cards:[
+        {q:"卵でひなになる部分を何という？",a:"胚"},{q:"胚は卵のどこにある？",a:"黄身の表面"},{q:"黄身の役割は？",a:"栄養"},{q:"白身の役割は？",a:"クッション（保護）"},{q:"殻の役割は？",a:"保護＋空気を通す"},
+      ]},
+    ],
+  },
+  {
+    subject: "理科", subjectIcon: "🔬", subjectColor: "#4fc3f7",
+    id: "rika-koten-hikage-0408",
+    name: "公転と季節・日かげ曲線（4/8）",
+    textbook: "デイリーステップ④",
+    quizQuestions: [
+      // --- 南中高度の用語（④の間違い） ---
+      { id:701, category:"用語の区別", type:"multi_choice", question:"夏至の日、太陽の南中高度はどうなる？正しい表現はどれ？", hint:"「高度」に使う言葉は「高い/低い」", options:[{text:"最も高くなる",correct:true},{text:"最も長くなる",correct:false},{text:"最も大きくなる",correct:false},{text:"最も広くなる",correct:false}], explanation:"南中高度は「高い/低い」。「長い/短い」は昼の長さ。④で「長く」と書いたのはここの混同。高度＝角度だから「高い」！" },
+      { id:702, category:"用語の区別", type:"matching", question:"正しい組み合わせを結びつけよう。", hint:"高度は角度、昼は時間", pairs:[{left:"南中高度",right:"高い／低い"},{left:"昼の長さ",right:"長い／短い"},{left:"太陽の通り道（弧）",right:"大きい／小さい"},{left:"気温",right:"高い／低い"}], explanation:"南中高度→高い/低い、昼の長さ→長い/短い、弧→大きい/小さい。テストでは用語の使い分けで点差がつく。" },
+      // --- 天球図の読み取り（図1） ---
+      { id:703, category:"天球図", type:"multi_choice", question:"天球図で太陽の通り道が最も高く、弧が最も大きい日は？", hint:"昼が最も長い＝太陽が最も高い軌道を通る日", options:[{text:"夏至",correct:true},{text:"冬至",correct:false},{text:"春分",correct:false},{text:"秋分",correct:false}], explanation:"夏至＝南中高度が最高＋弧が最大＝昼が最長。天球図ではAの位置（最も高い軌道）が夏至。" },
+      { id:704, category:"天球図", type:"multi_choice", question:"天球図で太陽の通り道が最も低く、弧が最も小さい日は？", hint:"昼が最も短い日", options:[{text:"冬至",correct:true},{text:"夏至",correct:false},{text:"春分",correct:false},{text:"秋分",correct:false}], explanation:"冬至＝南中高度が最低＋弧が最小＝昼が最短。天球図ではCの位置（最も低い軌道）が冬至。テストの⑥が空欄だった部分。" },
+      // --- 公転と季節の位置（⑥〜⑩が全滅した部分） ---
+      { id:705, category:"公転", type:"multi_choice", question:"地球の公転の向きは？（北極側から見て）", hint:"自転と同じ向き", options:[{text:"反時計回り（ア）",correct:true},{text:"時計回り（イ）",correct:false},{text:"上から下",correct:false},{text:"不規則",correct:false}], explanation:"公転も自転も反時計回り（北極側から見て）。テストの⑦の答えは「ア」。" },
+      { id:706, category:"公転", type:"multi_choice", question:"地軸は公転面に垂直な線に対して約何度傾いている？", hint:"この傾きが季節を生む原因", options:[{text:"約23.4度",correct:true},{text:"約45度",correct:false},{text:"約10度",correct:false},{text:"約66.6度",correct:false}], explanation:"地軸の傾き＝約23.4度。66.6度は90−23.4で、北極圏の緯度。この23.4度が夏至と冬至の南中高度の差を生む。" },
+      { id:707, category:"公転", type:"multi_choice", question:"図2で、日本が夏至のとき地球はA〜Dのどこ？", hint:"夏至＝北極側が太陽の方に傾いている位置", options:[{text:"B（北極が太陽側に傾く位置）",correct:true},{text:"A",correct:false},{text:"C",correct:false},{text:"D",correct:false}], explanation:"夏至は北極側が太陽に向かって傾く位置＝B。図を見て「北極が太陽に近い」位置を探すのがコツ。" },
+      { id:708, category:"公転", type:"multi_choice", question:"図2で、日本が秋分のとき地球はA〜Dのどこ？", hint:"秋分＝地軸が太陽に対して横向き（夏至の次）", options:[{text:"D（夏至Bの次、反時計回りで）",correct:true},{text:"A",correct:false},{text:"B",correct:false},{text:"C",correct:false}], explanation:"反時計回りでB（夏至）→D（秋分）→C（冬至）→A（春分）。秋分はDの位置。" },
+      { id:709, category:"公転", type:"order", question:"地球の公転位置を春分から順に並べよう（反時計回り）。", hint:"春分→夏至→秋分→冬至", items:["冬至","秋分","夏至","春分"], correctOrder:[3,2,1,0], explanation:"春分（A）→夏至（B）→秋分（D）→冬至（C）。反時計回りにA→B→D→Cの順。" },
+      // --- 日かげ曲線（⑪〜⑬が全滅した部分） ---
+      { id:710, category:"日かげ曲線", type:"multi_choice", question:"棒の影は太陽のどちら側にできる？", hint:"影＝光の反対側", options:[{text:"太陽の反対側",correct:true},{text:"太陽と同じ側",correct:false},{text:"常に北側",correct:false},{text:"常に東側",correct:false}], explanation:"影は太陽の反対側にできる。太陽が南にあれば影は北に伸びる。これが日かげ曲線の基本。" },
+      { id:711, category:"日かげ曲線", type:"multi_choice", question:"日本で太陽が南中するとき、棒の影はどの方角を指す？", hint:"太陽が真南にある→影は？", options:[{text:"北（真北）",correct:true},{text:"南",correct:false},{text:"東",correct:false},{text:"西",correct:false}], explanation:"南中＝太陽が真南→影は真北。テストの⑪「図3のXの方位＝北」はこれ。" },
+      { id:712, category:"日かげ曲線", type:"multi_choice", question:"1日の影の先端の動きは、太陽の動きと比べてどうなる？", hint:"太陽が東→南→西に動くと、影は？", options:[{text:"太陽と反対方向に動く（西→北→東）",correct:true},{text:"太陽と同じ方向に動く（東→南→西）",correct:false},{text:"影は動かない",correct:false},{text:"ランダムに動く",correct:false}], explanation:"太陽が東→南→西と動くと、影は西→北→東と反対に動く。テストの⑫「影の向き＝ア」はこれ。" },
+      { id:713, category:"日かげ曲線", type:"multi_choice", question:"夏至の日かげ曲線はどんな特徴がある？", hint:"夏至＝南中高度が最も高い＝影が最も短い", options:[{text:"影が短く、棒に近い曲線（A）",correct:true},{text:"影が長く、棒から遠い曲線",correct:false},{text:"直線になる",correct:false},{text:"影ができない",correct:false}], explanation:"夏至は南中高度が最高→影が最短→日かげ曲線は棒に最も近い（Aの曲線）。冬至はその逆で影が長い。" },
+      // --- 渡り鳥（⑭の間違い） ---
+      { id:714, category:"渡り鳥", type:"multi_select", question:"夏鳥（春に日本に来て、秋に南へ帰る鳥）をすべて選びなさい。", hint:"ツバメと同じグループ", options:[{text:"カッコウ",correct:true},{text:"ホトトギス",correct:true},{text:"ツバメ",correct:true},{text:"ハクチョウ",correct:false},{text:"スズメ",correct:false},{text:"カラス",correct:false}], explanation:"夏鳥：ツバメ・カッコウ・ホトトギス（春に来て秋に去る）。ハクチョウは冬鳥。スズメ・カラスは留鳥（1年中いる）。" },
+      { id:715, category:"外来種", type:"multi_choice", question:"オオイヌノフグリやシロツメクサのように、もともと日本にいなかったが外国から入ってきた生物を何という？", hint:"「外」から「来」た", options:[{text:"外来種",correct:true},{text:"天然記念物",correct:false},{text:"絶滅危惧種",correct:false},{text:"帰化植物",correct:false}], explanation:"外来種＝外国から持ち込まれた生物。帰化植物は外来種の中で定着したもの。テストでは「外来種」が正解。" },
+    ],
+    flashDecks: [
+      { name:"用語の使い分け", icon:"📝", color:"#E84887", cards:[
+        {q:"南中高度に使う言葉は？",a:"高い／低い"},{q:"昼の長さに使う言葉は？",a:"長い／短い"},{q:"太陽の弧に使う言葉は？",a:"大きい／小さい"},{q:"南中高度が最も高い日は？",a:"夏至"},{q:"南中高度が最も低い日は？",a:"冬至"},
+      ]},
+      { name:"公転と季節", icon:"🌍", color:"#4fc3f7", cards:[
+        {q:"公転の向きは？（北極上から見て）",a:"反時計回り"},{q:"地軸の傾きは約何度？",a:"23.4度"},{q:"夏至の地球の位置は？（図2）",a:"B"},{q:"秋分の地球の位置は？（図2）",a:"D"},{q:"冬至の地球の位置は？（図2）",a:"C"},{q:"春分の地球の位置は？（図2）",a:"A"},{q:"公転の季節の順は？（春分から）",a:"A→B→D→C"},
+      ]},
+      { name:"日かげ曲線", icon:"🕐", color:"#FF9800", cards:[
+        {q:"南中時に棒の影が指す方角は？",a:"北"},{q:"影は太陽のどちら側にできる？",a:"反対側"},{q:"影の先端の動く向きは？",a:"西→北→東"},{q:"夏至の日かげ曲線の特徴は？",a:"影が短い（棒に近い）"},{q:"冬至の日かげ曲線の特徴は？",a:"影が長い（棒から遠い）"},
+      ]},
+      { name:"渡り鳥と外来種", icon:"🐦", color:"#66BB6A", cards:[
+        {q:"ツバメは夏鳥？冬鳥？留鳥？",a:"夏鳥"},{q:"カッコウは夏鳥？冬鳥？留鳥？",a:"夏鳥"},{q:"ハクチョウは夏鳥？冬鳥？留鳥？",a:"冬鳥"},{q:"スズメは夏鳥？冬鳥？留鳥？",a:"留鳥"},{q:"外国から入ってきた生物を何という？",a:"外来種"},
+      ]},
+    ],
   }
 ];
-
-// --- UTILS ---
-function shuffle(arr) {
   const a = [...arr];
   for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
   return a;
