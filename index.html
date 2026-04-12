@@ -392,9 +392,9 @@ flashDecks: [
 { name:“蒸散と水の移動”, icon:“💧”, color:”#29B6F6”, cards:[
 {q:“蒸散がさかんな条件：気温は？”,a:“高い”},{q:“蒸散がさかんな条件：湿度は？”,a:“低い”},{q:“食紅で赤く染まる管は？”,a:“道管”},{q:“葉を取ると蒸散は約何分の1？”,a:“7分の1”},{q:“根毛→道管→？→水蒸気”,a:“気孔”},{q:“師管と道管の語呂合わせは？”,a:“師外道内”},
 ]},
-
 ],
-},
+}
+,
 // ============================================================
 //  2026/4/12 漢字 第18回 品詞(2)
 // ============================================================
@@ -1130,6 +1130,7 @@ const knew = judged === “correct”;
 handleRes(knew);
 setUserInput(””);
 setJudged(null);
+setFlipped(false);
 setTimeout(() => inputRef.current?.focus(), 100);
 };
 
@@ -1158,7 +1159,7 @@ transition:“all 0.3s”,
 
 ```
   {/* Input area */}
-  {!judged && !flipped && isKanji && (
+  {!judged && isKanji && !flipped && (
     <div>
       <p style={{fontSize:14,color:T.textDim,marginBottom:12,lineHeight:1.6}}>✏️ 紙に漢字を書いてから<br/>答えを確認しよう！</p>
       {card.note && <p style={{fontSize:12,color:T.dunno,background:T.dunno+“11”,borderRadius:8,padding:“8px 12px”,marginBottom:12,border:“1px solid ”+T.dunno+“33”}}>💡 {card.note}</p>}
@@ -1173,7 +1174,7 @@ transition:“all 0.3s”,
       </div>
     </div>
   )}
-  {!judged && flipped && isKanji && (
+  {!judged && isKanji && flipped && (
     <div style={{animation:“fadeIn 0.3s ease”}}>
       <div style={{fontSize:13,color:T.textDim,marginBottom:4}}>正解:</div>
       <div style={{fontSize:28,fontWeight:900,color:T.text,marginBottom:16,fontFamily:“'Zen Maru Gothic',sans-serif”}}>{card.a}</div>
@@ -1187,7 +1188,7 @@ transition:“all 0.3s”,
       </div>
     </div>
   )}
-    {!judged && !isKanji && (
+  {!judged && !isKanji && (
     <div>
       <input
         ref={inputRef}
@@ -1218,6 +1219,7 @@ transition:“all 0.3s”,
       </div>
     </div>
   )}
+
   {/* Result */}
   {judged && (
     <div style={{animation:"fadeIn 0.3s ease"}}>
@@ -1229,7 +1231,7 @@ transition:“all 0.3s”,
         <div style={{fontSize:18,fontWeight:900,color:judged==="correct"?T.correct:T.wrong,marginBottom:8,fontFamily:"'Zen Maru Gothic',sans-serif"}}>
           {judged==="correct"?"⭕ 正解！":"❌ 不正解"}
         </div>
-        {judged==="wrong"&&userInput&&!isKanji&&(
+        {judged==="wrong"&&userInput&&(
           <div style={{fontSize:13,color:T.textDim,marginBottom:8}}>
             あなたの答え: <span style={{color:T.wrong,textDecoration:"line-through"}}>{userInput}</span>
           </div>
