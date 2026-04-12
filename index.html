@@ -393,6 +393,27 @@ flashDecks: [
 {q:“蒸散がさかんな条件：気温は？”,a:“高い”},{q:“蒸散がさかんな条件：湿度は？”,a:“低い”},{q:“食紅で赤く染まる管は？”,a:“道管”},{q:“葉を取ると蒸散は約何分の1？”,a:“7分の1”},{q:“根毛→道管→？→水蒸気”,a:“気孔”},{q:“師管と道管の語呂合わせは？”,a:“師外道内”},
 ]},
 ],
+},
+// ============================================================
+//  2026/4/12 漢字 第18回 品詞(2)
+// ============================================================
+{
+subject: “国語”, subjectIcon: “📝”, subjectColor: “#E84887”,
+id: “kokugo-kanji18-0412”,
+name: “漢字 第18回 品詞(2)（4/12）”,
+textbook: “漢字テスト P15”,
+quizQuestions: [],
+flashDecks: [
+{ name:“第18回 漢字①〜⑩”, icon:“✏️”, color:”#E84887”, kanjiMode: true, cards:[
+{q:“冷めたスープを アタタめる”,a:“温める”,note:”「温」は「氵（さんずい）」＋「昷」”},{q:“発言の イト が分からない”,a:“意図”,note:”「意」は「音＋心」、「図」は「はかる」”},{q:“校庭の カイホウ する”,a:“開放”,note:”「開」は開く、「放」は放つ”},{q:“運動会の カカリ を決める”,a:“係”,note:”「係」は「イ（にんべん）」＋「系」”},{q:“彼の考えに キョウカン する”,a:“共感”,note:”「感」は「咸＋心」。「織」と間違えやすい！”},{q:“きれいな キョクセン を描く”,a:“曲線”,note:“⚠️ 間違えた問題！「線」は「糸＋泉」。「織」と混同しないこと”},{q:“コムギ 粉でパンをつくる”,a:“小麦”,note:”「麦」の下は「夂」”},{q:“コンヤ は満月だ”,a:“今夜”,note:”「今」は「人＋一＋ラ」”},{q:“カレーの ザイリョウ を買う”,a:“材料”,note:”「料」は「米＋斗」。「量」と間違えない！”},{q:“優勝して ハナ が高い”,a:“鼻”,note:”「鼻」は14画。「自＋田＋廾」”},
+]},
+{ name:“第18回 漢字⑪〜⑳”, icon:“✏️”, color:”#FF6B9D”, kanjiMode: true, cards:[
+{q:“ショウコウ 状態が続く”,a:“症候”,note:”「症」は「疒＋正」、「候」は「イ＋矦」”},{q:“シンシン ともに元気だ”,a:“心身”,note:”「身」は体のこと”},{q:“フボ と出かける”,a:“父母”,note:“基本の漢字だけど送り仮名注意”},{q:“王様に ツカエル”,a:“仕える”,note:”「仕」は「イ（にんべん）」＋「士」”},{q:“トウフ ケンの名前を書く”,a:“豆腐”,note:”「腐」は「府＋肉」”},{q:“友情を ハグク む”,a:“育む”,note:”「育」は「なべぶた＋月」”},{q:“彼はチームの秘密 ヘイキ だ”,a:“平気”,note:”「平」は「たいら」”},{q:“ベンガク にはげむ”,a:“勉学”,note:”「勉」は「免＋力」”},{q:“ミズカラ の力で勝ち取る”,a:“自ら”,note:”「自」は「みずから」の訓読み”},{q:“モンダイ が解決した”,a:“問題”,note:”「題」は「是＋頁」”},
+]},
+{ name:“補強：まちがえやすい漢字”, icon:“🔥”, color:”#FF9800”, kanjiMode: true, cards:[
+{q:“点と点を セン でつなぐ”,a:“線”,note:”「線」＝「糸＋泉」。「繊」「織」と区別！”},{q:“テレビの ホウソウ”,a:“放送”,note:”「放」は「方＋攵」”},{q:“キョウリョク して作業する”,a:“協力”,note:”「協」は「十＋劦」”},{q:“カンドウ 的な映画”,a:“感動”,note:”「感」は「咸＋心」。「線」の部首「糸」と混同しない”},{q:“美しい オリモノ”,a:“織物”,note:”「織」＝「糸＋戠」。「線」と字形を比較しよう”},
+]},
+],
 }
 ];
 
@@ -496,6 +517,7 @@ const [text, setText] = useState(””);
 const [sent, setSent] = useState(false);
 if (sent) return <div style={{fontSize:12,color:T.green,textAlign:“center”,marginTop:8}}>✅ おくったよ！</div>;
 return (
+
 <div style={{marginTop:12}}>
 <div style={{fontSize:12,color:T.textMuted,marginBottom:6}}>💬 この問題どう思った？（なおしてほしいときに書いてね）</div>
 <div style={{display:“flex”,gap:8}}>
@@ -531,6 +553,7 @@ return `${d.getMonth()+1}/${d.getDate()}（${days[d.getDay()]}）${String(d.getH
 if (!loaded) return <p style={{fontSize:13,color:T.textDim}}>読み込み中…</p>;
 if (!items.length) return <p style={{fontSize:13,color:T.textMuted}}>まだメッセージはありません</p>;
 return (
+
 <div style={{maxHeight:300,overflowY:“auto”}}>
 {items.slice(0,30).map((fb,i) => (
 <div key={i} style={{background:T.card||T.smoke,borderRadius:10,padding:12,marginBottom:8,border:`1px solid rgba(232,72,135,0.04)`}}>
@@ -546,6 +569,7 @@ return (
 function SlashEffect({ show, streak }) {
 if (!show) return null;
 return (
+
 <div style={{ position:“fixed”, inset:0, pointerEvents:“none”, zIndex:9999 }}>
 <div style={{
 position:“absolute”, top:“50%”, left:“50%”,
@@ -611,6 +635,7 @@ const check = () => { setDone(true); onAnswer(items.every((v,i)=>v===q.correctOr
 const dunno = () => { setItems([…q.correctOrder]); setDone(true); onAnswer(“dunno”); };
 return (<div>
 {items.map((idx,pos) => (
+
 <div key={idx} draggable={!done} onDragStart={()=>setDragIdx(pos)} onDragOver={e=>e.preventDefault()} onDrop={()=>{move(dragIdx,pos);setDragIdx(null);}}
 style={{ padding:“14px 16px”, margin:“8px 0”, background:done?(q.correctOrder[pos]===idx?`${T.correct}22`:`${T.wrong}22`):dragIdx===pos?`${T.pinkLight}22`:T.smoke,
 border:`2px solid ${done?(q.correctOrder[pos]===idx?T.correct:T.wrong):T.textMuted}`, borderRadius:12, cursor:done?“default”:“grab”,
@@ -646,6 +671,7 @@ const dunno = () => { const c={}; q.blanks.forEach(b=>{c[b.id]=b.correct;}); set
 const parts = q.template.split(/（　[①②③④⑤]　）/);
 const matches = q.template.match(/（　[①②③④⑤]　）/g)||[];
 return (<div>
+
 <div style={{background:T.card||T.smoke,borderRadius:12,padding:20,fontSize:16,lineHeight:2,marginBottom:16,fontFamily:”‘Noto Sans JP’,sans-serif”,color:T.text,border:`1px solid ${T.textMuted}`}}>
 {parts.map((part,i)=>(<span key={i}>{part}{i<matches.length&&(
 <span style={{display:“inline-block”,padding:“2px 8px”,margin:“2px 4px”,borderRadius:8,
@@ -677,6 +703,7 @@ useEffect(() => { setSR(shuffle(q.pairs.map(p=>p.right))); setSel({}); setAct(nu
 const check = () => { setDone(true); onAnswer(q.pairs.every(p=>sel[p.left]===p.right)?“correct”:“wrong”); };
 const dunno = () => { const c={}; q.pairs.forEach(p=>{c[p.left]=p.right;}); setSel(c); setDone(true); onAnswer(“dunno”); };
 return (<div>
+
 <p style={{fontSize:13,color:T.textDim,margin:“0 0 8px”,fontFamily:”‘Noto Sans JP’,sans-serif”}}>左をタップ → 右をタップ</p>
 <div style={{display:“grid”,gridTemplateColumns:“1fr 1fr”,gap:10,marginBottom:16}}>
 <div>{q.pairs.map(p=>(<div key={p.left} onClick={()=>{if(!done)setAct(p.left);}} style={{
@@ -724,6 +751,7 @@ const tog = si => { if(done) return; setSel(p=>{const n=new Set(p);n.has(si)?n.d
 const check = () => { setDone(true); const isCorrect=shuffled.every((oi,si)=>q.options[oi].correct===sel.has(si)); onAnswer(isCorrect?“correct”:“wrong”); };
 const dunno = () => { const c=new Set(); shuffled.forEach((oi,si)=>{if(q.options[oi].correct)c.add(si);}); setSel(c); setDone(true); onAnswer(“dunno”); };
 return (<div>
+
 <p style={{fontSize:13,color:T.textDim,marginBottom:8,fontFamily:”‘Noto Sans JP’,sans-serif”}}>※ あてはまるものをすべてタップ</p>
 {shuffled.map((oi,si)=>(<div key={oi} onClick={()=>tog(si)} style={{
 padding:“14px 16px”,margin:“8px 0”,borderRadius:12,fontSize:15,fontFamily:”‘Noto Sans JP’,sans-serif”,color:T.text,
@@ -890,6 +918,7 @@ onBack();
 
 return (<Wrapper>
 <SlashEffect show={showSlash} streak={streak}/>
+
 <div ref={topRef}/>
 <div style={{display:“flex”,alignItems:“center”,justifyContent:“space-between”,marginBottom:16}}>
 <button onClick={handleQuit} style={{background:T.card||T.smoke,border:“none”,borderRadius:10,padding:“8px 14px”,color:T.textDim,fontSize:14,cursor:“pointer”,fontFamily:”‘Noto Sans JP’,sans-serif”}}>← 戻る</button>
@@ -949,17 +978,20 @@ const inputRef = useRef(null);
 const [cardStart, setCardStart] = useState(Date.now());
 const [sessionStart, setSessionStart] = useState(Date.now());
 const [cardTimes, setCardTimes] = useState([]);
+const [isKanji, setIsKanji] = useState(false);
 
 useEffect(() => { if(phase===“play”) setTimeout(() => inputRef.current?.focus(), 200); }, [ci, phase]);
 
 const fmtTime = (sec) => sec < 60 ? `${sec}秒` : `${Math.floor(sec/60)}分${sec%60}秒`;
 
 const startDeck = (di) => {
-const d = di===-1 ? unit.flashDecks.flatMap(d=>d.cards) : unit.flashDecks[di].cards;
+const deck = di===-1 ? null : unit.flashDecks[di];
+const d = di===-1 ? unit.flashDecks.flatMap(d=>d.cards) : deck.cards;
+const kanji = di===-1 ? unit.flashDecks.every(dk=>dk.kanjiMode) : !!(deck && deck.kanjiMode);
 setCards(shuffle([…d])); setCi(0); setFlipped(false); setRes({c:0,w:0}); setWrongs([]); setRetry(0);
 setTotalCards(d.length); setFirstRoundWrongs([]); setEmailSent(false);
 setCardStart(Date.now()); setSessionStart(Date.now()); setCardTimes([]);
-setDeckIdx(di); setPhase(“play”);
+setDeckIdx(di); setPhase(“play”); setIsKanji(kanji);
 };
 
 const handleRes = (knew) => {
@@ -1008,6 +1040,7 @@ setEmailSent(true);
 if (phase===“select”) return (
 <Wrapper>
 <button onClick={onBack} style={{background:T.card||T.smoke,border:“none”,borderRadius:10,padding:“8px 14px”,color:T.textDim,fontSize:14,cursor:“pointer”,fontFamily:”‘Noto Sans JP’,sans-serif”,marginBottom:20}}>← 戻る</button>
+
 <div style={{textAlign:“center”,marginBottom:28}}>
 <div style={{fontSize:42,marginBottom:4}}>🧠</div>
 <h2 style={{fontSize:22,fontWeight:900,color:T.text,fontFamily:”‘Zen Maru Gothic’,sans-serif”,margin:“0 0 4px”}}>暗記トレーニング</h2>
@@ -1029,6 +1062,7 @@ if (phase===“select”) return (
 
 if (phase===“done”) return (
 <Wrapper>
+
 <div style={{…cardBase,textAlign:“center”,padding:“40px 20px”,marginTop:30}} className=“sakura-bg”>
 <div style={{fontSize:64,marginBottom:12}}>🎊</div>
 <h2 style={{fontSize:24,fontWeight:900,color:T.gold,fontFamily:”‘Zen Maru Gothic’,sans-serif”,textShadow:`0 0 20px ${T.gold}44`}}>全集中・暗記完了！</h2>
@@ -1099,6 +1133,7 @@ setTimeout(() => inputRef.current?.focus(), 100);
 };
 
 return (<Wrapper>
+
 <div style={{display:“flex”,alignItems:“center”,justifyContent:“space-between”,marginBottom:16}}>
 <button onClick={()=>setPhase(“select”)} style={{background:T.card||T.smoke,border:“none”,borderRadius:10,padding:“8px 14px”,color:T.textDim,fontSize:14,cursor:“pointer”,fontFamily:”‘Noto Sans JP’,sans-serif”}}>← 戻る</button>
 <span style={{background:T.card||T.smoke,borderRadius:10,padding:“6px 12px”,fontSize:14,fontWeight:700,color:T.text}}>{ci+1}/{cards.length}</span>
@@ -1122,7 +1157,36 @@ transition:“all 0.3s”,
 
 ```
   {/* Input area */}
-  {!judged && (
+  {!judged && !flipped && isKanji && (
+    <div>
+      <p style={{fontSize:14,color:T.textDim,marginBottom:12,lineHeight:1.6}}>紙に漢字を書いてから<br/>答えを確認しよう！</p>
+      {card.note && <p style={{fontSize:12,color:T.dunno,background:T.dunno+"11",borderRadius:8,padding:"8px 12px",marginBottom:12,border:"1px solid "+T.dunno+"33"}}>💡 {card.note}</p>}
+      <div style={{display:"flex",gap:8}}>
+        <button onClick={()=>setFlipped(true)} style={{...btnPrimary,flex:1}}>
+          ✏️ 書けた！答えを見る
+        </button>
+        <button onClick={()=>{setJudged("wrong");setUserInput("");}}
+          style={{...btnDunno,flex:1,marginTop:8}}>
+          🤔 わからない
+        </button>
+      </div>
+    </div>
+  )}
+  {!judged && flipped && isKanji && (
+    <div style={{animation:"fadeIn 0.3s ease"}}>
+      <div style={{fontSize:13,color:T.textDim,marginBottom:4}}>正解:</div>
+      <div style={{fontSize:28,fontWeight:900,color:T.text,marginBottom:16,fontFamily:"'Zen Maru Gothic',sans-serif"}}>{card.a}</div>
+      <div style={{display:"flex",gap:8}}>
+        <button onClick={()=>{setJudged("correct");}} style={{...btnPrimary,flex:1,background:"linear-gradient(135deg, "+T.correct+", #2E7D32)"}}>
+          ⭕ できた！
+        </button>
+        <button onClick={()=>{setJudged("wrong");setUserInput("");}} style={{flex:1,padding:"14px 20px",borderRadius:14,border:"none",background:"linear-gradient(135deg, "+T.wrong+", #B71C1C)",color:T.white,fontSize:16,fontWeight:700,cursor:"pointer",fontFamily:"'Zen Maru Gothic',sans-serif"}}>
+          ❌ まちがえた
+        </button>
+      </div>
+    </div>
+  )}
+  {!judged && !isKanji && (
     <div>
       <input
         ref={inputRef}
@@ -1165,7 +1229,7 @@ transition:“all 0.3s”,
         <div style={{fontSize:18,fontWeight:900,color:judged==="correct"?T.correct:T.wrong,marginBottom:8,fontFamily:"'Zen Maru Gothic',sans-serif"}}>
           {judged==="correct"?"⭕ 正解！":"❌ 不正解"}
         </div>
-        {judged==="wrong"&&userInput&&(
+        {judged==="wrong"&&userInput&&!isKanji&&(
           <div style={{fontSize:13,color:T.textDim,marginBottom:8}}>
             あなたの答え: <span style={{color:T.wrong,textDecoration:"line-through"}}>{userInput}</span>
           </div>
@@ -1180,7 +1244,8 @@ transition:“all 0.3s”,
     </div>
   )}
 </div>
-{!judged&&<p style={{textAlign:"center",fontSize:12,color:T.textMuted,marginTop:12}}>※ ひらがな・カタカナどちらでもOK</p>}
+{!judged&&!isKanji&&<p style={{textAlign:"center",fontSize:12,color:T.textMuted,marginTop:12}}>※ ひらがな・カタカナどちらでもOK</p>}
+{!judged&&isKanji&&!flipped&&<p style={{textAlign:"center",fontSize:12,color:T.textMuted,marginTop:12}}>✏️ 紙とえんぴつを用意してね</p>}
 ```
 
 </Wrapper>);
@@ -1195,6 +1260,7 @@ if (mode===“quiz”) return <QuizScreen unit={unit} onBack={()=>setMode(null)}
 if (mode===“flash”) return <FlashScreen unit={unit} onBack={()=>setMode(null)} email={email} onSessionSaved={onSessionSaved}/>;
 return (<Wrapper>
 <button onClick={onBack} style={{background:T.card||T.smoke,border:“none”,borderRadius:10,padding:“8px 14px”,color:T.textDim,fontSize:14,cursor:“pointer”,fontFamily:”‘Noto Sans JP’,sans-serif”,marginBottom:20}}>← ホーム</button>
+
 <div style={{textAlign:“center”,marginBottom:28}}>
 <div style={{fontSize:42,marginBottom:4}}>{unit.subjectIcon}</div>
 <h2 style={{fontSize:22,fontWeight:900,color:T.text,fontFamily:”‘Zen Maru Gothic’,sans-serif”,margin:“0 0 4px”}}>{unit.name}</h2>
@@ -1234,6 +1300,7 @@ return {icon:“📖”,label:“挑戦済”,color:T.textDim};
 };
 
 return (<Wrapper>
+
 <div style={{textAlign:“center”,marginBottom:32,paddingTop:16}}>
 <div style={{display:“flex”,justifyContent:“flex-end”,marginBottom:8,gap:8}}>
 <button onClick={onHistory} style={{background:T.card||T.smoke,border:`1px solid ${T.textMuted}`,borderRadius:10,padding:“8px 14px”,color:T.textDim,fontSize:14,cursor:“pointer”,fontFamily:”‘Noto Sans JP’,sans-serif”,display:“flex”,alignItems:“center”,gap:6}}>
@@ -1306,6 +1373,7 @@ color:fBadge?fBadge.color:T.textMuted}}>
 // ============================================================
 function Wrapper({ children }) {
 return (
+
 <div style={{
 maxWidth:500, margin:“0 auto”, padding:“16px 16px 40px”,
 fontFamily:”‘Noto Sans JP’,sans-serif”,
@@ -1343,6 +1411,7 @@ setTimeout(() => setSaved(false), 2000);
 return (
 <Wrapper>
 <button onClick={onBack} style={{background:T.card||T.smoke,border:“none”,borderRadius:10,padding:“8px 14px”,color:T.textDim,fontSize:14,cursor:“pointer”,fontFamily:”‘Noto Sans JP’,sans-serif”,marginBottom:24}}>← ホーム</button>
+
 <div style={{textAlign:“center”,marginBottom:32}}>
 <div style={{fontSize:42,marginBottom:4}}>⚙️</div>
 <h2 style={{fontSize:22,fontWeight:900,color:T.text,fontFamily:”‘Zen Maru Gothic’,sans-serif”,margin:“0 0 4px”}}>設定</h2>
@@ -1574,6 +1643,7 @@ setLoaded(true);
 
 if (!loaded) return (
 <Wrapper>
+
 <div style={{textAlign:“center”,paddingTop:100}}>
 <div style={{fontSize:36,marginBottom:12}}>⏳</div>
 <p style={{color:T.textDim,fontFamily:”‘Zen Maru Gothic’,sans-serif”}}>読み込み中…</p>
