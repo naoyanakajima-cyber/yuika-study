@@ -754,7 +754,21 @@ const [emailSent, setEmailSent] = useState(false);
 const [saved, setSaved] = useState(false);
 const [qStart, setQStart] = useState(Date.now());
 const [sessionStart] = useState(Date.now());
+const [prevBest, setPrevBest] = useState(null);
 const topRef = useRef(null);
+
+useEffect(() => {
+(async () => {
+try {
+const r = await window.storage.get(“sessions”);
+if (r && r.value) {
+const sessions = JSON.parse(r.value);
+const prev = sessions.filter(s => s.mode===“quiz” && s.unit===unit.name && !s.incomplete);
+if (prev.length > 0) setPrevBest(Math.max(…prev.map(s=>s.correct)));
+}
+} catch(e) {}
+})();
+}, []);
 
 const qs = unit.quizQuestions;
 const q = qs[idx];
@@ -817,39 +831,48 @@ setEmailSent(true);
 };
 
 if (done) {
+const grew = prevBest !== null && cc > prevBest;
+const sameAsBest = prevBest !== null && cc === prevBest && cc > 0;
+const firstTry = prevBest === null;
+const growthMsg = grew ? `前回より${cc - prevBest}問UP！成長してる！` : sameAsBest ? “ベスト記録キープ！安定してるね” : firstTry ? “初挑戦クリア！えらい！” : null;
+
+```
 return (<Wrapper><div ref={topRef}/>
-<div style={{…cardBase,textAlign:“center”,padding:“40px 20px”,position:“relative”}} className=“sakura-bg”>
-{cc===qs.length&&dc===0 && <div style={{position:“absolute”,inset:0,background:`radial-gradient(circle at center, ${T.gold}22 0%, transparent 60%)`,pointerEvents:“none”}}/>}
-<div style={{fontSize:64,marginBottom:8}}>{title.icon}</div>
-<h2 style={{fontSize:28,fontWeight:900,margin:“8px 0”,color:title.color,fontFamily:”‘Zen Maru Gothic’,sans-serif”,textShadow:title.color===T.gold?`0 0 20px ${T.gold}66`:“none”}}>{title.label}</h2>
-<p style={{fontSize:15,color:T.textDim,margin:“4px 0 20px”}}>{title.msg}</p>
-{honestBadge && <div style={{display:“inline-block”,background:`${T.pinkLight}22`,border:`1px solid ${T.pinkLight}`,borderRadius:20,padding:“6px 16px”,fontSize:13,color:T.pinkLight,fontWeight:700,marginBottom:16}}>🌸 正直者の呼吸</div>}
-<div style={{display:“flex”,justifyContent:“center”,gap:16,margin:“20px 0”}}>
-<div><div style={{fontSize:32,fontWeight:900,color:T.correct}}>{cc}</div><div style={{fontSize:11,color:T.textDim}}>⭕正解</div></div>
-<div><div style={{fontSize:32,fontWeight:900,color:T.wrong}}>{wc}</div><div style={{fontSize:11,color:T.textDim}}>❌まちがい</div></div>
-<div><div style={{fontSize:32,fontWeight:900,color:T.dunno}}>{dc}</div><div style={{fontSize:11,color:T.textDim}}>🤔わからない</div></div>
-<div><div style={{fontSize:32,fontWeight:900,color:T.pink}}>{fmtTime(avgSec)}</div><div style={{fontSize:11,color:T.textDim}}>⏱平均</div></div>
-</div>
-<div style={{fontSize:13,color:T.textDim,marginBottom:16}}>⏱ 合計 {fmtTime(totalSec)}</div>
-{wc>0&&<div style={{textAlign:“left”,background:`${T.wrong}11`,borderRadius:12,padding:14,marginBottom:10,border:`1px solid ${T.wrong}33`}}>
-<p style={{fontWeight:700,fontSize:13,color:T.wrong,marginBottom:6}}>❌ まちがえた問題：</p>
-{results.map((r,i)=>r.result===“wrong”?<div key={i} style={{fontSize:13,color:T.textDim,padding:“3px 0”}}>• Q{i+1}: {qs[i].category}</div>:null)}
-</div>}
-{dc>0&&<div style={{textAlign:“left”,background:`${T.dunno}11`,borderRadius:12,padding:14,marginBottom:16,border:`1px solid ${T.dunno}33`}}>
-<p style={{fontWeight:700,fontSize:13,color:T.dunno,marginBottom:6}}>🤔 わからなかった → 暗記カードで復習！</p>
-{results.map((r,i)=>r.result===“dunno”?<div key={i} style={{fontSize:13,color:T.textDim,padding:“3px 0”}}>• Q{i+1}: {qs[i].category}</div>:null)}
-</div>}
-{email ? (
-emailSent
-? <button onClick={()=>setEmailSent(false)} style={{…btnPrimary,background:`linear-gradient(135deg, ${T.green}, #2E7D32)`,marginBottom:8}}>✅ 送信済み（もう一度送る場合はタップ）</button>
-: <button onClick={sendEmail} style={{…btnPrimary,background:`linear-gradient(135deg, ${T.green}, #2E7D32)`,marginBottom:8}}>📧 結果を保護者に送る</button>
-) : (
-<div style={{fontSize:12,color:T.textDim,textAlign:“center”,marginBottom:8,padding:8}}>⚙️ 設定からメールアドレスを登録すると、結果を自動送信できます</div>
-)}
-<button onClick={()=>{setIdx(0);setResults([]);setShowExp(false);setDone(false);setStreak(0);setEmailSent(false);setSaved(false);}} style={{…btnPrimary,background:`linear-gradient(135deg, ${T.pink}, #C2185B)`}}>もう一度チャレンジ</button>
-<button onClick={onBack} style={{...btnDunno,marginTop:12}}>ホームに戻る</button>
-</div>
+  <div style={{...cardBase,textAlign:"center",padding:"40px 20px",position:"relative"}} className="sakura-bg">
+    {cc===qs.length&&dc===0 && <div style={{position:"absolute",inset:0,background:`radial-gradient(circle at center, ${T.gold}22 0%, transparent 60%)`,pointerEvents:"none"}}/>}
+    <div style={{fontSize:64,marginBottom:8}}>{title.icon}</div>
+    <h2 style={{fontSize:28,fontWeight:900,margin:"8px 0",color:title.color,fontFamily:"'Zen Maru Gothic',sans-serif",textShadow:title.color===T.gold?`0 0 20px ${T.gold}66`:"none"}}>{title.label}</h2>
+    <p style={{fontSize:15,color:T.textDim,margin:"4px 0 12px"}}>{title.msg}</p>
+    {growthMsg && <div style={{display:"inline-block",background:`${T.correct}15`,border:`1px solid ${T.correct}44`,borderRadius:20,padding:"8px 18px",fontSize:14,color:T.correct,fontWeight:700,marginBottom:16,fontFamily:"'Zen Maru Gothic',sans-serif"}}>🌟 {growthMsg}</div>}
+    {honestBadge && <div style={{display:"inline-block",background:`${T.pinkLight}22`,border:`1px solid ${T.pinkLight}`,borderRadius:20,padding:"6px 16px",fontSize:13,color:T.pinkLight,fontWeight:700,marginBottom:16}}>🌸 正直者の呼吸</div>}
+    <div style={{display:"flex",justifyContent:"center",gap:16,margin:"20px 0"}}>
+      <div><div style={{fontSize:32,fontWeight:900,color:T.correct}}>{cc}</div><div style={{fontSize:11,color:T.textDim}}>⭕正解</div></div>
+      <div><div style={{fontSize:32,fontWeight:900,color:T.wrong}}>{wc}</div><div style={{fontSize:11,color:T.textDim}}>❌まちがい</div></div>
+      <div><div style={{fontSize:32,fontWeight:900,color:T.dunno}}>{dc}</div><div style={{fontSize:11,color:T.textDim}}>🤔わからない</div></div>
+      <div><div style={{fontSize:32,fontWeight:900,color:T.pink}}>{fmtTime(avgSec)}</div><div style={{fontSize:11,color:T.textDim}}>⏱平均</div></div>
+    </div>
+    <div style={{fontSize:13,color:T.textDim,marginBottom:16}}>⏱ 合計 {fmtTime(totalSec)}</div>
+    {wc>0&&<div style={{textAlign:"left",background:`${T.pink}08`,borderRadius:12,padding:14,marginBottom:10,border:`1px solid ${T.pink}22`}}>
+      <p style={{fontWeight:700,fontSize:13,color:T.pink,marginBottom:6}}>💪 次に伸びるポイント：</p>
+      {results.map((r,i)=>r.result==="wrong"?<div key={i} style={{fontSize:13,color:T.textDim,padding:"3px 0"}}>• Q{i+1}: {qs[i].category}</div>:null)}
+    </div>}
+    {dc>0&&<div style={{textAlign:"left",background:`${T.dunno}11`,borderRadius:12,padding:14,marginBottom:16,border:`1px solid ${T.dunno}33`}}>
+      <p style={{fontWeight:700,fontSize:13,color:T.dunno,marginBottom:6}}>🤔 暗記カードで復習すると伸びるよ！</p>
+      {results.map((r,i)=>r.result==="dunno"?<div key={i} style={{fontSize:13,color:T.textDim,padding:"3px 0"}}>• Q{i+1}: {qs[i].category}</div>:null)}
+    </div>}
+    {email ? (
+      emailSent
+        ? <button onClick={()=>setEmailSent(false)} style={{...btnPrimary,background:`linear-gradient(135deg, ${T.green}, #2E7D32)`,marginBottom:8}}>✅ 送信済み（もう一度送る場合はタップ）</button>
+        : <button onClick={sendEmail} style={{...btnPrimary,background:`linear-gradient(135deg, ${T.green}, #2E7D32)`,marginBottom:8}}>📧 結果を保護者に送る</button>
+    ) : (
+      <div style={{fontSize:12,color:T.textDim,textAlign:"center",marginBottom:8,padding:8}}>⚙️ 設定からメールアドレスを登録すると、結果を自動送信できます</div>
+    )}
+    <button onClick={()=>{setIdx(0);setResults([]);setShowExp(false);setDone(false);setStreak(0);setEmailSent(false);setSaved(false);}} style={{...btnPrimary,background:`linear-gradient(135deg, ${T.pink}, #C2185B)`}}>もう一度チャレンジ</button>
+    <button onClick={onBack} style={{...btnDunno,marginTop:12}}>ホームに戻る</button>
+  </div>
 </Wrapper>);
+```
+
 }
 
 const handleQuit = () => {
@@ -1444,7 +1467,7 @@ return (
   </div>
 
   {/* Summary cards */}
-  <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:8,marginBottom:20}}>
+  <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:8,marginBottom:12}}>
     <div style={{background:T.card||T.smoke,borderRadius:12,padding:"12px 8px",textAlign:"center"}}>
       <div style={{fontSize:24,fontWeight:900,color:T.gold}}>{stats.streak}</div>
       <div style={{fontSize:11,color:T.textMuted}}>連続学習日</div>
@@ -1454,10 +1477,12 @@ return (
       <div style={{fontSize:11,color:T.textMuted}}>平均正答率</div>
     </div>
     <div style={{background:T.card||T.smoke,borderRadius:12,padding:"12px 8px",textAlign:"center"}}>
-      <div style={{fontSize:24,fontWeight:900,color:titleColors[stats.bestTitle]||T.text}}>{stats.bestTitle}</div>
-      <div style={{fontSize:11,color:T.textMuted}}>最高称号</div>
+      <div style={{fontSize:24,fontWeight:900,color:T.pink}}>{stats.totalSessions}</div>
+      <div style={{fontSize:11,color:T.textMuted}}>挑戦回数</div>
     </div>
   </div>
+  {stats.streak >= 3 && <div style={{textAlign:"center",fontSize:13,color:T.correct,fontWeight:700,marginBottom:12,fontFamily:"'Zen Maru Gothic',sans-serif"}}>🔥 {stats.streak}日連続！毎日やってるのがすごい！</div>}
+  {stats.totalSessions >= 10 && stats.streak < 3 && <div style={{textAlign:"center",fontSize:13,color:T.pink,fontWeight:700,marginBottom:12,fontFamily:"'Zen Maru Gothic',sans-serif"}}>💖 もう{stats.totalSessions}回もチャレンジしてる！</div>}
 
   {/* Accuracy graph */}
   {quizRates.length > 0 && (
