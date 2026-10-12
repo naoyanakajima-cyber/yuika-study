@@ -1,0 +1,802 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#fbf7f2">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<title>ゆいかの理科ノート</title>
+<style>
+:root{--ink:#293e3b;--muted:#64736e;--paper:#fbf7f2;--white:#fffefa;--line:#e5e4da;--green:#386455;--pale:#eaf1e9;--pink:#fae9e4;--rose:#a65049;--gold:#efd391;--shadow:0 8px 30px #293e3b06}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.75 system-ui,-apple-system,"Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif}button,input,select{font:inherit}button,a,input,select{touch-action:manipulation}button{cursor:pointer;border:1px solid var(--line);border-radius:12px;background:var(--white);padding:11px 18px;color:var(--ink);font-weight:650;min-height:46px}button:hover{border-color:var(--green);background:#f1f5ef}button:disabled{opacity:.5;cursor:default}button.primary{background:var(--green);color:white;border-color:var(--green)}button.soft{background:var(--pink);border-color:transparent}button.small{padding:6px 12px;min-height:40px;font-size:13px}a{color:var(--green)}:focus-visible{outline:3px solid #c58238;outline-offset:3px}header{max-width:1060px;margin:auto;padding:23px 28px;display:flex;justify-content:space-between;align-items:center;gap:15px;border-bottom:1px solid var(--line)}.brand{font-size:18px;font-weight:800;letter-spacing:.05em}.brand span{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--green);color:var(--paper);margin-right:10px}.topnote{color:var(--muted);font-size:12px}nav{display:flex;gap:6px}nav button{border:0;background:transparent;font-size:13px;padding:8px 12px}nav button[aria-current=page]{background:var(--pale);color:var(--green)}main{max-width:1000px;margin:auto;padding:36px 28px 60px}h1,h2,h3,p{margin:0 0 12px}h1{font-size:clamp(28px,4.5vw,42px);line-height:1.45;letter-spacing:.04em}h2{font-size:23px;line-height:1.5}h3{font-size:17px}small,.muted{color:var(--muted);font-size:13px}.eyebrow{font-size:11px;color:var(--green);letter-spacing:.18em;font-weight:800;margin-bottom:12px}.hero{display:grid;grid-template-columns:1fr 240px;gap:30px;padding:12px 0 24px;align-items:center}.hero p{color:var(--muted)}.art{width:210px;height:185px;justify-self:center}.tag{display:inline-block;background:var(--pale);color:var(--green);font-size:11px;padding:4px 9px;border-radius:6px;margin:0 5px 8px 0}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0 28px}.stat{background:var(--white);border:1px solid var(--line);padding:19px;border-radius:16px}.stat strong{font-size:30px;display:block;font-weight:700;line-height:1.2}.stat span{font-size:12px;color:var(--muted)}.layout{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:20px}.card{background:var(--white);border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:var(--shadow);margin-bottom:18px}.green-card{background:var(--pale)}.row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.between{justify-content:space-between}.stack{display:grid;gap:10px}.field{display:grid;gap:5px;font-size:13px;font-weight:650;margin:13px 0}select,input{background:white;border:1px solid #c7d0c7;border-radius:9px;padding:11px 13px;min-height:46px;color:var(--ink);max-width:100%;min-width:0}input[type=file]{width:100%;font-size:13px}.chips{display:flex;gap:8px}.chips button[aria-pressed=true]{background:var(--green);color:white}.actions{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap}.wide{width:100%}.review{display:flex;text-align:left;justify-content:space-between;gap:14px;align-items:center;width:100%;margin-top:10px;background:#ffffffa8}.review small{display:block;font-weight:400}.review b{font-size:23px;color:var(--green)}.rule{border:0;border-top:1px solid var(--line);margin:22px 0}.note{padding:15px 18px;background:#f3efe6;border-radius:12px;font-size:13px;margin:12px 0}.notice{max-width:944px;margin:14px auto 0;padding:12px 18px;background:#fff0d0;border:1px solid #e7ce96;border-radius:10px;white-space:pre-line}.notice:empty{display:none}.progress{height:6px;background:#e2e8df;border-radius:10px;overflow:hidden;margin:18px 0 26px}.progress>span{display:block;height:100%;background:var(--green)}.quiz{max-width:720px;margin:auto}.question{font-size:23px;line-height:1.7;margin:18px 0 24px}.option{display:flex;gap:13px;text-align:left;width:100%;align-items:center;line-height:1.6}.option span{background:var(--paper);border-radius:7px;padding:2px 10px;color:var(--muted)}.option[aria-pressed=true]{border:2px solid var(--green);background:var(--pale);padding:10px 17px}.answerbox{background:var(--pale);padding:20px;border-radius:14px;margin-top:20px}.answerbox.again{background:#fff0dd}.answerbox p{margin-top:8px}.numbers{width:180px;font-size:24px}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;font-size:13px;text-align:left}th{font-weight:650;color:var(--muted);background:#f5f4ed}td,th{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}caption{text-align:left;font-size:12px;margin-bottom:6px;color:var(--muted)}details{border:1px solid var(--line);border-radius:12px;margin:10px 0;padding:12px 16px;background:var(--white)}summary{cursor:pointer;font-weight:650;min-height:26px}.facts{border-left:3px solid var(--green);padding-left:14px;margin:14px 0;font-size:13px}.facts p{margin-bottom:5px}.empty{padding:20px;text-align:center;color:var(--muted)}.result{text-align:center;padding:28px 5px}.result strong{font-size:48px}.listline{border-bottom:1px solid var(--line);padding:10px 0;font-size:13px}.footer{max-width:944px;margin:0 auto;padding:18px 0 26px;border-top:1px solid var(--line);font-size:11px;color:var(--muted);display:flex;justify-content:space-between;gap:15px}.intro{max-width:680px;margin-bottom:25px}.good{color:var(--green)}.badge{font-size:12px;border-radius:10px;background:var(--pale);padding:3px 8px}.error{color:#963d31}.source{font-size:12px}.pages{display:flex;justify-content:center;align-items:center;gap:12px;margin:16px 0}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px}.overflow{overflow-wrap:anywhere}
+@media(max-width:650px){header{padding:15px 17px;flex-wrap:wrap;gap:10px}.topnote{display:none}nav{width:100%;justify-content:space-between}nav button{flex:1;font-size:12px;padding:8px 5px;white-space:nowrap}main{padding:25px 17px 40px}.hero{display:block;position:relative}.art{position:absolute;right:0;bottom:40px;width:95px;height:100px}.hero p{max-width:74%}.hero h1{font-size:28px}.hero p{font-size:13px}.stats{gap:7px;margin-top:5px}.stat{padding:14px 10px}.stat strong{font-size:27px}.stat span{font-size:11px}.layout{grid-template-columns:1fr;gap:0}.card{padding:20px 17px;border-radius:16px}.question{font-size:20px}.footer{margin:0 17px}.notice{margin:12px 17px}.row{gap:8px}td,th{padding:9px 7px}h2{font-size:21px}.actions button{flex:1}.intro{font-size:14px}}
+@media print{header,nav,.actions,button,.footer,#notice,.no-print{display:none!important}body{background:white;font-size:11px}main{padding:0;max-width:none}.card{break-inside:avoid;box-shadow:none;padding:12px}details{display:block}h1{font-size:24px}.tablewrap{overflow:visible}}
+</style>
+</head>
+<body>
+<header><div class="brand"><span>ゆ</span>ゆいかの理科ノート</div><nav aria-label="メイン"><button data-view="home">れんしゅう</button><button data-view="analysis">保護者のノート</button><button data-view="records">記録の引きつぎ</button></nav></header>
+<div id="notice" class="notice" role="status" aria-live="polite"></div>
+<main id="main" tabindex="-1"></main>
+<footer class="footer"><span>小５ 理科 · 溶解度 / 酸とアルカリ</span><span>記録はこのブラウザーの中に。外部送信なし。</span></footer>
+<script>
+'use strict';
+const QUESTIONS=[
+  {
+    "id": "ys2-001",
+    "unit": "水溶液と溶解",
+    "type": "choice",
+    "prompt": "砂糖水の「溶質」はどれ？",
+    "options": [
+      "砂糖",
+      "水",
+      "砂糖水全体"
+    ],
+    "answer": "砂糖",
+    "hint": "水に溶けている物質のことだよ。",
+    "explanation": "溶質は砂糖、溶媒は水。できた砂糖水全体が水溶液です。"
+  },
+  {
+    "id": "ys2-002",
+    "unit": "水溶液と溶解",
+    "type": "choice",
+    "prompt": "砂糖水の「溶媒」はどれ？",
+    "options": [
+      "砂糖",
+      "水",
+      "砂糖水全体"
+    ],
+    "answer": "水",
+    "hint": "物質を溶かしている液体を考えよう。",
+    "explanation": "溶媒は物質を溶かす液体です。水が溶媒の溶液を水溶液といいます。"
+  },
+  {
+    "id": "ys2-003",
+    "unit": "水溶液と溶解",
+    "type": "choice",
+    "prompt": "十分に混ぜた食塩水を静かに置くと、濃さはどうなる？（水は蒸発しない）",
+    "options": [
+      "下だけ濃くなる",
+      "上だけ濃くなる",
+      "全体で同じ濃さのまま"
+    ],
+    "answer": "全体で同じ濃さのまま",
+    "hint": "溶けた食塩は、砂のようには沈まないよ。",
+    "explanation": "水溶液の濃さは均一です。水が蒸発しなければ、溶けた食塩が底にたまることはありません。"
+  },
+  {
+    "id": "ys2-004",
+    "unit": "水溶液と溶解",
+    "type": "choice",
+    "prompt": "水溶液の「透明」について正しいのは？",
+    "options": [
+      "必ず無色である",
+      "色があっても、すき通っていれば透明",
+      "にごっていても透明"
+    ],
+    "answer": "色があっても、すき通っていれば透明",
+    "hint": "透明と無色は同じ意味かな？",
+    "explanation": "透明とは、にごらずすき通っていること。青い硫酸銅水溶液のように、色のある水溶液もあります。"
+  },
+  {
+    "id": "ys2-005",
+    "unit": "水溶液と溶解",
+    "type": "choice",
+    "prompt": "その温度で、物質が限界まで溶けている水溶液は？",
+    "options": [
+      "飽和水溶液",
+      "蒸留水",
+      "ろ紙"
+    ],
+    "answer": "飽和水溶液",
+    "hint": "これ以上は溶けない状態を「飽和」というよ。",
+    "explanation": "物質がその温度で限界まで溶けた水溶液を飽和水溶液といいます。"
+  },
+  {
+    "id": "ys2-006",
+    "unit": "水溶液と溶解",
+    "type": "choice",
+    "prompt": "固体の溶解度は、その温度の何に溶ける限界の量？",
+    "options": [
+      "水溶液100g",
+      "水100g",
+      "溶質100g"
+    ],
+    "answer": "水100g",
+    "hint": "「水」と「水溶液」を区別しよう。",
+    "explanation": "この教材の溶解度は、水100gに溶ける固体の限界の量です。水溶液100gではありません。"
+  },
+  {
+    "id": "ys2-007",
+    "unit": "水溶液と溶解",
+    "type": "choice",
+    "prompt": "0〜100℃の教材の表で、水温による溶解度の変化が大きいのは？",
+    "options": [
+      "食塩",
+      "ホウ酸",
+      "どちらも同じ"
+    ],
+    "answer": "ホウ酸",
+    "hint": "曲線が急になる方を考えよう。",
+    "explanation": "ホウ酸は温度を上げると溶解度が大きく増えます。食塩の変化は比較的小さくなります。"
+  },
+  {
+    "id": "ys2-008",
+    "unit": "水溶液と溶解",
+    "type": "choice",
+    "prompt": "80℃の飽和ホウ酸水を20℃まで冷やすと？（水は蒸発しない）",
+    "options": [
+      "結晶が出る",
+      "水だけ増える",
+      "さらにホウ酸が溶ける"
+    ],
+    "answer": "結晶が出る",
+    "hint": "低い温度で溶けていられる量は少なくなるよ。",
+    "explanation": "冷やすと溶解度が小さくなり、溶けていられなくなったホウ酸が結晶として出ます。"
+  },
+  {
+    "id": "ys2-009",
+    "unit": "水溶液と溶解",
+    "type": "choice",
+    "prompt": "食塩水をろ紙でろ過すると、溶けている食塩は？",
+    "options": [
+      "すべてろ紙に残る",
+      "水とともにろ紙を通る",
+      "なくなる"
+    ],
+    "answer": "水とともにろ紙を通る",
+    "hint": "溶けている粒は、とても小さいよ。",
+    "explanation": "溶けている食塩は水とともにろ紙を通ります。ろ過では、溶けていない固体を分けます。"
+  },
+  {
+    "id": "ys2-010",
+    "unit": "溶解度の計算",
+    "type": "number",
+    "prompt": "40℃の水200gに、ホウ酸は何gまで溶ける？",
+    "answer": 18,
+    "hint": "水200gは100gの2倍。",
+    "explanation": "40℃では水100gに9g。9×(200÷100)＝18gです。",
+    "suffix": "g"
+  },
+  {
+    "id": "ys2-011",
+    "unit": "溶解度の計算",
+    "type": "number",
+    "prompt": "20℃の水300gにホウ酸を限界まで溶かした。飽和水溶液は何g？",
+    "answer": 315,
+    "hint": "溶けたホウ酸と水の重さを足そう。",
+    "explanation": "5×3＝15g溶けます。水溶液は300＋15＝315gです。",
+    "suffix": "g"
+  },
+  {
+    "id": "ys2-012",
+    "unit": "溶解度の計算",
+    "type": "number",
+    "prompt": "60℃の水40gにホウ酸20gを加えた。溶け残りは何g？",
+    "answer": 14,
+    "hint": "先に、40gの水に溶ける限界を出そう。",
+    "explanation": "15×0.4＝6g溶けます。20−6＝14gが溶け残ります。",
+    "suffix": "g"
+  },
+  {
+    "id": "ys2-013",
+    "unit": "溶解度の計算",
+    "type": "number",
+    "prompt": "80℃の水150gにホウ酸40gを加えた。溶け残りを除いた水溶液は何g？",
+    "answer": 186,
+    "hint": "40g全部が溶けるか、確かめよう。",
+    "explanation": "24×1.5＝36g溶けます。溶け残り4gは水溶液に含めず、150＋36＝186gです。",
+    "suffix": "g"
+  },
+  {
+    "id": "ys2-014",
+    "unit": "溶解度の計算",
+    "type": "number",
+    "prompt": "20℃の水60gにホウ酸1.2gを溶かした。あと何g溶ける？",
+    "answer": 1.8,
+    "hint": "限界は5×0.6g。すでに溶けた分を引こう。",
+    "explanation": "5×0.6＝3gが限界です。3−1.2＝1.8g、さらに溶けます。",
+    "suffix": "g"
+  },
+  {
+    "id": "ys2-015",
+    "unit": "溶解度の計算",
+    "type": "number",
+    "prompt": "20℃の水500gで作った飽和ホウ酸水から、同じ温度で水50gだけ蒸発させた。結晶は何g出る？",
+    "answer": 2.5,
+    "hint": "蒸発した水50gに溶けていた分を考えよう。",
+    "explanation": "水50gに溶ける量は5×0.5＝2.5g。水が減った分だけ結晶が出ます。",
+    "suffix": "g"
+  },
+  {
+    "id": "ys2-016",
+    "unit": "溶解度の計算",
+    "type": "number",
+    "prompt": "20℃の水500gで作った飽和ホウ酸水に、同じ温度の水50gを加えた。あと何gのホウ酸を溶かせる？",
+    "answer": 2.5,
+    "hint": "加えた水50gの分だけ、溶かせる量が増えるよ。",
+    "explanation": "5×(50÷100)＝2.5g、さらに溶かせます。全体の水550gではなく、増えた水に注目します。",
+    "suffix": "g"
+  },
+  {
+    "id": "ys2-017",
+    "unit": "溶解度の計算",
+    "type": "number",
+    "prompt": "80℃の水100gで作った飽和ホウ酸水を20℃に冷やした。結晶は何g？（蒸発なし）",
+    "answer": 19,
+    "hint": "80℃と20℃で溶ける量の差を出そう。",
+    "explanation": "80℃で24g、20℃で5g溶けます。24−5＝19gの結晶が出ます。",
+    "suffix": "g"
+  },
+  {
+    "id": "ys2-018",
+    "unit": "溶解度の計算",
+    "type": "number",
+    "prompt": "60℃の水200gで作った飽和ホウ酸水を40℃に冷やした。結晶は何g？（蒸発なし）",
+    "answer": 12,
+    "hint": "水が200gなので、表の差を2倍しよう。",
+    "explanation": "(15−9)×2＝12g。温度が下がって溶けなくなった分が結晶になります。",
+    "suffix": "g"
+  },
+  {
+    "id": "ys2-019",
+    "unit": "溶解度の計算",
+    "type": "number",
+    "prompt": "20℃でホウ酸10gをすべて溶かすには、水は最低何g必要？",
+    "answer": 200,
+    "hint": "水100gで5g溶けるから、10gなら何倍？",
+    "explanation": "10÷5＝2倍。水は100×2＝200g必要です。",
+    "suffix": "g"
+  },
+  {
+    "id": "ys2-020",
+    "unit": "金属と水素",
+    "type": "choice",
+    "prompt": "うすい塩酸と反応して水素を発生する金属は？",
+    "options": [
+      "銅",
+      "鉄",
+      "金"
+    ],
+    "answer": "鉄",
+    "hint": "鉄・アルミニウム・亜鉛・マグネシウムを思い出そう。",
+    "explanation": "鉄はうすい塩酸と反応して水素を発生します。銅や金は、この条件では反応しません。"
+  },
+  {
+    "id": "ys2-021",
+    "unit": "金属と水素",
+    "type": "choice",
+    "prompt": "塩酸とも水酸化ナトリウム水溶液とも反応する金属は？",
+    "options": [
+      "鉄",
+      "銅",
+      "アルミニウム"
+    ],
+    "answer": "アルミニウム",
+    "hint": "酸とアルカリの両方と反応する金属だよ。",
+    "explanation": "アルミニウムは両方と反応します。亜鉛も水酸化ナトリウム水溶液の濃さや温度などの条件によって反応します。"
+  },
+  {
+    "id": "ys2-022",
+    "unit": "金属と水素",
+    "type": "choice",
+    "prompt": "鉄と水酸化ナトリウム水溶液の組み合わせは、この教材の実験条件では？",
+    "options": [
+      "水素を出して溶ける",
+      "反応しない",
+      "酸素を出す"
+    ],
+    "answer": "反応しない",
+    "hint": "塩酸との反応と混同しないようにしよう。",
+    "explanation": "鉄は塩酸とは反応しますが、この教材で扱う水酸化ナトリウム水溶液とは反応しません。"
+  },
+  {
+    "id": "ys2-023",
+    "unit": "金属と水素",
+    "type": "choice",
+    "prompt": "アルミニウムがうすい塩酸と反応したときの泡は？",
+    "options": [
+      "酸素",
+      "二酸化炭素",
+      "水素"
+    ],
+    "answer": "水素",
+    "hint": "燃えると水になる気体だよ。",
+    "explanation": "発生するのは水素です。アルミニウムは別の物質になって水溶液中にあります。"
+  },
+  {
+    "id": "ys2-024",
+    "unit": "金属と水素",
+    "type": "choice",
+    "prompt": "金属が塩酸と反応して溶けた後の説明で正しいのは？",
+    "options": [
+      "金属がそのまま小さくなっただけ",
+      "金属が別の物質に変わった",
+      "金属が何も残さず消えた"
+    ],
+    "answer": "金属が別の物質に変わった",
+    "hint": "砂糖を水に溶かすときとの違いを考えよう。",
+    "explanation": "化学反応で別の物質になります。鉄と塩酸では主に塩化鉄(II)ができます。色は酸化や条件で変わるため「必ず黄色」とは限りません。"
+  },
+  {
+    "id": "ys2-025",
+    "unit": "金属と水素",
+    "type": "choice",
+    "prompt": "同じ重さのアルミニウムと同じ塩酸。同じ温度で反応が速くなるのは？",
+    "options": [
+      "一枚の板",
+      "細かい粉",
+      "形は関係しない"
+    ],
+    "answer": "細かい粉",
+    "hint": "塩酸にふれる面の広さを比べよう。",
+    "explanation": "細かい粉の方が表面積が大きく、塩酸とふれやすいため反応が速くなります。実験は先生の指示のもとで行います。"
+  },
+  {
+    "id": "ys2-026",
+    "unit": "金属と水素",
+    "type": "choice",
+    "prompt": "金属と塩酸の反応で泡が出なくなった。考えられることは？",
+    "options": [
+      "必ず両方とも余っている",
+      "必ず金属だけがなくなった",
+      "反応する金属か塩化水素の一方、または両方が使い切られた"
+    ],
+    "answer": "反応する金属か塩化水素の一方、または両方が使い切られた",
+    "hint": "反応には両方が必要だよ。",
+    "explanation": "この教材で十分に反応した場合、一方または両方が使い切られると反応が止まります。泡だけでどちらか一方と断定はできません。"
+  },
+  {
+    "id": "ys2-027",
+    "unit": "金属と水素",
+    "type": "choice",
+    "prompt": "水素を水上置換法で集められるのはなぜ？",
+    "options": [
+      "水に非常に溶けにくいから",
+      "水によく溶けるから",
+      "空気より重いから"
+    ],
+    "answer": "水に非常に溶けにくいから",
+    "hint": "水で集めても、なくなりにくい性質だよ。",
+    "explanation": "水素は水に非常に溶けにくいので、水上置換法で集められます。空気よりも軽い気体です。"
+  },
+  {
+    "id": "ys2-028",
+    "unit": "金属と水素",
+    "type": "choice",
+    "prompt": "水素が燃えて酸素と結びつくとできるものは？",
+    "options": [
+      "食塩",
+      "水",
+      "二酸化炭素"
+    ],
+    "answer": "水",
+    "hint": "試験管の内側がくもる理由にもなるよ。",
+    "explanation": "水素は燃える気体で、酸素と結びついて水になります。酸素のように他の物を燃やす助燃性とは異なります。火を使う確認は先生の指示で行います。"
+  },
+  {
+    "id": "ys2-029",
+    "unit": "中和と液性",
+    "type": "choice",
+    "prompt": "BTB液が黄色になった水溶液の液性は？",
+    "options": [
+      "酸性",
+      "中性",
+      "アルカリ性"
+    ],
+    "answer": "酸性",
+    "hint": "黄・緑・青の順で覚えよう。",
+    "explanation": "BTB液は酸性で黄色、中性付近で緑色、アルカリ性で青色になります。"
+  },
+  {
+    "id": "ys2-030",
+    "unit": "中和と液性",
+    "type": "choice",
+    "prompt": "塩酸と水酸化ナトリウム水溶液が中和してできるものは？",
+    "options": [
+      "食塩と水",
+      "水素と水",
+      "酸素と食塩"
+    ],
+    "answer": "食塩と水",
+    "hint": "塩化水素と水酸化ナトリウムが反応するよ。",
+    "explanation": "塩化水素と水酸化ナトリウムが反応し、塩化ナトリウム（食塩）と新しい水ができます。"
+  },
+  {
+    "id": "ys2-031",
+    "unit": "中和と液性",
+    "type": "choice",
+    "prompt": "塩酸と水酸化ナトリウム水溶液を混ぜたら、必ず中性になる？",
+    "options": [
+      "必ず中性になる",
+      "余る物質と量によって液性が変わる",
+      "必ず酸性になる"
+    ],
+    "answer": "余る物質と量によって液性が変わる",
+    "hint": "中和が起きることと、中性になることは同じかな？",
+    "explanation": "中和反応が起きても、酸やアルカリが余れば中性にはなりません。この組み合わせでは過不足なく反応すると中性になります。"
+  },
+  {
+    "id": "ys2-032",
+    "unit": "中和と液性",
+    "type": "choice",
+    "prompt": "塩酸が余るように水酸化ナトリウム水溶液と混ぜた。十分に蒸発させた後に残るのは？",
+    "options": [
+      "食塩",
+      "食塩と塩化水素の固体",
+      "水酸化ナトリウムだけ"
+    ],
+    "answer": "食塩",
+    "hint": "塩化水素は気体として出ていくよ。",
+    "explanation": "中和でできた食塩が残ります。余った塩化水素は揮発し、この教材の蒸発実験では残りません。"
+  },
+  {
+    "id": "ys2-033",
+    "unit": "中和と液性",
+    "type": "choice",
+    "prompt": "水酸化ナトリウムが余るように塩酸と混ぜた。水を蒸発させた後に残るのは？",
+    "options": [
+      "食塩だけ",
+      "食塩と水酸化ナトリウム",
+      "何も残らない"
+    ],
+    "answer": "食塩と水酸化ナトリウム",
+    "hint": "水酸化ナトリウムは、水がなくなっても残る物質だよ。",
+    "explanation": "中和でできた食塩と、反応せず余った水酸化ナトリウムが残ります。"
+  },
+  {
+    "id": "ys2-034",
+    "unit": "中和と液性",
+    "type": "choice",
+    "prompt": "ある塩酸20mLと、ある水酸化ナトリウム水溶液20mLがちょうど中和する。同じ液を塩酸30mL・アルカリ10mLで混ぜるとBTB液は？",
+    "options": [
+      "黄色",
+      "緑色",
+      "青色"
+    ],
+    "answer": "黄色",
+    "hint": "10mLのアルカリが打ち消せる塩酸は10mLだよ。",
+    "explanation": "塩酸が余るので酸性・黄色です。「同じ濃さ」という言葉だけでは体積比は決まらないため、この問題では20mLずつで中和する条件を示しています。"
+  },
+  {
+    "id": "ys2-035",
+    "unit": "中和と液性",
+    "type": "choice",
+    "prompt": "塩酸と水酸化ナトリウム水溶液を混ぜ、中和が起きると温度は？（周囲への熱の出入りは考えない）",
+    "options": [
+      "下がる",
+      "上がる",
+      "必ず変わらない"
+    ],
+    "answer": "上がる",
+    "hint": "中和では熱が出るよ。",
+    "explanation": "中和によって熱が出るので温度は上がります。これを中和熱といいます。"
+  },
+  {
+    "id": "ys2-036",
+    "unit": "中和と液性",
+    "type": "choice",
+    "prompt": "石灰水に二酸化炭素を通して白くにごった。この白い物質は？",
+    "options": [
+      "食塩",
+      "炭酸カルシウム",
+      "アルミニウム"
+    ],
+    "answer": "炭酸カルシウム",
+    "hint": "水に溶けにくい物質ができるよ。",
+    "explanation": "白いにごりは炭酸カルシウムです。さらに二酸化炭素を十分通すと、水に溶ける炭酸水素カルシウムになり、にごりが消えることがあります。"
+  },
+  {
+    "id": "ys2-037",
+    "unit": "中和と液性",
+    "type": "choice",
+    "prompt": "気体が溶けている水溶液の組み合わせは？",
+    "options": [
+      "食塩水・砂糖水",
+      "炭酸水・塩酸・アンモニア水",
+      "ホウ酸水・食塩水"
+    ],
+    "answer": "炭酸水・塩酸・アンモニア水",
+    "hint": "二酸化炭素・塩化水素・アンモニアはどんな状態かな？",
+    "explanation": "炭酸水には二酸化炭素、塩酸には塩化水素、アンモニア水にはアンモニアという気体が溶けています。"
+  },
+  {
+    "id": "ys2-038",
+    "unit": "中和と液性",
+    "type": "choice",
+    "prompt": "アルカリ性の水溶液はどれ？",
+    "options": [
+      "砂糖水",
+      "食塩水",
+      "アンモニア水"
+    ],
+    "answer": "アンモニア水",
+    "hint": "刺激臭のある、気体が溶けた水溶液だよ。",
+    "explanation": "アンモニア水はアルカリ性です。食塩水・砂糖水は中性です。薬品のにおいを直接かいではいけません。"
+  },
+  {
+    "id": "ys2-039",
+    "unit": "中和と液性",
+    "type": "choice",
+    "prompt": "リトマス紙の使い方で正しいのは？",
+    "options": [
+      "指で持って水溶液にひたす",
+      "ピンセットで持ち、ガラス棒で液をつける",
+      "火で温めてから使う"
+    ],
+    "answer": "ピンセットで持ち、ガラス棒で液をつける",
+    "hint": "指についたものが結果に影響しないようにしよう。",
+    "explanation": "ピンセットで持ち、ガラス棒で少量の液をつけます。手の汚れなどで結果が変わるのを防ぎます。"
+  },
+  {
+    "id": "ys2-040",
+    "unit": "実験器具",
+    "type": "choice",
+    "prompt": "ろ紙をろうとに入れたら、どうする？",
+    "options": [
+      "蒸留水でぬらして密着させる",
+      "穴を広げる",
+      "乾いたまま浮かせる"
+    ],
+    "answer": "蒸留水でぬらして密着させる",
+    "hint": "ろ紙とろうとの間にすき間を作らないようにしよう。",
+    "explanation": "四つ折りから円錐形に広げ、蒸留水でぬらしてろうとに密着させます。"
+  },
+  {
+    "id": "ys2-041",
+    "unit": "実験器具",
+    "type": "choice",
+    "prompt": "ろ過でガラス棒をあてる場所は？",
+    "options": [
+      "ろ紙が1重の部分",
+      "ろ紙が3重の部分",
+      "ろ紙のふちの外"
+    ],
+    "answer": "ろ紙が3重の部分",
+    "hint": "破れにくい場所を選ぼう。",
+    "explanation": "ガラス棒はろ紙が3重の部分にあてます。液はろ紙の8分目を超えないように注ぎます。"
+  },
+  {
+    "id": "ys2-042",
+    "unit": "実験器具",
+    "type": "choice",
+    "prompt": "ろ過で、ろうとのとがった先は？",
+    "options": [
+      "受けるビーカーの内壁につける",
+      "ろ液の中に深く入れる",
+      "ビーカーの外に向ける"
+    ],
+    "answer": "受けるビーカーの内壁につける",
+    "hint": "ろ液が壁を伝って流れるようにしよう。",
+    "explanation": "先をビーカーの内壁につけると、ろ液が飛び散りにくく、なめらかに流れます。"
+  },
+  {
+    "id": "ys2-043",
+    "unit": "実験器具",
+    "type": "choice",
+    "prompt": "砂糖水から、焦がさずにゆっくり結晶を取り出す方法は？",
+    "options": [
+      "強く加熱し続ける",
+      "浅い皿で自然に水を蒸発させる",
+      "ろ紙で砂糖をこし取る"
+    ],
+    "answer": "浅い皿で自然に水を蒸発させる",
+    "hint": "加熱しなくても、水は少しずつ蒸発するよ。",
+    "explanation": "浅い皿で自然に蒸発させます。時間はかかりますが、加熱による焦げを避けられます。"
+  },
+  {
+    "id": "ys2-044",
+    "unit": "実験器具",
+    "type": "choice",
+    "prompt": "蒸発皿の下にセラミック付き金網をしく主な理由は？",
+    "options": [
+      "熱をまんべんなく伝えるため",
+      "食塩を増やすため",
+      "水の蒸発を止めるため"
+    ],
+    "answer": "熱をまんべんなく伝えるため",
+    "hint": "一部分だけ熱くなるのを避けよう。",
+    "explanation": "熱をまんべんなく、おだやかに伝えます。蒸発皿が部分的に熱くなるのを防ぐ役割があります。"
+  },
+  {
+    "id": "ys2-045",
+    "unit": "実験器具",
+    "type": "choice",
+    "prompt": "食塩水から水を蒸留して取り出す方法は？",
+    "options": [
+      "食塩をろ紙に残す",
+      "水を水蒸気にしてから冷やす",
+      "食塩水に水を加える"
+    ],
+    "answer": "水を水蒸気にしてから冷やす",
+    "hint": "液体→気体→液体の順だよ。",
+    "explanation": "水を加熱して水蒸気にし、冷やして水として取り出します。沸騰石は加熱前に入れ、突沸を防ぎます。"
+  },
+  {
+    "id": "ys2-046",
+    "unit": "実験器具",
+    "type": "choice",
+    "prompt": "管の先が受ける水につかる蒸留装置で、火を消す前にすることは？",
+    "options": [
+      "管の先を水から出す",
+      "冷たい水を熱いフラスコに入れる",
+      "管を強くふさぐ"
+    ],
+    "answer": "管の先を水から出す",
+    "hint": "冷えると水が逆流することがあるよ。",
+    "explanation": "管の先を水から出してから火を消し、逆流を防ぎます。実験は必ず先生の指示に従います。"
+  },
+  {
+    "id": "ys2-047",
+    "unit": "実験器具",
+    "type": "choice",
+    "prompt": "アルコールランプの火を消す方法は？",
+    "options": [
+      "息で吹き消す",
+      "ふたをかぶせる",
+      "使用中にアルコールを足す"
+    ],
+    "answer": "ふたをかぶせる",
+    "hint": "燃えているときに動かしたり、燃料を足したりしないよ。",
+    "explanation": "ふたをかぶせて消します。息で吹き消したり、点火中に燃料を補給したりしてはいけません。先生の指示で扱いましょう。"
+  }
+];
+const VERSION='yuika-science-2026-10-v2';
+const KEY='yuika-science-review-v2', OLD_KEY='yuika-science-v1';
+const UNITS=[...new Set(QUESTIONS.map(q=>q.unit))];
+const MODES={normal:'通常練習',unit:'単元別',unseen:'新しい問題',wrong:'もう一度',spaced:'日をあけて',hint:'ヒントなしで確認'};
+const byId=new Map(QUESTIONS.map(q=>[q.id,q]));
+const main=document.getElementById('main');
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid=()=>crypto.randomUUID?crypto.randomUUID():Array.from(crypto.getRandomValues(new Uint8Array(16)),v=>v.toString(16).padStart(2,'0')).join('');
+const emptyState=()=>({schemaVersion:2,datasetVersion:VERSION,events:[],legacy:[]});
+let state=emptyState(),view='home',count=5,session=null,historyPage=0,blocked=false,dirty=false,rawBroken=null;
+const message=t=>document.getElementById('notice').textContent=t;
+const localDay=(iso,offset)=>new Date(Date.parse(iso)-offset*60000).toISOString().slice(0,10);
+const dateLabel=iso=>new Date(iso).toLocaleString('ja-JP');
+const rate=es=>es.length?`${Math.round(es.filter(e=>e.correct).length/es.length*100)}%（${es.filter(e=>e.correct).length}/${es.length}回答）`:'—（0回答）';
+const sorted=es=>[...es].sort((a,b)=>a.answeredAt.localeCompare(b.answeredAt)||a.id.localeCompare(b.id));
+function numeric(raw){const s=raw.normalize('NFKC').trim();return /^(?:\d+(?:\.\d*)?|\.\d+)$/.test(s)&&Number.isFinite(Number(s))?Number(s):null;}
+const grade=(q,r)=>q.type==='number'?typeof r==='number'&&Math.abs(r-q.answer)<1e-9:r===q.answer;
+function requireThat(ok,msg){if(!ok)throw Error(msg);}
+function validDate(s){return typeof s==='string'&&/^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d\.\d{3}Z$/.test(s)&&Number.isFinite(Date.parse(s))&&new Date(s).toISOString()===s;}
+function legacyData(raw){
+ requireThat(typeof raw==='string'&&raw.length<=2000000,'旧記録の形式・サイズが不正です。');
+ const v=JSON.parse(raw);
+ requireThat(v&&typeof v==='object'&&!Array.isArray(v)&&Number.isSafeInteger(v.attempts)&&v.attempts>=0,'旧記録の attempts を確認してください。');
+ for(const k of ['correct','wrong'])requireThat(Array.isArray(v[k])&&v[k].length<=10000&&v[k].every(id=>typeof id==='string'&&id.length<=200||Number.isSafeInteger(id)&&id>=0),'旧記録の問題ID配列を確認してください。');
+ return v;
+}
+const legacyIdentity=l=>{const v=legacyData(l.raw);return JSON.stringify([v.attempts,[...new Set(v.correct)].sort(),[...new Set(v.wrong)].sort()]);};
+function validateEvent(e){
+ requireThat(e&&typeof e==='object','回答レコードが不正です。');
+ const q=byId.get(e.questionId);
+ requireThat(q&&e.datasetVersion===VERSION,'この版では扱えない問題ID・問題データ版です。元のJSONを保管してください。');
+ for(const k of ['id','sessionId'])requireThat(typeof e[k]==='string'&&/^[a-zA-Z0-9_-]{8,100}$/.test(e[k]),'回答ID・セッションIDが不正です。');
+ requireThat(e.unit===q.unit&&e.question===q.prompt&&e.explanation===q.explanation&&e.expected===q.answer&&e.type===q.type,'問題情報がこの版と一致しません。');
+ requireThat(typeof e.correct==='boolean'&&typeof e.hintUsed==='boolean'&&Object.hasOwn(MODES,e.mode),'正誤・ヒント・モードの形式が不正です。');
+ requireThat(validDate(e.answeredAt)&&Number.isInteger(e.timezoneOffset)&&Math.abs(e.timezoneOffset)<=840&&e.localDay===localDay(e.answeredAt,e.timezoneOffset),'回答日時・日付が不正です。');
+ if(q.type==='number')requireThat(typeof e.response==='number'&&Number.isFinite(e.response)&&e.response>=0&&typeof e.inputRaw==='string'&&e.inputRaw.length<=100&&numeric(e.inputRaw)===e.response,'数値回答が不正です。');
+ else requireThat(q.options.includes(e.response)&&e.inputRaw===e.response,'選択肢が不正です。');
+ requireThat(e.correct===grade(q,e.response),'記録された正誤と採点結果が一致しません。');
+ return {id:e.id,sessionId:e.sessionId,questionId:e.questionId,datasetVersion:VERSION,unit:q.unit,type:q.type,question:q.prompt,response:e.response,inputRaw:e.inputRaw,expected:q.answer,correct:e.correct,answeredAt:e.answeredAt,timezoneOffset:e.timezoneOffset,localDay:e.localDay,hintUsed:e.hintUsed,mode:e.mode,explanation:q.explanation};
+}
+function validateState(v){
+ requireThat(v&&v.schemaVersion===2&&v.datasetVersion===VERSION,'対応していない記録形式・問題データ版です。');
+ requireThat(Array.isArray(v.events)&&v.events.length<=20000&&Array.isArray(v.legacy)&&v.legacy.length<=100,'記録の件数・形式を確認してください。');
+ const ids=new Map();
+ for(const raw of v.events){const e=validateEvent(raw);requireThat(!ids.has(e.id)||JSON.stringify(ids.get(e.id))===JSON.stringify(e),'同じ回答IDに異なる内容があります。読み込みを中止しました。');ids.set(e.id,e);}
+ const legacy=[];
+ for(const l of v.legacy){requireThat(l&&validDate(l.capturedAt),'旧記録の保存日時が不正です。');legacyData(l.raw);const entry={raw:l.raw,capturedAt:l.capturedAt};if(!legacy.some(x=>legacyIdentity(x)===legacyIdentity(entry)))legacy.push(entry);}
+ return {schemaVersion:2,datasetVersion:VERSION,events:sorted([...ids.values()]),legacy};
+}
+function merge(a,b){return validateState({schemaVersion:2,datasetVersion:VERSION,events:[...a.events,...b.events],legacy:[...a.legacy,...b.legacy]});}
+function persist(){
+ if(blocked){dirty=true;message('保存先の記録を読み取れないため、上書きしていません。今回の回答は一時保持です。「記録の引きつぎ」でJSONを保存してください。');return false;}
+ try{const current=localStorage.getItem(KEY);const disk=current?validateState(JSON.parse(current)):emptyState();const next=merge(disk,state);localStorage.setItem(KEY,JSON.stringify(next));state=next;dirty=false;return true;}
+ catch(e){dirty=true;message('ブラウザーへの保存ができませんでした。今回の回答はこの画面に一時保持しています。閉じる前にJSONを書き出してください。理由：'+e.message);return false;}
+}
+function load(){
+ try{const raw=localStorage.getItem(KEY);if(raw){try{state=validateState(JSON.parse(raw));}catch(e){rawBroken=raw;blocked=true;message('新しい記録を読み取れません。元データは上書きせず保護しています。「記録の引きつぎ」から元データを保存できます。');}}}
+ catch(e){blocked=true;message('このブラウザーでは保存領域を利用できません。回答は一時保持し、JSONで書き出せます。');}
+ try{const raw=localStorage.getItem(OLD_KEY);if(raw){legacyData(raw);const l={raw,capturedAt:new Date().toISOString()};if(!state.legacy.some(x=>legacyIdentity(x)===legacyIdentity(l))){state.legacy.push(l);persist();}}}
+ catch(e){message('旧記録の自動コピーができませんでした。旧キーは変更していません。「記録の引きつぎ」で元データを書き出してください。');}
+}
+function groups(){const m=new Map();for(const e of sorted(state.events)){if(!m.has(e.questionId))m.set(e.questionId,[]);m.get(e.questionId).push(e);}return m;}
+function candidates(mode,unit='all'){
+ const g=groups(),now=Date.now();return QUESTIONS.filter(q=>{if(unit!=='all'&&q.unit!==unit)return false;const es=g.get(q.id)||[],last=es.at(-1);if(mode==='unseen')return !last;if(mode==='wrong')return last&&!last.correct;if(mode==='spaced')return last&&now-Date.parse(last.answeredAt)>=86400000;if(mode==='hint')return last&&last.correct&&last.hintUsed;return true;});
+}
+function analysisData(){
+ const g=groups(),first=[],immediate=[],sameDay=[],later=[],firstLaterAfterError=[];
+ for(const es of g.values()){
+  first.push(es[0]);
+  for(let i=1;i<es.length;i++){const e=es[i],prev=es[i-1],gap=Date.parse(e.answeredAt)-Date.parse(prev.answeredAt);if(e.localDay!==prev.localDay)later.push(e);else if(gap<=1800000)immediate.push(e);else sameDay.push(e);}
+  const wrong=es.findIndex(e=>!e.correct);if(wrong>=0){const retest=es.slice(wrong+1).find(e=>e.localDay!==es[wrong].localDay&&Date.parse(e.answeredAt)>Date.parse(es[wrong].answeredAt));if(retest)firstLaterAfterError.push(retest);}
+ }
+ return {g,first,immediate,sameDay,later,firstLaterAfterError};
+}
+function navigate(next){
+ if(session&&!session.done&&view==='quiz'&&next!=='quiz'&&!confirm('ホームへ移ると、残りの問題はいったんおしまいになります。回答済みの記録は残ります。移動しますか？'))return;
+ if(next!=='quiz')session=null;view=next;render();main.focus();window.scrollTo(0,0);
+}
+function navState(){document.querySelectorAll('[data-view]').forEach(b=>b.setAttribute('aria-current',b.dataset.view===view?'page':'false'));}
+function home(){
+ const answered=groups().size,correct=new Set(state.events.filter(e=>e.correct).map(e=>e.questionId)).size;
+ main.innerHTML=`<section class="hero"><div><div class="eyebrow">YUIKA’S SCIENCE NOTE</div><h1>「わかった！」を、<br>ひとつずつ。</h1><p>今日はどんな発見があるかな。<br>５問から、ゆっくりはじめよう。</p><span class="tag">小５ 理科</span><span class="tag">解説つき・47問</span><span class="tag">オフラインで使える</span></div><svg class="art" viewBox="0 0 210 185" aria-hidden="true"><circle cx="105" cy="96" r="82" fill="#eaf1e9"/><ellipse cx="108" cy="159" rx="68" ry="9" fill="#d7e1d5"/><path d="M79 35h50m-41 0v42l-38 64q-8 15 13 15h82q20 0 12-15l-38-64V35" fill="#fffefa" stroke="#386455" stroke-width="3" stroke-linejoin="round"/><path d="M72 111h65l21 34q3 10-13 10H63q-16 0-12-10z" fill="#edc6af"/><circle cx="93" cy="129" r="6" fill="#fffefa" opacity=".8"/><circle cx="121" cy="143" r="4" fill="#fffefa"/><circle cx="102" cy="99" r="4" fill="#edc6af"/><path d="m158 37 3 9 9 3-9 3-3 9-3-9-9-3 9-3z" fill="#bf934b"/><path d="m45 73 2 6 6 2-6 2-2 6-2-6-6-2 6-2z" fill="#386455"/></svg></section><div class="stats"><div class="stat"><strong>${state.events.length}</strong><span>この版の回答数</span></div><div class="stat"><strong>${correct}<small> / 47</small></strong><span>正解できた問題</span></div><div class="stat"><strong>${47-answered}</strong><span>これからの問題</span></div></div><div class="layout"><section class="card"><div class="eyebrow">TODAY’S CHALLENGE</div><h2>今日のチャレンジ</h2><p class="muted">ヒントを見てもだいじょうぶ。解説まで読んでみよう。</p><div class="field">問題の数<div class="chips"><button data-count="5" aria-pressed="${count===5}">５問</button><button data-count="10" aria-pressed="${count===10}">10問</button></div></div><label class="field">練習する単元<select id="unit"><option value="all">ぜんぶから</option>${UNITS.map(u=>`<option>${esc(u)}</option>`).join('')}</select></label><div class="actions"><button class="primary wide" id="start">チャレンジをはじめる →</button></div><p class="muted" style="margin-top:12px">同じ問題は、１回のチャレンジに１度だけ。</p></section><section class="card green-card"><div class="eyebrow">YOUR NEXT STEP</div><h2>自分のペースで復習</h2>${[['unseen','まだ出会っていない問題','新しい47問の未回答から'],['wrong','もう一度やってみよう','最後の回答がちがった問題'],['spaced','日をあけて思い出そう','最後の回答から24時間以上'],['hint','ヒントなしでできるかな','最後はヒントを見て正解']].map(([m,t,s])=>`<button class="review" data-mode="${m}" ${candidates(m).length?'':'disabled'}><span>${t}<small>${s}</small></span><b>${candidates(m).length}<small>問</small></b></button>`).join('')}</section></div><div class="note">記録はこのブラウザーに保存されます。ときどき「記録の引きつぎ」からJSONを保存しておくと安心です。${state.legacy.length?' 以前の記録は、保護者のノートに別枠で保管しています。':''}</div><details class="source"><summary>この問題集について</summary><p>いただいた理科のまとめをもとに作成したオリジナル47問です。SAPIX公式の問題・教材ではありません。旧HTMLの47問とは問題IDが異なります。</p><p>計算には丸めたホウ酸の表（3・5・9・15・24・38g）を使用します。「同じ濃さ」だけで中和の体積比は決まらないので、問題では「20mLずつでちょうど中和」と明記しています。鉄の反応生成物の色や過酸化水素水の液性など、条件に左右される説明は一律に断定していません。でんぷんの分散液も、均一な水溶液の例には使っていません。</p><p>実験の問題は知識の復習です。火や薬品の実験は、先生など大人の指導のもとで行いましょう。</p></details>`;
+ main.querySelectorAll('[data-count]').forEach(b=>b.onclick=()=>{const u=document.getElementById('unit').value;count=Number(b.dataset.count);home();document.getElementById('unit').value=u;});
+ document.getElementById('start').onclick=()=>{const u=document.getElementById('unit').value;start(u==='all'?'normal':'unit',u);};
+ main.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>start(b.dataset.mode));
+}
+function start(mode,unit='all'){
+ const qs=[...candidates(mode,unit)];for(let i=qs.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[qs[i],qs[j]]=[qs[j],qs[i]];}
+ if(!qs.length){message('今はこの練習の候補がありません。ほかの練習を選んでね。');return;}
+ session={id:uid(),mode,questions:qs.slice(0,count),index:0,results:[],hint:false,selected:null,answered:false,done:false};view='quiz';render();main.focus();window.scrollTo(0,0);
+}
+function quiz(){
+ const s=session,q=s.questions[s.index];
+ main.innerHTML=`<div class="quiz"><div class="row between"><button class="small" id="end">← いったんおしまい</button><span class="muted">${esc(MODES[s.mode])} · ${s.index+1} / ${s.questions.length}問</span></div><div class="progress" aria-label="進み具合"><span style="width:${s.index/s.questions.length*100}%"></span></div><section class="card"><span class="tag">${esc(q.unit)}</span><span class="muted">${q.id}</span><h1 class="question">${esc(q.prompt)}</h1>${q.type==='number'?`<div class="tablewrap"><table><caption>計算用：水100gに溶けるホウ酸の量（丸めた値）</caption><tr><th>温度 ℃</th>${[0,20,40,60,80,100].map(n=>`<td>${n}</td>`).join('')}</tr><tr><th>ホウ酸 g</th>${[3,5,9,15,24,38].map(n=>`<td>${n}</td>`).join('')}</tr></table></div><label class="field" for="numeric">答え（数字だけを入力）</label><div class="row"><input id="numeric" class="numbers" inputmode="decimal" type="text" autocomplete="off" maxlength="100" placeholder="例：1.8"><b>g</b></div>`:`<div class="stack">${q.options.map((o,i)=>`<button class="option" data-choice="${i}" aria-pressed="false"><span>${String.fromCharCode(65+i)}</span>${esc(o)}</button>`).join('')}</div>`}<div id="answerError" class="error" role="alert"></div><div class="actions"><button class="primary" id="check">答え合わせ</button><button id="hint">ヒントを見る</button></div><div id="hintbox" hidden class="note"></div><div id="feedback" aria-live="polite"></div></section></div>`;
+ main.querySelectorAll('[data-choice]').forEach(b=>b.onclick=()=>{if(s.answered)return;s.selected=q.options[Number(b.dataset.choice)];main.querySelectorAll('[data-choice]').forEach(x=>x.setAttribute('aria-pressed',x===b));});
+ document.getElementById('hint').onclick=()=>{if(s.answered)return;s.hint=true;const box=document.getElementById('hintbox');box.hidden=false;box.textContent=q.hint;document.getElementById('hint').disabled=true;};
+ document.getElementById('check').onclick=submit;
+ if(q.type==='number')document.getElementById('numeric').onkeydown=e=>{if(e.key==='Enter')submit();};
+ document.getElementById('end').onclick=()=>navigate('home');
+}
+function submit(){
+ const s=session;if(!s||s.answered)return;const q=s.questions[s.index];const raw=q.type==='number'?document.getElementById('numeric').value:s.selected;const response=q.type==='number'?numeric(raw):raw;
+ if(response===null){document.getElementById('answerError').textContent=q.type==='number'?'0以上の数字を入力してね。小数も使えます。':'答えをひとつ選んでね。';return;}
+ s.answered=true;document.getElementById('answerError').textContent='';const now=new Date();
+ const e=validateEvent({id:uid(),sessionId:s.id,questionId:q.id,datasetVersion:VERSION,unit:q.unit,type:q.type,question:q.prompt,response,inputRaw:raw,expected:q.answer,correct:grade(q,response),answeredAt:now.toISOString(),timezoneOffset:now.getTimezoneOffset(),localDay:localDay(now.toISOString(),now.getTimezoneOffset()),hintUsed:s.hint,mode:s.mode,explanation:q.explanation});
+ state.events.push(e);s.results.push(e);const saved=persist();
+ main.querySelectorAll('[data-choice],#numeric,#check,#hint').forEach(b=>b.disabled=true);
+ document.getElementById('feedback').innerHTML=`<div class="answerbox ${e.correct?'':'again'}"><h2>${e.correct?'できたね！':'ここをいっしょに見てみよう'}</h2><p>あなたの答え：<b>${esc(response)}${q.suffix||''}</b><br>正しい答え：<b>${esc(q.answer)}${q.suffix||''}</b></p><p>${esc(q.explanation)}</p><small>${saved?'回答を保存しました':'回答は一時保持です。閉じる前にJSONを書き出してください。'}</small></div><button class="primary wide" id="next" style="margin-top:18px">${s.index+1===s.questions.length?'今回のふりかえり →':'次の問題へ →'}</button>`;
+ document.getElementById('next').onclick=()=>{s.index++;if(s.index===s.questions.length){s.done=true;result();}else{s.answered=false;s.hint=false;s.selected=null;quiz();}main.focus();window.scrollTo(0,0);};
+ document.getElementById('next').focus();
+}
+function result(){
+ const s=session,ok=s.results.filter(e=>e.correct).length;
+ main.innerHTML=`<div class="quiz card"><div class="result"><div class="eyebrow">TODAY’S DISCOVERY</div><h1>おつかれさま、ゆいか！</h1><p>最後まで考えたことが、次につながるよ。</p><strong>${ok}<small> / ${s.results.length}問 正解</small></strong><p class="muted">今回はヒントを${s.results.filter(e=>e.hintUsed).length}問で見ました。</p></div>${s.results.map(e=>`<div class="listline"><span class="badge">${e.correct?'できた':'また思い出そう'}</span> ${esc(e.question)}</div>`).join('')}<div class="actions"><button class="primary" id="return">ホームへ戻る</button><button id="parent">保護者のノート</button></div></div>`;
+ document.getElementById('return').onclick=()=>navigate('home');document.getElementById('parent').onclick=()=>navigate('analysis');
+}
+function legacyHtml(){return state.legacy.length?`<section class="card"><h2>以前の記録（詳細履歴とは別）</h2><p class="muted">旧キー ${OLD_KEY} のスナップショット。新しい問題とのID対応は不明なので、正答率・未回答判定には使いません。複数のスナップショットを合計しません。</p>${state.legacy.map(l=>{const v=legacyData(l.raw);return `<div class="note">取得日時：${dateLabel(l.capturedAt)}<br>累計回答回数：<b>${v.attempts}</b> ／ 一度でも正解した問題ID：<b>${new Set(v.correct).size}</b> ／ 未解消の誤答ID：<b>${new Set(v.wrong).size}</b></div>`;}).join('')}<p class="muted">「一度でも正解した問題数 ÷ 累計回答回数」は正答率ではありません。過去の回答内容・初回正誤は復元できません。</p></section>`:'<div class="note">以前の記録はまだ取り込まれていません。HTML自体には利用者の記録は含まれません。旧記録があっても、この新しい問題集への対応は不明です。</div>';}
+function analysis(){
+ const a=analysisData(),es=state.events,repeated=[...a.g].filter(([,v])=>v.filter(e=>!e.correct).length>=2),unseen=candidates('unseen');
+ main.innerHTML=`<div class="eyebrow">PARENT’S NOTE</div><h1>学びのようす</h1><p class="intro muted">数字は、ゆいかの次の練習を選ぶための手がかりです。回答数やヒントの有無も、いっしょに見てください。</p><div class="note">ここからの分析は、この版で記録した回答だけです。「初回」は<b>履歴記録開始後、その問題で最初に記録された回答</b>。本当の初回学習とは限りません。少ない回答で「苦手」と断定しません。</div><div class="stats"><div class="stat"><strong>${es.length}</strong><span>記録した回答数</span></div><div class="stat"><strong>${a.g.size}<small> / 47</small></strong><span>記録のある問題数</span></div><div class="stat"><strong>${new Set(es.map(e=>e.sessionId)).size}</strong><span>回答のあるセッション数</span></div></div><section class="card"><h2>単元ごとのようす</h2><p class="muted">同じ問題への再回答も１回答として集計しています。</p><div class="tablewrap"><table><thead><tr><th>単元</th><th>正答率（正解/回答）</th><th>回答した問題</th></tr></thead><tbody>${UNITS.map(u=>{const rows=es.filter(e=>e.unit===u);return `<tr><td>${u}</td><td>${rate(rows)}</td><td>${new Set(rows.map(e=>e.questionId)).size}/${QUESTIONS.filter(q=>q.unit===u).length}問</td></tr>`;}).join('')}</tbody></table></div><p class="muted" style="margin-top:12px">全回答：${rate(es)}</p></section><div class="layout"><section class="card"><h2>初めの回答・ヒント</h2><div class="listline">記録開始後の初回：<b>${rate(a.first)}</b></div><div class="listline">ヒントあり：<b>${rate(es.filter(e=>e.hintUsed))}</b></div><div class="listline">ヒントなし：<b>${rate(es.filter(e=>!e.hintUsed))}</b></div><p class="muted" style="margin-top:12px">問題や難しさが違うため、単純な比較でヒントの効果や能力を判断できません。</p></section><section class="card"><h2>時間をおいた回答</h2><div class="listline">直後の再挑戦：<b>${rate(a.immediate)}</b></div><div class="listline">同日・30分より後：<b>${rate(a.sameDay)}</b></div><div class="listline">別の日の再回答：<b>${rate(a.later)}</b></div><div class="listline">最初の誤答の後、初めて別日に答えた結果：<b>${rate(a.firstLaterAfterError)}</b></div><p class="muted" style="margin-top:12px">直後＝同じ問題の前の回答から同日・30分以内。別日＝記録時の現地日付が異なる回答（24時間以上とは限りません）。ヒントありの回答も含み、１回の成功だけで定着とは断定しません。</p></section></div><section class="card"><h2>繰り返し確認したい問題</h2><p class="muted">２回以上の誤答がある問題を表示。すでに正解した問題も履歴として残ります。</p>${repeated.length?repeated.map(([id,rows])=>`<details><summary>${esc(byId.get(id).prompt)}<br><small>誤答 ${rows.filter(e=>!e.correct).length} / ${rows.length}回答・最後は${rows.at(-1).correct?'正解':'誤答'}</small></summary>${rows.filter(e=>!e.correct).map(e=>`<div class="facts"><p>観測：${dateLabel(e.answeredAt)} ／ 選んだ・入力した答え：<b>${esc(e.inputRaw)}</b>${e.type==='number'?'g':''} ／ ヒント${e.hintUsed?'あり':'なし'}</p><p>正解：${esc(e.expected)}</p></div>`).join('')}<p>${esc(byId.get(id).explanation)}</p><p class="muted">推測：この記録だけでは、計算ミス・読み違い・概念の混同のどれかは特定できません。解き方を本人に聞いて確認してください。</p></details>`).join(''):'<p class="empty">２回以上の誤答がある問題は、まだありません。</p>'}</section><section class="card"><h2>次の練習の候補</h2><p class="muted">「未回答」は新しい47問に対して詳細履歴がないことを示します。過去に学んでいないという意味ではありません。</p>${[['unseen','新しい問題集で未回答'],['wrong','最後の回答が誤答'],['spaced','最後の回答から24時間以上'],['hint','最後はヒントありで正解']].map(([m,t])=>`<details><summary>${t} · ${candidates(m).length}問</summary>${candidates(m).map(q=>`<p class="listline">${q.id} · ${esc(q.prompt)}</p>`).join('')||'<p>今は候補がありません。</p>'}${candidates(m).length?`<button data-practice="${m}">この候補から${count}問まで練習</button>`:''}</details>`).join('')}</section><section class="card"><h2>１回答ずつの記録</h2><p class="muted">実際の回答と正解、解説を確認できます。表示日時は現在の端末の時刻帯、回答日は記録時の現地日付です。</p><div id="history"></div></section>${legacyHtml()}<div class="note">自動の原因診断は行いません。回答時間は収集せず、能力や集中力の判定もしません。記録は自己学習の観測であり、評価や診断ではありません。</div><div class="actions"><button class="primary" id="report">分析用テキストを書き出す</button><button id="print">印刷・PDF</button></div>`;
+ main.querySelectorAll('[data-practice]').forEach(b=>b.onclick=()=>start(b.dataset.practice));document.getElementById('report').onclick=exportReport;document.getElementById('print').onclick=()=>window.print();history();
+}
+function history(){
+ const es=sorted(state.events).reverse(),pages=Math.max(1,Math.ceil(es.length/20));historyPage=Math.min(historyPage,pages-1);
+ document.getElementById('history').innerHTML=es.slice(historyPage*20,historyPage*20+20).map(e=>`<details><summary><span class="badge">${e.correct?'正解':'もう一度'}</span> ${esc(e.question)}<br><small>${dateLabel(e.answeredAt)} · ${esc(e.unit)}</small></summary><div class="facts"><p>観測した回答：<b>${esc(e.inputRaw)}</b>${e.type==='number'?'g':''}</p><p>正解：${esc(e.expected)}${e.type==='number'?'g':''}</p><p>ヒント${e.hintUsed?'あり':'なし'} ／ ${esc(MODES[e.mode])} ／ 回答日 ${e.localDay}</p><p>${esc(e.explanation)}</p></div><small class="overflow">問題 ${e.questionId} ／ セッション ${e.sessionId}<br>問題データ版 ${e.datasetVersion}</small></details>`).join('')||'<p class="empty">回答すると、ここに記録が増えていきます。</p>';
+ if(es.length>20){const p=document.createElement('div');p.className='pages';p.innerHTML=`<button id="prevPage" ${historyPage===0?'disabled':''}>前へ</button><span>${historyPage+1} / ${pages}</span><button id="nextPage" ${historyPage+1===pages?'disabled':''}>次へ</button>`;document.getElementById('history').append(p);document.getElementById('prevPage').onclick=()=>{historyPage--;history();};document.getElementById('nextPage').onclick=()=>{historyPage++;history();};}
+}
+function download(name,content,type='application/json'){
+ const url=URL.createObjectURL(new Blob([content],{type:type+';charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),10000);
+}
+function exportRecords(){download('yuika-records-'+new Date().toISOString().slice(0,10)+'.json',JSON.stringify({...state,exportedAt:new Date().toISOString()},null,2));}
+function exportReport(){
+ const a=analysisData(),es=state.events;
+ const lines=['ゆいかの理科学習ノート：保護者用レポート','出力日時：'+dateLabel(new Date().toISOString()),'問題データ版：'+VERSION,'集計対象：この版の詳細履歴 '+es.length+'回答。過去の回答内容・本当の初回は不明。','正答率の分母は回答数。同じ問題への再回答を含む。','',...UNITS.map(u=>u+'：'+rate(es.filter(e=>e.unit===u))),'全回答：'+rate(es),'記録開始後の初回：'+rate(a.first),'ヒントあり：'+rate(es.filter(e=>e.hintUsed)),'ヒントなし：'+rate(es.filter(e=>!e.hintUsed)),'直後（同日30分以内）：'+rate(a.immediate),'同日30分より後：'+rate(a.sameDay),'別日の再回答：'+rate(a.later),'最初の誤答後、最初の別日回答：'+rate(a.firstLaterAfterError),'別日は記録時の現地日付で判定。24時間以上とは限らず、ヒントありも含む。','少数回答で苦手・定着とは断定しません。ヒントあり/なしは問題構成が違うため単純比較できません。','',...['unseen','wrong','spaced','hint'].map(m=>MODES[m]+'の候補：'+candidates(m).map(q=>q.id+' '+q.prompt).join(' / ')),'','２回以上誤答した問題：',...[...a.g].filter(([,rows])=>rows.filter(e=>!e.correct).length>=2).map(([id,rows])=>`${id} ${byId.get(id).prompt}：誤答${rows.filter(e=>!e.correct).length}/${rows.length}回答、最後は${rows.at(-1).correct?'正解':'誤答'}`),'','以前の集計（別枠・足し合わせない）：',...state.legacy.map(l=>{const v=legacyData(l.raw);return `取得 ${dateLabel(l.capturedAt)}：累計回答${v.attempts}、一度でも正解したID${new Set(v.correct).size}、未解消の誤答ID${new Set(v.wrong).size}。ID対応は不明。`; }),'一度でも正解した問題数÷累計回答回数は正答率ではありません。','','１回答ごとの観測：',...sorted(es).map(e=>`${e.answeredAt}（回答日 ${e.localDay} / UTCオフセット分 ${-e.timezoneOffset}）\n${e.questionId} / ${e.unit} / ${MODES[e.mode]} / セッション ${e.sessionId}\n${e.question}\n回答：${e.inputRaw} / 正解：${e.expected} / ${e.correct?'正解':'誤答'} / ヒント${e.hintUsed?'あり':'なし'}\n解説：${e.explanation}\n`),'解釈の注意：誤答だけから計算ミス・概念の混同などの原因は特定できません。解き方を本人に確認してください。回答時間は記録・評価しません。',dirty?'注意：ブラウザーに未保存の回答を含みます。JSONでも保全してください。':''];
+ download('yuika-analysis-'+new Date().toISOString().slice(0,10)+'.txt',lines.join('\n'),'text/plain');
+}
+async function importFile(file){
+ if(!file)return;
+ try{
+  requireThat(file.size<=10000000,'10MBまでのJSONを選んでください。');const text=await file.text(),v=JSON.parse(text);let incoming;
+  if(v&&Object.hasOwn(v,'attempts')&&Object.hasOwn(v,'correct')&&Object.hasOwn(v,'wrong')){legacyData(text);incoming=emptyState();incoming.legacy=[{raw:text,capturedAt:new Date().toISOString()}];}else incoming=validateState(v);
+  const next=merge(state,incoming),added=next.events.length-state.events.length,oldAdded=next.legacy.length-state.legacy.length;
+  state=next;const saved=persist();message(`読み込み：新しい回答 ${added}件、旧集計 ${oldAdded}件。重複は追加していません。${saved?'ブラウザーに保存しました。':'ブラウザーには未保存です。閉じる前にJSONを書き出してください。'}`);records();
+ }catch(e){message('読み込みを中止しました。既存記録は変更していません。'+e.message);}
+}
+function records(){
+ main.innerHTML=`<div class="eyebrow">KEEP YOUR DISCOVERIES</div><h1>記録の引きつぎ</h1><p class="intro muted">ブラウザーやファイルを変える前に、記録を手元に残しましょう。JSONが記録のバックアップ、テキストが保護者向けの分析資料です。</p><div class="note">現在：${state.events.length}回答、旧集計${state.legacy.length}件。${dirty||blocked?'<b class="error">一時保持の記録があります。閉じる前にJSONを保存してください。</b>':'ブラウザー内に保存しています。'}<br>保存キー：${KEY} ／ 旧キー ${OLD_KEY} は書き換えません。</div><div class="layout"><section class="card"><h2>記録をファイルに残す</h2><p class="muted">全回答と保管した旧集計を含みます。ファイルはご自身で保管・受け渡ししてください。</p><div class="stack"><button class="primary" id="export">JSONを書き出す</button><button id="textReport">分析用テキストを書き出す</button><button id="retry">ブラウザーへの保存を再試行</button></div></section><section class="card"><h2>記録を読み込む</h2><p class="muted">このアプリのJSON、または旧アプリの集計JSONを選びます。今ある記録に追加し、同じ回答IDは重複させません。同じIDで内容が違う場合は、全体の読み込みを中止します。</p><label class="field">JSONファイル<input id="import" type="file" accept=".json,application/json"></label><small>形式・問題版・日時・回答内容・正誤を検証します。別の問題版は取り込まず、元ファイルを保管するよう案内します。</small></section></div><section class="card"><h2>元アプリの記録を守る手順</h2><ol><li>まず、実際に使っているブラウザー・同じ場所の<b>元HTML</b>を開きます。新しいHTMLを開いただけでは、元の記録が見えないことがあります。</li><li>元HTMLを別名コピーしてバックアップします。ただし<b>HTMLのコピーだけでは学習記録は保存されません</b>。</li><li>元アプリに書き出し機能があれば、その機能でJSONを保存します。なければ、同封の「記録の引きつぎ手順.md」にある短いコードを、元アプリの開発者ツールのコンソールで実行します。旧キーを読むだけで、削除・変更はしません。</li><li>書き出したJSONをこの画面で読み込み、以前の集計を確認します。新しい問題への対応は不明なので、別枠で保管します。</li><li>このアプリのJSONも書き出して保管します。スマートフォンで元記録の書き出しができないときは、元アプリとブラウザーをそのまま残してください。別の端末で同じHTMLを開いても、記録は移りません。</li></ol><p class="muted">file:// の保存領域はブラウザー依存です。ファイルの名前・場所・ブラウザー・端末・プライベートモードによって引き継がれない可能性があります。端末の時刻や時刻帯が違う場合、別日判定にも影響します。</p><button id="rawOld">この場所で見える旧キーをそのまま保存</button>${rawBroken!==null?'<button id="rawBroken">読み取れなかった新キーの元データを保存</button>':''}<div class="note">自動送信・広告・外部ライブラリーはありません。記録ファイルには回答日時などが入るため、共有する相手を確認してください。</div></section>${legacyHtml()}`;
+ document.getElementById('export').onclick=exportRecords;document.getElementById('textReport').onclick=exportReport;
+ document.getElementById('import').onchange=e=>importFile(e.target.files[0]);
+ document.getElementById('retry').onclick=()=>{if(persist())message('ブラウザーへの保存ができました。');records();};
+ document.getElementById('rawOld').onclick=()=>{try{const raw=localStorage.getItem(OLD_KEY);if(raw===null){message('この場所からは旧キーが見つかりません。実際に使っていた元アプリで書き出してください。');return;}download('yuika-science-v1-original.json',raw);}catch(e){message('旧キーを読み取れませんでした。元アプリのブラウザーを残してください。');}};
+ if(rawBroken!==null)document.getElementById('rawBroken').onclick=()=>download('yuika-v2-unreadable-original.json',rawBroken);
+}
+function render(){navState();if(view==='home')home();else if(view==='analysis')analysis();else if(view==='records')records();else if(view==='quiz'){if(session.done)result();else quiz();}}
+// 別タブの通常の変更を統合。厳密に同時の書き込みはlocalStorageではトランザクション化できないため、学習は１タブで行う。
+window.addEventListener('storage',e=>{if(e.key===KEY&&e.newValue){try{state=merge(state,validateState(JSON.parse(e.newValue)));if(view!=='quiz')render();}catch(err){message('別タブの記録と競合しました。自動で上書きせず、JSONを書き出して保全してください。');}}});
+window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.returnValue='';}});
+document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>navigate(b.dataset.view));
+load();render();
+</script>
+</body>
+</html>
