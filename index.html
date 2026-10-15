@@ -104,6 +104,7 @@ function injectStyles() {
 
 // --- QUESTION DATA ---
 const UNITS = [
+  {subject:"社会",subjectIcon:"🌍",subjectColor:T.green,id:"shakai-heian-540-24",name:"貴族の世の中（平安時代）",textbook:"540-24 · 暗記50問＋理解25問",externalPage:"heian-review.html",quizQuestions:[],flashDecks:[]},
   {
     subject: "社会", subjectIcon: "🌍", subjectColor: T.green,
     id: "shakai-env",
@@ -1191,7 +1192,7 @@ function HomeScreen({ onSelectUnit, onSettings, onHistory, email }) {
             const qBadge = getBadge(u.id, "quiz");
             const fBadge = getBadge(u.id, "flash");
             return (
-              <button key={u.id} onClick={()=>onSelectUnit(u)} style={{
+              <button key={u.id} onClick={()=>u.externalPage ? window.location.assign(u.externalPage) : onSelectUnit(u)} style={{
                 width:"100%",padding:"18px 20px",borderRadius:16,marginBottom:8,
                 border:`1px solid ${(qBadge?.color===T.gold||fBadge?.color===T.gold)?`${T.gold}44`:T.textMuted}`,
                 background:(qBadge?.color===T.gold&&fBadge?.color===T.gold)?`${T.gold}08`:T.smoke,
@@ -1203,7 +1204,7 @@ function HomeScreen({ onSelectUnit, onSettings, onHistory, email }) {
                     {qBadge?.color===T.gold&&fBadge?.color===T.gold&&<span style={{fontSize:14}}>💖</span>}
                   </div>
                   <div style={{fontSize:12,color:T.textDim,marginTop:4}}>{u.textbook}</div>
-                  <div style={{display:"flex",gap:8,marginTop:6}}>
+                  {u.externalPage ? <div style={{fontSize:12,color:T.green,marginTop:6}}>５問・10問 / 漢字確認 / 復習 / 保護者のノート</div> : <div style={{display:"flex",gap:8,marginTop:6}}>
                     <span style={{fontSize:11,padding:"2px 8px",borderRadius:8,
                       background:qBadge?`${qBadge.color}22`:T.smoke,
                       border:`1px solid ${qBadge?`${qBadge.color}44`:T.textMuted}`,
@@ -1216,7 +1217,7 @@ function HomeScreen({ onSelectUnit, onSettings, onHistory, email }) {
                       color:fBadge?fBadge.color:T.textMuted}}>
                       🧠 暗記 {fBadge?fBadge.icon:"🔒"}
                     </span>
-                  </div>
+                  </div>}
                 </div>
                 <span style={{color:T.pink,fontSize:20,fontWeight:700}}>→</span>
               </button>
