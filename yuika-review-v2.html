@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="theme-color" content="#fbf7f2">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src https://*.workers.dev; base-uri 'none'; form-action 'none'">
 <title>ゆいかの理科ノート</title>
 <style>
 :root{--ink:#293e3b;--muted:#64736e;--paper:#fbf7f2;--white:#fffefa;--line:#e5e4da;--green:#386455;--pale:#eaf1e9;--pink:#fae9e4;--rose:#a65049;--gold:#efd391;--shadow:0 8px 30px #293e3b06}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.75 system-ui,-apple-system,"Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif}button,input,select{font:inherit}button,a,input,select{touch-action:manipulation}button{cursor:pointer;border:1px solid var(--line);border-radius:12px;background:var(--white);padding:11px 18px;color:var(--ink);font-weight:650;min-height:46px}button:hover{border-color:var(--green);background:#f1f5ef}button:disabled{opacity:.5;cursor:default}button.primary{background:var(--green);color:white;border-color:var(--green)}button.soft{background:var(--pink);border-color:transparent}button.small{padding:6px 12px;min-height:40px;font-size:13px}a{color:var(--green)}:focus-visible{outline:3px solid #c58238;outline-offset:3px}header{max-width:1060px;margin:auto;padding:23px 28px;display:flex;justify-content:space-between;align-items:center;gap:15px;border-bottom:1px solid var(--line)}.brand{font-size:18px;font-weight:800;letter-spacing:.05em}.brand span{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--green);color:var(--paper);margin-right:10px}.topnote{color:var(--muted);font-size:12px}nav{display:flex;gap:6px}nav button{border:0;background:transparent;font-size:13px;padding:8px 12px}nav button[aria-current=page]{background:var(--pale);color:var(--green)}main{max-width:1000px;margin:auto;padding:36px 28px 60px}h1,h2,h3,p{margin:0 0 12px}h1{font-size:clamp(28px,4.5vw,42px);line-height:1.45;letter-spacing:.04em}h2{font-size:23px;line-height:1.5}h3{font-size:17px}small,.muted{color:var(--muted);font-size:13px}.eyebrow{font-size:11px;color:var(--green);letter-spacing:.18em;font-weight:800;margin-bottom:12px}.hero{display:grid;grid-template-columns:1fr 240px;gap:30px;padding:12px 0 24px;align-items:center}.hero p{color:var(--muted)}.art{width:210px;height:185px;justify-self:center}.tag{display:inline-block;background:var(--pale);color:var(--green);font-size:11px;padding:4px 9px;border-radius:6px;margin:0 5px 8px 0}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0 28px}.stat{background:var(--white);border:1px solid var(--line);padding:19px;border-radius:16px}.stat strong{font-size:30px;display:block;font-weight:700;line-height:1.2}.stat span{font-size:12px;color:var(--muted)}.layout{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:20px}.card{background:var(--white);border:1px solid var(--line);border-radius:20px;padding:24px;box-shadow:var(--shadow);margin-bottom:18px}.green-card{background:var(--pale)}.row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.between{justify-content:space-between}.stack{display:grid;gap:10px}.field{display:grid;gap:5px;font-size:13px;font-weight:650;margin:13px 0}select,input{background:white;border:1px solid #c7d0c7;border-radius:9px;padding:11px 13px;min-height:46px;color:var(--ink);max-width:100%;min-width:0}input[type=file]{width:100%;font-size:13px}.chips{display:flex;gap:8px}.chips button[aria-pressed=true]{background:var(--green);color:white}.actions{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap}.wide{width:100%}.review{display:flex;text-align:left;justify-content:space-between;gap:14px;align-items:center;width:100%;margin-top:10px;background:#ffffffa8}.review small{display:block;font-weight:400}.review b{font-size:23px;color:var(--green)}.rule{border:0;border-top:1px solid var(--line);margin:22px 0}.note{padding:15px 18px;background:#f3efe6;border-radius:12px;font-size:13px;margin:12px 0}.notice{max-width:944px;margin:14px auto 0;padding:12px 18px;background:#fff0d0;border:1px solid #e7ce96;border-radius:10px;white-space:pre-line}.notice:empty{display:none}.progress{height:6px;background:#e2e8df;border-radius:10px;overflow:hidden;margin:18px 0 26px}.progress>span{display:block;height:100%;background:var(--green)}.quiz{max-width:720px;margin:auto}.question{font-size:23px;line-height:1.7;margin:18px 0 24px}.option{display:flex;gap:13px;text-align:left;width:100%;align-items:center;line-height:1.6}.option span{background:var(--paper);border-radius:7px;padding:2px 10px;color:var(--muted)}.option[aria-pressed=true]{border:2px solid var(--green);background:var(--pale);padding:10px 17px}.answerbox{background:var(--pale);padding:20px;border-radius:14px;margin-top:20px}.answerbox.again{background:#fff0dd}.answerbox p{margin-top:8px}.numbers{width:180px;font-size:24px}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;font-size:13px;text-align:left}th{font-weight:650;color:var(--muted);background:#f5f4ed}td,th{padding:10px;border-bottom:1px solid var(--line);vertical-align:top}caption{text-align:left;font-size:12px;margin-bottom:6px;color:var(--muted)}details{border:1px solid var(--line);border-radius:12px;margin:10px 0;padding:12px 16px;background:var(--white)}summary{cursor:pointer;font-weight:650;min-height:26px}.facts{border-left:3px solid var(--green);padding-left:14px;margin:14px 0;font-size:13px}.facts p{margin-bottom:5px}.empty{padding:20px;text-align:center;color:var(--muted)}.result{text-align:center;padding:28px 5px}.result strong{font-size:48px}.listline{border-bottom:1px solid var(--line);padding:10px 0;font-size:13px}.footer{max-width:944px;margin:0 auto;padding:18px 0 26px;border-top:1px solid var(--line);font-size:11px;color:var(--muted);display:flex;justify-content:space-between;gap:15px}.intro{max-width:680px;margin-bottom:25px}.good{color:var(--green)}.badge{font-size:12px;border-radius:10px;background:var(--pale);padding:3px 8px}.error{color:#963d31}.source{font-size:12px}.pages{display:flex;justify-content:center;align-items:center;gap:12px;margin:16px 0}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px}.overflow{overflow-wrap:anywhere}
@@ -12,10 +12,76 @@
 </style>
 </head>
 <body>
+<!-- YUIKA_REPORTS_BEGIN -->
+<script>
+/* Shared source, embedded in each HTML to preserve single-file use. */
+(()=>{
+'use strict';
+const CONFIG='yuika-mail-config-v1',PREFIX='yuika-mail-job-v1:';
+const memory=new Map();let busy=false,last='',timer=null;
+const id=()=>crypto.randomUUID?crypto.randomUUID():Array.from(crypto.getRandomValues(new Uint8Array(16)),v=>v.toString(16).padStart(2,'0')).join('');
+function config(){try{return JSON.parse(localStorage.getItem(CONFIG)||'null');}catch{return null;}}
+function store(job){memory.set(job.report?.id||job.id,job);try{localStorage.setItem(PREFIX+(job.report?.id||job.id),JSON.stringify(job));return true;}catch{last='通知の保留データを保存できません。この画面を閉じる前に接続を確認してください。学習記録の保存状況も確認してください。';return false;}}
+function jobs(){const all=new Map(memory);try{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k?.startsWith(PREFIX)){try{const v=JSON.parse(localStorage.getItem(k));if(v&&typeof v.id==='string'&&!all.has(v.id))all.set(v.id,v);}catch{last='読み取れない通知記録があります。上書きせず保管しています。';}}}}catch{}return [...all.values()];}
+function show(){const el=document.getElementById('yuika-mail-status');if(!el)return;const cfg=config(),pending=jobs().filter(j=>j.status!=='accepted').length;
+ el.textContent=last||(!cfg?.enabled?'自動メールは未接続です。接続後のチャレンジから通知します。':`自動メール：${cfg.recipient}。${pending?`保留 ${pending}件。アプリを開いている間に再試行します。`:'通知の保留はありません。'}`);
+}
+function schedule(){clearTimeout(timer);timer=setTimeout(()=>flush(),60_000);}
+async function process(){const cfg=config();if(!cfg?.enabled||!navigator.onLine){show();return;}
+ for(const job of jobs().filter(j=>j.status==='pending').slice(0,10)){
+  if(!config()?.enabled)break;
+  if(job.endpoint!==cfg.endpoint||job.recipient!==cfg.recipient){last='以前の送信先向けの保留通知があります。送信先が違うため自動送信していません。';continue;}
+  if(job.nextAttempt>Date.now())continue;
+  try{
+   const r=await fetch(cfg.endpoint+'/reports',{method:'POST',credentials:'omit',headers:{'Content-Type':'application/json',Authorization:'Bearer '+cfg.token},body:JSON.stringify(job.report),signal:AbortSignal.timeout(20_000)});
+   const body=await r.json();
+   if(r.ok&&body.accepted===true){store({id:job.id,status:'accepted',acceptedAt:new Date().toISOString(),endpoint:job.endpoint,recipient:job.recipient});last='今回の通知を送信サービスが受け付けました（受信箱への到着確認ではありません）。';}
+   else if(r.status===401||r.status===403){last='通知の接続認証を確認してください。結果は保留しています。';break;}
+   else if(r.status===409||r.status===400||r.status===413){job.status='needs_review';job.error=body.error||'invalid_report';store(job);last='確認が必要な通知があります。二重送信を防ぐため、自動再送を止めています。';}
+   else{job.tries=(job.tries||0)+1;job.nextAttempt=Date.now()+Math.min(3600000,60000*2**Math.min(job.tries,6));store(job);last='メール送信は保留中です。次回の起動時などに再試行します。';}
+  }catch{job.tries=(job.tries||0)+1;job.nextAttempt=Date.now()+Math.min(3600000,60000*2**Math.min(job.tries,6));store(job);last='通信できないため通知を保留しています。学習は続けられます。';}
+ }
+ show();
+}
+async function flush(){if(busy)return;busy=true;try{if(navigator.locks)await navigator.locks.request('yuika-mail-send',process);else await process();}finally{busy=false;schedule();}}
+function enqueue(report){
+ const cfg=config();if(!cfg?.enabled){last='自動メールは未接続です。今回の結果は学習記録で確認できます。';show();return false;}
+ if(!report||!report.id||jobs().some(j=>j.id===report.id)){show();return true;}
+ let old;try{old=localStorage.getItem(PREFIX+report.id);}catch{}
+ if(old!==null&&old!==undefined){last='同じ通知IDの保存データがあるため、上書きしていません。';show();return false;}
+ store({id:report.id,report,endpoint:cfg.endpoint,recipient:cfg.recipient,status:'pending',tries:0,nextAttempt:0});
+ last='チャレンジ結果を通知の保留リストに入れました。';show();void flush();return true;
+}
+function exportPending(){const pending=jobs().filter(j=>j.report).map(j=>({id:j.id,status:j.status,error:j.error||null,report:j.report}));const url=URL.createObjectURL(new Blob([JSON.stringify({version:1,pending},null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='yuika-pending-notifications.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),10000);}
+function endpoint(value){const u=new URL(value);if(u.protocol!=='https:'||!u.hostname.endsWith('.workers.dev')||u.username||u.password||u.port||u.search||u.hash||u.pathname!=='/')throw Error('設定したCloudflare Workerの https://〜.workers.dev のURLを入力してください。');return u.origin;}
+function mount(){
+ const wrap=document.createElement('section');wrap.style.cssText='max-width:944px;margin:20px auto;padding:16px;font:13px/1.7 system-ui;color:#394d43';
+ wrap.innerHTML='<p id="yuika-mail-status" role="status" aria-live="polite"></p><details><summary style="cursor:pointer">保護者：チャレンジ結果の自動メール</summary><p>接続すると、社会・理科のチャレンジ終了時に、今回の正誤・回答・ヒント等を登録した保護者へ送ります。自由記述は送信しません。以前の単元で記録していない項目は補いません。過去の履歴の一括送信はしません。</p><p>iPadでアプリを閉じている間は再送できません。未送信分は、次に開いたときに再試行します。通知を停止しても学習記録は消しません。</p><form id="yuika-mail-form"><label style="display:block">送信サーバーURL<input id="yuika-mail-url" type="url" required placeholder="https://〜.workers.dev" style="display:block;width:100%;box-sizing:border-box;padding:10px"></label><label style="display:block">この端末の接続キー<input id="yuika-mail-token" type="password" required minlength="32" autocomplete="off" style="display:block;width:100%;box-sizing:border-box;padding:10px"></label><p>メールサービスのAPIキーはここに入れません。接続キーは公開サイトやGitHubに書き込まず、この端末だけに保存します。</p><button type="submit" style="padding:10px;min-height:44px">接続を確認して有効にする</button> <button id="yuika-mail-stop" type="button" style="padding:10px;min-height:44px">自動メールを停止</button> <button id="yuika-mail-retry" type="button" style="padding:10px;min-height:44px">保留分を確認・再試行</button> <button id="yuika-mail-export" type="button" style="padding:10px;min-height:44px">保留通知をJSONで保全</button></form></details>';
+ document.body.append(wrap);
+ const cfg=config();if(cfg?.endpoint)document.getElementById('yuika-mail-url').value=cfg.endpoint;
+ document.getElementById('yuika-mail-form').onsubmit=async e=>{e.preventDefault();const button=e.submitter;if(button)button.disabled=true;try{
+  const base=endpoint(document.getElementById('yuika-mail-url').value.trim()),token=document.getElementById('yuika-mail-token').value.trim();if(token.length<32)throw Error('接続キーを確認してください。');
+  const r=await fetch(base+'/health',{headers:{Authorization:'Bearer '+token},credentials:'omit',signal:AbortSignal.timeout(15000)}),body=await r.json();
+  if(!r.ok||body.ready!==true||typeof body.recipient!=='string')throw Error('送信サーバーの設定・接続キーを確認してください。');
+  if(!confirm('送信先：'+body.recipient+'\n今後のチャレンジ結果をこの宛先へ自動送信します。接続しますか？'))return;
+  localStorage.setItem(CONFIG,JSON.stringify({enabled:true,endpoint:base,token,recipient:body.recipient}));document.getElementById('yuika-mail-token').value='';last='自動メールを有効にしました。次のチャレンジから通知します。';show();void flush();
+ }catch(err){last='接続できませんでした。'+err.message;show();}finally{if(button)button.disabled=false;}};
+ document.getElementById('yuika-mail-stop').onclick=()=>{try{const c=config();if(c)localStorage.setItem(CONFIG,JSON.stringify({...c,enabled:false}));last='今後の自動送信を停止しました。送信処理が始まっている通知は取り消せません。';}catch{last='停止設定を保存できません。通信を切って、この画面を閉じてください。';}show();};
+ document.getElementById('yuika-mail-retry').onclick=()=>{last='';show();void flush();};document.getElementById('yuika-mail-export').onclick=exportPending;
+ show();void flush();
+}
+window.YuikaReports={enqueue,id};
+window.addEventListener('online',()=>void flush());
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)void flush();});
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
+})();
+
+</script>
+<!-- YUIKA_REPORTS_END -->
 <header><div class="brand"><span>ゆ</span>ゆいかの理科ノート</div><nav aria-label="メイン"><button data-view="home">れんしゅう</button><button data-view="analysis">保護者のノート</button><button data-view="records">記録の引きつぎ</button></nav></header>
 <div id="notice" class="notice" role="status" aria-live="polite"></div>
 <main id="main" tabindex="-1"></main>
-<footer class="footer"><span>小５ 理科 · 溶解度 / 酸とアルカリ</span><span>記録はこのブラウザーの中に。外部送信なし。</span></footer>
+<footer class="footer"><span>小５ 理科 · 溶解度 / 酸とアルカリ</span><span>記録はこのブラウザーの中に。メール通知は接続後のみ。</span></footer>
 <script>
 'use strict';
 const QUESTIONS=[
@@ -751,6 +817,7 @@ function submit(){
 }
 function result(){
  const s=session,ok=s.results.filter(e=>e.correct).length;
+ window.YuikaReports.enqueue({version:1,id:'science:'+s.id,app:'science',subject:'理科',unit:'水溶液・酸とアルカリ',mode:MODES[s.mode],completedAt:s.results.at(-1).answeredAt,total:s.results.length,correct:ok,detail:'full',answers:s.results.map(e=>({question:e.unit+'：'+e.question,response:e.inputRaw+(e.type==='number'?'g':''),expected:String(e.expected)+(e.type==='number'?'g':''),explanation:e.explanation,correct:e.correct,hint:e.hintUsed,mode:MODES[e.mode]}))});
  main.innerHTML=`<div class="quiz card"><div class="result"><div class="eyebrow">TODAY’S DISCOVERY</div><h1>おつかれさま、ゆいか！</h1><p>最後まで考えたことが、次につながるよ。</p><strong>${ok}<small> / ${s.results.length}問 正解</small></strong><p class="muted">今回はヒントを${s.results.filter(e=>e.hintUsed).length}問で見ました。</p></div>${s.results.map(e=>`<div class="listline"><span class="badge">${e.correct?'できた':'また思い出そう'}</span> ${esc(e.question)}</div>`).join('')}<div class="actions"><button class="primary" id="return">ホームへ戻る</button><button id="parent">保護者のノート</button></div></div>`;
  document.getElementById('return').onclick=()=>navigate('home');document.getElementById('parent').onclick=()=>navigate('analysis');
 }
@@ -784,7 +851,7 @@ async function importFile(file){
  }catch(e){message('読み込みを中止しました。既存記録は変更していません。'+e.message);}
 }
 function records(){
- main.innerHTML=`<div class="eyebrow">KEEP YOUR DISCOVERIES</div><h1>記録の引きつぎ</h1><p class="intro muted">ブラウザーやファイルを変える前に、記録を手元に残しましょう。JSONが記録のバックアップ、テキストが保護者向けの分析資料です。</p><div class="note">現在：${state.events.length}回答、旧集計${state.legacy.length}件。${dirty||blocked?'<b class="error">一時保持の記録があります。閉じる前にJSONを保存してください。</b>':'ブラウザー内に保存しています。'}<br>保存キー：${KEY} ／ 旧キー ${OLD_KEY} は書き換えません。</div><div class="layout"><section class="card"><h2>記録をファイルに残す</h2><p class="muted">全回答と保管した旧集計を含みます。ファイルはご自身で保管・受け渡ししてください。</p><div class="stack"><button class="primary" id="export">JSONを書き出す</button><button id="textReport">分析用テキストを書き出す</button><button id="retry">ブラウザーへの保存を再試行</button></div></section><section class="card"><h2>記録を読み込む</h2><p class="muted">このアプリのJSON、または旧アプリの集計JSONを選びます。今ある記録に追加し、同じ回答IDは重複させません。同じIDで内容が違う場合は、全体の読み込みを中止します。</p><label class="field">JSONファイル<input id="import" type="file" accept=".json,application/json"></label><small>形式・問題版・日時・回答内容・正誤を検証します。別の問題版は取り込まず、元ファイルを保管するよう案内します。</small></section></div><section class="card"><h2>元アプリの記録を守る手順</h2><ol><li>まず、実際に使っているブラウザー・同じ場所の<b>元HTML</b>を開きます。新しいHTMLを開いただけでは、元の記録が見えないことがあります。</li><li>元HTMLを別名コピーしてバックアップします。ただし<b>HTMLのコピーだけでは学習記録は保存されません</b>。</li><li>元アプリに書き出し機能があれば、その機能でJSONを保存します。なければ、同封の「記録の引きつぎ手順.md」にある短いコードを、元アプリの開発者ツールのコンソールで実行します。旧キーを読むだけで、削除・変更はしません。</li><li>書き出したJSONをこの画面で読み込み、以前の集計を確認します。新しい問題への対応は不明なので、別枠で保管します。</li><li>このアプリのJSONも書き出して保管します。スマートフォンで元記録の書き出しができないときは、元アプリとブラウザーをそのまま残してください。別の端末で同じHTMLを開いても、記録は移りません。</li></ol><p class="muted">file:// の保存領域はブラウザー依存です。ファイルの名前・場所・ブラウザー・端末・プライベートモードによって引き継がれない可能性があります。端末の時刻や時刻帯が違う場合、別日判定にも影響します。</p><button id="rawOld">この場所で見える旧キーをそのまま保存</button>${rawBroken!==null?'<button id="rawBroken">読み取れなかった新キーの元データを保存</button>':''}<div class="note">自動送信・広告・外部ライブラリーはありません。記録ファイルには回答日時などが入るため、共有する相手を確認してください。</div></section>${legacyHtml()}`;
+ main.innerHTML=`<div class="eyebrow">KEEP YOUR DISCOVERIES</div><h1>記録の引きつぎ</h1><p class="intro muted">ブラウザーやファイルを変える前に、記録を手元に残しましょう。JSONが記録のバックアップ、テキストが保護者向けの分析資料です。</p><div class="note">現在：${state.events.length}回答、旧集計${state.legacy.length}件。${dirty||blocked?'<b class="error">一時保持の記録があります。閉じる前にJSONを保存してください。</b>':'ブラウザー内に保存しています。'}<br>保存キー：${KEY} ／ 旧キー ${OLD_KEY} は書き換えません。</div><div class="layout"><section class="card"><h2>記録をファイルに残す</h2><p class="muted">全回答と保管した旧集計を含みます。ファイルはご自身で保管・受け渡ししてください。</p><div class="stack"><button class="primary" id="export">JSONを書き出す</button><button id="textReport">分析用テキストを書き出す</button><button id="retry">ブラウザーへの保存を再試行</button></div></section><section class="card"><h2>記録を読み込む</h2><p class="muted">このアプリのJSON、または旧アプリの集計JSONを選びます。今ある記録に追加し、同じ回答IDは重複させません。同じIDで内容が違う場合は、全体の読み込みを中止します。</p><label class="field">JSONファイル<input id="import" type="file" accept=".json,application/json"></label><small>形式・問題版・日時・回答内容・正誤を検証します。別の問題版は取り込まず、元ファイルを保管するよう案内します。</small></section></div><section class="card"><h2>元アプリの記録を守る手順</h2><ol><li>まず、実際に使っているブラウザー・同じ場所の<b>元HTML</b>を開きます。新しいHTMLを開いただけでは、元の記録が見えないことがあります。</li><li>元HTMLを別名コピーしてバックアップします。ただし<b>HTMLのコピーだけでは学習記録は保存されません</b>。</li><li>元アプリに書き出し機能があれば、その機能でJSONを保存します。なければ、同封の「記録の引きつぎ手順.md」にある短いコードを、元アプリの開発者ツールのコンソールで実行します。旧キーを読むだけで、削除・変更はしません。</li><li>書き出したJSONをこの画面で読み込み、以前の集計を確認します。新しい問題への対応は不明なので、別枠で保管します。</li><li>このアプリのJSONも書き出して保管します。スマートフォンで元記録の書き出しができないときは、元アプリとブラウザーをそのまま残してください。別の端末で同じHTMLを開いても、記録は移りません。</li></ol><p class="muted">file:// の保存領域はブラウザー依存です。ファイルの名前・場所・ブラウザー・端末・プライベートモードによって引き継がれない可能性があります。端末の時刻や時刻帯が違う場合、別日判定にも影響します。</p><button id="rawOld">この場所で見える旧キーをそのまま保存</button>${rawBroken!==null?'<button id="rawBroken">読み取れなかった新キーの元データを保存</button>':''}<div class="note">広告・外部ライブラリーはありません。自動メールに接続した場合だけ、チャレンジ結果を送信サーバー経由で保護者へ送ります。記録ファイルには回答日時などが入るため、共有する相手を確認してください。</div></section>${legacyHtml()}`;
  document.getElementById('export').onclick=exportRecords;document.getElementById('textReport').onclick=exportReport;
  document.getElementById('import').onchange=e=>importFile(e.target.files[0]);
  document.getElementById('retry').onclick=()=>{if(persist())message('ブラウザーへの保存ができました。');records();};
