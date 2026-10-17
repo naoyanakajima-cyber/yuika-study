@@ -170,6 +170,78 @@ function injectStyles() {
 
 // --- QUESTION DATA ---
 const UNITS = [
+  {
+    subject: "理科", subjectIcon: "🔬", subjectColor: "#4fc3f7",
+    id: "rika-weather", name: "天気", textbook: "小5・中学受験向けオリジナル · 基本10問＋標準5問",
+    quizDescription: "基本と標準をひと通り確認", strictFlashAnswers: true,
+    quizQuestions: [
+      { id:801, category:"基本・雲", type:"multi_choice", question:"雲をつくっているものは何ですか？", hint:"水蒸気そのものは、目に見えない気体です。", options:[{text:"目に見える水蒸気",correct:false},{text:"細かい水滴や氷の粒",correct:true},{text:"空気だけ",correct:false},{text:"けむりだけ",correct:false}], explanation:"雲は、細かい水滴や氷の粒が集まったものです。空気中の水蒸気が冷やされて、水滴や氷の粒になります。水蒸気そのものは目に見えません。" },
+      { id:802, category:"基本・風向", type:"multi_choice", question:"「北の風」は、どちらからどちらへ吹く風ですか？", hint:"風向は、風が吹いてくる方角で表します。", options:[{text:"南から北",correct:false},{text:"東から西",correct:false},{text:"北から南",correct:true},{text:"西から東",correct:false}], explanation:"北の風は、北から吹いてくる風、つまり北から南へ向かう風です。「風が向かう方角」と取り違えないようにしましょう。" },
+      { id:803, category:"基本・気温の測り方", type:"multi_choice", question:"屋外の気温を測る場所として、最も適切なものはどれですか？", hint:"日光や地面の熱の影響をなるべく受けず、空気の温度を測ります。", options:[{text:"日なたのアスファルトのすぐ上",correct:false},{text:"閉めきった自動車の中",correct:false},{text:"地面に温度計を直接置いた場所",correct:false},{text:"直射日光をさえぎった、風通しのよい地上約1.2〜1.5mの場所",correct:true}], explanation:"気温は、直射日光が当たらず、風通しのよい地上約1.2〜1.5mで測ります。地面からの熱の影響も少なくするため、芝生の上などが適しています。百葉箱も、このような条件で測るための工夫です。" },
+      { id:804, category:"基本・1日の気温", type:"multi_choice", question:"よく晴れ、天気の急な変化がない日、気温が最も高くなるのは一般にいつごろですか？", hint:"地面は太陽が南中したあともしばらく空気を温めます。", options:[{text:"午後2時ごろ",correct:true},{text:"午前6時ごろ",correct:false},{text:"正午ちょうど",correct:false},{text:"午後10時ごろ",correct:false}], explanation:"一般に、よく晴れた日の最高気温は午後2時ごろに現れます。正午ごろに日差しが強くなったあとも、地面が空気を温めるためです。天気や風によって時刻は変わります。" },
+      { id:805, category:"基本・高気圧", type:"multi_choice", question:"高気圧におおわれた場所では、一般にどのような天気になりやすいですか？", hint:"高気圧では、上から下へ向かう空気の動きが見られます。", options:[{text:"必ず大雪になる",correct:false},{text:"毎日雷雨になる",correct:false},{text:"晴れやすい",correct:true},{text:"必ず台風になる",correct:false}], explanation:"高気圧では空気が下降し、雲ができにくくなるので、一般に晴れやすくなります。ただし、高気圧におおわれれば必ず晴れる、という意味ではありません。" },
+      { id:806, category:"基本・低気圧", type:"multi_choice", question:"低気圧の付近で雲や雨が発生しやすいのは、主にどのような空気の動きがあるためですか？", hint:"空気が上に進むと冷え、水蒸気が水滴などに変わりやすくなります。", options:[{text:"空気が下降する",correct:false},{text:"空気が上昇する",correct:true},{text:"空気がまったく動かなくなる",correct:false},{text:"空気がすべて地面に吸いこまれる",correct:false}], explanation:"低気圧の付近では空気が集まって上昇します。上昇した空気が冷えると、水蒸気が水滴や氷の粒に変わって雲ができ、雨などにつながります。" },
+      { id:807, category:"基本・天気の移り変わり", type:"multi_choice", question:"日本付近の春や秋の天気は、一般にどちらからどちらへ移り変わりますか？", hint:"上空には、偏西風という西から吹く風があります。", options:[{text:"東から西",correct:false},{text:"南から北だけ",correct:false},{text:"北から南だけ",correct:false},{text:"西から東",correct:true}], explanation:"春や秋の日本付近では、高気圧や低気圧が上空の偏西風の影響で西から東へ進むことが多く、天気も西から東へ移り変わる傾向があります。すべての季節・低気圧に当てはまるわけではありません。" },
+      { id:808, category:"基本・梅雨", type:"multi_choice", question:"梅雨の時期に雨やくもりの日が続く主な原因は何ですか？", hint:"性質のちがう空気のかたまりの境目が、日本付近にとどまります。", options:[{text:"梅雨前線が日本付近に停滞するため",correct:true},{text:"太陽が何日も沈まないため",correct:false},{text:"日本のまわりの海がすべて凍るため",correct:false},{text:"地球の自転が止まるため",correct:false}], explanation:"冷たく湿った空気と暖かく湿った空気の境目にできる梅雨前線が、日本付近に停滞するためです。前線の付近では雲ができ、雨が続きやすくなります。" },
+      { id:809, category:"基本・台風", type:"multi_choice", question:"台風のもとになるのは、どこで発生するどのような低気圧ですか？", hint:"暖かい海から、水蒸気や熱の供給を受けて発達します。", options:[{text:"冬の陸地で発生する高気圧",correct:false},{text:"極地方の氷の下で発生する低気圧",correct:false},{text:"熱帯の海上などで発生する熱帯低気圧",correct:true},{text:"砂漠で発生する砂ぼこり",correct:false}], explanation:"台風は、熱帯の海上などで発生した熱帯低気圧が発達したものです。北西太平洋や南シナ海にあり、最大風速が約17m/s以上になったものを台風とよびます。" },
+      { id:810, category:"基本・雲と雨", type:"multi_choice", question:"夏の夕立などで、強い雨や雷をもたらす、縦に大きく発達した雲はどれですか？", hint:"入道雲ともよばれます。", options:[{text:"巻雲（すじ雲）",correct:false},{text:"積乱雲",correct:true},{text:"巻積雲（うろこ雲）",correct:false},{text:"飛行機雲",correct:false}], explanation:"積乱雲は、強い上昇気流によって縦に大きく発達した雲です。強い雨や雷、突風などをもたらすことがあります。" },
+      { id:811, category:"標準・雲のでき方", type:"order", question:"湿った空気から雲ができるまでを、起こる順に並べましょう。", hint:"空気の動き → 温度の変化 → 水蒸気の変化を考えます。", items:["水蒸気の一部が水滴や氷の粒に変わる","湿った空気が上昇する","水滴や氷の粒が集まり、雲ができる","上昇した空気が冷える"], correctOrder:[1,3,0,2], explanation:"湿った空気が上昇する → 空気が冷える → 水蒸気の一部が水滴や氷の粒になる → それらが集まって雲ができます。雲は水蒸気そのものではない、という基本ともつながります。" },
+      { id:812, category:"標準・気温の表", type:"multi_choice", question:"表にある4回の観測のうち、最も気温が高かったのは何時ですか？", hint:"一般的な最高気温の時刻ではなく、この表の数値を比べましょう。", table:{caption:"ある日の気温（学習用の仮のデータ）",headers:["観測時刻","気温"],rows:[["午前9時","18℃"],["正午","23℃"],["午後3時","25℃"],["午後6時","21℃"]]}, options:[{text:"午前9時",correct:false},{text:"正午",correct:false},{text:"午後6時",correct:false},{text:"午後3時",correct:true}], explanation:"表の最大値は25℃で、午後3時の観測です。この表から分かるのは「観測した4回の中で最も高い時刻」です。観測していない時刻も含めた、1日全体の最高気温の時刻までは断定できません。" },
+      { id:813, category:"標準・気圧と風", type:"multi_choice", question:"地表付近の空気は、気圧の高いところと低いところの間で、大まかにどちらへ流れようとしますか？", hint:"高気圧では周囲へ吹き出し、低気圧では周囲から吹きこみます。", options:[{text:"気圧の高いところから低いところへ",correct:true},{text:"気圧の低いところから高いところへ",correct:false},{text:"気圧に関係なく常に北へ",correct:false},{text:"気圧に関係なく常に西へ",correct:false}], explanation:"地表付近では、大まかに気圧の高いところから低いところへ空気が流れようとし、風が生まれます。実際の風向は地球の自転や地形などにも影響されるので、一直線に吹くとは限りません。" },
+      { id:814, category:"標準・水滴のでき方", type:"multi_choice", question:"冷たい水を入れたコップの外側に水滴がつきました。水滴は主にどこから来たものですか？", hint:"雲と同じく、空気中の水蒸気が冷やされるとどうなるかを考えます。", options:[{text:"コップの中の水がガラスを通りぬけた",correct:false},{text:"周囲の空気中の水蒸気が冷えて水滴になった",correct:true},{text:"ガラスそのものが水に変わった",correct:false},{text:"空気中の酸素がそのまま水になった",correct:false}], explanation:"コップの近くの空気が冷やされ、その中の水蒸気が水滴になって外側につきます。これを凝結といいます。コップの中の水がガラスを通りぬけたわけではありません。" },
+      { id:815, category:"標準・天気図から予想", type:"multi_choice", question:"春の天気図で、ある町の西に低気圧と雨雲がありました。それらがそのまま東へ進んで町を通るとき、町の天気はどう変わると考えられますか？", hint:"低気圧の名前だけでなく、雨雲の位置と進む向きを見ます。", options:[{text:"雨雲は町から遠ざかるので、必ず晴れ続ける",correct:false},{text:"町は必ず雪になる",correct:false},{text:"雨雲が近づくので、雨が降ると予想できる",correct:true},{text:"天気図からは雨雲の動きを全く考えられない",correct:false}], explanation:"町の西にある雨雲が東へ進んで町を通るので、雨が降ると予想できます。実際の予報では、雨雲の発達・消滅や速さも確かめます。ここでは問題に示された進み方をもとに考えます。" },
+    ],
+    flashDecks: [
+      { name:"天気の基本用語", icon:"🌦️", color:"#0288D1", cards:[
+        {q:"雲をつくる細かい粒は、水滴と何の粒？",a:"氷",alt:["こおり"]},
+        {q:"風向は、風が吹いてくる方角？向かう方角？",a:"吹いてくる方角",alt:["吹いてくる方向","吹いてくる","ふいてくるほうがく"]},
+        {q:"気温を測るとき、直射日光は当てる？さえぎる？",a:"さえぎる",alt:["遮る"]},
+        {q:"よく晴れた日の気温が最も高くなるのは一般に午後何時ごろ？",a:"2時",alt:["2","２","２時","二時","午後2時","午後２時","14時","１４時"]},
+        {q:"高気圧で見られる空気の動きは、上昇？下降？",a:"下降",alt:["かこう"]},
+        {q:"低気圧の付近で見られる空気の動きは、上昇？下降？",a:"上昇",alt:["じょうしょう"]},
+        {q:"春や秋の日本の天気は、一般に西からどちらへ移る？",a:"東",alt:["ひがし"]},
+        {q:"梅雨のころ、日本付近に停滞する前線は？",a:"梅雨前線",alt:["ばいうぜんせん"]},
+        {q:"台風のもとになる低気圧を何という？",a:"熱帯低気圧",alt:["ねったいていきあつ"]},
+        {q:"夕立や雷をもたらす、縦に大きく発達した雲は？",a:"積乱雲",alt:["せきらんうん","入道雲","にゅうどうぐも"]},
+      ]},
+    ],
+  },
+  {
+    subject: "社会", subjectIcon: "🌍", subjectColor: T.green,
+    id: "shakai-japan-land-climate", name: "日本の地形・気候", textbook: "小5・中学受験向けオリジナル · 基本10問＋標準5問",
+    quizDescription: "基本と標準をひと通り確認", strictFlashAnswers: true,
+    quizQuestions: [
+      { id:901, category:"基本・平野", type:"multi_choice", question:"日本で面積が最も広い平野はどれですか？", hint:"東京などがある関東地方に広がっています。", options:[{text:"石狩平野",correct:false},{text:"濃尾平野",correct:false},{text:"関東平野",correct:true},{text:"筑紫平野",correct:false}], explanation:"日本で最も広い平野は関東平野です。東京や埼玉などに広がっています。平野の名前と、どの地方にあるかを結びつけて覚えましょう。" },
+      { id:902, category:"基本・川の長さ", type:"multi_choice", question:"日本で長さが最も長い川はどれですか？", hint:"長野県では千曲川とよばれ、新潟県を通って日本海へ注ぎます。", options:[{text:"利根川",correct:false},{text:"石狩川",correct:false},{text:"木曽川",correct:false},{text:"信濃川",correct:true}], explanation:"日本で最も長い川は信濃川です。長野県を流れる上流部は千曲川とよばれます。「最も長い川」と「流域面積が最も広い川」は別なので注意しましょう。" },
+      { id:903, category:"基本・流域面積", type:"multi_choice", question:"流域面積（雨水などがその川に集まる土地の面積）が、日本で最も広い川はどれですか？", hint:"関東地方を流れる川です。川の長さの順位とはちがいます。", options:[{text:"利根川",correct:true},{text:"信濃川",correct:false},{text:"最上川",correct:false},{text:"四万十川",correct:false}], explanation:"流域面積が日本で最も広い川は利根川です。流域面積は、水がその川や支流に集まる土地の広さです。川そのものの長さや、川幅のことではありません。" },
+      { id:904, category:"基本・日本アルプス", type:"multi_choice", question:"飛騨山脈・木曽山脈・赤石山脈をまとめて何とよびますか？", hint:"本州の中央部にある、高い山々です。", options:[{text:"奥羽山脈",correct:false},{text:"日本アルプス",correct:true},{text:"中国山地",correct:false},{text:"四国山地",correct:false}], explanation:"飛騨山脈・木曽山脈・赤石山脈の総称は日本アルプスです。順に北アルプス・中央アルプス・南アルプスともよばれます。" },
+      { id:905, category:"基本・山脈の位置", type:"multi_choice", question:"東北地方の中央部を、ほぼ南北にのびる山脈はどれですか？", hint:"東北地方の太平洋側と日本海側の間にあります。", options:[{text:"飛騨山脈",correct:false},{text:"紀伊山地",correct:false},{text:"九州山地",correct:false},{text:"奥羽山脈",correct:true}], explanation:"奥羽山脈は、東北地方の中央部をほぼ南北にのびています。山脈は地形だけでなく、雨や雪の降り方など、気候のちがいにも関わります。" },
+      { id:906, category:"基本・盆地", type:"multi_choice", question:"周囲を山に囲まれた、比較的平らな土地を何といいますか？", hint:"甲府や京都などに見られる地形です。", options:[{text:"半島",correct:false},{text:"海峡",correct:false},{text:"盆地",correct:true},{text:"入り江",correct:false}], explanation:"周囲を山に囲まれた、比較的平らな土地を盆地といいます。山梨県の甲府盆地、京都府の京都盆地などがあります。半島は、海に突き出した陸地です。" },
+      { id:907, category:"基本・日本海側の気候", type:"multi_choice", question:"本州の日本海側では、冬にどのような天気が多くなりますか？", hint:"冬の北西の季節風が、日本海から水蒸気を運んできます。", options:[{text:"雪や雨の日が多い",correct:true},{text:"雨も雪もまったく降らない",correct:false},{text:"毎日真夏のように暑い",correct:false},{text:"一年中、梅雨が続く",correct:false}], explanation:"本州の日本海側では、冬の季節風が日本海の水蒸気を運び、山地にぶつかって上昇するため、雪や雨が多くなります。同じ緯度に近い太平洋側では、冬に晴れて乾燥する日が多くなります。" },
+      { id:908, category:"基本・瀬戸内の気候", type:"multi_choice", question:"瀬戸内地方の気候の特徴として、最も適切なものはどれですか？", hint:"北側と南側の山地が、湿った季節風の影響を弱めます。", options:[{text:"日本で唯一、雨が降らない",correct:false},{text:"一年を通して雨が比較的少ない",correct:true},{text:"一年中、雪におおわれる",correct:false},{text:"毎日、同じ量の雨が降る",correct:false}], explanation:"瀬戸内地方は、中国山地と四国山地に囲まれ、湿った季節風の影響を受けにくいため、雨が比較的少ない地域です。農業用の水を確保するため、ため池が多い地域もあります。" },
+      { id:909, category:"基本・北海道の気候", type:"multi_choice", question:"北海道の気候の特徴として、最も適切なものはどれですか？", hint:"本州などと比べた気温と、梅雨前線の影響に注目します。", options:[{text:"一年中、本州より高温である",correct:false},{text:"冬でも雪がまったく降らない",correct:false},{text:"梅雨が日本で最も長く続く",correct:false},{text:"本州などより冷涼で、梅雨の影響が比較的小さい",correct:true}], explanation:"北海道は本州などより冷涼で、一般に梅雨の影響が小さい地域です。ただし、初夏に雨が続くこともあります。「梅雨の影響が小さい」と「雨が降らない」はちがいます。" },
+      { id:910, category:"基本・南西諸島の気候", type:"multi_choice", question:"沖縄県などの南西諸島の気候の特徴として、最も適切なものはどれですか？", hint:"日本の南にある、海に囲まれた地域です。", options:[{text:"冬の気温は北海道と同じくらい低い",correct:false},{text:"台風がまったく近づかない",correct:false},{text:"一年を通して温暖で、雨が多く、台風の影響も受ける",correct:true},{text:"一年中、雨がほとんど降らない砂漠である",correct:false}], explanation:"南西諸島は一年を通して温暖で、雨も多い地域です。梅雨や台風の影響を受けます。北海道と南西諸島を比べると、日本が南北に長いことと気候のちがいが結びつきます。" },
+      { id:911, category:"標準・降水量の表", type:"multi_choice", question:"本州のほぼ同じ緯度にある2地点です。冬の降水量に注目すると、日本海側の特徴により近いのはどちらですか？", hint:"降水量には、雨だけでなく雪を水に換算した量も含みます。", table:{caption:"2地点の月降水量（学習用の仮のデータ）",headers:["地点","1月","8月"],rows:[["A","250mm","150mm"],["B","50mm","150mm"]]}, options:[{text:"B。1月の降水量が少ないから",correct:false},{text:"A。1月の降水量が多いから",correct:true},{text:"両方とも同じ。8月の降水量が等しいから",correct:false},{text:"両方とも南西諸島。1月に降水があるから",correct:false}], explanation:"冬に雪や雨が多い本州の日本海側の特徴に近いのは、1月の降水量が多いAです。この2か月だけで実際の都市を特定することはできませんが、冬の降水量を比較して、気候の特徴を考えられます。" },
+      { id:912, category:"標準・冬の雪の理由", type:"order", question:"冬に本州の日本海側で雪が多くなるしくみを、順に並べましょう。", hint:"風がどこを通り、山でどう動くかを考えます。", items:["湿った空気が山地にぶつかり、上昇して冷える","大陸から冷たい北西の季節風が吹く","雲ができ、日本海側に雪などを降らせる","風が日本海の上を通り、水蒸気を多くふくむ"], correctOrder:[1,3,0,2], explanation:"大陸から冷たい季節風が吹く → 日本海で水蒸気をふくむ → 山地にぶつかって上昇し、冷える → 雲ができて雪などを降らせます。理科の「空気が上昇して冷えると雲ができる」と同じしくみです。" },
+      { id:913, category:"標準・長さと流域面積", type:"multi_select", question:"川の長さと流域面積について、正しい文をすべて選びましょう。", hint:"長さは川の道のり、流域面積は水が集まる土地の広さです。", options:[{text:"日本で最も長い川は信濃川である",correct:true},{text:"日本で流域面積が最も広い川は信濃川である",correct:false},{text:"日本で流域面積が最も広い川は利根川である",correct:true},{text:"流域面積とは、川幅が最も広い場所の幅である",correct:false}], explanation:"正しいのは「最も長い川は信濃川」と「流域面積が最も広い川は利根川」の2つです。流域面積は、支流も含めてその川へ水が集まる土地の面積を表します。" },
+      { id:914, category:"標準・地形と降水量", type:"fill_blanks", question:"瀬戸内地方で雨が比較的少ない理由を完成させましょう。", hint:"季節風をさえぎる北側・南側の地形を考えます。", template:"瀬戸内地方は、北の（　①　）と南の（　②　）にはさまれ、湿った季節風の影響を受けにくいから。", blanks:[{id:"①",correct:"中国山地",options:["奥羽山脈","中国山地","関東平野","九州山地"]},{id:"②",correct:"四国山地",options:["越後平野","石狩平野","四国山地","飛騨山脈"]}], explanation:"北側の中国山地と南側の四国山地が湿った季節風の影響を弱めるため、瀬戸内地方は雨が比較的少なくなります。地名だけでなく、位置と気候の関係も押さえましょう。" },
+      { id:915, category:"標準・気温差の比較", type:"multi_choice", question:"1月と8月の平均気温の差が大きい地点と、その差の組み合わせはどれですか？", hint:"それぞれ、8月の気温から1月の気温を引いて比べましょう。", table:{caption:"2地点の月平均気温（学習用の仮のデータ）",headers:["地点","1月","8月"],rows:[["A","2℃","26℃"],["B","7℃","27℃"]]}, options:[{text:"B、34℃",correct:false},{text:"A、28℃",correct:false},{text:"B、20℃",correct:false},{text:"A、24℃",correct:true}], explanation:"Aは26−2＝24℃、Bは27−7＝20℃なので、差が大きいのはAです。内陸は海沿いより夏と冬の気温差が大きくなる傾向がありますが、この表だけで各地点の位置までは断定できません。" },
+    ],
+    flashDecks: [
+      { name:"地形・気候の基本用語", icon:"🗾", color:T.green, cards:[
+        {q:"日本で最も広い平野は？",a:"関東平野",alt:["かんとうへいや"]},
+        {q:"日本で最も長い川は？",a:"信濃川",alt:["しなのがわ"]},
+        {q:"日本で流域面積が最も広い川は？",a:"利根川",alt:["とねがわ"]},
+        {q:"飛騨・木曽・赤石の3山脈の総称は？",a:"日本アルプス",alt:["にほんアルプス","にっぽんアルプス"]},
+        {q:"東北地方の中央部を南北にのびる山脈は？",a:"奥羽山脈",alt:["おううさんみゃく"]},
+        {q:"周囲を山に囲まれた、比較的平らな土地は？",a:"盆地",alt:["ぼんち"]},
+        {q:"本州で冬の雪や雨が多いのは、日本海側？太平洋側？",a:"日本海側",alt:["日本海","にほんかいがわ"]},
+        {q:"中国山地と四国山地にはさまれ、雨が比較的少ない地方は？",a:"瀬戸内地方",alt:["瀬戸内","せとうちちほう","せとうち"]},
+        {q:"本州などより冷涼で、梅雨の影響が比較的小さい都道府県は？",a:"北海道",alt:["ほっかいどう"]},
+        {q:"沖縄県などを含む、温暖で雨が多い南の島々の総称は？",a:"南西諸島",alt:["なんせいしょとう"]},
+      ]},
+    ],
+  },
   {subject:"社会",subjectIcon:"🌍",subjectColor:T.green,id:"shakai-heian-540-24",name:"貴族の世の中（平安時代）",textbook:"540-24 · 暗記50問＋理解25問",externalPage:"heian-review.html",quizQuestions:[],flashDecks:[]},
   {
     subject: "社会", subjectIcon: "🌍", subjectColor: T.green,
@@ -911,6 +983,13 @@ function QuizScreen({ unit, onBack, email, onSessionSaved }) {
       </div>
       <div style={{padding:20}}>
         <h2 style={{fontSize:17,fontWeight:700,lineHeight:1.6,color:T.text,margin:"0 0 8px",fontFamily:"'Zen Maru Gothic',sans-serif"}}>{q.question}</h2>
+        {q.table&&<div style={{overflowX:"auto",margin:"12px 0 16px"}}>
+          <table style={{width:"100%",borderCollapse:"collapse",fontSize:14,textAlign:"center",color:T.text}}>
+            <caption style={{textAlign:"left",fontSize:12,color:T.textDim,paddingBottom:8}}>{q.table.caption}</caption>
+            <thead><tr>{q.table.headers.map(h=><th key={h} scope="col" style={{border:`1px solid ${T.textMuted}`,padding:"8px 10px",background:`${T.pink}11`}}>{h}</th>)}</tr></thead>
+            <tbody>{q.table.rows.map((row,i)=><tr key={i}>{row.map((cell,j)=>j===0?<th key={j} scope="row" style={{border:`1px solid ${T.textMuted}`,padding:"8px 10px"}}>{cell}</th>:<td key={j} style={{border:`1px solid ${T.textMuted}`,padding:"8px 10px"}}>{cell}</td>)}</tr>)}</tbody>
+          </table>
+        </div>}
         <div style={{fontSize:13,color:T.dunno,background:`${T.dunno}11`,borderRadius:8,padding:"8px 12px",marginBottom:16,border:`1px solid ${T.dunno}33`}}>💡 {q.hint}</div>
         {q.type==="order"&&<OrderQ q={q} onAnswer={handleAnswer}/>}
         {q.type==="fill_blanks"&&<FillQ q={q} onAnswer={handleAnswer}/>}
@@ -1086,6 +1165,7 @@ function FlashScreen({ unit, onBack, email, onSessionSaved }) {
     const ni = normalize(input);
     const na = normalize(answer);
     if (!ni) return false;
+    if (unit.strictFlashAnswers) return [answer, ...(alts || [])].some(a => normalize(a) === ni);
     if (ni === na) return true;
     if (na.includes(ni) && ni.length >= 2) return true;
     if (ni.includes(na)) return true;
@@ -1212,7 +1292,7 @@ function UnitScreen({ unit, onBack, email, onSessionSaved }) {
       <button onClick={()=>setMode("quiz")} style={{...cardBase,padding:"24px 20px",cursor:"pointer",display:"flex",alignItems:"center",gap:16,border:`1px solid ${T.pink}44`,textAlign:"left"}}>
         <span style={{fontSize:36,width:56,height:56,display:"flex",alignItems:"center",justifyContent:"center",background:`${T.pink}22`,borderRadius:16}}>⚔️</span>
         <div><div style={{fontSize:18,fontWeight:900,color:T.text,fontFamily:"'Zen Maru Gothic',sans-serif"}}>復習クイズ</div>
-          <div style={{fontSize:13,color:T.textDim,marginTop:4}}>テストの弱点を重点的に・{unit.quizQuestions.length}問</div></div>
+          <div style={{fontSize:13,color:T.textDim,marginTop:4}}>{unit.quizDescription || "テストの弱点を重点的に"}・{unit.quizQuestions.length}問</div></div>
       </button>
       <button onClick={()=>setMode("flash")} style={{...cardBase,padding:"24px 20px",cursor:"pointer",display:"flex",alignItems:"center",gap:16,border:`1px solid ${T.green}44`,textAlign:"left"}}>
         <span style={{fontSize:36,width:56,height:56,display:"flex",alignItems:"center",justifyContent:"center",background:`${T.green}22`,borderRadius:16}}>🧠</span>
