@@ -242,6 +242,7 @@ const UNITS = [
       ]},
     ],
   },
+  {subject:"社会",subjectIcon:"🌍",subjectColor:T.green,id:"sapix-540-27",name:"応仁の乱（室町時代）",textbook:"540-27 · 30問（用語・理由・つながり）",externalPage:"onin-review.html",externalNote:"5・10・15問 / 漢字・読み確認 / 復習 / 保護者のノート",quizQuestions:[],flashDecks:[]},
   {subject:"社会",subjectIcon:"🌍",subjectColor:T.green,id:"shakai-heian-540-24",name:"貴族の世の中（平安時代）",textbook:"540-24 · 暗記50問＋理解25問",externalPage:"heian-review.html",quizQuestions:[],flashDecks:[]},
   {
     subject: "社会", subjectIcon: "🌍", subjectColor: T.green,
@@ -1361,7 +1362,7 @@ function HomeScreen({ onSelectUnit, onSettings, onHistory, email }) {
                     {qBadge?.color===T.gold&&fBadge?.color===T.gold&&<span style={{fontSize:14}}>💖</span>}
                   </div>
                   <div style={{fontSize:12,color:T.textDim,marginTop:4}}>{u.textbook}</div>
-                  {u.externalPage ? <div style={{fontSize:12,color:T.green,marginTop:6}}>５問・10問 / 漢字確認 / 復習 / 保護者のノート</div> : <div style={{display:"flex",gap:8,marginTop:6}}>
+                  {u.externalPage ? <div style={{fontSize:12,color:T.green,marginTop:6}}>{u.externalNote || "５問・10問 / 漢字確認 / 復習 / 保護者のノート"}</div> : <div style={{display:"flex",gap:8,marginTop:6}}>
                     <span style={{fontSize:11,padding:"2px 8px",borderRadius:8,
                       background:qBadge?`${qBadge.color}22`:T.smoke,
                       border:`1px solid ${qBadge?`${qBadge.color}44`:T.textMuted}`,
