@@ -49,3 +49,42 @@ test('concurrent delivery is serialized by Durable Object and rate limit bounds 
  try{const object=new ReportDelivery(ctx,env);await Promise.all([1,2].map(()=>object.fetch(new Request('https://internal/reports',{method:'POST',body:JSON.stringify(report())}))));assert.equal(calls,1);}finally{globalThis.fetch=oldFetch;}
  const hour=100;await s.put('rate',{hour,count:60});assert.equal((await deliver({...validateReport(report()),id:'new:challenge123'},env,s,accept,hour*3600000)).status,429);
 });
+test('both parents receive one unchanged message for social, science and legacy reports',async()=>{
+ for(const [app,subject] of [['social','社会'],['science','理科'],['legacy','社会']]){
+  const p=validateReport({...report(),app,subject}),s=storage();let calls=0;
+  const e={...env,REPORT_TO:' parent@example.test, mother@example.test, parent@example.test '};
+  const send=async(url,init)=>{
+   calls++;const body=JSON.parse(init.body);
+   assert.deepEqual(body.to,['parent@example.test','mother@example.test']);
+   assert.equal(body.from,env.REPORT_FROM);
+   assert.equal(body.subject,`[ゆいか学習] ${subject} 0/1問`);
+   assert.equal(body.text,mailText(p));
+   assert.equal(init.headers.Authorization,'Bearer '+env.RESEND_API_KEY);
+   return accept();
+  };
+  assert.equal((await deliver(p,e,s,send,100000)).status,200);
+  assert.equal((await deliver(p,e,s,send,140000)).status,200);assert.equal(calls,1);
+  const health=await worker.fetch(new Request('https://worker.example/health',{headers:{Origin:e.ALLOWED_ORIGIN,Authorization:'Bearer '+e.DEVICE_TOKEN}}),e);
+  assert.deepEqual(await health.json(),{ready:true,recipient:'parent@example.test, mother@example.test'});
+ }
+});
+test('invalid recipient lists fail closed without sending or storing delivery state',async()=>{
+ for(const value of [undefined,'','  ','parent@example.test,','parent@example.test,,mother@example.test','parent@example.test,invalid','parent@example.test;mother@example.test','Parent <parent@example.test>','parent@example.test\r\nBcc:other@example.test',Array(51).fill('parent@example.test').join(',')]){
+  const e={...env,REPORT_TO:value},s=storage();let calls=0;
+  assert.equal((await deliver(validateReport(report()),e,s,async()=>{calls++;return accept();},100000)).status,503);
+  assert.equal(calls,0);assert.equal(s.m.size,0);
+  const health=await worker.fetch(new Request('https://worker.example/health',{headers:{Origin:e.ALLOWED_ORIGIN,Authorization:'Bearer '+e.DEVICE_TOKEN}}),e);
+  assert.equal(health.status,503);
+ }
+});
+test('two-recipient rejection or network failure preserves pending state and retry payload',async()=>{
+ for(const failure of [async()=>Response.json({message:'restricted'}, {status:403}),async()=>{throw Error('offline');}]){
+  const e={...env,REPORT_TO:'parent@example.test,mother@example.test'},p=validateReport(report()),s=storage(),requests=[];
+  const send=async(url,init)=>{requests.push(init);return requests.length===1?failure():accept();};
+  assert.equal((await deliver(p,e,s,send,100000)).status,502);
+  assert.equal((await s.get('report:'+p.id)).status,'pending');
+  assert.equal((await deliver(p,e,s,send,140000)).status,200);
+  assert.equal(requests[0].body,requests[1].body);
+  assert.equal(requests[0].headers['Idempotency-Key'],requests[1].headers['Idempotency-Key']);
+ }
+});

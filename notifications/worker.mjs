@@ -27,7 +27,13 @@ async function tokenEqual(a,b) {
  if(typeof a!=='string'||typeof b!=='string')return false;
  const x=await hash(a),y=await hash(b);let diff=0;for(let i=0;i<x.length;i++)diff|=x.charCodeAt(i)^y.charCodeAt(i);return diff===0;
 }
-function ready(env) { return typeof env.DEVICE_TOKEN==='string' && env.DEVICE_TOKEN.length>=32 && !!env.RESEND_API_KEY && typeof env.REPORT_TO==='string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(env.REPORT_TO) && typeof env.REPORT_FROM==='string' && env.REPORT_FROM.includes('@'); }
+function recipients(value) {
+ if(typeof value!=='string')return null;
+ const addresses=value.split(',').map(s=>s.trim());
+ if(addresses.length>50||!addresses.every(s=>/^[^\s@,;<>]+@[^\s@,;<>]+\.[^\s@,;<>]+$/.test(s)))return null;
+ return [...new Set(addresses)];
+}
+function ready(env) { return typeof env.DEVICE_TOKEN==='string' && env.DEVICE_TOKEN.length>=32 && !!env.RESEND_API_KEY && !!recipients(env.REPORT_TO) && typeof env.REPORT_FROM==='string' && env.REPORT_FROM.includes('@'); }
 export default {
  async fetch(request,env) {
   const origin=request.headers.get('Origin');
@@ -38,7 +44,7 @@ export default {
   if(!ready(env))return wrap(reply({error:'not_configured'},503));
   if(!await tokenEqual(request.headers.get('Authorization'),`Bearer ${env.DEVICE_TOKEN}`))return wrap(reply({error:'unauthorized'},401));
   const path=new URL(request.url).pathname;
-  if(path==='/health'&&request.method==='GET')return wrap(reply({ready:true,recipient:env.REPORT_TO}));
+  if(path==='/health'&&request.method==='GET')return wrap(reply({ready:true,recipient:recipients(env.REPORT_TO).join(', ')}));
   if(path!=='/reports'||request.method!=='POST')return wrap(reply({error:'not_found'},404));
   // Bound the stream before allocating a large body, even without Content-Length.
   const reader=request.body?.getReader();if(!reader)return wrap(reply({error:'invalid_report'},400));
@@ -54,6 +60,8 @@ export default {
 // Sent IDs are retained without answer content. Provider requests use a stable idempotency key.
 // If acceptance is uncertain beyond the provider's 24-hour window, do NOT resend automatically.
 export async function deliver(p,env,storage,send=fetch,now=Date.now()) {
+ const to=recipients(env.REPORT_TO);
+ if(!to)return reply({error:'not_configured'},503);
  const key='report:'+p.id,digest=await hash(JSON.stringify(p)),old=await storage.get(key);
  if(old&&old.digest!==digest)return reply({error:'id_conflict'},409);
  if(old?.status==='sent')return reply({accepted:true,duplicate:true});
@@ -66,7 +74,7 @@ export async function deliver(p,env,storage,send=fetch,now=Date.now()) {
  const record={digest,status:'pending',firstAttempt:old?.firstAttempt??now,lastAttempt:now};
  await storage.put(key,record); // Durable before contacting the provider.
  let response;
- try{response=await send('https://api.resend.com/emails',{method:'POST',signal:AbortSignal.timeout(12_000),headers:{Authorization:`Bearer ${env.RESEND_API_KEY}`,'Content-Type':'application/json','Idempotency-Key':'yuika-'+await hash(p.id)},body:JSON.stringify({from:env.REPORT_FROM,to:[env.REPORT_TO],subject:`[ゆいか学習] ${p.subject} ${p.correct}/${p.total}問`,text:mailText(p)})});}
+ try{response=await send('https://api.resend.com/emails',{method:'POST',signal:AbortSignal.timeout(12_000),headers:{Authorization:`Bearer ${env.RESEND_API_KEY}`,'Content-Type':'application/json','Idempotency-Key':'yuika-'+await hash(p.id)},body:JSON.stringify({from:env.REPORT_FROM,to,subject:`[ゆいか学習] ${p.subject} ${p.correct}/${p.total}問`,text:mailText(p)})});}
  catch{return reply({error:'provider_unavailable'},502);}
  if(!response.ok)return reply({error:response.status===429?'provider_busy':'provider_rejected'},502);
  let result;try{result=await response.json();}catch{return reply({error:'provider_unknown'},502);}
