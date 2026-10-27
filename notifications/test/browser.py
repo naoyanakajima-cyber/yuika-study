@@ -10,7 +10,7 @@ class Quiet(SimpleHTTPRequestHandler):
  def log_message(self,*a):pass
 srv=ThreadingHTTPServer(('127.0.0.1',0),partial(Quiet,directory=str(ROOT)));Thread(target=srv.serve_forever,daemon=True).start()
 BASE=f'http://127.0.0.1:{srv.server_port}/'
-CONFIG={'enabled':True,'endpoint':'https://test-notify.example.workers.dev','token':'test-device-key-123456789012345678901234','recipient':'parent@example.test'}
+CONFIG={'enabled':True,'endpoint':'https://test-notify.example.workers.dev','token':'test-device-key-123456789012345678901234','recipient':'parent@example.test, mother@example.test'}
 with sync_playwright() as pw:
  b=pw.chromium.launch(executable_path='/usr/bin/chromium',args=['--no-sandbox'])
  c=b.new_context(viewport={'width':768,'height':1024});p=c.new_page();errors=[];p.on('pageerror',lambda e:errors.append(str(e)))
@@ -43,16 +43,22 @@ with sync_playwright() as pw:
  assert received[0]['answers'][1]['hint'] is True
  p.evaluate('result();result()');p.reload();assert len(received)==1
  print('PASS no send before pairing; pair UI; send once per challenge, not per answer; details/hints; result rerender/reload dedup',flush=True)
+ assert p.evaluate("JSON.parse(localStorage.getItem('yuika-mail-config-v1')).recipient")==CONFIG['recipient']
  # Science page shares pairing and durable retry across a page close/reload.
  fail[0]=True;p.goto(BASE+'yuika-review-v2.html');p.locator('#unit').select_option('溶解度の計算');p.locator('#start').click()
  for _ in range(5):
   q=p.evaluate('session.questions[session.index]');p.locator('#numeric').fill(str(q['answer']));p.locator('#check').click();p.locator('#next').click()
  expect(p.locator('#yuika-mail-status')).to_contain_text('保留中')
  science=received[-1];assert science['app']=='science' and science['total']==5
+ pending=p.evaluate("Object.keys(localStorage).filter(k=>k.startsWith('yuika-mail-job-v1:')).map(k=>JSON.parse(localStorage.getItem(k))).filter(j=>j.status==='pending')")
+ assert len(pending)==1 and pending[0]['report']==science
+ learning=p.evaluate("localStorage.getItem('yuika-science-review-v2')")
+ assert learning is not None
  # Simulate passage of backoff time and a new visit.
  p.evaluate("()=>{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k.startsWith('yuika-mail-job-v1:')){const v=JSON.parse(localStorage.getItem(k));if(v.status==='pending'){v.nextAttempt=0;localStorage.setItem(k,JSON.stringify(v));}}}}")
  fail[0]=False;p.reload();expect(p.locator('#yuika-mail-status')).to_contain_text('受け付けました')
  assert received[-1]==science
+ assert p.evaluate("localStorage.getItem('yuika-science-review-v2')")==learning
  print('PASS science completion; queued on provider failure; same payload and ID retried on next visit',flush=True)
  # Quota failures do not break learning; accepted receipts contain no answer payload.
  receipts=p.evaluate("Object.keys(localStorage).filter(k=>k.startsWith('yuika-mail-job-v1:')).map(k=>JSON.parse(localStorage.getItem(k)))")
