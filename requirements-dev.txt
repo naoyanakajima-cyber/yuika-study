@@ -1,0 +1,5 @@
+# Validated together on Codex Cloud (Python 3.12, Debian 13).
+playwright==1.62.0
+greenlet==3.5.6
+pyee==13.0.1
+typing_extensions==4.16.0

@@ -1,5 +1,5 @@
 """540-25「鎌倉幕府の成立」ページのブラウザーテスト。python3 tests/kamakura_review.py で実行（Playwright＋Chromium）。"""
-import json
+import json,os
 from pathlib import Path
 from http.server import ThreadingHTTPServer,SimpleHTTPRequestHandler
 from functools import partial
@@ -15,7 +15,7 @@ OTHER={'yuika-social-540-27-v1':'{"schemaVersion":1,"datasetVersion":"onin-540-2
 MK="""(id,correct,variant,at)=>{const q=Q.get(id),v=variantOf(q,variant),d=new Date(at);const response=correct?(q.type==='text'?expectedOf(q,v):q.answer):(q.type==='text'?'ちがう':q.options.find(o=>o!==q.answer));
 return validateEvent({id:uuid(),sessionId:'seed-session',questionId:id,unitId:UNIT_ID,version:VERSION,unit:q.unit,course:q.course,question:promptOf(q,v),response,expected:expectedOf(q,v),explanation:q.explanation,correct,variant:v,mode:'normal',hint:false,at:d.toISOString(),offset:0,day:day(d.toISOString(),0)});}"""
 with sync_playwright() as pw:
- b=pw.chromium.launch();c=b.new_context(viewport={'width':768,'height':1024});p=c.new_page();errors=[];p.on('pageerror',lambda e:errors.append(str(e)))
+ b=pw.chromium.launch(executable_path=os.environ.get('PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH'));c=b.new_context(viewport={'width':768,'height':1024});p=c.new_page();errors=[];p.on('pageerror',lambda e:errors.append(str(e)))
  p.route('https://**/*',lambda r:r.abort())
  p.goto(BASE+'kamakura-review.html');p.evaluate(f"o=>{{localStorage.clear();for(const[k,v]of Object.entries(o))localStorage.setItem(k,v)}}",OTHER);p.reload()
  # データ：38問・一意ID・必須項目・単元
