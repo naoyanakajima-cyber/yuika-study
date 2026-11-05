@@ -1,5 +1,12 @@
 # yuika-study
 
+## Codex Cloudでの開発
+
+[環境構築・起動・再利用と検証結果](docs/codex-cloud.md)を参照してください。
+`bash scripts/cloud/setup.sh`、`source scripts/cloud/activate.sh`で準備できます。
+開発用プレビューは `python scripts/cloud/serve.py --port 8000` で起動し、通知APIを遮断します。
+本番の配信・メール送信は開発環境のセットアップに含めません。
+
 ## 天気／日本の地形・気候
 
 学習帳 `index.html` の理科「天気」と社会「日本の地形・気候」から開けます。各単元に基本10問＋標準5問の復習クイズと、基本用語10枚の暗記カードを追加しています。小5・中学受験向けのオリジナル問題で、特定の教材の転載ではありません。
