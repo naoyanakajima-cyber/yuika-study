@@ -1,48 +1,96 @@
 # Codex Cloud 開発環境
 
-ローカルPCのプロセス・Docker・トンネル・保存領域を使わず、クラウド内で
-セットアップ、ブラウザーテスト、プレビュー、子エージェント作業を行う。
-本番へのマージ、GitHub Pages公開、Workerデプロイ、実通知は含めない。
+ローカルPCを使わず、クラウド内でセットアップ・ブラウザーテスト・プレビューを行う。
+環境設定の保存と、アプリの公開・本番デプロイは別の操作。本番マージ・実通知・
+Secrets変更・課金変更はこの手順に含めない。
 
-## 構成と確認日
+## 現在の到達点と証拠の限界（2026-11-06 JST）
 
-2026-11-05（日本時間）に `main` の `d526d65` を基準に確認。
-既存の README 2件、テスト4件、通知クライアントと依存関係を調査した。
-既存の AGENTS.md、Python依存定義、package.json、CI定義はなかった。
-HTMLは静的配信でき、Node.jsは通知Workerの単体テストに使う。
-旧学習帳は unpkg.com の React / ReactDOM / Babel に依存する。
+保存済み環境を編集する正規ツール、新規Codex Cloudタスクを作成するツール、
+Browserの操作ツールは、この検証セッションには提供されていない。
+そのため保存・Publish/Republish・Only meの画面確認・別タスクの作成は未実施。
+**以下のInstall/Startの実装と同一インスタンス内での再構築は、自動適用成功の証拠ではない。**
 
-| 項目 | 検証した環境 |
+前回の新規環境では初期checkoutが `work` / `d526d65` で、setupファイルと
+`.venv` がなかった。前回の手動補完後の成功と、今回の継続作業の結果を区別する。
+今回の作業開始時は前回と同じ環境ID・元設定バージョンで、既存のPR #6のHEADと
+`.venv` が残っていた。別の新規タスクとして数えない。
+
+| 調査対象 | 今回取得した事実と判断できない点 |
 | --- | --- |
-| OS | Debian GNU/Linux 13.6 (trixie), x86_64 |
-| Python | 3.12.14（管理イメージに導入済み） |
-| Node.js / npm | 24.19.0 / 11.9.0（管理イメージに導入済み） |
-| Python Playwright | 1.62.0（リポジトリ内 `.venv` にインストール） |
-| Chromium | `/usr/bin/chromium`, 154.0.8037.57（管理イメージに導入済み） |
-| Python依存 | `requirements-dev.txt` に間接依存を含めバージョン固定 |
-| システムライブラリ | `ldd /usr/lib/chromium/chromium` で欠落なし、実ブラウザー起動も成功 |
+| 実行先 | `provider=cloud`、状態running、観測は最新 |
+| 実行中設定 | 元設定ID・バージョンIDを取得。値は非公開のチャットへ記録 |
+| 選択した保存済み環境との対応 | UI上の選択・名称・共有範囲は取得できず、対応の完全確認は不可 |
+| 公開済み版と編集中の下書き | 実行元バージョンIDは取得したが、現在の公開版・下書き本文との比較は不可 |
+| 新規作成と再開 | 今回は同じ論理環境の継続利用。起動履歴や新規タスク作成APIはなし |
+| Install未実行と途中失敗 | 保持診断は`history_status=not_found`、recordsは空。Install本文・実行ログ未取得なので断定不可 |
+| Start未適用と一覧非表示 | 環境側スキル一覧は空だったが、一覧だけでは適用有無を断定不可 |
 
-Playwright標準のブラウザーキャッシュは未導入だった。
-`python -m playwright install chromium --only-shell` は
-`cdn.playwright.dev` に対するネットワークポリシーの403で失敗した。
-ポリシーを回避せず、導入済みのシステム版Chromiumを使用する。
-2本の既存テストは `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH` を指定できるようにした。
-未指定時は従来どおりPlaywright標準のブラウザーを使う。
-検証条件、問題数、採点・保存・再読込のassert、HTTPS遮断は変更していない。
-PlaywrightとシステムChromiumの組合せはここに記載した版で検証済みだが、
-管理イメージ更新後も同じバイナリになる保証はないため、毎回起動確認する。
+`spec_revision=1` は実行中設定の観測番号であり、「古い設定」という証拠ではない。
+初期mainにない `scripts/cloud/setup.sh` を直接呼ぶ設定なら失敗する構造だが、
+実際に保存されたInstall本文を取得できていないため、今回の障害原因とは断定しない。
 
-## 新規タスクでの再利用
+## mainにセットアップファイルがなくても動く構成
 
-対象リポジトリ用の保存済みCodex Cloud環境が登録済みなら、それを選び、
-`codex/cloud-development-setup`（またはこの変更を含むブランチ）をチェックアウトする。
-保存済み環境の名前・ID・設定リビジョンはまだ確認していない。
-draft PRをマージする必要はない。`main` のみでは
-今回追加した手順はまだ使えない。新しいチャットの作成・常時起動は自動では行わない。
+Installは初期checkoutに依存しない全文スクリプトとして登録する。
+`scripts/cloud/render_config.py` が、レビューした固定40桁commitから
+`install.sh` と `start-skill.md` を生成する。未コミットの作業ファイルは使わない。
 
 ```bash
-cd /workspace/yuika-study
-bash scripts/cloud/setup.sh
+# この手順を含むレビュー済みブランチで実行し、表示したHEADを記録する。
+git status --short --branch
+git rev-parse HEAD
+python scripts/cloud/render_config.py --revision "$(git rev-parse HEAD)" --output /workspace/work/yuika-cloud-config
+```
+
+- **Install script**：生成した `install.sh` の全文を貼る。初期mainのファイルは呼ばない。
+- **Start skill**：生成した `start-skill.md` の全文を貼る。Installと同じ要求commitが入る。
+- **利用範囲**：Only meを維持。保存・Publish/Republish後の設定ID・版・時刻を非公開で記録。
+- **ネットワーク**：restricted / package_managers、`unpkg.com`、
+  `fonts.googleapis.com`、`fonts.gstatic.com`。今回この既存許可を変更していない。
+  通知APIの `*.workers.dev`、`api.resend.com`、Chat APIは追加しない。
+- **Secrets・追加runtime variables・外部クラウドID**：通知用のものは登録しない。
+  今回の実行環境ではこれらは空で、ネットワーク制限はenforcedだった。
+
+Installが作る作業先は `/workspace/yuika-study-cloud`。
+プラットフォームが配置した `/workspace/yuika-study` のbranch・HEAD・未コミット変更には
+触れず、Gitで取得したリポジトリだけを使う。私的ファイルのディレクトリコピーはしない。
+
+新規作成時は、専用の一時Gitディレクトリで固定commitをfetch・照合し、
+detached HEADへcheckoutしてから専用作業先へ移す。可変ブランチの先端へは追従しない。
+既存の作業先がある場合はorigin・clean状態・要求commitの祖先関係を確認する。
+要求commitを含む既存topic branchはそのまま再利用し、setupだけ再実行する。
+dirty、別リポジトリ、要求commitを含まないHEADなら変更せず停止する。
+`reset`・`clean`・強制checkoutは行わない。更新時は新しい作業先を明示して検証する。
+
+セットアップは再実行可能。初回は固定依存を新しい `.venv` に入れ、
+`pip check` と768×1024のChromium実起動を行う。OSパッケージは追加せず、
+Python・Node.js・システムChromiumが不足していれば該当工程で停止する。
+標準Playwrightブラウザーのダウンロードには依存しない。
+
+## ログ・成功記録と自動準備の判定
+
+ログは `/workspace/work/yuika-cloud-logs/` のinstall/setup別ファイルへ保存する。
+各工程の時刻、失敗stage、終了コードを記録し、コマンド全文や環境変数一覧は出力しない。
+失敗した一時checkoutを自動削除しない。個人データをログへ追加しない。
+
+成功時だけ次の記録を生成する。再setup前に以前の成功記録を失効させるため、
+失敗した再実行を「前回成功済み」と誤認しない。
+
+- `.venv/yuika-cloud-install.json`：要求commit、実HEAD、作業先、依存定義のhash、時刻、Installログ
+- `.venv/yuika-cloud-setup.json`：実HEAD、依存定義のhash、Python・Playwright・Chromium版、時刻、setupログ
+
+Startは、保存版の要求commitとInstall記録の一致、
+`git merge-base --is-ancestor <要求commit> HEAD`、branch・変更状態を先に確認する。
+既存作業branchを維持し、新しい作業でdetached HEADの場合だけ固有topic branchを作る。
+ただし成功記録だけでは手動／自動を区別できない。新規タスクでは**手動setupの前に**
+保存版ID・プラットフォームのInstall実行ログ・時刻と照合する。
+取得できなければ自動準備は未確認とし、手動補完のコマンドと結果を別に記録する。
+
+## 起動と全5テスト
+
+```bash
+cd /workspace/yuika-study-cloud
 source scripts/cloud/activate.sh
 python tests/onin_review.py
 python tests/kamakura_review.py
@@ -51,133 +99,79 @@ node --test notifications/test/worker.test.mjs
 python notifications/test/browser.py
 ```
 
-`setup.sh` は仮想環境の作成、固定した依存の導入、`pip check`、
-Chromiumの実起動を行う。再実行可能。新しいシェルでは毎回
-`source scripts/cloud/activate.sh` を実行する。セットアップ時の `export` が
-次のタスクに引き継がれるとは仮定しない。
+必ず同じシェルで有効化してから実行する。setupのexportが次のシェルへ持ち越されると
+仮定しない。手動復旧が必要なら、branch・変更・取得元commitを確認したうえで
+`bash scripts/cloud/setup.sh` を実行し、「手動準備」と記録する。
 
-この管理イメージにPython・Node.js・Chromiumとそのシステム依存が揃っていたため、
-OSパッケージの追加インストールは不要だった。別のイメージを選ぶ場合は、
-これらのランタイムとChromiumのシステム依存を備えたものを選ぶ。
-不足時はセットアップを停止する。未検証のOSインストール手順を
-「この環境で検証済み」として扱わない。
+指定2単元のテストは768×1024で起動、15問の回答、14問正解の採点、15件の保存、
+他単元記録の保持、再読込後の誤答表示、読み、保護者表を確認する。
+iPad実機Safari/WebKitやホーム画面追加の検証ではない。
+通知ブラウザーテストはPR #6の関数形式の待機を含む版を使用する。
+CSPを緩めず、接続完了条件・assert・模擬APIは維持する。
 
-テストサーバーは127.0.0.1の動的ポートを使う。ソケットやブラウザー実行が
-禁止されている場合は、そのタスクの実行ツールが正式に提供する権限機構だけを使う。
-過去の環境で使った権限引数を別のツールへ転記しない。必要な機構が利用できなければ
-未検証として停止する。クラウド側の送信先制限を迂回・解除しない。
+ソケットやブラウザー起動が拒否された場合は、その実行ツールに正式に備わる権限機構だけを
+使う。機能がなければ未検証として報告する。ネットワーク制限やTLS検証は回避しない。
+失敗を隠すためのassert削除・skip・成功するまでの無根拠な再試行は行わない。
 
-## 保存済み環境設定へ登録する内容
-
-**このセッションには保存済み環境設定を更新するツールがなく、管理画面への保存は未実施。**
-以下の検証済み設定をリポジトリに保存している。クラウド環境の設定画面で
-セットアップコマンド／指示として登録する場合の内容は次のとおり。
-実行中環境の設定と、一覧に表示される保存済み環境のIDは異なるため、
-同一の設定リビジョンへ反映済みとは扱わない。
-
-| 設定 | 内容 |
-| --- | --- |
-| リポジトリ | `naoyanakajima-cyber/yuika-study` |
-| 作業ディレクトリ | `/workspace/yuika-study`（新規環境で異なる場合は実際のcheckout先） |
-| セットアップ | `bash scripts/cloud/setup.sh` |
-| 各シェルの初期化 | `source scripts/cloud/activate.sh` |
-| プレビュー起動 | `python scripts/cloud/serve.py --port 8000`（初期化後） |
-| エージェント指示 | ルート `AGENTS.md` を読む |
-| ランタイム | 上記のPython・Node.js・システムChromiumを備えた管理イメージ |
-| ネットワーク | restricted / package_managers、`unpkg.com`, `fonts.googleapis.com`, `fonts.gstatic.com` |
-| 通知用Secrets | **登録しない**（メール・Chat・Cloudflare・Resend認証不要） |
-
-現在のネットワークポリシーは `enforced`、観測は最新で、通知用Secrets・
-追加ランタイム変数・外部クラウドIDの設定はない。通知先の
-`*.workers.dev` / `api.resend.com` やChat APIへの許可を追加しない。
-セットアップが使うPyPIと既存アプリのCDNへのアクセスは許可されている。
-
-## 起動・通知遮断・データ保護
+## プレビューとデータ保護
 
 ```bash
 source scripts/cloud/activate.sh
 python scripts/cloud/serve.py --port 8000
 ```
 
-クラウド内のブラウザーで `http://127.0.0.1:8000/` を開く。
-対象単元は `/onin-review.html` と `/kamakura-review.html`。
-停止は起動シェルでCtrl-C。別プロセスと並行する場合はポートを変える。
-これは開発プレビューであり、常時稼働の本番サービスではない。
+クラウド内のブラウザーで `http://127.0.0.1:8000/` を開く。停止はCtrl-C。
+並行プレビューは別ポートを使う。127.0.0.1だけにbindし、5つの公開HTMLだけを配信する。
+CSP `connect-src 'none'` と `form-action 'none'` で通知API・フォーム送信を遮断する。
+安全性テストは非公開パス404、CSP違反、POST到達0件を確認する。
 
-- プレビューは127.0.0.1だけにbindし、5つの公開HTML以外を配信しない。
-- HTTPレスポンスのCSP `connect-src 'none'` でfetch/XHR/WebSocket/beacon等を
-  遮断する。通知設定があってもAPI通信できない。フォーム送信も禁止する。
-- 既存2テストは新規ブラウザーコンテキスト＋HTTPSルート遮断を使用する。
-- 通知テストは架空の宛先と模擬APIのみ使用する。実メール・Chat送信は行わない。
-- テスト・プレビューには実端末の回答記録、保留通知、browser storage state、
-  教材写真を取り込まない。テスト中の回答は合成データで、コンテキストとともに破棄する。
-- 分析担当が許可済みの原記録や登録教材を読む場合は非公開アクセスを使い、
-  公開リポジトリ・共有設定・公開する環境スナップショットに含めない。
-- `.venv`、キャッシュ、private-data、ブラウザープロファイル、成果物ディレクトリは
-  `.gitignore` で除外する。ただし、除外設定だけで個人情報の混入は防げないため、
-  ステージするファイルを明示し差分を確認する。
+テストは新規ブラウザーコンテキスト、合成回答、架空宛先、模擬APIだけを使用する。
+個人回答記録・教材写真・storage state・実ブラウザープロファイルは取り込まない。
+`.venv`・キャッシュ・ログ・private-data・成果物はコミットしない。
+`.gitignore`に頼らずステージするパスと差分を明示的に確認する。
 
-## 複数エージェントとGitHub
+## 今回の検証とPRの依存関係
 
-このクラウド実行環境で子エージェント `cloud_agent_probe` を実際に起動し、
-`pwd`、`git rev-parse --show-toplevel`、`git status --short` を実行できた。
-親と同じ `/workspace/yuika-study` を参照する。ファイルを共有するため、
-書き込み担当を分け、セットアップ・コミットは1エージェントが担当する。
-別タスクの同時開発は別checkout・別ブランチを使う。
-子エージェント機能の提供はタスクごとに確認する。
+PRの順序は、main → [PR #5](https://github.com/naoyanakajima-cyber/yuika-study/pull/5)
+（環境基盤）→ [PR #6](https://github.com/naoyanakajima-cyber/yuika-study/pull/6)
+（通知テスト待機）→ `codex/cloud-automatic-bootstrap`（この追加）。
+この追加PRのbaseはPR #6のブランチとし、既存差分を重複させない。
+すべてdraftで、環境利用のためにmainへマージする必要はない。
 
-GitHubコネクターでリポジトリ読取に成功し、認証ユーザーの
-`pull/push/admin` と collaborator permission `admin` を確認した。
-クラウドシェルでも `git ls-remote origin HEAD` に成功した。
-アカウント権限だけでは全APIの成功は保証できないため、実変更を含むdraft PRの
-作成結果で書き込み能力を確認する。権限確認だけの空PRは作らない。
+今回、合成Gitリポジトリによる `python tests/cloud_bootstrap.py` の12件が成功。
+setupのないmain・元checkoutのdirty変更・既存topic branch・untrackedファイル・
+想定外パス・固定SHA不正・fetch/setup失敗・成功後の再実行失敗を検証した。
+設定と差分は、クラウド子エージェントの読み取り専用レビューも実施した。
 
-## 検証記録
+今回の実コード検証commitは `931c5141225fa04233c0510a38d5b0ae4f6a3cba`。
+2026-11-06 22:52〜22:57 JSTに、setupと`.venv`のない実際のmain相当checkout
+（`d526d65`）を作り、そこから外部のInstall全文を手動実行した。
+固定commitを実GitHubから取得し、別checkoutに新しい`.venv`を構築した。
+元のmain・HEAD・clean状態は保持された。さらに専用checkoutにtopic branchを作って
+Installを再実行し、branch・HEADを保持して成功した。
 
-| コマンド・操作 | 結果 |
+| 今回のコマンド・確認 | 結果 |
 | --- | --- |
+| Install → setup → pip check → Chromium実起動 | 成功。段階ログと2種類の成功記録を生成 |
 | `python tests/onin_review.py` | 成功：all checks passed |
 | `python tests/kamakura_review.py` | 成功：all checks passed |
-| `node --test notifications/test/worker.test.mjs` | 成功：9/9（実APIは模擬） |
-| `python notifications/test/browser.py` | 成功：接続、社会・理科・旧クイズ・暗記カード、再送、重複防止、Workerスキーマ |
-| `python tests/cloud_preview.py` | 成功：768×1024で起動、非公開パス404、CSP違反を観測しPOST到達0件 |
-| `bash scripts/cloud/setup.sh` | 成功：依存導入、pip check、Chromium実起動 |
-| 空のcheckout・`.venv`から再構築 | 成功：固定依存を再インストールし、指定2テストとプレビュー安全性テストを実行 |
-| `python scripts/cloud/serve.py --port 8000` | 起動成功 |
-| `bash -n scripts/cloud/setup.sh scripts/cloud/activate.sh` | 成功 |
-| `python -m compileall -q tests scripts/cloud` | 成功 |
-| `git diff --check` | 成功 |
+| `python tests/cloud_preview.py` | 成功：非公開パス保護・API遮断 |
+| `node --test notifications/test/worker.test.mjs` | 成功：9/9、skipなし、実API模擬 |
+| `python notifications/test/browser.py` | 成功：接続・社会/理科/旧クイズ/カード・再送・重複防止・Workerスキーマ |
+| `python tests/cloud_bootstrap.py` | 成功：12/12、合成ローカルGitのみ |
 
-指定の2本は768×1024で、起動・15問への回答・14問正解の採点・15件の保存・
-他単元の記録保持・再読込後の誤答表示・読みの確認・保護者表を検証する。
-Chromiumでの画面幅検証であり、iPad実機Safari/WebKitやホーム画面追加の検証ではない。
+全5テストは再構築先の同じシェルでactivateしてから順番に実行した。
+OS Debian 13.6、Python 3.12.14、Node.js 24.19.0、npm 11.9.0、
+Playwright 1.62.0、Chromium 154.0.8037.57。
+これは**同一インスタンス内の手動Install再構築**であり、保存済み環境からの
+新規タスク自動適用成功ではない。過去の成功を今回の結果へ流用していない。
 
-初回の失敗は(1)実行サンドボックスのソケット禁止、(2)Playwright専用ブラウザー不在。
-追加実行権限とシステムChromium指定で解消した。専用ブラウザーのCDN403は残るが、
-検証済み手順はそのダウンロードに依存しない。
-残る管理作業は、保存済み環境設定へのコマンド登録と、別の新規クラウドタスクでの
-設定適用確認。ローカルPCの起動を前提とする手順はない。
-空のcheckoutでの再構築は同じクラウドインスタンス内の一時ディレクトリで実施した。
-新規クラウドタスクへの設定適用確認とは区別する。
+## 残る最少の管理操作
 
-## 段階②の完了条件
+1. 対象の保存済み環境で、同じ固定commitから生成したInstall/Startの全文を登録する。
+   Only meと既存の最小ネットワーク許可を確認し、保存・Publish/Republishする。
+2. その環境を明示して新規タスクを開始し、手動補完前のInstall実行ログ・保存版ID・
+   成功記録を確認する。全5テストと子エージェント実起動の結果まで確認する。
 
-同じインスタンス内での再構築と、保存済み環境からの新規タスク起動は別に確認する。
-段階②は以下が揃った時点で完了とする。環境設定の公開はアプリ本番公開ではない。
-
-1. 環境設定の準備では、対象ブランチとcommitを確認してからセットアップを実行。
-   未マージの手順がないmainで実行しない。固定の作業パスを仮定せずcheckout先を確認。
-2. Install scriptにセットアップ、Start skillに各シェルの初期化・起動手順を登録し、
-   保存・PublishまたはRepublishを完了。利用範囲はOnly me、通知用Secretsなし。
-3. その保存済み環境から別の新規クラウドタスクを開始。
-4. 新規タスクで指定2テスト、通知Worker、通知ブラウザー、プレビューの全5テストを実行。
-   通知は模擬・遮断し、子エージェントの実起動も確認。
-5. 実際のバージョン、commit、コマンド、成功・失敗を記録。
-   環境ID・設定リビジョン・タスクの参照情報は非公開の引継ぎ記録へ残す。
-   リビジョンが表示されない場合は、設定内容と保存時刻など確認できる証拠を記録し、
-   未確認事項を明示する。
-
-現状：手順の準備と元の実行環境での検証記録はあり。
-保存済み環境の登録と、そこから開始した新規タスクの検証証拠は未取得。
-このPRの運用ルールは既存のユーザー権限を記述するもので、権限を拡張しない。
-PR自体は依存関係・環境構成の変更として、ユーザーの採用判断までdraftを維持する。
+新規タスク作成機能がない今回のセッションでは、この2操作は代行できていない。
+同一インスタンス内の別checkoutでの再構築を代替検証とし、その限界を維持する。

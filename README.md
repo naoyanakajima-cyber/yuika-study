@@ -4,6 +4,8 @@
 
 [環境構築・起動・再利用と検証結果](docs/codex-cloud.md)を参照してください。
 `bash scripts/cloud/setup.sh`、`source scripts/cloud/activate.sh`で準備できます。
+保存済み環境には、手順書の固定commit版Install/Startを登録します。
+初期mainのファイルに依存せず別checkoutを準備し、既存作業ブランチを保護します。
 開発用プレビューは `python scripts/cloud/serve.py --port 8000` で起動し、通知APIを遮断します。
 本番の配信・メール送信は開発環境のセットアップに含めません。
 
