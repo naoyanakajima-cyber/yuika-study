@@ -29,7 +29,8 @@ with sync_playwright() as pw:
  expect(p.locator('#yuika-mail-status')).to_contain_text('未接続')
  # Explicit pairing, credentials stored on device only.
  p.get_by_text('保護者：チャレンジ結果の自動メール',exact=True).click();p.locator('#yuika-mail-url').fill(CONFIG['endpoint']);p.locator('#yuika-mail-token').fill(CONFIG['token']);p.on('dialog',lambda d:d.accept());p.locator('#yuika-mail-form button[type=submit]').click()
- p.wait_for_function("JSON.parse(localStorage.getItem('yuika-mail-config-v1')||'null')?.enabled===true")
+ # A function avoids repeated string eval during polling under the page's CSP.
+ p.wait_for_function("() => JSON.parse(localStorage.getItem('yuika-mail-config-v1')||'null')?.enabled===true")
  p.locator('#course').select_option('memory');p.locator('#start').click()
  for i in range(5):
   q=p.evaluate('run.qs[run.index]')
