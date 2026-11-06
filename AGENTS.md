@@ -5,6 +5,12 @@ Use Codex Cloud; development must not depend on a local PC remaining online.
 
 ## Setup and verification
 
+- Saved environment Install: use the standalone, commit-pinned configuration
+  rendered by `scripts/cloud/render_config.py`; it prepares a separate checkout
+  without requiring setup files on the platform's initial main checkout.
+- Saved Start skill: `.agents/skills/yuika-cloud-start/SKILL.md`. Preserve existing
+  branches/changes; verify startup evidence before manual recovery. Receipts,
+  an empty skill list, and revision numbers alone do not prove auto-application.
 - Setup: `bash scripts/cloud/setup.sh` from the repository root.
 - Each new shell: `source scripts/cloud/activate.sh`.
 - Required checks: `python tests/onin_review.py` and `python tests/kamakura_review.py`.
