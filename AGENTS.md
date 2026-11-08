@@ -15,6 +15,7 @@ Use Codex Cloud; development must not depend on a local PC remaining online.
 - Each new shell: `source scripts/cloud/activate.sh`.
 - Required checks: `python tests/onin_review.py` and `python tests/kamakura_review.py`.
 - Preview safety: `python tests/cloud_preview.py`.
+- Bootstrap changes: `python tests/cloud_bootstrap.py` (synthetic local Git only).
 - Notification changes: `node --test notifications/test/worker.test.mjs` and
   `python notifications/test/browser.py` (mock API only).
 - Preview: `python scripts/cloud/serve.py --port 8000`; use the cloud browser at

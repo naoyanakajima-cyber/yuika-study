@@ -3,11 +3,7 @@ set -Eeuo pipefail
 repo_root=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/../.." && pwd)
 cd "$repo_root"
 umask 077
-log_dir=${YUIKA_CLOUD_LOG_DIR:-/workspace/work/yuika-cloud-logs}
-mkdir -p "$log_dir"
-log_file="$log_dir/setup-$(date -u +%Y%m%dT%H%M%SZ)-$$.log"
-exec > >(tee -a "$log_file") 2>&1
-stage=runtime
+stage=invalidate-receipts
 trap 'code=$?; trap - ERR; printf "FAIL stage=%s exit=%s time=%s\n" "$stage" "$code" "$(date -u +%FT%TZ)"; exit "$code"' ERR
 step() { stage=$1; printf 'STAGE %s time=%s\n' "$stage" "$(date -u +%FT%TZ)"; }
 step invalidate-receipts
@@ -17,6 +13,11 @@ if [[ -L .venv ]]; then
   exit 1
 fi
 rm -f -- .venv/yuika-cloud-install.json .venv/yuika-cloud-setup.json
+step log-directory
+log_dir=${YUIKA_CLOUD_LOG_DIR:-/workspace/work/yuika-cloud-logs}
+mkdir -p "$log_dir"
+log_file="$log_dir/setup-$(date -u +%Y%m%dT%H%M%SZ)-$$.log"
+exec > >(tee -a "$log_file") 2>&1
 step runtime
 
 # The managed image supplies Python, Node.js, and Debian Chromium with its
