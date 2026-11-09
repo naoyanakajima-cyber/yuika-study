@@ -36,17 +36,29 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": null,
-  "updated_at": "2026-11-09",
+  "lease": {
+    "run_id": "team-bootstrap-20261109",
+    "acquired_at": "2026-11-09T13:16:32.870655+00:00",
+    "expires_at": "2026-11-09T13:46:32.870655+00:00",
+    "ticket_id": "REV-SPEC"
+  },
+  "updated_at": "2026-11-09T13:16:32.870655+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
       "05:30",
       "22:00"
     ],
-    "registered": false,
+    "registered": true,
     "first_scheduled_run_verified": false,
-    "automation_ids": {}
+    "automation_ids": {},
+    "environment_selection_verified": true,
+    "environment_name": "yuika-study",
+    "registered_schedules": {
+      "development": "毎時05分、2026-11-09 23:05 JST以降",
+      "morning": "毎日05:30、2026-11-10以降",
+      "evening": "毎日22:00、2026-11-10以降"
+    }
   },
   "existing_work": [
     {
@@ -105,7 +117,7 @@
       "state": "requirements",
       "priority": 1,
       "depends_on": [],
-      "owner": null,
+      "owner": "PdM: pdm_review_spec",
       "branch": null,
       "pr": null,
       "acceptance": [
