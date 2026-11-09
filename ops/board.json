@@ -36,13 +36,8 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": {
-    "run_id": "cycle-20261109T1522Z",
-    "acquired_at": "2026-11-09T15:23:27.330803+00:00",
-    "expires_at": "2026-11-09T16:03:27.330803+00:00",
-    "ticket": "CONTENT-SPEC"
-  },
-  "updated_at": "2026-11-09T15:23:27.330803+00:00",
+  "lease": null,
+  "updated_at": "2026-11-09T15:32:31.563582+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -140,7 +135,7 @@
         "復習選定理由と出題数・同点時の扱いを定義する",
         "合成履歴の具体例と受入テスト案を作る"
       ],
-      "next_action": "要件と独立レビュー完了。REV-MVPを実装する",
+      "next_action": "仕様完了。実装はPR #10で独立QA済み・CEO判断待ち。",
       "evidence": [
         {
           "kind": "specification",
@@ -246,12 +241,12 @@
       "id": "CONTENT-SPEC",
       "title": "教材入力から確認済み問題案までの共通仕様",
       "goal": 2,
-      "state": "prm_review",
+      "state": "done",
       "priority": 3,
       "depends_on": [],
-      "owner": "cycle-20261109T1522Z",
+      "owner": null,
       "branch": "codex/agent-team-operations",
-      "pr": null,
+      "pr": 9,
       "acceptance": [
         "入力・読み取り結果・問題案・保護者確認を分ける",
         "読めない文字を確定値にしない",
@@ -260,17 +255,55 @@
         "合成テキストと合成画像の検証例を用意する",
         "有料OCRや外部保存は判断事項として切り離す"
       ],
-      "next_action": "入力場所が未決でも進められるデータ形式と確認フローをPdMが定義する",
-      "evidence": [],
-      "review": null,
+      "next_action": "仕様と合成fixtureの独立レビュー完了。CONTENT-MVPを合成サンプル限定の確認試作として実装する。",
+      "evidence": [
+        {
+          "kind": "specification",
+          "path": "docs/product/content-spec.md",
+          "commit": "c79197099537d9ef3a34badb4b7f0ff74cbc615a"
+        },
+        {
+          "kind": "fixtures",
+          "path": "docs/product/fixtures",
+          "commit": "c79197099537d9ef3a34badb4b7f0ff74cbc615a",
+          "synthetic_only": true
+        },
+        {
+          "kind": "validation",
+          "method": "Python stdlib inline JSON/XML assertions",
+          "exit_code": 0,
+          "executor": "qa_content_spec",
+          "checks": [
+            "JSON parse/shape/IDs/references/draft state/source text",
+            "SVG XML/transcription/static elements/no external references"
+          ]
+        },
+        {
+          "kind": "report",
+          "path": "ops/runs/2026-11-10-content-spec.md"
+        }
+      ],
+      "review": {
+        "author": "pdm_content_spec",
+        "engineer": "engineer_content_contract",
+        "prm": "root",
+        "reviewer": "qa_content_spec",
+        "result": "passed",
+        "commit": "c79197099537d9ef3a34badb4b7f0ff74cbc615a",
+        "completed_at": "2026-11-09T15:32:31.563582+00:00",
+        "scope": "仕様・fixtureのみ。アプリ実装/ブラウザーテスト/OCRは未実施。",
+        "notes": "packageIdと生成readings表示を整合。最終commitのfixture hash一致、specの状態1行のみ更新を確認。"
+      },
       "base_ref": "codex/agent-team-operations",
-      "base_sha": "48acbafb46ba2b257aa545c52c447132656e9c88"
+      "base_sha": "48acbafb46ba2b257aa545c52c447132656e9c88",
+      "commit": "c79197099537d9ef3a34badb4b7f0ff74cbc615a",
+      "specification": "docs/product/content-spec.md"
     },
     {
       "id": "CONTENT-MVP",
-      "title": "テキストから問題案を確認・検証する試作",
+      "title": "合成教材の問題案を確認・編集する試作",
       "goal": 2,
-      "state": "backlog",
+      "state": "ready",
       "priority": 4,
       "depends_on": [
         "CONTENT-SPEC"
@@ -279,16 +312,18 @@
       "branch": null,
       "pr": null,
       "acceptance": [
-        "未確認の案を本番問題へ混ぜない",
-        "必須項目・ID重複・正解と選択肢を検証する",
-        "合成入力で修正・取消・確認済み出力を試せる",
-        "実資料の外部送信や自動公開を行わない"
+        "C1〜C11を満たす合成サンプル限定の試作",
+        "原本・転記・生成案を区別し、不明箇所を勝手に確定しない",
+        "内容編集でrevision増加・全確認失効、外部confirmedは再確認",
+        "未確認出力と確認済み案を区別し、既存教材/記録に接続しない",
+        "768x1024で編集・確認・取消・出力/再入力、外部要求/通知POST 0を検証"
       ],
-      "next_action": "PrMが決めた試作範囲で実装する。D01を越える実入力経路は作らない",
+      "next_action": "C1〜C11に沿って同梱合成text/imageの確認・編集・JSON出入を独立試作する。実OCR/自動生成/実入力経路/本番教材導入は含めない。",
       "evidence": [],
       "review": null,
       "base_ref": null,
-      "base_sha": null
+      "base_sha": null,
+      "specification": "docs/product/content-spec.md"
     },
     {
       "id": "THEME-SPEC",
@@ -371,6 +406,31 @@
       "platform_run_completion_verified": false,
       "tests_passed": 4,
       "next_ticket": "CONTENT-SPEC"
+    },
+    {
+      "id": "cycle-20261109T1522Z",
+      "completed_at": "2026-11-09T15:32:31.563582+00:00",
+      "ticket": "CONTENT-SPEC",
+      "result": "仕様・合成fixtureの独立レビュー完了、既存draft PR #9へ保存",
+      "commit": "c79197099537d9ef3a34badb4b7f0ff74cbc615a",
+      "pr": 9,
+      "report": "ops/runs/2026-11-10-content-spec.md",
+      "cloud_verified": true,
+      "subagents": [
+        "pdm_content_spec",
+        "engineer_content_contract",
+        "qa_content_spec"
+      ],
+      "manual_setup": false,
+      "snapshot_restore_verification": "not performed; documentation cycle",
+      "app_tests_run": false,
+      "browser_tests_run": false,
+      "validation_checks_passed": [
+        "JSON structural/reference assertions",
+        "SVG XML/content/static assertions",
+        "git diff --check"
+      ],
+      "next_ticket": "CONTENT-MVP"
     }
   ],
   "operational_notes": [
