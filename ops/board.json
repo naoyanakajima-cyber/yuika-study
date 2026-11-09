@@ -43,7 +43,7 @@
     "ticket": "REV-MVP",
     "purpose": "Record explicit CEO direction decisions and prepare private synthetic review trial"
   },
-  "updated_at": "2026-11-09T21:03:41.838132+00:00",
+  "updated_at": "2026-11-09T21:09:31.904855+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -99,7 +99,7 @@
       "blocks": [
         "CONTENT-LIVE-INPUT"
       ],
-      "independent_work": "製品PR判断待ち上限3件のため新規製品実装は停止。必要な既存PR修正・レビューがなければ終了する。私的資料には接続しない。"
+      "independent_work": "合成データのみで苦手復習の試用確認を最優先。教材の入力経路・実データ接続は本判断が確定するまで行わない。"
     },
     {
       "id": "D02",
@@ -109,40 +109,55 @@
       "blocks": [
         "PERSONAL-DATA-CONNECTION"
       ],
-      "independent_work": "製品PR判断待ち上限3件のため新規製品実装は停止。必要な既存PR修正・レビューがなければ終了する。私的資料には接続しない。"
+      "independent_work": "合成データのみで苦手復習の試用確認を最優先。教材の入力経路・実データ接続は本判断が確定するまで行わない。"
     },
     {
       "id": "D03",
-      "status": "pending",
+      "status": "decided",
       "ticket": "REV-MVP",
       "question": "理由が見えるおすすめ復習（PR #10）の仕様・挙動を採用するか",
       "recommendation": "合成検証済みの最小実装を確認し採用方針を決める。依存PRを含むマージ/公開は別途明示判断。",
-      "blocks": [
-        "REV-MVP-MERGE"
-      ],
-      "independent_work": "製品PR判断待ち上限3件のため新規製品実装は停止。必要な既存PR修正・レビューがなければ終了する。私的資料には接続しない。"
+      "blocks": [],
+      "independent_work": "採用方針に沿う要件整理・実装・テスト・draft PRまで継続。リリース権限は付与されていない。",
+      "outcome": "direction_adopted",
+      "scope": "方向性を採用。最優先で公開を伴わない試用と使い勝手確認を進める。",
+      "recorded_at": "2026-11-09T21:09:31.904855+00:00",
+      "recorded_by": "root/coordinator",
+      "source": "CEO reply directly read in the operating-model chat; private chat retained as source, no private inputs copied",
+      "merge_authorized": false,
+      "deployment_authorized": false
     },
     {
       "id": "D04",
-      "status": "pending",
+      "status": "decided",
       "ticket": "CONTENT-MVP",
       "question": "合成教材の確認・編集試作（PR #11）の仕様・挙動を採用するか",
       "recommendation": "原本と問題案の比較、編集時の確認失効、確認済みJSON出力を合成サンプルで確認して採用方針を決める。実入力経路・非公開保存先・マージ/公開は別途判断。",
-      "blocks": [
-        "CONTENT-MVP-MERGE"
-      ],
-      "independent_work": "製品PR判断待ち上限3件のため新規製品実装は停止。必要な既存PR修正・レビューがなければ終了する。私的資料には接続しない。"
+      "blocks": [],
+      "independent_work": "採用方針に沿う要件整理・実装・テスト・draft PRまで継続。リリース権限は付与されていない。",
+      "outcome": "direction_adopted",
+      "scope": "確認画面の方向性を採用。合成データで継続し、実画像・実回答の保存方法は別途CEO判断。",
+      "recorded_at": "2026-11-09T21:09:31.904855+00:00",
+      "recorded_by": "root/coordinator",
+      "source": "CEO reply directly read in the operating-model chat; private chat retained as source, no private inputs copied",
+      "merge_authorized": false,
+      "deployment_authorized": false
     },
     {
       "id": "D05",
-      "status": "pending",
+      "status": "decided",
       "ticket": "THEME-MVP",
       "question": "学習状態を保つ標準/鎌倉テーマ切替（PR #12）の仕様・挙動を採用するか",
       "recommendation": "鎌倉画面限定の合成検証済み切替を確認して採用方針を決める。他画面への拡張、依存PRを含むマージ/公開は別途判断。",
-      "blocks": [
-        "THEME-MVP-MERGE"
-      ],
-      "independent_work": "製品PR判断待ち上限3件のため新規実装を停止。必要な既存PR修正・レビューがなければ終了する。"
+      "blocks": [],
+      "independent_work": "採用方針に沿う要件整理・実装・テスト・draft PRまで継続。リリース権限は付与されていない。",
+      "outcome": "direction_adopted",
+      "scope": "方向性を採用。読みやすさを優先し、苦手復習・教材追加より優先度を下げる。",
+      "recorded_at": "2026-11-09T21:09:31.904855+00:00",
+      "recorded_by": "root/coordinator",
+      "source": "CEO reply directly read in the operating-model chat; private chat retained as source, no private inputs copied",
+      "merge_authorized": false,
+      "deployment_authorized": false
     }
   ],
   "tickets": [
@@ -163,7 +178,7 @@
         "復習選定理由と出題数・同点時の扱いを定義する",
         "合成履歴の具体例と受入テスト案を作る"
       ],
-      "next_action": "仕様完了。実装はPR #10で独立QA済み・CEO判断待ち。",
+      "next_action": "仕様完了。対応MVPの方向性はCEO採用済み。次の作業は対応MVPのnext_actionを参照。",
       "evidence": [
         {
           "kind": "specification",
@@ -196,12 +211,12 @@
       "id": "REV-MVP",
       "title": "理由が見える苦手復習の最小実装",
       "goal": 1,
-      "state": "ceo_wait",
-      "priority": 2,
+      "state": "qa",
+      "priority": 1,
       "depends_on": [
         "REV-SPEC"
       ],
-      "owner": null,
+      "owner": "qa_rev_trial",
       "branch": "codex/recommended-review-mvp",
       "pr": 10,
       "acceptance": [
@@ -210,7 +225,7 @@
         "既存ID・保存キー・旧履歴を保護する",
         "768x1024で開始・回答・採点・保存・再読込を合成データで確認する"
       ],
-      "next_action": "CEOがPR #10の採用を判断。依存 #5→#6→#7 を含むマージ・公開は別途明示判断。製品PR判断待ちは上限3件。新規実装せず、必要な既存PR修正のみ進める。",
+      "next_action": "同じPR #10の固定HEADを通知遮断したクラウドloopbackで合成試用。候補・理由・採点・保存・再読込を確認し、CEO向け手順と画面証拠を保存。新規PR・公開なし。",
       "evidence": [
         {
           "kind": "test",
@@ -263,7 +278,15 @@
       "base_ref": "codex/cloud-automatic-bootstrap",
       "base_sha": "edad8065c1f2b726e61c5cf405f8d9ff6d807480",
       "specification": "docs/product/review-spec.md",
-      "commit": "bd7a055a1169416dbdd82654ac19c228a739f9cf"
+      "commit": "bd7a055a1169416dbdd82654ac19c228a739f9cf",
+      "direction_adopted": true,
+      "direction_decision": "D03",
+      "release": {
+        "merge_authorized": false,
+        "deployment_authorized": false,
+        "state": "draft_unmerged"
+      },
+      "implementation_status": "implemented_and_independently_tested"
     },
     {
       "id": "CONTENT-SPEC",
@@ -283,7 +306,7 @@
         "合成テキストと合成画像の検証例を用意する",
         "有料OCRや外部保存は判断事項として切り離す"
       ],
-      "next_action": "仕様完了。合成確認試作の実装はPR #11で独立QA済み・CEO判断待ち。",
+      "next_action": "仕様完了。対応MVPの方向性はCEO採用済み。次の作業は対応MVPのnext_actionを参照。",
       "evidence": [
         {
           "kind": "specification",
@@ -331,8 +354,8 @@
       "id": "CONTENT-MVP",
       "title": "合成教材の問題案を確認・編集する試作",
       "goal": 2,
-      "state": "ceo_wait",
-      "priority": 4,
+      "state": "backlog",
+      "priority": 2,
       "depends_on": [
         "CONTENT-SPEC"
       ],
@@ -346,7 +369,7 @@
         "未確認出力と確認済み案を区別し、既存教材/記録に接続しない",
         "768x1024で編集・確認・取消・出力/再入力、外部要求/通知POST 0を検証"
       ],
-      "next_action": "CEOがPR #11の合成教材確認試作の仕様・挙動を判断。実入力経路/実データ接続と依存PRのマージ・公開は別途判断。製品PR判断待ちは上限3件。新規実装せず、必要な既存PR修正のみ進める。",
+      "next_action": "REV試用確認後、既存確認画面の合成データによる次の受入条件をPdM→PrMで定義する。既存実装/QAは保持。実入力・保存先はD01/D02待ち。",
       "evidence": [
         {
           "kind": "test",
@@ -403,7 +426,15 @@
       "base_ref": "codex/cloud-automatic-bootstrap",
       "base_sha": "edad8065c1f2b726e61c5cf405f8d9ff6d807480",
       "specification": "docs/product/content-spec.md",
-      "commit": "1ea081b4b68b311fcd40c35d1f8bc972e3c60054"
+      "commit": "1ea081b4b68b311fcd40c35d1f8bc972e3c60054",
+      "direction_adopted": true,
+      "direction_decision": "D04",
+      "release": {
+        "merge_authorized": false,
+        "deployment_authorized": false,
+        "state": "draft_unmerged"
+      },
+      "implementation_status": "implemented_and_independently_tested"
     },
     {
       "id": "THEME-SPEC",
@@ -422,7 +453,7 @@
         "文字・コントラスト・タップ領域・動きの負担を確認する",
         "私的画像やキャラクター画像の外部取得を前提にしない"
       ],
-      "next_action": "仕様完了。実装はPR #12で独立QA済み・CEO判断待ち。",
+      "next_action": "仕様完了。対応MVPの方向性はCEO採用済み。次の作業は対応MVPのnext_actionを参照。",
       "evidence": [
         {
           "kind": "specification",
@@ -465,8 +496,8 @@
       "id": "THEME-MVP",
       "title": "標準と鎌倉テーマの切替試作",
       "goal": 3,
-      "state": "ceo_wait",
-      "priority": 6,
+      "state": "backlog",
+      "priority": 3,
       "depends_on": [
         "THEME-SPEC"
       ],
@@ -478,7 +509,7 @@
         "切替前後の問題・採点・既存履歴が同一",
         "768x1024で可読性と主要操作を確認する"
       ],
-      "next_action": "CEOがPR #12のテーマ仕様・挙動の採用を判断。製品PR判断待ちは上限3件。新規製品実装を停止し、必要な既存PR修正がなければ終了する。マージ/公開は別途明示判断。",
+      "next_action": "REV/CONTENTを優先。次着手時に既存テーマの読みやすさの確認範囲を定義。既存実装/QAを保持し、採用判断を再要求しない。",
       "evidence": [
         {
           "kind": "test",
@@ -531,7 +562,15 @@
       "base_ref": "codex/cloud-automatic-bootstrap",
       "base_sha": "edad8065c1f2b726e61c5cf405f8d9ff6d807480",
       "specification": "docs/product/theme-spec.md",
-      "commit": "57171ad9cab02fec6a080ecbe317fe11d3f51dcf"
+      "commit": "57171ad9cab02fec6a080ecbe317fe11d3f51dcf",
+      "direction_adopted": true,
+      "direction_decision": "D05",
+      "release": {
+        "merge_authorized": false,
+        "deployment_authorized": false,
+        "state": "draft_unmerged"
+      },
+      "implementation_status": "implemented_and_independently_tested"
     }
   ],
   "runs": [
