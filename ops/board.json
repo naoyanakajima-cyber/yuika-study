@@ -36,14 +36,8 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": {
-    "run_id": "cycle-20261109T2308Z",
-    "acquired_at": "2026-11-09T23:08:50.833624+00:00",
-    "expires_at": "2026-11-09T23:48:50.833624+00:00",
-    "ticket": "CONTENT-MVP",
-    "purpose": "Review synthetic content trial flow and address concrete usability findings"
-  },
-  "updated_at": "2026-11-09T23:14:16.344997+00:00",
+  "lease": null,
+  "updated_at": "2026-11-09T23:19:12.927506+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -465,12 +459,12 @@
       "id": "CONTENT-MVP",
       "title": "合成教材の問題案を確認・編集する試作",
       "goal": 2,
-      "state": "qa",
+      "state": "ceo_wait",
       "priority": 2,
       "depends_on": [
         "CONTENT-SPEC"
       ],
-      "owner": "qa_content_flow",
+      "owner": null,
       "branch": "codex/content-review-mvp",
       "pr": 11,
       "acceptance": [
@@ -480,7 +474,7 @@
         "未確認出力と確認済み案を区別し、既存教材/記録に接続しない",
         "768x1024で編集・確認・取消・出力/再入力、外部要求/通知POST 0を検証"
       ],
-      "next_action": "上部の確認状況・次操作案内commit 3d2ed2fを独立QA中。remote PRは未更新。成功後統括が同じPR #11に保存する。",
+      "next_action": "案内改善は独立QA済み。具体的な操作上の修正依頼があれば同じPR #11で対応し、D04の方向性採用を再要求しない。REV/CONTENTに新しい修正依頼がなければTHEME-MVPの読みやすさ確認へ進む。実入力経路・保存先はD01/D02待ち。",
       "evidence": [
         {
           "kind": "test",
@@ -522,22 +516,67 @@
           "kind": "pull_request",
           "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/11",
           "draft": true
+        },
+        {
+          "kind": "test",
+          "command": "python tests/onin_review.py",
+          "exit_code": 0,
+          "commit": "3d2ed2f9a62673d2fb086a360ae841096f35b63e",
+          "executor": "qa_content_flow",
+          "run": "cycle-20261109T2308Z"
+        },
+        {
+          "kind": "test",
+          "command": "python tests/kamakura_review.py",
+          "exit_code": 0,
+          "commit": "3d2ed2f9a62673d2fb086a360ae841096f35b63e",
+          "executor": "qa_content_flow",
+          "run": "cycle-20261109T2308Z"
+        },
+        {
+          "kind": "test",
+          "command": "python tests/cloud_preview.py",
+          "exit_code": 0,
+          "commit": "3d2ed2f9a62673d2fb086a360ae841096f35b63e",
+          "executor": "qa_content_flow",
+          "run": "cycle-20261109T2308Z"
+        },
+        {
+          "kind": "test",
+          "command": "python tests/content_review.py",
+          "exit_code": 0,
+          "commit": "3d2ed2f9a62673d2fb086a360ae841096f35b63e",
+          "executor": "qa_content_flow",
+          "run": "cycle-20261109T2308Z"
+        },
+        {
+          "kind": "test",
+          "command": "python tests/content_guidance.py",
+          "exit_code": 0,
+          "commit": "3d2ed2f9a62673d2fb086a360ae841096f35b63e",
+          "executor": "qa_content_flow",
+          "run": "cycle-20261109T2308Z"
+        },
+        {
+          "kind": "report",
+          "path": "ops/runs/2026-11-10-content-guidance.md",
+          "commit": "3d2ed2f9a62673d2fb086a360ae841096f35b63e"
         }
       ],
       "review": {
-        "author": "engineer_content_mvp",
-        "pdm": "pdm_content_mvp_check",
-        "prm": "root",
-        "reviewer": "qa_content_mvp",
+        "author": "engineer_content_guidance",
+        "pdm": "pdm_content_flow",
+        "prm": "root/coordinator",
+        "reviewer": "qa_content_flow",
         "result": "passed",
-        "commit": "1ea081b4b68b311fcd40c35d1f8bc972e3c60054",
-        "completed_at": "2026-11-09T16:28:25.589441+00:00",
-        "notes": "4テストと追加ブラウザー操作を独立実行。最終表示修正は関連操作再検証、以後CSS空白1字除去のみ、最終commit照合済み。全4テスト再実行とは扱わない。"
+        "commit": "3d2ed2f9a62673d2fb086a360ae841096f35b63e",
+        "completed_at": "2026-11-09T23:19:12.927506+00:00",
+        "notes": "独立QAが最終commitで5テストと複数問・複数不明箇所・状態分岐・keyboard/focusを検証。案内操作による確認・revision・出力・保存の変更なし。既存C1-C11、validator/issues/changed/export/CSP/既存教材HTMLを維持。"
       },
       "base_ref": "codex/cloud-automatic-bootstrap",
       "base_sha": "edad8065c1f2b726e61c5cf405f8d9ff6d807480",
       "specification": "docs/product/content-spec.md",
-      "commit": "1ea081b4b68b311fcd40c35d1f8bc972e3c60054",
+      "commit": "3d2ed2f9a62673d2fb086a360ae841096f35b63e",
       "direction_adopted": true,
       "direction_decision": "D04",
       "release": {
@@ -548,14 +587,14 @@
       "implementation_status": "implemented_and_independently_tested",
       "followup_scope": {
         "id": "CONTENT-MVP-guidance",
-        "status": "qa",
+        "status": "independent_qa_passed",
         "pdm": "pdm_content_flow",
         "prm": "root/coordinator",
         "resume_from_commit": "1ea081b4b68b311fcd40c35d1f8bc972e3c60054",
         "observed_main_commit": "d526d65fbae116f834d14ad994a27bc50ca23b62",
         "work_branch": "codex/content-flow-20261110",
         "same_pr": 11,
-        "implementation": "implemented_pending_independent_qa",
+        "implementation": "completed",
         "acceptance": [
           "上部に確認済みn/全問と未解決・修正必要・未確認・出力可能を区別",
           "次の読み取り/不足理由/内容確認/出力欄へ案内",
@@ -564,7 +603,29 @@
           "C1-C11維持、768x1024、外部POST/要求/学習記録書込0"
         ],
         "baseline_evidence": "/workspace/work/content-flow-qa-20261110/baseline/",
-        "candidate_commit": "3d2ed2f9a62673d2fb086a360ae841096f35b63e"
+        "candidate_commit": "3d2ed2f9a62673d2fb086a360ae841096f35b63e",
+        "commit": "3d2ed2f9a62673d2fb086a360ae841096f35b63e"
+      },
+      "review_history": [
+        {
+          "author": "engineer_content_mvp",
+          "pdm": "pdm_content_mvp_check",
+          "prm": "root",
+          "reviewer": "qa_content_mvp",
+          "result": "passed",
+          "commit": "1ea081b4b68b311fcd40c35d1f8bc972e3c60054",
+          "completed_at": "2026-11-09T16:28:25.589441+00:00",
+          "notes": "4テストと追加ブラウザー操作を独立実行。最終表示修正は関連操作再検証、以後CSS空白1字除去のみ、最終commit照合済み。全4テスト再実行とは扱わない。"
+        }
+      ],
+      "ceo_wait_reason": "進み具合・次操作案内を加えた試作品確認待ち。D04の方向性は採用済み。マージ・公開は未承認。",
+      "ceo_trial": {
+        "synthetic_qa": "passed",
+        "ceo_hands_on": "not_verified",
+        "real_ipad_safari": "not_tested",
+        "latest_synthetic_qa_commit": "3d2ed2f9a62673d2fb086a360ae841096f35b63e",
+        "latest_cloud_artifacts": "/workspace/work/content-flow-qa-20261110/final/",
+        "shared_browser_handoff": "not_completed"
       }
     },
     {
@@ -640,7 +701,7 @@
         "切替前後の問題・採点・既存履歴が同一",
         "768x1024で可読性と主要操作を確認する"
       ],
-      "next_action": "REV/CONTENTを優先。次着手時に既存テーマの読みやすさの確認範囲を定義。既存実装/QAを保持し、採用判断を再要求しない。",
+      "next_action": "REV/CONTENTの具体的修正依頼を優先し、なければ既存PR #12の合成画面で標準/鎌倉の読みやすさと標準へ戻す操作をPdM→PrMで確認。具体的所見がある場合だけ同じPRの必要差分を実装・独立QAする。新テーマ・画像追加や根拠のない全検証の反復はしない。D05の方向性採用を再要求しない。",
       "evidence": [
         {
           "kind": "test",
@@ -960,6 +1021,35 @@
       "ceo_decisions_ingested": 0,
       "next_ticket": "CONTENT-MVP",
       "next_action": "次優先。既存PR #11の合成確認画面について、迷わず編集→個別確認→JSON出力/再入力を試せる導線と次受入条件をPdM→PrMで具体化する。実装/QA済みの機能を重複再作成しない。発見した具体的不具合・操作負担のみ同じPRで改善。実入力経路/保存先はD01/D02待ち。"
+    },
+    {
+      "id": "cycle-20261109T2308Z",
+      "completed_at": "2026-11-09T23:19:12.927506+00:00",
+      "ticket": "CONTENT-MVP",
+      "result": "確認状況と次操作案内を既存draft PR #11へ保存。独立5テストと追加QA成功、試作品確認待ち。",
+      "observed_operations_commit": "1b3edaf5b75196de315ca8cd05b79e1faf5d7514",
+      "commit": "3d2ed2f9a62673d2fb086a360ae841096f35b63e",
+      "pr": 11,
+      "report": "ops/runs/2026-11-10-content-guidance.md",
+      "cloud_verified": true,
+      "subagents": [
+        "pdm_content_flow",
+        "engineer_content_guidance",
+        "qa_content_flow"
+      ],
+      "reviewer": "qa_content_flow",
+      "manual_setup": true,
+      "snapshot_restore_verified": false,
+      "platform_run_completion_verified": false,
+      "tests_passed": 5,
+      "new_prs": [],
+      "updated_prs": [
+        9,
+        11
+      ],
+      "ceo_decisions_ingested": 0,
+      "next_ticket": "THEME-MVP",
+      "next_action": "REV/CONTENTの具体的修正依頼を優先し、なければ既存PR #12の合成画面で標準/鎌倉の読みやすさと標準へ戻す操作をPdM→PrMで確認。具体的所見がある場合だけ同じPRの必要差分を実装・独立QAする。新テーマ・画像追加や根拠のない全検証の反復はしない。D05の方向性採用を再要求しない。"
     }
   ],
   "operational_notes": [
