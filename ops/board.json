@@ -36,13 +36,8 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": {
-    "run_id": "team-bootstrap-20261109",
-    "acquired_at": "2026-11-09T13:16:32.870655+00:00",
-    "expires_at": "2026-11-09T13:46:32.870655+00:00",
-    "ticket_id": "REV-SPEC"
-  },
-  "updated_at": "2026-11-09T13:16:32.870655+00:00",
+  "lease": null,
+  "updated_at": "2026-11-09T13:20:32.264277+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -114,12 +109,12 @@
       "id": "REV-SPEC",
       "title": "苦手復習の仕様と履歴互換性を定義",
       "goal": 1,
-      "state": "requirements",
+      "state": "done",
       "priority": 1,
       "depends_on": [],
-      "owner": "PdM: pdm_review_spec",
+      "owner": null,
       "branch": null,
-      "pr": null,
+      "pr": 9,
       "acceptance": [
         "実際の保存項目と未記録項目をコードから確認する",
         "初回・再回答・別日、ヒント有無を記録可能な範囲で区別する",
@@ -127,9 +122,32 @@
         "復習選定理由と出題数・同点時の扱いを定義する",
         "合成履歴の具体例と受入テスト案を作る"
       ],
-      "next_action": "PdMを起動し既存コードを読んで仕様を作る。PrM/独立レビュー後にREV-MVPをreadyにする",
-      "evidence": [],
-      "review": null,
+      "next_action": "要件と独立レビュー完了。REV-MVPを実装する",
+      "evidence": [
+        {
+          "kind": "specification",
+          "path": "docs/product/review-spec.md",
+          "scope": "既存4復習モードを維持した混合選定と個別理由表示"
+        },
+        {
+          "kind": "code_read",
+          "source_commit": "d526d65fbae116f834d14ad994a27bc50ca23b62",
+          "paths": [
+            "onin-review.html",
+            "kamakura-review.html",
+            "tests/onin_review.py",
+            "tests/kamakura_review.py"
+          ]
+        }
+      ],
+      "review": {
+        "author": "pdm_review_spec",
+        "reviewer": "prm_operating_review",
+        "result": "passed",
+        "date": "2026-11-09",
+        "tests_run": false,
+        "notes": "対象学習記録キーと独立した通知キューを区別する補足を反映"
+      },
       "base_ref": null,
       "base_sha": null
     },
@@ -137,7 +155,7 @@
       "id": "REV-MVP",
       "title": "理由が見える苦手復習の最小実装",
       "goal": 1,
-      "state": "backlog",
+      "state": "ready",
       "priority": 2,
       "depends_on": [
         "REV-SPEC"
@@ -151,11 +169,12 @@
         "既存ID・保存キー・旧履歴を保護する",
         "768x1024で開始・回答・採点・保存・再読込を合成データで確認する"
       ],
-      "next_action": "REV-SPECの受入条件をPrMが確認後、小さな変更として実装する",
+      "next_action": "仕様のR1〜R9を満たす最小実装をEngineerへ委任し、独立QA後にdraft PRへ保存する",
       "evidence": [],
       "review": null,
       "base_ref": null,
-      "base_sha": null
+      "base_sha": null,
+      "specification": "docs/product/review-spec.md"
     },
     {
       "id": "CONTENT-SPEC",
@@ -252,7 +271,22 @@
       "base_sha": null
     }
   ],
-  "runs": [],
+  "runs": [
+    {
+      "id": "team-bootstrap-20261109",
+      "completed_at": "2026-11-09T13:20:32.264277+00:00",
+      "result": "運用登録、PdM/PrMの実作業、REV-SPEC完了。製品実装は未着手",
+      "artifacts": [
+        "docs/agent-team.md",
+        "docs/product/review-spec.md"
+      ],
+      "tests": [
+        "board JSON/state/dependency validation",
+        "git diff --check"
+      ],
+      "scheduled_execution": false
+    }
+  ],
   "operational_notes": [
     "既存の停止中自律更新は再開しない",
     "公開済み環境の新規タスク復元・6テスト成功はCEOから報告済み。各runは実環境を確認する",
