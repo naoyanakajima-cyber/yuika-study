@@ -36,13 +36,8 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": {
-    "run_id": "cycle-20261109T1606Z",
-    "acquired_at": "2026-11-09T16:07:26.088130+00:00",
-    "expires_at": "2026-11-09T16:47:26.088130+00:00",
-    "ticket": "CONTENT-MVP"
-  },
-  "updated_at": "2026-11-09T16:07:26.088130+00:00",
+  "lease": null,
+  "updated_at": "2026-11-09T16:28:25.589441+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -119,7 +114,18 @@
       "blocks": [
         "REV-MVP-MERGE"
       ],
-      "independent_work": "CONTENT-SPECを合成入力で進める"
+      "independent_work": "THEME-SPECを合成データで進める"
+    },
+    {
+      "id": "D04",
+      "status": "pending",
+      "ticket": "CONTENT-MVP",
+      "question": "合成教材の確認・編集試作（PR #11）の仕様・挙動を採用するか",
+      "recommendation": "原本と問題案の比較、編集時の確認失効、確認済みJSON出力を合成サンプルで確認して採用方針を決める。実入力経路・非公開保存先・マージ/公開は別途判断。",
+      "blocks": [
+        "CONTENT-MVP-MERGE"
+      ],
+      "independent_work": "THEME-SPECを進める。D01/D02に関係する実データ接続は行わない。"
     }
   ],
   "tickets": [
@@ -187,7 +193,7 @@
         "既存ID・保存キー・旧履歴を保護する",
         "768x1024で開始・回答・採点・保存・再読込を合成データで確認する"
       ],
-      "next_action": "CEOがPR #10の採用を判断。依存 #5→#6→#7 を含むマージ・公開は別途明示判断。待機中はCONTENT-SPECを進める。",
+      "next_action": "CEOがPR #10の採用を判断。依存 #5→#6→#7 を含むマージ・公開は別途明示判断。待機中はTHEME-SPECを進める。",
       "evidence": [
         {
           "kind": "test",
@@ -260,7 +266,7 @@
         "合成テキストと合成画像の検証例を用意する",
         "有料OCRや外部保存は判断事項として切り離す"
       ],
-      "next_action": "仕様と合成fixtureの独立レビュー完了。CONTENT-MVPを合成サンプル限定の確認試作として実装する。",
+      "next_action": "仕様完了。合成確認試作の実装はPR #11で独立QA済み・CEO判断待ち。",
       "evidence": [
         {
           "kind": "specification",
@@ -308,14 +314,14 @@
       "id": "CONTENT-MVP",
       "title": "合成教材の問題案を確認・編集する試作",
       "goal": 2,
-      "state": "in_progress",
+      "state": "ceo_wait",
       "priority": 4,
       "depends_on": [
         "CONTENT-SPEC"
       ],
-      "owner": "cycle-20261109T1606Z",
+      "owner": null,
       "branch": "codex/content-review-mvp",
-      "pr": null,
+      "pr": 11,
       "acceptance": [
         "C1〜C11を満たす合成サンプル限定の試作",
         "原本・転記・生成案を区別し、不明箇所を勝手に確定しない",
@@ -323,12 +329,64 @@
         "未確認出力と確認済み案を区別し、既存教材/記録に接続しない",
         "768x1024で編集・確認・取消・出力/再入力、外部要求/通知POST 0を検証"
       ],
-      "next_action": "C1〜C11に沿って同梱合成text/imageの確認・編集・JSON出入を独立試作する。実OCR/自動生成/実入力経路/本番教材導入は含めない。",
-      "evidence": [],
-      "review": null,
+      "next_action": "CEOがPR #11の合成教材確認試作の仕様・挙動を判断。実入力経路/実データ接続と依存PRのマージ・公開は別途判断。待機中はTHEME-SPECを進める。",
+      "evidence": [
+        {
+          "kind": "test",
+          "command": "python tests/onin_review.py",
+          "exit_code": 0,
+          "executor": "qa_content_mvp",
+          "validated_delivery_commit": "1ea081b4b68b311fcd40c35d1f8bc972e3c60054",
+          "scope": "4テスト成功後、最終要約表示2行変更は関連操作で独立再検証。CSS末尾空白除去後の最終commit照合済み。"
+        },
+        {
+          "kind": "test",
+          "command": "python tests/kamakura_review.py",
+          "exit_code": 0,
+          "executor": "qa_content_mvp",
+          "validated_delivery_commit": "1ea081b4b68b311fcd40c35d1f8bc972e3c60054",
+          "scope": "4テスト成功後、最終要約表示2行変更は関連操作で独立再検証。CSS末尾空白除去後の最終commit照合済み。"
+        },
+        {
+          "kind": "test",
+          "command": "python tests/cloud_preview.py",
+          "exit_code": 0,
+          "executor": "qa_content_mvp",
+          "validated_delivery_commit": "1ea081b4b68b311fcd40c35d1f8bc972e3c60054",
+          "scope": "4テスト成功後、最終要約表示2行変更は関連操作で独立再検証。CSS末尾空白除去後の最終commit照合済み。"
+        },
+        {
+          "kind": "test",
+          "command": "python tests/content_review.py",
+          "exit_code": 0,
+          "executor": "qa_content_mvp",
+          "validated_delivery_commit": "1ea081b4b68b311fcd40c35d1f8bc972e3c60054",
+          "scope": "4テスト成功後、最終要約表示2行変更は関連操作で独立再検証。CSS末尾空白除去後の最終commit照合済み。"
+        },
+        {
+          "kind": "report",
+          "path": "ops/runs/2026-11-10-content-mvp.md"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/11",
+          "draft": true
+        }
+      ],
+      "review": {
+        "author": "engineer_content_mvp",
+        "pdm": "pdm_content_mvp_check",
+        "prm": "root",
+        "reviewer": "qa_content_mvp",
+        "result": "passed",
+        "commit": "1ea081b4b68b311fcd40c35d1f8bc972e3c60054",
+        "completed_at": "2026-11-09T16:28:25.589441+00:00",
+        "notes": "4テストと追加ブラウザー操作を独立実行。最終表示修正は関連操作再検証、以後CSS空白1字除去のみ、最終commit照合済み。全4テスト再実行とは扱わない。"
+      },
       "base_ref": "codex/cloud-automatic-bootstrap",
       "base_sha": "edad8065c1f2b726e61c5cf405f8d9ff6d807480",
-      "specification": "docs/product/content-spec.md"
+      "specification": "docs/product/content-spec.md",
+      "commit": "1ea081b4b68b311fcd40c35d1f8bc972e3c60054"
     },
     {
       "id": "THEME-SPEC",
@@ -436,6 +494,27 @@
         "git diff --check"
       ],
       "next_ticket": "CONTENT-MVP"
+    },
+    {
+      "id": "cycle-20261109T1606Z",
+      "completed_at": "2026-11-09T16:28:25.589441+00:00",
+      "ticket": "CONTENT-MVP",
+      "result": "draft PR #11、独立QA成功、CEO判断待ち",
+      "commit": "1ea081b4b68b311fcd40c35d1f8bc972e3c60054",
+      "pr": 11,
+      "report": "ops/runs/2026-11-10-content-mvp.md",
+      "cloud_verified": true,
+      "subagents": [
+        "pdm_content_mvp_check",
+        "engineer_content_mvp",
+        "qa_content_mvp"
+      ],
+      "manual_setup": true,
+      "snapshot_restore_verified": false,
+      "platform_run_completion_verified": false,
+      "tests_passed": 4,
+      "validation_scope": "4テスト成功後の最終表示修正を関連操作再検証、最終commit照合",
+      "next_ticket": "THEME-SPEC"
     }
   ],
   "operational_notes": [
