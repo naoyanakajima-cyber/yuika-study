@@ -36,14 +36,8 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": {
-    "run_id": "cycle-20261109T1903Z",
-    "acquired_at": "2026-11-09T19:05:05.709336+00:00",
-    "expires_at": "2026-11-09T19:15:05.709336+00:00",
-    "ticket": null,
-    "purpose": "Record approval queue check and external preview status"
-  },
-  "updated_at": "2026-11-09T19:05:05.709336+00:00",
+  "lease": null,
+  "updated_at": "2026-11-09T19:06:09.217792+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -662,6 +656,28 @@
       "tests_passed": 4,
       "next_ticket": null,
       "next_action": "CEO判断の台帳反映を確認。必要な既存PR修正がなければ新規実装せず終了。"
+    },
+    {
+      "id": "cycle-20261109T1903Z",
+      "completed_at": "2026-11-09T19:06:09.217792+00:00",
+      "ticket": null,
+      "result": "承認待ち3件を確認、新規実装なし。外部プレビュービルド失敗の報告と調査制約を保存",
+      "report": "ops/runs/2026-11-10-approval-check-0403.md",
+      "cloud_verified": true,
+      "subagents": [],
+      "manual_setup": false,
+      "app_tests_run": false,
+      "browser_tests_run": false,
+      "new_prs": [],
+      "observed_product_prs": [
+        10,
+        11,
+        12
+      ],
+      "product_heads_unchanged": true,
+      "ceo_decisions_ingested": 0,
+      "next_ticket": null,
+      "next_action": "CEO判断の台帳反映、具体的な修正依頼、新しい診断証拠がなければ終了。新規製品実装を行わない。"
     }
   ],
   "operational_notes": [
@@ -672,5 +688,21 @@
   "decision_intake": {
     "canonical_location": "CEO chat that configured this operating model",
     "rule": "A handler who actually reads the CEO reply records sanitized ticket, decision scope, timestamp and handler in this board, only without an active worker lease. Worker never infers missing approvals."
-  }
+  },
+  "operational_findings": [
+    {
+      "id": "EXTERNAL-PREVIEW-01",
+      "status": "unresolved",
+      "observed_at": "2026-11-09T19:06:09.217792+00:00",
+      "scope": "PR #10/#11/#12 external preview",
+      "finding": "Cloudflare bot reports Build: Failed for all three current product HEADs; deployment URL fields empty. GitHub combined statuses arrays empty. Root cause and publication outcome not established.",
+      "evidence": [
+        "https://github.com/naoyanakajima-cyber/yuika-study/pull/10#issuecomment-6742582466",
+        "https://github.com/naoyanakajima-cyber/yuika-study/pull/11#issuecomment-6745634116",
+        "https://github.com/naoyanakajima-cyber/yuika-study/pull/12#issuecomment-6748192684"
+      ],
+      "report": "ops/runs/2026-11-10-approval-check-0403.md",
+      "next_action": "No redeploy or configuration changes. Obtain relevant build log through an authorized read-only connection or supplied evidence before further diagnosis. Preserve existing cloud test evidence separately."
+    }
+  ]
 }
