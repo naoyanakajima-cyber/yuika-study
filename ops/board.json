@@ -36,13 +36,8 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": {
-    "run_id": "cycle-20261109T1410Z",
-    "acquired_at": "2026-11-09T14:12:00.031697+00:00",
-    "expires_at": "2026-11-09T14:52:00.031697+00:00",
-    "ticket": "REV-MVP"
-  },
-  "updated_at": "2026-11-09T14:12:00.031697+00:00",
+  "lease": null,
+  "updated_at": "2026-11-09T14:20:46.097483+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -58,7 +53,9 @@
       "development": "毎時05分、2026-11-09 23:05 JST以降",
       "morning": "毎日05:30、2026-11-10以降",
       "evening": "毎日22:00、2026-11-10以降"
-    }
+    },
+    "latest_cloud_cycle_verified": true,
+    "latest_scheduler_start_observed_at": "2026-11-09T14:11:07.868415+00:00"
   },
   "existing_work": [
     {
@@ -107,6 +104,17 @@
         "PERSONAL-DATA-CONNECTION"
       ],
       "independent_work": "合成履歴で復習機能を実装・検証できる"
+    },
+    {
+      "id": "D03",
+      "status": "pending",
+      "ticket": "REV-MVP",
+      "question": "理由が見えるおすすめ復習（PR #10）の仕様・挙動を採用するか",
+      "recommendation": "合成検証済みの最小実装を確認し採用方針を決める。依存PRを含むマージ/公開は別途明示判断。",
+      "blocks": [
+        "REV-MVP-MERGE"
+      ],
+      "independent_work": "CONTENT-SPECを合成入力で進める"
     }
   ],
   "tickets": [
@@ -160,26 +168,74 @@
       "id": "REV-MVP",
       "title": "理由が見える苦手復習の最小実装",
       "goal": 1,
-      "state": "in_progress",
+      "state": "ceo_wait",
       "priority": 2,
       "depends_on": [
         "REV-SPEC"
       ],
-      "owner": "cycle-20261109T1410Z",
+      "owner": null,
       "branch": "codex/recommended-review-mvp",
-      "pr": null,
+      "pr": 10,
       "acceptance": [
         "仕様で定義した誤答と時間を置いた確認を選ぶ",
         "なぜ復習対象になったかを表示する",
         "既存ID・保存キー・旧履歴を保護する",
         "768x1024で開始・回答・採点・保存・再読込を合成データで確認する"
       ],
-      "next_action": "仕様のR1〜R9を満たす最小実装をEngineerへ委任し、独立QA後にdraft PRへ保存する",
-      "evidence": [],
-      "review": null,
+      "next_action": "CEOがPR #10の採用を判断。依存 #5→#6→#7 を含むマージ・公開は別途明示判断。待機中はCONTENT-SPECを進める。",
+      "evidence": [
+        {
+          "kind": "test",
+          "command": "python tests/onin_review.py",
+          "exit_code": 0,
+          "commit": "bd7a055a1169416dbdd82654ac19c228a739f9cf",
+          "executor": "qa_rev_mvp"
+        },
+        {
+          "kind": "test",
+          "command": "python tests/kamakura_review.py",
+          "exit_code": 0,
+          "commit": "bd7a055a1169416dbdd82654ac19c228a739f9cf",
+          "executor": "qa_rev_mvp"
+        },
+        {
+          "kind": "test",
+          "command": "python tests/cloud_preview.py",
+          "exit_code": 0,
+          "commit": "bd7a055a1169416dbdd82654ac19c228a739f9cf",
+          "executor": "qa_rev_mvp"
+        },
+        {
+          "kind": "test",
+          "command": "python tests/recommended_review.py",
+          "exit_code": 0,
+          "commit": "bd7a055a1169416dbdd82654ac19c228a739f9cf",
+          "executor": "qa_rev_mvp"
+        },
+        {
+          "kind": "report",
+          "path": "ops/runs/2026-11-09-rev-mvp.md"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/10",
+          "draft": true
+        }
+      ],
+      "review": {
+        "author": "engineer_rev_mvp",
+        "pdm": "pdm_rev_check",
+        "prm": "root",
+        "reviewer": "qa_rev_mvp",
+        "result": "passed",
+        "commit": "bd7a055a1169416dbdd82654ac19c228a739f9cf",
+        "completed_at": "2026-11-09T14:20:46.097483+00:00",
+        "notes": "独立QAが4コマンド実行、最終commitの検証済みtree一致確認。READMEのみ統括が追記。"
+      },
       "base_ref": "codex/cloud-automatic-bootstrap",
       "base_sha": "edad8065c1f2b726e61c5cf405f8d9ff6d807480",
-      "specification": "docs/product/review-spec.md"
+      "specification": "docs/product/review-spec.md",
+      "commit": "bd7a055a1169416dbdd82654ac19c228a739f9cf"
     },
     {
       "id": "CONTENT-SPEC",
@@ -290,6 +346,26 @@
         "git diff --check"
       ],
       "scheduled_execution": false
+    },
+    {
+      "id": "cycle-20261109T1410Z",
+      "completed_at": "2026-11-09T14:20:46.097483+00:00",
+      "ticket": "REV-MVP",
+      "result": "draft PR #10、独立QA成功、CEO判断待ち",
+      "commit": "bd7a055a1169416dbdd82654ac19c228a739f9cf",
+      "pr": 10,
+      "report": "ops/runs/2026-11-09-rev-mvp.md",
+      "cloud_verified": true,
+      "subagents": [
+        "pdm_rev_check",
+        "engineer_rev_mvp",
+        "qa_rev_mvp"
+      ],
+      "manual_setup": true,
+      "snapshot_restore_verified": false,
+      "platform_run_completion_verified": false,
+      "tests_passed": 4,
+      "next_ticket": "CONTENT-SPEC"
     }
   ],
   "operational_notes": [
