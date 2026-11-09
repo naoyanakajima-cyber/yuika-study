@@ -36,14 +36,8 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": {
-    "run_id": "cycle-20261109T2003Z",
-    "acquired_at": "2026-11-09T20:04:28.421807+00:00",
-    "expires_at": "2026-11-09T20:09:28.421807+00:00",
-    "ticket": null,
-    "purpose": "Persist no-change approval queue check"
-  },
-  "updated_at": "2026-11-09T20:04:28.421807+00:00",
+  "lease": null,
+  "updated_at": "2026-11-09T20:04:47.339455+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -684,6 +678,33 @@
       "ceo_decisions_ingested": 0,
       "next_ticket": null,
       "next_action": "CEO判断の台帳反映、具体的な修正依頼、新しい診断証拠がなければ終了。新規製品実装を行わない。"
+    },
+    {
+      "id": "cycle-20261109T2003Z",
+      "completed_at": "2026-11-09T20:04:47.339455+00:00",
+      "ticket": null,
+      "result": "承認待ち上限3件・製品HEAD・PR議論に変更なし。実装せず終了。",
+      "observed_operations_commit": "fc7a783bc23cdb1f44dee005277afd8798dd9531",
+      "cloud_verified": true,
+      "observed_product_prs": [
+        10,
+        11,
+        12
+      ],
+      "product_heads_unchanged": true,
+      "product_prs_draft_unmerged": true,
+      "new_review_requests_observed": false,
+      "ceo_decisions_ingested": 0,
+      "subagents": [],
+      "reviewer": null,
+      "manual_setup": false,
+      "app_tests_run": false,
+      "browser_tests_run": false,
+      "new_prs": [],
+      "external_preview_finding": "EXTERNAL-PREVIEW-01 remains unresolved; same bot posts, no new diagnostic evidence; no repeated investigation or redeploy",
+      "previous_report": "ops/runs/2026-11-10-approval-check-0403.md",
+      "next_ticket": null,
+      "next_action": "CEO判断の正本からの台帳反映、具体的な修正依頼または新規診断証拠を確認。変化がなければ新規実装せず終了。"
     }
   ],
   "operational_notes": [
