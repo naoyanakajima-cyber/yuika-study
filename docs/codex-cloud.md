@@ -121,7 +121,7 @@ python scripts/cloud/serve.py --port 8000
 ```
 
 クラウド内のブラウザーで `http://127.0.0.1:8000/` を開く。停止はCtrl-C。
-並行プレビューは別ポートを使う。127.0.0.1だけにbindし、5つの公開HTMLだけを配信する。
+並行プレビューは別ポートを使う。127.0.0.1だけにbindし、明示した5つの学習HTMLと合成教材確認用の `content-review.html` だけを配信する。
 CSP `connect-src 'none'` と `form-action 'none'` で通知API・フォーム送信を遮断する。
 安全性テストは非公開パス404、CSP違反、POST到達0件を確認する。
 

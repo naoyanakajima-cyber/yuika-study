@@ -1,0 +1,55 @@
+{
+  "format": "yuika-content-proposal",
+  "schemaVersion": 1,
+  "packageId": "draft-synthetic-image-package",
+  "revision": 1,
+  "source": {
+    "kind": "image",
+    "sourceId": "synthetic-image-source",
+    "label": "手作りの合成画像（OCR実行結果ではありません）",
+    "locator": "synthetic-source.svg"
+  },
+  "transcription": {
+    "text": "水を冷やすと氷になります。\n太陽は［判読不明］からのぼります。",
+    "uncertainties": [
+      {
+        "id": "synthetic-uncertainty-001",
+        "quote": "［判読不明］",
+        "candidates": [
+          "東",
+          "西"
+        ],
+        "resolution": null
+      }
+    ]
+  },
+  "unit": {
+    "id": "draft-synthetic-material",
+    "title": "合成教材：水と方角"
+  },
+  "questions": [
+    {
+      "id": "draft-synthetic-direction-001",
+      "questionVersion": 1,
+      "type": "text",
+      "prompt": "太陽はどの方角からのぼりますか？",
+      "answer": null,
+      "aliases": [],
+      "readings": [],
+      "options": [],
+      "explanation": null,
+      "hint": null,
+      "sourceRefs": [
+        {
+          "sourceId": "synthetic-image-source",
+          "locator": "page:1;region:24,124,552,72"
+        }
+      ],
+      "generatedFields": [
+        "prompt"
+      ],
+      "status": "draft",
+      "confirmedRevision": null
+    }
+  ]
+}
