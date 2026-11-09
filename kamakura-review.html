@@ -4,6 +4,31 @@
 @media print{header,nav,.actions,button,.footer,#notice,.no-print{display:none!important}body{background:white;font-size:11px}main{padding:0;max-width:none}.card{break-inside:avoid;box-shadow:none;padding:12px}details{display:block}h1{font-size:24px}.tablewrap{overflow:visible}}
 
 textarea{font:inherit;min-height:100px;width:100%;padding:12px;border:1px solid #c7d0c7;border-radius:9px;resize:vertical}#ordered{white-space:pre-line} .brand a{font-size:12px;letter-spacing:0;margin-left:10px} .facts{overflow-wrap:anywhere}
+
+/* Appearance controls are independent of the learning views and records. */
+.theme-panel{max-width:1060px;margin:0 auto;padding:14px 28px;color:var(--ink)}
+.theme-options{display:flex;align-items:center;flex-wrap:wrap;gap:8px}
+.theme-options strong{margin-right:8px}.theme-choice{min-width:148px;min-height:46px;border-color:var(--green)}
+.theme-choice[aria-pressed=true]{background:var(--green);color:#fff;border-color:var(--green)}
+.theme-choice .theme-selected{font-size:12px;visibility:hidden}.theme-choice[aria-pressed=true] .theme-selected{visibility:visible}
+.theme-choice:focus-visible{outline-color:var(--green);outline-offset:3px}
+.theme-description,.theme-status{font-size:13px;margin:8px 0 0;overflow-wrap:anywhere}.theme-status:empty{display:none}
+@media(max-width:650px){.theme-panel{padding:14px 17px}}
+@media screen{
+ html[data-ui-theme=kamakura]{--ink:#243d4b;--muted:#52646b;--paper:#f7f2e8;--white:#fffdf7;--line:#c1c8c5;--green:#24566b;--pale:#e7eef0;--pink:#f2e4da;--rose:#9b493e;--gold:#d9bd7b}
+ html[data-ui-theme=kamakura] header{box-shadow:inset 0 3px var(--gold)}
+ html[data-ui-theme=kamakura] .card{border-radius:8px}
+ html[data-ui-theme=kamakura] :is(button,input,select,textarea){border-color:var(--green)}
+ html[data-ui-theme=kamakura] button:hover{background:var(--pale)}
+ html[data-ui-theme=kamakura] :is(button.primary,.chips button[aria-pressed=true],.theme-choice[aria-pressed=true]){background:var(--green);color:#fff}
+ html[data-ui-theme=kamakura] :focus-visible{outline-color:var(--rose);outline-offset:3px}
+ html[data-ui-theme=kamakura] :is(input,select,textarea,.review){background:var(--white)}
+ html[data-ui-theme=kamakura] :is(th,.note){background:var(--pale)}
+ html[data-ui-theme=kamakura] .answerbox.again{background:var(--pink)}
+ html[data-ui-theme=kamakura] .error{color:var(--rose)}
+ html[data-ui-theme=kamakura] svg[role=img]{background:#fffefa}
+}
+@media print{.theme-panel{display:none!important}:root{--paper:#fff;--white:#fff;--ink:#293e3b;--muted:#64736e}}
 </style></head><body>
 <!-- YUIKA_REPORTS_BEGIN -->
 <script>
@@ -70,7 +95,30 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 })();
 
 </script>
-<!-- YUIKA_REPORTS_END --><header><div class="brand"><span>ゆ</span>社会ノート<a href="index.html" id="socialHome">← 学習帳へ</a></div><nav aria-label="メイン"><button data-view="home">れんしゅう</button><button data-view="parent">保護者のノート</button><button data-view="records">記録の保存</button></nav></header><div id="notice" class="notice" role="status" aria-live="polite"></div><main id="main" tabindex="-1"></main><footer class="footer"><span>540-25 · 鎌倉幕府の成立</span><span>記録はブラウザー内。メール通知は接続後のみ。</span></footer><script>'use strict';
+<!-- YUIKA_REPORTS_END --><header><div class="brand"><span>ゆ</span>社会ノート<a href="index.html" id="socialHome">← 学習帳へ</a></div><nav aria-label="メイン"><button data-view="home">れんしゅう</button><button data-view="parent">保護者のノート</button><button data-view="records">記録の保存</button></nav></header><section class="theme-panel" aria-label="見た目">
+<div class="theme-options" role="group" aria-label="見た目"><strong>見た目</strong>
+<button type="button" id="theme-standard" class="theme-choice" data-theme="standard" aria-pressed="true">標準 <span class="theme-selected">選択中</span></button>
+<button type="button" id="theme-kamakura" class="theme-choice" data-theme="kamakura" aria-pressed="false">鎌倉 <span class="theme-selected">選択中</span></button></div>
+<p class="theme-description">見た目だけを変えます。問題や記録は変わりません。</p>
+<p id="theme-status" class="theme-status" role="status" aria-live="polite"></p></section><div id="notice" class="notice" role="status" aria-live="polite"></div><main id="main" tabindex="-1"></main><footer class="footer"><span>540-25 · 鎌倉幕府の成立</span><span>記録はブラウザー内。メール通知は接続後のみ。</span></footer><script>
+/* Theme preference never calls learning render/save or notification code. */
+(()=>{
+ 'use strict';
+ const key='yuika-ui-theme-kamakura-v1',buttons=[...document.querySelectorAll('[data-theme]')],status=document.getElementById('theme-status');
+ const valid=value=>value==='standard'||value==='kamakura';
+ const apply=value=>{document.documentElement.dataset.uiTheme=value;buttons.forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.theme===value)));};
+ let saved=null;
+ try{const value=localStorage.getItem(key);if(valid(value))saved=value;}catch{}
+ apply(saved||'standard');
+ buttons.forEach(button=>button.addEventListener('click',()=>{
+  const value=button.dataset.theme;if(!valid(value))return;
+  apply(value);button.focus({preventScroll:true});
+  if(saved===value)return;
+  try{localStorage.setItem(key,value);saved=value;status.textContent='';}
+  catch{saved=null;status.textContent='この画面では変更しました。次回の表示には保存できませんでした。';}
+ }));
+})();
+</script><script>'use strict';
 const QUESTIONS=[
   {
     "id": "54025-01",
