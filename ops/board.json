@@ -36,8 +36,13 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": null,
-  "updated_at": "2026-11-09T13:20:32.264277+00:00",
+  "lease": {
+    "run_id": "cycle-20261109T1410Z",
+    "acquired_at": "2026-11-09T14:12:00.031697+00:00",
+    "expires_at": "2026-11-09T14:52:00.031697+00:00",
+    "ticket": "REV-MVP"
+  },
+  "updated_at": "2026-11-09T14:12:00.031697+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -155,13 +160,13 @@
       "id": "REV-MVP",
       "title": "理由が見える苦手復習の最小実装",
       "goal": 1,
-      "state": "ready",
+      "state": "in_progress",
       "priority": 2,
       "depends_on": [
         "REV-SPEC"
       ],
-      "owner": null,
-      "branch": null,
+      "owner": "cycle-20261109T1410Z",
+      "branch": "codex/recommended-review-mvp",
       "pr": null,
       "acceptance": [
         "仕様で定義した誤答と時間を置いた確認を選ぶ",
@@ -172,8 +177,8 @@
       "next_action": "仕様のR1〜R9を満たす最小実装をEngineerへ委任し、独立QA後にdraft PRへ保存する",
       "evidence": [],
       "review": null,
-      "base_ref": null,
-      "base_sha": null,
+      "base_ref": "codex/cloud-automatic-bootstrap",
+      "base_sha": "edad8065c1f2b726e61c5cf405f8d9ff6d807480",
       "specification": "docs/product/review-spec.md"
     },
     {
