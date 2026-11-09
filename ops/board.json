@@ -36,13 +36,8 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": {
-    "run_id": "cycle-20261109T1707Z",
-    "acquired_at": "2026-11-09T17:08:14.573501+00:00",
-    "expires_at": "2026-11-09T17:48:14.573501+00:00",
-    "ticket": "THEME-SPEC"
-  },
-  "updated_at": "2026-11-09T17:08:14.573501+00:00",
+  "lease": null,
+  "updated_at": "2026-11-09T17:14:31.456992+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -119,7 +114,7 @@
       "blocks": [
         "REV-MVP-MERGE"
       ],
-      "independent_work": "THEME-SPECを合成データで進める"
+      "independent_work": "THEME-MVPを合成データで進める"
     },
     {
       "id": "D04",
@@ -130,7 +125,7 @@
       "blocks": [
         "CONTENT-MVP-MERGE"
       ],
-      "independent_work": "THEME-SPECを進める。D01/D02に関係する実データ接続は行わない。"
+      "independent_work": "THEME-MVPを進める。D01/D02に関係する実データ接続は行わない。"
     }
   ],
   "tickets": [
@@ -198,7 +193,7 @@
         "既存ID・保存キー・旧履歴を保護する",
         "768x1024で開始・回答・採点・保存・再読込を合成データで確認する"
       ],
-      "next_action": "CEOがPR #10の採用を判断。依存 #5→#6→#7 を含むマージ・公開は別途明示判断。待機中はTHEME-SPECを進める。",
+      "next_action": "CEOがPR #10の採用を判断。依存 #5→#6→#7 を含むマージ・公開は別途明示判断。待機中はTHEME-MVPを進める。",
       "evidence": [
         {
           "kind": "test",
@@ -334,7 +329,7 @@
         "未確認出力と確認済み案を区別し、既存教材/記録に接続しない",
         "768x1024で編集・確認・取消・出力/再入力、外部要求/通知POST 0を検証"
       ],
-      "next_action": "CEOがPR #11の合成教材確認試作の仕様・挙動を判断。実入力経路/実データ接続と依存PRのマージ・公開は別途判断。待機中はTHEME-SPECを進める。",
+      "next_action": "CEOがPR #11の合成教材確認試作の仕様・挙動を判断。実入力経路/実データ接続と依存PRのマージ・公開は別途判断。待機中はTHEME-MVPを進める。",
       "evidence": [
         {
           "kind": "test",
@@ -397,10 +392,10 @@
       "id": "THEME-SPEC",
       "title": "学習データと独立したテーマ切替仕様",
       "goal": 3,
-      "state": "in_progress",
+      "state": "done",
       "priority": 5,
       "depends_on": [],
-      "owner": "cycle-20261109T1707Z",
+      "owner": null,
       "branch": "codex/agent-team-operations",
       "pr": 9,
       "acceptance": [
@@ -410,17 +405,50 @@
         "文字・コントラスト・タップ領域・動きの負担を確認する",
         "私的画像やキャラクター画像の外部取得を前提にしない"
       ],
-      "next_action": "PdMの受入条件とUI試作案を作り、既存CSSへの影響範囲をPrMが確認する",
-      "evidence": [],
-      "review": null,
+      "next_action": "仕様のPrM/技術確認/独立QA完了。THEME-MVPを鎌倉画面限定で実装する。テーマ機能はまだ未実装。",
+      "evidence": [
+        {
+          "kind": "specification",
+          "path": "docs/product/theme-spec.md",
+          "commit": "62d9c20af5cacbc7f5174c28f4f26b84b0794150"
+        },
+        {
+          "kind": "validation",
+          "executor": "qa_theme_spec",
+          "exit_code": 0,
+          "checks": [
+            "independent sRGB contrast calculation",
+            "T1-T11 and protection-boundary static assertions",
+            "existing app and tests unchanged",
+            "final commit/hash match"
+          ]
+        },
+        {
+          "kind": "report",
+          "path": "ops/runs/2026-11-10-theme-spec.md"
+        }
+      ],
+      "review": {
+        "author": "pdm_theme_spec",
+        "engineer": "engineer_theme_feasibility",
+        "prm": "root",
+        "reviewer": "qa_theme_spec",
+        "result": "passed",
+        "commit": "62d9c20af5cacbc7f5174c28f4f26b84b0794150",
+        "completed_at": "2026-11-09T17:14:31.456992+00:00",
+        "scope": "仕様・コード読取・配色数値計算のみ。機能実装/ブラウザーテスト未実施。",
+        "notes": "最終commitは状態表示とcontrast適用範囲2箇所だけの補足を照合。"
+      },
       "base_ref": "codex/agent-team-operations",
-      "base_sha": "c5e59bc2bd8ece358790ffb91649dbee7034b0d8"
+      "base_sha": "c5e59bc2bd8ece358790ffb91649dbee7034b0d8",
+      "commit": "62d9c20af5cacbc7f5174c28f4f26b84b0794150",
+      "specification": "docs/product/theme-spec.md"
     },
     {
       "id": "THEME-MVP",
       "title": "標準と鎌倉テーマの切替試作",
       "goal": 3,
-      "state": "backlog",
+      "state": "ready",
       "priority": 6,
       "depends_on": [
         "THEME-SPEC"
@@ -433,11 +461,12 @@
         "切替前後の問題・採点・既存履歴が同一",
         "768x1024で可読性と主要操作を確認する"
       ],
-      "next_action": "仕様確認後にUIだけの変更として実装する",
+      "next_action": "最新main/既存PR/台帳を照合し製品基点を記録。T1〜T11に沿い鎌倉画面限定で実装し、独立QA後draft PRへ。作成後は製品承認待ち上限3件。",
       "evidence": [],
       "review": null,
       "base_ref": null,
-      "base_sha": null
+      "base_sha": null,
+      "specification": "docs/product/theme-spec.md"
     }
   ],
   "runs": [
@@ -520,6 +549,33 @@
       "tests_passed": 4,
       "validation_scope": "4テスト成功後の最終表示修正を関連操作再検証、最終commit照合",
       "next_ticket": "THEME-SPEC"
+    },
+    {
+      "id": "cycle-20261109T1707Z",
+      "completed_at": "2026-11-09T17:14:31.456992+00:00",
+      "ticket": "THEME-SPEC",
+      "result": "テーマ仕様の独立レビュー完了、既存draft PR #9へ保存",
+      "commit": "62d9c20af5cacbc7f5174c28f4f26b84b0794150",
+      "pr": 9,
+      "report": "ops/runs/2026-11-10-theme-spec.md",
+      "cloud_verified": true,
+      "subagents": [
+        "pdm_theme_spec",
+        "engineer_theme_feasibility",
+        "qa_theme_spec"
+      ],
+      "manual_setup": false,
+      "snapshot_restore_verification": "not performed; documentation cycle",
+      "platform_run_completion_verified": false,
+      "app_tests_run": false,
+      "browser_tests_run": false,
+      "validation_checks_passed": [
+        "independent sRGB contrast calculations",
+        "T1-T11 and static scope assertions",
+        "git diff --check",
+        "final specification commit/hash match"
+      ],
+      "next_ticket": "THEME-MVP"
     }
   ],
   "operational_notes": [
