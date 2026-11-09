@@ -36,8 +36,13 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": null,
-  "updated_at": "2026-11-09T16:28:25.589441+00:00",
+  "lease": {
+    "run_id": "cycle-20261109T1707Z",
+    "acquired_at": "2026-11-09T17:08:14.573501+00:00",
+    "expires_at": "2026-11-09T17:48:14.573501+00:00",
+    "ticket": "THEME-SPEC"
+  },
+  "updated_at": "2026-11-09T17:08:14.573501+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -392,12 +397,12 @@
       "id": "THEME-SPEC",
       "title": "学習データと独立したテーマ切替仕様",
       "goal": 3,
-      "state": "requirements",
+      "state": "in_progress",
       "priority": 5,
       "depends_on": [],
-      "owner": null,
-      "branch": null,
-      "pr": null,
+      "owner": "cycle-20261109T1707Z",
+      "branch": "codex/agent-team-operations",
+      "pr": 9,
       "acceptance": [
         "鎌倉を意識した色・装飾の最小テーマを定義する",
         "好みと採点・問題内容・履歴を分離する",
@@ -408,8 +413,8 @@
       "next_action": "PdMの受入条件とUI試作案を作り、既存CSSへの影響範囲をPrMが確認する",
       "evidence": [],
       "review": null,
-      "base_ref": null,
-      "base_sha": null
+      "base_ref": "codex/agent-team-operations",
+      "base_sha": "c5e59bc2bd8ece358790ffb91649dbee7034b0d8"
     },
     {
       "id": "THEME-MVP",
