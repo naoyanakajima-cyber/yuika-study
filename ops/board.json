@@ -43,7 +43,7 @@
     "ticket": "REV-MVP",
     "purpose": "Improve discoverability on existing PR #10"
   },
-  "updated_at": "2026-11-09T22:10:14.117469+00:00",
+  "updated_at": "2026-11-09T22:11:36.893956+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -211,12 +211,12 @@
       "id": "REV-MVP",
       "title": "理由が見える苦手復習の最小実装",
       "goal": 1,
-      "state": "ready",
+      "state": "in_progress",
       "priority": 1,
       "depends_on": [
         "REV-SPEC"
       ],
-      "owner": null,
+      "owner": "engineer_rev_entry",
       "branch": "codex/recommended-review-mvp",
       "pr": 10,
       "acceptance": [
@@ -225,7 +225,7 @@
         "既存ID・保存キー・旧履歴を保護する",
         "768x1024で開始・回答・採点・保存・再読込を合成データで確認する"
       ],
-      "next_action": "同じPR #10で、おすすめ復習の存在・候補有無・入口が768x1024の初期表示で分かる導線へ改善。PdM/PrM範囲確認済み。現在HEADから独立checkoutで実装し、両単元の関連操作を独立QA。CEO方向性採用を再要求せず、マージ/公開は行わない。",
+      "next_action": "初期画面のおすすめ誘導を同じPR #10で改善中。PdM/PrM確認後に実装着手、独立QAへ引き渡す。",
       "evidence": [
         {
           "kind": "test",
@@ -310,19 +310,23 @@
       "implementation_status": "implemented_and_independently_tested",
       "followup_scope": {
         "id": "REV-MVP-discoverability",
-        "pdm": "pdm_ceo_intake",
+        "pdm": "pdm_rev_discoverability",
         "prm": "root/coordinator",
-        "status": "ready",
+        "status": "in_progress",
         "reason": "768x1024の初期表示でおすすめ開始ボタンy=1305.36px。発見性の改善根拠であり機能不良の断定ではない。",
         "acceptance": [
           "両単元のホーム初期表示内におすすめの存在と現在設定の候補有無が分かる",
           "候補ありは入口へ到達、候補0は通常練習等の次行動を案内し習得判定しない",
           "誘導だけでは出題/採点/記録を開始せず現在設定を維持する",
           "キーボード操作と可視フォーカス、移動先フォーカス、横はみ出しなし",
-          "既存4入口・設定・選定・採点・保存形式・履歴を保持し通知遮断下で独立QA"
+          "既存4入口・設定・選定・採点・保存形式・履歴を保持し通知遮断下で独立QA",
+          "候補0件と記録読取不能を区別し、設定変更後も案内・フォーカスを整合"
         ],
-        "implementation": "not_started",
-        "same_pr": 10
+        "implementation": "in_progress",
+        "same_pr": 10,
+        "work_branch": "codex/rev-discoverability-20261110",
+        "resume_from_commit": "bd7a055a1169416dbdd82654ac19c228a739f9cf",
+        "observed_main_commit": "d526d65fbae116f834d14ad994a27bc50ca23b62"
       },
       "ceo_trial": {
         "synthetic_qa": "passed",
