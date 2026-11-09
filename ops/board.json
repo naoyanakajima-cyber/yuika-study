@@ -36,14 +36,8 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": {
-    "run_id": "cycle-20261109T2209Z",
-    "acquired_at": "2026-11-09T22:10:14.117469+00:00",
-    "expires_at": "2026-11-09T22:50:14.117469+00:00",
-    "ticket": "REV-MVP",
-    "purpose": "Improve discoverability on existing PR #10"
-  },
-  "updated_at": "2026-11-09T22:14:42.095427+00:00",
+  "lease": null,
+  "updated_at": "2026-11-09T22:18:38.289151+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -211,12 +205,12 @@
       "id": "REV-MVP",
       "title": "理由が見える苦手復習の最小実装",
       "goal": 1,
-      "state": "qa",
+      "state": "ceo_wait",
       "priority": 1,
       "depends_on": [
         "REV-SPEC"
       ],
-      "owner": "qa_rev_entry",
+      "owner": null,
       "branch": "codex/recommended-review-mvp",
       "pr": 10,
       "acceptance": [
@@ -225,7 +219,7 @@
         "既存ID・保存キー・旧履歴を保護する",
         "768x1024で開始・回答・採点・保存・再読込を合成データで確認する"
       ],
-      "next_action": "実装commit ba829a1の独立QA中。現時点ではremote PR未更新、検証後に統括がlease再確認して同じPRへpush。",
+      "next_action": "入口改善は独立QA済み。CEOの試作品確認・具体的な操作上の修正があれば同じPR #10で対応。D03の方向性採用を再要求しない。共有ブラウザー引き渡しと実機確認は別途未完了。新しい修正依頼がなければCONTENT-MVPの合成試用導線・次受入条件整理へ進む。",
       "evidence": [
         {
           "kind": "test",
@@ -284,22 +278,67 @@
           "kind": "report",
           "path": "ops/runs/2026-11-10-ceo-directions-and-rev-trial.md",
           "scope": "CEO方向性採用と合成3候補の試用、入口位置所見。製品コード変更なし。"
+        },
+        {
+          "kind": "test",
+          "command": "python tests/onin_review.py",
+          "exit_code": 0,
+          "commit": "ba829a1176ff1ead7d312526890afe8792178c99",
+          "executor": "qa_rev_entry",
+          "run": "cycle-20261109T2209Z"
+        },
+        {
+          "kind": "test",
+          "command": "python tests/kamakura_review.py",
+          "exit_code": 0,
+          "commit": "ba829a1176ff1ead7d312526890afe8792178c99",
+          "executor": "qa_rev_entry",
+          "run": "cycle-20261109T2209Z"
+        },
+        {
+          "kind": "test",
+          "command": "python tests/cloud_preview.py",
+          "exit_code": 0,
+          "commit": "ba829a1176ff1ead7d312526890afe8792178c99",
+          "executor": "qa_rev_entry",
+          "run": "cycle-20261109T2209Z"
+        },
+        {
+          "kind": "test",
+          "command": "python tests/recommended_review.py",
+          "exit_code": 0,
+          "commit": "ba829a1176ff1ead7d312526890afe8792178c99",
+          "executor": "qa_rev_entry",
+          "run": "cycle-20261109T2209Z"
+        },
+        {
+          "kind": "test",
+          "command": "python tests/review_entry.py",
+          "exit_code": 0,
+          "commit": "ba829a1176ff1ead7d312526890afe8792178c99",
+          "executor": "qa_rev_entry",
+          "run": "cycle-20261109T2209Z"
+        },
+        {
+          "kind": "report",
+          "path": "ops/runs/2026-11-10-review-entry.md",
+          "commit": "ba829a1176ff1ead7d312526890afe8792178c99"
         }
       ],
       "review": {
-        "author": "engineer_rev_mvp",
-        "pdm": "pdm_rev_check",
-        "prm": "root",
-        "reviewer": "qa_rev_mvp",
+        "author": "engineer_rev_entry",
+        "pdm": "pdm_rev_discoverability",
+        "prm": "root/coordinator",
+        "reviewer": "qa_rev_entry",
         "result": "passed",
-        "commit": "bd7a055a1169416dbdd82654ac19c228a739f9cf",
-        "completed_at": "2026-11-09T14:20:46.097483+00:00",
-        "notes": "独立QAが4コマンド実行、最終commitの検証済みtree一致確認。READMEのみ統括が追記。"
+        "commit": "ba829a1176ff1ead7d312526890afe8792178c99",
+        "completed_at": "2026-11-09T22:18:38.289151+00:00",
+        "notes": "独立QAが5コマンドと両単元の上部案内/0件/読取不能/keyboard/focus/設定同期を検証。最終commitと変更4ファイルhash照合。既存テスト・CSP・通知・選定採点保存処理は維持。"
       },
       "base_ref": "codex/cloud-automatic-bootstrap",
       "base_sha": "edad8065c1f2b726e61c5cf405f8d9ff6d807480",
       "specification": "docs/product/review-spec.md",
-      "commit": "bd7a055a1169416dbdd82654ac19c228a739f9cf",
+      "commit": "ba829a1176ff1ead7d312526890afe8792178c99",
       "direction_adopted": true,
       "direction_decision": "D03",
       "release": {
@@ -312,7 +351,7 @@
         "id": "REV-MVP-discoverability",
         "pdm": "pdm_rev_discoverability",
         "prm": "root/coordinator",
-        "status": "qa",
+        "status": "independent_qa_passed",
         "reason": "768x1024の初期表示でおすすめ開始ボタンy=1305.36px。発見性の改善根拠であり機能不良の断定ではない。",
         "acceptance": [
           "両単元のホーム初期表示内におすすめの存在と現在設定の候補有無が分かる",
@@ -322,12 +361,13 @@
           "既存4入口・設定・選定・採点・保存形式・履歴を保持し通知遮断下で独立QA",
           "候補0件と記録読取不能を区別し、設定変更後も案内・フォーカスを整合"
         ],
-        "implementation": "implemented_pending_independent_qa",
+        "implementation": "completed",
         "same_pr": 10,
         "work_branch": "codex/rev-discoverability-20261110",
         "resume_from_commit": "bd7a055a1169416dbdd82654ac19c228a739f9cf",
         "observed_main_commit": "d526d65fbae116f834d14ad994a27bc50ca23b62",
-        "candidate_commit": "ba829a1176ff1ead7d312526890afe8792178c99"
+        "candidate_commit": "ba829a1176ff1ead7d312526890afe8792178c99",
+        "commit": "ba829a1176ff1ead7d312526890afe8792178c99"
       },
       "ceo_trial": {
         "synthetic_qa": "passed",
@@ -335,8 +375,23 @@
         "real_ipad_safari": "not_tested",
         "blocker": "このセッションに共有Chrome操作ツールなし。共有クラウドでCEOが直接操作する引き渡しは未完了。",
         "unblock": "正規の共有クラウドブラウザー操作機能を利用できるタスクで合成専用loopback試用を開く。",
-        "blocks_discoverability_improvement": false
-      }
+        "blocks_discoverability_improvement": false,
+        "latest_synthetic_qa_commit": "ba829a1176ff1ead7d312526890afe8792178c99",
+        "latest_cloud_artifacts": "/workspace/work/rev-entry-qa-20261110/"
+      },
+      "review_history": [
+        {
+          "author": "engineer_rev_mvp",
+          "pdm": "pdm_rev_check",
+          "prm": "root",
+          "reviewer": "qa_rev_mvp",
+          "result": "passed",
+          "commit": "bd7a055a1169416dbdd82654ac19c228a739f9cf",
+          "completed_at": "2026-11-09T14:20:46.097483+00:00",
+          "notes": "独立QAが4コマンド実行、最終commitの検証済みtree一致確認。READMEのみ統括が追記。"
+        }
+      ],
+      "ceo_wait_reason": "入口改善後の試作品確認待ち。方向性D03は採用済み。マージ・公開は未承認。"
     },
     {
       "id": "CONTENT-SPEC",
@@ -419,7 +474,7 @@
         "未確認出力と確認済み案を区別し、既存教材/記録に接続しない",
         "768x1024で編集・確認・取消・出力/再入力、外部要求/通知POST 0を検証"
       ],
-      "next_action": "REV試用確認後、既存確認画面の合成データによる次の受入条件をPdM→PrMで定義する。既存実装/QAは保持。実入力・保存先はD01/D02待ち。",
+      "next_action": "次優先。既存PR #11の合成確認画面について、迷わず編集→個別確認→JSON出力/再入力を試せる導線と次受入条件をPdM→PrMで具体化する。実装/QA済みの機能を重複再作成しない。発見した具体的不具合・操作負担のみ同じPRで改善。実入力経路/保存先はD01/D02待ち。",
       "evidence": [
         {
           "kind": "test",
@@ -850,6 +905,35 @@
       "next_action": "同じPR #10で、おすすめ復習の存在・候補有無・入口が768x1024の初期表示で分かる導線へ改善。PdM/PrM範囲確認済み。現在HEADから独立checkoutで実装し、両単元の関連操作を独立QA。CEO方向性採用を再要求せず、マージ/公開は行わない。",
       "ceo_trial_handoff": "not_completed; shared browser control tool unavailable",
       "platform_run_completion_verified": false
+    },
+    {
+      "id": "cycle-20261109T2209Z",
+      "completed_at": "2026-11-09T22:18:38.289151+00:00",
+      "ticket": "REV-MVP",
+      "result": "おすすめ復習の上部案内を既存draft PR #10へ保存。独立5テスト/追加QA成功、試作品確認待ち。",
+      "observed_operations_commit": "c3a04e994f619329f65635dfe1fd9992a8e9b42f",
+      "commit": "ba829a1176ff1ead7d312526890afe8792178c99",
+      "pr": 10,
+      "report": "ops/runs/2026-11-10-review-entry.md",
+      "cloud_verified": true,
+      "subagents": [
+        "pdm_rev_discoverability",
+        "engineer_rev_entry",
+        "qa_rev_entry"
+      ],
+      "reviewer": "qa_rev_entry",
+      "manual_setup": true,
+      "snapshot_restore_verified": false,
+      "platform_run_completion_verified": false,
+      "tests_passed": 5,
+      "new_prs": [],
+      "updated_prs": [
+        9,
+        10
+      ],
+      "ceo_decisions_ingested": 0,
+      "next_ticket": "CONTENT-MVP",
+      "next_action": "次優先。既存PR #11の合成確認画面について、迷わず編集→個別確認→JSON出力/再入力を試せる導線と次受入条件をPdM→PrMで具体化する。実装/QA済みの機能を重複再作成しない。発見した具体的不具合・操作負担のみ同じPRで改善。実入力経路/保存先はD01/D02待ち。"
     }
   ],
   "operational_notes": [
