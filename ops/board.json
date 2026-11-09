@@ -36,13 +36,8 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": {
-    "run_id": "cycle-20261109T1805Z",
-    "acquired_at": "2026-11-09T18:05:46.560755+00:00",
-    "expires_at": "2026-11-09T18:45:46.560755+00:00",
-    "ticket": "THEME-MVP"
-  },
-  "updated_at": "2026-11-09T18:05:46.560755+00:00",
+  "lease": null,
+  "updated_at": "2026-11-09T18:15:28.833276+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -98,7 +93,7 @@
       "blocks": [
         "CONTENT-LIVE-INPUT"
       ],
-      "independent_work": "合成のテキスト・画像で仕様と確認画面を設計できる"
+      "independent_work": "製品PR判断待ち上限3件のため新規製品実装は停止。必要な既存PR修正・レビューがなければ終了する。私的資料には接続しない。"
     },
     {
       "id": "D02",
@@ -108,7 +103,7 @@
       "blocks": [
         "PERSONAL-DATA-CONNECTION"
       ],
-      "independent_work": "合成履歴で復習機能を実装・検証できる"
+      "independent_work": "製品PR判断待ち上限3件のため新規製品実装は停止。必要な既存PR修正・レビューがなければ終了する。私的資料には接続しない。"
     },
     {
       "id": "D03",
@@ -119,7 +114,7 @@
       "blocks": [
         "REV-MVP-MERGE"
       ],
-      "independent_work": "THEME-MVPを合成データで進める"
+      "independent_work": "製品PR判断待ち上限3件のため新規製品実装は停止。必要な既存PR修正・レビューがなければ終了する。私的資料には接続しない。"
     },
     {
       "id": "D04",
@@ -130,7 +125,18 @@
       "blocks": [
         "CONTENT-MVP-MERGE"
       ],
-      "independent_work": "THEME-MVPを進める。D01/D02に関係する実データ接続は行わない。"
+      "independent_work": "製品PR判断待ち上限3件のため新規製品実装は停止。必要な既存PR修正・レビューがなければ終了する。私的資料には接続しない。"
+    },
+    {
+      "id": "D05",
+      "status": "pending",
+      "ticket": "THEME-MVP",
+      "question": "学習状態を保つ標準/鎌倉テーマ切替（PR #12）の仕様・挙動を採用するか",
+      "recommendation": "鎌倉画面限定の合成検証済み切替を確認して採用方針を決める。他画面への拡張、依存PRを含むマージ/公開は別途判断。",
+      "blocks": [
+        "THEME-MVP-MERGE"
+      ],
+      "independent_work": "製品PR判断待ち上限3件のため新規実装を停止。必要な既存PR修正・レビューがなければ終了する。"
     }
   ],
   "tickets": [
@@ -198,7 +204,7 @@
         "既存ID・保存キー・旧履歴を保護する",
         "768x1024で開始・回答・採点・保存・再読込を合成データで確認する"
       ],
-      "next_action": "CEOがPR #10の採用を判断。依存 #5→#6→#7 を含むマージ・公開は別途明示判断。待機中はTHEME-MVPを進める。",
+      "next_action": "CEOがPR #10の採用を判断。依存 #5→#6→#7 を含むマージ・公開は別途明示判断。製品PR判断待ちは上限3件。新規実装せず、必要な既存PR修正のみ進める。",
       "evidence": [
         {
           "kind": "test",
@@ -334,7 +340,7 @@
         "未確認出力と確認済み案を区別し、既存教材/記録に接続しない",
         "768x1024で編集・確認・取消・出力/再入力、外部要求/通知POST 0を検証"
       ],
-      "next_action": "CEOがPR #11の合成教材確認試作の仕様・挙動を判断。実入力経路/実データ接続と依存PRのマージ・公開は別途判断。待機中はTHEME-MVPを進める。",
+      "next_action": "CEOがPR #11の合成教材確認試作の仕様・挙動を判断。実入力経路/実データ接続と依存PRのマージ・公開は別途判断。製品PR判断待ちは上限3件。新規実装せず、必要な既存PR修正のみ進める。",
       "evidence": [
         {
           "kind": "test",
@@ -410,7 +416,7 @@
         "文字・コントラスト・タップ領域・動きの負担を確認する",
         "私的画像やキャラクター画像の外部取得を前提にしない"
       ],
-      "next_action": "仕様のPrM/技術確認/独立QA完了。THEME-MVPを鎌倉画面限定で実装する。テーマ機能はまだ未実装。",
+      "next_action": "仕様完了。実装はPR #12で独立QA済み・CEO判断待ち。",
       "evidence": [
         {
           "kind": "specification",
@@ -453,25 +459,73 @@
       "id": "THEME-MVP",
       "title": "標準と鎌倉テーマの切替試作",
       "goal": 3,
-      "state": "in_progress",
+      "state": "ceo_wait",
       "priority": 6,
       "depends_on": [
         "THEME-SPEC"
       ],
-      "owner": "cycle-20261109T1805Z",
+      "owner": null,
       "branch": "codex/kamakura-theme-mvp",
-      "pr": null,
+      "pr": 12,
       "acceptance": [
         "切替・再読込・標準へ戻す操作が動く",
         "切替前後の問題・採点・既存履歴が同一",
         "768x1024で可読性と主要操作を確認する"
       ],
-      "next_action": "最新main/既存PR/台帳を照合し製品基点を記録。T1〜T11に沿い鎌倉画面限定で実装し、独立QA後draft PRへ。作成後は製品承認待ち上限3件。",
-      "evidence": [],
-      "review": null,
+      "next_action": "CEOがPR #12のテーマ仕様・挙動の採用を判断。製品PR判断待ちは上限3件。新規製品実装を停止し、必要な既存PR修正がなければ終了する。マージ/公開は別途明示判断。",
+      "evidence": [
+        {
+          "kind": "test",
+          "command": "python tests/onin_review.py",
+          "exit_code": 0,
+          "commit": "57171ad9cab02fec6a080ecbe317fe11d3f51dcf",
+          "executor": "qa_theme_mvp"
+        },
+        {
+          "kind": "test",
+          "command": "python tests/kamakura_review.py",
+          "exit_code": 0,
+          "commit": "57171ad9cab02fec6a080ecbe317fe11d3f51dcf",
+          "executor": "qa_theme_mvp"
+        },
+        {
+          "kind": "test",
+          "command": "python tests/cloud_preview.py",
+          "exit_code": 0,
+          "commit": "57171ad9cab02fec6a080ecbe317fe11d3f51dcf",
+          "executor": "qa_theme_mvp"
+        },
+        {
+          "kind": "test",
+          "command": "python tests/theme_review.py",
+          "exit_code": 0,
+          "commit": "57171ad9cab02fec6a080ecbe317fe11d3f51dcf",
+          "executor": "qa_theme_mvp"
+        },
+        {
+          "kind": "report",
+          "path": "ops/runs/2026-11-10-theme-mvp.md"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/12",
+          "draft": true
+        }
+      ],
+      "review": {
+        "author": "engineer_theme_mvp",
+        "pdm": "pdm_theme_mvp_check",
+        "prm": "root",
+        "reviewer": "qa_theme_mvp",
+        "result": "passed",
+        "commit": "57171ad9cab02fec6a080ecbe317fe11d3f51dcf",
+        "completed_at": "2026-11-09T18:15:28.833276+00:00",
+        "notes": "独立QAが4コマンド実行、両テーマ各画面・破損合成記録/保存障害/通知spyを追加検証。最終4ファイルhash一致、作業ツリーcleanを確認。"
+      },
       "base_ref": "codex/cloud-automatic-bootstrap",
       "base_sha": "edad8065c1f2b726e61c5cf405f8d9ff6d807480",
-      "specification": "docs/product/theme-spec.md"
+      "specification": "docs/product/theme-spec.md",
+      "commit": "57171ad9cab02fec6a080ecbe317fe11d3f51dcf"
     }
   ],
   "runs": [
@@ -581,6 +635,27 @@
         "final specification commit/hash match"
       ],
       "next_ticket": "THEME-MVP"
+    },
+    {
+      "id": "cycle-20261109T1805Z",
+      "completed_at": "2026-11-09T18:15:28.833276+00:00",
+      "ticket": "THEME-MVP",
+      "result": "draft PR #12、独立QA成功、CEO判断待ち3件に到達",
+      "commit": "57171ad9cab02fec6a080ecbe317fe11d3f51dcf",
+      "pr": 12,
+      "report": "ops/runs/2026-11-10-theme-mvp.md",
+      "cloud_verified": true,
+      "subagents": [
+        "pdm_theme_mvp_check",
+        "engineer_theme_mvp",
+        "qa_theme_mvp"
+      ],
+      "manual_setup": true,
+      "snapshot_restore_verified": false,
+      "platform_run_completion_verified": false,
+      "tests_passed": 4,
+      "next_ticket": null,
+      "next_action": "CEO判断の台帳反映を確認。必要な既存PR修正がなければ新規実装せず終了。"
     }
   ],
   "operational_notes": [
