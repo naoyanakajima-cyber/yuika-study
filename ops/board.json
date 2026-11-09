@@ -36,8 +36,13 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": null,
-  "updated_at": "2026-11-09T15:32:31.563582+00:00",
+  "lease": {
+    "run_id": "cycle-20261109T1606Z",
+    "acquired_at": "2026-11-09T16:07:26.088130+00:00",
+    "expires_at": "2026-11-09T16:47:26.088130+00:00",
+    "ticket": "CONTENT-MVP"
+  },
+  "updated_at": "2026-11-09T16:07:26.088130+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -303,13 +308,13 @@
       "id": "CONTENT-MVP",
       "title": "合成教材の問題案を確認・編集する試作",
       "goal": 2,
-      "state": "ready",
+      "state": "in_progress",
       "priority": 4,
       "depends_on": [
         "CONTENT-SPEC"
       ],
-      "owner": null,
-      "branch": null,
+      "owner": "cycle-20261109T1606Z",
+      "branch": "codex/content-review-mvp",
       "pr": null,
       "acceptance": [
         "C1〜C11を満たす合成サンプル限定の試作",
@@ -321,8 +326,8 @@
       "next_action": "C1〜C11に沿って同梱合成text/imageの確認・編集・JSON出入を独立試作する。実OCR/自動生成/実入力経路/本番教材導入は含めない。",
       "evidence": [],
       "review": null,
-      "base_ref": null,
-      "base_sha": null,
+      "base_ref": "codex/cloud-automatic-bootstrap",
+      "base_sha": "edad8065c1f2b726e61c5cf405f8d9ff6d807480",
       "specification": "docs/product/content-spec.md"
     },
     {
