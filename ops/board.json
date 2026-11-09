@@ -43,7 +43,7 @@
     "ticket": "CONTENT-MVP",
     "purpose": "Review synthetic content trial flow and address concrete usability findings"
   },
-  "updated_at": "2026-11-09T23:08:50.833624+00:00",
+  "updated_at": "2026-11-09T23:10:08.540455+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -465,12 +465,12 @@
       "id": "CONTENT-MVP",
       "title": "合成教材の問題案を確認・編集する試作",
       "goal": 2,
-      "state": "backlog",
+      "state": "requirements",
       "priority": 2,
       "depends_on": [
         "CONTENT-SPEC"
       ],
-      "owner": null,
+      "owner": "pdm_content_flow",
       "branch": "codex/content-review-mvp",
       "pr": 11,
       "acceptance": [
@@ -480,7 +480,7 @@
         "未確認出力と確認済み案を区別し、既存教材/記録に接続しない",
         "768x1024で編集・確認・取消・出力/再入力、外部要求/通知POST 0を検証"
       ],
-      "next_action": "次優先。既存PR #11の合成確認画面について、迷わず編集→個別確認→JSON出力/再入力を試せる導線と次受入条件をPdM→PrMで具体化する。実装/QA済みの機能を重複再作成しない。発見した具体的不具合・操作負担のみ同じPRで改善。実入力経路/保存先はD01/D02待ち。",
+      "next_action": "既存確認画面の次操作案内をPdMと独立QAが確認中。具体的な操作負担に限り同じPR #11で改善する。",
       "evidence": [
         {
           "kind": "test",
@@ -545,7 +545,18 @@
         "deployment_authorized": false,
         "state": "draft_unmerged"
       },
-      "implementation_status": "implemented_and_independently_tested"
+      "implementation_status": "implemented_and_independently_tested",
+      "followup_scope": {
+        "id": "CONTENT-MVP-guidance",
+        "status": "requirements",
+        "pdm": "pdm_content_flow",
+        "prm": "root/coordinator",
+        "resume_from_commit": "1ea081b4b68b311fcd40c35d1f8bc972e3c60054",
+        "observed_main_commit": "d526d65fbae116f834d14ad994a27bc50ca23b62",
+        "work_branch": "codex/content-flow-20261110",
+        "same_pr": 11,
+        "implementation": "not_started"
+      }
     },
     {
       "id": "THEME-SPEC",
