@@ -36,8 +36,14 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": null,
-  "updated_at": "2026-11-09T22:18:38.289151+00:00",
+  "lease": {
+    "run_id": "cycle-20261109T2308Z",
+    "acquired_at": "2026-11-09T23:08:50.833624+00:00",
+    "expires_at": "2026-11-09T23:48:50.833624+00:00",
+    "ticket": "CONTENT-MVP",
+    "purpose": "Review synthetic content trial flow and address concrete usability findings"
+  },
+  "updated_at": "2026-11-09T23:08:50.833624+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
