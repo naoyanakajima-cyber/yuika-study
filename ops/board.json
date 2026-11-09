@@ -36,8 +36,13 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": null,
-  "updated_at": "2026-11-09T17:14:31.456992+00:00",
+  "lease": {
+    "run_id": "cycle-20261109T1805Z",
+    "acquired_at": "2026-11-09T18:05:46.560755+00:00",
+    "expires_at": "2026-11-09T18:45:46.560755+00:00",
+    "ticket": "THEME-MVP"
+  },
+  "updated_at": "2026-11-09T18:05:46.560755+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -448,13 +453,13 @@
       "id": "THEME-MVP",
       "title": "標準と鎌倉テーマの切替試作",
       "goal": 3,
-      "state": "ready",
+      "state": "in_progress",
       "priority": 6,
       "depends_on": [
         "THEME-SPEC"
       ],
-      "owner": null,
-      "branch": null,
+      "owner": "cycle-20261109T1805Z",
+      "branch": "codex/kamakura-theme-mvp",
       "pr": null,
       "acceptance": [
         "切替・再読込・標準へ戻す操作が動く",
@@ -464,8 +469,8 @@
       "next_action": "最新main/既存PR/台帳を照合し製品基点を記録。T1〜T11に沿い鎌倉画面限定で実装し、独立QA後draft PRへ。作成後は製品承認待ち上限3件。",
       "evidence": [],
       "review": null,
-      "base_ref": null,
-      "base_sha": null,
+      "base_ref": "codex/cloud-automatic-bootstrap",
+      "base_sha": "edad8065c1f2b726e61c5cf405f8d9ff6d807480",
       "specification": "docs/product/theme-spec.md"
     }
   ],
