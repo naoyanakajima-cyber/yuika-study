@@ -36,8 +36,13 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": null,
-  "updated_at": "2026-11-09T14:20:46.097483+00:00",
+  "lease": {
+    "run_id": "cycle-20261109T1522Z",
+    "acquired_at": "2026-11-09T15:23:27.330803+00:00",
+    "expires_at": "2026-11-09T16:03:27.330803+00:00",
+    "ticket": "CONTENT-SPEC"
+  },
+  "updated_at": "2026-11-09T15:23:27.330803+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -241,11 +246,11 @@
       "id": "CONTENT-SPEC",
       "title": "教材入力から確認済み問題案までの共通仕様",
       "goal": 2,
-      "state": "requirements",
+      "state": "prm_review",
       "priority": 3,
       "depends_on": [],
-      "owner": null,
-      "branch": null,
+      "owner": "cycle-20261109T1522Z",
+      "branch": "codex/agent-team-operations",
       "pr": null,
       "acceptance": [
         "入力・読み取り結果・問題案・保護者確認を分ける",
@@ -258,8 +263,8 @@
       "next_action": "入力場所が未決でも進められるデータ形式と確認フローをPdMが定義する",
       "evidence": [],
       "review": null,
-      "base_ref": null,
-      "base_sha": null
+      "base_ref": "codex/agent-team-operations",
+      "base_sha": "48acbafb46ba2b257aa545c52c447132656e9c88"
     },
     {
       "id": "CONTENT-MVP",
