@@ -1,0 +1,253 @@
+{
+  "schema_version": 1,
+  "timezone": "Asia/Tokyo",
+  "mission": [
+    "回答記録に基づく苦手復習",
+    "画像・テキストからの教材拡張",
+    "好みに合わせたUIテーマ"
+  ],
+  "operations_branch": "codex/agent-team-operations",
+  "implementation_base_commit": "edad8065c1f2b726e61c5cf405f8d9ff6d807480",
+  "policy": {
+    "autonomous": [
+      "requirements",
+      "implementation",
+      "tests",
+      "draft_pr"
+    ],
+    "ceo_required": [
+      "merge",
+      "deployment",
+      "real_notifications",
+      "billing",
+      "secrets",
+      "access",
+      "private_data_connection"
+    ],
+    "max_parallel_implementations": 1,
+    "max_subagents": 3,
+    "max_ceo_wait_prs": 3,
+    "max_run_minutes": 35,
+    "lease_minutes": 45,
+    "max_retries_per_cause": 2,
+    "max_ceo_wait_prs_scope": "Only product PRs linked to this board; exclude existing PRs #4-#8 and operations documentation PR"
+  },
+  "authorization": {
+    "date": "2026-11-09",
+    "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
+  },
+  "lease": null,
+  "updated_at": "2026-11-09",
+  "scheduling": {
+    "worker": "hourly at :05 Asia/Tokyo",
+    "ceo_checks": [
+      "05:30",
+      "22:00"
+    ],
+    "registered": false,
+    "first_scheduled_run_verified": false,
+    "automation_ids": {}
+  },
+  "existing_work": [
+    {
+      "pr": 4,
+      "state": "draft",
+      "scope": "教材ヒント変更。重複実装前に確認"
+    },
+    {
+      "pr": 5,
+      "state": "draft",
+      "scope": "環境基盤"
+    },
+    {
+      "pr": 6,
+      "state": "draft",
+      "scope": "CSP待機修正"
+    },
+    {
+      "pr": 7,
+      "state": "draft",
+      "scope": "検証済み環境基点"
+    },
+    {
+      "pr": 8,
+      "state": "draft",
+      "scope": "成功記録失効の改善。未採用"
+    }
+  ],
+  "decisions": [
+    {
+      "id": "D01",
+      "status": "pending",
+      "question": "教材入力はチャット経由から始めるか、アプリ内の保護者画面から始めるか",
+      "recommendation": "まずチャット経由と共通の検証用データ形式を定義し、アプリ内入力は別段階にする",
+      "blocks": [
+        "CONTENT-LIVE-INPUT"
+      ],
+      "independent_work": "合成のテキスト・画像で仕様と確認画面を設計できる"
+    },
+    {
+      "id": "D02",
+      "status": "pending",
+      "question": "本人の回答記録・教材画像をどの非公開の場所から読むか",
+      "recommendation": "CEOが明示した入力だけを対象にする。公開repoには原資料や個人記録を置かない",
+      "blocks": [
+        "PERSONAL-DATA-CONNECTION"
+      ],
+      "independent_work": "合成履歴で復習機能を実装・検証できる"
+    }
+  ],
+  "tickets": [
+    {
+      "id": "REV-SPEC",
+      "title": "苦手復習の仕様と履歴互換性を定義",
+      "goal": 1,
+      "state": "requirements",
+      "priority": 1,
+      "depends_on": [],
+      "owner": null,
+      "branch": null,
+      "pr": null,
+      "acceptance": [
+        "実際の保存項目と未記録項目をコードから確認する",
+        "初回・再回答・別日、ヒント有無を記録可能な範囲で区別する",
+        "教材内容変更で旧履歴が読めなくなる条件を調査し、保護方針を明記する",
+        "復習選定理由と出題数・同点時の扱いを定義する",
+        "合成履歴の具体例と受入テスト案を作る"
+      ],
+      "next_action": "PdMを起動し既存コードを読んで仕様を作る。PrM/独立レビュー後にREV-MVPをreadyにする",
+      "evidence": [],
+      "review": null,
+      "base_ref": null,
+      "base_sha": null
+    },
+    {
+      "id": "REV-MVP",
+      "title": "理由が見える苦手復習の最小実装",
+      "goal": 1,
+      "state": "backlog",
+      "priority": 2,
+      "depends_on": [
+        "REV-SPEC"
+      ],
+      "owner": null,
+      "branch": null,
+      "pr": null,
+      "acceptance": [
+        "仕様で定義した誤答と時間を置いた確認を選ぶ",
+        "なぜ復習対象になったかを表示する",
+        "既存ID・保存キー・旧履歴を保護する",
+        "768x1024で開始・回答・採点・保存・再読込を合成データで確認する"
+      ],
+      "next_action": "REV-SPECの受入条件をPrMが確認後、小さな変更として実装する",
+      "evidence": [],
+      "review": null,
+      "base_ref": null,
+      "base_sha": null
+    },
+    {
+      "id": "CONTENT-SPEC",
+      "title": "教材入力から確認済み問題案までの共通仕様",
+      "goal": 2,
+      "state": "requirements",
+      "priority": 3,
+      "depends_on": [],
+      "owner": null,
+      "branch": null,
+      "pr": null,
+      "acceptance": [
+        "入力・読み取り結果・問題案・保護者確認を分ける",
+        "読めない文字を確定値にしない",
+        "単元・問題ID・正答・別表記・解説・ヒント・出典範囲の形式を定義する",
+        "元画像や個人記録を公開repoへ保存しない",
+        "合成テキストと合成画像の検証例を用意する",
+        "有料OCRや外部保存は判断事項として切り離す"
+      ],
+      "next_action": "入力場所が未決でも進められるデータ形式と確認フローをPdMが定義する",
+      "evidence": [],
+      "review": null,
+      "base_ref": null,
+      "base_sha": null
+    },
+    {
+      "id": "CONTENT-MVP",
+      "title": "テキストから問題案を確認・検証する試作",
+      "goal": 2,
+      "state": "backlog",
+      "priority": 4,
+      "depends_on": [
+        "CONTENT-SPEC"
+      ],
+      "owner": null,
+      "branch": null,
+      "pr": null,
+      "acceptance": [
+        "未確認の案を本番問題へ混ぜない",
+        "必須項目・ID重複・正解と選択肢を検証する",
+        "合成入力で修正・取消・確認済み出力を試せる",
+        "実資料の外部送信や自動公開を行わない"
+      ],
+      "next_action": "PrMが決めた試作範囲で実装する。D01を越える実入力経路は作らない",
+      "evidence": [],
+      "review": null,
+      "base_ref": null,
+      "base_sha": null
+    },
+    {
+      "id": "THEME-SPEC",
+      "title": "学習データと独立したテーマ切替仕様",
+      "goal": 3,
+      "state": "requirements",
+      "priority": 5,
+      "depends_on": [],
+      "owner": null,
+      "branch": null,
+      "pr": null,
+      "acceptance": [
+        "鎌倉を意識した色・装飾の最小テーマを定義する",
+        "好みと採点・問題内容・履歴を分離する",
+        "テーマ解除で標準表示へ戻せる",
+        "文字・コントラスト・タップ領域・動きの負担を確認する",
+        "私的画像やキャラクター画像の外部取得を前提にしない"
+      ],
+      "next_action": "PdMの受入条件とUI試作案を作り、既存CSSへの影響範囲をPrMが確認する",
+      "evidence": [],
+      "review": null,
+      "base_ref": null,
+      "base_sha": null
+    },
+    {
+      "id": "THEME-MVP",
+      "title": "標準と鎌倉テーマの切替試作",
+      "goal": 3,
+      "state": "backlog",
+      "priority": 6,
+      "depends_on": [
+        "THEME-SPEC"
+      ],
+      "owner": null,
+      "branch": null,
+      "pr": null,
+      "acceptance": [
+        "切替・再読込・標準へ戻す操作が動く",
+        "切替前後の問題・採点・既存履歴が同一",
+        "768x1024で可読性と主要操作を確認する"
+      ],
+      "next_action": "仕様確認後にUIだけの変更として実装する",
+      "evidence": [],
+      "review": null,
+      "base_ref": null,
+      "base_sha": null
+    }
+  ],
+  "runs": [],
+  "operational_notes": [
+    "既存の停止中自律更新は再開しない",
+    "公開済み環境の新規タスク復元・6テスト成功はCEOから報告済み。各runは実環境を確認する",
+    "CEOチェックは開始時刻指定であり、完了時刻保証ではない"
+  ],
+  "decision_intake": {
+    "canonical_location": "CEO chat that configured this operating model",
+    "rule": "A handler who actually reads the CEO reply records sanitized ticket, decision scope, timestamp and handler in this board, only without an active worker lease. Worker never infers missing approvals."
+  }
+}
