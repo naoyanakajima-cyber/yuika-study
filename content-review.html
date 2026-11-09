@@ -3,9 +3,10 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src 'none'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'">
 <title>教材の確認室 · 合成サンプル</title><style>
 *{box-sizing:border-box}body{margin:0;background:#f6f3ec;color:#213b35;font-family:system-ui,sans-serif;line-height:1.65}main{max-width:1000px;margin:auto;padding:24px}h1{font-size:1.9rem;margin:10px 0}h2{font-size:1.3rem}h3{font-size:1.1rem}.eyebrow{font-size:.8rem;letter-spacing:.13em;color:#526e61}.intro{max-width:45em}.card{overflow-wrap:anywhere;background:#fff;border:1px solid #d4dfd5;border-radius:16px;padding:22px;margin:18px 0;min-width:0}.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}.grid>.card{margin:0}.muted{overflow-wrap:anywhere;color:#57655f;font-size:.92rem}.note{padding:14px;background:#edf2e9;border-radius:9px;overflow-wrap:anywhere}.warning{background:#fff2d9;color:#664813}.error{color:#8c2d24;overflow-wrap:anywhere}label{display:block;font-weight:600;margin:13px 0}input,textarea,select{display:block;width:100%;max-width:100%;margin-top:5px;padding:10px;border:1px solid #98aaa0;border-radius:7px;font:inherit;color:inherit;background:#fff}textarea{min-height:90px;resize:vertical}button{padding:12px 16px;min-height:46px;border:1px solid #9bab9e;border-radius:8px;background:#fff;color:#24483a;font:inherit;cursor:pointer}button.primary{background:#2d604c;color:#fff;border-color:#2d604c}button:disabled{opacity:.48;cursor:default}:focus-visible{outline:3px solid #c58a3a;outline-offset:3px}.checkline input{display:inline;width:auto;margin-right:8px}pre{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit}svg{display:block;width:100%;height:auto}summary{cursor:pointer;font-weight:600}details{margin:12px 0}ul{padding-left:24px}.status{font-weight:700}.footer{font-size:.85rem;color:#57655f;margin:25px 0}#notice{min-height:1.6em}#work[hidden]{display:none}@media(max-width:800px){.grid{grid-template-columns:1fr}main{padding:16px}.card{padding:18px}}
+.flow-target:focus{outline:3px solid #c58a3a;outline-offset:3px}#workflow p{margin:8px 0}#workflow h2{margin:0}
 </style></head><body><main><div class="eyebrow">YUIKA · MATERIAL REVIEW</div><h1>教材の確認室</h1><p class="intro">資料と問題案を見比べて、読み取りや答えを確かめる試作です。ここでは同梱の合成サンプルだけを使います。</p><p class="note warning">実教材・写真・個人情報は入力しないでください。OCRや問題の自動生成は行っていません。確認済みの案も学習アプリには追加されません。</p>
 <section class="card"><h2>合成サンプルを選ぶ</h2><div class="row"><button id="sample-text" class="primary">テキストの例</button><button id="sample-image">画像・判読不明の例</button></div><label>保存した合成案JSONを再入力<input id="import" type="file" accept=".json,application/json"></label><p class="muted">再入力した確認状態は未確認に戻します。学習記録のJSONは読み込めません。</p></section>
-<div id="notice" role="status" aria-live="polite"></div><section id="work" hidden><div class="row"><span id="revision" class="status"></span><button id="cancel">この案を取り消す</button></div><p class="note">作業はこの画面の一時保持です。再読み込みで未保存内容は失われます。内容を変更すると全問の確認が外れます。</p><div class="grid"><section class="card"><h2>1. 原本（同梱サンプル）</h2><div id="source-preview"></div><p id="source-meta" class="muted"></p></section><section class="card"><h2>2. 読み取りの確認</h2><div id="transcription-editor"></div></section></div><div id="metadata"></div><div id="questions"></div><section class="card"><h2>4. 問題案を保管する</h2><p id="all-status" class="status"></p><div class="row"><button id="export-draft">未確認の案をJSONで保存</button><button id="export-confirmed" class="primary">確認済みの案をJSONで保存</button></div><p class="muted">内容の確認と、本番への導入・公開承認は別です。案のJSONは現在の学習記録JSONとは異なります。</p></section></section><p class="footer">合成サンプルによる確認用試作 · 外部送信なし · 学習記録への書き込みなし</p></main><script>
+<div id="notice" role="status" aria-live="polite"></div><section id="work" hidden><div class="row"><span id="revision" class="status"></span><button id="cancel">この案を取り消す</button></div><aside id="workflow" class="card" aria-labelledby="workflow-title"><h2 id="workflow-title" class="flow-target" tabindex="-1">確認の進み具合</h2><p id="workflow-count" class="status"></p><p id="workflow-next" role="status"></p><button id="next-step">次の作業へ</button><p class="muted">案内は移動だけです。内容の確認とJSON保存は、それぞれのボタンで行います。</p></aside><p class="note">作業はこの画面の一時保持です。再読み込みで未保存内容は失われます。内容を変更すると全問の確認が外れます。</p><div class="grid"><section class="card"><h2>1. 原本（同梱サンプル）</h2><div id="source-preview"></div><p id="source-meta" class="muted"></p></section><section class="card"><h2>2. 読み取りの確認</h2><div id="transcription-editor"></div></section></div><div id="metadata"></div><div id="questions"></div><section class="card"><h2 id="export-title" class="flow-target" tabindex="-1">4. 問題案を保管する</h2><p id="all-status" class="status"></p><div class="row"><button id="export-draft">未確認の案をJSONで保存</button><button id="export-confirmed" class="primary">確認済みの案をJSONで保存</button></div><p class="muted">内容の確認と、本番への導入・公開承認は別です。案のJSONは現在の学習記録JSONとは異なります。</p></section></section><p class="footer">合成サンプルによる確認用試作 · 外部送信なし · 学習記録への書き込みなし</p></main><script>
 'use strict';
 const SAMPLES=[{"format": "yuika-content-proposal", "schemaVersion": 1, "packageId": "draft-synthetic-text-package", "revision": 1, "source": {"kind": "text", "sourceId": "synthetic-text-source", "label": "合成教材テキスト（実資料ではありません）", "locator": "synthetic-source.txt"}, "transcription": {"text": "水を冷やすと氷になります。\n太陽は東からのぼります。\n", "uncertainties": []}, "unit": {"id": "draft-synthetic-material", "title": "合成教材：水と方角"}, "questions": [{"id": "draft-synthetic-water-001", "questionVersion": 1, "type": "text", "prompt": "水を冷やすと何になりますか？", "answer": "氷", "aliases": [], "readings": ["こおり"], "options": [], "explanation": "水は冷やすと氷になることがあります。元の合成文に対応する説明案です。", "hint": "冷凍庫で水を冷やしたときを思い出そう。", "sourceRefs": [{"sourceId": "synthetic-text-source", "locator": "lines:1-1"}], "generatedFields": ["prompt", "explanation", "hint", "readings"], "status": "draft", "confirmedRevision": null}]}, {"format": "yuika-content-proposal", "schemaVersion": 1, "packageId": "draft-synthetic-image-package", "revision": 1, "source": {"kind": "image", "sourceId": "synthetic-image-source", "label": "手作りの合成画像（OCR実行結果ではありません）", "locator": "synthetic-source.svg"}, "transcription": {"text": "水を冷やすと氷になります。\n太陽は［判読不明］からのぼります。", "uncertainties": [{"id": "synthetic-uncertainty-001", "quote": "［判読不明］", "candidates": ["東", "西"], "resolution": null}]}, "unit": {"id": "draft-synthetic-material", "title": "合成教材：水と方角"}, "questions": [{"id": "draft-synthetic-direction-001", "questionVersion": 1, "type": "text", "prompt": "太陽はどの方角からのぼりますか？", "answer": null, "aliases": [], "readings": [], "options": [], "explanation": null, "hint": null, "sourceRefs": [{"sourceId": "synthetic-image-source", "locator": "page:1;region:24,124,552,72"}], "generatedFields": ["prompt"], "status": "draft", "confirmedRevision": null}]}];
 const ASSETS={"text": "水を冷やすと氷になります。\n太陽は東からのぼります。\n", "image": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" width=\"600\" height=\"240\" viewBox=\"0 0 600 240\" role=\"img\" aria-labelledby=\"title desc\">\n  \u003ctitle id=\"title\">合成教材・読み取り確認用\u003c/title>\n  \u003cdesc id=\"desc\">手作りのテスト入力例。水を冷やすと氷になるという文と、方角を判読不明にした太陽の文。実教材の写真でもOCRの実行結果でもありません。\u003c/desc>\n  \u003crect width=\"600\" height=\"240\" fill=\"#ffffff\"/>\n  \u003cg font-family=\"sans-serif\" fill=\"#172d3f\">\n    \u003ctext x=\"24\" y=\"38\" font-size=\"18\">合成教材・読み取り確認用\u003c/text>\n    \u003ctext x=\"24\" y=\"100\" font-size=\"24\">水を冷やすと氷になります。\u003c/text>\n    \u003ctext x=\"24\" y=\"160\" font-size=\"24\">太陽は［判読不明］からのぼります。\u003c/text>\n    \u003ctext x=\"24\" y=\"218\" font-size=\"14\">※ 手作りの仕様例です。OCRは実行していません。\u003c/text>\n  \u003c/g>\n\u003c/svg>\n"};
@@ -69,13 +70,40 @@ function issues(p,index){
 }
 function clearConfirm(p){for(const q of p.questions){q.status='draft';q.confirmedRevision=null;}}
 function mayDiscard(){return !unsaved||confirm('未保存の案を破棄しますか？');}
-function acceptProposal(value){const next=clone(validateShape(value));if(!mayDiscard())return false;clearConfirm(next);proposal=next;unsaved=true;render();notice('合成案を読み込みました。内容を確かめてください。');return true;}
+function acceptProposal(value){const next=clone(validateShape(value));if(!mayDiscard())return false;clearConfirm(next);proposal=next;unsaved=true;render();notice('合成案を読み込みました。内容を確かめてください。');moveTo('workflow-title');return true;}
 function changed(mutator){if(proposal.revision>=Number.MAX_SAFE_INTEGER-1){notice('案の版が上限です。JSONを保管し、新しい合成案を選んでください。');render();return;}mutator();proposal.revision++;clearConfirm(proposal);unsaved=true;updateStatus();}
 function element(tag,text,parent){const el=document.createElement(tag);if(text!==undefined)el.textContent=text;if(parent)parent.append(el);return el;}
 function field(parent,label,value,onChange,{id,lines=false,array=false,nullable=false}={}){
  const wrap=element('label',label,parent),input=element(lines?'textarea':'input',undefined,wrap);input.id=id||'';input.value=array?value.join('\n'):(value??'');
  input.addEventListener('input',()=>changed(()=>onChange(array?(input.value===''?[]:input.value.split('\n')):nullable&&input.value===''?null:input.value)));
  return input;
+}
+function moveTo(id){
+ const target=$(id);if(!target)return;
+ target.focus({preventScroll:true});target.scrollIntoView({block:'center'});
+}
+function updateGuidance(){
+ const errors=proposal.questions.map((q,i)=>issues(proposal,i));
+ const confirmed=proposal.questions.map((q,i)=>!errors[i].length&&q.status==='confirmed'&&q.confirmedRevision===proposal.revision);
+ $('workflow-count').textContent='確認済み '+confirmed.filter(Boolean).length+' / '+proposal.questions.length+'問';
+ const unresolved=proposal.transcription.uncertainties.findIndex(u=>!nonempty(u.resolution,1000));
+ const repair=errors.findIndex(list=>list.length),review=confirmed.findIndex(value=>!value);
+ let text,label,target;
+ if(unresolved>=0){
+  const count=proposal.transcription.uncertainties.filter(u=>!nonempty(u.resolution,1000)).length;
+  text='読み取りの不明箇所が '+count+'件あります。原本と見比べ、分からない箇所は未解決のままにしてください。全問の確認を保留しています。';
+  label='読み取りの不明箇所へ';target='resolution-'+unresolved;
+ }else if(repair>=0){
+  text='問題案 '+(repair+1)+' に修正が必要です：'+errors[repair].join(' ');
+  label='問題案 '+(repair+1)+' の不足理由へ';target='issues-'+repair;
+ }else if(review>=0){
+  text='問題案 '+(review+1)+' は未確認です。原本・転記と見比べ、正答・解説・ヒントを確かめてください。';
+  label='問題案 '+(review+1)+' の内容を確認する';target='question-title-'+review;
+ }else{
+  text='全問の内容を確認しました。確認済みの案をJSONで保存できます。学習アプリへの導入・公開は別の判断です。';
+  label='JSON保存欄へ';target='export-title';
+ }
+ $('workflow-next').textContent=text;$('next-step').textContent=label;$('next-step').onclick=()=>moveTo(target);
 }
 function updateStatus(){
  if(!proposal)return;
@@ -99,6 +127,7 @@ function updateStatus(){
  else if(asset.source.kind==='text')element('pre',ASSETS.text,preview);
  else preview.innerHTML=ASSETS.image; // Only this compile-time trusted SVG; never proposal text/URLs.
  $('source-meta').textContent=proposal.source.label+' / '+proposal.source.locator;
+ updateGuidance();
 }
 function render(){
  $('work').hidden=!proposal;if(!proposal)return;
@@ -120,7 +149,7 @@ function render(){
  for(const [key,label] of [['sourceId','原本ID'],['label','原本名'],['locator','原本の参照（表示用）']])field(detail,label,proposal.source[key],v=>proposal.source[key]=v,{id:'source-'+key});
  const qs=$('questions');qs.replaceChildren();
  proposal.questions.forEach((q,i)=>{
-  const box=element('section',undefined,qs);box.className='card';element('h2','3. 問題案 '+(i+1),box);element('p',undefined,box).id='status-'+i;
+  const box=element('section',undefined,qs);box.className='card';const title=element('h2','3. 問題案 '+(i+1),box);title.id='question-title-'+i;title.className='flow-target';title.tabIndex=-1;element('p',undefined,box).id='status-'+i;
   element('p','原本の転記とは別の問題案です。解説・読み・ヒントも確認してください。',box).className='muted';
   field(box,'問題文',q.prompt,v=>{q.prompt=v;if(!q.generatedFields.includes('prompt'))q.generatedFields.push('prompt');},{id:'q-'+i+'-prompt',lines:true,nullable:true});
   for(const [key,label] of [['answer','正答'],['explanation','解説'],['hint','ヒント']])field(box,label,q[key],v=>{q[key]=v;if(!q.generatedFields.includes(key))q.generatedFields.push(key);},{id:'q-'+i+'-'+key,lines:key!=='answer',nullable:true});
@@ -135,7 +164,7 @@ function render(){
   const generated=element('fieldset',undefined,extras);element('legend','生成・編集した項目',generated);
   for(const key of FIELDS){const line=element('label',undefined,generated);line.className='checkline';const cb=element('input',undefined,line);cb.type='checkbox';cb.id='q-'+i+'-generated-'+key;cb.checked=q.generatedFields.includes(key);cb.onchange=()=>changed(()=>{q.generatedFields=q.generatedFields.filter(field=>field!==key);if(cb.checked)q.generatedFields.push(key);});line.append(document.createTextNode(FIELD_LABELS[key]));}
   const applyGenerated=element('button','選択した項目だけにする',generated);applyGenerated.id='q-'+i+'-apply-generated';applyGenerated.onclick=()=>changed(()=>q.generatedFields=FIELDS.filter(key=>$('q-'+i+'-generated-'+key).checked));
-  element('p',undefined,box).id='generated-'+i;const ul=element('ul',undefined,box);ul.id='issues-'+i;ul.className='error';ul.setAttribute('aria-live','polite');
+  element('p',undefined,box).id='generated-'+i;const ul=element('ul',undefined,box);ul.id='issues-'+i;ul.className='error flow-target';ul.tabIndex=-1;ul.setAttribute('aria-label','問題案 '+(i+1)+' の不足理由');ul.setAttribute('aria-live','polite');
   const button=element('button','この内容を確認した',box);button.id='confirm-'+i;button.className='primary';button.onclick=()=>{if(issues(proposal,i).length)return;q.status='confirmed';q.confirmedRevision=proposal.revision;unsaved=true;updateStatus();};
  });updateStatus();
 }
