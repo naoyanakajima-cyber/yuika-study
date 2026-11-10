@@ -36,8 +36,14 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": null,
-  "updated_at": "2026-11-10T11:06:34.409756+00:00",
+  "lease": {
+    "run_id": "cycle-20261110T1206Z",
+    "acquired_at": "2026-11-10T12:06:47.813642+00:00",
+    "expires_at": "2026-11-10T12:46:47.813642+00:00",
+    "ticket": "CONTENT-CHAT-SPEC",
+    "purpose": "Record D01 and define synthetic chat intake; assess Evernote candidate without accessing private data"
+  },
+  "updated_at": "2026-11-10T12:06:47.813642+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
