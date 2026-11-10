@@ -733,7 +733,7 @@ function legacyData(raw){
 const legacyIdentity=l=>{const v=legacyData(l.raw);return JSON.stringify([v.attempts,[...new Set(v.correct)].sort(),[...new Set(v.wrong)].sort()]);};
 function validateEvent(e){
  requireThat(e&&typeof e==='object','回答レコードが不正です。');
- const q=byId.get(e.questionId);
+ const q=historicalQuestion(e);
  requireThat(q&&e.datasetVersion===VERSION,'この版では扱えない問題ID・問題データ版です。元のJSONを保管してください。');
  for(const k of ['id','sessionId'])requireThat(typeof e[k]==='string'&&/^[a-zA-Z0-9_-]{8,100}$/.test(e[k]),'回答ID・セッションIDが不正です。');
  requireThat(e.unit===q.unit&&e.question===q.prompt&&e.explanation===q.explanation&&e.expected===q.answer&&e.type===q.type,'問題情報がこの版と一致しません。');
@@ -742,7 +742,7 @@ function validateEvent(e){
  if(q.type==='number')requireThat(typeof e.response==='number'&&Number.isFinite(e.response)&&e.response>=0&&typeof e.inputRaw==='string'&&e.inputRaw.length<=100&&numeric(e.inputRaw)===e.response,'数値回答が不正です。');
  else requireThat(q.options.includes(e.response)&&e.inputRaw===e.response,'選択肢が不正です。');
  requireThat(e.correct===grade(q,e.response),'記録された正誤と採点結果が一致しません。');
- return {id:e.id,sessionId:e.sessionId,questionId:e.questionId,datasetVersion:VERSION,unit:q.unit,type:q.type,question:q.prompt,response:e.response,inputRaw:e.inputRaw,expected:q.answer,correct:e.correct,answeredAt:e.answeredAt,timezoneOffset:e.timezoneOffset,localDay:e.localDay,hintUsed:e.hintUsed,mode:e.mode,explanation:q.explanation};
+ return {...(Object.hasOwn(e,'questionVersion')?{questionVersion:e.questionVersion}:{}),id:e.id,sessionId:e.sessionId,questionId:e.questionId,datasetVersion:VERSION,unit:q.unit,type:q.type,question:q.prompt,response:e.response,inputRaw:e.inputRaw,expected:q.answer,correct:e.correct,answeredAt:e.answeredAt,timezoneOffset:e.timezoneOffset,localDay:e.localDay,hintUsed:e.hintUsed,mode:e.mode,explanation:q.explanation};
 }
 function validateState(v){
  requireThat(v&&v.schemaVersion===2&&v.datasetVersion===VERSION,'対応していない記録形式・問題データ版です。');
@@ -808,7 +808,7 @@ function submit(){
  const s=session;if(!s||s.answered)return;const q=s.questions[s.index];const raw=q.type==='number'?document.getElementById('numeric').value:s.selected;const response=q.type==='number'?numeric(raw):raw;
  if(response===null){document.getElementById('answerError').textContent=q.type==='number'?'0以上の数字を入力してね。小数も使えます。':'答えをひとつ選んでね。';return;}
  s.answered=true;document.getElementById('answerError').textContent='';const now=new Date();
- const e=validateEvent({id:uid(),sessionId:s.id,questionId:q.id,datasetVersion:VERSION,unit:q.unit,type:q.type,question:q.prompt,response,inputRaw:raw,expected:q.answer,correct:grade(q,response),answeredAt:now.toISOString(),timezoneOffset:now.getTimezoneOffset(),localDay:localDay(now.toISOString(),now.getTimezoneOffset()),hintUsed:s.hint,mode:s.mode,explanation:q.explanation});
+ const e=validateEvent({questionVersion:currentQuestionVersion(q),id:uid(),sessionId:s.id,questionId:q.id,datasetVersion:VERSION,unit:q.unit,type:q.type,question:q.prompt,response,inputRaw:raw,expected:q.answer,correct:grade(q,response),answeredAt:now.toISOString(),timezoneOffset:now.getTimezoneOffset(),localDay:localDay(now.toISOString(),now.getTimezoneOffset()),hintUsed:s.hint,mode:s.mode,explanation:q.explanation});
  state.events.push(e);s.results.push(e);const saved=persist();
  main.querySelectorAll('[data-choice],#numeric,#check,#hint').forEach(b=>b.disabled=true);
  document.getElementById('feedback').innerHTML=`<div class="answerbox ${e.correct?'':'again'}"><h2>${e.correct?'できたね！':'ここをいっしょに見てみよう'}</h2><p>あなたの答え：<b>${esc(response)}${q.suffix||''}</b><br>正しい答え：<b>${esc(q.answer)}${q.suffix||''}</b></p><p>${esc(q.explanation)}</p><small>${saved?'回答を保存しました':'回答は一時保持です。閉じる前にJSONを書き出してください。'}</small></div><button class="primary wide" id="next" style="margin-top:18px">${s.index+1===s.questions.length?'今回のふりかえり →':'次の問題へ →'}</button>`;
@@ -863,7 +863,165 @@ function render(){navState();if(view==='home')home();else if(view==='analysis')a
 window.addEventListener('storage',e=>{if(e.key===KEY&&e.newValue){try{state=merge(state,validateState(JSON.parse(e.newValue)));if(view!=='quiz')render();}catch(err){message('別タブの記録と競合しました。自動で上書きせず、JSONを書き出して保全してください。');}}});
 window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.returnValue='';}});
 document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>navigate(b.dataset.view));
+// SCIENCE_ADAPTIVE_START
+// Read-only adapter: individual science events only. Legacy aggregates are never
+// projected. response stays numeric/string, grade and unit display stay original.
+const Q=byId;
+const data={get events(){return state.events.map(e=>({...e,at:e.answeredAt,hint:e.hintUsed,variant:'normal'}));}};
+const order=es=>[...es].sort((a,b)=>a.at.localeCompare(b.at)||a.id.localeCompare(b.id));
+const day=localDay;
+const japanDay=iso=>localDay(iso,-540);
+const REVIEW_INTERVAL_DAYS=Object.freeze([1,3,7]);
+const addJapanDays=(d,n)=>new Date(Date.parse(d+'T00:00:00Z')+n*86400000).toISOString().slice(0,10);
+MODES.daily='今日の5問';MODES.adaptive='弱点の復習';
+let scienceUnit='all';
+const SCIENCE_PREF_KEY=KEY+'-preferences-v1';
+function rememberScience(){
+ try{localStorage.setItem(SCIENCE_PREF_KEY,JSON.stringify({count,unit:scienceUnit}));localStorage.setItem('yuika-last-daily-unit-v1','yuika-review-v2.html');}
+ catch{message('学習設定を保存できません。次回は初期設定になります。');}
+}
+try{const p=JSON.parse(localStorage.getItem(SCIENCE_PREF_KEY)||'null');if(p){if([5,10].includes(p.count))count=p.count;if(p.unit==='all'||UNITS.includes(p.unit))scienceUnit=p.unit;}}catch{message('学習設定を読み取れません。初期設定で始めます。');}
+function scienceWeak(events=data.events,now=Date.now()){
+ if(blocked||dirty)return [];
+ return practiceWeaknesses(events,now).filter(r=>scienceUnit==='all'||r.unit===scienceUnit).slice(0,10);
+}
+function scienceDue(events=data.events,now=Date.now()){
+ if(blocked||dirty)return [];
+ const today=japanDay(new Date(now).toISOString());
+ return retention(events,now).filter(s=>s.status==='waiting'&&s.due<=today&&(scienceUnit==='all'||Q.get(s.originId).unit===scienceUnit))
+ .sort((a,b)=>a.due.localeCompare(b.due)||a.originId.localeCompare(b.originId));
+}
+function scienceDaily(){
+ const qs=[],seen=new Set();
+ const push=q=>{if(!seen.has(q.id)){seen.add(q.id);qs.push(q);}};
+ scienceDue().forEach(s=>push(Q.get(s.originId)));
+ scienceWeak().forEach(s=>push(Q.get(s.originId)));
+ const normal=[...candidates('normal',scienceUnit)];
+ for(let i=normal.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[normal[i],normal[j]]=[normal[j],normal[i]];}
+ normal.forEach(push);return qs.slice(0,count);
+}
+const scienceStart=start;
+start=function(mode,unit='all'){
+ if(mode!=='daily'&&mode!=='adaptive'){scienceUnit=unit;rememberScience();scienceStart(mode,unit);return;}
+ if(blocked||dirty){message('記録を保存・読み取りできないため、弱点の復習と今日の5問は休止しています。「記録の引きつぎ」で保管してください。');return;}
+ const qs=mode==='daily'?scienceDaily():scienceWeak().slice(0,count).map(s=>Q.get(s.originId));
+ if(!qs.length){message('今はこの練習の候補がありません。');return;}
+ rememberScience();session={id:uid(),mode,questions:qs,index:0,results:[],hint:false,selected:null,answered:false,done:false};view='quiz';render();main.focus();window.scrollTo(0,0);
+};
+function scienceSummary(){
+ if(blocked||dirty)return '<section class="card" id="science-summary"><p>記録を読み取り・保存できないため弱点の判定を休止しています。記録の引きつぎで元データを保管してください。</p></section>';
+ const states=retention(),today=japanDay(new Date().toISOString());
+ return `<section class="card" id="science-summary"><h2>理科の弱点と再確認</h2><p>要確認 ${practiceWeaknesses().length}問 ／ 今日の再確認 ${states.filter(s=>s.status==='waiting'&&s.due<=today).length}問（期限超過を含む・全単元）／ 再確認待ち ${states.filter(s=>s.status==='waiting').length}問 ／ 定着 ${states.filter(s=>s.status==='retained').length}問</p><p>直近30日・最後の5回答日を日本時間で確認し、2日以上まちがえた問題を復習します。ヒントなし正解で再確認待ちへ。1・3・7日後の確認は仮の間隔です。期限前・ヒント付き正解では進まず、誤答で弱点に戻ります。定着は理解の保証ではありません。旧クイズの集計は分析に使いません。</p></section>`;
+}
+const scienceHome=home;
+home=function(){
+ scienceHome();
+ document.getElementById('unit').value=scienceUnit;
+ const rows=scienceWeak();
+ main.insertAdjacentHTML('afterbegin',`<section class="card"><button id="daily-five" class="primary" ${blocked||dirty?'disabled':''}>今日の5問をはじめる（今回は${count}問）</button><p>期限の来た再確認 → 弱点の復習 → 通常問題。既存の47問を使います。下の単元と問題数を適用します。</p><p>今日の再確認：${scienceDue().length}問 ／ 弱点の復習：${rows.length}問</p><button id="science-adaptive" ${rows.length?'':'disabled'}>弱点の復習をはじめる</button>${rows.map(r=>`<details><summary>${esc(r.unit)}：${esc(Q.get(r.originId).prompt)}</summary><p>${r.wrong}/${r.total}日でまちがい・ヒントを見た日${r.hintCount}日。最後の回答：${esc(new Date(r.lastAt).toLocaleString('ja-JP',{timeZone:'Asia/Tokyo'}))}（日本時間）。原因は未確定です。</p></details>`).join('')}</section>`+scienceSummary());
+ document.getElementById('daily-five').onclick=()=>start('daily');
+ document.getElementById('science-adaptive').onclick=()=>start('adaptive');
+ document.getElementById('unit').onchange=e=>{scienceUnit=e.target.value;rememberScience();home();document.getElementById('unit').focus();};
+ main.querySelectorAll('[data-count]').forEach(b=>b.onclick=()=>{count=Number(b.dataset.count);rememberScience();home();});
+};
+const scienceAnalysis=analysis;
+analysis=function(){scienceAnalysis();main.insertAdjacentHTML('afterbegin',scienceSummary());};
+
+function weaknesses(events=data.events,now=Date.now(),includeRecovered=false){
+ const groups=new Map(),seen=new Set();
+ for(const e of order(events)){
+  if(seen.has(e.id))continue;seen.add(e.id);
+  const q=Q.get(e.questionId),age=now-Date.parse(e.at);
+  if(!q||age<0||age>30*86400000)continue;
+  const id=q.originId||q.id,key=id+':'+e.variant;
+  if(!groups.has(key))groups.set(key,[]);groups.get(key).push(e);
+ }
+ const rows=[];
+ for(const [key,all] of groups){
+  // One observation per Japan day; retain hints/errors from earlier retries.
+  const days=new Map();
+  for(const e of all){
+   const key=japanDay(e.at),previous=days.get(key);
+   days.set(key,{last:e,wrong:!e.correct||!!previous?.wrong,hint:e.hint||!!previous?.hint});
+  }
+  const samples=[...days.values()].slice(-5),last=samples.at(-1).last;
+  // A hinted success cannot undo an earlier unassisted success by itself.
+  let recovered=false;
+  for(const e of all){if(!e.correct)recovered=false;else if(!e.hint)recovered=true;}
+  const wrong=samples.filter(d=>!d.last.correct||((d.last.hint||(includeRecovered&&recovered))&&d.wrong)).length;
+  if(samples.length<2||wrong<2||(!includeRecovered&&recovered))continue;
+  const q=Q.get(last.questionId),origin=Q.get(q.originId||q.id);
+  const confusion=QUESTIONS.filter(o=>o.id!==origin.id&&o.pair&&o.pair===origin.pair)
+   .some(o=>grade(o,last.response,last.variant));
+  rows.push({originId:origin.id,unit:origin.unit,variant:last.variant,wrong,total:samples.length,
+   recovered,lastHint:last.hint,lastCorrect:last.correct,level:origin.level||({memory:1,pairs:2,flow:2,reason:3}[origin.course]||1),hintCount:samples.filter(d=>d.hint).length,lastAt:last.at,confusion});
+ }
+ return rows.sort((a,b)=>b.wrong/b.total-a.wrong/a.total||b.lastAt.localeCompare(a.lastAt)||a.originId.localeCompare(b.originId)||a.variant.localeCompare(b.variant));
+}
+function retention(events=data.events,now=Date.now()){
+ const states=new Map(),histories=new Map(),seen=new Set();
+ for(const e of order(events)){
+  if(seen.has(e.id)||Date.parse(e.at)>now)continue;seen.add(e.id);
+  const q=Q.get(e.questionId);if(!q)continue;
+  const originId=q.originId||q.id,key=originId+':'+e.variant;
+  if(!histories.has(key))histories.set(key,[]);
+  const history=histories.get(key);history.push(e);
+  let s=states.get(key);
+  if(!s){
+   if(!weaknesses(history,Date.parse(e.at)).length)continue;
+   s={originId,variant:e.variant,status:'weak',stage:0,due:null,anchor:null};states.set(key,s);
+  }
+  const date=japanDay(e.at);
+  if(!e.correct){s.status='weak';s.stage=0;s.due=null;s.anchor=null;}
+  else if(!e.hint){
+   if(s.status==='weak'){
+    s.status='waiting';s.stage=0;s.anchor=date;s.due=addJapanDays(date,REVIEW_INTERVAL_DAYS[0]);
+   }else if(s.status==='waiting'&&date>=s.due){
+    s.stage++;
+    if(s.stage===REVIEW_INTERVAL_DAYS.length){s.status='retained';s.due=null;}
+    else s.due=addJapanDays(date,REVIEW_INTERVAL_DAYS[s.stage]-REVIEW_INTERVAL_DAYS[s.stage-1]);
+   }
+  }
+ }
+ return [...states.values()];
+}
+function practiceWeaknesses(events=data.events,now=Date.now()){
+ const rows=weaknesses(events,now),keys=new Set(rows.map(r=>r.originId+':'+r.variant));
+ for(const s of retention(events,now).filter(s=>s.status==='weak')){
+  if(keys.has(s.originId+':'+s.variant))continue;
+  const q=Q.get(s.originId),es=order(events).filter(e=>(Q.get(e.questionId)?.originId||e.questionId)===s.originId&&e.variant===s.variant&&Date.parse(e.at)<=now),last=es.at(-1);
+  rows.push({...s,unit:q.unit,level:q.level||({memory:1,pairs:2,flow:2,reason:3}[q.course]||1),wrong:1,total:1,hintCount:0,lastAt:last.at,lastCorrect:last.correct,lastHint:last.hint});
+ }
+ return rows;
+}
+// SCIENCE_ADAPTIVE_END
+// HISTORY_START
+const QUESTION_REVISIONS={"ys2-001":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"ys2-001","unit":"水溶液と溶解","type":"choice","prompt":"砂糖水の「溶質」はどれ？","options":["砂糖","水","砂糖水全体"],"answer":"砂糖","hint":"水に溶けている物質のことだよ。","explanation":"溶質は砂糖、溶媒は水。できた砂糖水全体が水溶液です。"}}],"ys2-002":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"ys2-002","unit":"水溶液と溶解","type":"choice","prompt":"砂糖水の「溶媒」はどれ？","options":["砂糖","水","砂糖水全体"],"answer":"水","hint":"物質を溶かしている液体を考えよう。","explanation":"溶媒は物質を溶かす液体です。水が溶媒の溶液を水溶液といいます。"}}],"ys2-003":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"ys2-003","unit":"水溶液と溶解","type":"choice","prompt":"十分に混ぜた食塩水を静かに置くと、濃さはどうなる？（水は蒸発しない）","options":["下だけ濃くなる","上だけ濃くなる","全体で同じ濃さのまま"],"answer":"全体で同じ濃さのまま","hint":"溶けた食塩は、砂のようには沈まないよ。","explanation":"水溶液の濃さは均一です。水が蒸発しなければ、溶けた食塩が底にたまることはありません。"}}],"ys2-004":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"ys2-004","unit":"水溶液と溶解","type":"choice","prompt":"水溶液の「透明」について正しいのは？","options":["必ず無色である","色があっても、すき通っていれば透明","にごっていても透明"],"answer":"色があっても、すき通っていれば透明","hint":"透明と無色は同じ意味かな？","explanation":"透明とは、にごらずすき通っていること。青い硫酸銅水溶液のように、色のある水溶液もあります。"}}],"ys2-005":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"ys2-005","unit":"水溶液と溶解","type":"choice","prompt":"その温度で、物質が限界まで溶けている水溶液は？","options":["飽和水溶液","蒸留水","ろ紙"],"answer":"飽和水溶液","hint":"これ以上は溶けない状態を「飽和」というよ。","explanation":"物質がその温度で限界まで溶けた水溶液を飽和水溶液といいます。"}}],"ys2-006":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"ys2-006","unit":"水溶液と溶解","type":"choice","prompt":"固体の溶解度は、その温度の何に溶ける限界の量？","options":["水溶液100g","水100g","溶質100g"],"answer":"水100g","hint":"「水」と「水溶液」を区別しよう。","explanation":"この教材の溶解度は、水100gに溶ける固体の限界の量です。水溶液100gではありません。"}}],"ys2-007":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"ys2-007","unit":"水溶液と溶解","type":"choice","prompt":"0〜100℃の教材の表で、水温による溶解度の変化が大きいのは？","options":["食塩","ホウ酸","どちらも同じ"],"answer":"ホウ酸","hint":"曲線が急になる方を考えよう。","explanation":"ホウ酸は温度を上げると溶解度が大きく増えます。食塩の変化は比較的小さくなります。"}}],"ys2-008":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"ys2-008","unit":"水溶液と溶解","type":"choice","prompt":"80℃の飽和ホウ酸水を20℃まで冷やすと？（水は蒸発しない）","options":["結晶が出る","水だけ増える","さらにホウ酸が溶ける"],"answer":"結晶が出る","hint":"低い温度で溶けていられる量は少なくなるよ。","explanation":"冷やすと溶解度が小さくなり、溶けていられなくなったホウ酸が結晶として出ます。"}}],"ys2-009":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"ys2-009","unit":"水溶液と溶解","type":"choice","prompt":"食塩水をろ紙でろ過すると、溶けている食塩は？","options":["すべてろ紙に残る","水とともにろ紙を通る","なくなる"],"answer":"水とともにろ紙を通る","hint":"溶けている粒は、とても小さいよ。","explanation":"溶けている食塩は水とともにろ紙を通ります。ろ過では、溶けていない固体を分けます。"}}],"ys2-010":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"ys2-010","unit":"溶解度の計算","type":"number","prompt":"40℃の水200gに、ホウ酸は何gまで溶ける？","answer":18,"hint":"水200gは100gの2倍。","explanation":"40℃では水100gに9g。9×(200÷100)＝18gです。","suffix":"g"}}],"ys2-011":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"ys2-011","unit":"溶解度の計算","type":"number","prompt":"20℃の水300gにホウ酸を限界まで溶かした。飽和水溶液は何g？","answer":315,"hint":"溶けたホウ酸と水の重さを足そう。","explanation":"5×3＝15g溶けます。水溶液は300＋15＝315gです。","suffix":"g"}}],"ys2-012":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"ys2-012","unit":"溶解度の計算","type":"number","prompt":"60℃の水40gにホウ酸20gを加えた。溶け残りは何g？","answer":14,"hint":"先に、40gの水に溶ける限界を出そう。","explanation":"15×0.4＝6g溶けます。20−6＝14gが溶け残ります。","suffix":"g"}}],"ys2-013":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"ys2-013","unit":"溶解度の計算","type":"number","prompt":"80℃の水150gにホウ酸40gを加えた。溶け残りを除いた水溶液は何g？","answer":186,"hint":"40g全部が溶けるか、確かめよう。","explanation":"24×1.5＝36g溶けます。溶け残り4gは水溶液に含めず、150＋36＝186gです。","suffix":"g"}}],"ys2-014":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"ys2-014","unit":"溶解度の計算","type":"number","prompt":"20℃の水60gにホウ酸1.2gを溶かした。あと何g溶ける？","answer":1.8,"hint":"限界は5×0.6g。すでに溶けた分を引こう。","explanation":"5×0.6＝3gが限界です。3−1.2＝1.8g、さらに溶けます。","suffix":"g"}}],"ys2-015":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"ys2-015","unit":"溶解度の計算","type":"number","prompt":"20℃の水500gで作った飽和ホウ酸水から、同じ温度で水50gだけ蒸発させた。結晶は何g出る？","answer":2.5,"hint":"蒸発した水50gに溶けていた分を考えよう。","explanation":"水50gに溶ける量は5×0.5＝2.5g。水が減った分だけ結晶が出ます。","suffix":"g"}}],"ys2-016":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"ys2-016","unit":"溶解度の計算","type":"number","prompt":"20℃の水500gで作った飽和ホウ酸水に、同じ温度の水50gを加えた。あと何gのホウ酸を溶かせる？","answer":2.5,"hint":"加えた水50gの分だけ、溶かせる量が増えるよ。","explanation":"5×(50÷100)＝2.5g、さらに溶かせます。全体の水550gではなく、増えた水に注目します。","suffix":"g"}}],"ys2-017":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"ys2-017","unit":"溶解度の計算","type":"number","prompt":"80℃の水100gで作った飽和ホウ酸水を20℃に冷やした。結晶は何g？（蒸発なし）","answer":19,"hint":"80℃と20℃で溶ける量の差を出そう。","explanation":"80℃で24g、20℃で5g溶けます。24−5＝19gの結晶が出ます。","suffix":"g"}}],"ys2-018":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"ys2-018","unit":"溶解度の計算","type":"number","prompt":"60℃の水200gで作った飽和ホウ酸水を40℃に冷やした。結晶は何g？（蒸発なし）","answer":12,"hint":"水が200gなので、表の差を2倍しよう。","explanation":"(15−9)×2＝12g。温度が下がって溶けなくなった分が結晶になります。","suffix":"g"}}],"ys2-019":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"ys2-019","unit":"溶解度の計算","type":"number","prompt":"20℃でホウ酸10gをすべて溶かすには、水は最低何g必要？","answer":200,"hint":"水100gで5g溶けるから、10gなら何倍？","explanation":"10÷5＝2倍。水は100×2＝200g必要です。","suffix":"g"}}],"ys2-020":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"ys2-020","unit":"金属と水素","type":"choice","prompt":"うすい塩酸と反応して水素を発生する金属は？","options":["銅","鉄","金"],"answer":"鉄","hint":"鉄・アルミニウム・亜鉛・マグネシウムを思い出そう。","explanation":"鉄はうすい塩酸と反応して水素を発生します。銅や金は、この条件では反応しません。"}}],"ys2-021":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"ys2-021","unit":"金属と水素","type":"choice","prompt":"塩酸とも水酸化ナトリウム水溶液とも反応する金属は？","options":["鉄","銅","アルミニウム"],"answer":"アルミニウム","hint":"酸とアルカリの両方と反応する金属だよ。","explanation":"アルミニウムは両方と反応します。亜鉛も水酸化ナトリウム水溶液の濃さや温度などの条件によって反応します。"}}],"ys2-022":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"ys2-022","unit":"金属と水素","type":"choice","prompt":"鉄と水酸化ナトリウム水溶液の組み合わせは、この教材の実験条件では？","options":["水素を出して溶ける","反応しない","酸素を出す"],"answer":"反応しない","hint":"塩酸との反応と混同しないようにしよう。","explanation":"鉄は塩酸とは反応しますが、この教材で扱う水酸化ナトリウム水溶液とは反応しません。"}}],"ys2-023":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"ys2-023","unit":"金属と水素","type":"choice","prompt":"アルミニウムがうすい塩酸と反応したときの泡は？","options":["酸素","二酸化炭素","水素"],"answer":"水素","hint":"燃えると水になる気体だよ。","explanation":"発生するのは水素です。アルミニウムは別の物質になって水溶液中にあります。"}}],"ys2-024":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"ys2-024","unit":"金属と水素","type":"choice","prompt":"金属が塩酸と反応して溶けた後の説明で正しいのは？","options":["金属がそのまま小さくなっただけ","金属が別の物質に変わった","金属が何も残さず消えた"],"answer":"金属が別の物質に変わった","hint":"砂糖を水に溶かすときとの違いを考えよう。","explanation":"化学反応で別の物質になります。鉄と塩酸では主に塩化鉄(II)ができます。色は酸化や条件で変わるため「必ず黄色」とは限りません。"}}],"ys2-025":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"ys2-025","unit":"金属と水素","type":"choice","prompt":"同じ重さのアルミニウムと同じ塩酸。同じ温度で反応が速くなるのは？","options":["一枚の板","細かい粉","形は関係しない"],"answer":"細かい粉","hint":"塩酸にふれる面の広さを比べよう。","explanation":"細かい粉の方が表面積が大きく、塩酸とふれやすいため反応が速くなります。実験は先生の指示のもとで行います。"}}],"ys2-026":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"ys2-026","unit":"金属と水素","type":"choice","prompt":"金属と塩酸の反応で泡が出なくなった。考えられることは？","options":["必ず両方とも余っている","必ず金属だけがなくなった","反応する金属か塩化水素の一方、または両方が使い切られた"],"answer":"反応する金属か塩化水素の一方、または両方が使い切られた","hint":"反応には両方が必要だよ。","explanation":"この教材で十分に反応した場合、一方または両方が使い切られると反応が止まります。泡だけでどちらか一方と断定はできません。"}}],"ys2-027":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"ys2-027","unit":"金属と水素","type":"choice","prompt":"水素を水上置換法で集められるのはなぜ？","options":["水に非常に溶けにくいから","水によく溶けるから","空気より重いから"],"answer":"水に非常に溶けにくいから","hint":"水で集めても、なくなりにくい性質だよ。","explanation":"水素は水に非常に溶けにくいので、水上置換法で集められます。空気よりも軽い気体です。"}}],"ys2-028":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"ys2-028","unit":"金属と水素","type":"choice","prompt":"水素が燃えて酸素と結びつくとできるものは？","options":["食塩","水","二酸化炭素"],"answer":"水","hint":"試験管の内側がくもる理由にもなるよ。","explanation":"水素は燃える気体で、酸素と結びついて水になります。酸素のように他の物を燃やす助燃性とは異なります。火を使う確認は先生の指示で行います。"}}],"ys2-029":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"ys2-029","unit":"中和と液性","type":"choice","prompt":"BTB液が黄色になった水溶液の液性は？","options":["酸性","中性","アルカリ性"],"answer":"酸性","hint":"黄・緑・青の順で覚えよう。","explanation":"BTB液は酸性で黄色、中性付近で緑色、アルカリ性で青色になります。"}}],"ys2-030":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"ys2-030","unit":"中和と液性","type":"choice","prompt":"塩酸と水酸化ナトリウム水溶液が中和してできるものは？","options":["食塩と水","水素と水","酸素と食塩"],"answer":"食塩と水","hint":"塩化水素と水酸化ナトリウムが反応するよ。","explanation":"塩化水素と水酸化ナトリウムが反応し、塩化ナトリウム（食塩）と新しい水ができます。"}}],"ys2-031":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"ys2-031","unit":"中和と液性","type":"choice","prompt":"塩酸と水酸化ナトリウム水溶液を混ぜたら、必ず中性になる？","options":["必ず中性になる","余る物質と量によって液性が変わる","必ず酸性になる"],"answer":"余る物質と量によって液性が変わる","hint":"中和が起きることと、中性になることは同じかな？","explanation":"中和反応が起きても、酸やアルカリが余れば中性にはなりません。この組み合わせでは過不足なく反応すると中性になります。"}}],"ys2-032":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"ys2-032","unit":"中和と液性","type":"choice","prompt":"塩酸が余るように水酸化ナトリウム水溶液と混ぜた。十分に蒸発させた後に残るのは？","options":["食塩","食塩と塩化水素の固体","水酸化ナトリウムだけ"],"answer":"食塩","hint":"塩化水素は気体として出ていくよ。","explanation":"中和でできた食塩が残ります。余った塩化水素は揮発し、この教材の蒸発実験では残りません。"}}],"ys2-033":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"ys2-033","unit":"中和と液性","type":"choice","prompt":"水酸化ナトリウムが余るように塩酸と混ぜた。水を蒸発させた後に残るのは？","options":["食塩だけ","食塩と水酸化ナトリウム","何も残らない"],"answer":"食塩と水酸化ナトリウム","hint":"水酸化ナトリウムは、水がなくなっても残る物質だよ。","explanation":"中和でできた食塩と、反応せず余った水酸化ナトリウムが残ります。"}}],"ys2-034":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"ys2-034","unit":"中和と液性","type":"choice","prompt":"ある塩酸20mLと、ある水酸化ナトリウム水溶液20mLがちょうど中和する。同じ液を塩酸30mL・アルカリ10mLで混ぜるとBTB液は？","options":["黄色","緑色","青色"],"answer":"黄色","hint":"10mLのアルカリが打ち消せる塩酸は10mLだよ。","explanation":"塩酸が余るので酸性・黄色です。「同じ濃さ」という言葉だけでは体積比は決まらないため、この問題では20mLずつで中和する条件を示しています。"}}],"ys2-035":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"ys2-035","unit":"中和と液性","type":"choice","prompt":"塩酸と水酸化ナトリウム水溶液を混ぜ、中和が起きると温度は？（周囲への熱の出入りは考えない）","options":["下がる","上がる","必ず変わらない"],"answer":"上がる","hint":"中和では熱が出るよ。","explanation":"中和によって熱が出るので温度は上がります。これを中和熱といいます。"}}],"ys2-036":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"ys2-036","unit":"中和と液性","type":"choice","prompt":"石灰水に二酸化炭素を通して白くにごった。この白い物質は？","options":["食塩","炭酸カルシウム","アルミニウム"],"answer":"炭酸カルシウム","hint":"水に溶けにくい物質ができるよ。","explanation":"白いにごりは炭酸カルシウムです。さらに二酸化炭素を十分通すと、水に溶ける炭酸水素カルシウムになり、にごりが消えることがあります。"}}],"ys2-037":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"ys2-037","unit":"中和と液性","type":"choice","prompt":"気体が溶けている水溶液の組み合わせは？","options":["食塩水・砂糖水","炭酸水・塩酸・アンモニア水","ホウ酸水・食塩水"],"answer":"炭酸水・塩酸・アンモニア水","hint":"二酸化炭素・塩化水素・アンモニアはどんな状態かな？","explanation":"炭酸水には二酸化炭素、塩酸には塩化水素、アンモニア水にはアンモニアという気体が溶けています。"}}],"ys2-038":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"ys2-038","unit":"中和と液性","type":"choice","prompt":"アルカリ性の水溶液はどれ？","options":["砂糖水","食塩水","アンモニア水"],"answer":"アンモニア水","hint":"刺激臭のある、気体が溶けた水溶液だよ。","explanation":"アンモニア水はアルカリ性です。食塩水・砂糖水は中性です。薬品のにおいを直接かいではいけません。"}}],"ys2-039":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"ys2-039","unit":"中和と液性","type":"choice","prompt":"リトマス紙の使い方で正しいのは？","options":["指で持って水溶液にひたす","ピンセットで持ち、ガラス棒で液をつける","火で温めてから使う"],"answer":"ピンセットで持ち、ガラス棒で液をつける","hint":"指についたものが結果に影響しないようにしよう。","explanation":"ピンセットで持ち、ガラス棒で少量の液をつけます。手の汚れなどで結果が変わるのを防ぎます。"}}],"ys2-040":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"ys2-040","unit":"実験器具","type":"choice","prompt":"ろ紙をろうとに入れたら、どうする？","options":["蒸留水でぬらして密着させる","穴を広げる","乾いたまま浮かせる"],"answer":"蒸留水でぬらして密着させる","hint":"ろ紙とろうとの間にすき間を作らないようにしよう。","explanation":"四つ折りから円錐形に広げ、蒸留水でぬらしてろうとに密着させます。"}}],"ys2-041":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"ys2-041","unit":"実験器具","type":"choice","prompt":"ろ過でガラス棒をあてる場所は？","options":["ろ紙が1重の部分","ろ紙が3重の部分","ろ紙のふちの外"],"answer":"ろ紙が3重の部分","hint":"破れにくい場所を選ぼう。","explanation":"ガラス棒はろ紙が3重の部分にあてます。液はろ紙の8分目を超えないように注ぎます。"}}],"ys2-042":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"ys2-042","unit":"実験器具","type":"choice","prompt":"ろ過で、ろうとのとがった先は？","options":["受けるビーカーの内壁につける","ろ液の中に深く入れる","ビーカーの外に向ける"],"answer":"受けるビーカーの内壁につける","hint":"ろ液が壁を伝って流れるようにしよう。","explanation":"先をビーカーの内壁につけると、ろ液が飛び散りにくく、なめらかに流れます。"}}],"ys2-043":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"ys2-043","unit":"実験器具","type":"choice","prompt":"砂糖水から、焦がさずにゆっくり結晶を取り出す方法は？","options":["強く加熱し続ける","浅い皿で自然に水を蒸発させる","ろ紙で砂糖をこし取る"],"answer":"浅い皿で自然に水を蒸発させる","hint":"加熱しなくても、水は少しずつ蒸発するよ。","explanation":"浅い皿で自然に蒸発させます。時間はかかりますが、加熱による焦げを避けられます。"}}],"ys2-044":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"ys2-044","unit":"実験器具","type":"choice","prompt":"蒸発皿の下にセラミック付き金網をしく主な理由は？","options":["熱をまんべんなく伝えるため","食塩を増やすため","水の蒸発を止めるため"],"answer":"熱をまんべんなく伝えるため","hint":"一部分だけ熱くなるのを避けよう。","explanation":"熱をまんべんなく、おだやかに伝えます。蒸発皿が部分的に熱くなるのを防ぐ役割があります。"}}],"ys2-045":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"ys2-045","unit":"実験器具","type":"choice","prompt":"食塩水から水を蒸留して取り出す方法は？","options":["食塩をろ紙に残す","水を水蒸気にしてから冷やす","食塩水に水を加える"],"answer":"水を水蒸気にしてから冷やす","hint":"液体→気体→液体の順だよ。","explanation":"水を加熱して水蒸気にし、冷やして水として取り出します。沸騰石は加熱前に入れ、突沸を防ぎます。"}}],"ys2-046":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"ys2-046","unit":"実験器具","type":"choice","prompt":"管の先が受ける水につかる蒸留装置で、火を消す前にすることは？","options":["管の先を水から出す","冷たい水を熱いフラスコに入れる","管を強くふさぐ"],"answer":"管の先を水から出す","hint":"冷えると水が逆流することがあるよ。","explanation":"管の先を水から出してから火を消し、逆流を防ぎます。実験は必ず先生の指示に従います。"}}],"ys2-047":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"ys2-047","unit":"実験器具","type":"choice","prompt":"アルコールランプの火を消す方法は？","options":["息で吹き消す","ふたをかぶせる","使用中にアルコールを足す"],"answer":"ふたをかぶせる","hint":"燃えているときに動かしたり、燃料を足したりしないよ。","explanation":"ふたをかぶせて消します。息で吹き消したり、点火中に燃料を補給したりしてはいけません。先生の指示で扱いましょう。"}}]};
+// Dataset versions/keys retain their existing meaning; revisions are per question.
+function currentQuestionVersion(q){
+ const id=q.originId||q.id;
+ return QUESTION_REVISIONS[id].at(-1).revision;
+}
+function historicalQuestion(e){
+ const science=typeof byId!=='undefined';
+ const extra=!science&&e.questionId.endsWith('-review-v1');
+ const id=extra?e.questionId.slice(0,-10):e.questionId;
+ const records=QUESTION_REVISIONS[id]||[];
+ const matches=[];
+ for(const r of records){
+  if(Object.hasOwn(e,'questionVersion')&&e.questionVersion!==r.revision)continue;
+  const q=extra?{...r.question,id:e.questionId,originId:id,prompt:'復習：'+r.question.prompt}:r.question;
+  const prompt=science?q.prompt:typeof promptOf==='function'?promptOf(q,e.variant):q.prompt;
+  const expected=science?q.answer:typeof expectedOf==='function'?expectedOf(q,e.variant):q.answer;
+  if(e.unit===q.unit&&(science?e.type===q.type:e.course===q.course)&&e.question===prompt&&e.expected===expected&&e.explanation===q.explanation)matches.push(q);
+ }
+ // Versionless histories can match multiple spelling revisions. Select the one
+ // whose historical grade matches, without recalculating or rewriting the event.
+ return matches.find(q=>e.correct===grade(q,e.response,e.variant));
+}
+// HISTORY_END
 load();render();
+if(new URLSearchParams(location.search).get('daily')==='1')start('daily');
 </script>
 </body>
 </html>

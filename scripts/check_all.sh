@@ -33,6 +33,8 @@ run tests/adaptive_daily.py python tests/adaptive_daily.py
 run tests/adaptive_quality.py python tests/adaptive_quality.py
 run tests/flash_grading.py python tests/flash_grading.py
 run tests/spaced_daily.py python tests/spaced_daily.py
+run tests/history_compat.py python tests/history_compat.py
+run tests/science_adaptive.py python tests/science_adaptive.py
 printf '\n%-40s %6s %8s\n' 'Suite' 'Exit' 'Seconds'
 for i in "${!names[@]}"; do
   printf '%-40s %6s %8s\n' "${names[$i]}" "${codes[$i]}" "${times[$i]}"
