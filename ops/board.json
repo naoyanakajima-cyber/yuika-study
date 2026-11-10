@@ -43,7 +43,7 @@
     "ticket": "REV-COMPAT-FIX",
     "purpose": "Resolve PR19/20 scope and implement existing draft history isolation with independent QA if bounded"
   },
-  "updated_at": "2026-11-10T15:04:32.932035+00:00",
+  "updated_at": "2026-11-10T15:07:51.469485+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -1022,30 +1022,39 @@
       "id": "REV-COMPAT-FIX",
       "title": "追加練習試作の保存隔離を既存PRへ適用",
       "goal": 1,
-      "state": "prm_review",
+      "state": "in_progress",
       "priority": 1,
       "depends_on": [
         "REV-COMPAT-SPEC"
       ],
-      "owner": "root/coordinator",
-      "branch": null,
-      "pr": null,
+      "owner": "engineer_isolation_fix",
+      "branch": "codex/review-17-19-quality",
+      "pr": 20,
       "candidate_existing_prs": [
         18,
         19
       ],
-      "base_ref": null,
-      "base_sha": null,
+      "base_ref": "codex/review-17-19-quality",
+      "base_sha": "c5c6c15c4968ee3d04f8a43f273f12bbb3b9b81e",
       "specification": "docs/product/review-history-contract.md",
-      "blocked_reason": "仕様はPR18固定HEADで検討。終了前にPR19の教材版/理科接続が新観測され、コード影響は未照合。最新系列へ無条件適用不可。",
-      "unblock": "PdM/PrMがPR19のquestionVersion・理科・共通設定差分を読み、未知項目保全を含む契約と修正対象HEADを確定。実データ/マージ承認不要の合成試作範囲のみ。",
+      "blocked_reason": null,
+      "unblock": "PdM/PrMがPR19/20の版・理科・設定影響を確認済み。",
       "acceptance": [
         "履歴互換性契約H1〜H7を満たし、旧回答/設定rawを変更しない",
         "既存PRの修正だけを独立checkoutで実装し、新たな製品PRを増やさない",
         "独立QAが最終HEADと全保存経路/旧版通常起動/JSON出入を確認",
         "既に混在した旧rawの復旧・機能採用・本番公開とは報告しない"
       ],
-      "next_action": "PdMが19/20の版・理科・設定影響を限定照合し修正対象を確定する。"
+      "next_action": "既存PR20の合成試作書込隔離を実装し独立QA。新規製品PRなし、後続PRへ自動反映しない。",
+      "work_branch": "codex/review-storage-isolation-20261111",
+      "scope_review": {
+        "pdm": "pdm_isolation_scope",
+        "prm": "root/coordinator",
+        "decision": "proceed_existing_draft_fix",
+        "at": "2026-11-10T15:07:51.469485+00:00",
+        "scope": "社会3単元+理科詳細履歴+index今日の5問設定。qVersion任意保持、理科schema2/legacy/上限維持、旧集計自動コピー停止。採点/選定/通知/版archiveは変更しない。",
+        "product_adoption": false
+      }
     }
   ],
   "runs": [
@@ -2088,10 +2097,21 @@
       "kind": "product",
       "state": "open_draft",
       "adopted": false,
-      "reconciliation_status": "metadata_only",
+      "reconciliation_status": "scope_reviewed_not_adopted",
       "observed_at": "2026-11-10T14:18:39.482726+00:00",
-      "validation": "PR本文の成功報告のみ確認、コード/アプリ試験は未検証。",
+      "validation": "PdM/PrMが保存隔離に関するコード差分を確認。今回アプリ試験は未実施。",
       "comparison_report": "ops/runs/2026-11-10-review-history-contract.md"
+    },
+    {
+      "pr": 20,
+      "head": "c5c6c15c4968ee3d04f8a43f273f12bbb3b9b81e",
+      "base_pr": 19,
+      "kind": "product",
+      "state": "open_draft",
+      "adopted": false,
+      "reconciliation_status": "existing_draft_storage_fix_in_progress",
+      "observed_at": "2026-11-10T15:07:51.469485+00:00",
+      "validation": "PR本文全16成功は作者報告。今回の保存隔離後に独立QAを行う。"
     }
   ]
 }
