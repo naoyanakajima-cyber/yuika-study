@@ -43,7 +43,7 @@
     "ticket": "REV-COMPAT-FIX",
     "purpose": "Resolve PR19/20 scope and implement existing draft history isolation with independent QA if bounded"
   },
-  "updated_at": "2026-11-10T15:16:51.936615+00:00",
+  "updated_at": "2026-11-10T15:24:48.092516+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -1022,12 +1022,12 @@
       "id": "REV-COMPAT-FIX",
       "title": "追加練習試作の保存隔離を既存PRへ適用",
       "goal": 1,
-      "state": "qa",
+      "state": "blocked",
       "priority": 1,
       "depends_on": [
         "REV-COMPAT-SPEC"
       ],
-      "owner": "qa_isolation_fix",
+      "owner": "coordinator",
       "branch": "codex/review-17-19-quality",
       "pr": 20,
       "candidate_existing_prs": [
@@ -1037,15 +1037,15 @@
       "base_ref": "codex/review-17-19-quality",
       "base_sha": "c5c6c15c4968ee3d04f8a43f273f12bbb3b9b81e",
       "specification": "docs/product/review-history-contract.md",
-      "blocked_reason": null,
-      "unblock": "PdM/PrMがPR19/20の版・理科・設定影響を確認済み。",
+      "blocked_reason": "既存draft #20の修正・独立QA済み。製品待ち3件に追加draft群が存在するため、新規承認待ち枠へ昇格させず採用整理を待つ。",
+      "unblock": "CEO正本返答と既存製品PRの整理を台帳へ反映。マージ/公開の承認とは分離する。",
       "acceptance": [
         "履歴互換性契約H1〜H7を満たし、旧回答/設定rawを変更しない",
         "既存PRの修正だけを独立checkoutで実装し、新たな製品PRを増やさない",
         "独立QAが最終HEADと全保存経路/旧版通常起動/JSON出入を確認",
         "既に混在した旧rawの復旧・機能採用・本番公開とは報告しない"
       ],
-      "next_action": "独立QAで候補commitの17suiteと旧画面往復/JSON/raw保護probeを確認。結果確定まで製品PRへpushしない。",
+      "next_action": "朝夕チェックで旧#10と追加系列#14〜#20の採用整理を提示。既混在raw復旧と実機試用は未検証。",
       "work_branch": "codex/review-storage-isolation-20261111",
       "scope_review": {
         "pdm": "pdm_isolation_scope",
@@ -1055,7 +1055,33 @@
         "scope": "社会3単元+理科詳細履歴+index今日の5問設定。qVersion任意保持、理科schema2/legacy/上限維持、旧集計自動コピー停止。採点/選定/通知/版archiveは変更しない。",
         "product_adoption": false
       },
-      "candidate_commit": "f1051410b3858e5ff5c83c32d515f78b24609f32"
+      "candidate_commit": "408805b06092b9eec5971426a8a1c2cb45194620",
+      "implementation_complete": true,
+      "qa_passed": true,
+      "report": "ops/runs/2026-11-11-storage-isolation.md",
+      "independent_qa": {
+        "reviewer": "qa_isolation_fix",
+        "commit": "408805b06092b9eec5971426a8a1c2cb45194620",
+        "all_suites": "17/17 exit0; Worker9/9 bootstrap13/13; 106s",
+        "probe": "four pages H1-H7 scoped pass; POST/external/pageerror0",
+        "report": "ops/evidence/2026-11-11-storage-isolation/QA.md",
+        "existing_limitation": "REV-STORAGE-RECOVERY"
+      }
+    },
+    {
+      "id": "REV-STORAGE-RECOVERY",
+      "title": "理科の一時的な保存領域読取拒否からの復旧を改善",
+      "goal": 1,
+      "state": "backlog",
+      "priority": 1,
+      "owner": null,
+      "branch": "codex/review-17-19-quality",
+      "pr": 20,
+      "base_sha": "408805b06092b9eec5971426a8a1c2cb45194620",
+      "depends_on": [],
+      "evidence": "ops/evidence/2026-11-11-storage-isolation/access-recovery-result.json",
+      "next_action": "PdM/PrMで読取拒否と破損rawを区別する復旧条件を定義。既存PR修正のみ。旧/試作raw不変と保存再試行を独立QA。",
+      "scope_note": "元PR20にも再現する既存制約。新規製品PR・私的データ・本番変更なし。"
     }
   ],
   "runs": [
@@ -2001,23 +2027,36 @@
       "observed_at": "2026-11-10T13:09:25.825875+00:00",
       "scope": "PR13/14/15 vs canonical operations and PR10",
       "finding": "3 linked product PRs remain ceo_wait; 2 additional product PRs14/15 were discovered outside the board. Their originating authorization/independent-review history is not established here. Do not hide the extra work by treating the wait cap as extra capacity. PR13 changes retry to3 and requires all6tests per task, unlike current explicit task limits.",
-      "next_action": "比較と独立QAを保存。#10基準で選定/回答前表示/記録互換性を定義してから既存PRへの修正範囲を決める。新規実装を増やさず、PR13のルール変更は未採用。",
+      "next_action": "CEO朝夕チェックで追加系列の採用整理を提示。旧PRを勝手に閉鎖/マージしない。既存修正または独立仕様だけ進める。",
       "report": "ops/runs/2026-11-10-pr-reconciliation.md",
       "latest_observation": {
-        "observed_at": "2026-11-10T14:18:39.482726+00:00",
-        "finding": "連携済み製品待ち3件に加え未採用PR14〜19の6件を観測。16〜18静的確認、19は本文/metadataのみ。新規製品PRを作らず既存PR修正の開始条件を整理。"
+        "observed_at": "2026-11-10T15:24:48.092516+00:00",
+        "finding": "従来ceo_waitの#10/#11/#12に加え、未採用の追加製品draft #14〜#20を7件観測。#20のみ既存修正し独立QA済み。追加の承認待ち枠とは扱わず、新規製品PRを作らない。"
       }
     },
     {
       "id": "REV-COMPAT-01",
-      "status": "unresolved",
+      "status": "partially_mitigated",
       "observed_at": "2026-11-10T13:17:39.410160+00:00",
       "scope": "PR15 f98456fe -> PR10 ba829a11 same-origin storage",
       "finding": "合成記録で派生ID保存後にPR10へ戻ると履歴全体がblocked=true/count0。rawは不変、PR15へ戻すと2件復元。旧版通常起動にも及ぶ互換性障害でありデータ消失ではない。",
       "report": "ops/runs/2026-11-10-pr-reconciliation.md",
       "reviewer": "qa_reconcile_adaptive",
-      "next_action": "REV-COMPAT-SPECで予防的な保存隔離を定義。既混在rawの旧版復旧は未解決。REV-COMPAT-FIXのPR19照合後、既存PRで合成試作の書込隔離を実装/独立QAする。",
-      "specification": "docs/product/review-history-contract.md"
+      "next_action": "修正の採用整理と実機試用。既混在rawを自動変換せず別仕様で扱う。",
+      "specification": "docs/product/review-history-contract.md",
+      "latest_observation": {
+        "observed_at": "2026-11-10T15:24:48.092516+00:00",
+        "finding": "PR20 408805bで4ページ試作保存を隔離し、旧PR10往復/旧raw不変を独立QA。新たな混在を予防。既に混在したrawの旧版復旧は未解決。"
+      }
+    },
+    {
+      "id": "SCIENCE-STORAGE-RECOVERY-01",
+      "status": "open",
+      "observed_at": "2026-11-10T15:24:48.092516+00:00",
+      "scope": "science initial localStorage.getItem refusal followed by access recovery",
+      "finding": "base c5c6c15とcandidate408805b双方でpersist=false/blocked=true。新規回帰ではなく旧ガードの制約。stored=nullで上書きなし。",
+      "report": "ops/evidence/2026-11-11-storage-isolation/QA.md",
+      "next_action": "REV-STORAGE-RECOVERYで既存PRへの限定修正条件を定義。"
     }
   ],
   "unreconciled_prs": [
@@ -2105,14 +2144,15 @@
     },
     {
       "pr": 20,
-      "head": "c5c6c15c4968ee3d04f8a43f273f12bbb3b9b81e",
+      "head": "408805b06092b9eec5971426a8a1c2cb45194620",
       "base_pr": 19,
       "kind": "product",
       "state": "open_draft",
       "adopted": false,
-      "reconciliation_status": "existing_draft_storage_fix_in_progress",
-      "observed_at": "2026-11-10T15:07:51.469485+00:00",
-      "validation": "PR本文全16成功は作者報告。今回の保存隔離後に独立QAを行う。"
+      "reconciliation_status": "existing_draft_storage_fix_qa_passed_not_adopted",
+      "observed_at": "2026-11-10T15:24:48.092516+00:00",
+      "validation": "今回独立QAで全17suiteと4ページ同origin互換probe成功。既混在raw修復/製品採用/公開は未実施。",
+      "comparison_report": "ops/runs/2026-11-11-storage-isolation.md"
     }
   ]
 }
