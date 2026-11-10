@@ -43,7 +43,7 @@
     "ticket": "REV-COMPAT-FIX",
     "purpose": "Resolve PR19/20 scope and implement existing draft history isolation with independent QA if bounded"
   },
-  "updated_at": "2026-11-10T15:07:51.469485+00:00",
+  "updated_at": "2026-11-10T15:16:51.936615+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -1022,12 +1022,12 @@
       "id": "REV-COMPAT-FIX",
       "title": "追加練習試作の保存隔離を既存PRへ適用",
       "goal": 1,
-      "state": "in_progress",
+      "state": "qa",
       "priority": 1,
       "depends_on": [
         "REV-COMPAT-SPEC"
       ],
-      "owner": "engineer_isolation_fix",
+      "owner": "qa_isolation_fix",
       "branch": "codex/review-17-19-quality",
       "pr": 20,
       "candidate_existing_prs": [
@@ -1045,7 +1045,7 @@
         "独立QAが最終HEADと全保存経路/旧版通常起動/JSON出入を確認",
         "既に混在した旧rawの復旧・機能採用・本番公開とは報告しない"
       ],
-      "next_action": "既存PR20の合成試作書込隔離を実装し独立QA。新規製品PRなし、後続PRへ自動反映しない。",
+      "next_action": "独立QAで候補commitの17suiteと旧画面往復/JSON/raw保護probeを確認。結果確定まで製品PRへpushしない。",
       "work_branch": "codex/review-storage-isolation-20261111",
       "scope_review": {
         "pdm": "pdm_isolation_scope",
@@ -1054,7 +1054,8 @@
         "at": "2026-11-10T15:07:51.469485+00:00",
         "scope": "社会3単元+理科詳細履歴+index今日の5問設定。qVersion任意保持、理科schema2/legacy/上限維持、旧集計自動コピー停止。採点/選定/通知/版archiveは変更しない。",
         "product_adoption": false
-      }
+      },
+      "candidate_commit": "f1051410b3858e5ff5c83c32d515f78b24609f32"
     }
   ],
   "runs": [
