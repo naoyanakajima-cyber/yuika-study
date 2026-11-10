@@ -27,6 +27,31 @@ Use Codex Cloud; development must not depend on a local PC remaining online.
 - Never weaken assertions, skip checks, disable TLS validation, or retry a failed
   test until it happens to pass. Diagnose failures and report remaining limitations.
 
+## Autonomous execution rules (自律実行ルール)
+
+- If a test or verification fails, investigate the cause, fix it, and retest
+  autonomously for up to three repair-and-retest cycles. Keep assertions and
+  safety checks intact; do not retry without diagnosing the failure.
+- Continue working until the task's completion criteria are met. Progress
+  reports must not pause execution. Resolve ambiguous specifications with
+  reasonable assumptions and document those assumptions in the PR description.
+- Stop and ask a person only when merging, production publication, deployment,
+  Secrets changes, incurring charges, sending real notifications, or changing
+  sharing scope is required, or when the failure remains after three repair
+  cycles. Follow explicit task prohibitions; this rule grants no authorization
+  for those actions.
+- At the end of every task, run all six existing test commands below and record
+  each result in the PR description. Use synthetic records and mock APIs only:
+
+  ```bash
+  python tests/onin_review.py
+  python tests/kamakura_review.py
+  python tests/cloud_preview.py
+  node --test notifications/test/worker.test.mjs
+  python notifications/test/browser.py
+  python tests/cloud_bootstrap.py
+  ```
+
 ## Release scope
 
 - Environment setup alone does not authorize merging or production deployment.
