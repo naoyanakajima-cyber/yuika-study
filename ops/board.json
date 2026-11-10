@@ -36,8 +36,14 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": null,
-  "updated_at": "2026-11-10T14:19:42.122739+00:00",
+  "lease": {
+    "run_id": "cycle-20261110T1503Z",
+    "acquired_at": "2026-11-10T15:04:32.932035+00:00",
+    "expires_at": "2026-11-10T15:44:32.932035+00:00",
+    "ticket": "REV-COMPAT-FIX",
+    "purpose": "Resolve PR19/20 scope and implement existing draft history isolation with independent QA if bounded"
+  },
+  "updated_at": "2026-11-10T15:04:32.932035+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -1016,12 +1022,12 @@
       "id": "REV-COMPAT-FIX",
       "title": "追加練習試作の保存隔離を既存PRへ適用",
       "goal": 1,
-      "state": "blocked",
+      "state": "prm_review",
       "priority": 1,
       "depends_on": [
         "REV-COMPAT-SPEC"
       ],
-      "owner": null,
+      "owner": "root/coordinator",
       "branch": null,
       "pr": null,
       "candidate_existing_prs": [
@@ -1039,7 +1045,7 @@
         "独立QAが最終HEADと全保存経路/旧版通常起動/JSON出入を確認",
         "既に混在した旧rawの復旧・機能採用・本番公開とは報告しない"
       ],
-      "next_action": "PR19差分の限定レビューで開始条件を解消してから、対象既存PRとbaseSHAを保存してEngineerへ委任。別の実装が進行中なら競合させない。"
+      "next_action": "PdMが19/20の版・理科・設定影響を限定照合し修正対象を確定する。"
     }
   ],
   "runs": [
