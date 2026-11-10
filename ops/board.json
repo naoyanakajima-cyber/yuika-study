@@ -43,7 +43,7 @@
     "ticket": "REV-STORAGE-RECOVERY",
     "purpose": "Scoped existing PR20 fix for transient storage read-access recovery"
   },
-  "updated_at": "2026-11-10T16:07:29.425746+00:00",
+  "updated_at": "2026-11-10T16:09:46.965780+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -1072,16 +1072,34 @@
       "id": "REV-STORAGE-RECOVERY",
       "title": "理科の一時的な保存領域読取拒否からの復旧を改善",
       "goal": 1,
-      "state": "requirements",
+      "state": "in_progress",
       "priority": 1,
-      "owner": "coordinator",
+      "owner": "engineer_storage_recovery",
       "branch": "codex/review-17-19-quality",
       "pr": 20,
       "base_sha": "408805b06092b9eec5971426a8a1c2cb45194620",
       "depends_on": [],
       "evidence": "ops/evidence/2026-11-11-storage-isolation/access-recovery-result.json",
-      "next_action": "PdM/PrMで読取拒否と破損rawを区別する復旧条件を定義。既存PR修正のみ。旧/試作raw不変と保存再試行を独立QA。",
-      "scope_note": "元PR20にも再現する既存制約。新規製品PR・私的データ・本番変更なし。"
+      "next_action": "Engineer focused regression後、別QAが最終SHAの全17suiteと独立UI復旧probeを実行。",
+      "scope_note": "元PR20にも再現する既存制約。新規製品PR・私的データ・本番変更なし。",
+      "work_branch": "codex/science-storage-recovery-20261111",
+      "base_ref": "codex/review-17-19-quality",
+      "scope_review": {
+        "pdm": "pdm_storage_recovery",
+        "prm": "root/coordinator",
+        "decision": "proceed_existing_draft_fix",
+        "at": "2026-11-10T16:09:46.965780+00:00",
+        "scope": "理科の初期storage読取拒否後の明示再試行。最新diskを全検証・merge、setItem成功後だけ解除。破損raw/旧KEY/未保存回答を保持。採点/選定/通知/移行は対象外。",
+        "product_adoption": false
+      },
+      "acceptance": [
+        "S1: 読取拒否と既知破損raw（空文字含む）を区別し後者は上書きしない",
+        "S2: 再試行時の最新disk+未保存回答を全検証・重複排除して結合。旧集計/問題版保持",
+        "S3: setItem成功後だけstate/blocked/dirtyを確定し、復習分析へ復帰",
+        "S4: 読取拒否継続/容量不足/不正raw/ID衝突でdiskと未保存回答を保持",
+        "S5: 768x1024実retryボタン→保存→再読込。旧KEY/他単元不変",
+        "S6: 採点/選定/通知/旧混在raw移行/自動再試行を変更しない"
+      ]
     }
   ],
   "runs": [
