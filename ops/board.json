@@ -36,14 +36,8 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": {
-    "run_id": "cycle-20261110T1503Z",
-    "acquired_at": "2026-11-10T15:04:32.932035+00:00",
-    "expires_at": "2026-11-10T15:44:32.932035+00:00",
-    "ticket": "REV-COMPAT-FIX",
-    "purpose": "Resolve PR19/20 scope and implement existing draft history isolation with independent QA if bounded"
-  },
-  "updated_at": "2026-11-10T15:24:48.092516+00:00",
+  "lease": null,
+  "updated_at": "2026-11-10T15:26:46.777386+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -1991,6 +1985,46 @@
       "report": "ops/runs/2026-11-10-review-history-contract.md",
       "next_ticket": "REV-COMPAT-FIX",
       "next_action": "PR19の教材版・理科・共通設定影響を限定レビューし、隔離修正対象HEADを確定後に既存PRで実装/独立QA。既混在履歴復旧は未解決、D02未決。"
+    },
+    {
+      "id": "cycle-20261110T1503Z",
+      "started_at": "2026-11-10T15:03:50+00:00",
+      "completed_at": "2026-11-10T15:26:46.777386+00:00",
+      "ticket": "REV-COMPAT-FIX",
+      "result": "既存draft PR20に4ページの試作保存隔離を実装。独立QA全17suite/旧版往復/実JSON復元成功。採用整理待ち、既混在raw復旧未解決。科学の既存読取拒否復旧制約を次チケットへ。",
+      "observed_operations_commit": "e8bb552ead5e1b2da15e490d3eb754c3ce279879",
+      "cloud_verified": true,
+      "product_base_commit": "c5c6c15c4968ee3d04f8a43f273f12bbb3b9b81e",
+      "product_commit": "408805b06092b9eec5971426a8a1c2cb45194620",
+      "evidence_commit": "37281cb8c190ad4d96fe448202b9005a12978c74",
+      "product_heads_changed_by_this_run": true,
+      "ceo_decisions_ingested": 0,
+      "subagents": [
+        "pdm_isolation_scope",
+        "engineer_isolation_fix",
+        "qa_isolation_fix"
+      ],
+      "engineer": "engineer_isolation_fix",
+      "reviewer": "qa_isolation_fix",
+      "manual_setup": false,
+      "dependency_preparation": "既存クラウドvenvを独立checkoutの無視対象.venv/binから参照。インストールなし、自動引継ぎ成功とは扱わない。",
+      "app_tests_run": true,
+      "browser_tests_run": true,
+      "validation": "Final SHA: check_all 17/17 exit0,106s; Worker9/9 bootstrap13/13. Independent four-page same-origin old/new and actual-file empty-store restore probe exit0; POST/external/pageerror0. git diff --check0, clean. Evidence/report consistency independently reviewed.",
+      "failed_attempts": "Engineer focusedテスト初回のnative Storage関数returnによるIllegal invocationをテスト側void wrapperで訂正。最終HEADの独立suite/probeは初回成功。",
+      "external_private_data_calls": 0,
+      "new_prs": [],
+      "updated_prs": [
+        20,
+        9
+      ],
+      "product_code_changed": true,
+      "platform_run_completion_verified": false,
+      "report": "ops/runs/2026-11-11-storage-isolation.md",
+      "next_ticket": "REV-STORAGE-RECOVERY",
+      "next_action": "既存PR限定で一時読取拒否と破損rawを区別した復旧条件をPdM/PrM確認。新規PRを作らず、朝夕で既存製品3件と追加7件の採用整理を提示。",
+      "production_actions": false,
+      "lease_released_at": "2026-11-10T15:26:46.777386+00:00"
     }
   ],
   "operational_notes": [
