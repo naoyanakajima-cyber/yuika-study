@@ -1,6 +1,7 @@
 # REV-COMPAT-SPEC: 復習試作の履歴を保護する契約
 
-状態: PdM作成、PrMが次回の隔離修正候補として範囲確認済み。独立レビュー待ち。
+状態: PdM作成、PrMが次回の隔離修正候補として範囲確認済み。
+独立レビュー結果は `ops/board.json` の `REV-COMPAT-SPEC` に記録する。
 2026-11-10。新規機能・移行・製品統合・マージ・公開の完了を意味しない。
 [既存比較](review-reconciliation.md)、[REV-SPEC](review-spec.md)と
 [前回の再現結果](../../ops/runs/2026-11-10-pr-reconciliation.md)を前提にする。
