@@ -43,7 +43,7 @@
     "ticket": "THEME-MVP",
     "purpose": "Review readability and return-to-standard flow with synthetic data"
   },
-  "updated_at": "2026-11-10T00:01:03.838819+00:00",
+  "updated_at": "2026-11-10T00:02:29.396287+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -694,12 +694,12 @@
       "id": "THEME-MVP",
       "title": "標準と鎌倉テーマの切替試作",
       "goal": 3,
-      "state": "backlog",
+      "state": "qa",
       "priority": 3,
       "depends_on": [
         "THEME-SPEC"
       ],
-      "owner": null,
+      "owner": "qa_theme_readability",
       "branch": "codex/kamakura-theme-mvp",
       "pr": 12,
       "acceptance": [
@@ -707,7 +707,7 @@
         "切替前後の問題・採点・既存履歴が同一",
         "768x1024で可読性と主要操作を確認する"
       ],
-      "next_action": "REV/CONTENTの具体的修正依頼を優先し、なければ既存PR #12の合成画面で標準/鎌倉の読みやすさと標準へ戻す操作をPdM→PrMで確認。具体的所見がある場合だけ同じPRの必要差分を実装・独立QAする。新テーマ・画像追加や根拠のない全検証の反復はしない。D05の方向性採用を再要求しない。",
+      "next_action": "PdM→PrMで範囲確認済み。独立QAの重点試用結果を確認し、具体的所見があれば必要な変更だけ同じPR #12で実装。",
       "evidence": [
         {
           "kind": "test",
@@ -768,7 +768,22 @@
         "deployment_authorized": false,
         "state": "draft_unmerged"
       },
-      "implementation_status": "implemented_and_independently_tested"
+      "implementation_status": "implemented_and_independently_tested",
+      "followup_scope": {
+        "id": "THEME-MVP-readability",
+        "status": "focused_trial",
+        "pdm": "pdm_theme_readability",
+        "prm": "root/coordinator",
+        "resume_from_commit": "57171ad9cab02fec6a080ecbe317fe11d3f51dcf",
+        "work_branch": "codex/theme-readability-20261110",
+        "implementation": "not_required_unless_concrete_finding",
+        "acceptance": [
+          "標準/鎌倉の長い解説・表図で本文サイズ/行間・意味を維持",
+          "実際の読書位置から標準復帰を試し、操作と制約を記録",
+          "200%相当の追加探索は方法と実機との差を明記し、折返し・到達性を確認"
+        ],
+        "out_of_scope": "固定UI・新テーマ・画像追加を先回り実装しない。通常T1-T11の無意味な反復なし。"
+      }
     }
   ],
   "runs": [
