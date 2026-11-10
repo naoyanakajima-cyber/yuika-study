@@ -36,14 +36,8 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": {
-    "run_id": "cycle-20261110T0000Z",
-    "acquired_at": "2026-11-10T00:01:03.838819+00:00",
-    "expires_at": "2026-11-10T00:41:03.838819+00:00",
-    "ticket": "THEME-MVP",
-    "purpose": "Review readability and return-to-standard flow with synthetic data"
-  },
-  "updated_at": "2026-11-10T00:02:29.396287+00:00",
+  "lease": null,
+  "updated_at": "2026-11-10T00:08:14.222274+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -225,7 +219,7 @@
         "既存ID・保存キー・旧履歴を保護する",
         "768x1024で開始・回答・採点・保存・再読込を合成データで確認する"
       ],
-      "next_action": "入口改善は独立QA済み。CEOの試作品確認・具体的な操作上の修正があれば同じPR #10で対応。D03の方向性採用を再要求しない。共有ブラウザー引き渡しと実機確認は別途未完了。新しい修正依頼がなければCONTENT-MVPの合成試用導線・次受入条件整理へ進む。",
+      "next_action": "改善・独立QA済み。正本からの具体的な試作品修正依頼があれば同じPRで対応。方向性採用は再要求しない。実入力経路/保存先はD01/D02待ち。3試作品の追加確認が済んだため、依存しない仕事がなければ終了する。",
       "evidence": [
         {
           "kind": "test",
@@ -480,7 +474,7 @@
         "未確認出力と確認済み案を区別し、既存教材/記録に接続しない",
         "768x1024で編集・確認・取消・出力/再入力、外部要求/通知POST 0を検証"
       ],
-      "next_action": "案内改善は独立QA済み。具体的な操作上の修正依頼があれば同じPR #11で対応し、D04の方向性採用を再要求しない。REV/CONTENTに新しい修正依頼がなければTHEME-MVPの読みやすさ確認へ進む。実入力経路・保存先はD01/D02待ち。",
+      "next_action": "改善・独立QA済み。正本からの具体的な試作品修正依頼があれば同じPRで対応。方向性採用は再要求しない。実入力経路/保存先はD01/D02待ち。3試作品の追加確認が済んだため、依存しない仕事がなければ終了する。",
       "evidence": [
         {
           "kind": "test",
@@ -694,12 +688,12 @@
       "id": "THEME-MVP",
       "title": "標準と鎌倉テーマの切替試作",
       "goal": 3,
-      "state": "qa",
+      "state": "ceo_wait",
       "priority": 3,
       "depends_on": [
         "THEME-SPEC"
       ],
-      "owner": "qa_theme_readability",
+      "owner": null,
       "branch": "codex/kamakura-theme-mvp",
       "pr": 12,
       "acceptance": [
@@ -707,7 +701,7 @@
         "切替前後の問題・採点・既存履歴が同一",
         "768x1024で可読性と主要操作を確認する"
       ],
-      "next_action": "PdM→PrMで範囲確認済み。独立QAの重点試用結果を確認し、具体的所見があれば必要な変更だけ同じPR #12で実装。",
+      "next_action": "正本からの具体的修正依頼・新しいCEO判断を確認。方向性D05の採用を再要求しない。依存しない仕事がなければ終了し、同じQAを反復しない。実機/CEO本人の試用は未確認。",
       "evidence": [
         {
           "kind": "test",
@@ -745,6 +739,20 @@
           "kind": "pull_request",
           "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/12",
           "draft": true
+        },
+        {
+          "kind": "focused_browser_probe",
+          "command": "source scripts/cloud/activate.sh && python /workspace/work/theme-readability-qa-20261110/probe.py",
+          "exit_code": 0,
+          "commit": "57171ad9cab02fec6a080ecbe317fe11d3f51dcf",
+          "executor": "qa_theme_readability",
+          "run": "cycle-20261110T0000Z",
+          "scope": "home/feedbackのみ。768x1024と384x512 CSS px/DPR2。parent/recordsは遷移未確認で除外。初回ハーネスprepare漏れexit1を修正した2回目。既存全回帰は今回未実行。"
+        },
+        {
+          "kind": "report",
+          "path": "ops/runs/2026-11-10-theme-readability.md",
+          "commit": "57171ad9cab02fec6a080ecbe317fe11d3f51dcf"
         }
       ],
       "review": {
@@ -771,18 +779,33 @@
       "implementation_status": "implemented_and_independently_tested",
       "followup_scope": {
         "id": "THEME-MVP-readability",
-        "status": "focused_trial",
+        "status": "focused_trial_completed_no_product_change",
         "pdm": "pdm_theme_readability",
         "prm": "root/coordinator",
         "resume_from_commit": "57171ad9cab02fec6a080ecbe317fe11d3f51dcf",
         "work_branch": "codex/theme-readability-20261110",
-        "implementation": "not_required_unless_concrete_finding",
+        "implementation": "not_needed",
         "acceptance": [
           "標準/鎌倉の長い解説・表図で本文サイズ/行間・意味を維持",
           "実際の読書位置から標準復帰を試し、操作と制約を記録",
           "200%相当の追加探索は方法と実機との差を明記し、折返し・到達性を確認"
         ],
-        "out_of_scope": "固定UI・新テーマ・画像追加を先回り実装しない。通常T1-T11の無意味な反復なし。"
+        "out_of_scope": "固定UI・新テーマ・画像追加を先回り実装しない。通常T1-T11の無意味な反復なし。",
+        "reviewer": "qa_theme_readability",
+        "result": "passed_for_home_and_feedback_only",
+        "commit": "57171ad9cab02fec6a080ecbe317fe11d3f51dcf",
+        "completed_at": "2026-11-10T00:08:14.222274+00:00",
+        "excluded_scope": "parent/recordsは未完run遷移確認が不足していたため今回の成功範囲から除外。証拠を訂正し再実行なし。"
+      },
+      "ceo_wait_reason": "D05方向性採用済み。home/長文解説の追加試用で新しい修正は不要。試作品の操作確認待ち、マージ・公開は未承認。",
+      "ceo_trial": {
+        "synthetic_focused_qa": "passed_for_home_and_feedback_only",
+        "ceo_hands_on": "not_verified",
+        "real_ipad_safari": "not_tested",
+        "native_browser_zoom": "not_tested",
+        "latest_synthetic_qa_commit": "57171ad9cab02fec6a080ecbe317fe11d3f51dcf",
+        "latest_cloud_artifacts": "/workspace/work/theme-readability-qa-20261110/",
+        "shared_browser_handoff": "not_completed"
       }
     }
   ],
@@ -1071,6 +1094,37 @@
       "ceo_decisions_ingested": 0,
       "next_ticket": "THEME-MVP",
       "next_action": "REV/CONTENTの具体的修正依頼を優先し、なければ既存PR #12の合成画面で標準/鎌倉の読みやすさと標準へ戻す操作をPdM→PrMで確認。具体的所見がある場合だけ同じPRの必要差分を実装・独立QAする。新テーマ・画像追加や根拠のない全検証の反復はしない。D05の方向性採用を再要求しない。"
+    },
+    {
+      "id": "cycle-20261110T0000Z",
+      "completed_at": "2026-11-10T00:08:14.222274+00:00",
+      "ticket": "THEME-MVP",
+      "result": "既存PR #12のhome/長文解説を独立追加試用。製品修正不要、証拠とQA範囲訂正を保存。3試作品が操作確認待ち。",
+      "observed_operations_commit": "14a8608236e8137f5d21aed04cb9fb630e9cf891",
+      "commit": "57171ad9cab02fec6a080ecbe317fe11d3f51dcf",
+      "pr": 12,
+      "report": "ops/runs/2026-11-10-theme-readability.md",
+      "cloud_verified": true,
+      "subagents": [
+        "pdm_theme_readability",
+        "qa_theme_readability"
+      ],
+      "reviewer": "qa_theme_readability",
+      "engineer_spawned": false,
+      "product_code_changed": false,
+      "manual_setup": true,
+      "snapshot_restore_verified": false,
+      "platform_run_completion_verified": false,
+      "focused_probe_exit_code": 0,
+      "validation_scope": "home/feedbackのみ。parent/recordsは遷移未確認のため除外、訂正済み。既存全回帰未反復。",
+      "new_prs": [],
+      "updated_prs": [
+        9,
+        12
+      ],
+      "ceo_decisions_ingested": 0,
+      "next_ticket": null,
+      "next_action": "正本の具体的修正依頼・CEO判断の取り込みを確認。依存しない仕事がなければ終了。方向性採用の再要求や時間埋め検証をしない。"
     }
   ],
   "operational_notes": [
@@ -1095,7 +1149,11 @@
         "https://github.com/naoyanakajima-cyber/yuika-study/pull/12#issuecomment-6748192684"
       ],
       "report": "ops/runs/2026-11-10-approval-check-0403.md",
-      "next_action": "No redeploy or configuration changes. Obtain relevant build log through an authorized read-only connection or supplied evidence before further diagnosis. Preserve existing cloud test evidence separately."
+      "next_action": "No redeploy or configuration changes. Obtain relevant build log through an authorized read-only connection or supplied evidence before further diagnosis. Preserve existing cloud test evidence separately.",
+      "latest_observation": {
+        "observed_at": "2026-11-10T00:08:14.222274+00:00",
+        "finding": "PR #11 current head 3d2ed2f also has bot Build Failed and empty deployment URL. No build log obtained or redeploy performed."
+      }
     }
   ]
 }
