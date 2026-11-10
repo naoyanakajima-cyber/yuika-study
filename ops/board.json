@@ -43,7 +43,7 @@
     "ticket": "REV-COMPAT-SPEC",
     "purpose": "Define safe history compatibility contract for existing review PRs; no new product implementation"
   },
-  "updated_at": "2026-11-10T14:09:51.614858+00:00",
+  "updated_at": "2026-11-10T14:18:39.482726+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -976,12 +976,12 @@
       "id": "REV-COMPAT-SPEC",
       "title": "復習試作の回答履歴互換性と採用前条件を定義",
       "goal": 1,
-      "state": "requirements",
+      "state": "done",
       "priority": 1,
       "depends_on": [
         "REV-RECONCILE"
       ],
-      "owner": "root/coordinator",
+      "owner": null,
       "branch": "codex/agent-team-operations",
       "pr": 9,
       "base_ref": "codex/agent-team-operations",
@@ -992,7 +992,60 @@
         "新しいPR16〜18と既存指摘の関係を区別し重複実装を避ける",
         "独立レビュー後に次回の単一修正範囲を保存"
       ],
-      "next_action": "PdMが既存コード差分を確認し、PrMが保存互換性契約を選ぶ。製品コードは変更しない。"
+      "next_action": "文書完了。REV-COMPAT-FIXで新観測PR19の教材版/理科/設定影響を確認して既存PR修正対象を確定。保存隔離の実装/移行完了ではない。",
+      "specification": "docs/product/review-history-contract.md",
+      "review": {
+        "author": "pdm_review_compat_contract",
+        "prm": "root/coordinator",
+        "reviewer": "qa_review_compat_contract",
+        "result": "documentation_passed",
+        "reviewed_source_commit": "ec078b0e3c75a6c3e88fa98ff4b0b953b9f483fd",
+        "final_document_sha256": {
+          "docs/product/review-history-contract.md": "32ea8ae798ef9815e3f9b77aa10fc311ae59e11a53b8cc0e8985f5a4fb7c81ad",
+          "ops/runs/2026-11-10-review-history-contract.md": "b3e93a5f691122e6ab20dd730ee70055bc43814413a07a9813f02d71dfe2fff9"
+        },
+        "qa_report_sha256": "bd412a5a62db0697c9c25554c78f85a48ead01ecb82d7ddfdd601ca47ce31cd2",
+        "notes": "4点の指摘を反映。PR19追記後も最終2文書を独立確認。アプリ試験なし。"
+      },
+      "evidence": [
+        {
+          "kind": "specification",
+          "path": "docs/product/review-history-contract.md"
+        },
+        {
+          "kind": "report",
+          "path": "ops/runs/2026-11-10-review-history-contract.md"
+        }
+      ]
+    },
+    {
+      "id": "REV-COMPAT-FIX",
+      "title": "追加練習試作の保存隔離を既存PRへ適用",
+      "goal": 1,
+      "state": "blocked",
+      "priority": 1,
+      "depends_on": [
+        "REV-COMPAT-SPEC"
+      ],
+      "owner": null,
+      "branch": null,
+      "pr": null,
+      "candidate_existing_prs": [
+        18,
+        19
+      ],
+      "base_ref": null,
+      "base_sha": null,
+      "specification": "docs/product/review-history-contract.md",
+      "blocked_reason": "仕様はPR18固定HEADで検討。終了前にPR19の教材版/理科接続が新観測され、コード影響は未照合。最新系列へ無条件適用不可。",
+      "unblock": "PdM/PrMがPR19のquestionVersion・理科・共通設定差分を読み、未知項目保全を含む契約と修正対象HEADを確定。実データ/マージ承認不要の合成試作範囲のみ。",
+      "acceptance": [
+        "履歴互換性契約H1〜H7を満たし、旧回答/設定rawを変更しない",
+        "既存PRの修正だけを独立checkoutで実装し、新たな製品PRを増やさない",
+        "独立QAが最終HEADと全保存経路/旧版通常起動/JSON出入を確認",
+        "既に混在した旧rawの復旧・機能採用・本番公開とは報告しない"
+      ],
+      "next_action": "PR19差分の限定レビューで開始条件を解消してから、対象既存PRとbaseSHAを保存してEngineerへ委任。別の実装が進行中なら競合させない。"
     }
   ],
   "runs": [
@@ -1900,8 +1953,8 @@
       "next_action": "比較と独立QAを保存。#10基準で選定/回答前表示/記録互換性を定義してから既存PRへの修正範囲を決める。新規実装を増やさず、PR13のルール変更は未採用。",
       "report": "ops/runs/2026-11-10-pr-reconciliation.md",
       "latest_observation": {
-        "observed_at": "2026-11-10T14:09:51.614858+00:00",
-        "finding": "連携済み製品待ち3件に加えて未採用製品PR14〜18の5件を観測。#16は集計等、#17は採点、#18は再確認/今日の5問の積み上げ。承認や統合を推定せず新規実装を増やさない。"
+        "observed_at": "2026-11-10T14:18:39.482726+00:00",
+        "finding": "連携済み製品待ち3件に加え未採用PR14〜19の6件を観測。16〜18静的確認、19は本文/metadataのみ。新規製品PRを作らず既存PR修正の開始条件を整理。"
       }
     },
     {
@@ -1912,7 +1965,8 @@
       "finding": "合成記録で派生ID保存後にPR10へ戻ると履歴全体がblocked=true/count0。rawは不変、PR15へ戻すと2件復元。旧版通常起動にも及ぶ互換性障害でありデータ消失ではない。",
       "report": "ops/runs/2026-11-10-pr-reconciliation.md",
       "reviewer": "qa_reconcile_adaptive",
-      "next_action": "旧版への移行・原問題ID別集計・回答前表示の契約を定義する。validator弱体化/未知event削除は不可。現状のPR群を統合済みと扱わない。"
+      "next_action": "REV-COMPAT-SPECで予防的な保存隔離を定義。既混在rawの旧版復旧は未解決。REV-COMPAT-FIXのPR19照合後、既存PRで合成試作の書込隔離を実装/独立QAする。",
+      "specification": "docs/product/review-history-contract.md"
     }
   ],
   "unreconciled_prs": [
@@ -1957,9 +2011,10 @@
       "kind": "product",
       "state": "open_draft",
       "adopted": false,
-      "reconciliation_status": "static_comparison_in_progress",
+      "reconciliation_status": "statically_compared_not_adopted",
       "observed_at": "2026-11-10T14:09:51.614858+00:00",
-      "validation": "PR本文の検証報告は確認したが、この運用サイクルで実行していない。"
+      "validation": "PR本文の検証報告は確認したが、この運用サイクルで実行していない。",
+      "comparison_report": "ops/runs/2026-11-10-review-history-contract.md"
     },
     {
       "pr": 17,
@@ -1968,9 +2023,10 @@
       "kind": "product",
       "state": "open_draft",
       "adopted": false,
-      "reconciliation_status": "static_comparison_in_progress",
+      "reconciliation_status": "statically_compared_not_adopted",
       "observed_at": "2026-11-10T14:09:51.614858+00:00",
-      "validation": "PR本文の検証報告は確認したが、この運用サイクルで実行していない。"
+      "validation": "PR本文の検証報告は確認したが、この運用サイクルで実行していない。",
+      "comparison_report": "ops/runs/2026-11-10-review-history-contract.md"
     },
     {
       "pr": 18,
@@ -1979,9 +2035,22 @@
       "kind": "product",
       "state": "open_draft",
       "adopted": false,
-      "reconciliation_status": "static_comparison_in_progress",
+      "reconciliation_status": "statically_compared_not_adopted",
       "observed_at": "2026-11-10T14:09:51.614858+00:00",
-      "validation": "PR本文の検証報告は確認したが、この運用サイクルで実行していない。"
+      "validation": "PR本文の検証報告は確認したが、この運用サイクルで実行していない。",
+      "comparison_report": "ops/runs/2026-11-10-review-history-contract.md"
+    },
+    {
+      "pr": 19,
+      "head": "e7c727fdc2788969781ad2e34048d7d1d0b488f2",
+      "base_pr": 18,
+      "kind": "product",
+      "state": "open_draft",
+      "adopted": false,
+      "reconciliation_status": "metadata_only",
+      "observed_at": "2026-11-10T14:18:39.482726+00:00",
+      "validation": "PR本文の成功報告のみ確認、コード/アプリ試験は未検証。",
+      "comparison_report": "ops/runs/2026-11-10-review-history-contract.md"
     }
   ]
 }
