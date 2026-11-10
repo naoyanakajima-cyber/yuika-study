@@ -36,14 +36,8 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": {
-    "run_id": "cycle-20261110T1407Z",
-    "acquired_at": "2026-11-10T14:08:29.026234+00:00",
-    "expires_at": "2026-11-10T14:48:29.026234+00:00",
-    "ticket": "REV-COMPAT-SPEC",
-    "purpose": "Define safe history compatibility contract for existing review PRs; no new product implementation"
-  },
-  "updated_at": "2026-11-10T14:18:39.482726+00:00",
+  "lease": null,
+  "updated_at": "2026-11-10T14:19:42.122739+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -1914,6 +1908,47 @@
       "platform_run_completion_verified": false,
       "report": "ops/runs/2026-11-10-pr-reconciliation.md",
       "next_action": "REV-COMPAT-01: #10を基準に#14/#15差分採否・旧版移行・原問集計・回答前表示を定義し、既存PRの修正範囲を決める。新規製品実装は増やさない。D02未決。"
+    },
+    {
+      "id": "cycle-20261110T1407Z",
+      "completed_at": "2026-11-10T14:19:42.122739+00:00",
+      "ticket": "REV-COMPAT-SPEC",
+      "result": "保存互換性の予防的隔離契約H1〜H7をPdM/PrM/独立文書レビューで定義。PR16〜18は静的比較、終了前のPR19はmetadataのみ。製品実装なし。",
+      "observed_operations_commit": "da47315b45d1390002ff0490ddce7acc59fd5f0c",
+      "cloud_verified": true,
+      "observed_product_heads": {
+        "10": "ba829a1176ff1ead7d312526890afe8792178c99",
+        "11": "3d2ed2f9a62673d2fb086a360ae841096f35b63e",
+        "12": "57171ad9cab02fec6a080ecbe317fe11d3f51dcf",
+        "16": "820561fd6e3ca3af9764c3c97bf6173415f4ad1b",
+        "17": "eade5c2101dddddca62e91a4959b3960ffda291c",
+        "18": "4518860a9456746c7bfc3df03679dc30ebe14624",
+        "19": "e7c727fdc2788969781ad2e34048d7d1d0b488f2"
+      },
+      "product_heads_changed_by_this_run": false,
+      "ceo_decisions_ingested": 0,
+      "subagents": [
+        "pdm_review_compat_contract",
+        "qa_review_compat_contract"
+      ],
+      "engineer": null,
+      "reviewer": "qa_review_compat_contract",
+      "reviewed_source_commit": "ec078b0e3c75a6c3e88fa98ff4b0b953b9f483fd",
+      "documentation_commit": "12758b4e265a25931fcff3fe437f01bcf0445e79",
+      "manual_setup": false,
+      "app_tests_run": false,
+      "browser_tests_run": false,
+      "validation": "Independent final-document review with SHA256 verification; git diff --check passed. No PR16–19 runtime tests; no reuse of earlier QA as their pass.",
+      "external_private_data_calls": 0,
+      "new_prs": [],
+      "updated_prs": [
+        9
+      ],
+      "product_code_changed": false,
+      "platform_run_completion_verified": false,
+      "report": "ops/runs/2026-11-10-review-history-contract.md",
+      "next_ticket": "REV-COMPAT-FIX",
+      "next_action": "PR19の教材版・理科・共通設定影響を限定レビューし、隔離修正対象HEADを確定後に既存PRで実装/独立QA。既混在履歴復旧は未解決、D02未決。"
     }
   ],
   "operational_notes": [
