@@ -43,7 +43,7 @@
     "ticket": "REV-RECONCILE",
     "purpose": "Reconcile newly discovered PR13/14/15 with canonical operations and review MVP; no new product implementation"
   },
-  "updated_at": "2026-11-10T13:07:06.480763+00:00",
+  "updated_at": "2026-11-10T13:09:25.825875+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -903,6 +903,28 @@
           "sha256": "c02e6fada2706023d6f038913324012ad4ee5c9becad3eb84d240b6ca53070da"
         }
       ]
+    },
+    {
+      "id": "REV-RECONCILE",
+      "title": "既存復習PRの重複・互換性・運用ルールを照合",
+      "goal": 1,
+      "state": "review",
+      "priority": 1,
+      "depends_on": [
+        "REV-SPEC"
+      ],
+      "owner": "root/coordinator",
+      "branch": "codex/agent-team-operations",
+      "pr": 9,
+      "base_ref": "codex/agent-team-operations",
+      "base_sha": "d47645c4cb624d1dfde706dad3e30e4c3092e772",
+      "acceptance": [
+        "PR10/14/15の目的と依存関係を区別",
+        "PR13と正本ルール差異を明記",
+        "独立QAの実施対象HEADと未検証範囲を記録",
+        "新規実装・マージ・クローズなしで次の一手を整理"
+      ],
+      "next_action": "PdM比較とPrM範囲確認、独立QAでPR15の合成テスト/互換性を確認。第4の実装は作らない。"
     }
   ],
   "runs": [
@@ -1761,6 +1783,37 @@
         "observed_at": "2026-11-10T00:08:14.222274+00:00",
         "finding": "PR #11 current head 3d2ed2f also has bot Build Failed and empty deployment URL. No build log obtained or redeploy performed."
       }
+    },
+    {
+      "id": "PR-RECONCILIATION-01",
+      "status": "under_review",
+      "observed_at": "2026-11-10T13:09:25.825875+00:00",
+      "scope": "PR13/14/15 vs canonical operations and PR10",
+      "finding": "3 linked product PRs remain ceo_wait; 2 additional product PRs14/15 were discovered outside the board. Their originating authorization/independent-review history is not established here. Do not hide the extra work by treating the wait cap as extra capacity. PR13 changes retry to3 and requires all6tests per task, unlike current explicit task limits.",
+      "next_action": "Freeze new implementation; compare purpose/history compatibility and record independent QA. Preserve all branches/PRs and current explicit2retry/35min limits. No merge/close/adoption."
+    }
+  ],
+  "unreconciled_prs": [
+    {
+      "pr": 13,
+      "head": "139c8b8b56bcd979068b61984120d9f312efe182",
+      "kind": "operations_rules",
+      "state": "open_draft",
+      "adopted": false
+    },
+    {
+      "pr": 14,
+      "head": "ef70a502e36aeac871edb183bbf29b4e193b31b9",
+      "kind": "product",
+      "state": "open_draft",
+      "adopted": false
+    },
+    {
+      "pr": 15,
+      "head": "f98456fef3673d08ef226e5b0d9bddfa236c734f",
+      "kind": "product",
+      "state": "open_draft",
+      "adopted": false
     }
   ]
 }
