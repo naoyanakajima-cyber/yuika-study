@@ -43,7 +43,7 @@
     "ticket": "REV-STORAGE-RECOVERY",
     "purpose": "Scoped existing PR20 fix for transient storage read-access recovery"
   },
-  "updated_at": "2026-11-10T16:09:46.965780+00:00",
+  "updated_at": "2026-11-10T16:12:14.267425+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -1072,15 +1072,15 @@
       "id": "REV-STORAGE-RECOVERY",
       "title": "理科の一時的な保存領域読取拒否からの復旧を改善",
       "goal": 1,
-      "state": "in_progress",
+      "state": "qa",
       "priority": 1,
-      "owner": "engineer_storage_recovery",
+      "owner": "qa_storage_recovery",
       "branch": "codex/review-17-19-quality",
       "pr": 20,
       "base_sha": "408805b06092b9eec5971426a8a1c2cb45194620",
       "depends_on": [],
       "evidence": "ops/evidence/2026-11-11-storage-isolation/access-recovery-result.json",
-      "next_action": "Engineer focused regression後、別QAが最終SHAの全17suiteと独立UI復旧probeを実行。",
+      "next_action": "最終candidateの全17suiteと独立復旧probeを実行中。QA後にleaseとPR20 HEADを再確認して既存draftへ統合。",
       "scope_note": "元PR20にも再現する既存制約。新規製品PR・私的データ・本番変更なし。",
       "work_branch": "codex/science-storage-recovery-20261111",
       "base_ref": "codex/review-17-19-quality",
@@ -1099,7 +1099,8 @@
         "S4: 読取拒否継続/容量不足/不正raw/ID衝突でdiskと未保存回答を保持",
         "S5: 768x1024実retryボタン→保存→再読込。旧KEY/他単元不変",
         "S6: 採点/選定/通知/旧混在raw移行/自動再試行を変更しない"
-      ]
+      ],
+      "candidate_commit": "79d546891940b6f5e3030940f7c52c2ff7b3d36b"
     }
   ],
   "runs": [
