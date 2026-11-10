@@ -36,8 +36,14 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": null,
-  "updated_at": "2026-11-10T15:26:46.777386+00:00",
+  "lease": {
+    "run_id": "cycle-20261110T1606Z",
+    "acquired_at": "2026-11-10T16:07:29.425746+00:00",
+    "expires_at": "2026-11-10T16:47:29.425746+00:00",
+    "ticket": "REV-STORAGE-RECOVERY",
+    "purpose": "Scoped existing PR20 fix for transient storage read-access recovery"
+  },
+  "updated_at": "2026-11-10T16:07:29.425746+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -1066,9 +1072,9 @@
       "id": "REV-STORAGE-RECOVERY",
       "title": "理科の一時的な保存領域読取拒否からの復旧を改善",
       "goal": 1,
-      "state": "backlog",
+      "state": "requirements",
       "priority": 1,
-      "owner": null,
+      "owner": "coordinator",
       "branch": "codex/review-17-19-quality",
       "pr": 20,
       "base_sha": "408805b06092b9eec5971426a8a1c2cb45194620",
