@@ -34,6 +34,23 @@
 - テキスト: [synthetic-source.txt](fixtures/synthetic-source.txt) → [synthetic-content.json](fixtures/synthetic-content.json)
 - 画像: [synthetic-source.svg](fixtures/synthetic-source.svg) → [synthetic-image-content.json](fixtures/synthetic-image-content.json)
 
+### JSONを渡す画面と操作
+
+1. 担当が対象PR #11のcheckoutから合成案JSONをファイルとして渡す。
+   プレビューサーバーはfixtureディレクトリを配信しないため、ブラウザーからfixture URLを取得しない。
+2. 通知を遮断するクラウド内プレビューの `http://127.0.0.1:<port>/content-review.html` を開く。
+   これはクラウド内での操作先であり、CEOの端末から開ける公開URLではない。
+3. **「保存した合成案JSONを再入力」**（`#import`）へ、担当が渡したJSONを指定する。
+   原文txt・画像svgそのものや、回答記録JSONをこの欄へ渡さない。
+   学習画面の回答記録読み込み欄とは別である。
+4. 原本・転記・問題案を比較する。テキスト例は明示確認して確認済み案を保存できる。
+   保存したJSONを再入力すると内容は保持され、確認は未確認へ戻る。
+5. 画像例は原本自体の方角が判読不明である。別テキストや一般知識から補完せず、
+   未解決・未確認のまま「未確認の案をJSONで保存」で保留する。確認済み案にはしない。
+
+これは担当が既存ファイルを渡す手動の模擬引き継ぎであり、チャットからブラウザーへの自動転送ではない。
+テスター役のエージェントが合成内容を確認しても、CEO本人の操作確認や実教材の正しさの確認には数えない。
+
 入力テンプレート（合成試用専用）:
 
 ```text
