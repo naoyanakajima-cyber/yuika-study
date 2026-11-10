@@ -43,7 +43,7 @@
     "ticket": "REV-RECONCILE",
     "purpose": "Reconcile newly discovered PR13/14/15 with canonical operations and review MVP; no new product implementation"
   },
-  "updated_at": "2026-11-10T13:09:25.825875+00:00",
+  "updated_at": "2026-11-10T13:18:11.208532+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -908,12 +908,12 @@
       "id": "REV-RECONCILE",
       "title": "既存復習PRの重複・互換性・運用ルールを照合",
       "goal": 1,
-      "state": "review",
+      "state": "done",
       "priority": 1,
       "depends_on": [
         "REV-SPEC"
       ],
-      "owner": "root/coordinator",
+      "owner": null,
       "branch": "codex/agent-team-operations",
       "pr": 9,
       "base_ref": "codex/agent-team-operations",
@@ -924,7 +924,53 @@
         "独立QAの実施対象HEADと未検証範囲を記録",
         "新規実装・マージ・クローズなしで次の一手を整理"
       ],
-      "next_action": "PdM比較とPrM範囲確認、独立QAでPR15の合成テスト/互換性を確認。第4の実装は作らない。"
+      "next_action": "照合完了。REV-COMPAT-01に基づき、#10を基準とする#14/#15の差分採否・保存契約・旧版移行条件を次に定義。新規製品PRを増やさず既存PRの修正範囲を決める。",
+      "specification": "docs/product/review-reconciliation.md",
+      "evidence": [
+        {
+          "kind": "report",
+          "path": "ops/runs/2026-11-10-pr-reconciliation.md"
+        },
+        {
+          "kind": "specification",
+          "path": "docs/product/review-reconciliation.md"
+        },
+        {
+          "kind": "test",
+          "command": "python tests/adaptive_practice.py",
+          "exit_code": 0,
+          "commit": "f98456fef3673d08ef226e5b0d9bddfa236c734f",
+          "executor": "qa_reconcile_adaptive",
+          "run": "cycle-20261110T1306Z"
+        },
+        {
+          "kind": "test",
+          "command": "python tests/adaptive_daily.py",
+          "exit_code": 0,
+          "commit": "f98456fef3673d08ef226e5b0d9bddfa236c734f",
+          "executor": "qa_reconcile_adaptive",
+          "run": "cycle-20261110T1306Z"
+        },
+        {
+          "kind": "test",
+          "command": "python /workspace/work/reconcile-adaptive-qa-20261110/cross_version_probe.py",
+          "exit_code": 0,
+          "commit": "f98456fef3673d08ef226e5b0d9bddfa236c734f",
+          "executor": "qa_reconcile_adaptive",
+          "run": "cycle-20261110T1306Z"
+        }
+      ],
+      "review": {
+        "pdm": "pdm_reconcile_adaptive",
+        "prm": "root/coordinator",
+        "reviewer": "qa_reconcile_adaptive",
+        "result": "comparison_and_evidence_review_passed; product_compatibility_blocked",
+        "document_sha256": {
+          "docs/product/review-reconciliation.md": "8a42afe433f3345119676ab4012a9426ec551edc215c270794c2dd4770ce843d",
+          "ops/runs/2026-11-10-pr-reconciliation.md": "de654fa9dcb86085ced4e00429bd41d0fd5b5d5864cbbe9f2e1f6c8a50232c4d"
+        },
+        "notes": "2既存テスト成功、同一origin旧版読込障害を合成probeで再現。文書と5証拠hashを独立確認。製品統合は未実施。"
+      }
     }
   ],
   "runs": [
@@ -1786,11 +1832,22 @@
     },
     {
       "id": "PR-RECONCILIATION-01",
-      "status": "under_review",
+      "status": "open",
       "observed_at": "2026-11-10T13:09:25.825875+00:00",
       "scope": "PR13/14/15 vs canonical operations and PR10",
       "finding": "3 linked product PRs remain ceo_wait; 2 additional product PRs14/15 were discovered outside the board. Their originating authorization/independent-review history is not established here. Do not hide the extra work by treating the wait cap as extra capacity. PR13 changes retry to3 and requires all6tests per task, unlike current explicit task limits.",
-      "next_action": "Freeze new implementation; compare purpose/history compatibility and record independent QA. Preserve all branches/PRs and current explicit2retry/35min limits. No merge/close/adoption."
+      "next_action": "比較と独立QAを保存。#10基準で選定/回答前表示/記録互換性を定義してから既存PRへの修正範囲を決める。新規実装を増やさず、PR13のルール変更は未採用。",
+      "report": "ops/runs/2026-11-10-pr-reconciliation.md"
+    },
+    {
+      "id": "REV-COMPAT-01",
+      "status": "unresolved",
+      "observed_at": "2026-11-10T13:17:39.410160+00:00",
+      "scope": "PR15 f98456fe -> PR10 ba829a11 same-origin storage",
+      "finding": "合成記録で派生ID保存後にPR10へ戻ると履歴全体がblocked=true/count0。rawは不変、PR15へ戻すと2件復元。旧版通常起動にも及ぶ互換性障害でありデータ消失ではない。",
+      "report": "ops/runs/2026-11-10-pr-reconciliation.md",
+      "reviewer": "qa_reconcile_adaptive",
+      "next_action": "旧版への移行・原問題ID別集計・回答前表示の契約を定義する。validator弱体化/未知event削除は不可。現状のPR群を統合済みと扱わない。"
     }
   ],
   "unreconciled_prs": [
@@ -1799,21 +1856,34 @@
       "head": "139c8b8b56bcd979068b61984120d9f312efe182",
       "kind": "operations_rules",
       "state": "open_draft",
-      "adopted": false
+      "adopted": false,
+      "comparison_report": "ops/runs/2026-11-10-pr-reconciliation.md",
+      "reconciliation_status": "compared_not_adopted"
     },
     {
       "pr": 14,
       "head": "ef70a502e36aeac871edb183bbf29b4e193b31b9",
       "kind": "product",
       "state": "open_draft",
-      "adopted": false
+      "adopted": false,
+      "comparison_report": "ops/runs/2026-11-10-pr-reconciliation.md",
+      "reconciliation_status": "compared_not_adopted"
     },
     {
       "pr": 15,
       "head": "f98456fef3673d08ef226e5b0d9bddfa236c734f",
       "kind": "product",
       "state": "open_draft",
-      "adopted": false
+      "adopted": false,
+      "comparison_report": "ops/runs/2026-11-10-pr-reconciliation.md",
+      "reconciliation_status": "compared_not_adopted",
+      "independent_qa": {
+        "reviewer": "qa_reconcile_adaptive",
+        "commit": "f98456fef3673d08ef226e5b0d9bddfa236c734f",
+        "existing_tests": "adaptive_practice/adaptive_daily passed",
+        "compatibility": "REV-COMPAT-01 reproduced",
+        "integration_tested": false
+      }
     }
   ]
 }
