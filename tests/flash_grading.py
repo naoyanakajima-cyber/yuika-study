@@ -25,7 +25,7 @@ with ThreadingHTTPServer(('127.0.0.1', 0), partial(Quiet, directory=str(ROOT))) 
         # Expose actual grading functions and original data only in this routed fixture.
         html = (ROOT / 'index.html').read_text()
         html = html.replace('// --- UTILS ---', '''
-window.flashTest = {checkFlashAnswer, UNITS, FLASH_GRADING_VERSION};
+window.flashTest = {checkFlashAnswer, flashGradingLabel, UNITS, FLASH_GRADING_VERSION};
 // A one-card deck keeps the complete UI/save/reload regression focused.
 const fixtureUnit = UNITS.find(u=>u.id==='shakai-env');
 fixtureUnit.flashDecks = [{name:'合成テスト', cards:[{q:'合成：中国を答える',a:'中国',alt:['中華人民共和国']}]}];
@@ -58,6 +58,9 @@ fixtureUnit.flashDecks = [{name:'合成テスト', cards:[{q:'合成：中国を
           for(const bad of ['29.7','297%','29-7%'])assert(!check(bad,'29.7%'),bad);
           assert(!check('土倉','土倉・酒屋'),'no automatic splitting');
           assert(check('読み','漢字',['読み']),'explicit alt');
+          assert(flashTest.flashGradingLabel('registered-exact-v2')==='登録された答えで確認','child-friendly current label');
+          assert(flashTest.flashGradingLabel() === '以前の方法（版の記録なし）','legacy label');
+          assert(flashTest.flashGradingLabel('synthetic-future') === '別の採点方法（版：synthetic-future）','unknown version label');
           for(const card of originalCards){
             assert(check(card.a,card.a,card.alt),card.a);
             for(const alt of card.alt||[])assert(check(alt,card.a,card.alt),alt);
@@ -87,8 +90,8 @@ fixtureUnit.flashDecks = [{name:'合成テスト', cards:[{q:'合成：中国を
         assert page.evaluate('JSON.parse(localStorage.getItem("yuika_sessions"))') == records
         assert page.evaluate('localStorage.getItem("synthetic-other")')=='keep'
         page.get_by_role('button',name='きろく',exact=False).click()
-        expect(page.get_by_text('採点規則：registered-exact-v2',exact=True)).to_be_visible()
-        expect(page.get_by_text('採点規則：旧規則（版記録なし）',exact=True)).to_be_visible()
+        expect(page.get_by_text('答えの確認方法：登録された答えで確認',exact=True)).to_be_visible()
+        expect(page.get_by_text('答えの確認方法：以前の方法（版の記録なし）',exact=True)).to_be_visible()
         # The learning entry resumes the last social unit with one tap.
         page.goto(base+'/index.html')
         page.get_by_role('button',name='今日の5問をはじめる',exact=True).wait_for()

@@ -530,6 +530,11 @@ function checkFlashAnswer(input, answer, alts = []) {
   const normalized = normalizeFlashAnswer(input);
   return normalized.length > 0 && [answer, ...alts].some(a => normalizeFlashAnswer(a) === normalized);
 }
+function flashGradingLabel(version) {
+  if (!version) return "以前の方法（版の記録なし）";
+  if (version === FLASH_GRADING_VERSION) return "登録された答えで確認";
+  return `別の採点方法（版：${version}）`;
+}
 
 // --- UTILS ---
 function shuffle(arr) {
@@ -1592,7 +1597,7 @@ function HistoryScreen({ onBack }) {
             <div style={{fontSize:20}}>{s.mode==="quiz"?"⚔️":"🧠"}</div>
             <div style={{flex:1}}>
               <div style={{fontSize:13,fontWeight:700,color:T.text}}>{s.subject}・{s.unit}</div>
-              {s.mode==="flash" && <div style={{fontSize:11,color:T.textDim}}>採点規則：{s.gradingVersion || "旧規則（版記録なし）"}</div>}
+              {s.mode==="flash" && <div style={{fontSize:11,color:T.textDim}}>答えの確認方法：{flashGradingLabel(s.gradingVersion)}</div>}
               <div style={{fontSize:11,color:T.textMuted}}>{formatDate(s.ts)}</div>
             </div>
             <div style={{textAlign:"right"}}>

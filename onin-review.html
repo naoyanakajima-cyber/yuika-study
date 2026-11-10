@@ -854,13 +854,21 @@ function weaknesses(events=data.events,now=Date.now(),includeRecovered=false){
  }
  return rows.sort((a,b)=>b.wrong/b.total-a.wrong/a.total||b.lastAt.localeCompare(a.lastAt)||a.originId.localeCompare(b.originId)||a.variant.localeCompare(b.variant));
 }
+// A device clock is not a trusted time source. Do not reinterpret future-dated
+// history as a recovered/empty weakness set after the clock moves backwards.
+function practiceClockIssue(events=data.events,now=Date.now()){
+ return events.some(e=>Date.parse(e.at)>now+5*60000);
+}
+function practiceUnavailable(events=data.events,now=Date.now()){return blocked||dirty||practiceClockIssue(events,now);}
+const PRACTICE_CLOCK_NOTICE='今より5分以上先の回答記録があります。端末の日付と時刻を確認してください。弱点の判定と今日の5問はお休みします。記録の時刻は自動で直しません。';
 let adaptiveLevel='all';
 function additional(p=prefs,events=data.events,now=Date.now()){
- if(blocked||dirty)return [];
+ if(practiceUnavailable(events,now))return [];
  return practiceWeaknesses(events,now).filter(r=>r.variant===p.variant).map(r=>({...r,q:EXTRA.get(r.originId)}))
   .filter(r=>(p.unit==='all'||r.q.unit===p.unit)&&(p.course==='all'||r.q.course===p.course)&&fits(r.q,p.variant)&&(adaptiveLevel==='all'||r.level===Number(adaptiveLevel))).slice(0,10);
 }
 function adaptiveStatus(){
+ if(practiceClockIssue())return PRACTICE_CLOCK_NOTICE;
  if(blocked||dirty)return '保存済みの記録を読み取れないため、弱点の判定を休止しています。「記録の保存」で元データを保管してください。';
  if(!data.events.length)return 'まだ回答記録がありません。まず通常練習をしてみよう。';
  return '候補がない場合は、別日の記録が足りない・直近30日の対象外・最後にヒントなしで正解・選択条件の対象外の可能性があります。';
@@ -868,7 +876,7 @@ function adaptiveStatus(){
 function adaptiveSummary(){
  const all=weaknesses(data.events,Date.now(),true),active=practiceWeaknesses(),recovered=all.filter(r=>r.recovered);
  const groups=new Map();for(const r of active){const key=r.unit+' / '+({normal:'通常',kanji:'漢字・正式名',yomi:'読み'}[r.variant]);groups.set(key,(groups.get(key)||0)+1);}
- return `<section class="card" id="adaptive-summary"><h2>保護者向け・追加練習のサマリー</h2>${blocked||dirty?`<p>${esc(adaptiveStatus())}</p>`:`<p>要確認 ${active.length}論点・最後にヒントなしで正解 ${recovered.length}論点（直近30日・確認方法別）。絞り込み前の全分野です。</p>${[...groups].map(([k,n])=>`<p>${esc(k)}：${n}論点</p>`).join('')}<p>ヒント付き正解は候補に残し、ヒントなしの正解で追加練習を減らします。１回の正解は定着の証明ではありません。再確認待ちに進み、別の日の再確認で確かめます。</p>`}</section>`;
+ return `<section class="card" id="adaptive-summary"><h2>保護者向け・追加練習のサマリー</h2>${practiceUnavailable()?`<p>${esc(adaptiveStatus())}</p>`:`<p>要確認 ${active.length}論点・最後にヒントなしで正解 ${recovered.length}論点（直近30日・確認方法別）。絞り込み前の全分野です。</p>${[...groups].map(([k,n])=>`<p>${esc(k)}：${n}論点</p>`).join('')}<p>ヒント付き正解は候補に残し、ヒントなしの正解で追加練習を減らします。１回の正解は定着の証明ではありません。再確認待ちに進み、別の日の再確認で確かめます。</p>`}</section>`;
 }
 function adaptivePanel(){
  const rows=additional();
@@ -897,12 +905,21 @@ function retention(events=data.events,now=Date.now()){
   if(seen.has(e.id)||Date.parse(e.at)>now)continue;seen.add(e.id);
   const q=Q.get(e.questionId);if(!q)continue;
   const originId=q.originId||q.id,key=originId+':'+e.variant;
-  if(!histories.has(key))histories.set(key,[]);
-  const history=histories.get(key);history.push(e);
   let s=states.get(key);
   if(!s){
-   if(!weaknesses(history,Date.parse(e.at)).length)continue;
-   s={originId,variant:e.variant,status:'weak',stage:0,due:null,anchor:null};states.set(key,s);
+   // A new weakness requires errors on two Japan days. Success cannot add an
+   // error day; examine the existing rule only when an error can change it.
+   // Keep its rolling window small instead of replaying a growing full history
+   // for every success (quadratic on long, previously correct-only histories).
+   if(!histories.has(key))histories.set(key,{events:[],start:0,wrongDays:new Map()});
+   const history=histories.get(key),stamp=Date.parse(e.at),cutoff=stamp-30*86400000;
+   history.events.push(e);
+   while(Date.parse(history.events[history.start].at)<cutoff)history.start++;
+   if(e.correct)continue;
+   history.wrongDays.set(japanDay(e.at),stamp);
+   for(const [d,t] of history.wrongDays)if(t<cutoff)history.wrongDays.delete(d);
+   if(history.wrongDays.size<2||!weaknesses(history.events.slice(history.start),stamp).length)continue;
+   s={originId,variant:e.variant,status:'weak',stage:0,due:null,anchor:null};states.set(key,s);histories.delete(key);
   }
   const date=japanDay(e.at);
   if(!e.correct){s.status='weak';s.stage=0;s.due=null;s.anchor=null;}
@@ -919,6 +936,7 @@ function retention(events=data.events,now=Date.now()){
  return [...states.values()];
 }
 function practiceWeaknesses(events=data.events,now=Date.now()){
+ if(practiceUnavailable(events,now))return [];
  const rows=weaknesses(events,now),keys=new Set(rows.map(r=>r.originId+':'+r.variant));
  for(const s of retention(events,now).filter(s=>s.status==='weak')){
   if(keys.has(s.originId+':'+s.variant))continue;
@@ -928,13 +946,14 @@ function practiceWeaknesses(events=data.events,now=Date.now()){
  return rows;
 }
 function dueReviews(p=prefs,events=data.events,now=Date.now()){
- if(blocked||dirty)return [];
+ if(practiceUnavailable(events,now))return [];
  const today=japanDay(new Date(now).toISOString());
  return retention(events,now).filter(s=>s.status==='waiting'&&s.due<=today)
   .sort((a,b)=>a.due.localeCompare(b.due)||a.originId.localeCompare(b.originId)||a.variant.localeCompare(b.variant))
   .filter(s=>{const q=Q.get(s.originId);return s.variant===p.variant&&fits(q,p.variant)&&(p.unit==='all'||p.unit===q.unit)&&(p.course==='all'||p.course===q.course);});
 }
 function dailyQuestions(p=prefs){
+ if(practiceUnavailable())return [];
  const result=[],seen=new Set();
  const push=q=>{const id=q.originId||q.id;if(!seen.has(id)){seen.add(id);result.push(q);}};
  dueReviews(p).forEach(s=>push(EXTRA.get(s.originId)));
@@ -943,6 +962,7 @@ function dailyQuestions(p=prefs){
  return result.slice(0,p.count);
 }
 function startDaily(){
+ if(practiceUnavailable()){note(adaptiveStatus());return;}
  const qs=dailyQuestions();if(!qs.length){note('この条件では候補がありません。');return;}
  rememberPrefs();run={id:uuid(),mode:'daily',variant:prefs.variant,qs,index:0,results:[],done:false};
  screen='quiz';prepare();render();main.focus();window.scrollTo(0,0);
@@ -963,7 +983,7 @@ function rememberPrefs(){
 const retentionHome=home;
 home=function(){
  retentionHome();
- main.insertAdjacentHTML('afterbegin',`<section class="card"><button id="daily-five" class="primary wide">今日の5問をはじめる（今回は${prefs.count}問）</button><p>期限の来た再確認 → 弱点の追加練習 → 通常問題。分野・確認方法・問題数は下で変更できます。</p><p>今日の再確認：${dueReviews().length}件</p></section>`);
+ main.insertAdjacentHTML('afterbegin',`<section class="card"><button id="daily-five" class="primary wide" ${practiceUnavailable()?'disabled':''}>今日の5問をはじめる（今回は${prefs.count}問）</button><p>期限の来た再確認 → 弱点の追加練習 → 通常問題。分野・確認方法・問題数は下で変更できます。</p><p>今日の再確認：${dueReviews().length}件</p></section>`);
  document.getElementById('daily-five').onclick=startDaily;
  main.querySelectorAll('#course,#unit,#variant,[data-count]').forEach(el=>{
   const type=el.tagName==='SELECT'?'onchange':'onclick',previous=el[type];
@@ -971,7 +991,7 @@ home=function(){
  });
 };
 const retentionParent=parent;
-parent=function(){retentionParent();if(!blocked&&!dirty){
+parent=function(){retentionParent();if(!practiceUnavailable()){
  const states=retention(),today=japanDay(new Date().toISOString());
  document.getElementById('adaptive-summary').insertAdjacentHTML('beforeend',`<p id="retention-summary">今日の再確認 ${states.filter(s=>s.status==='waiting'&&s.due<=today).length}件（期限超過を含む・全分野と確認方法）／再確認待ち ${states.filter(s=>s.status==='waiting').length}件／定着 ${states.filter(s=>s.status==='retained').length}件</p>`);
 }};
@@ -979,6 +999,18 @@ restorePrefs();
 // Normal sessions also remember the last visited learning unit.
 const rememberedStart=start;
 start=function(mode){rememberPrefs();rememberedStart(mode);};
+
+// Repaint only summary screens. A suspended iPad tab can cross midnight without
+// navigation; active answers and entered text must never be replaced by refresh.
+let practiceDisplayDay=japanDay(new Date().toISOString());
+function refreshPracticeDate(force=false){
+ const today=japanDay(new Date().toISOString()),changed=today!==practiceDisplayDay;
+ practiceDisplayDay=today;
+ if((force||changed)&&(screen==='home'||screen==='parent'))render();
+}
+setInterval(()=>refreshPracticeDate(),30000);
+window.addEventListener('focus',()=>refreshPracticeDate(true));
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshPracticeDate(true);});
 // ADAPTIVE_END
 // HISTORY_START
 const QUESTION_REVISIONS={"54027-01":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54027-01","unitId":"sapix-540-27","course":"d1","level":1,"unit":"応仁の乱","source":"教材準拠","type":"choice","prompt":"応仁の乱が始まったのは西暦何年？","answer":"1467年","hint":"正長の土一揆（1428年）よりあと、山城の国一揆（1485年）より前だよ。","explanation":"1467年に始まり、京都を中心に約11年続きました（1477年ごろまで）。","pitfall":"「人の世むなしい（1467）応仁の乱」。1428年は正長の土一揆、1485年は山城の国一揆、1392年は南北朝の統一。","pair":"","options":["1467年","1428年","1485年","1392年"]}}],"54027-02":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54027-02","unitId":"sapix-540-27","course":"d1","level":1,"unit":"応仁の乱","source":"教材準拠","type":"text","prompt":"応仁の乱のころの室町幕府8代将軍は？","answer":"足利義政","hint":"銀閣を建てた将軍でもあるよ。","explanation":"8代将軍・足利義政のころ、将軍家の後継ぎ争いや有力な守護大名どうしの対立が重なり、応仁の乱が起こりました。","pitfall":"3代＝義満（金閣）、8代＝義政（銀閣）。「満」と「政」を取り違えないように。","pair":"shogun","aliases":[],"readings":["あしかがよしまさ"]}}],"54027-03":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54027-03","unitId":"sapix-540-27","course":"d2","level":2,"unit":"応仁の乱","source":"教材準拠","type":"choice","prompt":"応仁の乱で東軍の中心となった人物は？","answer":"細川勝元","hint":"将軍を補佐する「管領」の家の人物だよ。","explanation":"東軍の中心は細川勝元、西軍の中心は山名宗全でした。2人は幕府の有力者で、後継ぎ争いと結びついて対立しました。","pitfall":"「東の細川、西の山名」。京都の「西陣」は西軍の陣地があったことに由来するといわれ、西＝山名の手がかりになるよ。","pair":"onin","options":["細川勝元","山名宗全","足利義視","日野富子"]}}],"54027-04":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54027-04","unitId":"sapix-540-27","course":"d2","level":2,"unit":"応仁の乱","source":"教材準拠","type":"text","prompt":"応仁の乱で西軍の中心となった人物は？","answer":"山名宗全","hint":"京都の「西陣」という地名に関係があるといわれる人物だよ。","explanation":"西軍の中心は山名宗全、東軍の中心は細川勝元でした。宗全は出家後の名前で、山名持豊ともいいます。","pitfall":"「東の細川、西の山名」。西陣＝西軍の陣地、と結びつけよう。","pair":"onin","aliases":["山名持豊"],"readings":["やまなそうぜん"]}}],"54027-05":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54027-05","unitId":"sapix-540-27","course":"d2","level":2,"unit":"応仁の乱","source":"教材準拠","type":"text","prompt":"応仁の乱の後、各地で力を強めた大名を何という？","answer":"戦国大名","hint":"「〇〇時代」の名前がついた大名だよ。","explanation":"応仁の乱のあと幕府の力が弱まり、各地で実力のある者が自分の領国を独自に支配しました。これを戦国大名といいます。","pitfall":"守護大名＝幕府が任命した守護が力をつけたもの。戦国大名＝幕府にたよらず実力で領国を支配した大名。","pair":"","aliases":[],"readings":["せんごくだいみょう"]}}],"54027-06":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54027-06","unitId":"sapix-540-27","course":"d2","level":2,"unit":"応仁の乱","source":"教材準拠","type":"text","prompt":"身分が下の者が上の者を倒して実権を握ることを何という？","answer":"下剋上","hint":"「下」が「上」に「剋（か）つ」と書くよ。","explanation":"身分の下の者が上の者を実力で倒し、取って代わる風潮を下剋上といいます。戦国時代を表す言葉です。","pitfall":"「下が上に勝つ」で下剋上。「下克上」と書く本もあるよ。","pair":"","aliases":["下克上"],"readings":["げこくじょう"]}}],"54027-07":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54027-07","unitId":"sapix-540-27","course":"d1","level":1,"unit":"一揆","source":"教材準拠","type":"text","prompt":"農民などが団結して要求を通そうとする行動を何という？","answer":"一揆","hint":"もとは「心を一つにする」という意味の言葉だよ。","explanation":"一揆は、農民などが目的のために団結して行動することです。仲間がまとまって要求を実現しようとしました。","pitfall":"「揆」はてへん。どんな人が何を求めたかで、土一揆・国一揆・一向一揆に分かれるよ。","pair":"","aliases":[],"readings":["いっき"]}}],"54027-08":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54027-08","unitId":"sapix-540-27","course":"d2","level":2,"unit":"一揆","source":"教材準拠","type":"text","prompt":"1428年、近江などから広がった大規模な土一揆は？","answer":"正長の土一揆","hint":"近江（今の滋賀県）の馬借の動きがきっかけといわれる。元号が名前に入るよ。","explanation":"1428年、近江の馬借の動きをきっかけに、京都周辺の農民などが土倉や酒屋をおそい、借金の帳消し（徳政）を求めました。","pitfall":"土一揆＝借金の帳消しなどを求めた農民らの一揆。加賀の一向一揆＝一向宗の門徒の一揆。「どいっき」とも読むよ。","pair":"ikki","aliases":["正長の徳政一揆","正長土一揆"],"readings":["しょうちょうのつちいっき","しょうちょうのどいっき"]}}],"54027-09":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54027-09","unitId":"sapix-540-27","course":"d2","level":2,"unit":"一揆","source":"教材準拠","type":"text","prompt":"借金を帳消しにするよう求めることを何という？","answer":"徳政","hint":"「徳のある政治」と書くよ。","explanation":"借金の帳消しを徳政といい、それを命じる法令を徳政令といいます。土一揆では人々が徳政を求めました。","pitfall":"求める内容＝徳政、命じる法令＝徳政令。鎌倉時代の「永仁の徳政令」と同じ「徳政」だよ。","pair":"","aliases":[],"readings":["とくせい"]}}],"54027-10":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54027-10","unitId":"sapix-540-27","course":"d2","level":2,"unit":"一揆","source":"教材準拠","type":"text","prompt":"1485年、京都南部で国人たちが自治を進めた一揆は？","answer":"山城の国一揆","hint":"今の京都府南部の旧国名が入るよ。","explanation":"1485年、山城国の南部で国人（地元の武士）と農民が団結して守護大名の軍を追い出し、約8年間自治を行いました。","pitfall":"国一揆の「国」＝国人が中心。山城＝京都府南部。加賀（石川県）の一向一揆と区別しよう。","pair":"ikki","aliases":["山城国一揆"],"readings":["やましろのくにいっき"]}}],"54027-11":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54027-11","unitId":"sapix-540-27","course":"d2","level":2,"unit":"一揆","source":"教材準拠","type":"text","prompt":"1488年、加賀で起こった一向宗の門徒らによる一揆は？","answer":"加賀の一向一揆","hint":"加賀は今の石川県南部。浄土真宗の信者が中心だよ。","explanation":"1488年、加賀の一向宗（浄土真宗）の門徒らが守護大名をたおし、その後およそ100年にわたって自治を続けたとされます。","pitfall":"一向一揆＝宗教（一向宗）の門徒の一揆。土一揆＝借金の帳消しなどを求めた一揆。","pair":"ikki","aliases":["加賀一向一揆"],"readings":["かがのいっこういっき"]}}],"54027-12":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54027-12","unitId":"sapix-540-27","course":"d1","level":1,"unit":"村の自治","source":"教材準拠","type":"text","prompt":"室町時代に自治を行うようになった村を何という？","answer":"惣村","hint":"「すべて」という意味の字を使う村だよ。","explanation":"室町時代、農民たちが団結して自分たちで村を運営するようになりました。このような村を惣村（惣）といいます。","pitfall":"惣村＝村そのもの、寄合＝話し合いの会合、村掟＝決めたルール。教科書では「そう村」とも書くよ。","pair":"village","aliases":["そう村","惣"],"readings":["そうそん"]}}],"54027-13":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54027-13","unitId":"sapix-540-27","course":"d2","level":2,"unit":"村の自治","source":"教材準拠","type":"text","prompt":"惣村で決めた村の決まりを何という？","answer":"村掟","hint":"「おきて」という言葉が入るよ。","explanation":"惣村では寄合で村掟を決め、破った者には罰を与えることもありました。","pitfall":"惣村＝村、寄合＝会合、村掟＝ルール。「惣掟」ともいうよ。","pair":"village","aliases":["惣掟"],"readings":["むらおきて"]}}],"54027-14":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54027-14","unitId":"sapix-540-27","course":"d2","level":2,"unit":"村の自治","source":"教材準拠","type":"text","prompt":"村人が集まって相談・決定する会合を何という？","answer":"寄合","hint":"「寄り合う（集まる）」から来た言葉だよ。","explanation":"惣村の農民は寄合を開いて、用水の管理や村掟などを相談して決めました。","pitfall":"惣村＝村、寄合＝会合、村掟＝ルール。会合の名前が寄合。","pair":"village","aliases":[],"readings":["よりあい"]}}],"54027-15":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54027-15","unitId":"sapix-540-27","course":"d1","level":1,"unit":"農業","source":"教材準拠","type":"text","prompt":"同じ土地で1年に2種類の作物を育てることは？","answer":"二毛作","hint":"「毛」は作物のこと。何種類かを数えよう。","explanation":"同じ土地で1年に2種類の作物（米と麦など）を育てることを二毛作といいます。鎌倉時代に西日本で始まり、室町時代に広がりました。","pitfall":"2種類＝二毛作、3種類＝三毛作。「二期作」は同じ作物（米）を年2回つくることで別のものだよ。","pair":"farm","aliases":[],"readings":["にもうさく"]}}],"54027-16":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54027-16","unitId":"sapix-540-27","course":"d2","level":2,"unit":"農業","source":"教材準拠","type":"text","prompt":"同じ土地で1年に3種類の作物を育てることは？","answer":"三毛作","hint":"二毛作より1つ多いよ。","explanation":"室町時代には、畿内（京都周辺）などの一部で、1年に3種類の作物を育てる三毛作も行われました。","pitfall":"2種類＝二毛作、3種類＝三毛作。数字をよく見よう。","pair":"farm","aliases":[],"readings":["さんもうさく"]}}],"54027-17":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54027-17","unitId":"sapix-540-27","course":"d1","level":1,"unit":"農業","source":"教材準拠","type":"text","prompt":"水の流れを利用して農作業などに役立てる装置は？","answer":"水車","hint":"水の流れで回る「車」だよ。","explanation":"水車を使って川の水を田にくみ上げるなど、水の力で農作業を楽にしました。","pitfall":"室町時代の農業は「水車・牛や馬・肥料・二毛作」で収穫が増えた、とまとめて覚えよう。","pair":"","aliases":[],"readings":["すいしゃ"]}}],"54027-18":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54027-18","unitId":"sapix-540-27","course":"d1","level":1,"unit":"商業","source":"教材準拠","type":"text","prompt":"室町時代に月6回開かれるようになった市は？","answer":"六斎市","hint":"回数の数字が入るよ。","explanation":"鎌倉時代には月3回の三斎市が開かれ、室町時代には月6回の六斎市が増えて、商品の流通が盛んになりました。","pitfall":"鎌倉＝三斎市（月3回）、室町＝六斎市（月6回）。","pair":"","aliases":[],"readings":["ろくさいいち"]}}],"54027-19":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54027-19","unitId":"sapix-540-27","course":"d2","level":2,"unit":"商業","source":"教材準拠","type":"text","prompt":"同業者が集まって営業上の特権を得た組織は？","answer":"座","hint":"漢字1文字。今も「〇〇座」という名前に残っているよ。","explanation":"商人や手工業者は同業者で座をつくり、貴族や寺社にお金などを納めて、営業を独占する特権を認めてもらいました。","pitfall":"座＝同業者の組合。のちに織田信長の「楽市・楽座」で座の特権がなくされていくよ。","pair":"","aliases":[],"readings":["ざ"]}}],"54027-20":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54027-20","unitId":"sapix-540-27","course":"d2","level":2,"unit":"商業","source":"発展・今日の対話","type":"text","prompt":"室町時代、金融業も行った代表的な業者を2つ答えよう。","answer":"土倉と酒屋","hint":"1つは「倉」、もう1つはお酒にかかわる業者だよ。","explanation":"土倉は品物を質（借金のかた）として預かってお金を貸す業者、酒屋は酒造りでもうけたお金を貸し付けた業者です。土一揆では借用書を破るため、これらがおそわれました。","pitfall":"「どぐら」ではなく「どそう」と読むよ。2つそろえて答えよう（「土倉・酒屋」もOK）。","pair":"","aliases":["酒屋と土倉","土倉酒屋","酒屋土倉","土倉,酒屋","酒屋,土倉"],"readings":["どそうとさかや","どそうさかや"]}}],"54027-21":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54027-21","unitId":"sapix-540-27","course":"d2","level":2,"unit":"商業","source":"教材準拠","type":"choice","prompt":"明から輸入された銅銭の代表例を1つ選ぼう。","answer":"永楽通宝","hint":"明の皇帝の時代の名前（元号）がついた銭だよ。","explanation":"室町時代は日明貿易（勘合貿易）で明から銅銭が大量に輸入され、永楽通宝などの明銭が使われました。","pitfall":"和同開珎は奈良時代、富本銭は飛鳥時代、寛永通宝は江戸時代の日本の銭。","pair":"","options":["永楽通宝","和同開珎","富本銭","寛永通宝"]}}],"54027-22":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54027-22","unitId":"sapix-540-27","course":"d2","level":2,"unit":"商業","source":"教材準拠","type":"text","prompt":"馬を使って荷物を運ぶ運送業者を何という？","answer":"馬借","hint":"「馬」の字が入るよ。","explanation":"馬借は馬の背に荷物をのせて運ぶ運送業者です。近江の馬借は正長の土一揆のきっかけにもなりました。","pitfall":"馬借＝馬で運ぶ、車借＝牛車などの車で運ぶ。「ばしゃく」と読むよ。","pair":"","aliases":[],"readings":["ばしゃく"]}}],"54027-23":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54027-23","unitId":"sapix-540-27","course":"d1","level":1,"unit":"文化","source":"教材準拠","type":"text","prompt":"水墨画を大成した室町時代の人物は？","answer":"雪舟","hint":"名前に冬の天気を表す字が入るよ。","explanation":"雪舟は禅宗の僧で、明に渡って絵を学び、日本の水墨画を大成しました。墨の濃淡で山水などを表しました。","pitfall":"水墨画＝雪舟。「雪」と「舟」の字を確認しよう。","pair":"","aliases":[],"readings":["せっしゅう"]}}],"54027-24":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54027-24","unitId":"sapix-540-27","course":"d2","level":2,"unit":"文化","source":"教材準拠","type":"choice","prompt":"雪舟が学んだ中国の王朝は？","answer":"明","hint":"室町時代に日本が貿易をした中国の王朝だよ。","explanation":"雪舟は明に渡って水墨画を学びました。室町時代の中国の王朝は明で、足利義満は明と貿易を始めました。","pitfall":"中国の王朝の順：唐→宋→元（元寇）→明（室町時代）。","pair":"","options":["明","宋","唐","元"]}}],"54027-25":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54027-25","unitId":"sapix-540-27","course":"d1","level":1,"unit":"文化","source":"教材準拠","type":"choice","prompt":"茶の湯や生け花が発達した室町時代後期の文化は？","answer":"東山文化","hint":"8代将軍が銀閣を建てた場所の地名だよ。","explanation":"8代将軍・足利義政のころの文化を東山文化といいます。茶の湯・生け花・書院造などが広まり、簡素で落ち着いた美しさが好まれました。","pitfall":"北山文化＝3代義満・金閣、東山文化＝8代義政・銀閣。","pair":"shogun","options":["東山文化","北山文化","国風文化","天平文化"]}}],"54027-26":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54027-26","unitId":"sapix-540-27","course":"d2","level":2,"unit":"文化","source":"教材準拠","type":"text","prompt":"銀閣のある慈照寺の東求堂などに見られる、畳や障子などを備えた住宅様式は？","answer":"書院造","hint":"床の間やちがい棚もある、今の和室のもとだよ。","explanation":"書院造は、畳をしきつめ、障子やふすま、床の間・ちがい棚などを備えた住宅の様式で、今の和室のもとになりました。東求堂の同仁斎が代表例です。","pitfall":"平安＝寝殿造（貴族の屋敷）、室町＝書院造（和室のもと）。","pair":"","aliases":[],"readings":["しょいんづくり"]}}],"54027-27":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54027-27","unitId":"sapix-540-27","course":"d1","level":1,"unit":"文化","source":"教材準拠","type":"choice","prompt":"肉や魚を使わず、植物性の食材を中心に作る料理は？","answer":"精進料理","hint":"仏教の修行と関係が深い料理だよ。","explanation":"精進料理は、生き物の命をうばうことをさける仏教の考えから、肉や魚を使わずに野菜や豆腐などで作る料理です。禅宗の寺を中心に広まりました。","pitfall":"精進料理＝植物性の材料。懐石料理は茶の湯の席で出す料理で、別のもの。","pair":"","options":["精進料理","懐石料理","郷土料理","南蛮料理"]}}],"54027-28":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54027-28","unitId":"sapix-540-27","course":"d1","level":1,"unit":"将軍","source":"発展・今日の対話","type":"text","prompt":"金閣を建てた3代将軍は？","answer":"足利義満","hint":"南北朝を統一した将軍でもあるよ。","explanation":"3代将軍・足利義満は京都の北山に金閣を建てました。この時代の文化を北山文化といいます。1392年には南北朝を統一しました。","pitfall":"金閣＝義満（3代）・北山文化、銀閣＝義政（8代）・東山文化。","pair":"shogun","aliases":[],"readings":["あしかがよしみつ"]}}],"54027-29":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54027-29","unitId":"sapix-540-27","course":"d1","level":1,"unit":"将軍","source":"発展・今日の対話","type":"text","prompt":"銀閣を建てた8代将軍は？","answer":"足利義政","hint":"応仁の乱のころの将軍だよ。","explanation":"8代将軍・足利義政は京都の東山に銀閣を建てました。この時代の文化を東山文化といいます。銀閣という名前ですが、銀箔をはった跡は調査で見つかっていません。","pitfall":"金閣＝義満（3代）・北山文化、銀閣＝義政（8代）・東山文化。","pair":"shogun","aliases":[],"readings":["あしかがよしまさ"]}}],"54027-30":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54027-30","unitId":"sapix-540-27","course":"d3","level":3,"unit":"将軍","source":"発展・今日の対話","type":"choice","prompt":"4代足利義持と6代足利義教は親子？ 兄弟？","answer":"兄弟","hint":"2人のお父さんはだれかな？ ページ下の系図を見てみよう。","explanation":"4代義持と6代義教は、どちらも3代義満の子なので兄弟です。5代義量（義持の子）と7代義勝（義教の子）は、まとめの系図では省略されることがあります。","pitfall":"代の数字が続いていても親子とは限らないよ。系図の線をたどろう。","pair":"","options":["兄弟","親子","いとこ","祖父と孫"]}}]};

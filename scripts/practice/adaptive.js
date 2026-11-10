@@ -39,13 +39,21 @@ function weaknesses(events=data.events,now=Date.now(),includeRecovered=false){
  }
  return rows.sort((a,b)=>b.wrong/b.total-a.wrong/a.total||b.lastAt.localeCompare(a.lastAt)||a.originId.localeCompare(b.originId)||a.variant.localeCompare(b.variant));
 }
+// A device clock is not a trusted time source. Do not reinterpret future-dated
+// history as a recovered/empty weakness set after the clock moves backwards.
+function practiceClockIssue(events=data.events,now=Date.now()){
+ return events.some(e=>Date.parse(e.at)>now+5*60000);
+}
+function practiceUnavailable(events=data.events,now=Date.now()){return blocked||dirty||practiceClockIssue(events,now);}
+const PRACTICE_CLOCK_NOTICE='今より5分以上先の回答記録があります。端末の日付と時刻を確認してください。弱点の判定と今日の5問はお休みします。記録の時刻は自動で直しません。';
 let adaptiveLevel='all';
 function additional(p=prefs,events=data.events,now=Date.now()){
- if(blocked||dirty)return [];
+ if(practiceUnavailable(events,now))return [];
  return practiceWeaknesses(events,now).filter(r=>r.variant===p.variant).map(r=>({...r,q:EXTRA.get(r.originId)}))
   .filter(r=>(p.unit==='all'||r.q.unit===p.unit)&&(p.course==='all'||r.q.course===p.course)&&fits(r.q,p.variant)&&(adaptiveLevel==='all'||r.level===Number(adaptiveLevel))).slice(0,10);
 }
 function adaptiveStatus(){
+ if(practiceClockIssue())return PRACTICE_CLOCK_NOTICE;
  if(blocked||dirty)return '保存済みの記録を読み取れないため、弱点の判定を休止しています。「記録の保存」で元データを保管してください。';
  if(!data.events.length)return 'まだ回答記録がありません。まず通常練習をしてみよう。';
  return '候補がない場合は、別日の記録が足りない・直近30日の対象外・最後にヒントなしで正解・選択条件の対象外の可能性があります。';
@@ -53,7 +61,7 @@ function adaptiveStatus(){
 function adaptiveSummary(){
  const all=weaknesses(data.events,Date.now(),true),active=practiceWeaknesses(),recovered=all.filter(r=>r.recovered);
  const groups=new Map();for(const r of active){const key=r.unit+' / '+({normal:'通常',kanji:'漢字・正式名',yomi:'読み'}[r.variant]);groups.set(key,(groups.get(key)||0)+1);}
- return `<section class="card" id="adaptive-summary"><h2>保護者向け・追加練習のサマリー</h2>${blocked||dirty?`<p>${esc(adaptiveStatus())}</p>`:`<p>要確認 ${active.length}論点・最後にヒントなしで正解 ${recovered.length}論点（直近30日・確認方法別）。絞り込み前の全分野です。</p>${[...groups].map(([k,n])=>`<p>${esc(k)}：${n}論点</p>`).join('')}<p>ヒント付き正解は候補に残し、ヒントなしの正解で追加練習を減らします。１回の正解は定着の証明ではありません。再確認待ちに進み、別の日の再確認で確かめます。</p>`}</section>`;
+ return `<section class="card" id="adaptive-summary"><h2>保護者向け・追加練習のサマリー</h2>${practiceUnavailable()?`<p>${esc(adaptiveStatus())}</p>`:`<p>要確認 ${active.length}論点・最後にヒントなしで正解 ${recovered.length}論点（直近30日・確認方法別）。絞り込み前の全分野です。</p>${[...groups].map(([k,n])=>`<p>${esc(k)}：${n}論点</p>`).join('')}<p>ヒント付き正解は候補に残し、ヒントなしの正解で追加練習を減らします。１回の正解は定着の証明ではありません。再確認待ちに進み、別の日の再確認で確かめます。</p>`}</section>`;
 }
 function adaptivePanel(){
  const rows=additional();
@@ -82,12 +90,21 @@ function retention(events=data.events,now=Date.now()){
   if(seen.has(e.id)||Date.parse(e.at)>now)continue;seen.add(e.id);
   const q=Q.get(e.questionId);if(!q)continue;
   const originId=q.originId||q.id,key=originId+':'+e.variant;
-  if(!histories.has(key))histories.set(key,[]);
-  const history=histories.get(key);history.push(e);
   let s=states.get(key);
   if(!s){
-   if(!weaknesses(history,Date.parse(e.at)).length)continue;
-   s={originId,variant:e.variant,status:'weak',stage:0,due:null,anchor:null};states.set(key,s);
+   // A new weakness requires errors on two Japan days. Success cannot add an
+   // error day; examine the existing rule only when an error can change it.
+   // Keep its rolling window small instead of replaying a growing full history
+   // for every success (quadratic on long, previously correct-only histories).
+   if(!histories.has(key))histories.set(key,{events:[],start:0,wrongDays:new Map()});
+   const history=histories.get(key),stamp=Date.parse(e.at),cutoff=stamp-30*86400000;
+   history.events.push(e);
+   while(Date.parse(history.events[history.start].at)<cutoff)history.start++;
+   if(e.correct)continue;
+   history.wrongDays.set(japanDay(e.at),stamp);
+   for(const [d,t] of history.wrongDays)if(t<cutoff)history.wrongDays.delete(d);
+   if(history.wrongDays.size<2||!weaknesses(history.events.slice(history.start),stamp).length)continue;
+   s={originId,variant:e.variant,status:'weak',stage:0,due:null,anchor:null};states.set(key,s);histories.delete(key);
   }
   const date=japanDay(e.at);
   if(!e.correct){s.status='weak';s.stage=0;s.due=null;s.anchor=null;}
@@ -104,6 +121,7 @@ function retention(events=data.events,now=Date.now()){
  return [...states.values()];
 }
 function practiceWeaknesses(events=data.events,now=Date.now()){
+ if(practiceUnavailable(events,now))return [];
  const rows=weaknesses(events,now),keys=new Set(rows.map(r=>r.originId+':'+r.variant));
  for(const s of retention(events,now).filter(s=>s.status==='weak')){
   if(keys.has(s.originId+':'+s.variant))continue;
@@ -113,13 +131,14 @@ function practiceWeaknesses(events=data.events,now=Date.now()){
  return rows;
 }
 function dueReviews(p=prefs,events=data.events,now=Date.now()){
- if(blocked||dirty)return [];
+ if(practiceUnavailable(events,now))return [];
  const today=japanDay(new Date(now).toISOString());
  return retention(events,now).filter(s=>s.status==='waiting'&&s.due<=today)
   .sort((a,b)=>a.due.localeCompare(b.due)||a.originId.localeCompare(b.originId)||a.variant.localeCompare(b.variant))
   .filter(s=>{const q=Q.get(s.originId);return s.variant===p.variant&&fits(q,p.variant)&&(p.unit==='all'||p.unit===q.unit)&&(p.course==='all'||p.course===q.course);});
 }
 function dailyQuestions(p=prefs){
+ if(practiceUnavailable())return [];
  const result=[],seen=new Set();
  const push=q=>{const id=q.originId||q.id;if(!seen.has(id)){seen.add(id);result.push(q);}};
  dueReviews(p).forEach(s=>push(EXTRA.get(s.originId)));
@@ -128,6 +147,7 @@ function dailyQuestions(p=prefs){
  return result.slice(0,p.count);
 }
 function startDaily(){
+ if(practiceUnavailable()){note(adaptiveStatus());return;}
  const qs=dailyQuestions();if(!qs.length){note('この条件では候補がありません。');return;}
  rememberPrefs();run={id:uuid(),mode:'daily',variant:prefs.variant,qs,index:0,results:[],done:false};
  screen='quiz';prepare();render();main.focus();window.scrollTo(0,0);
@@ -148,7 +168,7 @@ function rememberPrefs(){
 const retentionHome=home;
 home=function(){
  retentionHome();
- main.insertAdjacentHTML('afterbegin',`<section class="card"><button id="daily-five" class="primary wide">今日の5問をはじめる（今回は${prefs.count}問）</button><p>期限の来た再確認 → 弱点の追加練習 → 通常問題。分野・確認方法・問題数は下で変更できます。</p><p>今日の再確認：${dueReviews().length}件</p></section>`);
+ main.insertAdjacentHTML('afterbegin',`<section class="card"><button id="daily-five" class="primary wide" ${practiceUnavailable()?'disabled':''}>今日の5問をはじめる（今回は${prefs.count}問）</button><p>期限の来た再確認 → 弱点の追加練習 → 通常問題。分野・確認方法・問題数は下で変更できます。</p><p>今日の再確認：${dueReviews().length}件</p></section>`);
  document.getElementById('daily-five').onclick=startDaily;
  main.querySelectorAll('#course,#unit,#variant,[data-count]').forEach(el=>{
   const type=el.tagName==='SELECT'?'onchange':'onclick',previous=el[type];
@@ -156,7 +176,7 @@ home=function(){
  });
 };
 const retentionParent=parent;
-parent=function(){retentionParent();if(!blocked&&!dirty){
+parent=function(){retentionParent();if(!practiceUnavailable()){
  const states=retention(),today=japanDay(new Date().toISOString());
  document.getElementById('adaptive-summary').insertAdjacentHTML('beforeend',`<p id="retention-summary">今日の再確認 ${states.filter(s=>s.status==='waiting'&&s.due<=today).length}件（期限超過を含む・全分野と確認方法）／再確認待ち ${states.filter(s=>s.status==='waiting').length}件／定着 ${states.filter(s=>s.status==='retained').length}件</p>`);
 }};
@@ -164,3 +184,15 @@ restorePrefs();
 // Normal sessions also remember the last visited learning unit.
 const rememberedStart=start;
 start=function(mode){rememberPrefs();rememberedStart(mode);};
+
+// Repaint only summary screens. A suspended iPad tab can cross midnight without
+// navigation; active answers and entered text must never be replaced by refresh.
+let practiceDisplayDay=japanDay(new Date().toISOString());
+function refreshPracticeDate(force=false){
+ const today=japanDay(new Date().toISOString()),changed=today!==practiceDisplayDay;
+ practiceDisplayDay=today;
+ if((force||changed)&&(screen==='home'||screen==='parent'))render();
+}
+setInterval(()=>refreshPracticeDate(),30000);
+window.addEventListener('focus',()=>refreshPracticeDate(true));
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshPracticeDate(true);});

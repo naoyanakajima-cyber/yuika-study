@@ -35,6 +35,9 @@ run tests/flash_grading.py python tests/flash_grading.py
 run tests/spaced_daily.py python tests/spaced_daily.py
 run tests/history_compat.py python tests/history_compat.py
 run tests/science_adaptive.py python tests/science_adaptive.py
+run tests/registered_answers.py python tests/registered_answers.py
+run tests/history_review_regression.py python tests/history_review_regression.py
+run tests/state_review_regression.py python tests/state_review_regression.py
 printf '\n%-40s %6s %8s\n' 'Suite' 'Exit' 'Seconds'
 for i in "${!names[@]}"; do
   printf '%-40s %6s %8s\n' "${names[$i]}" "${codes[$i]}" "${times[$i]}"
