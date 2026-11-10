@@ -43,7 +43,7 @@
     "ticket": "REV-COMPAT-SPEC",
     "purpose": "Define safe history compatibility contract for existing review PRs; no new product implementation"
   },
-  "updated_at": "2026-11-10T14:08:29.026234+00:00",
+  "updated_at": "2026-11-10T14:09:51.614858+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -1898,7 +1898,11 @@
       "scope": "PR13/14/15 vs canonical operations and PR10",
       "finding": "3 linked product PRs remain ceo_wait; 2 additional product PRs14/15 were discovered outside the board. Their originating authorization/independent-review history is not established here. Do not hide the extra work by treating the wait cap as extra capacity. PR13 changes retry to3 and requires all6tests per task, unlike current explicit task limits.",
       "next_action": "比較と独立QAを保存。#10基準で選定/回答前表示/記録互換性を定義してから既存PRへの修正範囲を決める。新規実装を増やさず、PR13のルール変更は未採用。",
-      "report": "ops/runs/2026-11-10-pr-reconciliation.md"
+      "report": "ops/runs/2026-11-10-pr-reconciliation.md",
+      "latest_observation": {
+        "observed_at": "2026-11-10T14:09:51.614858+00:00",
+        "finding": "連携済み製品待ち3件に加えて未採用製品PR14〜18の5件を観測。#16は集計等、#17は採点、#18は再確認/今日の5問の積み上げ。承認や統合を推定せず新規実装を増やさない。"
+      }
     },
     {
       "id": "REV-COMPAT-01",
@@ -1945,6 +1949,39 @@
         "compatibility": "REV-COMPAT-01 reproduced",
         "integration_tested": false
       }
+    },
+    {
+      "pr": 16,
+      "head": "820561fd6e3ca3af9764c3c97bf6173415f4ad1b",
+      "base_pr": 15,
+      "kind": "product",
+      "state": "open_draft",
+      "adopted": false,
+      "reconciliation_status": "static_comparison_in_progress",
+      "observed_at": "2026-11-10T14:09:51.614858+00:00",
+      "validation": "PR本文の検証報告は確認したが、この運用サイクルで実行していない。"
+    },
+    {
+      "pr": 17,
+      "head": "eade5c2101dddddca62e91a4959b3960ffda291c",
+      "base_pr": 16,
+      "kind": "product",
+      "state": "open_draft",
+      "adopted": false,
+      "reconciliation_status": "static_comparison_in_progress",
+      "observed_at": "2026-11-10T14:09:51.614858+00:00",
+      "validation": "PR本文の検証報告は確認したが、この運用サイクルで実行していない。"
+    },
+    {
+      "pr": 18,
+      "head": "4518860a9456746c7bfc3df03679dc30ebe14624",
+      "base_pr": 17,
+      "kind": "product",
+      "state": "open_draft",
+      "adopted": false,
+      "reconciliation_status": "static_comparison_in_progress",
+      "observed_at": "2026-11-10T14:09:51.614858+00:00",
+      "validation": "PR本文の検証報告は確認したが、この運用サイクルで実行していない。"
     }
   ]
 }
