@@ -896,11 +896,11 @@ const merge=(a,b)=>validate({...empty(),events:[...a.events,...b.events]});
 function save(){
  if(blocked&&broken!==null){dirty=true;note('保存先を読み取れないため上書きしません。今回の回答は一時保持です。「記録の保存」からJSONを書き出してください。');return false;}
  try{const raw=localStorage.getItem(KEY);let disk;
-  try{disk=raw?validate(JSON.parse(raw)):empty();}catch(e){broken=raw;blocked=true;throw e;}
+  try{disk=raw!==null?validate(JSON.parse(raw)):empty();}catch(e){broken=raw;blocked=true;throw e;}
   const next=merge(disk,data);localStorage.setItem(KEY,JSON.stringify(next));data=next;dirty=false;blocked=false;return true;}
  catch(e){dirty=true;note('保存できませんでした。今回の回答は一時保持です。閉じる前にJSONを書き出してください。'+e.message);return false;}
 }
-function load(){try{const raw=localStorage.getItem(KEY);if(raw){try{data=validate(JSON.parse(raw));}catch(e){broken=raw;blocked=true;note('保存済みの記録を読み取れません。上書きせず保護しています。「記録の保存」から元データを保存できます。');}}}catch(e){blocked=true;note('保存領域を利用できません。回答は一時保持できます。閉じる前にJSONで保存してください。');}}
+function load(){try{const raw=localStorage.getItem(KEY);if(raw!==null){try{data=validate(JSON.parse(raw));}catch(e){broken=raw;blocked=true;note('保存済みの記録を読み取れません。上書きせず保護しています。「記録の保存」から元データを保存できます。');}}}catch(e){blocked=true;note('保存領域を利用できません。回答は一時保持できます。閉じる前にJSONで保存してください。');}}
 function grouped(es=data.events){const g=new Map();for(const e of order(es)){const k=(Q.get(e.questionId)?.originId||e.questionId)+':'+e.variant;if(!g.has(k))g.set(k,[]);g.get(k).push(e);}return g;}
 const historyOf=(g,q,v)=>g.get(q.id+':'+variantOf(q,v))||[];
 function candidates(mode,p=prefs){if(mode==='adaptive')return additional(p).map(r=>r.q);const g=grouped();return QUESTIONS.filter(q=>{
@@ -971,7 +971,7 @@ function exportReport(){const a=analysis(),es=data.events;download('yuika-protot
 async function importFile(file){if(!file)return;try{check(file.size<=25000000,'25MBまでのJSONを選んでください。');const incoming=validate(JSON.parse(await file.text())),next=merge(data,incoming),added=next.events.length-data.events.length;data=next;const saved=save();note(`読み込み：新しい回答 ${added}件。重複は追加していません。${saved?'ブラウザーに保存しました。':'未保存です。閉じる前にJSONを書き出してください。'}`);records();}catch(e){note('読み込みを中止しました。既存記録は変更していません。'+e.message);}}
 function records(){main.innerHTML=`<div class="eyebrow">KEEP YOUR DISCOVERIES</div><h1>記録の保存</h1><div class="note">この単元の回答：${data.events.length}件。${dirty||blocked?'一時保持の回答があります。閉じる前にJSONを保存してください。':'このブラウザーに保存しています。'}<br>社会の既存単元・理科の記録は別に保管され、このページでは書き換えません。</div><div class="layout"><section class="card"><h2>書き出し</h2><p>端末を替える前にJSONを保管しましょう。保護者への分析資料にはTXTを使えます。</p><div class="stack"><button id="export" class="primary">JSONを書き出す</button><button id="report">分析用テキストを書き出す</button><button id="retry">保存を再試行</button>${broken!==null?'<button id="broken">読み取れなかった元データを保存</button>':''}</div></section><section class="card"><h2>読み込み</h2><p>この単元のJSONを今ある記録に追加します。同じ回答IDは重複させません。同じIDで内容が異なる場合や、不正なデータはファイル全体の取込みを中止します。</p><label class="field">JSONファイル<input id="import" type="file" accept=".json,application/json"></label></section></div><section class="card"><h2>iPadで使うとき</h2><p>Safariの「共有」→「ホーム画面に追加」で使えます。ブラウザー・端末・ホーム画面からの起動などで保存領域が異なる場合があるため、切り替える前にJSONを書き出してください。自動同期はしません。</p><p>プライベートブラウズや履歴・Webサイトデータの削除では記録が消えることがあります。学習は１つのタブで行い、ときどきJSONを保管してください。自動メールに接続した場合だけ、チャレンジ結果を送信サーバー経由で保護者へ送ります。</p><p>保存キー：${KEY}</p></section>`;document.getElementById('export').onclick=exportJSON;document.getElementById('report').onclick=exportReport;document.getElementById('import').onchange=e=>importFile(e.target.files[0]);document.getElementById('retry').onclick=()=>{if(save())note('保存できました。');records();};if(broken!==null)document.getElementById('broken').onclick=()=>download('yuika-kamakura-original-unreadable.json',broken);}
 window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.returnValue='';}});
-window.addEventListener('storage',e=>{if(e.key===KEY&&e.newValue){try{data=merge(data,validate(JSON.parse(e.newValue)));if(screen!=='quiz')render();}catch(err){blocked=true;broken=e.newValue;note('別タブの記録と競合しました。JSONを書き出して保全してください。');if(screen!=='quiz')render();}}});
+window.addEventListener('storage',e=>{if(e.key===KEY&&e.newValue!==null){try{data=merge(data,validate(JSON.parse(e.newValue)));if(screen!=='quiz')render();}catch(err){blocked=true;broken=e.newValue;note('別タブの記録と競合しました。JSONを書き出して保全してください。');if(screen!=='quiz')render();}}});
 document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>go(b.dataset.view));
 document.getElementById('socialHome').onclick=e=>{if(screen==='quiz'&&!leave())e.preventDefault();};
 // ADAPTIVE_START
@@ -1265,10 +1265,10 @@ importFile=async function(file){
   raw=await file.text();const value=JSON.parse(raw),v=prototypeUnpack(value);let incoming;
   if(prototypeScience&&v&&Object.hasOwn(v,'attempts')&&!Object.hasOwn(value,'format')){
    // Explicit legacy aggregate import only; never infer individual responses.
-   legacyData(raw);incoming=emptyState();incoming.legacy=[{raw,capturedAt:new Date().toISOString()}];
+   prototypeFields(v,['attempts','correct','wrong']);legacyData(raw);incoming=emptyState();incoming.legacy=[{raw,capturedAt:new Date().toISOString()}];
   }else incoming=prototypeScience?validateState(v):validate(v);
   prototypeCheck(!blocked,'試作の保存済み記録が読み取れません。先に元データを保管してください。');
-  const diskRaw=localStorage.getItem(KEY),disk=diskRaw?(prototypeScience?validateState(JSON.parse(diskRaw)):validate(JSON.parse(diskRaw))):(prototypeScience?emptyState():empty());
+  const diskRaw=localStorage.getItem(KEY),disk=diskRaw!==null?(prototypeScience?validateState(JSON.parse(diskRaw)):validate(JSON.parse(diskRaw))):(prototypeScience?emptyState():empty());
   const next=merge(merge(disk,prototypeScience?state:data),incoming);
   // Commit only after complete validation and a successful atomic setItem.
   localStorage.setItem(KEY,JSON.stringify(next));

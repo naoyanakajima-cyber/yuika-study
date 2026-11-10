@@ -84,6 +84,11 @@ try:
     assert page.evaluate('state.legacy.length')==1
     assert page.evaluate('state.legacy[0].raw')==old_aggregate
     assert page.evaluate('localStorage.getItem(OLD_KEY)')==old_aggregate
+    unknown_aggregate=json.dumps({'attempts':10,'correct':[1],'wrong':[2],'schemaVersion':999})
+    old_snapshot=page.evaluate('localStorage.getItem(KEY)')
+    page.evaluate('async raw=>{await importFile(new File([raw],"unknown-aggregate.json"));}',unknown_aggregate)
+    assert page.evaluate('rejectedImportRaw')==unknown_aggregate
+    assert page.evaluate('localStorage.getItem(KEY)')==old_snapshot
    # Old malformed storage is separate from a malformed trial store.
    page.evaluate("localStorage.setItem(LEGACY_KEY,'old-invalid');localStorage.removeItem(KEY)")
    page.reload();assert not page.evaluate('blocked')
@@ -95,6 +100,14 @@ try:
    assert Path(old.value.path()).read_text()=='old-invalid'
    assert page.evaluate('prototypeScience?persist():save()') is False
    assert page.evaluate('localStorage.getItem(KEY)')=='trial-invalid'
+   # Empty bytes are corrupt JSON too, never an absent store.
+   page.evaluate("localStorage.setItem(KEY,'')");page.reload()
+   assert page.evaluate('blocked')
+   assert page.evaluate('prototypeScience?persist():save()') is False
+   assert page.evaluate('localStorage.getItem(KEY)')==''
+   page.evaluate('records()')
+   with page.expect_download() as empty_raw:page.locator('#rawBroken' if app=='yuika-review-v2.html' else '#broken').click()
+   assert Path(empty_raw.value.path()).read_bytes()==b''
    assert not posts and not errors,(posts,errors)
    ctx.close()
   browser.close()

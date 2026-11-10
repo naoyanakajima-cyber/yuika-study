@@ -63,10 +63,10 @@ importFile=async function(file){
   raw=await file.text();const value=JSON.parse(raw),v=prototypeUnpack(value);let incoming;
   if(prototypeScience&&v&&Object.hasOwn(v,'attempts')&&!Object.hasOwn(value,'format')){
    // Explicit legacy aggregate import only; never infer individual responses.
-   legacyData(raw);incoming=emptyState();incoming.legacy=[{raw,capturedAt:new Date().toISOString()}];
+   prototypeFields(v,['attempts','correct','wrong']);legacyData(raw);incoming=emptyState();incoming.legacy=[{raw,capturedAt:new Date().toISOString()}];
   }else incoming=prototypeScience?validateState(v):validate(v);
   prototypeCheck(!blocked,'試作の保存済み記録が読み取れません。先に元データを保管してください。');
-  const diskRaw=localStorage.getItem(KEY),disk=diskRaw?(prototypeScience?validateState(JSON.parse(diskRaw)):validate(JSON.parse(diskRaw))):(prototypeScience?emptyState():empty());
+  const diskRaw=localStorage.getItem(KEY),disk=diskRaw!==null?(prototypeScience?validateState(JSON.parse(diskRaw)):validate(JSON.parse(diskRaw))):(prototypeScience?emptyState():empty());
   const next=merge(merge(disk,prototypeScience?state:data),incoming);
   // Commit only after complete validation and a successful atomic setItem.
   localStorage.setItem(KEY,JSON.stringify(next));

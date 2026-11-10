@@ -766,11 +766,11 @@ function merge(a,b){
 }
 function persist(){
  if(blocked){dirty=true;message('保存先の記録を読み取れないため、上書きしていません。今回の回答は一時保持です。「記録の引きつぎ」でJSONを保存してください。');return false;}
- try{const current=localStorage.getItem(KEY);const disk=current?validateState(JSON.parse(current)):emptyState();const next=merge(disk,state);localStorage.setItem(KEY,JSON.stringify(next));state=next;dirty=false;return true;}
+ try{const current=localStorage.getItem(KEY);const disk=current!==null?validateState(JSON.parse(current)):emptyState();const next=merge(disk,state);localStorage.setItem(KEY,JSON.stringify(next));state=next;dirty=false;return true;}
  catch(e){dirty=true;message('ブラウザーへの保存ができませんでした。今回の回答はこの画面に一時保持しています。閉じる前にJSONを書き出してください。理由：'+e.message);return false;}
 }
 function load(){
- try{const raw=localStorage.getItem(KEY);if(raw){try{state=validateState(JSON.parse(raw));}catch(e){rawBroken=raw;blocked=true;message('新しい記録を読み取れません。元データは上書きせず保護しています。「記録の引きつぎ」から元データを保存できます。');}}}
+ try{const raw=localStorage.getItem(KEY);if(raw!==null){try{state=validateState(JSON.parse(raw));}catch(e){rawBroken=raw;blocked=true;message('新しい記録を読み取れません。元データは上書きせず保護しています。「記録の引きつぎ」から元データを保存できます。');}}}
  catch(e){blocked=true;message('このブラウザーでは保存領域を利用できません。回答は一時保持し、JSONで書き出せます。');}
  // Legacy aggregates are imported only by an explicit file selection.
 
@@ -871,7 +871,7 @@ function records(){
 }
 function render(){navState();if(view==='home')home();else if(view==='analysis')analysis();else if(view==='records')records();else if(view==='quiz'){if(session.done)result();else quiz();}}
 // 別タブの通常の変更を統合。厳密に同時の書き込みはlocalStorageではトランザクション化できないため、学習は１タブで行う。
-window.addEventListener('storage',e=>{if(e.key===KEY&&e.newValue){try{state=merge(state,validateState(JSON.parse(e.newValue)));if(view!=='quiz')render();}catch(err){blocked=true;rawBroken=e.newValue;message('別タブの記録と競合しました。自動で上書きせず、JSONを書き出して保全してください。');if(view!=='quiz')render();}}});
+window.addEventListener('storage',e=>{if(e.key===KEY&&e.newValue!==null){try{state=merge(state,validateState(JSON.parse(e.newValue)));if(view!=='quiz')render();}catch(err){blocked=true;rawBroken=e.newValue;message('別タブの記録と競合しました。自動で上書きせず、JSONを書き出して保全してください。');if(view!=='quiz')render();}}});
 window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.returnValue='';}});
 document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>navigate(b.dataset.view));
 // SCIENCE_ADAPTIVE_START
@@ -1126,10 +1126,10 @@ importFile=async function(file){
   raw=await file.text();const value=JSON.parse(raw),v=prototypeUnpack(value);let incoming;
   if(prototypeScience&&v&&Object.hasOwn(v,'attempts')&&!Object.hasOwn(value,'format')){
    // Explicit legacy aggregate import only; never infer individual responses.
-   legacyData(raw);incoming=emptyState();incoming.legacy=[{raw,capturedAt:new Date().toISOString()}];
+   prototypeFields(v,['attempts','correct','wrong']);legacyData(raw);incoming=emptyState();incoming.legacy=[{raw,capturedAt:new Date().toISOString()}];
   }else incoming=prototypeScience?validateState(v):validate(v);
   prototypeCheck(!blocked,'試作の保存済み記録が読み取れません。先に元データを保管してください。');
-  const diskRaw=localStorage.getItem(KEY),disk=diskRaw?(prototypeScience?validateState(JSON.parse(diskRaw)):validate(JSON.parse(diskRaw))):(prototypeScience?emptyState():empty());
+  const diskRaw=localStorage.getItem(KEY),disk=diskRaw!==null?(prototypeScience?validateState(JSON.parse(diskRaw)):validate(JSON.parse(diskRaw))):(prototypeScience?emptyState():empty());
   const next=merge(merge(disk,prototypeScience?state:data),incoming);
   // Commit only after complete validation and a successful atomic setItem.
   localStorage.setItem(KEY,JSON.stringify(next));
