@@ -44,6 +44,7 @@ with ThreadingHTTPServer(('127.0.0.1', 0), partial(ProbeHandler, directory=str(R
             with pw.chromium.launch(executable_path=os.environ.get('PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH')) as browser:
                 context = browser.new_context(viewport={'width': 768, 'height': 1024})
                 context.route('https://**/*', lambda route: route.abort())
+                context.add_init_script(path=str(ROOT / 'tests/seed_random.js'))
                 page = context.new_page()
                 for name, title in (('onin-review.html', '応仁の乱'), ('kamakura-review.html', '鎌倉幕府の成立')):
                     response = page.goto(f'{base}/{name}')

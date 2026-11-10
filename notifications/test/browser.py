@@ -13,7 +13,7 @@ BASE=f'http://127.0.0.1:{srv.server_port}/'
 CONFIG={'enabled':True,'endpoint':'https://test-notify.example.workers.dev','token':'test-device-key-123456789012345678901234','recipient':'parent@example.test, mother@example.test'}
 with sync_playwright() as pw:
  b=pw.chromium.launch(executable_path='/usr/bin/chromium',args=['--no-sandbox'])
- c=b.new_context(viewport={'width':768,'height':1024});p=c.new_page();errors=[];p.on('pageerror',lambda e:errors.append(str(e)))
+ c=b.new_context(viewport={'width':768,'height':1024});c.add_init_script(path=str(ROOT / 'tests/seed_random.js'));p=c.new_page();errors=[];p.on('pageerror',lambda e:errors.append(str(e)))
  received=[];fail=[False]
  def handle(r):
   if r.request.method=='OPTIONS':r.fulfill(status=204,headers={'Access-Control-Allow-Origin':'*','Access-Control-Allow-Headers':'Authorization, Content-Type','Access-Control-Allow-Methods':'GET, POST, OPTIONS'});return

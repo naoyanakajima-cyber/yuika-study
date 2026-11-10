@@ -13,11 +13,11 @@ Use Codex Cloud; development must not depend on a local PC remaining online.
   an empty skill list, and revision numbers alone do not prove auto-application.
 - Setup: `bash scripts/cloud/setup.sh` from the repository root.
 - Each new shell: `source scripts/cloud/activate.sh`.
-- Required checks: `python tests/onin_review.py` and `python tests/kamakura_review.py`.
-- Preview safety: `python tests/cloud_preview.py`.
-- Bootstrap changes: `python tests/cloud_bootstrap.py` (synthetic local Git only).
-- Notification changes: `node --test notifications/test/worker.test.mjs` and
-  `python notifications/test/browser.py` (mock API only).
+- All required checks (existing six, PR #14–#16, and flash grading):
+  `bash scripts/check_all.sh`. It activates the existing cloud venv, fixes browser
+  test RNG seed to 20261110, and reports HEAD, dirty state, exit codes and timings.
+  Every suite runs even after a failure; any failure makes the command fail.
+  Notification tests use mock APIs only. Setup remains a separate prerequisite.
 - Preview: `python scripts/cloud/serve.py --port 8000`; use the cloud browser at
   `http://127.0.0.1:8000/`. It blocks notification APIs through CSP.
 - Browser tests need loopback sockets and browser process execution. Use only

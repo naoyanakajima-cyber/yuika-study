@@ -519,6 +519,18 @@ const UNITS = [
   }
 ];
 
+// Flash grading v2: only registered answers/alt, after spelling normalization.
+const FLASH_GRADING_VERSION = "registered-exact-v2";
+function normalizeFlashAnswer(s) {
+  return s.replace(/[\uFF01-\uFFEF]+/g, part => part.normalize("NFKC"))
+    .normalize("NFC").replace(/\s/g, "")
+    .replace(/[ァ-ヶ]/g, m => String.fromCharCode(m.charCodeAt(0) - 0x60));
+}
+function checkFlashAnswer(input, answer, alts = []) {
+  const normalized = normalizeFlashAnswer(input);
+  return normalized.length > 0 && [answer, ...alts].some(a => normalizeFlashAnswer(a) === normalized);
+}
+
 // --- UTILS ---
 function shuffle(arr) {
   const a = [...arr];
@@ -1075,7 +1087,7 @@ function FlashScreen({ unit, onBack, email, onSessionSaved }) {
     if (phase === "done") {
       const dn = deckIdx===-1 ? "全問" : (unit.flashDecks[deckIdx]?.name || "");
       saveSession({
-        ts: new Date().toISOString(), mode: "flash",
+        ts: new Date().toISOString(), mode: "flash", gradingVersion: FLASH_GRADING_VERSION,
         subject: unit.subject, unit: unit.name + "（" + dn + "）",
         correct: firstCorrect, wrong: firstRoundWrongs.length, dunno: 0,
         total: totalCards, title: "", retry: retry, totalSec, avgSec,
@@ -1153,33 +1165,9 @@ function FlashScreen({ unit, onBack, email, onSessionSaved }) {
 
   const card = cards[ci];
 
-  // Normalize for flexible matching: lowercase, trim, remove spaces/punctuation, convert katakana to hiragana
-  const normalize = (s) => {
-    return s.toLowerCase().trim()
-      .replace(/[\s　・、。（）()「」\-\/]/g, "")
-      .replace(/[ァ-ヶ]/g, m => String.fromCharCode(m.charCodeAt(0) - 0x60)) // katakana→hiragana
-      .replace(/[０-９]/g, m => String.fromCharCode(m.charCodeAt(0) - 0xFEE0)) // fullwidth→ascii
-      .replace(/[Ａ-Ｚａ-ｚ]/g, m => String.fromCharCode(m.charCodeAt(0) - 0xFEE0));
-  };
-
-  // Check if user answer matches (partial match for long answers, supports alt answers)
-  const checkAnswer = (input, answer, alts) => {
-    const ni = normalize(input);
-    const na = normalize(answer);
-    if (!ni) return false;
-    if (unit.strictFlashAnswers) return [answer, ...(alts || [])].some(a => normalize(a) === ni);
-    if (ni === na) return true;
-    if (na.includes(ni) && ni.length >= 2) return true;
-    if (ni.includes(na)) return true;
-    const parts = answer.split(/[／\/、。（）()・\n]/).map(normalize).filter(p => p.length > 0);
-    if (parts.some(p => p === ni || ni.includes(p) || p.includes(ni))) return true;
-    if (alts && alts.some(a => { const nalt = normalize(a); return ni === nalt || nalt.includes(ni) || ni.includes(nalt); })) return true;
-    return false;
-  };
-
   const handleSubmitAnswer = () => {
     if (judged || !userInput.trim()) return;
-    const isCorrect = checkAnswer(userInput, card.a, card.alt);
+    const isCorrect = checkFlashAnswer(userInput, card.a, card.alt);
     setJudged(isCorrect ? "correct" : "wrong");
   };
 
@@ -1604,6 +1592,7 @@ function HistoryScreen({ onBack }) {
             <div style={{fontSize:20}}>{s.mode==="quiz"?"⚔️":"🧠"}</div>
             <div style={{flex:1}}>
               <div style={{fontSize:13,fontWeight:700,color:T.text}}>{s.subject}・{s.unit}</div>
+              {s.mode==="flash" && <div style={{fontSize:11,color:T.textDim}}>採点規則：{s.gradingVersion || "旧規則（版記録なし）"}</div>}
               <div style={{fontSize:11,color:T.textMuted}}>{formatDate(s.ts)}</div>
             </div>
             <div style={{textAlign:"right"}}>

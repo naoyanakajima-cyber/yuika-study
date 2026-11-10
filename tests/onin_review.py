@@ -15,7 +15,7 @@ OTHER={'yuika-social-540-24-v1':'{"schemaVersion":1,"datasetVersion":"heian-540-
 MK="""(id,correct,variant,at)=>{const q=Q.get(id),v=variantOf(q,variant),d=new Date(at);const response=correct?(q.type==='text'?expectedOf(q,v):q.answer):(q.type==='text'?'ちがう':q.options.find(o=>o!==q.answer));
 return validateEvent({id:uuid(),sessionId:'seed-session',questionId:id,unitId:UNIT_ID,version:VERSION,unit:q.unit,course:q.course,question:promptOf(q,v),response,expected:expectedOf(q,v),explanation:q.explanation,correct,variant:v,mode:'normal',hint:false,at:d.toISOString(),offset:0,day:day(d.toISOString(),0)});}"""
 with sync_playwright() as pw:
- b=pw.chromium.launch(executable_path=os.environ.get('PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH'));c=b.new_context(viewport={'width':768,'height':1024});p=c.new_page();errors=[];p.on('pageerror',lambda e:errors.append(str(e)))
+ b=pw.chromium.launch(executable_path=os.environ.get('PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH'));c=b.new_context(viewport={'width':768,'height':1024});c.add_init_script(path=str(ROOT / 'tests/seed_random.js'));p=c.new_page();errors=[];p.on('pageerror',lambda e:errors.append(str(e)))
  p.route('https://**/*',lambda r:r.abort())
  p.goto(BASE+'onin-review.html');p.evaluate(f"o=>{{localStorage.clear();for(const[k,v]of Object.entries(o))localStorage.setItem(k,v)}}",OTHER);p.reload()
  # データ：30問・一意ID・必須項目・単元

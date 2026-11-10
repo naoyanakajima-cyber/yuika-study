@@ -16,6 +16,7 @@ try:
   browser = pw.chromium.launch(executable_path=os.environ.get('PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH'))
   for name in ('onin-review.html', 'kamakura-review.html'):
    context = browser.new_context(viewport={'width':768,'height':1024})
+   context.add_init_script(path=str(ROOT / 'tests/seed_random.js'))
    page = context.new_page()
    errors=[]
    page.on('pageerror', lambda e: errors.append(str(e)))
