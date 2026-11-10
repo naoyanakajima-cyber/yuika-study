@@ -13,7 +13,7 @@ Use Codex Cloud; development must not depend on a local PC remaining online.
   an empty skill list, and revision numbers alone do not prove auto-application.
 - Setup: `bash scripts/cloud/setup.sh` from the repository root.
 - Each new shell: `source scripts/cloud/activate.sh`.
-- All required checks (existing six, PR #14–#16, flash grading, and spaced daily):
+- All required checks, including suites added by later PRs:
   `bash scripts/check_all.sh`. It activates the existing cloud venv, fixes browser
   test RNG seed to 20261110, and reports HEAD, dirty state, exit codes and timings.
   Every suite runs even after a failure; any failure makes the command fail.
@@ -27,16 +27,51 @@ Use Codex Cloud; development must not depend on a local PC remaining online.
 - Never weaken assertions, skip checks, disable TLS validation, or retry a failed
   test until it happens to pass. Diagnose failures and report remaining limitations.
 
+## Autonomous execution rules (自律実行ルール)
+
+- If a test or verification fails, investigate the cause, fix it, and retest
+  autonomously for up to three repair-and-retest cycles after the initial failure.
+  Keep assertions and safety checks intact; do not retry without diagnosis.
+- Continue until the task's completion criteria are met. Progress reports must
+  not pause execution. Resolve ambiguous specifications with reasonable
+  assumptions and document those assumptions in the PR description. Mark
+  provisional settings, including review intervals, explicitly as proposals
+  (仮案), not approved or validated product decisions.
+- Stop and ask a person before merging (including main), publication, deployment,
+  Secrets changes, incurring charges, sending real notifications, or changing
+  sharing scope, or if a failure remains after three repair-and-retest cycles.
+  Honor explicit task prohibitions; this rule grants no authorization for those
+  actions. Complete safe, independent work before requesting approval.
+- Branch pushes and draft PR creation are allowed within the task's scope.
+  Start new work from the latest draft PR's branch, stack the new draft PR on
+  that branch, and state the dependency and merge order in the PR description.
+- At the end of every task, run `bash scripts/check_all.sh` as described above
+  and record HEAD, every suite's result, and remaining limitations in the PR
+  description. Use synthetic records and mock APIs only; do not maintain a
+  separate, stale list of individual test commands here.
+- Cloudflare preview failures are a known issue: report them separately from
+  local verification; do not weaken checks or change deployment settings to
+  make the preview pass.
+- iPad-equivalent WebKit tests are planned for a separate PR and must be included
+  in `scripts/check_all.sh` when added. Current Chromium tests do not establish
+  Safari/WebKit or real-iPad compatibility.
+
 ## Release scope
 
 - Environment setup alone does not authorize merging or production deployment.
+- Merging to main automatically publishes GitHub Pages. Cloudflare builds are
+  push-triggered. Main merges, publication, and deployment therefore require
+  human approval; permission to push topic branches or open draft PRs does not
+  authorize a production release or a manual deployment.
 - Existing user authorization allows verified educational content updates using
   existing mechanisms: questions, explanations, hints, readings, options, and
-  equivalent answer spellings. Do not request approval again for that scope.
+  equivalent answer spellings through implementation, verification, branch push,
+  and draft PR. This does not authorize merging or publication; obtain human
+  approval for a release even when the content update itself is authorized.
 - Grading engines, question selection algorithms, persistence or migrations,
   authentication, notifications, external communication, visibility, billing,
   dependencies, CI, and automation infrastructure remain draft PRs until the
-  user approves their adoption. This setup PR remains draft.
+  user approves their adoption. Keep these PRs draft until then.
 - Preserve existing IDs, keys, and histories. A change in answer meaning requires
   a new question ID or an explicit pending decision. Even equivalent spellings
   must pass compatibility checks against synthetic historical records.
