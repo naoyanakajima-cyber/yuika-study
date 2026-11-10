@@ -43,7 +43,7 @@
     "ticket": "CONTENT-CHAT-SPEC",
     "purpose": "Record D01 and define synthetic chat intake; assess Evernote candidate without accessing private data"
   },
-  "updated_at": "2026-11-10T12:06:47.813642+00:00",
+  "updated_at": "2026-11-10T12:07:51.186044+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -93,13 +93,18 @@
   "decisions": [
     {
       "id": "D01",
-      "status": "pending",
+      "status": "decided",
       "question": "教材入力はチャット経由から始めるか、アプリ内の保護者画面から始めるか",
       "recommendation": "まずチャット経由と共通の検証用データ形式を定義し、アプリ内入力は別段階にする",
-      "blocks": [
-        "CONTENT-LIVE-INPUT"
-      ],
-      "independent_work": "合成データのみで苦手復習の試用確認を最優先。教材の入力経路・実データ接続は本判断が確定するまで行わない。"
+      "blocks": [],
+      "independent_work": "共通案形式v1を再利用する合成チャット入力手順を仕様化。D02の実データ接続・保存先は別判断。",
+      "outcome": "chat_first_adopted",
+      "scope": "教材入力はチャット経由から始める。今回は合成データによる設計・試作まで。実資料接続・保存先・外部書込・公開の承認ではない。",
+      "recorded_at": "2026-11-10T12:07:51.186044+00:00",
+      "recorded_by": "root/coordinator",
+      "source": "CEO reply directly read in operating-model chat: D01 accepted. No private input copied.",
+      "merge_authorized": false,
+      "deployment_authorized": false
     },
     {
       "id": "D02",
@@ -109,7 +114,9 @@
       "blocks": [
         "PERSONAL-DATA-CONNECTION"
       ],
-      "independent_work": "合成データのみで苦手復習の試用確認を最優先。教材の入力経路・実データ接続は本判断が確定するまで行わない。"
+      "independent_work": "実データを取得せず、教材正本と回答履歴保存を分けた設計候補・確認事項を整理する。",
+      "candidate": "Evernoteを教材の正本にする案がCEOから質問として提示された。採用・実接続・書込は未承認。回答履歴の保存先は未決。",
+      "candidate_recorded_at": "2026-11-10T12:07:51.186044+00:00"
     },
     {
       "id": "D03",
@@ -225,7 +232,7 @@
         "既存ID・保存キー・旧履歴を保護する",
         "768x1024で開始・回答・採点・保存・再読込を合成データで確認する"
       ],
-      "next_action": "改善・独立QA済み。正本からの具体的な試作品修正依頼があれば同じPRで対応。方向性採用は再要求しない。実入力経路/保存先はD01/D02待ち。3試作品の追加確認が済んだため、依存しない仕事がなければ終了する。",
+      "next_action": "改善・独立QA済み。正本からの具体的な試作品修正依頼があれば同じPRで対応。方向性採用は再要求しない。D01チャット入力は採用済み。実データ接続/保存先はD02待ち。3試作品の追加確認が済んだため、依存しない仕事がなければ終了する。",
       "evidence": [
         {
           "kind": "test",
@@ -480,7 +487,7 @@
         "未確認出力と確認済み案を区別し、既存教材/記録に接続しない",
         "768x1024で編集・確認・取消・出力/再入力、外部要求/通知POST 0を検証"
       ],
-      "next_action": "改善・独立QA済み。正本からの具体的な試作品修正依頼があれば同じPRで対応。方向性採用は再要求しない。実入力経路/保存先はD01/D02待ち。3試作品の追加確認が済んだため、依存しない仕事がなければ終了する。",
+      "next_action": "改善・独立QA済み。正本からの具体的な試作品修正依頼があれば同じPRで対応。方向性採用は再要求しない。D01チャット入力は採用済み。実データ接続/保存先はD02待ち。3試作品の追加確認が済んだため、依存しない仕事がなければ終了する。",
       "evidence": [
         {
           "kind": "test",
@@ -813,6 +820,29 @@
         "latest_cloud_artifacts": "/workspace/work/theme-readability-qa-20261110/",
         "shared_browser_handoff": "not_completed"
       }
+    },
+    {
+      "id": "CONTENT-CHAT-SPEC",
+      "title": "チャット入力の合成教材引き継ぎと保存境界を定義",
+      "goal": 2,
+      "state": "requirements",
+      "priority": 3,
+      "depends_on": [
+        "CONTENT-SPEC"
+      ],
+      "owner": "pdm_chat_intake_spec",
+      "branch": "codex/agent-team-operations",
+      "pr": 9,
+      "base_ref": "codex/agent-team-operations",
+      "base_sha": "1994cf7da7ec1c803ed8652f11fa44779053c6c3",
+      "specification": "docs/product/chat-intake-spec.md",
+      "acceptance": [
+        "D01採用とD02未決を区別",
+        "合成教材だけのチャット→共通案→既存確認画面の手順",
+        "Evernote候補と実接続未検証の境界",
+        "独立仕様レビュー"
+      ],
+      "next_action": "PdM案をPrM確認後、独立Reviewerで確認する。新規製品実装は行わない。"
     }
   ],
   "runs": [
