@@ -43,7 +43,7 @@
     "ticket": "REV-STORAGE-RECOVERY",
     "purpose": "Scoped existing PR20 fix for transient storage read-access recovery"
   },
-  "updated_at": "2026-11-10T16:12:14.267425+00:00",
+  "updated_at": "2026-11-10T16:17:20.865342+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -1072,15 +1072,15 @@
       "id": "REV-STORAGE-RECOVERY",
       "title": "理科の一時的な保存領域読取拒否からの復旧を改善",
       "goal": 1,
-      "state": "qa",
+      "state": "blocked",
       "priority": 1,
-      "owner": "qa_storage_recovery",
+      "owner": "coordinator",
       "branch": "codex/review-17-19-quality",
       "pr": 20,
       "base_sha": "408805b06092b9eec5971426a8a1c2cb45194620",
       "depends_on": [],
       "evidence": "ops/evidence/2026-11-11-storage-isolation/access-recovery-result.json",
-      "next_action": "最終candidateの全17suiteと独立復旧probeを実行中。QA後にleaseとPR20 HEADを再確認して既存draftへ統合。",
+      "next_action": "朝夕チェックで既存PRの採用整理と具体的操作フィードバックを確認。新しい根拠なしに同じQAを繰り返さない。",
       "scope_note": "元PR20にも再現する既存制約。新規製品PR・私的データ・本番変更なし。",
       "work_branch": "codex/science-storage-recovery-20261111",
       "base_ref": "codex/review-17-19-quality",
@@ -1100,7 +1100,19 @@
         "S5: 768x1024実retryボタン→保存→再読込。旧KEY/他単元不変",
         "S6: 採点/選定/通知/旧混在raw移行/自動再試行を変更しない"
       ],
-      "candidate_commit": "79d546891940b6f5e3030940f7c52c2ff7b3d36b"
+      "candidate_commit": "79d546891940b6f5e3030940f7c52c2ff7b3d36b",
+      "implementation_complete": true,
+      "qa_passed": true,
+      "blocked_reason": "既存draft #20の復旧修正・独立QA済み。既存製品3件と追加draft群の採用整理待ち。新規承認待ち枠を追加しない。",
+      "unblock": "CEOの具体的な試用/採用整理の返答を正本から台帳に反映。マージ/公開は別の明示承認。",
+      "report": "ops/runs/2026-11-11-storage-access-recovery.md",
+      "independent_qa": {
+        "reviewer": "qa_storage_recovery",
+        "commit": "79d546891940b6f5e3030940f7c52c2ff7b3d36b",
+        "all_suites": "17/17 initial exit0,108s; Worker9/9 bootstrap13/13",
+        "probe": "baseline defect1 + candidate8 cases initial exit0; actual UI answer/retry/export/reload; POST/external/pageerror0",
+        "report": "ops/evidence/2026-11-11-storage-access-recovery/QA.md"
+      }
     }
   ],
   "runs": [
@@ -2110,12 +2122,18 @@
     },
     {
       "id": "SCIENCE-STORAGE-RECOVERY-01",
-      "status": "open",
+      "status": "resolved_in_draft",
       "observed_at": "2026-11-10T15:24:48.092516+00:00",
       "scope": "science initial localStorage.getItem refusal followed by access recovery",
       "finding": "base c5c6c15とcandidate408805b双方でpersist=false/blocked=true。新規回帰ではなく旧ガードの制約。stored=nullで上書きなし。",
       "report": "ops/evidence/2026-11-11-storage-isolation/QA.md",
-      "next_action": "REV-STORAGE-RECOVERYで既存PRへの限定修正条件を定義。"
+      "next_action": "既存draftの採用整理と実機試用。新しい根拠なしに同じ検証を繰り返さない。",
+      "latest_observation": {
+        "observed_at": "2026-11-10T16:17:20.865342+00:00",
+        "head": "79d546891940b6f5e3030940f7c52c2ff7b3d36b",
+        "finding": "独立QAが旧408805bの実UI復旧不可と、最終candidateでの最新disk+pending保持/復旧成功を比較。全17suite成功。公開済みとは扱わない。"
+      },
+      "resolution_report": "ops/runs/2026-11-11-storage-access-recovery.md"
     }
   ],
   "unreconciled_prs": [
@@ -2203,15 +2221,16 @@
     },
     {
       "pr": 20,
-      "head": "408805b06092b9eec5971426a8a1c2cb45194620",
+      "head": "79d546891940b6f5e3030940f7c52c2ff7b3d36b",
       "base_pr": 19,
       "kind": "product",
       "state": "open_draft",
       "adopted": false,
-      "reconciliation_status": "existing_draft_storage_fix_qa_passed_not_adopted",
-      "observed_at": "2026-11-10T15:24:48.092516+00:00",
-      "validation": "今回独立QAで全17suiteと4ページ同origin互換probe成功。既混在raw修復/製品採用/公開は未実施。",
-      "comparison_report": "ops/runs/2026-11-11-storage-isolation.md"
+      "reconciliation_status": "existing_draft_storage_fixes_qa_passed_not_adopted",
+      "observed_at": "2026-11-10T16:17:20.865342+00:00",
+      "validation": "最終HEADで独立全17suite/理科実UI復旧9ケース成功。前回の4ページ旧版往復証拠は408805bのものとして保持。採用/公開未実施。",
+      "comparison_report": "ops/runs/2026-11-11-storage-isolation.md",
+      "latest_report": "ops/runs/2026-11-11-storage-access-recovery.md"
     }
   ]
 }
