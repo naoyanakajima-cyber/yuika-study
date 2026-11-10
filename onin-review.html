@@ -733,12 +733,14 @@ function validate(v){
 }
 const merge=(a,b)=>validate({...empty(),events:[...a.events,...b.events]});
 function save(){
- if(blocked){dirty=true;note('保存先を読み取れないため上書きしません。今回の回答は一時保持です。「記録の保存」からJSONを書き出してください。');return false;}
- try{const raw=localStorage.getItem(KEY),disk=raw?validate(JSON.parse(raw)):empty(),next=merge(disk,data);localStorage.setItem(KEY,JSON.stringify(next));data=next;dirty=false;return true;}
+ if(blocked&&broken!==null){dirty=true;note('保存先を読み取れないため上書きしません。今回の回答は一時保持です。「記録の保存」からJSONを書き出してください。');return false;}
+ try{const raw=localStorage.getItem(KEY);let disk;
+  try{disk=raw?validate(JSON.parse(raw)):empty();}catch(e){broken=raw;blocked=true;throw e;}
+  const next=merge(disk,data);localStorage.setItem(KEY,JSON.stringify(next));data=next;dirty=false;blocked=false;return true;}
  catch(e){dirty=true;note('保存できませんでした。今回の回答は一時保持です。閉じる前にJSONを書き出してください。'+e.message);return false;}
 }
 function load(){try{const raw=localStorage.getItem(KEY);if(raw){try{data=validate(JSON.parse(raw));}catch(e){broken=raw;blocked=true;note('保存済みの記録を読み取れません。上書きせず保護しています。「記録の保存」から元データを保存できます。');}}}catch(e){blocked=true;note('保存領域を利用できません。回答は一時保持できます。閉じる前にJSONで保存してください。');}}
-function grouped(es=data.events){const g=new Map();for(const e of order(es)){const k=e.questionId+':'+e.variant;if(!g.has(k))g.set(k,[]);g.get(k).push(e);}return g;}
+function grouped(es=data.events){const g=new Map();for(const e of order(es)){const k=(Q.get(e.questionId)?.originId||e.questionId)+':'+e.variant;if(!g.has(k))g.set(k,[]);g.get(k).push(e);}return g;}
 const historyOf=(g,q,v)=>g.get(q.id+':'+variantOf(q,v))||[];
 function candidates(mode,p=prefs){if(mode==='adaptive')return additional(p).map(r=>r.q);const g=grouped();return QUESTIONS.filter(q=>{
  if(p.course!=='all'&&q.course!==p.course||p.unit!=='all'&&q.unit!==p.unit||!fits(q,p.variant))return false;
@@ -762,7 +764,7 @@ const NODES=[['尊氏','初代',150,8],['義詮','2代',150,58],['義満','3代'
 const EDGES=[[0,1],[1,2],[2,3],[2,4],[3,5],[4,6],[4,7]];
 function tree(){const c=i=>[NODES[i][2]+35,NODES[i][3]];return `<svg viewBox="0 0 370 250" role="img" aria-label="足利将軍の系図の模式図。尊氏→義詮→義満。義満の子が4代義持と6代義教で兄弟。義持の子が5代義量、義教の子が7代義勝と8代義政。" style="width:370px;max-width:100%"><rect x="1" y="1" width="368" height="248" rx="12" fill="#edf3ec"/>${EDGES.map(([a,b])=>{const [x1,y1]=c(a),[x2,y2]=c(b),m=y1+40;return `<path d="M${x1} ${y1+30}V${m}H${x2}V${y2}" stroke="#7f978c" stroke-width="2" fill="none"/>`;}).join('')}${NODES.map(([n,g,x,y])=>`<rect x="${x}" y="${y}" width="70" height="30" rx="7" fill="${n==='義満'||n==='義政'?'#b57c65':'#386455'}"/><text x="${x+35}" y="${y+20}" fill="white" font-size="13" text-anchor="middle">${g} ${n}</text>`).join('')}</svg>`;}
 function home(){
- const total=new Set(data.events.filter(e=>!Q.get(e.questionId)?.originId).map(e=>e.questionId)).size,n=QUESTIONS.length;
+ const total=new Set(data.events.map(e=>Q.get(e.questionId)?.originId||e.questionId)).size,n=QUESTIONS.length;
  main.innerHTML=`<section class="hero"><div><div class="eyebrow">SOCIAL STUDIES · 540-27</div><h1>応仁の乱</h1><p>だれが、なぜ、どう動いたか。<br>つながりで覚えよう。</p><span class="tag">室町時代</span><span class="tag">${n}問・ヒントと解説</span></div><div class="art" aria-hidden="true" style="display:grid;place-items:center;font-size:72px">🏯</div>
 </section><div class="stats"><div class="stat"><strong>${data.events.length}</strong><span>この単元の回答</span></div><div class="stat"><strong>${total}<small> / ${n}</small></strong><span>出会った問題</span></div><div class="stat"><strong>${n-total}</strong><span>これからの問題</span></div></div><div class="layout"><section class="card"><h2>今日のチャレンジ</h2><p class="muted">用語確認 → 理由・比較 → つながり。</p><label class="field">コース<select id="course">${Object.entries(COURSES).map(([k,v])=>`<option value="${k}" ${prefs.course===k?'selected':''}>${v}</option>`).join('')}</select></label><label class="field">分野<select id="unit"><option value="all">ぜんぶ</option>${UNITS.map(u=>`<option ${prefs.unit===u?'selected':''}>${u}</option>`).join('')}</select></label><label class="field">確認方法<select id="variant"><option value="normal" ${prefs.variant==='normal'?'selected':''}>通常練習（読みもOK）</option><option value="kanji" ${prefs.variant==='kanji'?'selected':''}>漢字・正式名の確認（入力問題）</option><option value="yomi" ${prefs.variant==='yomi'?'selected':''}>読みの確認（漢字の用語）</option></select></label><p class="muted">iPadの変換入力は、手書きの漢字力の確認とは異なります。</p><div class="chips">${[5,10,15].map(c=>`<button data-count="${c}" aria-pressed="${prefs.count===c}">${c}問</button>`).join('')}</div><button id="start" class="primary wide" style="margin-top:18px" ${candidates('normal').length?'':'disabled'}>チャレンジをはじめる →</button><p class="muted" style="margin-top:10px">候補 ${candidates('normal').length}問。１回の中では同じ問題は出ません。まだ答えていない問題・前回まちがえた問題が出やすく、続けて正解した問題は出にくくなります。</p></section><section class="card green-card"><h2>自分のペースで復習</h2><p class="muted">選んだコース・分野・確認方法から出題します。</p>${[['unseen','まだ答えていない問題','この確認方法で未回答'],['wrong','もう一度やってみよう','最後の回答がちがった問題'],['spaced','日をあけて思い出そう','最後の回答から24時間以上'],['hint','ヒントなしでできるかな','最後はヒントを見て正解']].map(([m,t,s])=>`<button class="review" data-mode="${m}" ${candidates(m).length?'':'disabled'}><span>${t}<small>${s}</small></span><b>${candidates(m).length}<small>問</small></b></button>`).join('')}<div class="note">通常練習・漢字確認・読み確認は別々に記録します。</div></section></div><section class="card"><h2>足利将軍の系図（主な人物）</h2><div class="row">${tree()}<p>線は親子。<br>4代義持と6代義教は、どちらも義満の子＝<b>兄弟</b>。<br>7代義勝と8代義政も兄弟。<br><small>模式図です。『逃げ上手の若君』に出てくるのは尊氏・義詮のころ。漫画の場面と史実は分けて考えよう。</small></p></div></section><section class="card"><h2>金閣と銀閣をくらべよう</h2><div class="tablewrap"><table><tr><th></th><th>金閣</th><th>銀閣</th></tr><tr><td>建てた将軍</td><td>3代 足利義満</td><td>8代 足利義政</td></tr><tr><td>文化</td><td>北山文化</td><td>東山文化</td></tr><tr><td>寺の名前</td><td>鹿苑寺</td><td>慈照寺</td></tr><tr><td>もとは</td><td>義満の山荘</td><td>義政の山荘</td></tr><tr><td>特ちょう</td><td>金箔をはった、はなやかな建物</td><td>落ち着いた簡素な美しさ。同じ寺の東求堂に書院造</td></tr></table></div><p class="muted">銀閣という名前ですが、銀箔をはった跡は調査で見つかっていません。写真は使わず、文字の表にしています。</p></section><details><summary>教材の扱い・保護者の方へ</summary><p>デイリーサピックス540-27の学習内容（応仁の乱・一揆・農業・商業・文化）をもとにした非公式のオリジナル問題です。教材や外部サイトの画像は使用していません。系図・金閣と銀閣・土倉と酒屋の4問（54027-20・28〜30）は「発展・今日の対話」として区別しています。</p><p>応仁の乱の終わり（1477年ごろ）や加賀の一向一揆の自治の期間（約100年）は、目安として扱っています。別の社会単元と理科の記録は、このページから変更しません。</p></details>`;
  main.insertAdjacentHTML('beforeend',adaptivePanel());
@@ -807,7 +809,7 @@ function exportReport(){const a=analysis(),es=data.events;download('yuika-social
 async function importFile(file){if(!file)return;try{check(file.size<=25000000,'25MBまでのJSONを選んでください。');const incoming=validate(JSON.parse(await file.text())),next=merge(data,incoming),added=next.events.length-data.events.length;data=next;const saved=save();note(`読み込み：新しい回答 ${added}件。重複は追加していません。${saved?'ブラウザーに保存しました。':'未保存です。閉じる前にJSONを書き出してください。'}`);records();}catch(e){note('読み込みを中止しました。既存記録は変更していません。'+e.message);}}
 function records(){main.innerHTML=`<div class="eyebrow">KEEP YOUR DISCOVERIES</div><h1>記録の保存</h1><div class="note">この単元の回答：${data.events.length}件。${dirty||blocked?'一時保持の回答があります。閉じる前にJSONを保存してください。':'このブラウザーに保存しています。'}<br>社会の既存単元・理科の記録は別に保管され、このページでは書き換えません。</div><div class="layout"><section class="card"><h2>書き出し</h2><p>端末を替える前にJSONを保管しましょう。保護者への分析資料にはTXTを使えます。</p><div class="stack"><button id="export" class="primary">JSONを書き出す</button><button id="report">分析用テキストを書き出す</button><button id="retry">保存を再試行</button>${broken!==null?'<button id="broken">読み取れなかった元データを保存</button>':''}</div></section><section class="card"><h2>読み込み</h2><p>この単元のJSONを今ある記録に追加します。同じ回答IDは重複させません。同じIDで内容が異なる場合や、不正なデータはファイル全体の取込みを中止します。</p><label class="field">JSONファイル<input id="import" type="file" accept=".json,application/json"></label></section></div><section class="card"><h2>iPadで使うとき</h2><p>Safariの「共有」→「ホーム画面に追加」で使えます。ブラウザー・端末・ホーム画面からの起動などで保存領域が異なる場合があるため、切り替える前にJSONを書き出してください。自動同期はしません。</p><p>プライベートブラウズや履歴・Webサイトデータの削除では記録が消えることがあります。学習は１つのタブで行い、ときどきJSONを保管してください。自動メールに接続した場合だけ、チャレンジ結果を送信サーバー経由で保護者へ送ります。</p><p>保存キー：${KEY}</p></section>`;document.getElementById('export').onclick=exportJSON;document.getElementById('report').onclick=exportReport;document.getElementById('import').onchange=e=>importFile(e.target.files[0]);document.getElementById('retry').onclick=()=>{if(save())note('保存できました。');records();};if(broken!==null)document.getElementById('broken').onclick=()=>download('yuika-onin-original-unreadable.json',broken);}
 window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.returnValue='';}});
-window.addEventListener('storage',e=>{if(e.key===KEY&&e.newValue){try{data=merge(data,validate(JSON.parse(e.newValue)));if(screen!=='quiz')render();}catch(err){note('別タブの記録と競合しました。JSONを書き出して保全してください。');}}});
+window.addEventListener('storage',e=>{if(e.key===KEY&&e.newValue){try{data=merge(data,validate(JSON.parse(e.newValue)));if(screen!=='quiz')render();}catch(err){blocked=true;broken=e.newValue;note('別タブの記録と競合しました。JSONを書き出して保全してください。');if(screen!=='quiz')render();}}});
 document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>go(b.dataset.view));
 document.getElementById('socialHome').onclick=e=>{if(screen==='quiz'&&!leave())e.preventDefault();};
 // ADAPTIVE_START
@@ -818,6 +820,9 @@ for(const q of QUESTIONS){
  EXTRA.set(q.id,extra);Q.set(extra.id,extra);
 }
 MODES.adaptive='弱点に合わせた追加練習';
+// Derive Japan dates for analysis only; historical day/offset fields remain intact.
+const japanDay=iso=>day(iso,-540);
+const adaptiveLabel=iso=>new Date(iso).toLocaleString('ja-JP',{timeZone:'Asia/Tokyo'})+'（日本時間）';
 function weaknesses(events=data.events,now=Date.now(),includeRecovered=false){
  const groups=new Map(),seen=new Set();
  for(const e of order(events)){
@@ -829,43 +834,54 @@ function weaknesses(events=data.events,now=Date.now(),includeRecovered=false){
  }
  const rows=[];
  for(const [key,all] of groups){
-  // One observation per local day prevents immediate retries dominating evidence.
-  const days=new Map();for(const e of all)days.set(e.day,e);
-  const samples=[...days.values()].slice(-5),last=samples.at(-1);
-  const recovered=last.correct&&!last.hint;
-  const wrong=samples.filter(e=>!e.correct||((e.hint||(includeRecovered&&recovered))&&all.some(a=>a.day===e.day&&!a.correct))).length;
+  // One observation per Japan day; retain hints/errors from earlier retries.
+  const days=new Map();
+  for(const e of all){
+   const key=japanDay(e.at),previous=days.get(key);
+   days.set(key,{last:e,wrong:!e.correct||!!previous?.wrong,hint:e.hint||!!previous?.hint});
+  }
+  const samples=[...days.values()].slice(-5),last=samples.at(-1).last;
+  // A hinted success cannot undo an earlier unassisted success by itself.
+  let recovered=false;
+  for(const e of all){if(!e.correct)recovered=false;else if(!e.hint)recovered=true;}
+  const wrong=samples.filter(d=>!d.last.correct||((d.last.hint||(includeRecovered&&recovered))&&d.wrong)).length;
   if(samples.length<2||wrong<2||(!includeRecovered&&recovered))continue;
   const q=Q.get(last.questionId),origin=Q.get(q.originId||q.id);
   const confusion=QUESTIONS.filter(o=>o.id!==origin.id&&o.pair&&o.pair===origin.pair)
    .some(o=>grade(o,last.response,last.variant));
   rows.push({originId:origin.id,unit:origin.unit,variant:last.variant,wrong,total:samples.length,
-   recovered,lastHint:last.hint,lastCorrect:last.correct,level:origin.level||({memory:1,pair:2,flow:2,reason:3}[origin.course]||1),hintCount:samples.filter(e=>e.hint).length,lastAt:last.at,confusion});
+   recovered,lastHint:last.hint,lastCorrect:last.correct,level:origin.level||({memory:1,pairs:2,flow:2,reason:3}[origin.course]||1),hintCount:samples.filter(d=>d.hint).length,lastAt:last.at,confusion});
  }
  return rows.sort((a,b)=>b.wrong/b.total-a.wrong/a.total||b.lastAt.localeCompare(a.lastAt)||a.originId.localeCompare(b.originId)||a.variant.localeCompare(b.variant));
 }
 let adaptiveLevel='all';
 function additional(p=prefs,events=data.events,now=Date.now()){
- if(blocked)return [];
+ if(blocked||dirty)return [];
  return weaknesses(events,now).filter(r=>r.variant===p.variant).map(r=>({...r,q:EXTRA.get(r.originId)}))
   .filter(r=>(p.unit==='all'||r.q.unit===p.unit)&&(p.course==='all'||r.q.course===p.course)&&fits(r.q,p.variant)&&(adaptiveLevel==='all'||r.level===Number(adaptiveLevel))).slice(0,10);
 }
 function adaptiveStatus(){
- if(blocked)return '保存済みの記録を読み取れないため、弱点の判定を休止しています。「記録の保存」で元データを保管してください。';
+ if(blocked||dirty)return '保存済みの記録を読み取れないため、弱点の判定を休止しています。「記録の保存」で元データを保管してください。';
  if(!data.events.length)return 'まだ回答記録がありません。まず通常練習をしてみよう。';
  return '候補がない場合は、別日の記録が足りない・直近30日の対象外・最後にヒントなしで正解・選択条件の対象外の可能性があります。';
 }
 function adaptiveSummary(){
  const all=weaknesses(data.events,Date.now(),true),active=all.filter(r=>!r.recovered),recovered=all.filter(r=>r.recovered);
  const groups=new Map();for(const r of active){const key=r.unit+' / '+({normal:'通常',kanji:'漢字・正式名',yomi:'読み'}[r.variant]);groups.set(key,(groups.get(key)||0)+1);}
- return `<section class="card" id="adaptive-summary"><h2>保護者向け・追加練習のサマリー</h2>${blocked?`<p>${esc(adaptiveStatus())}</p>`:`<p>要確認 ${active.length}論点・最後にヒントなしで正解 ${recovered.length}論点（直近30日・確認方法別）。絞り込み前の全分野です。</p>${[...groups].map(([k,n])=>`<p>${esc(k)}：${n}論点</p>`).join('')}<p>ヒント付き正解は候補に残し、ヒントなしの正解で追加練習を減らします。１回の正解は定着の証明ではありません。別の日にも通常練習で確かめてください。</p>`}</section>`;
+ return `<section class="card" id="adaptive-summary"><h2>保護者向け・追加練習のサマリー</h2>${blocked||dirty?`<p>${esc(adaptiveStatus())}</p>`:`<p>要確認 ${active.length}論点・最後にヒントなしで正解 ${recovered.length}論点（直近30日・確認方法別）。絞り込み前の全分野です。</p>${[...groups].map(([k,n])=>`<p>${esc(k)}：${n}論点</p>`).join('')}<p>ヒント付き正解は候補に残し、ヒントなしの正解で追加練習を減らします。１回の正解は定着の証明ではありません。別の日にも通常練習で確かめてください。</p>`}</section>`;
 }
 function adaptivePanel(){
  const rows=additional();
- return `<section class="card" id="adaptive"><h2>弱点に合わせた追加練習</h2><p>直近30日・別日の最後の回答（最大5日）のうち、2日以上誤答した論点（同日にヒント付きで解き直した誤答も含む）を復習します。最後にヒントなしで正解すると候補から外れます。確認方法は別集計です。少数の記録から苦手や原因を断定しません。</p><label class="field">追加問題の難易度<select id="adaptive-level">${[['all','すべて'],['1','基本'],['2','標準'],['3','発展']].map(([v,t])=>`<option value="${v}" ${adaptiveLevel===v?'selected':''}>${t}</option>`).join('')}</select></label><p>原問題の難度を使います。平安はコース別（暗記＝基本、ペア・流れ＝標準、理由＝発展）です。新しい内容への書き換えはしません。１回は選んだ問題数まで、候補は最大10問です。</p>${rows.map(r=>`<details><summary>${esc(r.unit)}：${esc(promptOf(r.q,r.variant))}</summary><p>選んだ理由：${r.wrong}/${r.total}日で誤答・ヒントあり${r.hintCount}日。最後の回答：${esc(label(r.lastAt))}（${r.lastCorrect?'ヒント付き正解':'誤答'}）。難度${r.level}。${r.confusion?'同じペアの別の答えと一致しました。原因は未確定です。':''}</p><p>元問題：${esc(r.originId)} ／ 出典：${esc(r.q.source||'既存の平安単元問題')}</p><p>正解：${esc(expectedOf(r.q,r.variant))}</p><p>根拠：${esc(r.q.explanation)}</p></details>`).join('')||`<p>${esc(adaptiveStatus())}</p>`}<button data-mode="adaptive" ${rows.length?'':'disabled'}>追加練習をはじめる（候補${rows.length}問・今回${Math.min(rows.length,prefs.count)}問）</button></section>`;
+ return `<section class="card" id="adaptive"><h2>弱点に合わせた追加練習</h2><p>最近30日で、まちがえた日が2日以上ある問題を練習します。日本時間で日付を分け、最後に答えた5日分を使います。同じ日にヒントを見て正解した場合も、その日のまちがいを数えます。ヒントなしで正解すると候補（こうほ）から外れます。そのあと、またまちがえたら見直します。読みと漢字は別々に数えます。記録が少ないので、苦手とは決めつけません。</p><label class="field">追加問題のむずかしさ<select id="adaptive-level">${[['all','すべて'],['1','基本'],['2','標準'],['3','発展']].map(([v,t])=>`<option value="${v}" ${adaptiveLevel===v?'selected':''}>${t}</option>`).join('')}</select></label><p>もとの問題と同じむずかしさです。平安は暗記＝基本、ペア・流れ＝標準、理由＝発展です。１回は選んだ問題数まで、候補は最大10問です。</p>${rows.map(r=>`<details><summary>${esc(r.unit)}：${esc(promptOf(r.q,r.variant))}</summary><p>選んだ理由：${r.wrong}/${r.total}日でまちがい・ヒントを見た日${r.hintCount}日。最後の回答：${esc(adaptiveLabel(r.lastAt))}（${r.lastCorrect?'ヒント付き正解':'まちがい'}）。むずかしさ${r.level}。${r.confusion?'同じペアの別の答えと一致しました。原因は未確定です。':''}</p><p>元問題：${esc(r.originId)} ／ 出典：${esc(r.q.source||'既存の平安単元問題')}</p><p>正解：${esc(expectedOf(r.q,r.variant))}</p><p>説明：${esc(r.q.explanation)}</p></details>`).join('')||`<p>${esc(adaptiveStatus())}</p>`}<button data-mode="adaptive" ${rows.length?'':'disabled'}>追加練習をはじめる（候補${rows.length}問・今回${Math.min(rows.length,prefs.count)}問）</button></section>`;
 }
 // Bind after each home render; all content remains inside the standalone app.
 const originalHome=home;
-home=function(){originalHome();document.getElementById('adaptive-level').onchange=e=>{adaptiveLevel=e.target.value;home();};};
+home=function(){
+ const focused=document.activeElement?.id;
+ originalHome();
+ document.getElementById('adaptive-level').onchange=e=>{adaptiveLevel=e.target.value;home();};
+ if(focused)document.getElementById(focused)?.focus({preventScroll:true});
+};
 const originalParent=parent;
 parent=function(){originalParent();main.insertAdjacentHTML('afterbegin',adaptiveSummary());};
 // ADAPTIVE_END
