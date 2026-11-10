@@ -1408,7 +1408,7 @@ function save(){
 }
 function load(){try{const raw=localStorage.getItem(KEY);if(raw){try{data=validate(JSON.parse(raw));}catch(e){broken=raw;blocked=true;note('保存済みの記録を読み取れません。上書きせず保護しています。「記録の保存」から元データを保存できます。');}}}catch(e){blocked=true;note('保存領域を利用できません。回答は一時保持できます。閉じる前にJSONで保存してください。');}}
 function grouped(es=data.events){const g=new Map();for(const e of order(es)){const k=e.questionId+':'+e.variant;if(!g.has(k))g.set(k,[]);g.get(k).push(e);}return g;}
-function candidates(mode,p=prefs){const g=grouped();return QUESTIONS.filter(q=>{
+function candidates(mode,p=prefs){if(mode==='adaptive')return additional(p).map(r=>r.q);const g=grouped();return QUESTIONS.filter(q=>{
  if(p.course!=='all'&&q.course!==p.course||p.unit!=='all'&&q.unit!==p.unit||p.variant==='kanji'&&q.type!=='text')return false;
  const es=g.get(q.id+':'+(q.type==='text'?p.variant:'normal'))||[],last=es.at(-1);
  if(mode==='unseen')return !last;if(mode==='wrong')return last&&!last.correct;if(mode==='spaced')return last&&Date.now()-Date.parse(last.at)>=86400000;if(mode==='hint')return last&&last.correct&&last.hint;return true;
@@ -1419,8 +1419,9 @@ function leave(){return !run||run.done||confirm('回答済みの記録は残り�
 function go(next){if(screen==='quiz'&&!leave())return;run=null;screen=next;render();main.focus();window.scrollTo(0,0);}
 function render(){document.querySelectorAll('[data-view]').forEach(b=>b.setAttribute('aria-current',b.dataset.view===screen?'page':'false'));if(screen==='home')home();else if(screen==='parent')parent();else if(screen==='records')records();else quiz();}
 function home(){
- const total=new Set(data.events.map(e=>e.questionId)).size;
+ const total=new Set(data.events.filter(e=>!Q.get(e.questionId)?.originId).map(e=>e.questionId)).size;
  main.innerHTML=`<section class="hero"><div><div class="eyebrow">SOCIAL STUDIES · 540-24</div><h1>貴族の世の中</h1><p>人と出来事がつながると、<br>歴史はもっとおもしろい。</p><span class="tag">平安時代</span><span class="tag">75問・ヒントと解説</span></div><div class="art" aria-hidden="true" style="display:grid;place-items:center;font-size:72px">🌸</div></section><div class="stats"><div class="stat"><strong>${data.events.length}</strong><span>この単元の回答</span></div><div class="stat"><strong>${total}<small> / 75</small></strong><span>出会った問題</span></div><div class="stat"><strong>${75-total}</strong><span>これからの問題</span></div></div><div class="layout"><section class="card"><h2>今日のチャレンジ</h2><p class="muted">覚える → 区別する → 理由を説明する。</p><label class="field">コース<select id="course">${Object.entries(COURSES).map(([k,v])=>`<option value="${k}" ${prefs.course===k?'selected':''}>${v}</option>`).join('')}</select></label><label class="field">分野<select id="unit"><option value="all">ぜんぶ</option>${UNITS.map(u=>`<option ${prefs.unit===u?'selected':''}>${u}</option>`).join('')}</select></label><label class="field">確認方法<select id="variant"><option value="normal" ${prefs.variant==='normal'?'selected':''}>通常練習（読みもOK）</option><option value="kanji" ${prefs.variant==='kanji'?'selected':''}>漢字・正式名の確認（暗記50問）</option></select></label><p class="muted">漢字確認でも、年号・ひらがな・カタカナが答えの問題は指定どおりに入力します。iPadの変換入力は、手書きの漢字力の確認とは異なります。</p><div class="chips">${[5,10].map(n=>`<button data-count="${n}" aria-pressed="${prefs.count===n}">${n}問</button>`).join('')}</div><button id="start" class="primary wide" style="margin-top:18px" ${candidates('normal').length?'':'disabled'}>チャレンジをはじめる →</button><p class="muted" style="margin-top:10px">候補 ${candidates('normal').length}問。１回の中では同じ問題は出ません。頻出の問いは少し出やすくしています。</p></section><section class="card green-card"><h2>自分のペースで復習</h2><p class="muted">選んだコース・分野・確認方法から出題します。</p>${[['unseen','まだ答えていない問題','この確認方法で未回答'],['wrong','もう一度やってみよう','最後の回答がちがった問題'],['spaced','日をあけて思い出そう','最後の回答から24時間以上'],['hint','ヒントなしでできるかな','最後はヒントを見て正解']].map(([m,t,s])=>`<button class="review" data-mode="${m}" ${candidates(m).length?'':'disabled'}><span>${t}<small>${s}</small></span><b>${candidates(m).length}<small>問</small></b></button>`).join('')}<div class="note">ふりがなで答えられたことと、漢字で答えられたことは別々に記録します。</div></section></div><section class="card"><h2>建物を見分ける手がかり</h2><div class="row"><svg viewBox="0 0 320 180" role="img" aria-label="寝殿造の模式図。中央に寝殿、左右に建物、南に庭と池。実物の写真ではありません。" style="width:320px;max-width:100%"><rect x="3" y="3" width="314" height="174" rx="12" fill="#edf3ec"/><rect x="112" y="25" width="96" height="36" fill="#b57c65"/><text x="138" y="49" fill="white">寝殿</text><path d="M110 45H55V95M210 45H265V95" stroke="#b57c65" stroke-width="10" fill="none"/><rect x="30" y="65" width="50" height="40" fill="#b57c65"/><rect x="240" y="65" width="50" height="40" fill="#b57c65"/><ellipse cx="160" cy="129" rx="66" ry="22" fill="#c3dfe5"/><text x="146" y="136">池</text><text x="128" y="94" font-size="13">南の庭</text><text x="14" y="169" font-size="11">模式図（実物の写真ではありません）</text></svg><p>寝殿造＝貴族の住まいの様式。<br>平等院鳳凰堂＝頼通が建てた阿弥陀堂。<br><small>住宅と寺院を区別しよう。</small></p></div></section><details><summary>教材の扱い・保護者の方へ</summary><p>いただいた540-24のまとめをもとにした非公式のオリジナル問題です。教材写真は使用していません。1086年は院政の開始で、平安時代の終わりではありません。関白は成人した天皇を補佐する役職とし、「女性天皇には必ず摂政」「源氏物語は無条件に世界最古」などの断定を避けています。</p><p>自由記述は模範解答・重要語を見て確かめる練習です。機械による正誤判定には含めません。別の社会単元と理科の記録は、このページから変更しません。</p></details>`;
+ main.insertAdjacentHTML('beforeend',adaptivePanel());
  for(const id of ['course','unit','variant'])document.getElementById(id).onchange=e=>{prefs[id]=e.target.value;if(id==='variant'&&prefs.variant==='kanji')prefs.course='memory';if(id==='course'&&prefs.course!=='memory'&&prefs.course!=='all')prefs.variant='normal';home();};
  main.querySelectorAll('[data-count]').forEach(b=>b.onclick=()=>{prefs.count=Number(b.dataset.count);home();});document.getElementById('start').onclick=()=>start('normal');main.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>start(b.dataset.mode));
 }
@@ -1468,5 +1469,67 @@ window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.return
 window.addEventListener('storage',e=>{if(e.key===KEY&&e.newValue){try{data=merge(data,validate(JSON.parse(e.newValue)));if(screen!=='quiz')render();}catch(err){note('別タブの記録と競合しました。JSONを書き出して保全してください。');}}});
 document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>go(b.dataset.view));
 document.getElementById('socialHome').onclick=e=>{if(screen==='quiz'&&!leave())e.preventDefault();};
+const fits=(q,v)=>v==='normal'||(v==='kanji'&&q.type==='text');
+const promptOf=(q,v)=>q.prompt;
+const expectedOf=(q,v)=>q.answer;
+// ADAPTIVE_START
+// Embedded by embed.py. v1 IDs and prompts are durable record contracts.
+const EXTRA=new Map();
+for(const q of QUESTIONS){
+ const extra={...q,id:q.id+'-review-v1',originId:q.id,prompt:'復習：'+q.prompt};
+ EXTRA.set(q.id,extra);Q.set(extra.id,extra);
+}
+MODES.adaptive='弱点に合わせた追加練習';
+function weaknesses(events=data.events,now=Date.now(),includeRecovered=false){
+ const groups=new Map(),seen=new Set();
+ for(const e of order(events)){
+  if(seen.has(e.id))continue;seen.add(e.id);
+  const q=Q.get(e.questionId),age=now-Date.parse(e.at);
+  if(!q||age<0||age>30*86400000)continue;
+  const id=q.originId||q.id,key=id+':'+e.variant;
+  if(!groups.has(key))groups.set(key,[]);groups.get(key).push(e);
+ }
+ const rows=[];
+ for(const [key,all] of groups){
+  // One observation per local day prevents immediate retries dominating evidence.
+  const days=new Map();for(const e of all)days.set(e.day,e);
+  const samples=[...days.values()].slice(-5),last=samples.at(-1);
+  const recovered=last.correct&&!last.hint;
+  const wrong=samples.filter(e=>!e.correct||((e.hint||(includeRecovered&&recovered))&&all.some(a=>a.day===e.day&&!a.correct))).length;
+  if(samples.length<2||wrong<2||(!includeRecovered&&recovered))continue;
+  const q=Q.get(last.questionId),origin=Q.get(q.originId||q.id);
+  const confusion=QUESTIONS.filter(o=>o.id!==origin.id&&o.pair&&o.pair===origin.pair)
+   .some(o=>grade(o,last.response,last.variant));
+  rows.push({originId:origin.id,unit:origin.unit,variant:last.variant,wrong,total:samples.length,
+   recovered,lastHint:last.hint,lastCorrect:last.correct,level:origin.level||({memory:1,pair:2,flow:2,reason:3}[origin.course]||1),hintCount:samples.filter(e=>e.hint).length,lastAt:last.at,confusion});
+ }
+ return rows.sort((a,b)=>b.wrong/b.total-a.wrong/a.total||b.lastAt.localeCompare(a.lastAt)||a.originId.localeCompare(b.originId)||a.variant.localeCompare(b.variant));
+}
+let adaptiveLevel='all';
+function additional(p=prefs,events=data.events,now=Date.now()){
+ if(blocked)return [];
+ return weaknesses(events,now).filter(r=>r.variant===p.variant).map(r=>({...r,q:EXTRA.get(r.originId)}))
+  .filter(r=>(p.unit==='all'||r.q.unit===p.unit)&&(p.course==='all'||r.q.course===p.course)&&fits(r.q,p.variant)&&(adaptiveLevel==='all'||r.level===Number(adaptiveLevel))).slice(0,10);
+}
+function adaptiveStatus(){
+ if(blocked)return '保存済みの記録を読み取れないため、弱点の判定を休止しています。「記録の保存」で元データを保管してください。';
+ if(!data.events.length)return 'まだ回答記録がありません。まず通常練習をしてみよう。';
+ return '候補がない場合は、別日の記録が足りない・直近30日の対象外・最後にヒントなしで正解・選択条件の対象外の可能性があります。';
+}
+function adaptiveSummary(){
+ const all=weaknesses(data.events,Date.now(),true),active=all.filter(r=>!r.recovered),recovered=all.filter(r=>r.recovered);
+ const groups=new Map();for(const r of active){const key=r.unit+' / '+({normal:'通常',kanji:'漢字・正式名',yomi:'読み'}[r.variant]);groups.set(key,(groups.get(key)||0)+1);}
+ return `<section class="card" id="adaptive-summary"><h2>保護者向け・追加練習のサマリー</h2>${blocked?`<p>${esc(adaptiveStatus())}</p>`:`<p>要確認 ${active.length}論点・最後にヒントなしで正解 ${recovered.length}論点（直近30日・確認方法別）。絞り込み前の全分野です。</p>${[...groups].map(([k,n])=>`<p>${esc(k)}：${n}論点</p>`).join('')}<p>ヒント付き正解は候補に残し、ヒントなしの正解で追加練習を減らします。１回の正解は定着の証明ではありません。別の日にも通常練習で確かめてください。</p>`}</section>`;
+}
+function adaptivePanel(){
+ const rows=additional();
+ return `<section class="card" id="adaptive"><h2>弱点に合わせた追加練習</h2><p>直近30日・別日の最後の回答（最大5日）のうち、2日以上誤答した論点（同日にヒント付きで解き直した誤答も含む）を復習します。最後にヒントなしで正解すると候補から外れます。確認方法は別集計です。少数の記録から苦手や原因を断定しません。</p><label class="field">追加問題の難易度<select id="adaptive-level">${[['all','すべて'],['1','基本'],['2','標準'],['3','発展']].map(([v,t])=>`<option value="${v}" ${adaptiveLevel===v?'selected':''}>${t}</option>`).join('')}</select></label><p>原問題の難度を使います。平安はコース別（暗記＝基本、ペア・流れ＝標準、理由＝発展）です。新しい内容への書き換えはしません。１回は選んだ問題数まで、候補は最大10問です。</p>${rows.map(r=>`<details><summary>${esc(r.unit)}：${esc(promptOf(r.q,r.variant))}</summary><p>選んだ理由：${r.wrong}/${r.total}日で誤答・ヒントあり${r.hintCount}日。最後の回答：${esc(label(r.lastAt))}（${r.lastCorrect?'ヒント付き正解':'誤答'}）。難度${r.level}。${r.confusion?'同じペアの別の答えと一致しました。原因は未確定です。':''}</p><p>元問題：${esc(r.originId)} ／ 出典：${esc(r.q.source||'既存の平安単元問題')}</p><p>正解：${esc(expectedOf(r.q,r.variant))}</p><p>根拠：${esc(r.q.explanation)}</p></details>`).join('')||`<p>${esc(adaptiveStatus())}</p>`}<button data-mode="adaptive" ${rows.length?'':'disabled'}>追加練習をはじめる（候補${rows.length}問・今回${Math.min(rows.length,prefs.count)}問）</button></section>`;
+}
+// Bind after each home render; all content remains inside the standalone app.
+const originalHome=home;
+home=function(){originalHome();document.getElementById('adaptive-level').onchange=e=>{adaptiveLevel=e.target.value;home();};};
+const originalParent=parent;
+parent=function(){originalParent();main.insertAdjacentHTML('afterbegin',adaptiveSummary());};
+// ADAPTIVE_END
 load();render();
 </script></body></html>

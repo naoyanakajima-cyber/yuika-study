@@ -4,7 +4,7 @@ ROOT = Path(__file__).resolve().parents[2]
 START = '// ADAPTIVE_START\n'
 END = '// ADAPTIVE_END\n'
 body = (Path(__file__).with_name('adaptive.js')).read_text()
-for name in ('onin-review.html', 'kamakura-review.html'):
+for name in ('onin-review.html', 'kamakura-review.html', 'heian-review.html'):
     path = ROOT / name
     text = path.read_text()
     if START in text:
