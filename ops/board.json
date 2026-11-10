@@ -36,14 +36,8 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": {
-    "run_id": "cycle-20261110T1606Z",
-    "acquired_at": "2026-11-10T16:07:29.425746+00:00",
-    "expires_at": "2026-11-10T16:47:29.425746+00:00",
-    "ticket": "REV-STORAGE-RECOVERY",
-    "purpose": "Scoped existing PR20 fix for transient storage read-access recovery"
-  },
-  "updated_at": "2026-11-10T16:17:20.865342+00:00",
+  "lease": null,
+  "updated_at": "2026-11-10T16:18:55.315122+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -2062,6 +2056,46 @@
       "next_action": "既存PR限定で一時読取拒否と破損rawを区別した復旧条件をPdM/PrM確認。新規PRを作らず、朝夕で既存製品3件と追加7件の採用整理を提示。",
       "production_actions": false,
       "lease_released_at": "2026-11-10T15:26:46.777386+00:00"
+    },
+    {
+      "id": "cycle-20261110T1606Z",
+      "started_at": "2026-11-10T16:06:56+00:00",
+      "completed_at": "2026-11-10T16:18:55.315122+00:00",
+      "ticket": "REV-STORAGE-RECOVERY",
+      "result": "既存draft PR20で理科の一時読取拒否からの保存再試行を修正。実回答と現在diskを保持する独立UI検証・全17suite成功。採用整理待ち。",
+      "observed_operations_commit": "0ca72a4b5b1e9aac8831d7ef8a20496e5189abac",
+      "cloud_verified": true,
+      "product_base_commit": "408805b06092b9eec5971426a8a1c2cb45194620",
+      "product_commit": "79d546891940b6f5e3030940f7c52c2ff7b3d36b",
+      "evidence_commit": "f24cafae1e715e6bb557ddc757fddf247178c7f8",
+      "product_heads_changed_by_this_run": true,
+      "ceo_decisions_ingested": 0,
+      "subagents": [
+        "pdm_storage_recovery",
+        "engineer_storage_recovery",
+        "qa_storage_recovery"
+      ],
+      "engineer": "engineer_storage_recovery",
+      "reviewer": "qa_storage_recovery",
+      "manual_setup": false,
+      "dependency_preparation": "独立checkoutの無視対象.venv/binから既存クラウドvenvを参照し明示activate。依存インストールなし。自動引継ぎ成功とは扱わない。",
+      "app_tests_run": true,
+      "browser_tests_run": true,
+      "validation": "Final79d5468: independent check_all17/17 initial exit0,108s; Worker9/9 bootstrap13/13. UI probe baseline1+candidate8 initial exit0, POST/external/pageerror0. Engineer focused science_adaptive/prototype_storage initial pass. Diffcheck0, generated tree clean. Report/board independently checked against evidence.",
+      "failed_attempts": [],
+      "external_private_data_calls": 0,
+      "new_prs": [],
+      "updated_prs": [
+        20,
+        9
+      ],
+      "product_code_changed": true,
+      "platform_run_completion_verified": false,
+      "report": "ops/runs/2026-11-11-storage-access-recovery.md",
+      "next_ticket": null,
+      "next_action": "朝夕チェックで既存製品PR3件と追加draft7件の採用整理と具体的試用フィードバックを確認。D02未決。新しい根拠/独立仕事がなければ新規実装・同じQAを繰り返さず終了。",
+      "production_actions": false,
+      "lease_released_at": "2026-11-10T16:18:55.315122+00:00"
     }
   ],
   "operational_notes": [
