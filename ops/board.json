@@ -36,8 +36,14 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": null,
-  "updated_at": "2026-11-10T13:19:26.710117+00:00",
+  "lease": {
+    "run_id": "cycle-20261110T1407Z",
+    "acquired_at": "2026-11-10T14:08:29.026234+00:00",
+    "expires_at": "2026-11-10T14:48:29.026234+00:00",
+    "ticket": "REV-COMPAT-SPEC",
+    "purpose": "Define safe history compatibility contract for existing review PRs; no new product implementation"
+  },
+  "updated_at": "2026-11-10T14:08:29.026234+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -965,6 +971,28 @@
         },
         "notes": "2既存テスト成功、同一origin旧版読込障害を合成probeで再現。文書と5証拠hashを独立確認。製品統合は未実施。"
       }
+    },
+    {
+      "id": "REV-COMPAT-SPEC",
+      "title": "復習試作の回答履歴互換性と採用前条件を定義",
+      "goal": 1,
+      "state": "requirements",
+      "priority": 1,
+      "depends_on": [
+        "REV-RECONCILE"
+      ],
+      "owner": "root/coordinator",
+      "branch": "codex/agent-team-operations",
+      "pr": 9,
+      "base_ref": "codex/agent-team-operations",
+      "base_sha": "da47315b45d1390002ff0490ddce7acc59fd5f0c",
+      "acceptance": [
+        "旧版通常起動を含む互換性の受入条件を明確にする",
+        "既存記録を消さずvalidatorを弱めない修正範囲を比較",
+        "新しいPR16〜18と既存指摘の関係を区別し重複実装を避ける",
+        "独立レビュー後に次回の単一修正範囲を保存"
+      ],
+      "next_action": "PdMが既存コード差分を確認し、PrMが保存互換性契約を選ぶ。製品コードは変更しない。"
     }
   ],
   "runs": [
