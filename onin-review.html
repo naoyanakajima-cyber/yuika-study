@@ -740,7 +740,7 @@ function save(){
 function load(){try{const raw=localStorage.getItem(KEY);if(raw){try{data=validate(JSON.parse(raw));}catch(e){broken=raw;blocked=true;note('保存済みの記録を読み取れません。上書きせず保護しています。「記録の保存」から元データを保存できます。');}}}catch(e){blocked=true;note('保存領域を利用できません。回答は一時保持できます。閉じる前にJSONで保存してください。');}}
 function grouped(es=data.events){const g=new Map();for(const e of order(es)){const k=e.questionId+':'+e.variant;if(!g.has(k))g.set(k,[]);g.get(k).push(e);}return g;}
 const historyOf=(g,q,v)=>g.get(q.id+':'+variantOf(q,v))||[];
-function candidates(mode,p=prefs){const g=grouped();return QUESTIONS.filter(q=>{
+function candidates(mode,p=prefs){if(mode==='adaptive')return additional(p).map(r=>r.q);const g=grouped();return QUESTIONS.filter(q=>{
  if(p.course!=='all'&&q.course!==p.course||p.unit!=='all'&&q.unit!==p.unit||!fits(q,p.variant))return false;
  const last=historyOf(g,q,p.variant).at(-1);
  if(mode==='unseen')return !last;if(mode==='wrong')return last&&!last.correct;if(mode==='spaced')return last&&Date.now()-Date.parse(last.at)>=86400000;if(mode==='hint')return last&&last.correct&&last.hint;return true;
@@ -762,9 +762,10 @@ const NODES=[['尊氏','初代',150,8],['義詮','2代',150,58],['義満','3代'
 const EDGES=[[0,1],[1,2],[2,3],[2,4],[3,5],[4,6],[4,7]];
 function tree(){const c=i=>[NODES[i][2]+35,NODES[i][3]];return `<svg viewBox="0 0 370 250" role="img" aria-label="足利将軍の系図の模式図。尊氏→義詮→義満。義満の子が4代義持と6代義教で兄弟。義持の子が5代義量、義教の子が7代義勝と8代義政。" style="width:370px;max-width:100%"><rect x="1" y="1" width="368" height="248" rx="12" fill="#edf3ec"/>${EDGES.map(([a,b])=>{const [x1,y1]=c(a),[x2,y2]=c(b),m=y1+40;return `<path d="M${x1} ${y1+30}V${m}H${x2}V${y2}" stroke="#7f978c" stroke-width="2" fill="none"/>`;}).join('')}${NODES.map(([n,g,x,y])=>`<rect x="${x}" y="${y}" width="70" height="30" rx="7" fill="${n==='義満'||n==='義政'?'#b57c65':'#386455'}"/><text x="${x+35}" y="${y+20}" fill="white" font-size="13" text-anchor="middle">${g} ${n}</text>`).join('')}</svg>`;}
 function home(){
- const total=new Set(data.events.map(e=>e.questionId)).size,n=QUESTIONS.length;
+ const total=new Set(data.events.filter(e=>!Q.get(e.questionId)?.originId).map(e=>e.questionId)).size,n=QUESTIONS.length;
  main.innerHTML=`<section class="hero"><div><div class="eyebrow">SOCIAL STUDIES · 540-27</div><h1>応仁の乱</h1><p>だれが、なぜ、どう動いたか。<br>つながりで覚えよう。</p><span class="tag">室町時代</span><span class="tag">${n}問・ヒントと解説</span></div><div class="art" aria-hidden="true" style="display:grid;place-items:center;font-size:72px">🏯</div>
 </section><div class="stats"><div class="stat"><strong>${data.events.length}</strong><span>この単元の回答</span></div><div class="stat"><strong>${total}<small> / ${n}</small></strong><span>出会った問題</span></div><div class="stat"><strong>${n-total}</strong><span>これからの問題</span></div></div><div class="layout"><section class="card"><h2>今日のチャレンジ</h2><p class="muted">用語確認 → 理由・比較 → つながり。</p><label class="field">コース<select id="course">${Object.entries(COURSES).map(([k,v])=>`<option value="${k}" ${prefs.course===k?'selected':''}>${v}</option>`).join('')}</select></label><label class="field">分野<select id="unit"><option value="all">ぜんぶ</option>${UNITS.map(u=>`<option ${prefs.unit===u?'selected':''}>${u}</option>`).join('')}</select></label><label class="field">確認方法<select id="variant"><option value="normal" ${prefs.variant==='normal'?'selected':''}>通常練習（読みもOK）</option><option value="kanji" ${prefs.variant==='kanji'?'selected':''}>漢字・正式名の確認（入力問題）</option><option value="yomi" ${prefs.variant==='yomi'?'selected':''}>読みの確認（漢字の用語）</option></select></label><p class="muted">iPadの変換入力は、手書きの漢字力の確認とは異なります。</p><div class="chips">${[5,10,15].map(c=>`<button data-count="${c}" aria-pressed="${prefs.count===c}">${c}問</button>`).join('')}</div><button id="start" class="primary wide" style="margin-top:18px" ${candidates('normal').length?'':'disabled'}>チャレンジをはじめる →</button><p class="muted" style="margin-top:10px">候補 ${candidates('normal').length}問。１回の中では同じ問題は出ません。まだ答えていない問題・前回まちがえた問題が出やすく、続けて正解した問題は出にくくなります。</p></section><section class="card green-card"><h2>自分のペースで復習</h2><p class="muted">選んだコース・分野・確認方法から出題します。</p>${[['unseen','まだ答えていない問題','この確認方法で未回答'],['wrong','もう一度やってみよう','最後の回答がちがった問題'],['spaced','日をあけて思い出そう','最後の回答から24時間以上'],['hint','ヒントなしでできるかな','最後はヒントを見て正解']].map(([m,t,s])=>`<button class="review" data-mode="${m}" ${candidates(m).length?'':'disabled'}><span>${t}<small>${s}</small></span><b>${candidates(m).length}<small>問</small></b></button>`).join('')}<div class="note">通常練習・漢字確認・読み確認は別々に記録します。</div></section></div><section class="card"><h2>足利将軍の系図（主な人物）</h2><div class="row">${tree()}<p>線は親子。<br>4代義持と6代義教は、どちらも義満の子＝<b>兄弟</b>。<br>7代義勝と8代義政も兄弟。<br><small>模式図です。『逃げ上手の若君』に出てくるのは尊氏・義詮のころ。漫画の場面と史実は分けて考えよう。</small></p></div></section><section class="card"><h2>金閣と銀閣をくらべよう</h2><div class="tablewrap"><table><tr><th></th><th>金閣</th><th>銀閣</th></tr><tr><td>建てた将軍</td><td>3代 足利義満</td><td>8代 足利義政</td></tr><tr><td>文化</td><td>北山文化</td><td>東山文化</td></tr><tr><td>寺の名前</td><td>鹿苑寺</td><td>慈照寺</td></tr><tr><td>もとは</td><td>義満の山荘</td><td>義政の山荘</td></tr><tr><td>特ちょう</td><td>金箔をはった、はなやかな建物</td><td>落ち着いた簡素な美しさ。同じ寺の東求堂に書院造</td></tr></table></div><p class="muted">銀閣という名前ですが、銀箔をはった跡は調査で見つかっていません。写真は使わず、文字の表にしています。</p></section><details><summary>教材の扱い・保護者の方へ</summary><p>デイリーサピックス540-27の学習内容（応仁の乱・一揆・農業・商業・文化）をもとにした非公式のオリジナル問題です。教材や外部サイトの画像は使用していません。系図・金閣と銀閣・土倉と酒屋の4問（54027-20・28〜30）は「発展・今日の対話」として区別しています。</p><p>応仁の乱の終わり（1477年ごろ）や加賀の一向一揆の自治の期間（約100年）は、目安として扱っています。別の社会単元と理科の記録は、このページから変更しません。</p></details>`;
+ main.insertAdjacentHTML('beforeend',adaptivePanel());
  for(const id of ['course','unit','variant'])document.getElementById(id).onchange=e=>{prefs[id]=e.target.value;home();};
  main.querySelectorAll('[data-count]').forEach(b=>b.onclick=()=>{prefs.count=Number(b.dataset.count);home();});document.getElementById('start').onclick=()=>start('normal');main.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>start(b.dataset.mode));
 }
@@ -809,5 +810,46 @@ window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.return
 window.addEventListener('storage',e=>{if(e.key===KEY&&e.newValue){try{data=merge(data,validate(JSON.parse(e.newValue)));if(screen!=='quiz')render();}catch(err){note('別タブの記録と競合しました。JSONを書き出して保全してください。');}}});
 document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>go(b.dataset.view));
 document.getElementById('socialHome').onclick=e=>{if(screen==='quiz'&&!leave())e.preventDefault();};
+// ADAPTIVE_START
+// Embedded by embed.py. v1 IDs and prompts are durable record contracts.
+const EXTRA=new Map();
+for(const q of QUESTIONS){
+ const extra={...q,id:q.id+'-review-v1',originId:q.id,prompt:'復習：'+q.prompt};
+ EXTRA.set(q.id,extra);Q.set(extra.id,extra);
+}
+MODES.adaptive='弱点に合わせた追加練習';
+function weaknesses(events=data.events,now=Date.now()){
+ const groups=new Map(),seen=new Set();
+ for(const e of order(events)){
+  if(seen.has(e.id))continue;seen.add(e.id);
+  const q=Q.get(e.questionId),age=now-Date.parse(e.at);
+  if(!q||age<0||age>30*86400000)continue;
+  const id=q.originId||q.id,key=id+':'+e.variant;
+  if(!groups.has(key))groups.set(key,[]);groups.get(key).push(e);
+ }
+ const rows=[];
+ for(const [key,all] of groups){
+  // One observation per local day prevents immediate retries dominating evidence.
+  const days=new Map();for(const e of all)days.set(e.day,e);
+  const samples=[...days.values()].slice(-5),last=samples.at(-1);
+  const wrong=samples.filter(e=>!e.correct).length;
+  if(samples.length<2||wrong<2||last.correct)continue;
+  const q=Q.get(last.questionId),origin=Q.get(q.originId||q.id);
+  const confusion=QUESTIONS.filter(o=>o.id!==origin.id&&o.pair&&o.pair===origin.pair)
+   .some(o=>grade(o,last.response,last.variant));
+  rows.push({originId:origin.id,unit:origin.unit,variant:last.variant,wrong,total:samples.length,
+   hintCount:samples.filter(e=>e.hint).length,lastAt:last.at,confusion});
+ }
+ return rows.sort((a,b)=>b.wrong/b.total-a.wrong/a.total||b.lastAt.localeCompare(a.lastAt)||a.originId.localeCompare(b.originId)||a.variant.localeCompare(b.variant));
+}
+function additional(p=prefs,events=data.events,now=Date.now()){
+ return weaknesses(events,now).filter(r=>r.variant===p.variant).map(r=>({...r,q:EXTRA.get(r.originId)}))
+  .filter(r=>(p.unit==='all'||r.q.unit===p.unit)&&(p.course==='all'||r.q.course===p.course)&&fits(r.q,p.variant)).slice(0,10);
+}
+function adaptivePanel(){
+ const rows=additional();
+ return `<section class="card" id="adaptive"><h2>弱点に合わせた追加練習</h2><p>直近30日・別日の最後の回答（最大5日）のうち、2日以上誤答し、最後も誤答の論点を復習します。確認方法は別集計です。少数の記録から苦手や原因を断定しません。</p>${rows.map(r=>`<details><summary>${esc(r.unit)}：${esc(promptOf(r.q,r.variant))}</summary><p>${r.wrong}/${r.total}日で誤答・ヒントあり${r.hintCount}日。${r.confusion?'同じペアの別の答えと一致しました。原因は未確定です。':''}</p><p>元問題：${esc(r.originId)} ／ 出典：${esc(r.q.source)}</p><p>正解：${esc(expectedOf(r.q,r.variant))}</p><p>根拠：${esc(r.q.explanation)}</p></details>`).join('')||'<p>この条件の追加課題はまだありません。</p>'}<button data-mode="adaptive" ${rows.length?'':'disabled'}>追加練習をはじめる（${rows.length}問）</button></section>`;
+}
+// ADAPTIVE_END
 load();render();
 </script></body></html>

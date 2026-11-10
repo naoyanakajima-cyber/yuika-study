@@ -901,7 +901,7 @@ function save(){
 function load(){try{const raw=localStorage.getItem(KEY);if(raw){try{data=validate(JSON.parse(raw));}catch(e){broken=raw;blocked=true;note('保存済みの記録を読み取れません。上書きせず保護しています。「記録の保存」から元データを保存できます。');}}}catch(e){blocked=true;note('保存領域を利用できません。回答は一時保持できます。閉じる前にJSONで保存してください。');}}
 function grouped(es=data.events){const g=new Map();for(const e of order(es)){const k=e.questionId+':'+e.variant;if(!g.has(k))g.set(k,[]);g.get(k).push(e);}return g;}
 const historyOf=(g,q,v)=>g.get(q.id+':'+variantOf(q,v))||[];
-function candidates(mode,p=prefs){const g=grouped();return QUESTIONS.filter(q=>{
+function candidates(mode,p=prefs){if(mode==='adaptive')return additional(p).map(r=>r.q);const g=grouped();return QUESTIONS.filter(q=>{
  if(p.course!=='all'&&q.course!==p.course||p.unit!=='all'&&q.unit!==p.unit||!fits(q,p.variant))return false;
  const last=historyOf(g,q,p.variant).at(-1);
  if(mode==='unseen')return !last;if(mode==='wrong')return last&&!last.correct;if(mode==='spaced')return last&&Date.now()-Date.parse(last.at)>=86400000;if(mode==='hint')return last&&last.correct&&last.hint;return true;
@@ -924,9 +924,10 @@ function tree(){const box=(x,y,w,t,f='#386455')=>`<rect x="${x}" y="${y}" width=
  const col=(rows,x)=>rows.map(([n,r],i)=>{const y=160+i*42;return `<path d="M${x-10} ${y+15}H${x}" stroke="#7f978c" stroke-width="2"/>${box(x,y,82,n)}<text x="${x+88}" y="${y+20}" fill="#293e3b" font-size="11">${r}</text>`;}).join('');
  return `<svg viewBox="0 0 450 290" role="img" aria-label="鎌倉幕府のしくみの模式図。将軍の下に執権。鎌倉に侍所（御家人の取りしまり）・政所（政治）・問注所（裁判）。地方に守護（国ごと・軍事と警察）・地頭（荘園ごと・年貢）・六波羅探題（京都・朝廷の監視、承久の乱の後に設置）。" style="width:450px;max-width:100%"><rect x="1" y="1" width="448" height="288" rx="12" fill="#edf3ec"/><path d="M225 38V56M225 86V100H60V112M225 100H285V112M30 142V257M245 142V257" stroke="#7f978c" stroke-width="2" fill="none"/>${box(185,8,80,'将軍','#b57c65')}${box(170,56,110,'執権（北条氏）','#b57c65')}${box(20,112,80,'鎌倉','#64736e')}${box(245,112,80,'地方','#64736e')}${col(ORG,40)}${col(LOCAL,255)}</svg>`;}
 function home(){
- const total=new Set(data.events.map(e=>e.questionId)).size,n=QUESTIONS.length;
+ const total=new Set(data.events.filter(e=>!Q.get(e.questionId)?.originId).map(e=>e.questionId)).size,n=QUESTIONS.length;
  main.innerHTML=`<section class="hero"><div><div class="eyebrow">SOCIAL STUDIES · 540-25</div><h1>鎌倉幕府の成立</h1><p>平氏から源氏、そして北条氏へ。<br>しくみと人物をつなげて覚えよう。</p><span class="tag">平安時代〜鎌倉時代</span><span class="tag">${n}問・ヒントと解説</span></div><div class="art" aria-hidden="true" style="display:grid;place-items:center;font-size:72px">🏹</div>
 </section><div class="stats"><div class="stat"><strong>${data.events.length}</strong><span>この単元の回答</span></div><div class="stat"><strong>${total}<small> / ${n}</small></strong><span>出会った問題</span></div><div class="stat"><strong>${n-total}</strong><span>これからの問題</span></div></div><div class="layout"><section class="card"><h2>今日のチャレンジ</h2><p class="muted">用語確認 → 理由・比較 → つながり。</p><label class="field">コース<select id="course">${Object.entries(COURSES).map(([k,v])=>`<option value="${k}" ${prefs.course===k?'selected':''}>${v}</option>`).join('')}</select></label><label class="field">分野<select id="unit"><option value="all">ぜんぶ</option>${UNITS.map(u=>`<option ${prefs.unit===u?'selected':''}>${u}</option>`).join('')}</select></label><label class="field">確認方法<select id="variant"><option value="normal" ${prefs.variant==='normal'?'selected':''}>通常練習（読みもOK）</option><option value="kanji" ${prefs.variant==='kanji'?'selected':''}>漢字・正式名の確認（入力問題）</option><option value="yomi" ${prefs.variant==='yomi'?'selected':''}>読みの確認（漢字の用語）</option></select></label><p class="muted">iPadの変換入力は、手書きの漢字力の確認とは異なります。</p><div class="chips">${[5,10,15].map(c=>`<button data-count="${c}" aria-pressed="${prefs.count===c}">${c}問</button>`).join('')}</div><button id="start" class="primary wide" style="margin-top:18px" ${candidates('normal').length?'':'disabled'}>チャレンジをはじめる →</button><p class="muted" style="margin-top:10px">候補 ${candidates('normal').length}問。１回の中では同じ問題は出ません。まだ答えていない問題・前回まちがえた問題が出やすく、続けて正解した問題は出にくくなります。</p></section><section class="card green-card"><h2>自分のペースで復習</h2><p class="muted">選んだコース・分野・確認方法から出題します。</p>${[['unseen','まだ答えていない問題','この確認方法で未回答'],['wrong','もう一度やってみよう','最後の回答がちがった問題'],['spaced','日をあけて思い出そう','最後の回答から24時間以上'],['hint','ヒントなしでできるかな','最後はヒントを見て正解']].map(([m,t,s])=>`<button class="review" data-mode="${m}" ${candidates(m).length?'':'disabled'}><span>${t}<small>${s}</small></span><b>${candidates(m).length}<small>問</small></b></button>`).join('')}<div class="note">通常練習・漢字確認・読み確認は別々に記録します。</div></section></div><section class="card"><h2>鎌倉幕府のしくみ</h2><div class="row">${tree()}<p>将軍を助ける<b>執権</b>には北条氏が代々ついた。<br>守護＝<b>国</b>ごと、地頭＝<b>荘園</b>ごと。<br>六波羅探題は<b>承久の乱（1221年）の後</b>に京都に置かれた。<br><small>模式図です。政所ははじめ公文所といいました。</small></p></div></section><section class="card"><h2>流れをつかもう</h2><div class="tablewrap"><table><tr><th>年</th><th>できごと</th></tr><tr><td>1156・1159</td><td>保元の乱・平治の乱。平清盛が勝つ</td></tr><tr><td>1167</td><td>平清盛が武士で初めて太政大臣に</td></tr><tr><td>1180</td><td>源頼朝が伊豆で挙兵</td></tr><tr><td>1185</td><td>壇ノ浦の戦いで平氏滅亡。守護・地頭を置く</td></tr><tr><td>1192</td><td>頼朝が征夷大将軍に</td></tr><tr><td>1221</td><td>承久の乱（後鳥羽上皇 対 2代執権北条義時）</td></tr><tr><td>1232</td><td>御成敗式目（3代執権北条泰時）</td></tr></table></div></section><section class="card"><h2>新しい仏教をくらべよう</h2><div class="tablewrap"><table><tr><th>宗派</th><th>開いた人</th><th>教え</th></tr><tr><td>浄土宗</td><td>法然</td><td>念仏「南無阿弥陀仏」</td></tr><tr><td>浄土真宗（一向宗）</td><td>親鸞（法然の弟子）</td><td>阿弥陀仏を信じれば救われる</td></tr><tr><td>時宗</td><td>一遍</td><td>踊念仏</td></tr><tr><td>日蓮宗（法華宗）</td><td>日蓮</td><td>題目「南無妙法蓮華経」</td></tr><tr><td>臨済宗</td><td>栄西</td><td>座禅（禅宗）・幕府の上級武士に</td></tr><tr><td>曹洞宗</td><td>道元</td><td>座禅（禅宗）・地方の武士に</td></tr></table></div></section><details><summary>教材の扱い・保護者の方へ</summary><p>デイリーサピックス540-25の学習内容（平氏の滅亡、鎌倉幕府のしくみ、北条氏と承久の乱、武士のくらし、新しい仏教と鎌倉文化）をもとにした非公式のオリジナル問題です。教材や外部サイトの画像は使用していません。本人の理解度を見て作った問題ではなく、テキストの重要語句から作っています。</p><p>那須与一の扇の的や倶利伽羅峠の牛の話は、伝説として扱っています。鎌倉幕府の成立は1192年のほか、1185年とする考え方もあります。別の社会単元と理科の記録は、このページから変更しません。</p></details>`;
+ main.insertAdjacentHTML('beforeend',adaptivePanel());
  for(const id of ['course','unit','variant'])document.getElementById(id).onchange=e=>{prefs[id]=e.target.value;home();};
  main.querySelectorAll('[data-count]').forEach(b=>b.onclick=()=>{prefs.count=Number(b.dataset.count);home();});document.getElementById('start').onclick=()=>start('normal');main.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>start(b.dataset.mode));
 }
@@ -971,5 +972,46 @@ window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.return
 window.addEventListener('storage',e=>{if(e.key===KEY&&e.newValue){try{data=merge(data,validate(JSON.parse(e.newValue)));if(screen!=='quiz')render();}catch(err){note('別タブの記録と競合しました。JSONを書き出して保全してください。');}}});
 document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>go(b.dataset.view));
 document.getElementById('socialHome').onclick=e=>{if(screen==='quiz'&&!leave())e.preventDefault();};
+// ADAPTIVE_START
+// Embedded by embed.py. v1 IDs and prompts are durable record contracts.
+const EXTRA=new Map();
+for(const q of QUESTIONS){
+ const extra={...q,id:q.id+'-review-v1',originId:q.id,prompt:'復習：'+q.prompt};
+ EXTRA.set(q.id,extra);Q.set(extra.id,extra);
+}
+MODES.adaptive='弱点に合わせた追加練習';
+function weaknesses(events=data.events,now=Date.now()){
+ const groups=new Map(),seen=new Set();
+ for(const e of order(events)){
+  if(seen.has(e.id))continue;seen.add(e.id);
+  const q=Q.get(e.questionId),age=now-Date.parse(e.at);
+  if(!q||age<0||age>30*86400000)continue;
+  const id=q.originId||q.id,key=id+':'+e.variant;
+  if(!groups.has(key))groups.set(key,[]);groups.get(key).push(e);
+ }
+ const rows=[];
+ for(const [key,all] of groups){
+  // One observation per local day prevents immediate retries dominating evidence.
+  const days=new Map();for(const e of all)days.set(e.day,e);
+  const samples=[...days.values()].slice(-5),last=samples.at(-1);
+  const wrong=samples.filter(e=>!e.correct).length;
+  if(samples.length<2||wrong<2||last.correct)continue;
+  const q=Q.get(last.questionId),origin=Q.get(q.originId||q.id);
+  const confusion=QUESTIONS.filter(o=>o.id!==origin.id&&o.pair&&o.pair===origin.pair)
+   .some(o=>grade(o,last.response,last.variant));
+  rows.push({originId:origin.id,unit:origin.unit,variant:last.variant,wrong,total:samples.length,
+   hintCount:samples.filter(e=>e.hint).length,lastAt:last.at,confusion});
+ }
+ return rows.sort((a,b)=>b.wrong/b.total-a.wrong/a.total||b.lastAt.localeCompare(a.lastAt)||a.originId.localeCompare(b.originId)||a.variant.localeCompare(b.variant));
+}
+function additional(p=prefs,events=data.events,now=Date.now()){
+ return weaknesses(events,now).filter(r=>r.variant===p.variant).map(r=>({...r,q:EXTRA.get(r.originId)}))
+  .filter(r=>(p.unit==='all'||r.q.unit===p.unit)&&(p.course==='all'||r.q.course===p.course)&&fits(r.q,p.variant)).slice(0,10);
+}
+function adaptivePanel(){
+ const rows=additional();
+ return `<section class="card" id="adaptive"><h2>弱点に合わせた追加練習</h2><p>直近30日・別日の最後の回答（最大5日）のうち、2日以上誤答し、最後も誤答の論点を復習します。確認方法は別集計です。少数の記録から苦手や原因を断定しません。</p>${rows.map(r=>`<details><summary>${esc(r.unit)}：${esc(promptOf(r.q,r.variant))}</summary><p>${r.wrong}/${r.total}日で誤答・ヒントあり${r.hintCount}日。${r.confusion?'同じペアの別の答えと一致しました。原因は未確定です。':''}</p><p>元問題：${esc(r.originId)} ／ 出典：${esc(r.q.source)}</p><p>正解：${esc(expectedOf(r.q,r.variant))}</p><p>根拠：${esc(r.q.explanation)}</p></details>`).join('')||'<p>この条件の追加課題はまだありません。</p>'}<button data-mode="adaptive" ${rows.length?'':'disabled'}>追加練習をはじめる（${rows.length}問）</button></section>`;
+}
+// ADAPTIVE_END
 load();render();
 </script></body></html>
