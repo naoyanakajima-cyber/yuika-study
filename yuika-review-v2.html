@@ -765,8 +765,8 @@ function merge(a,b){
  return validateState({schemaVersion:2,datasetVersion:VERSION,events:[...events.values()],legacy:[...legacy.values()]});
 }
 function persist(){
- if(blocked){dirty=true;message('保存先の記録を読み取れないため、上書きしていません。今回の回答は一時保持です。「記録の引きつぎ」でJSONを保存してください。');return false;}
- try{const current=localStorage.getItem(KEY);const disk=current!==null?validateState(JSON.parse(current)):emptyState();const next=merge(disk,state);localStorage.setItem(KEY,JSON.stringify(next));state=next;dirty=false;return true;}
+ if(blocked&&rawBroken!==null){dirty=true;message('保存先の記録を読み取れないため、上書きしていません。今回の回答は一時保持です。「記録の引きつぎ」でJSONを保存してください。');return false;}
+ try{const current=localStorage.getItem(KEY);const disk=current!==null?validateState(JSON.parse(current)):emptyState();const next=merge(disk,state);localStorage.setItem(KEY,JSON.stringify(next));state=next;blocked=false;dirty=false;return true;}
  catch(e){dirty=true;message('ブラウザーへの保存ができませんでした。今回の回答はこの画面に一時保持しています。閉じる前にJSONを書き出してください。理由：'+e.message);return false;}
 }
 function load(){

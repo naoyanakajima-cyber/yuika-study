@@ -1,5 +1,6 @@
 """Science 47-question adapter: original grading, full-history replay and UI."""
 import os
+import json
 import sys
 import subprocess
 from datetime import datetime, timezone
@@ -10,6 +11,77 @@ from threading import Thread
 from playwright.sync_api import sync_playwright
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from scripts.cloud.serve import PreviewHandler, ROOT
+def verify_storage_access_recovery(browser, base, fixture):
+ # A fresh page cannot assume an unreadable disk is empty. Keep a real disk
+ # answer/aggregate and an unsaved answer, and exercise the existing retry UI.
+ key='yuika-prototype-v1:yuika-science-review-v2'
+ pending=dict(fixture['events'][0],id='synthetic-access-pending')
+ for case in ('valid','malformed','empty','conflict'):
+  disk=json.loads(json.dumps(fixture))
+  if case=='conflict':
+   disk['events'][0]['id']=pending['id']
+   disk['events'][0]['sessionId']='synthetic-conflicting-session'
+  raw='{' if case=='malformed' else '' if case=='empty' else json.dumps(disk)
+  ctx=browser.new_context(viewport={'width':768,'height':1024},accept_downloads=True)
+  errors=[];posts=[];external=[]
+  def block_external(route):
+   if route.request.method=='POST':posts.append(route.request.url);route.abort()
+   elif not route.request.url.startswith(base+'/'):external.append(route.request.url);route.abort()
+   else:route.continue_()
+  ctx.route('**/*',block_external)
+  ctx.add_init_script("""(() => {
+   if(sessionStorage.getItem('synthetic-recovery-seeded'))return;
+   sessionStorage.setItem('synthetic-recovery-seeded','yes');
+   window.recoveryGet=Storage.prototype.getItem;window.recoverySet=Storage.prototype.setItem;
+   const key="""+json.dumps(key)+""",raw="""+json.dumps(raw)+""";
+   recoverySet.call(localStorage,key,raw);
+   recoverySet.call(localStorage,'yuika-science-review-v2','synthetic old untouched');
+   recoverySet.call(localStorage,'yuika-social-540-27-v1','synthetic other untouched');
+   Storage.prototype.getItem=function(k){if(k===key)throw Error('synthetic temporary read refusal');return recoveryGet.call(this,k);};
+  })();""")
+  page=ctx.new_page();page.on('pageerror',lambda e:errors.append(str(e)))
+  page.goto(base+'/yuika-review-v2.html')
+  assert page.evaluate('blocked&&rawBroken===null&&state.events.length===0')
+  page.evaluate('(event)=>{state.events.push(validateEvent(event));dirty=true;view="records";render();}',pending)
+  before=page.evaluate('JSON.stringify(state)')
+  page.locator('#retry').click()
+  assert page.evaluate('blocked&&dirty&&JSON.stringify(state)')==before
+  assert '保存ができました' not in page.locator('#notice').inner_text()
+  assert page.evaluate('(key)=>recoveryGet.call(localStorage,key)',key)==raw
+  page.evaluate('()=>{Storage.prototype.getItem=recoveryGet;}')
+  if case=='valid':
+   # Failed writes must not commit the merged in-memory state or unlock analysis.
+   page.evaluate('()=>{Storage.prototype.setItem=function(k,v){if(k===KEY)throw Error("synthetic quota");return recoverySet.call(this,k,v);};}')
+   page.locator('#retry').click()
+   assert page.evaluate('blocked&&dirty&&JSON.stringify(state)')==before
+   assert page.evaluate('localStorage.getItem(KEY)')==raw
+   page.evaluate('()=>{Storage.prototype.setItem=recoverySet;}')
+   page.locator('#retry').click()
+   assert page.evaluate('!blocked&&!dirty')
+   assert '保存ができました' in page.locator('#notice').inner_text()
+   expected=dict(fixture,events=fixture['events']+[pending])
+   assert page.evaluate('state')==expected
+   assert json.loads(page.evaluate('localStorage.getItem(KEY)'))==expected
+   page.locator('#retry').click()
+   assert page.evaluate('state')==expected
+   page.reload()
+   assert page.evaluate('!blocked&&!dirty')
+   assert page.evaluate('state')==expected
+   assert page.locator('#daily-five').is_enabled()
+  else:
+   page.locator('#retry').click()
+   assert page.evaluate('blocked&&dirty&&JSON.stringify(state)')==before
+   assert page.evaluate('localStorage.getItem(KEY)')==raw
+   assert '保存ができました' not in page.locator('#notice').inner_text()
+   # Even while disk is unsafe, the pending answer can be backed up as a file.
+   with page.expect_download() as download:page.locator('#export').click()
+   packet=json.loads(Path(download.value.path()).read_text())
+   assert packet['payload']['events']==[pending]
+  assert page.evaluate("localStorage.getItem('yuika-science-review-v2')")=='synthetic old untouched'
+  assert page.evaluate("localStorage.getItem('yuika-social-540-27-v1')")=='synthetic other untouched'
+  assert not errors and not posts and not external,(errors,posts,external)
+  ctx.close()
+
 server=ThreadingHTTPServer(('127.0.0.1',0),partial(PreviewHandler,directory=str(ROOT)))
 Thread(target=server.serve_forever,daemon=True).start()
 try:
@@ -100,6 +172,8 @@ try:
   page.evaluate("window.beforeImport=JSON.stringify(state);window.exported=JSON.stringify(validateState(state));")
   page.evaluate("async()=>{await importFile(new File([exported],'synthetic.json'));}")
   assert page.evaluate('JSON.stringify(state)===beforeImport')
+  fixture=page.evaluate('({schemaVersion:2,datasetVersion:VERSION,events:[state.events[0]],legacy:state.legacy})')
+  verify_storage_access_recovery(browser,base,fixture)
   # The learning entry depends on React/Babel. Fulfill its actual public assets
   # through the proxy-aware curl path, while notification APIs remain blocked.
   assets={}
@@ -116,4 +190,4 @@ try:
   assert not errors,errors
   context.close();browser.close()
 finally: server.shutdown()
-print('science_adaptive: 47 original questions, grades, JST replay, priority, UI, persistence/import, legacy exclusion PASS')
+print('science_adaptive: 47 original questions, grades, JST replay, priority, UI, persistence/import, access recovery UI, legacy exclusion PASS')
