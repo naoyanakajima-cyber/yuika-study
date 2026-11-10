@@ -853,7 +853,7 @@ const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'
 const uuid=()=>crypto.randomUUID?crypto.randomUUID():Array.from(crypto.getRandomValues(new Uint8Array(16)),v=>v.toString(16).padStart(2,'0')).join('');
 const empty=()=>({schemaVersion:1,datasetVersion:VERSION,events:[]});
 let data=empty(),screen='home',run=null,dirty=false,blocked=false,broken=null,page=0;
-let prefs={count:15,course:'all',unit:'all',variant:'normal'};
+let prefs={count:5,course:'all',unit:'all',variant:'normal'};
 const note=s=>notice.textContent=s;
 const order=es=>[...es].sort((a,b)=>a.at.localeCompare(b.at)||a.id.localeCompare(b.id));
 const day=(iso,offset)=>new Date(Date.parse(iso)-offset*60000).toISOString().slice(0,10);
@@ -1019,7 +1019,7 @@ function weaknesses(events=data.events,now=Date.now(),includeRecovered=false){
 let adaptiveLevel='all';
 function additional(p=prefs,events=data.events,now=Date.now()){
  if(blocked||dirty)return [];
- return weaknesses(events,now).filter(r=>r.variant===p.variant).map(r=>({...r,q:EXTRA.get(r.originId)}))
+ return practiceWeaknesses(events,now).filter(r=>r.variant===p.variant).map(r=>({...r,q:EXTRA.get(r.originId)}))
   .filter(r=>(p.unit==='all'||r.q.unit===p.unit)&&(p.course==='all'||r.q.course===p.course)&&fits(r.q,p.variant)&&(adaptiveLevel==='all'||r.level===Number(adaptiveLevel))).slice(0,10);
 }
 function adaptiveStatus(){
@@ -1028,13 +1028,13 @@ function adaptiveStatus(){
  return '候補がない場合は、別日の記録が足りない・直近30日の対象外・最後にヒントなしで正解・選択条件の対象外の可能性があります。';
 }
 function adaptiveSummary(){
- const all=weaknesses(data.events,Date.now(),true),active=all.filter(r=>!r.recovered),recovered=all.filter(r=>r.recovered);
+ const all=weaknesses(data.events,Date.now(),true),active=practiceWeaknesses(),recovered=all.filter(r=>r.recovered);
  const groups=new Map();for(const r of active){const key=r.unit+' / '+({normal:'通常',kanji:'漢字・正式名',yomi:'読み'}[r.variant]);groups.set(key,(groups.get(key)||0)+1);}
- return `<section class="card" id="adaptive-summary"><h2>保護者向け・追加練習のサマリー</h2>${blocked||dirty?`<p>${esc(adaptiveStatus())}</p>`:`<p>要確認 ${active.length}論点・最後にヒントなしで正解 ${recovered.length}論点（直近30日・確認方法別）。絞り込み前の全分野です。</p>${[...groups].map(([k,n])=>`<p>${esc(k)}：${n}論点</p>`).join('')}<p>ヒント付き正解は候補に残し、ヒントなしの正解で追加練習を減らします。１回の正解は定着の証明ではありません。別の日にも通常練習で確かめてください。</p>`}</section>`;
+ return `<section class="card" id="adaptive-summary"><h2>保護者向け・追加練習のサマリー</h2>${blocked||dirty?`<p>${esc(adaptiveStatus())}</p>`:`<p>要確認 ${active.length}論点・最後にヒントなしで正解 ${recovered.length}論点（直近30日・確認方法別）。絞り込み前の全分野です。</p>${[...groups].map(([k,n])=>`<p>${esc(k)}：${n}論点</p>`).join('')}<p>ヒント付き正解は候補に残し、ヒントなしの正解で追加練習を減らします。１回の正解は定着の証明ではありません。再確認待ちに進み、別の日の再確認で確かめます。</p>`}</section>`;
 }
 function adaptivePanel(){
  const rows=additional();
- return `<section class="card" id="adaptive"><h2>弱点に合わせた追加練習</h2><p>最近30日で、まちがえた日が2日以上ある問題を練習します。日本時間で日付を分け、最後に答えた5日分を使います。同じ日にヒントを見て正解した場合も、その日のまちがいを数えます。ヒントなしで正解すると候補（こうほ）から外れます。そのあと、またまちがえたら見直します。読みと漢字は別々に数えます。記録が少ないので、苦手とは決めつけません。</p><label class="field">追加問題のむずかしさ<select id="adaptive-level">${[['all','すべて'],['1','基本'],['2','標準'],['3','発展']].map(([v,t])=>`<option value="${v}" ${adaptiveLevel===v?'selected':''}>${t}</option>`).join('')}</select></label><p>もとの問題と同じむずかしさです。平安は暗記＝基本、ペア・流れ＝標準、理由＝発展です。１回は選んだ問題数まで、候補は最大10問です。</p>${rows.map(r=>`<details><summary>${esc(r.unit)}：${esc(promptOf(r.q,r.variant))}</summary><p>選んだ理由：${r.wrong}/${r.total}日でまちがい・ヒントを見た日${r.hintCount}日。最後の回答：${esc(adaptiveLabel(r.lastAt))}（${r.lastCorrect?'ヒント付き正解':'まちがい'}）。むずかしさ${r.level}。${r.confusion?'同じペアの別の答えと一致しました。原因は未確定です。':''}</p><p>元問題：${esc(r.originId)} ／ 出典：${esc(r.q.source||'既存の平安単元問題')}</p><p>正解：${esc(expectedOf(r.q,r.variant))}</p><p>説明：${esc(r.q.explanation)}</p></details>`).join('')||`<p>${esc(adaptiveStatus())}</p>`}<button data-mode="adaptive" ${rows.length?'':'disabled'}>追加練習をはじめる（候補${rows.length}問・今回${Math.min(rows.length,prefs.count)}問）</button></section>`;
+ return `<section class="card" id="adaptive"><h2>弱点に合わせた追加練習</h2><p>最近30日で、まちがえた日が2日以上ある問題を練習します。日本時間で日付を分け、最後に答えた5日分を使います。同じ日にヒントを見て正解した場合も、その日のまちがいを数えます。ヒントなしで正解すると候補（こうほ）から外れます。再確認待ちに進み、期限が来たら今日の5問で確かめます。まちがえたら弱点に戻ります。読みと漢字は別々に数えます。記録が少ないので、苦手とは決めつけません。</p><label class="field">追加問題のむずかしさ<select id="adaptive-level">${[['all','すべて'],['1','基本'],['2','標準'],['3','発展']].map(([v,t])=>`<option value="${v}" ${adaptiveLevel===v?'selected':''}>${t}</option>`).join('')}</select></label><p>もとの問題と同じむずかしさです。平安は暗記＝基本、ペア・流れ＝標準、理由＝発展です。１回は選んだ問題数まで、候補は最大10問です。</p>${rows.map(r=>`<details><summary>${esc(r.unit)}：${esc(promptOf(r.q,r.variant))}</summary><p>選んだ理由：${r.wrong}/${r.total}日でまちがい・ヒントを見た日${r.hintCount}日。最後の回答：${esc(adaptiveLabel(r.lastAt))}（${r.lastCorrect?'ヒント付き正解':'まちがい'}）。むずかしさ${r.level}。${r.confusion?'同じペアの別の答えと一致しました。原因は未確定です。':''}</p><p>元問題：${esc(r.originId)} ／ 出典：${esc(r.q.source||'既存の平安単元問題')}</p><p>正解：${esc(expectedOf(r.q,r.variant))}</p><p>説明：${esc(r.q.explanation)}</p></details>`).join('')||`<p>${esc(adaptiveStatus())}</p>`}<button data-mode="adaptive" ${rows.length?'':'disabled'}>追加練習をはじめる（候補${rows.length}問・今回${Math.min(rows.length,prefs.count)}問）</button></section>`;
 }
 // Bind after each home render; all content remains inside the standalone app.
 const originalHome=home;
@@ -1046,6 +1046,102 @@ home=function(){
 };
 const originalParent=parent;
 parent=function(){originalParent();main.insertAdjacentHTML('afterbegin',adaptiveSummary());};
+
+// Retention v1 is a deterministic projection of durable events, independent of
+// the current 30-day extraction window. Replaying legacy JSON migrates without
+// rewriting any event, ID, timestamp, key, or historical grade.
+const REVIEW_INTERVAL_DAYS=Object.freeze([1,3,7]); // provisional, editable configuration
+MODES.daily='今日の5問';
+const addJapanDays=(d,n)=>new Date(Date.parse(d+'T00:00:00Z')+n*86400000).toISOString().slice(0,10);
+function retention(events=data.events,now=Date.now()){
+ const states=new Map(),histories=new Map(),seen=new Set();
+ for(const e of order(events)){
+  if(seen.has(e.id)||Date.parse(e.at)>now)continue;seen.add(e.id);
+  const q=Q.get(e.questionId);if(!q)continue;
+  const originId=q.originId||q.id,key=originId+':'+e.variant;
+  if(!histories.has(key))histories.set(key,[]);
+  const history=histories.get(key);history.push(e);
+  let s=states.get(key);
+  if(!s){
+   if(!weaknesses(history,Date.parse(e.at)).length)continue;
+   s={originId,variant:e.variant,status:'weak',stage:0,due:null,anchor:null};states.set(key,s);
+  }
+  const date=japanDay(e.at);
+  if(!e.correct){s.status='weak';s.stage=0;s.due=null;s.anchor=null;}
+  else if(!e.hint){
+   if(s.status==='weak'){
+    s.status='waiting';s.stage=0;s.anchor=date;s.due=addJapanDays(date,REVIEW_INTERVAL_DAYS[0]);
+   }else if(s.status==='waiting'&&date>=s.due){
+    s.stage++;
+    if(s.stage===REVIEW_INTERVAL_DAYS.length){s.status='retained';s.due=null;}
+    else s.due=addJapanDays(date,REVIEW_INTERVAL_DAYS[s.stage]-REVIEW_INTERVAL_DAYS[s.stage-1]);
+   }
+  }
+ }
+ return [...states.values()];
+}
+function practiceWeaknesses(events=data.events,now=Date.now()){
+ const rows=weaknesses(events,now),keys=new Set(rows.map(r=>r.originId+':'+r.variant));
+ for(const s of retention(events,now).filter(s=>s.status==='weak')){
+  if(keys.has(s.originId+':'+s.variant))continue;
+  const q=Q.get(s.originId),es=order(events).filter(e=>(Q.get(e.questionId)?.originId||e.questionId)===s.originId&&e.variant===s.variant&&Date.parse(e.at)<=now),last=es.at(-1);
+  rows.push({...s,unit:q.unit,level:q.level||({memory:1,pairs:2,flow:2,reason:3}[q.course]||1),wrong:1,total:1,hintCount:0,lastAt:last.at,lastCorrect:last.correct,lastHint:last.hint});
+ }
+ return rows;
+}
+function dueReviews(p=prefs,events=data.events,now=Date.now()){
+ if(blocked||dirty)return [];
+ const today=japanDay(new Date(now).toISOString());
+ return retention(events,now).filter(s=>s.status==='waiting'&&s.due<=today)
+  .sort((a,b)=>a.due.localeCompare(b.due)||a.originId.localeCompare(b.originId)||a.variant.localeCompare(b.variant))
+  .filter(s=>{const q=Q.get(s.originId);return s.variant===p.variant&&fits(q,p.variant)&&(p.unit==='all'||p.unit===q.unit)&&(p.course==='all'||p.course===q.course);});
+}
+function dailyQuestions(p=prefs){
+ const result=[],seen=new Set();
+ const push=q=>{const id=q.originId||q.id;if(!seen.has(id)){seen.add(id);result.push(q);}};
+ dueReviews(p).forEach(s=>push(EXTRA.get(s.originId)));
+ additional(p).forEach(s=>push(s.q));
+ shuffle(candidates('normal',p)).forEach(push);
+ return result.slice(0,p.count);
+}
+function startDaily(){
+ const qs=dailyQuestions();if(!qs.length){note('この条件では候補がありません。');return;}
+ rememberPrefs();run={id:uuid(),mode:'daily',variant:prefs.variant,qs,index:0,results:[],done:false};
+ screen='quiz';prepare();render();main.focus();window.scrollTo(0,0);
+}
+const PREF_KEY=KEY+'-preferences-v1';
+function restorePrefs(){
+ try{const p=JSON.parse(localStorage.getItem(PREF_KEY)||'null');if(!p)return;
+  if([5,10,15].includes(p.count))prefs.count=p.count;
+  if(Object.hasOwn(COURSES,p.course))prefs.course=p.course;
+  if(p.unit==='all'||UNITS.includes(p.unit))prefs.unit=p.unit;
+  if((typeof VARIANTS==='undefined'?['normal','kanji'].includes(p.variant):Object.hasOwn(VARIANTS,p.variant)))prefs.variant=p.variant;
+ }catch{note('学習設定を読み取れません。初期設定で始めます。');}
+}
+function rememberPrefs(){
+ try{localStorage.setItem(PREF_KEY,JSON.stringify(prefs));localStorage.setItem('yuika-last-daily-unit-v1',location.pathname.split('/').pop());}
+ catch{note('学習設定を保存できません。次回起動時は初期設定になります。');}
+}
+const retentionHome=home;
+home=function(){
+ retentionHome();
+ main.insertAdjacentHTML('afterbegin',`<section class="card"><button id="daily-five" class="primary wide">今日の5問をはじめる（今回は${prefs.count}問）</button><p>期限の来た再確認 → 弱点の追加練習 → 通常問題。分野・確認方法・問題数は下で変更できます。</p><p>今日の再確認：${dueReviews().length}件</p></section>`);
+ document.getElementById('daily-five').onclick=startDaily;
+ main.querySelectorAll('#course,#unit,#variant,[data-count]').forEach(el=>{
+  const type=el.tagName==='SELECT'?'onchange':'onclick',previous=el[type];
+  el[type]=e=>{previous(e);rememberPrefs();};
+ });
+};
+const retentionParent=parent;
+parent=function(){retentionParent();if(!blocked&&!dirty){
+ const states=retention(),today=japanDay(new Date().toISOString());
+ document.getElementById('adaptive-summary').insertAdjacentHTML('beforeend',`<p id="retention-summary">今日の再確認 ${states.filter(s=>s.status==='waiting'&&s.due<=today).length}件（期限超過を含む・全分野と確認方法）／再確認待ち ${states.filter(s=>s.status==='waiting').length}件／定着 ${states.filter(s=>s.status==='retained').length}件</p>`);
+}};
+restorePrefs();
+// Normal sessions also remember the last visited learning unit.
+const rememberedStart=start;
+start=function(mode){rememberPrefs();rememberedStart(mode);};
 // ADAPTIVE_END
 load();render();
+if(new URLSearchParams(location.search).get('daily')==='1')startDaily();
 </script></body></html>

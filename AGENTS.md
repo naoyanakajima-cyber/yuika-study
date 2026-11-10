@@ -13,7 +13,7 @@ Use Codex Cloud; development must not depend on a local PC remaining online.
   an empty skill list, and revision numbers alone do not prove auto-application.
 - Setup: `bash scripts/cloud/setup.sh` from the repository root.
 - Each new shell: `source scripts/cloud/activate.sh`.
-- All required checks (existing six, PR #14–#16, and flash grading):
+- All required checks (existing six, PR #14–#16, flash grading, and spaced daily):
   `bash scripts/check_all.sh`. It activates the existing cloud venv, fixes browser
   test RNG seed to 20261110, and reports HEAD, dirty state, exit codes and timings.
   Every suite runs even after a failure; any failure makes the command fail.

@@ -1659,7 +1659,11 @@ function App() {
     return <UnitScreen unit={activeUnit} onBack={() => setActiveUnit(null)} email={email} onSessionSaved={handleSessionSaved} />;
   }
 
-  return <HomeScreen onSelectUnit={setActiveUnit} onSettings={() => setScreen("settings")} onHistory={() => setScreen("history")} email={email} />;
+  return <><div style={{padding:16,textAlign:"center"}}><button onClick={() => {
+    let unit="onin-review.html";
+    try { const saved=localStorage.getItem("yuika-last-daily-unit-v1");if(["onin-review.html","kamakura-review.html","heian-review.html"].includes(saved))unit=saved; } catch(e) {}
+    window.location.href=unit+"?daily=1";
+  }}>今日の5問をはじめる</button><p>前回の社会単元・設定で開始（初回は応仁の乱）</p></div><HomeScreen onSelectUnit={setActiveUnit} onSettings={() => setScreen("settings")} onHistory={() => setScreen("history")} email={email} /></>;
 }
 
 

@@ -42,7 +42,7 @@ with sync_playwright() as pw:
   const g=grouped(es),weak=new Set(QUESTIONS.slice(15).map(q=>q.id));let n=0;for(let t=0;t<200;t++)n+=pick(QUESTIONS,'normal',15,g,'normal').filter(q=>weak.has(q.id)).length;return n/200;}}""")
  assert avg>=12,avg
  # 画面：15問チャレンジ、誤答時は 正解→なぜ→覚え方 の順
- expect(p.locator('h1')).to_have_text('鎌倉幕府の成立');expect(p.locator('[data-count="15"]')).to_have_attribute('aria-pressed','true')
+ expect(p.locator('h1')).to_have_text('鎌倉幕府の成立');expect(p.locator('[data-count="5"]')).to_have_attribute('aria-pressed','true');p.locator('[data-count="15"]').click()
  expect(p.locator('svg[role=img]')).to_be_visible();expect(p.get_by_text('六波羅探題',exact=True).first).to_be_visible()
  p.locator('#start').click();assert p.evaluate('run.qs.length')==15
  for i in range(15):
