@@ -48,9 +48,18 @@ try:
    packet=json.loads(exported_bytes)
    assert packet['format']=='yuika-review-prototype' and packet['formatVersion']==1
    assert packet['payload']==seed['payload'],(app,packet['payload'],seed['payload'])
-   # Repeated real exported bytes deduplicate without discarding the question version.
+   # Restore actual downloaded bytes into an empty trial; a no-op cannot pass.
+   page.evaluate('localStorage.removeItem(KEY)');page.reload()
+   assert page.evaluate('(prototypeScience?state:data).events.length')==0
+   assert page.evaluate('localStorage.getItem(LEGACY_KEY)')==seed['old']
+   page.evaluate('records()')
    page.locator('#import').set_input_files({'name':'trial.json','mimeType':'application/json','buffer':exported_bytes})
-   page.wait_for_function('rejectedImportRaw===null && (prototypeScience?state:data).events.length===1')
+   page.wait_for_function('() => rejectedImportRaw===null && (prototypeScience?state:data).events.length===1')
+   assert page.evaluate('prototypeScience?state:data')==seed['payload']
+   # A second import of those same bytes must preserve all fields and deduplicate.
+   page.evaluate('async raw=>{await importFile(new File([raw],"same-trial.json"));}',exported_bytes.decode())
+   assert page.evaluate('prototypeScience?state:data')==seed['payload']
+   assert page.evaluate('rejectedImportRaw') is None
    snapshot=page.evaluate('localStorage.getItem(KEY)')
    for mutate in ('unknown_field','unknown_envelope','unknown_id','unknown_mode','collision'):
     bad=json.loads(json.dumps(packet))
