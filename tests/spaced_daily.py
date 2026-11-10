@@ -28,7 +28,7 @@ try:
      ...(typeof UNIT_ID==='undefined'?{}:{unitId:UNIT_ID}),version:VERSION,
      unit:question.unit,course:question.course,question:promptOf(question,variant),
      response:correct?expectedOf(question,variant):'ダミー誤答',expected:expectedOf(question,variant),explanation:question.explanation,
-     correct,variant,mode:'normal',hint,reflection:'',at,offset:0,day:day(at,0)});
+     correct,variant,mode:'normal',hint,...(typeof UNIT_ID==='undefined'?{reflection:''}:{}),at,offset:0,day:day(at,0)});
     const a=mk('2026-09-01T14:59:00.000Z'),b=mk('2026-09-01T15:00:00.000Z');
     const state=es=>retention(es,Date.parse('2026-11-10T00:00:00Z'))[0];
     assert(state([a,b]).status==='weak','JST distinct days trigger');

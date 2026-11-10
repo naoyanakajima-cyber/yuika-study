@@ -1666,9 +1666,9 @@ function App() {
 
   return <><div style={{padding:16,textAlign:"center"}}><button onClick={() => {
     let unit="onin-review.html";
-    try { const saved=localStorage.getItem("yuika-last-daily-unit-v1");if(["onin-review.html","kamakura-review.html","heian-review.html","yuika-review-v2.html"].includes(saved))unit=saved; } catch(e) {}
+    try { const saved=localStorage.getItem("yuika-prototype-v1:last-daily-unit");if(["onin-review.html","kamakura-review.html","heian-review.html","yuika-review-v2.html"].includes(saved))unit=saved; } catch(e) {}
     window.location.href=unit+"?daily=1";
-  }}>今日の5問をはじめる</button><p>前回の理科・社会の単元と設定で開始（初回は応仁の乱）</p></div><HomeScreen onSelectUnit={setActiveUnit} onSettings={() => setScreen("settings")} onHistory={() => setScreen("history")} email={email} /></>;
+  }}>今日の5問をはじめる</button><p>この試作で前回開いた理科・社会の単元と設定で開始（初回は応仁の乱）</p></div><HomeScreen onSelectUnit={setActiveUnit} onSettings={() => setScreen("settings")} onHistory={() => setScreen("history")} email={email} /></>;
 }
 
 

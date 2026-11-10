@@ -93,7 +93,7 @@ try:
     window.makeClockEvent=(at,correct=false)=>{
      const response=correct?q.answer:isScience?q.answer+1:'ダミー誤答';
      return isScience?validateEvent({id:uid(),sessionId:'clock-regression',questionId:q.id,datasetVersion:VERSION,unit:q.unit,type:q.type,question:q.prompt,response,inputRaw:String(response),expected:q.answer,correct,answeredAt:at,timezoneOffset:0,localDay:at.slice(0,10),hintUsed:false,mode:'normal',explanation:q.explanation}):
-      validateEvent({id:uuid(),sessionId:'clock-regression',questionId:q.id,...(typeof UNIT_ID==='undefined'?{}:{unitId:UNIT_ID}),version:VERSION,unit:q.unit,course:q.course,question:q.prompt,response,expected:q.answer,explanation:q.explanation,correct,variant:'normal',mode:'normal',hint:false,reflection:'',at,offset:0,day:day(at,0)});
+      validateEvent({id:uuid(),sessionId:'clock-regression',questionId:q.id,...(typeof UNIT_ID==='undefined'?{}:{unitId:UNIT_ID}),version:VERSION,unit:q.unit,course:q.course,question:q.prompt,response,expected:q.answer,explanation:q.explanation,correct,variant:'normal',mode:'normal',hint:false,...(typeof UNIT_ID==='undefined'?{reflection:''}:{}),at,offset:0,day:day(at,0)});
     };
     const es=[makeClockEvent('2026-11-06T00:00:00.000Z'),makeClockEvent('2026-11-07T00:00:00.000Z'),makeClockEvent('2026-11-09T00:00:00.000Z',true)];
     if(isScience)state.events=es;else data.events=es;

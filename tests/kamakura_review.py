@@ -54,9 +54,10 @@ with sync_playwright() as pw:
   if i==0:assert 'いっしょに見てみよう' in fb and q['explanation'] in fb
   p.locator('#next').click()
  expect(p.locator('.result strong')).to_contain_text('14')
- stored=json.loads(p.evaluate("localStorage.getItem('yuika-social-540-25-v1')"))
+ stored=json.loads(p.evaluate("localStorage.getItem('yuika-prototype-v1:yuika-social-540-25-v1')"))
  assert len(stored['events'])==15 and all(e['unitId']=='sapix-540-25' for e in stored['events'])
  for k,v in OTHER.items():assert p.evaluate('k=>localStorage.getItem(k)',k)==v,k
+ assert p.evaluate("localStorage.getItem('yuika-social-540-25-v1')") is None
  # 再読み込み後、前回誤答が「もう一度」に出る
  p.reload();expect(p.locator('[data-mode="wrong"] b')).to_contain_text('1')
  # 読みの確認

@@ -11,7 +11,7 @@ MODES.daily='今日の5問';MODES.adaptive='弱点の復習';
 let scienceUnit='all';
 const SCIENCE_PREF_KEY=KEY+'-preferences-v1';
 function rememberScience(){
- try{localStorage.setItem(SCIENCE_PREF_KEY,JSON.stringify({count,unit:scienceUnit}));localStorage.setItem('yuika-last-daily-unit-v1','yuika-review-v2.html');}
+ try{localStorage.setItem(SCIENCE_PREF_KEY,JSON.stringify({count,unit:scienceUnit}));localStorage.setItem('yuika-prototype-v1:last-daily-unit','yuika-review-v2.html');}
  catch{message('学習設定を保存できません。次回は初期設定になります。');}
 }
 try{const p=JSON.parse(localStorage.getItem(SCIENCE_PREF_KEY)||'null');if(p){if([5,10].includes(p.count))count=p.count;if(p.unit==='all'||UNITS.includes(p.unit))scienceUnit=p.unit;}}catch{message('学習設定を読み取れません。初期設定で始めます。');}

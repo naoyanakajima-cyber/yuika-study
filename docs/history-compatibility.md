@@ -1,6 +1,14 @@
 # 教材更新と回答履歴の互換性（draft）
 
-対象は詳細履歴を持つ社会3単元と理科47問。保存キー、schemaVersion、datasetVersion、既存IDはそのまま。旧クイズ・暗記カードの集計から個別回答を復元しない。
+対象は詳細履歴を持つ社会3単元と理科47問。この未公開試作では回答・設定の保存先を `yuika-prototype-v1:` 専用名前空間へ隔離する。payloadのschemaVersion、datasetVersion、既存IDはそのまま。旧クイズ・暗記カードの集計から個別回答を復元しない。
+
+## 未公開試作と元の回答を分ける
+
+4ページの回答キーは `yuika-prototype-v1:` + 従来のキー。設定もその配下、学習帳の前回単元は `yuika-prototype-v1:last-daily-unit` を使う。元の回答・設定・前回単元・理科旧集計キーは読取りだけで、改名・削除・書換え・自動コピーをしない。旧キーの正常／破損と、試作の空履歴／破損を分けて表示する。過去に旧キーへ混在した追加練習履歴を修復したとは扱わない。
+
+試作JSONは `format: yuika-review-prototype`、`formatVersion: 1`、教材版、`payload` を持つ専用包みで書き出す。旧版への投入には使わない。従来JSONの明示取込みは全イベントの項目・問題版・型・日時・採点・重複ID整合性を検証してから一括保存する。未知の包み・未知項目は全体を拒否し、入力rawをそのままダウンロードできる。元キーのrawも変換せず保管できる。社会schema1と理科schema2、理科の数値response/inputRaw/legacy、および任意のquestionVersionは変換しない。理科旧集計も明示取込みだけでrawを保管し、個別回答に変換しない。
+
+試作は合成データ専用。実回答や写真の保存方法・公開は別のCEO判断を要する。自動コピーがないため、旧アプリの利用履歴が試作へ自動表示されないのは意図した動作。
 
 ## 問題の版と更新方法
 
@@ -28,11 +36,14 @@
 python scripts/practice/embed.py
 python scripts/practice/embed_science.py
 python scripts/history/embed.py
+python scripts/prototype/embed.py
 bash scripts/check_all.sh
 ```
 
 `embed_science.py` は `adaptive.js` から共通の弱点・再確認関数と間隔を取り込み、単独HTMLで動くよう埋め込む。共通ロジック変更時は社会・理科の両方を再生成する。
 
 `history_compat.py` は全問題・各版・社会追加練習・確認方法・正誤について、旧版の合成履歴、版指定、文章訂正と別表記追加の模擬更新、旧正誤保持、廃止ID読取り、衝突・不正データ拒否、load/save/JSON再取込みを検証する。`science_adaptive.py` は47問すべてのJST境界、弱点・待機・定着・誤答復帰、ヒント・期限前の非進行、30日経過、数値・選択式の実画面、保存失敗復旧、設定再起動、JSONと学習帳入口を検証する。実回答や実通知は使わない。
+
+`prototype_storage.py` は4ページの旧raw・設定不変、空の試作、JSON実ダウンロード／取込み、未知項目・衝突拒否、入力raw保全、容量不足と再試行、破損した旧／試作保存領域の分離を確認する。
 
 iPad実機Safari、端末間の同期は対象外。ブラウザー内の設定は回答JSONに含めない。公開・マージ・デプロイはこのdraftには含まれない。

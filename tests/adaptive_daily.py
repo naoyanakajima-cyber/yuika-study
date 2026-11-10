@@ -33,7 +33,7 @@ try:
       ...(typeof UNIT_ID==='undefined'?{}:{unitId:UNIT_ID}),version:VERSION,
       unit:question.unit,course:question.course,question:promptOf(question,'normal'),
       response:correct?question.answer:'ダミー誤答',expected:question.answer,explanation:question.explanation,
-      correct,variant:'normal',mode:'normal',hint,reflection:'',at,offset:0,day:day(at,0)});
+      correct,variant:'normal',mode:'normal',hint,...(typeof UNIT_ID==='undefined'?{reflection:''}:{}),at,offset:0,day:day(at,0)});
     };
     const a=dailyEvent(2),b=dailyEvent(1),hint=dailyEvent(0,true,true);
     assert(weaknesses([a,b,hint]).length===1,'hint correct retains practice');

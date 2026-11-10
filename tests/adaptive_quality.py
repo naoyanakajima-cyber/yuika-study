@@ -33,7 +33,7 @@ try:
       response:correct?(question.type==='structure'?{steps:question.items.map((_,i)=>i),fills:question.blanks.map(b=>b.answer)}:question.answer):
        question.type==='choice'?question.options.find(o=>o!==question.answer):
         question.type==='structure'?{steps:question.items.map((_,i)=>i).reverse(),fills:question.blanks.map(b=>b.answer)}:'ダミー誤答',
-      correct,variant:'normal',mode:'normal',hint,reflection:'',at,offset,day:day(at,offset)});
+      correct,variant:'normal',mode:'normal',hint,...(typeof UNIT_ID==='undefined'?{reflection:''}:{}),at,offset,day:day(at,offset)});
      const a=mk('2026-11-08T14:59:00.000Z'),b=mk('2026-11-08T15:01:00.000Z');
      assert(a.day===b.day,'fixture UTC same day');
      assert(weaknesses([a,b],now).length===1,'JST midnight creates separate days');
@@ -105,7 +105,7 @@ try:
      data.events=[validateEvent({id:uuid(),sessionId:'xss-synthetic',questionId:q.id,version:VERSION,
       ...(typeof UNIT_ID==='undefined'?{}:{unitId:UNIT_ID}),unit:q.unit,course:q.course,
       question:promptOf(q,'normal'),expected:q.answer,explanation:q.explanation,
-      response:'<img src=x onerror="window.syntheticXSS=1">',correct:false,variant:'normal',mode:'normal',hint:false,reflection:'',at,offset:0,day:day(at,0)})];
+      response:'<img src=x onerror="window.syntheticXSS=1">',correct:false,variant:'normal',mode:'normal',hint:false,...(typeof UNIT_ID==='undefined'?{reflection:''}:{}),at,offset:0,day:day(at,0)})];
      parent();assert(!window.syntheticXSS&&!document.querySelector('#history img'),'history escapes synthetic answer');
     }''')
     assert not errors, errors

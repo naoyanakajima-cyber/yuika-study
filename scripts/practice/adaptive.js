@@ -162,7 +162,7 @@ function restorePrefs(){
  }catch{note('学習設定を読み取れません。初期設定で始めます。');}
 }
 function rememberPrefs(){
- try{localStorage.setItem(PREF_KEY,JSON.stringify(prefs));localStorage.setItem('yuika-last-daily-unit-v1',location.pathname.split('/').pop());}
+ try{localStorage.setItem(PREF_KEY,JSON.stringify(prefs));localStorage.setItem('yuika-prototype-v1:last-daily-unit',location.pathname.split('/').pop());}
  catch{note('学習設定を保存できません。次回起動時は初期設定になります。');}
 }
 const retentionHome=home;

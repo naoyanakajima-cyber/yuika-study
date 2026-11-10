@@ -1354,7 +1354,7 @@ const QUESTIONS=[
     "priority": 1
   }
 ];
-const VERSION='heian-540-24-v1',KEY='yuika-social-540-24-v1';
+const VERSION='heian-540-24-v1',LEGACY_KEY='yuika-social-540-24-v1',KEY='yuika-prototype-v1:'+LEGACY_KEY;
 const COURSES={all:'ぜんぶから',memory:'まず覚えよう（50問）',pairs:'まぎらわしいペア（10問）',flow:'歴史の流れ（10問）',reason:'理由を説明しよう（5問）'};
 const UNITS=['藤原氏と政治','国風文化とくらし','武士の誕生'];
 const MODES={normal:'通常練習',unseen:'未回答',wrong:'もう一度',spaced:'日をあけて',hint:'ヒントなしで'};
@@ -1463,8 +1463,8 @@ function detail(e){const q=Q.get(e.questionId);return `<details><summary><span c
 function parent(){const a=analysis(),es=data.events,repeated=[...a.g.values()].filter(rows=>rows.filter(e=>!e.correct).length>=2);main.innerHTML=`<div class="eyebrow">PARENT’S NOTE · 540-24</div><h1>学びのようす</h1><div class="note">この単元で記録した回答だけを集計します。既存の社会・理科の記録は含みません。通常練習と漢字確認を別に扱います。「初回」は問題・確認方法ごとに最初に記録した回答で、本当の初回学習とは限りません。</div><section class="card"><h2>分野と確認方法</h2><div class="tablewrap"><table><tr><th>分野</th><th>通常練習</th><th>漢字・正式名</th></tr>${UNITS.map(u=>`<tr><td>${u}</td><td>${rate(es.filter(e=>e.unit===u&&e.variant==='normal'))}</td><td>${rate(es.filter(e=>e.unit===u&&e.variant==='kanji'))}</td></tr>`).join('')}</table></div><p class="muted">正解した回答数／全回答数。繰り返しを含みます。自由記述そのものの正誤は集計しません。</p></section><div class="layout"><section class="card"><h2>初めの回答とヒント</h2>${[['通常練習の記録初回',a.first.filter(e=>e.variant==='normal')],['漢字確認の記録初回',a.first.filter(e=>e.variant==='kanji')],['ヒントあり',es.filter(e=>e.hint)],['ヒントなし',es.filter(e=>!e.hint)]].map(([t,r])=>`<div class="listline">${t}：<b>${rate(r)}</b></div>`).join('')}<p class="muted">問題構成や難しさが違うので、ヒントの効果を単純比較はできません。</p></section><section class="card"><h2>時間をおいた確認</h2>${[['直後の再挑戦',a.immediate],['同日・30分より後',a.same],['別の日の再回答',a.later],['最初の誤答の後、初めて別日に答えた結果',a.afterError]].map(([t,r])=>`<div class="listline">${t}：<b>${rate(r)}</b></div>`).join('')}<p class="muted">同じ問題・確認方法の前の回答と比較。直後＝同日30分以内。別日＝記録時の現地日付が異なること（24時間以上とは限りません）。ヒントありも含み、１回で定着とは断定しません。</p></section></div><section class="card"><h2>繰り返し確認したい問題</h2><p class="muted">同じ確認方法で２回以上間違えた問題。すでに正解したものも振り返れます。</p>${repeated.length?repeated.map(rows=>`<details><summary>${esc(rows[0].question)}<br><small>${rows[0].variant==='kanji'?'漢字・正式名':'通常練習'}：誤答${rows.filter(e=>!e.correct).length}/${rows.length}回答・最後は${rows.at(-1).correct?'正解':'誤答'}</small></summary>${rows.filter(e=>!e.correct).map(detail).join('')}<p class="muted">観測：上記の答えを入力・選択しました。推測：取り違え、読み違い、変換ミスなど、原因はこの記録だけでは特定できません。本人の考え方を聞いて確認してください。</p></details>`).join(''):'<p class="empty">２回以上の誤答はまだありません。</p>'}</section><section class="card"><h2>１回答ずつの記録</h2><p class="muted">表示日時は閲覧端末の時刻帯。回答日は記録時の現地日付です。</p><div id="history"></div></section><div class="note">少数の回答だけで「苦手」と断定しません。回答時間は記録せず、能力や集中力の判断もしません。漢字入力の結果は、手書きできることを保証しません。</div><div class="actions"><button id="report" class="primary">分析用テキストを書き出す</button><button id="practice">復習を選ぶ</button></div>`;history();document.getElementById('report').onclick=exportReport;document.getElementById('practice').onclick=()=>go('home');}
 function history(){const es=order(data.events).reverse(),pages=Math.max(1,Math.ceil(es.length/20));page=Math.min(page,pages-1);document.getElementById('history').innerHTML=es.slice(page*20,page*20+20).map(detail).join('')||'<p class="empty">これから回答すると、ここに記録されます。</p>';if(pages>1){document.getElementById('history').insertAdjacentHTML('beforeend',`<div class="pages"><button id="prev" ${page?'':'disabled'}>前へ</button>${page+1}/${pages}<button id="more" ${page+1===pages?'disabled':''}>次へ</button></div>`);document.getElementById('prev').onclick=()=>{page--;history();};document.getElementById('more').onclick=()=>{page++;history();};}}
 function download(name,text,type='application/json'){const url=URL.createObjectURL(new Blob([text],{type:type+';charset=utf-8'})),a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),10000);}
-const exportJSON=()=>download('yuika-social-540-24-'+new Date().toISOString().slice(0,10)+'.json',JSON.stringify({...data,exportedAt:new Date().toISOString()},null,2));
-function exportReport(){const a=analysis(),es=data.events;download('yuika-social-540-24-analysis.txt',['貴族の世の中 540-24：保護者用ノート','出力：'+label(new Date().toISOString()),'問題版：'+VERSION,...UNITS.flatMap(u=>['normal','kanji'].map(v=>`${u}・${v==='normal'?'通常':'漢字確認'}：${rate(es.filter(e=>e.unit===u&&e.variant===v))}`)),`通常の記録初回：${rate(a.first.filter(e=>e.variant==='normal'))}`,`漢字の記録初回：${rate(a.first.filter(e=>e.variant==='kanji'))}`,`ヒントあり：${rate(es.filter(e=>e.hint))}`,`ヒントなし：${rate(es.filter(e=>!e.hint))}`,`直後（同日30分以内）：${rate(a.immediate)}`,`同日30分より後：${rate(a.same)}`,`別日再回答：${rate(a.later)}`,`最初の誤答の後、最初の別日回答：${rate(a.afterError)}`,'日付は回答時の現地日付。別日は24時間以上とは限りません。ヒントありも含みます。','初回は各問題・確認方法の記録初回です。本当の初回学習は不明。旧単元の履歴は含みません。','自由記述は採点外。漢字変換は手書き力の確認ではありません。','少数回答で苦手・定着と断定せず、誤答だけから原因を決めつけません。回答時間も評価しません。','',...order(es).map(e=>`${e.at}（現地日付 ${e.day} / UTCとの差 ${-e.offset}分）\n${e.questionId} / ${e.unit} / ${e.variant} / ${MODES[e.mode]} / セッション ${e.sessionId}\n${e.question}\n観測した答え：${displayAnswer(Q.get(e.questionId),e.response)}\n正解：${e.expected} / ${e.correct?'正解':'誤答'} / ヒント${e.hint?'あり':'なし'}\n解説：${e.explanation}\n自由記述（採点外）：${e.reflection||'なし'}\n`),dirty?'未保存の回答を含みます。JSONでも保管してください。':''].join('\n'),'text/plain');}
+const exportJSON=()=>download('yuika-prototype-social-540-24-'+new Date().toISOString().slice(0,10)+'.json',JSON.stringify(prototypePacket(data),null,2));
+function exportReport(){const a=analysis(),es=data.events;download('yuika-prototype-social-540-24-analysis.txt',['貴族の世の中 540-24：保護者用ノート','出力：'+label(new Date().toISOString()),'問題版：'+VERSION,...UNITS.flatMap(u=>['normal','kanji'].map(v=>`${u}・${v==='normal'?'通常':'漢字確認'}：${rate(es.filter(e=>e.unit===u&&e.variant===v))}`)),`通常の記録初回：${rate(a.first.filter(e=>e.variant==='normal'))}`,`漢字の記録初回：${rate(a.first.filter(e=>e.variant==='kanji'))}`,`ヒントあり：${rate(es.filter(e=>e.hint))}`,`ヒントなし：${rate(es.filter(e=>!e.hint))}`,`直後（同日30分以内）：${rate(a.immediate)}`,`同日30分より後：${rate(a.same)}`,`別日再回答：${rate(a.later)}`,`最初の誤答の後、最初の別日回答：${rate(a.afterError)}`,'日付は回答時の現地日付。別日は24時間以上とは限りません。ヒントありも含みます。','初回は各問題・確認方法の記録初回です。本当の初回学習は不明。旧単元の履歴は含みません。','自由記述は採点外。漢字変換は手書き力の確認ではありません。','少数回答で苦手・定着と断定せず、誤答だけから原因を決めつけません。回答時間も評価しません。','',...order(es).map(e=>`${e.at}（現地日付 ${e.day} / UTCとの差 ${-e.offset}分）\n${e.questionId} / ${e.unit} / ${e.variant} / ${MODES[e.mode]} / セッション ${e.sessionId}\n${e.question}\n観測した答え：${displayAnswer(Q.get(e.questionId),e.response)}\n正解：${e.expected} / ${e.correct?'正解':'誤答'} / ヒント${e.hint?'あり':'なし'}\n解説：${e.explanation}\n自由記述（採点外）：${e.reflection||'なし'}\n`),dirty?'未保存の回答を含みます。JSONでも保管してください。':''].join('\n'),'text/plain');}
 async function importFile(file){if(!file)return;try{check(file.size<=25000000,'25MBまでのJSONを選んでください。');const incoming=validate(JSON.parse(await file.text())),next=merge(data,incoming),added=next.events.length-data.events.length;data=next;const saved=save();note(`読み込み：新しい回答 ${added}件。重複は追加していません。${saved?'ブラウザーに保存しました。':'未保存です。閉じる前にJSONを書き出してください。'}`);records();}catch(e){note('読み込みを中止しました。既存記録は変更していません。'+e.message);}}
 function records(){main.innerHTML=`<div class="eyebrow">KEEP YOUR DISCOVERIES</div><h1>記録の保存</h1><div class="note">この単元の回答：${data.events.length}件。${dirty||blocked?'一時保持の回答があります。閉じる前にJSONを保存してください。':'このブラウザーに保存しています。'}<br>社会の既存単元・理科の記録は別に保管され、このページでは書き換えません。</div><div class="layout"><section class="card"><h2>書き出し</h2><p>端末を替える前にJSONを保管しましょう。保護者への分析資料にはTXTを使えます。</p><div class="stack"><button id="export" class="primary">JSONを書き出す</button><button id="report">分析用テキストを書き出す</button><button id="retry">保存を再試行</button>${broken!==null?'<button id="broken">読み取れなかった元データを保存</button>':''}</div></section><section class="card"><h2>読み込み</h2><p>この単元のJSONを今ある記録に追加します。同じ回答IDは重複させません。同じIDで内容が異なる場合や、不正なデータはファイル全体の取込みを中止します。</p><label class="field">JSONファイル<input id="import" type="file" accept=".json,application/json"></label></section></div><section class="card"><h2>iPadで使うとき</h2><p>Safariの「共有」→「ホーム画面に追加」で使えます。ブラウザー・端末・ホーム画面からの起動などで保存領域が異なる場合があるため、切り替える前にJSONを書き出してください。自動同期はしません。</p><p>プライベートブラウズや履歴・Webサイトデータの削除では記録が消えることがあります。学習は１つのタブで行い、ときどきJSONを保管してください。自動メールに接続した場合だけ、チャレンジ結果を送信サーバー経由で保護者へ送ります。</p><p>保存キー：${KEY}<br>旧単元の集計を新しい個別履歴に変換・推測することはしません。</p></section>`;document.getElementById('export').onclick=exportJSON;document.getElementById('report').onclick=exportReport;document.getElementById('import').onchange=e=>importFile(e.target.files[0]);document.getElementById('retry').onclick=()=>{if(save())note('保存できました。');records();};if(broken!==null)document.getElementById('broken').onclick=()=>download('yuika-heian-original-unreadable.json',broken);}
 window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.returnValue='';}});
@@ -1639,7 +1639,7 @@ function restorePrefs(){
  }catch{note('学習設定を読み取れません。初期設定で始めます。');}
 }
 function rememberPrefs(){
- try{localStorage.setItem(PREF_KEY,JSON.stringify(prefs));localStorage.setItem('yuika-last-daily-unit-v1',location.pathname.split('/').pop());}
+ try{localStorage.setItem(PREF_KEY,JSON.stringify(prefs));localStorage.setItem('yuika-prototype-v1:last-daily-unit',location.pathname.split('/').pop());}
  catch{note('学習設定を保存できません。次回起動時は初期設定になります。');}
 }
 const retentionHome=home;
@@ -1699,6 +1699,87 @@ function historicalQuestion(e){
  return matches.find(q=>e.correct===grade(q,e.response,e.variant));
 }
 // HISTORY_END
+// PROTOTYPE_START
+// Draft-only records are isolated from the original application's storage.
+const PROTOTYPE_FORMAT='yuika-review-prototype';
+const prototypeScience=typeof byId!=='undefined';
+const prototypeHeian=VERSION==='heian-540-24-v1';
+let rejectedImportRaw=null;
+function prototypeCheck(ok,message){if(!ok)throw Error(message);}
+function prototypeFields(value,allowed){
+ prototypeCheck(value&&typeof value==='object'&&!Array.isArray(value),'記録の形式が不正です。');
+ prototypeCheck(Object.keys(value).every(k=>allowed.includes(k)),'未対応の項目があります。元ファイルを保管してください。');
+}
+const prototypeEventValidator=validateEvent;
+validateEvent=function(e){
+ const fields=prototypeScience?
+  ['questionVersion','id','sessionId','questionId','datasetVersion','unit','type','question','response','inputRaw','expected','correct','answeredAt','timezoneOffset','localDay','hintUsed','mode','explanation']:
+  ['questionVersion','id','sessionId','questionId','version','unit','course','question','response','expected','explanation','correct','variant','mode','hint','at','offset','day',...(prototypeHeian?['reflection']:['unitId'])];
+ prototypeFields(e,fields);
+ if(prototypeHeian&&e.response&&typeof e.response==='object')prototypeFields(e.response,['steps','fills']);
+ return prototypeEventValidator(e);
+};
+function prototypeStateFields(v){
+ prototypeFields(v,['schemaVersion','datasetVersion','events','exportedAt',...(prototypeScience?['legacy']:[])]);
+ if(prototypeScience&&Array.isArray(v.legacy))for(const item of v.legacy)prototypeFields(item,['raw','capturedAt']);
+}
+if(prototypeScience){
+ const original=validateState;
+ validateState=function(v){prototypeStateFields(v);return original(v);};
+}else{
+ const original=validate;
+ validate=function(v){prototypeStateFields(v);return original(v);};
+}
+function prototypePacket(payload){return {format:PROTOTYPE_FORMAT,formatVersion:1,datasetVersion:VERSION,payload,exportedAt:new Date().toISOString()};}
+function prototypeUnpack(v){
+ if(v&&Object.hasOwn(v,'format')){
+  prototypeFields(v,['format','formatVersion','datasetVersion','payload','exportedAt']);
+  prototypeCheck(v.format===PROTOTYPE_FORMAT&&v.formatVersion===1&&v.datasetVersion===VERSION,'別の試作・版のJSONです。元ファイルを保管してください。');
+  return v.payload;
+ }
+ return v; // Only the existing strict legacy validator can accept this branch.
+}
+function prototypeNotice(){
+ let old='元の回答は自動で取り込まず、試作の記録は空から始まります。';
+ try{const raw=localStorage.getItem(LEGACY_KEY);if(raw!==null){old='元の保存先に記録があります。自動では取り込まず、試作の履歴とは別に保管しています。';try{JSON.parse(raw);}catch{old='元の保存先のJSONは読み取れません。元データは変更せず、この試作とは別に保護しています。';}}}
+ catch{old='元の保存先を確認できません。変更はしていません。';}
+ return `<section class="note" id="prototype-notice"><strong>合成データで試す復習</strong><p>この試作の回答・設定は元のアプリと別に保存します。旧画面には試作の回答は表示されません。</p><p>${old}</p><p>追加練習の試作用JSONは旧版へ取り込めません。既に混在した元記録の復旧は行いません。</p>${blocked?'<p>試作の記録を読み取れないため、分析と保存を休止しています。元データを書き出してください。</p>':''}</section>`;
+}
+const prototypeHome=home;
+home=function(){prototypeHome();main.insertAdjacentHTML('afterbegin',prototypeNotice());};
+const prototypeRecords=records;
+records=function(){
+ prototypeRecords();main.insertAdjacentHTML('afterbegin',prototypeNotice());
+ main.insertAdjacentHTML('beforeend',`<section class="card"><h2>元データをそのまま保管</h2><p>読み取れない・旧版で開けない記録も変換しません。合成データだけを明示的に取り込んで試してください。</p><button id="prototype-original">元の回答データを保存</button>${rejectedImportRaw!==null?'<button id="prototype-rejected">取り込めなかったファイルを保存</button>':''}</section>`);
+ document.getElementById('prototype-original').onclick=()=>{
+  try{const raw=localStorage.getItem(LEGACY_KEY);prototypeCheck(raw!==null,'元の回答データはこの場所にありません。');download('yuika-original-unchanged.json',raw);}
+  catch(e){(prototypeScience?message:note)(e.message);}
+ };
+ if(rejectedImportRaw!==null)document.getElementById('prototype-rejected').onclick=()=>download('yuika-rejected-original.json',rejectedImportRaw);
+};
+importFile=async function(file){
+ if(!file)return;
+ let raw=null;
+ try{
+  prototypeCheck(file.size<=(prototypeScience?10000000:25000000),'JSONのサイズが上限を超えています。');
+  raw=await file.text();const value=JSON.parse(raw),v=prototypeUnpack(value);let incoming;
+  if(prototypeScience&&v&&Object.hasOwn(v,'attempts')&&!Object.hasOwn(value,'format')){
+   // Explicit legacy aggregate import only; never infer individual responses.
+   legacyData(raw);incoming=emptyState();incoming.legacy=[{raw,capturedAt:new Date().toISOString()}];
+  }else incoming=prototypeScience?validateState(v):validate(v);
+  prototypeCheck(!blocked,'試作の保存済み記録が読み取れません。先に元データを保管してください。');
+  const diskRaw=localStorage.getItem(KEY),disk=diskRaw?(prototypeScience?validateState(JSON.parse(diskRaw)):validate(JSON.parse(diskRaw))):(prototypeScience?emptyState():empty());
+  const next=merge(merge(disk,prototypeScience?state:data),incoming);
+  // Commit only after complete validation and a successful atomic setItem.
+  localStorage.setItem(KEY,JSON.stringify(next));
+  if(prototypeScience)state=next;else data=next;
+  dirty=false;rejectedImportRaw=null;
+  (prototypeScience?message:note)('試作へ読み込みました。同じ回答IDは重複させず、元の保存先は変更していません。');records();
+ }catch(e){
+  rejectedImportRaw=raw;(prototypeScience?message:note)('読み込みを中止しました。保存済み記録は変更していません。'+e.message);records();
+ }
+};
+// PROTOTYPE_END
 load();render();
 if(new URLSearchParams(location.search).get('daily')==='1')startDaily();
 </script></body></html>

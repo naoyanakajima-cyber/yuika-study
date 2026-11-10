@@ -53,13 +53,13 @@ with sync_playwright() as pw:
  science=received[-1];assert science['app']=='science' and science['total']==5
  pending=p.evaluate("Object.keys(localStorage).filter(k=>k.startsWith('yuika-mail-job-v1:')).map(k=>JSON.parse(localStorage.getItem(k))).filter(j=>j.status==='pending')")
  assert len(pending)==1 and pending[0]['report']==science
- learning=p.evaluate("localStorage.getItem('yuika-science-review-v2')")
+ learning=p.evaluate("localStorage.getItem('yuika-prototype-v1:yuika-science-review-v2')")
  assert learning is not None
  # Simulate passage of backoff time and a new visit.
  p.evaluate("()=>{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k.startsWith('yuika-mail-job-v1:')){const v=JSON.parse(localStorage.getItem(k));if(v.status==='pending'){v.nextAttempt=0;localStorage.setItem(k,JSON.stringify(v));}}}}")
  fail[0]=False;p.reload();expect(p.locator('#yuika-mail-status')).to_contain_text('受け付けました')
  assert received[-1]==science
- assert p.evaluate("localStorage.getItem('yuika-science-review-v2')")==learning
+ assert p.evaluate("localStorage.getItem('yuika-prototype-v1:yuika-science-review-v2')")==learning
  print('PASS science completion; queued on provider failure; same payload and ID retried on next visit',flush=True)
  # Quota failures do not break learning; accepted receipts contain no answer payload.
  receipts=p.evaluate("Object.keys(localStorage).filter(k=>k.startsWith('yuika-mail-job-v1:')).map(k=>JSON.parse(localStorage.getItem(k)))")

@@ -58,7 +58,7 @@ try:
      const at='2026-10-01T15:00:00.000Z',base={id:crypto.randomUUID(),sessionId:'synthetic-history',questionId:q.id,unit:q.unit,response,correct,mode:'normal'};
      if(revision!==undefined)base.questionVersion=revision;
      return science?{...base,datasetVersion:VERSION,type:q.type,question:q.prompt,inputRaw:String(response),expected:q.answer,explanation:q.explanation,answeredAt:at,timezoneOffset:0,localDay:at.slice(0,10),hintUsed:false}:
-      {...base,version:VERSION,...(typeof UNIT_ID==='undefined'?{}:{unitId:UNIT_ID}),course:q.course,question:promptOf(q,v),expected:expectedOf(q,v),explanation:q.explanation,variant:v,hint:false,reflection:'',at,offset:0,day:at.slice(0,10)};
+      {...base,version:VERSION,...(typeof UNIT_ID==='undefined'?{}:{unitId:UNIT_ID}),course:q.course,question:promptOf(q,v),expected:expectedOf(q,v),explanation:q.explanation,variant:v,hint:false,...(typeof UNIT_ID==='undefined'?{reflection:''}:{}),at,offset:0,day:at.slice(0,10)};
     };
     for(const rs of Object.values(QUESTION_REVISIONS))for(const r of rs){
      const q=r.question;
