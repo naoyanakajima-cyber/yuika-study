@@ -36,13 +36,8 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": {
-    "run_id": "cycle-20261110T210729Z",
-    "acquired_at": "2026-11-10T21:07:29.665707+00:00",
-    "expires_at": "2026-11-10T21:47:29.665707+00:00",
-    "ticket": "REV-RECONCILE"
-  },
-  "updated_at": "2026-11-10T21:07:29.665707+00:00",
+  "lease": null,
+  "updated_at": "2026-11-10T21:11:06.570902+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -923,7 +918,7 @@
         "独立QAの実施対象HEADと未検証範囲を記録",
         "新規実装・マージ・クローズなしで次の一手を整理"
       ],
-      "next_action": "照合完了。REV-COMPAT-01に基づき、#10を基準とする#14/#15の差分採否・保存契約・旧版移行条件を次に定義。新規製品PRを増やさず既存PRの修正範囲を決める。",
+      "next_action": "追加#21/#22の静的照合完了。新規製品PRなし。#22 WebKitの許可された準備環境と実行証拠が得られたら現HEADを独立QA。既存復習系列の採用整理・具体的試用フィードバック待ち。",
       "specification": "docs/product/review-reconciliation.md",
       "evidence": [
         {
@@ -957,6 +952,20 @@
           "commit": "f98456fef3673d08ef226e5b0d9bddfa236c734f",
           "executor": "qa_reconcile_adaptive",
           "run": "cycle-20261110T1306Z"
+        },
+        {
+          "kind": "static_reconciliation",
+          "path": "ops/runs/2026-11-11-pr21-22-reconciliation.md",
+          "pdm": "pdm_pr21_22_triage",
+          "prm": "root/coordinator",
+          "reviewer": "qa_pr21_22_readonly",
+          "app_tests_run": false,
+          "pull_requests": [
+            21,
+            22
+          ],
+          "document_review": "passed",
+          "report_sha256": "d352a9057316423d6fde3ffc15b9d99ebc71a3c409bae444b96efb9be29e782d"
         }
       ],
       "review": {
@@ -2263,6 +2272,53 @@
       "next_action": "朝夕チェックで具体的試用フィードバック/既存PR群の採用整理を確認。D02未決。新しいCEO返答・変更・具体的不具合が得られたら再判定。方向性採用の再要求・新規PR・同一QA反復をしない。",
       "production_actions": false,
       "lease_released_at": "2026-11-10T20:05:04.961082+00:00"
+    },
+    {
+      "id": "cycle-20261110T210729Z",
+      "started_at": "2026-11-10T21:07:29.665707+00:00",
+      "completed_at": "2026-11-10T21:11:06.570902+00:00",
+      "ticket": "REV-RECONCILE",
+      "result": "新規観測PR21/22をPdM/PrM/独立Reviewerで静的照合。PR21未採用、PR22 WebKit導入障害と8件の追加製品draftを台帳へ記録。新規実装・製品テストなし。",
+      "observed_operations_commit": "cdab302a499af15f558e6fbae8eabe2676050bd7",
+      "cloud_verified": true,
+      "observed_main_commit": "d526d65fbae116f834d14ad994a27bc50ca23b62",
+      "observed_product_heads": {
+        "10": "ba829a1176ff1ead7d312526890afe8792178c99",
+        "11": "3d2ed2f9a62673d2fb086a360ae841096f35b63e",
+        "12": "57171ad9cab02fec6a080ecbe317fe11d3f51dcf",
+        "20": "79d546891940b6f5e3030940f7c52c2ff7b3d36b",
+        "22": "aaa7488d766955353f3ff5314d3361fba7fbcd91"
+      },
+      "subagents": [
+        "pdm_pr21_22_triage",
+        "qa_pr21_22_readonly"
+      ],
+      "pdm": "pdm_pr21_22_triage",
+      "engineer": null,
+      "reviewer": "qa_pr21_22_readonly",
+      "delegation_note": "製品実装なし。PdM読取範囲確認と独立静的/文書レビューを実施。",
+      "ceo_decisions_ingested": 0,
+      "manual_setup": false,
+      "app_tests_run": false,
+      "browser_tests_run": false,
+      "validation": "git diff --check、台帳JSON/重複/製品待ち3+追加8を確認。独立文書レビュー合格。製品17/24ケースはPR作者の過去報告のみで今回成功としない。",
+      "report": "ops/runs/2026-11-11-pr21-22-reconciliation.md",
+      "report_sha256": "d352a9057316423d6fde3ffc15b9d99ebc71a3c409bae444b96efb9be29e782d",
+      "product_code_changed": false,
+      "product_heads_changed_by_this_run": false,
+      "external_private_data_calls": 0,
+      "new_prs": [],
+      "updated_prs": [
+        9
+      ],
+      "new_blockers": [
+        "IPAD-WEBKIT-01"
+      ],
+      "platform_run_completion_verified": false,
+      "next_ticket": null,
+      "next_action": "朝夕チェックで既存系列採用整理と試用フィードバックを確認。PR22は許可されたWebKit準備環境が必要。許可・設定変更を推定せず、条件が整ったら同一HEADを独立QA。D02未決。",
+      "production_actions": false,
+      "lease_released_at": "2026-11-10T21:11:06.570902+00:00"
     }
   ],
   "operational_notes": [
@@ -2302,8 +2358,8 @@
       "next_action": "CEO朝夕チェックで追加系列の採用整理を提示。旧PRを勝手に閉鎖/マージしない。既存修正または独立仕様だけ進める。",
       "report": "ops/runs/2026-11-10-pr-reconciliation.md",
       "latest_observation": {
-        "observed_at": "2026-11-10T15:24:48.092516+00:00",
-        "finding": "従来ceo_waitの#10/#11/#12に加え、未採用の追加製品draft #14〜#20を7件観測。#20のみ既存修正し独立QA済み。追加の承認待ち枠とは扱わず、新規製品PRを作らない。"
+        "observed_at": "2026-11-10T21:10:04.997062+00:00",
+        "finding": "製品ceo_wait3件に追加未採用draft #14〜#20/#22の8件を観測。#21は未採用運用文書で上限対象外。#21のretry3/最新draft必須基点/毎回全suiteを現行運用へ適用しない。"
       }
     },
     {
@@ -2335,6 +2391,16 @@
         "finding": "独立QAが旧408805bの実UI復旧不可と、最終candidateでの最新disk+pending保持/復旧成功を比較。全17suite成功。公開済みとは扱わない。"
       },
       "resolution_report": "ops/runs/2026-11-11-storage-access-recovery.md"
+    },
+    {
+      "id": "IPAD-WEBKIT-01",
+      "status": "blocked",
+      "observed_at": "2026-11-10T21:10:04.997062+00:00",
+      "scope": "PR22 aaa7488d WebKit installation and validation",
+      "finding": "PR作者報告では公式配布先cdn.playwright.dev / playwright.download.prss.microsoft.comが403 Domain forbidden、WebKit未導入で18番目suite失敗。今回の環境statusも当該hostをeffective_allowed_hostsに含まない。今回download/製品テストは再実行せず、403の独立再現とは扱わない。",
+      "report": "ops/runs/2026-11-11-pr21-22-reconciliation.md",
+      "next_action": "許可された環境でWebKit導入/実起動後、PR22現HEADの24ケースと既存17suiteを独立QA。環境設定変更・代替配布元・TLS緩和・skipは行わない。",
+      "verification_limit": "Linux WebKitエミュレーションは実機Safariの検証ではない。route監視はCSPで通信前に止まる試行すべての不在を証明しない。"
     }
   ],
   "unreconciled_prs": [
@@ -2432,6 +2498,30 @@
       "validation": "最終HEADで独立全17suite/理科実UI復旧9ケース成功。前回の4ページ旧版往復証拠は408805bのものとして保持。採用/公開未実施。",
       "comparison_report": "ops/runs/2026-11-11-storage-isolation.md",
       "latest_report": "ops/runs/2026-11-11-storage-access-recovery.md"
+    },
+    {
+      "pr": 21,
+      "head": "7608cf89b7d3ab35c541763f0f04c75043f76cba",
+      "base_pr": 20,
+      "kind": "operations_rules",
+      "state": "open_draft",
+      "adopted": false,
+      "reconciliation_status": "statically_compared_not_adopted",
+      "observed_at": "2026-11-10T21:10:04.997062+00:00",
+      "comparison_report": "ops/runs/2026-11-11-pr21-22-reconciliation.md",
+      "validation": "今回PdM/独立Reviewerが静的差分を照合。製品テスト未実行。PR本文の過去実行結果は今回の成功に算入しない。"
+    },
+    {
+      "pr": 22,
+      "head": "aaa7488d766955353f3ff5314d3361fba7fbcd91",
+      "base_pr": 20,
+      "kind": "product",
+      "state": "open_draft",
+      "adopted": false,
+      "reconciliation_status": "statically_compared_not_adopted",
+      "observed_at": "2026-11-10T21:10:04.997062+00:00",
+      "comparison_report": "ops/runs/2026-11-11-pr21-22-reconciliation.md",
+      "validation": "今回PdM/独立Reviewerが静的差分を照合。製品テスト未実行。PR本文の過去実行結果は今回の成功に算入しない。"
     }
   ]
 }
