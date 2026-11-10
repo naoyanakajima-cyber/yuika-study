@@ -39,6 +39,14 @@ step dependencies
 step dependency-check
 .venv/bin/python -m pip check
 
+# Keep the existing system Chromium configuration. WebKit uses Playwright's
+# version-matched download and required Linux libraries. Installation failure is fatal.
+export PLAYWRIGHT_BROWSERS_PATH=${PLAYWRIGHT_BROWSERS_PATH:-$repo_root/.cache/ms-playwright}
+step webkit-install
+.venv/bin/python -m playwright install --with-deps webkit
+step webkit-launch
+.venv/bin/python scripts/cloud/check_webkit.py
+
 # A real launch checks browser compatibility and shared-library availability.
 step browser-launch
 PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH="$chromium_path" .venv/bin/python - <<'PY'

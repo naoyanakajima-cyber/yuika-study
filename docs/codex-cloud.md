@@ -226,3 +226,32 @@ Playwright 1.62.0、Chromium 154.0.8037.57。
    新規環境で6コマンドと子エージェント起動まで確認できて初めて、その結果を別途記録する。
 
 今回、本番マージ、実メール・Chat、アプリ公開・デプロイ、Secrets・課金・共有範囲の変更は行っていない。
+
+## WebKitによるiPad相当の自動テスト
+
+`bash scripts/cloud/setup.sh` は既存のシステムChromiumを保持したまま、
+固定Playwright版に対応するWebKitとLinux依存を `playwright install --with-deps webkit`
+で導入し、実起動します。OS依存の導入にはパッケージ管理権限が必要です。
+ブラウザーは既定でcheckout内の `.cache/ms-playwright` に保存します。
+各シェルで `source scripts/cloud/activate.sh` を実行してください。
+公式ダウンロード先 `cdn.playwright.dev` と
+`playwright.download.prss.microsoft.com` のネットワーク許可が必要です。
+ダウンロード・依存・起動の失敗時は停止し、Chromiumへの代替やskipはしません。
+固定commit版Installも、そのcommitのsetup経由でこの準備を行います。
+
+`python tests/ipad_webkit.py` は `scripts/check_all.sh` に含まれます。
+Playwrightの `iPad (gen 7)` / `iPad (gen 7) landscape` の端末定義を使い、
+社会3ページと理科を、新規コンテキスト・固定時計・合成履歴だけで確認します。
+24ケースで主要なタップ操作、採点、設定・記録の再読込、再確認待ち、保護者表示、
+空・破損rawの保護と書出し、localStorage例外時の案内と今日の5問停止を確認します。
+ページの横はみ出しと44 CSS px未満の操作領域を検出し、入力フォーカス時に
+viewportの高さを380px縮めて入力・答え合わせがヘッダー等に覆われないか確認します。
+各ケースは外部通信・POSTを遮断し、試行自体も失敗にします。
+失敗画像は `artifacts/ipad-webkit/<ページ>-<シナリオ>-<画面幅>.png` に残ります
+（Git管理外、合成データのみ）。全ケースを実行し、1件でも失敗すれば終了コードは非0です。
+
+これはLinux上のPlaywright WebKitであり、iPad実機のSafariではありません。
+実際のソフトウェアキーボード、IME、VisualViewportのパン、Safariのツールバー、
+ホーム画面起動、実OSのプライベートブラウズや保存領域の追放は再現しません。
+localStorage不可はAPI例外を注入し、キーボードは表示領域縮小で近似します。
+現行ヘッダーは固定配置ではありませんが、入力とボタンの座標で前面要素を確認します。
