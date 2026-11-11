@@ -46,3 +46,39 @@ WebKitの24ケースおよび全体チェック全成功の完了条件は未達
 
 合成データとローカルCSPプレビューのみ使用。Cloudflareプレビュー失敗は既知の対象外。
 mainマージ・公開・デプロイ・実通知・課金・Secrets変更は行っていない。
+
+## 通常ユーザーでの再試行（2026-11-11 21:34 JST）
+
+ユーザーの別タスクでの到達確認を受け、このタスクで改めて通常ユーザー・
+既存venvの `python -m playwright install webkit` を実行した。
+`source scripts/cloud/activate.sh` 後のpythonは `.venv/bin/python`。
+`--with-deps` は付けず、root操作も行っていない。
+
+結果は終了1。上記の3つの正確な配布ZIP URLは、再びすべて403、本文
+`Domain forbidden`。さらに両ホストの `/dbazure/download/playwright/builds/webkit/2336/webkit-debian-13.zip`
+に、継承したプロキシ・CA設定のまま `curl -sS -i --max-time 20` を実行した。
+両方とも `HTTP/1.1 403 Forbidden`、`server: envoy`、
+`curl: (56) CONNECT tunnel failed, response 403` で終了56だった。
+これはルートURLのCDN通常応答ではなく、このタスクでプロキシCONNECT段階の拒否を確認したもの。
+別タスクの成功を否定するものではなく、環境間の設定差の原因は未確定。
+
+WebKit本体を取得できていないため、最小ページの起動・共有ライブラリの不足診断・
+iPad 24ケース・check_all.shの再実行には進んでいない。
+前節の17 suite成功・53秒の結果は前回実行分であり、この再試行の結果ではない。
+実際に欠けている共有ライブラリやOSパッケージ名は未確定なので推測で列挙しない。
+環境Install工程でrootを利用できる場合の公式導入コマンドは、リポジトリルートで
+次のとおり（今回は実行していない）。
+
+```bash
+.venv/bin/python -m playwright install-deps webkit
+```
+
+WebKit本体は引き続き通常ユーザーで、activate後に取得する。
+
+```bash
+source scripts/cloud/activate.sh
+.venv/bin/python -m playwright install webkit
+```
+
+別経路・別ブラウザーへの切替、TLS無効化、アプリコード修正は行っていない。
+PRはdraft維持。マージ・公開・デプロイ・実通知・課金・Secrets変更なし。
