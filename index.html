@@ -242,6 +242,7 @@ const UNITS = [
       ]},
     ],
   },
+  {subject:"社会",subjectIcon:"🌍",subjectColor:T.green,id:"mock-focus",name:"模試の弱点対策（社会・理科・算数・国語）",textbook:"重点分野 · 46問（オリジナル）",externalPage:"mock-focus-review.html",externalNote:"根拠・解説 / 弱点分析 / 再確認 / 今日の5問",quizQuestions:[],flashDecks:[]},
   {subject:"社会",subjectIcon:"🌍",subjectColor:T.green,id:"sapix-540-25",name:"鎌倉幕府の成立（平安〜鎌倉時代）",textbook:"540-25 · 38問（用語・しくみ・つながり）",externalPage:"kamakura-review.html",externalNote:"5・10・15問 / 漢字・読み確認 / 復習 / 保護者のノート",quizQuestions:[],flashDecks:[]},
   {subject:"社会",subjectIcon:"🌍",subjectColor:T.green,id:"sapix-540-27",name:"応仁の乱（室町時代）",textbook:"540-27 · 30問（用語・理由・つながり）",externalPage:"onin-review.html",externalNote:"5・10・15問 / 漢字・読み確認 / 復習 / 保護者のノート",quizQuestions:[],flashDecks:[]},
   {subject:"社会",subjectIcon:"🌍",subjectColor:T.green,id:"shakai-heian-540-24",name:"貴族の世の中（平安時代）",textbook:"540-24 · 暗記50問＋理解25問",externalPage:"heian-review.html",quizQuestions:[],flashDecks:[]},
@@ -1666,9 +1667,9 @@ function App() {
 
   return <><div style={{padding:16,textAlign:"center"}}><button onClick={() => {
     let unit="onin-review.html";
-    try { const saved=localStorage.getItem("yuika-prototype-v1:last-daily-unit");if(["onin-review.html","kamakura-review.html","heian-review.html","yuika-review-v2.html"].includes(saved))unit=saved; } catch(e) {}
+    try { const saved=localStorage.getItem("yuika-prototype-v1:last-daily-unit");if(["onin-review.html","kamakura-review.html","heian-review.html","yuika-review-v2.html","mock-focus-review.html"].includes(saved))unit=saved; } catch(e) {}
     window.location.href=unit+"?daily=1";
-  }}>今日の5問をはじめる</button><p>この試作で前回開いた理科・社会の単元と設定で開始（初回は応仁の乱）</p></div><HomeScreen onSelectUnit={setActiveUnit} onSettings={() => setScreen("settings")} onHistory={() => setScreen("history")} email={email} /></>;
+  }}>今日の5問をはじめる</button><p>この試作で前回開いた単元と設定で開始（初回は応仁の乱）</p></div><HomeScreen onSelectUnit={setActiveUnit} onSettings={() => setScreen("settings")} onHistory={() => setScreen("history")} email={email} /></>;
 }
 
 

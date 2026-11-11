@@ -7,7 +7,7 @@ import json
 import re
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
-APPS = ('onin-review.html', 'kamakura-review.html', 'heian-review.html', 'yuika-review-v2.html')
+APPS = ('onin-review.html', 'kamakura-review.html', 'heian-review.html', 'yuika-review-v2.html', 'mock-focus-review.html')
 ARCHIVE = Path(__file__).with_name('revisions.json')
 START, END = '// HISTORY_START\n', '// HISTORY_END\n'
 
@@ -33,7 +33,7 @@ if __name__ == '__main__':
         for q in questions(text):
             versions = records.setdefault(q['id'], [])
             if not versions:
-                versions.append({'revision':1, 'kind':'initial', 'reason':'PR #18 baseline', 'question':q})
+                versions.append({'revision':1, 'kind':'initial', 'reason':'Initial original focus questions' if name == 'mock-focus-review.html' else 'PR #18 baseline', 'question':q})
             elif versions[-1]['question'] != q:
                 assert args.record_editorial and args.reason.strip(), f'{name}/{q["id"]}: 版未登録。文章訂正・別表記追加は --record-editorial --reason、意味変更は新ID'
                 editorial(versions[-1]['question'], q)

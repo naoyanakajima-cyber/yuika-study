@@ -46,7 +46,7 @@ with ThreadingHTTPServer(('127.0.0.1', 0), partial(ProbeHandler, directory=str(R
                 context.route('https://**/*', lambda route: route.abort())
                 context.add_init_script(path=str(ROOT / 'tests/seed_random.js'))
                 page = context.new_page()
-                for name, title in (('onin-review.html', '応仁の乱'), ('kamakura-review.html', '鎌倉幕府の成立')):
+                for name, title in (('onin-review.html', '応仁の乱'), ('kamakura-review.html', '鎌倉幕府の成立'), ('mock-focus-review.html', '模試の弱点対策')):
                     response = page.goto(f'{base}/{name}')
                     assert "connect-src 'none'" in response.headers['content-security-policy']
                     expect(page.locator('h1')).to_have_text(title)

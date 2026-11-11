@@ -39,6 +39,8 @@ run tests/registered_answers.py python tests/registered_answers.py
 run tests/history_review_regression.py python tests/history_review_regression.py
 run tests/state_review_regression.py python tests/state_review_regression.py
 run tests/prototype_storage.py python tests/prototype_storage.py
+run tests/focus_data.py python tests/focus_data.py
+run tests/focus_practice.py python tests/focus_practice.py
 printf '\n%-40s %6s %8s\n' 'Suite' 'Exit' 'Seconds'
 for i in "${!names[@]}"; do
   printf '%-40s %6s %8s\n' "${names[$i]}" "${codes[$i]}" "${times[$i]}"
