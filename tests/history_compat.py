@@ -79,7 +79,9 @@ try:
     const conflict=structuredClone(a);conflict.events[0].sessionId='conflicting-session';
     let rejected=false;try{merge(a,conflict);}catch{rejected=true;}assert(rejected,'duplicate collision');
     // Simulate an editorial revision without changing production teaching content.
-    const current=QUESTIONS.find(q=>q.type===(science?'number':'text')),old=structuredClone(current);
+    const current=QUESTIONS.find(q=>q.type===(science?'number':'text'))||QUESTIONS.find(q=>q.type==='choice');
+    assert(current,'editorial fixture requires a gradable question');
+    const old=structuredClone(current);
     const legacy=validateEvent(mk(old,'normal',true));
     const priorWrong=validateEvent(mk(old,'normal',false));
     current.prompt+='（合成訂正）';current.explanation+='（合成訂正）';
