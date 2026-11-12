@@ -123,5 +123,22 @@ with ThreadingHTTPServer(('127.0.0.1',0),partial(Quiet,directory=str(ROOT))) as 
   p.goto(base+'mock-focus-review.html');assert p.evaluate('QUESTIONS.length')==46
   assert len(p.evaluate('candidates("normal")'))==46
   assert p.evaluate('new Set(QUESTIONS.map(q=>q.subject)).size')==4
+  # Invalid names, including Object.prototype keys, use the unchanged mixed
+  # entry rather than a fabricated subject with zero questions. Reading those
+  # URLs must preserve mixed records and restore the mixed entry preferences.
+  p.evaluate("rememberPrefs()")
+  mixed_prefs=p.evaluate('JSON.stringify(prefs)')
+  mixed_raw=p.evaluate('YuikaParent.storage.getItem(KEY)')
+  for value in ('', 'unknown', 'constructor', 'toString', '__proto__'):
+   p.goto(base+'mock-focus-review.html?subject='+value)
+   expect(p.locator('.unit-hero')).to_be_visible()
+   assert p.evaluate('focusLabel===null && focusQuestions.length===46')
+   assert len(p.evaluate('candidates("normal")'))==46
+   assert p.evaluate('JSON.stringify(prefs)')==mixed_prefs
+   p.add_script_tag(url=base+'assets/progress.js')
+   invalid_summary=p.evaluate('YuikaDesign.summary(location.pathname.split("/").pop()+location.search)')
+   mixed_summary=p.evaluate('YuikaDesign.summary("mock-focus-review.html")')
+   assert invalid_summary==mixed_summary and invalid_summary['total']==46
+   assert p.evaluate('YuikaParent.storage.getItem(KEY)')==mixed_raw
   c.close();browser.close()
 print('responsive_subjects: all 17 units + questions/flash, 4 widths, parent banner, scrollbar gutters, subject boundaries and unchanged mixed histories PASS')

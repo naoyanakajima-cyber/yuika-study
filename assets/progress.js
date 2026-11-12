@@ -298,7 +298,8 @@ return raw=>raw===null?empty():validate(JSON.parse(raw));
 })()};
 window.YuikaDesign.summary=function(file){
  try{
- const url=new URL(file,location.href),subject=({social:'社会',science:'理科',math:'算数',japanese:'国語'})[url.searchParams.get('subject')];
+ const url=new URL(file,location.href),subjects={social:'社会',science:'理科',math:'算数',japanese:'国語'},subjectKey=url.searchParams.get('subject');
+ const subject=Object.hasOwn(subjects,subjectKey)?subjects[subjectKey]:null;
  file=url.pathname.split('/').pop();const meta=catalog[file];if(!meta)throw Error('unknown unit');
  const store=window.YuikaParent.storage,raw=validators[file](store.getItem(meta.key));
  const events=raw.events.map(e=>({...e,at:e.at||e.answeredAt,hint:e.hint??e.hintUsed,variant:e.variant||'normal'}));

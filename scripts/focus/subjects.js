@@ -2,7 +2,7 @@
 // Filter projections and candidates, never the imported/exported event stream.
 const focusSubject=new URLSearchParams(location.search).get('subject');
 const FOCUS_SUBJECTS={social:'社会',science:'理科',math:'算数',japanese:'国語'};
-const focusLabel=FOCUS_SUBJECTS[focusSubject]||null;
+const focusLabel=Object.hasOwn(FOCUS_SUBJECTS,focusSubject)?FOCUS_SUBJECTS[focusSubject]:null;
 const focusQuestions=QUESTIONS.filter(q=>!focusLabel||q.subject===focusLabel);
 UNITS=[...new Set(focusQuestions.map(q=>q.unit))];
 const inFocus=q=>!!q&&(!focusLabel||q.subject===focusLabel);
