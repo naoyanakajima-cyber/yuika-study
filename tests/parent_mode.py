@@ -42,6 +42,8 @@ try:
    # Store pending work before entry: it must not be read or flushed in mode.
    p.evaluate('''c=>localStorage.setItem('yuika-mail-job-v1:synthetic',JSON.stringify({id:'synthetic',status:'pending',endpoint:c.endpoint,recipient:c.recipient,nextAttempt:0,report:{id:'synthetic'}}))''',CONFIG)
    before=p.evaluate('JSON.stringify(Object.fromEntries(Object.entries(localStorage).sort()))')
+   if app=='index.html':
+    ctx.add_init_script("window.__opened=[];window.open=(u)=>{window.__opened.push(u);return null;};if(location.search.includes('parent-check=1')||sessionStorage.getItem('yuika-parent-check-v1')==='1')sessionStorage.setItem('yuika-parent-check-v1:yuika_parent-email','synthetic@example.test');")
    p.goto(BASE+app+'?parent-check=1')
    expect(p.locator('#parent-check-banner')).to_contain_text('保護者確認モード（記録・通知なし）')
    assert 'parent-check' not in p.url
@@ -71,6 +73,8 @@ try:
     for _ in range(10):
      p.get_by_role('button',name='わからない（正解を見る）',exact=False).click()
      p.get_by_role('button',name='次の問題へ',exact=False).or_(p.get_by_role('button',name='結果を見る',exact=False)).click()
+    p.get_by_role('button',name='結果を保護者に送る',exact=False).click()
+    assert p.evaluate('window.__opened.length')==0
     p.wait_for_function("()=>JSON.parse(YuikaParent.storage.getItem('yuika_sessions')||'[]').length===1")
     p.reload();assert p.evaluate("JSON.parse(YuikaParent.storage.getItem('yuika_sessions')).length")==1
    if app!='mock-focus-review.html':
@@ -126,5 +130,54 @@ try:
   assert not p.evaluate('YuikaParent.active')
   assert p.evaluate("sessionStorage.getItem('yuika-parent-check-v1:close-test')") is None
   print('PASS tab close clears mode and sandbox for subsequent tab',flush=True)
-  ctx.close();browser.close()
+  ctx.close()
+  # Denied initial session reads/writes must remain usable and fail closed.
+  for method,entry in [('getItem',''),('getItem','?parent-check=1'),('setItem','?parent-check=1')]:
+   ctx=browser.new_context();p=ctx.new_page();errors=[]
+   p.on('pageerror',lambda e:errors.append(str(e)))
+   p.route('https://**/*',lambda r:r.abort())
+   ctx.add_init_script("""(()=>{localStorage.setItem('unrelated','preserve');const method=%s,original=Storage.prototype[method],first=sessionStorage.getItem('__synthetic_once')===null;sessionStorage.setItem('__synthetic_once','seen');if(first)Storage.prototype[method]=function(...args){if(this===sessionStorage)throw new DOMException('synthetic session denial','SecurityError');return original.apply(this,args);};})();""" % json.dumps(method))
+   p.goto(BASE+'mock-focus-review.html'+entry)
+   expect(p.locator('#parent-notification-status')).to_contain_text('再読込・移動で失われます')
+   assert p.evaluate('YuikaParent.active && YuikaParent.suppress()')
+   before=p.evaluate('JSON.stringify(localStorage)')
+   p.locator('#daily-five').click()
+   p.evaluate("YuikaParent.storage.setItem('synthetic-memory','retained')")
+   assert p.evaluate("YuikaParent.storage.getItem('synthetic-memory')")=='retained'
+   assert p.evaluate('JSON.stringify(localStorage)')==before
+   assert p.locator('#parent-count').is_disabled()
+   assert not errors,errors
+   assert 'parent-check=1' in p.url
+   p.reload()
+   assert p.evaluate('YuikaParent.active')
+   assert p.evaluate('JSON.stringify(localStorage)')==before
+   expect(p.locator('#parent-check-banner')).to_be_visible()
+   ctx.close()
+  print('PASS initial session read/write denial uses isolated temporary mode',flush=True)
+  # A second write failure restores earlier raw values; a failed rollback keeps
+  # an exportable original and blocks further deletion rather than claiming success.
+  for rollback_fails in (False,True):
+   ctx=browser.new_context(timezone_id='UTC');p=ctx.new_page();p.route('https://**/*',lambda r:r.abort())
+   p.goto(BASE+'mock-focus-review.html?parent-check=1')
+   p.evaluate("""()=>{for(const k of ['yuika-social-540-24-v1','yuika-social-540-25-v1'])localStorage.setItem(k,JSON.stringify({events:[{id:'synthetic',at:'2026-11-12T00:00:00Z'}]}));}""")
+   before=p.evaluate('Object.fromEntries(Object.entries(localStorage))')
+   p.locator('#parent-check-banner summary').click();p.locator('#parent-since').fill('2026-11-11T00:00');p.locator('#parent-count').click()
+   p.evaluate("""failRollback=>{const original=Storage.prototype.setItem;let writes=0;Storage.prototype.setItem=function(k,v){if(this===localStorage){writes++;if(writes===2||(failRollback&&writes>2))throw new DOMException('synthetic write failure','QuotaExceededError');}return original.call(this,k,v);};}""",rollback_fails)
+   p.once('dialog',lambda d:d.accept());p.locator('#parent-delete').click()
+   expect(p.locator('#parent-backup')).to_be_visible()
+   if rollback_fails:
+    expect(p.locator('#parent-delete-status')).to_contain_text('復元を確認できません')
+    p.locator('#parent-count').click();expect(p.locator('#parent-delete-status')).to_contain_text('追加の削除をしない')
+   else:
+    expect(p.locator('#parent-delete-status')).to_contain_text('元に戻しました')
+    assert p.evaluate('Object.fromEntries(Object.entries(localStorage))')==before
+   with p.expect_download() as download:p.locator('#parent-backup').click()
+   packet=json.loads(Path(download.value.path()).read_text())
+   assert packet['format']=='yuika-parent-cleanup-backup-v1'
+   assert {c['key']:c['raw'] for c in packet['records']}==before
+   assert p.locator('#parent-delete').is_disabled()
+   ctx.close()
+  print('PASS cleanup rollback and incomplete-recovery original export',flush=True)
+  browser.close()
+
 finally:srv.shutdown()
