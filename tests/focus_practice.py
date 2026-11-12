@@ -57,6 +57,9 @@ try:
   with page.expect_download() as item:page.locator('#export').click()
   packet=json.loads(Path(item.value.path()).read_text());assert len(packet['payload']['events'])==46
   page.locator('input[type=file]').set_input_files({'name':'synthetic-focus.json','mimeType':'application/json','buffer':json.dumps(packet,ensure_ascii=False).encode()})
+  # The existing 46 events do not prove the asynchronous file read has finished.
+  # Wait for importFile's success before replacing data or leaving records.
+  expect(page.locator('#notice')).to_contain_text('試作へ読み込みました。')
   assert page.evaluate('data.events.length')==46
   # Every question can enter weakness -> waiting -> due -> retained.
   page.evaluate('''() => {
@@ -80,8 +83,9 @@ try:
    const daily=dailyQuestions();
    assert(daily.length===5&&daily[0].originId===a.id&&daily[1].originId===b.id,'due/weak/normal order');
    assert(new Set(daily.map(q=>q.originId||q.id)).size===5,'dedup');
-   home();
   }''')
+  page.locator('[data-view=home]').click()
+  expect(page.locator('#daily-five')).to_be_visible()
   page.locator('#daily-five').click();assert page.evaluate("run.mode==='daily' && run.qs.length===5")
   # Existing index uses React/Babel; only its public dependencies are fulfilled.
   assets={}
