@@ -551,6 +551,8 @@ color:var(--hero-ink)!important
 color:var(--hero-ink)!important
 }
 .other-methods b {
+flex-shrink:0;
+white-space:nowrap;
 font-size:18px;
 color:var(--muted)!important
 }
@@ -559,6 +561,9 @@ margin-left:auto
 }
 .other-methods button {
 color:var(--ink)!important
+}
+.other-methods button.primary {
+color:white!important
 }
 details {
 background:white!important;
