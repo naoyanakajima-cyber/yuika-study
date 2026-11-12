@@ -111,3 +111,18 @@ Use Codex Cloud; development must not depend on a local PC remaining online.
   scope above; infrastructure changes stay draft. Do not create permission-test PRs.
 - Independent verification must inspect and execute the target revision, not rely
   on the implementer's report. If the runtime is unavailable, report unverified.
+
+## Parent verification mode
+
+- Parent-only entry: append `?parent-check=1` to any app URL in the same tab.
+  Confirm the persistent banner. Exit with its one-tap button; mode records
+  belong only to sessionStorage and are cleared on exit. Never share this URL
+  with children. This is an accidental-entry guard, not authentication.
+- All application persistence must use `window.YuikaParent.storage`. Keep the
+  boundary embedded before app and notification scripts via
+  `python scripts/parent/embed.py` after other HTML generators.
+- Notifications must check `YuikaParent.suppress()` before enqueue, retry,
+  connection checks and Worker fetch. Tests use intercepted mock APIs only.
+- Existing-record cleanup is an explicit exception to sandbox isolation: the
+  parent banner exposes a timestamp, preview count and confirmation. Use
+  synthetic data in tests; never delete the user's records during development.
