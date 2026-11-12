@@ -36,13 +36,8 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": {
-    "run_id": "cycle-20261112T040454Z",
-    "acquired_at": "2026-11-12T04:04:54.279729+00:00",
-    "expires_at": "2026-11-12T04:44:54.279729+00:00",
-    "ticket": "REV-RECONCILE"
-  },
-  "updated_at": "2026-11-12T04:04:54.279729+00:00",
+  "lease": null,
+  "updated_at": "2026-11-12T04:07:25.520843+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -935,7 +930,7 @@
         "独立QAの実施対象HEADと未検証範囲を記録",
         "新規実装・マージ・クローズなしで次の一手を整理"
       ],
-      "next_action": "PR24の合成データ試用で、おすすめ理由→回答→次の復習、保護者モードの入口/終了の使いやすさを確認。#10とmain内の復習系列の役割整理をCEOチェックへ。日時削除の実利用は別判断。次は教材追加、テーマは低優先。D02/実データ接続は未決。",
+      "next_action": "mainに含まれた保護者モードの具体的な合成試用フィードバックを確認。前回の続きの説明が前回単元/設定を指すと伝わるか観察。#10とmain系列の役割整理、教材追加#11を次順位、テーマ#12は低優先。D02/実データ接続は未決。",
       "specification": "docs/product/review-reconciliation.md",
       "evidence": [
         {
@@ -1016,6 +1011,16 @@
           "suite_count": 20,
           "exit_code": 0,
           "adopted": false
+        },
+        {
+          "kind": "static_reconciliation",
+          "path": "ops/runs/2026-11-12-parent-mode-merge-reconciliation.md",
+          "pdm": "pdm_merge24_reconcile",
+          "prm": "root/coordinator",
+          "reviewer": "qa_merge24_reconcile",
+          "commit": "fc3ffa93dcecc2b64a21a4ac77dc03eec3aec3ca",
+          "app_tests_run": false,
+          "result": "passed_scoped_static_review"
         }
       ],
       "review": {
@@ -1029,9 +1034,10 @@
         },
         "notes": "2既存テスト成功、同一origin旧版読込障害を合成probeで再現。文書と5証拠hashを独立確認。製品統合は未実施。"
       },
-      "current_cycle_scope": "既存PR24の保護者試用を妨げる再現不具合3原因を修正・独立QA。外部merge/close状態を照合。",
+      "current_cycle_scope": "PR24の外部mergeとホーム表示2行差分をPdM/PrM/独立Reviewerで照合。製品実装なし。",
       "current_product_pr": 24,
-      "current_product_head": "314aa13216b8bce5fee65959b9fa51d925575234"
+      "current_product_head": "fc3ffa93dcecc2b64a21a4ac77dc03eec3aec3ca",
+      "current_product_state": "merged"
     },
     {
       "id": "REV-COMPAT-SPEC",
@@ -3830,6 +3836,43 @@
       "next_action": "PR24の具体的な合成試用フィードバックと#10/main系列の役割整理を朝夕チェックへ。D02未決。PR22は許可されたWebKit実行環境の新証拠待ち。教材追加を次順位、テーマを低優先。",
       "production_actions": false,
       "lease_released_at": "2026-11-12T03:09:10.061116+00:00"
+    },
+    {
+      "id": "cycle-20261112T040454Z",
+      "started_at": "2026-11-12T04:04:54.279729+00:00",
+      "completed_at": "2026-11-12T04:07:25.520843+00:00",
+      "ticket": "REV-RECONCILE",
+      "result": "PR24の外部mergeとホーム表示2行差分を照合。PdM/独立静的レビューで新しい実装対象なし。参照Pages workflow3jobsのsuccessをread-only API確認。",
+      "observed_operations_commit": "59f1b9f6e3bab8fcd9a96c2e4e42f042ea3c76fa",
+      "cloud_verified": true,
+      "observed_main_commit": "6ec616d5f24f552306219e3177db4f4041f84428",
+      "observed_pr24_head": "fc3ffa93dcecc2b64a21a4ac77dc03eec3aec3ca",
+      "pr_reconciliation": "ceo_wait3件(#10/#11/#12)+追加open製品draft1件(#22)。PR24はmerged。旧#4と運用#9/#13は除外。",
+      "ceo_decisions_ingested": 0,
+      "subagents": [
+        "pdm_merge24_reconcile",
+        "qa_merge24_reconcile"
+      ],
+      "pdm": "pdm_merge24_reconcile",
+      "engineer": null,
+      "reviewer": "qa_merge24_reconcile",
+      "manual_setup": false,
+      "automatic_setup_verified": false,
+      "app_tests_run": false,
+      "browser_tests_run": false,
+      "validation": "ops/runs/2026-11-12-parent-mode-merge-reconciliation.md",
+      "product_code_changed": false,
+      "external_private_data_calls": 0,
+      "new_prs": [],
+      "updated_prs": [
+        9
+      ],
+      "new_blockers": [],
+      "platform_run_completion_verified": false,
+      "next_action": "合成試用の具体的な操作フィードバックと既存系列の整理を朝夕へ。D02未決、PR22は許可済みWebKit実行環境の新証拠待ち。新規実装/同一QA反復は行わない。",
+      "production_actions": false,
+      "attachment": "PR24 attach呼出は応答なく中断、成功未確認",
+      "lease_released_at": "2026-11-12T04:07:25.520843+00:00"
     }
   ],
   "operational_notes": [
@@ -3870,8 +3913,8 @@
       "next_action": "閉鎖済み系列をopen待ちへ数えず、#10とmain内の復習系列の役割・#24試用結果を朝夕に整理。新規製品PRを増やさない。",
       "report": "ops/runs/2026-11-10-pr-reconciliation.md",
       "latest_observation": {
-        "observed_at": "2026-11-12T01:19:57.031643+00:00",
-        "finding": "#5/#23 merged、#6–8/#14–21 closed未merge。#23系列のコードはmainに含まれる。open製品待ち#10/#11/#12の3件+追加#22/#24の2件。新たなCEO承認や公開成功は未確認。"
+        "observed_at": "2026-11-12T04:07:25.520843+00:00",
+        "finding": "PR24が外部でmerged。製品ceo_wait #10/#11/#12の3件+追加open製品draft #22の1件。正本から新承認取り込み0。"
       }
     },
     {
@@ -3922,14 +3965,21 @@
     },
     {
       "id": "PARENT-TRIAL-01",
-      "status": "resolved_in_draft",
+      "status": "fix_observed_in_main",
       "observed_at": "2026-11-12T01:19:57.031643+00:00",
       "scope": "PR24 parent trial isolation and failure handling",
       "finding": "既存全20suite成功でも追加probeで初期sessionStorage拒否、削除途中失敗、親モードmailto入口を再現。既存PR内で修正し別担当が最終HEADを確認。",
       "head": "314aa13216b8bce5fee65959b9fa51d925575234",
       "report": "ops/runs/2026-11-12-parent-mode.md",
       "remaining_limitations": "削除rollbackはbest effort。復元不能時は追加削除停止と原本JSON保全を提示し、複数キーのatomic更新を保証しない。WebKit/実機Safari/本人試用未検証。",
-      "next_action": "合成データ試用フィードバック、実記録削除は別判断。"
+      "next_action": "合成データ試用フィードバック、実記録削除は別判断。",
+      "latest_observation": {
+        "observed_at": "2026-11-12T04:07:25.520843+00:00",
+        "head": "fc3ffa93dcecc2b64a21a4ac77dc03eec3aec3ca",
+        "main": "6ec616d5f24f552306219e3177db4f4041f84428",
+        "finding": "前回修正314aa13を含むPR24がmerged。追加差分はindexのスタイル/説明2行のみ、独立静的レビュー。今回製品テストなし。参照Pages workflow3jobsはAPI上success、現在commitとの結合/公開URL表示は今回独立未検証。",
+        "report": "ops/runs/2026-11-12-parent-mode-merge-reconciliation.md"
+      }
     }
   ],
   "unreconciled_prs": [
@@ -4093,15 +4143,15 @@
     },
     {
       "pr": 24,
-      "head": "314aa13216b8bce5fee65959b9fa51d925575234",
+      "head": "fc3ffa93dcecc2b64a21a4ac77dc03eec3aec3ca",
       "base_ref": "main",
       "base_sha": "1d444f7e2c1e49912eef18c77e7ed97b3b8092f0",
       "kind": "product",
-      "state": "open_draft",
+      "state": "merged",
       "adopted": false,
-      "observed_at": "2026-11-12T01:19:57.031643+00:00",
-      "reconciliation_status": "existing_draft_repaired_independent_qa_passed_adoption_pending",
-      "latest_report": "ops/runs/2026-11-12-parent-mode.md",
+      "observed_at": "2026-11-12T04:07:25.520843+00:00",
+      "reconciliation_status": "external_merge_observed_static_delta_review_passed",
+      "latest_report": "ops/runs/2026-11-12-parent-mode-merge-reconciliation.md",
       "independent_qa": {
         "reviewer": "qa_parent_mode",
         "commit": "314aa13216b8bce5fee65959b9fa51d925575234",
@@ -4109,7 +4159,18 @@
         "exit_code": 0,
         "report": "ops/evidence/2026-11-12-parent-mode/candidate-QA.md"
       },
-      "validation": "初期sessionStorage拒否・削除途中失敗・手動mailto入口を合成データで修正/独立検証。新規製品PRなし。実データ削除・本番適用なし。"
+      "validation": "初期sessionStorage拒否・削除途中失敗・手動mailto入口を合成データで修正/独立検証。新規製品PRなし。実データ削除・本番適用なし。",
+      "merged_at": "2026-11-12T03:43:16Z",
+      "merge_commit": "6ec616d5f24f552306219e3177db4f4041f84428",
+      "included_in_observed_main": true,
+      "authorization_note": "PR本文は別担当の所有者承認を報告しているが、正本CEO返答を今回直接読んでいない。adopted=falseは本運用で新承認未取り込みの意味であり、未マージの意味ではない。",
+      "latest_static_review": {
+        "reviewer": "qa_merge24_reconcile",
+        "commit": "fc3ffa93dcecc2b64a21a4ac77dc03eec3aec3ca",
+        "report": "ops/evidence/2026-11-12-parent-mode-merge/QA.md",
+        "app_tests_run": false,
+        "result": "passed_scoped_static_review"
+      }
     }
   ]
 }
