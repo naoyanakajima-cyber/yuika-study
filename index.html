@@ -223,8 +223,8 @@ function LineIcon({name}){return <span aria-hidden="true" dangerouslySetInnerHTM
 function subjectStyle(subject){const [color,ink,pale]=window.YuikaDesign.subjects[subject];return {'--unit-color':color,'--unit-text':ink,'--chip-bg':pale,'--chip-ink':ink};}
 function startHomeDaily(){
  let unit="onin-review.html";
- try{const saved=window.YuikaParent.storage.getItem("yuika-prototype-v1:last-daily-unit");if(["onin-review.html","kamakura-review.html","heian-review.html","yuika-review-v2.html","mock-focus-review.html"].includes(saved))unit=saved;}catch(e){}
- window.YuikaParent.navigate(unit+"?daily=1");
+ try{const saved=window.YuikaParent.storage.getItem("yuika-prototype-v1:last-daily-unit");if(/^(onin-review|kamakura-review|heian-review|yuika-review-v2|mock-focus-review)\.html(?:\?subject=(social|science|math|japanese))?$/.test(saved))unit=saved;}catch(e){}
+ window.YuikaParent.navigate(unit+(unit.includes("?")?"&":"?")+"daily=1");
 }
 
 
@@ -237,7 +237,7 @@ function injectStyles() {
   style.textContent = `
     @keyframes slashIn {
       0% { transform: rotate(-30deg) scaleX(0); opacity: 1; }
-      50% { transform: rotate(-30deg) scaleX(1.2); opacity: 1; }
+      50% { transform: rotate(-30deg) scaleX(1); opacity: 1; }
       100% { transform: rotate(-30deg) scaleX(0); opacity: 0; }
     }
     @keyframes fadeUp {
@@ -346,7 +346,10 @@ const UNITS = [
       ]},
     ],
   },
-  {subject:"社会",subjectIcon:"",subjectColor:T.green,id:"mock-focus",name:"模試の弱点対策（社会・理科・算数・国語）",textbook:"重点分野 · 46問（オリジナル）",externalPage:"mock-focus-review.html",externalNote:"根拠・解説 / 弱点分析 / 再確認 / 今日の5問",quizQuestions:[],flashDecks:[]},
+  {subject:"社会",subjectIcon:"",subjectColor:T.green,id:"mock-focus-social",name:"模試の弱点対策 社会",textbook:"重点分野 · 21問（オリジナル）",externalPage:"mock-focus-review.html?subject=social",externalNote:"根拠・解説 / 弱点分析 / 再確認 / 今日の5問",quizQuestions:[],flashDecks:[]},
+  {subject:"理科",subjectIcon:"",subjectColor:T.green,id:"mock-focus-science",name:"模試の弱点対策 理科",textbook:"重点分野 · 14問（オリジナル）",externalPage:"mock-focus-review.html?subject=science",externalNote:"根拠・解説 / 弱点分析 / 再確認 / 今日の5問",quizQuestions:[],flashDecks:[]},
+  {subject:"算数",subjectIcon:"",subjectColor:T.green,id:"mock-focus-math",name:"模試の弱点対策 算数",textbook:"重点分野 · 6問（オリジナル）",externalPage:"mock-focus-review.html?subject=math",externalNote:"根拠・解説 / 弱点分析 / 再確認 / 今日の5問",quizQuestions:[],flashDecks:[]},
+  {subject:"国語",subjectIcon:"",subjectColor:T.green,id:"mock-focus-japanese",name:"模試の弱点対策 国語",textbook:"重点分野 · 5問（オリジナル）",externalPage:"mock-focus-review.html?subject=japanese",externalNote:"根拠・解説 / 弱点分析 / 再確認 / 今日の5問",quizQuestions:[],flashDecks:[]},
   {subject:"社会",subjectIcon:"",subjectColor:T.green,id:"sapix-540-25",name:"鎌倉幕府の成立（平安〜鎌倉時代）",textbook:"540-25 · 38問（用語・しくみ・つながり）",externalPage:"kamakura-review.html",externalNote:"5・10・15問 / 漢字・読み確認 / 復習 / 保護者のノート",quizQuestions:[],flashDecks:[]},
   {subject:"社会",subjectIcon:"",subjectColor:T.green,id:"sapix-540-27",name:"応仁の乱（室町時代）",textbook:"540-27 · 30問（用語・理由・つながり）",externalPage:"onin-review.html",externalNote:"5・10・15問 / 漢字・読み確認 / 復習 / 保護者のノート",quizQuestions:[],flashDecks:[]},
   {subject:"社会",subjectIcon:"",subjectColor:T.green,id:"shakai-heian-540-24",name:"貴族の世の中（平安時代）",textbook:"540-24 · 暗記50問＋理解25問",externalPage:"heian-review.html",quizQuestions:[],flashDecks:[]},
@@ -793,8 +796,8 @@ function SlashEffect({ show, streak }) {
   return (
     <div style={{ position:"fixed", inset:0, pointerEvents:"none", zIndex:9999 }}>
       <div style={{
-        position:"absolute", top:"50%", left:"50%",
-        width:"150vw", height:4,
+        position:"absolute", top:"50%", left:"5%",
+        width:"90%", height:4,
         background:`linear-gradient(90deg, transparent, ${T.pink}, ${T.pinkLight}, ${T.green}, transparent)`,
         animation:"slashIn 0.5s ease-out forwards",
         transformOrigin:"center",
@@ -1417,7 +1420,7 @@ function HomeScreen({ onSelectUnit, onSettings, onHistory }) {
   <header className="home-top"><h1>ゆいかの学習帳</h1><div className="home-actions"><button onClick={onHistory}><LineIcon name="chart"/>きろく</button><button onClick={onSettings}><LineIcon name="settings"/>設定</button></div></header>
   <section className="daily-panel"><div><h2>今日の5問</h2><p>{breakdown}</p><p>前回の単元から（問数は単元の設定）</p></div><button aria-label="今日の5問をはじめる" onClick={startHomeDaily}>はじめる <LineIcon name="arrow"/></button></section>
   <nav className="subject-chips" aria-label="教科の切り替え">{['すべて','社会','理科','算数','国語'].map(subj=><button key={subj} style={subjectStyle(subj)} aria-pressed={subject===subj} onClick={()=>setSubject(subj)}>{subj}</button>)}</nav>
-  <div className="unit-grid">{UNITS.filter(u=>subject==='すべて'||u.subject===subject||u.id==='mock-focus').map(u=>{const subj=u.id==='mock-focus'?'4教科まとめ':u.subject;return <button className="unit-card" key={u.id} style={subjectStyle(subj)} onClick={()=>u.externalPage?window.YuikaParent.navigate(u.externalPage):onSelectUnit(u)}><span className="unit-subject">{subj}</span><span className="unit-name">{u.name}</span><span className="unit-progress">{progress(u)}</span></button>;})}</div>
+  <div className="unit-grid">{UNITS.filter(u=>subject==='すべて'||u.subject===subject).map(u=>{const subj=u.subject;return <button className="unit-card" key={u.id} style={subjectStyle(subj)} onClick={()=>u.externalPage?window.YuikaParent.navigate(u.externalPage):onSelectUnit(u)}><span className="unit-subject">{subj}</span><span className="unit-name">{u.name}</span><span className="unit-progress">{progress(u)}</span></button>;})}</div>
  </Wrapper>;
 }
 

@@ -13,7 +13,8 @@ function unitHome(main,info){
  const record=header.querySelector('[data-view="records"]');record.textContent='きろく';
  const parent=header.querySelector('[data-view="parent"],[data-view="analysis"]');parent.hidden=true;
  main.classList.add('unit-main');hero.classList.add('unit-hero');hero.querySelector('br')?.replaceWith(document.createTextNode(' '));
- if(info.subject==='理科'){hero.querySelector('h1').textContent='溶解度・酸とアルカリ';hero.querySelector('p').textContent='水に溶ける量と、水溶液の性質を確かめよう。';}
+ if(info.subject==='理科'&&info.code!=='mock-focus'){hero.querySelector('h1').textContent='溶解度・酸とアルカリ';hero.querySelector('p').textContent='水に溶ける量と、水溶液の性質を確かめよう。';}
+ document.documentElement.dataset.subject=({社会:'social',理科:'science',算数:'math',国語:'japanese'}[info.subject]||'all');
  const eyebrow=hero.querySelector('.eyebrow');eyebrow.textContent=info.subject+' · '+info.code;
  const oldStats=main.querySelector('.stats');oldStats?.remove();
  const stats=node('div','stats');
