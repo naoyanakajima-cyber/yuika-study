@@ -36,13 +36,8 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": {
-    "run_id": "cycle-20261112T130615Z",
-    "acquired_at": "2026-11-12T13:06:15.953732+00:00",
-    "expires_at": "2026-11-12T13:46:15.953732+00:00",
-    "ticket": "REV-RECONCILE"
-  },
-  "updated_at": "2026-11-12T13:06:15.953732+00:00",
+  "lease": null,
+  "updated_at": "2026-11-12T13:10:04.212544+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -935,7 +930,7 @@
         "独立QAの実施対象HEADと未検証範囲を記録",
         "新規実装・マージ・クローズなしで次の一手を整理"
       ],
-      "next_action": "既存draft PR26の合成データ試用と採用整理。方向性採用を再要求せず、具体的な試用フィードバック・新差分・再現不具合があれば同じPRで対応。製品待ち3件と追加既存draft22/26を可視化し新規製品PRは増やさない。D02は実データ保存/接続の別判断。復習優先、教材追加次順位、テーマ低優先。依存しない仕事がなければ終了。",
+      "next_action": "PR26外部mergeと検証済み成果のmain包含を照合済み。苦手復習の合成試用から具体的な修正依頼・再現不具合・新差分が出た場合に対応。closed PR26へ追記せず提出先と待ち枠を再照合する。製品待ち#10/#11/#12の3件と追加draft#22を明示し新規PR枠を増やさない。教材追加は合成データ継続、テーマ低優先、D02実保存/接続は別判断。独立して進められる仕事がなければ終了。",
       "specification": "docs/product/review-reconciliation.md",
       "evidence": [
         {
@@ -1080,6 +1075,19 @@
           "url_probe_cases": 8,
           "result": "required_suites_and_url_probe_passed; supplemental_preferences_partial",
           "report": "ops/evidence/2026-11-12-pr26-followup/review-notes.md"
+        },
+        {
+          "kind": "static_reconciliation",
+          "path": "ops/runs/2026-11-12-pr26-merge-reconciliation.md",
+          "pdm": "pdm_merge26_reconcile",
+          "prm": "root",
+          "reviewer": "qa_merge26_reconcile",
+          "commit": "86514eda054a5a2e09204df3a0668e40624c16de",
+          "compared_head": "acd169882b626ef255ba68cd73c995024c30e515",
+          "tree": "fc44857441e0f2344e488d141c5c4fa47065a0c6",
+          "app_tests_run": false,
+          "result": "passed_static_ancestry_tree_and_evidence_review",
+          "report": "ops/evidence/2026-11-12-pr26-merge/QA.md"
         }
       ],
       "review": {
@@ -1093,11 +1101,11 @@
         },
         "notes": "2既存テスト成功、同一origin旧版読込障害を合成probeで再現。文書と5証拠hashを独立確認。製品統合は未実施。"
       },
-      "current_cycle_scope": "前回提出待ちのテスト準備修正を既存PR26に統合。教科URLの継承キー誤認を独立QAで再現し修正。全22suite成功、追加設定probeは部分検証。",
+      "current_cycle_scope": "PR26外部mergeを静的照合。検証HEAD/main tree一致と提出待ち修正包含を確認。Pages API成功を観測、実表示未確認。",
       "current_product_pr": 26,
       "current_product_head": "acd169882b626ef255ba68cd73c995024c30e515",
-      "current_product_state": "open_draft",
-      "blocked_reason": "技術修正・独立QA・既存draftへの提出は完了。製品採用整理/具体的な試用フィードバック待ち。新規製品PRの待ち枠追加、本番マージ/公開の権限はない。",
+      "current_product_state": "merged",
+      "blocked_reason": "既存修正は外部mergeでmainへ包含。新しい不具合/具体的試用フィードバックなし。3既存製品PRの採用整理・本人試用は未完了。マージ事実から追加権限を導かない。",
       "latest_review": {
         "pdm": "pdm_pr26_scope",
         "prm": "root",
@@ -1119,12 +1127,25 @@
         "branch": "codex/parent-test-boundary-20261112",
         "patch": "ops/evidence/2026-11-12-parent-test-boundary/parent-mode-fixture.patch",
         "product_pr": 26,
-        "status": "integrated_into_existing_draft",
-        "included_in_main": false,
-        "observed_main": "25cad059f73cdca4cd805825c84e6619074b37c4",
+        "status": "included_in_observed_main",
+        "included_in_main": true,
+        "observed_main": "86514eda054a5a2e09204df3a0668e40624c16de",
         "integrated_commit": "5b772250401d9057152d698f07e78456968bbf85",
         "candidate_commit": "acd169882b626ef255ba68cd73c995024c30e515",
-        "delivered_at": "2026-11-12T07:18:37.208767+00:00"
+        "delivered_at": "2026-11-12T07:18:37.208767+00:00",
+        "observed_at": "2026-11-12T13:08:45.192835+00:00"
+      },
+      "current_main_commit": "86514eda054a5a2e09204df3a0668e40624c16de",
+      "latest_static_review": {
+        "pdm": "pdm_merge26_reconcile",
+        "prm": "root",
+        "reviewer": "qa_merge26_reconcile",
+        "commit": "86514eda054a5a2e09204df3a0668e40624c16de",
+        "compared_head": "acd169882b626ef255ba68cd73c995024c30e515",
+        "tree": "fc44857441e0f2344e488d141c5c4fa47065a0c6",
+        "app_tests_run": false,
+        "result": "passed_static_ancestry_tree_and_evidence_review",
+        "report": "ops/evidence/2026-11-12-pr26-merge/QA.md"
       }
     },
     {
@@ -4547,6 +4568,65 @@
           "draft": true
         }
       ]
+    },
+    {
+      "id": "cycle-20261112T130615Z",
+      "started_at": "2026-11-12T13:06:15.953732+00:00",
+      "completed_at": "2026-11-12T13:10:04.212544+00:00",
+      "ticket": "REV-RECONCILE",
+      "result": "PR26外部mergeを独立静的照合。検証HEAD/main同一tree、前回修正main包含、Pages API成功を記録。今回製品実装/テストなし。",
+      "observed_operations_commit": "e8a4012cbd25efc4c120a0cb3a280b430e512c1c",
+      "cloud_verified": true,
+      "observed_main_commit": "86514eda054a5a2e09204df3a0668e40624c16de",
+      "ceo_decisions_ingested": 0,
+      "subagents": [
+        "pdm_merge26_reconcile",
+        "qa_merge26_reconcile"
+      ],
+      "pdm": "pdm_merge26_reconcile",
+      "engineer": null,
+      "engineer_not_started_reason": "製品実装なし。PdM/PrMと独立Reviewerによる静的照合・文書作業のみ。",
+      "reviewer": "qa_merge26_reconcile",
+      "independent_review_performed": true,
+      "independent_static_review": {
+        "pdm": "pdm_merge26_reconcile",
+        "prm": "root",
+        "reviewer": "qa_merge26_reconcile",
+        "commit": "86514eda054a5a2e09204df3a0668e40624c16de",
+        "compared_head": "acd169882b626ef255ba68cd73c995024c30e515",
+        "tree": "fc44857441e0f2344e488d141c5c4fa47065a0c6",
+        "app_tests_run": false,
+        "result": "passed_static_ancestry_tree_and_evidence_review",
+        "report": "ops/evidence/2026-11-12-pr26-merge/QA.md"
+      },
+      "manual_setup": false,
+      "automatic_setup_verified": false,
+      "app_tests_run": false,
+      "browser_tests_run": false,
+      "product_runtime_changed": false,
+      "test_code_changed": false,
+      "external_private_data_calls": 0,
+      "new_prs": [],
+      "updated_prs": [
+        9
+      ],
+      "product_pr_updated": false,
+      "validation": "ops/runs/2026-11-12-pr26-merge-reconciliation.md",
+      "ceo_wait_product_prs": [
+        10,
+        11,
+        12
+      ],
+      "additional_existing_product_drafts": [
+        22
+      ],
+      "new_blockers": [],
+      "production_actions": false,
+      "platform_run_completion_verified": false,
+      "next_action": "PR26外部mergeと検証済み成果のmain包含を照合済み。苦手復習の合成試用から具体的な修正依頼・再現不具合・新差分が出た場合に対応。closed PR26へ追記せず提出先と待ち枠を再照合する。製品待ち#10/#11/#12の3件と追加draft#22を明示し新規PR枠を増やさない。教材追加は合成データ継続、テーマ低優先、D02実保存/接続は別判断。独立して進められる仕事がなければ終了。",
+      "attachment": "以前のPR9/26 attach無応答の成功未確認を維持。状況変化なく再試行なし。",
+      "lease_released_at": "2026-11-12T13:10:04.212544+00:00",
+      "document_review": "qa_merge26_reconcile: final report/board facts matched; PdM/QA originals byte-matched and sha2562/2 passed; prior runs unchanged"
     }
   ],
   "operational_notes": [
@@ -4584,11 +4664,11 @@
       "observed_at": "2026-11-10T13:09:25.825875+00:00",
       "scope": "PR13/14/15 vs canonical operations and PR10",
       "finding": "3 linked product PRs remain ceo_wait; 2 additional product PRs14/15 were discovered outside the board. Their originating authorization/independent-review history is not established here. Do not hide the extra work by treating the wait cap as extra capacity. PR13 changes retry to3 and requires all6tests per task, unlike current explicit task limits.",
-      "next_action": "閉鎖済み系列をopen待ちへ数えず、#10とmain内の復習系列の役割・#24試用結果を朝夕に整理。新規製品PRを増やさない。",
+      "next_action": "PR26外部mergeと検証済み成果のmain包含を照合済み。苦手復習の合成試用から具体的な修正依頼・再現不具合・新差分が出た場合に対応。closed PR26へ追記せず提出先と待ち枠を再照合する。製品待ち#10/#11/#12の3件と追加draft#22を明示し新規PR枠を増やさない。教材追加は合成データ継続、テーマ低優先、D02実保存/接続は別判断。独立して進められる仕事がなければ終了。",
       "report": "ops/runs/2026-11-10-pr-reconciliation.md",
       "latest_observation": {
-        "observed_at": "2026-11-12T07:18:37.208767+00:00",
-        "finding": "製品ceo_wait #10/#11/#12の3件に加え、既存open draft #22/#26。PR26の修正/独立QAを同PRへ提出。新規製品PR0、新承認0。"
+        "observed_at": "2026-11-12T13:08:45.192835+00:00",
+        "finding": "PR26外部merged。製品ceo_wait #10/#11/#12の3件と追加open draft #22。新しいCEO承認の取り込み0。"
       }
     },
     {
@@ -4657,33 +4737,47 @@
     },
     {
       "id": "PARENT-MODE-QA-01",
-      "status": "preparation_race_fixed_in_existing_draft",
+      "status": "fix_observed_in_main",
       "observed_at": "2026-11-12T05:22:13.756134+00:00",
       "scope": "PR25 baseline 81002855830dda7d2cac669f8297a0d81756872d",
       "finding": "全体suiteでparent_mode初回応仁ケースに模擬/reports要求1件。計測付き単独2回目はpass。初回の発生段階・原因未確定。実通知0。",
       "report": "ops/runs/2026-11-12-design-summary.md",
-      "next_action": "既存draft PR26の合成データ試用と採用整理。方向性採用を再要求せず、具体的な試用フィードバック・新差分・再現不具合があれば同じPRで対応。製品待ち3件と追加既存draft22/26を可視化し新規製品PRは増やさない。D02は実データ保存/接続の別判断。復習優先、教材追加次順位、テーマ低優先。依存しない仕事がなければ終了。",
+      "next_action": "PR26外部mergeと検証済み成果のmain包含を照合済み。苦手復習の合成試用から具体的な修正依頼・再現不具合・新差分が出た場合に対応。closed PR26へ追記せず提出先と待ち枠を再照合する。製品待ち#10/#11/#12の3件と追加draft#22を明示し新規PR枠を増やさない。教材追加は合成データ継続、テーマ低優先、D02実保存/接続は別判断。独立して進められる仕事がなければ終了。",
       "resolution_report": "ops/runs/2026-11-12-pr26-followup.md",
       "candidate_commit": "acd169882b626ef255ba68cd73c995024c30e515",
-      "verification": "今回の統合候補は独立全22suite成功。元の計測なし失敗の直接原因は未確定のまま。テスト準備修正をPR26へ提出済み、main未包含。"
+      "verification": "候補acd1698の独立全22suite成功は既存証拠。今回main86514edとのtree一致を静的確認、テスト準備修正はmain包含。元の計測なし失敗の直接原因は未確定。",
+      "latest_observation": {
+        "observed_at": "2026-11-12T13:08:45.192835+00:00",
+        "head": "acd169882b626ef255ba68cd73c995024c30e515",
+        "main": "86514eda054a5a2e09204df3a0668e40624c16de",
+        "report": "ops/runs/2026-11-12-pr26-merge-reconciliation.md",
+        "finding": "PR26外部merge、検証HEAD/main tree一致。以前のテスト修正とURL境界修正はmain包含。今回テスト再実行なし。"
+      }
     },
     {
       "id": "TEST-FIX-DELIVERY-01",
-      "status": "resolved_in_existing_draft",
+      "status": "fix_observed_in_main",
       "observed_at": "2026-11-12T06:18:49.546450+00:00",
       "scope": "PR25 follow-up test-only fix",
       "finding": "検証中にPR25が外部merge。製品待ち上限3件を守り、全21suite成功の候補は新規製品PRにせずtopicbranch/運用draft内patchへ保存。",
       "commit": "df791c07c0071921e22ae667e5230f8fd99ed782",
       "report": "ops/runs/2026-11-12-parent-test-boundary.md",
-      "next_action": "既存draft PR26の合成データ試用と採用整理。方向性採用を再要求せず、具体的な試用フィードバック・新差分・再現不具合があれば同じPRで対応。製品待ち3件と追加既存draft22/26を可視化し新規製品PRは増やさない。D02は実データ保存/接続の別判断。復習優先、教材追加次順位、テーマ低優先。依存しない仕事がなければ終了。",
+      "next_action": "PR26外部mergeと検証済み成果のmain包含を照合済み。苦手復習の合成試用から具体的な修正依頼・再現不具合・新差分が出た場合に対応。closed PR26へ追記せず提出先と待ち枠を再照合する。製品待ち#10/#11/#12の3件と追加draft#22を明示し新規PR枠を増やさない。教材追加は合成データ継続、テーマ低優先、D02実保存/接続は別判断。独立して進められる仕事がなければ終了。",
       "resolution_report": "ops/runs/2026-11-12-pr26-followup.md",
       "product_pr": 26,
       "integrated_commit": "5b772250401d9057152d698f07e78456968bbf85",
-      "resolved_at": "2026-11-12T07:18:37.208767+00:00"
+      "resolved_at": "2026-11-12T07:18:37.208767+00:00",
+      "latest_observation": {
+        "observed_at": "2026-11-12T13:08:45.192835+00:00",
+        "head": "acd169882b626ef255ba68cd73c995024c30e515",
+        "main": "86514eda054a5a2e09204df3a0668e40624c16de",
+        "report": "ops/runs/2026-11-12-pr26-merge-reconciliation.md",
+        "finding": "PR26外部merge、検証HEAD/main tree一致。以前のテスト修正とURL境界修正はmain包含。今回テスト再実行なし。"
+      }
     },
     {
       "id": "SUBJECT-URL-01",
-      "status": "fixed_in_existing_draft",
+      "status": "fix_observed_in_main",
       "observed_at": "2026-11-12T07:18:37.208767+00:00",
       "scope": "PR26 unsupported subject keys",
       "finding": "constructor/toString/__proto__を教科定義と誤認し候補0件。own-key判定へ修正、全46問へfallback。コード実行・漏えい・データ消失は観測していない。",
@@ -4691,7 +4785,14 @@
       "product_pr": 26,
       "report": "ops/runs/2026-11-12-pr26-followup.md",
       "verification": "独立URL8ケースと必須22suite成功。",
-      "next_action": "既存draft PR26の合成データ試用と採用整理。方向性採用を再要求せず、具体的な試用フィードバック・新差分・再現不具合があれば同じPRで対応。製品待ち3件と追加既存draft22/26を可視化し新規製品PRは増やさない。D02は実データ保存/接続の別判断。復習優先、教材追加次順位、テーマ低優先。依存しない仕事がなければ終了。"
+      "next_action": "PR26外部mergeと検証済み成果のmain包含を照合済み。苦手復習の合成試用から具体的な修正依頼・再現不具合・新差分が出た場合に対応。closed PR26へ追記せず提出先と待ち枠を再照合する。製品待ち#10/#11/#12の3件と追加draft#22を明示し新規PR枠を増やさない。教材追加は合成データ継続、テーマ低優先、D02実保存/接続は別判断。独立して進められる仕事がなければ終了。",
+      "latest_observation": {
+        "observed_at": "2026-11-12T13:08:45.192835+00:00",
+        "head": "acd169882b626ef255ba68cd73c995024c30e515",
+        "main": "86514eda054a5a2e09204df3a0668e40624c16de",
+        "report": "ops/runs/2026-11-12-pr26-merge-reconciliation.md",
+        "finding": "PR26外部merge、検証HEAD/main tree一致。以前のテスト修正とURL境界修正はmain包含。今回テスト再実行なし。"
+      }
     }
   ],
   "unreconciled_prs": [
@@ -4921,12 +5022,13 @@
         "branch": "codex/parent-test-boundary-20261112",
         "patch": "ops/evidence/2026-11-12-parent-test-boundary/parent-mode-fixture.patch",
         "product_pr": 26,
-        "status": "integrated_into_existing_draft",
-        "included_in_main": false,
-        "observed_main": "25cad059f73cdca4cd805825c84e6619074b37c4",
+        "status": "included_in_observed_main",
+        "included_in_main": true,
+        "observed_main": "86514eda054a5a2e09204df3a0668e40624c16de",
         "integrated_commit": "5b772250401d9057152d698f07e78456968bbf85",
         "candidate_commit": "acd169882b626ef255ba68cd73c995024c30e515",
-        "delivered_at": "2026-11-12T07:18:37.208767+00:00"
+        "delivered_at": "2026-11-12T07:18:37.208767+00:00",
+        "observed_at": "2026-11-12T13:08:45.192835+00:00"
       },
       "pending_test_fix_qa": {
         "pdm": "pdm_parent_test_scope",
@@ -4950,11 +5052,11 @@
       "base_ref": "main",
       "base_sha": "25cad059f73cdca4cd805825c84e6619074b37c4",
       "kind": "product",
-      "state": "open_draft",
+      "state": "merged",
       "adopted": false,
-      "observed_at": "2026-11-12T07:18:37.208767+00:00",
-      "reconciliation_status": "existing_draft_repaired_and_independently_tested",
-      "latest_report": "ops/runs/2026-11-12-pr26-followup.md",
+      "observed_at": "2026-11-12T13:08:45.192835+00:00",
+      "reconciliation_status": "external_merge_observed_tree_identical_to_tested_head",
+      "latest_report": "ops/runs/2026-11-12-pr26-merge-reconciliation.md",
       "independent_qa": {
         "pdm": "pdm_pr26_scope",
         "prm": "root",
@@ -4971,9 +5073,30 @@
         "result": "required_suites_and_url_probe_passed; supplemental_preferences_partial",
         "report": "ops/evidence/2026-11-12-pr26-followup/review-notes.md"
       },
-      "included_in_observed_main": false,
-      "authorization_note": "既存PRの記述をCEOの新承認として扱わない。本run新承認0。",
-      "validation": "独立22suite/URL8ケース成功。追加設定probe部分成功・2回で停止。Chromiumのみ。"
+      "included_in_observed_main": true,
+      "authorization_note": "PR本文は別担当の所有者承認取得を報告するが、今回正本の新CEO返答を直接読んでいない。adopted=falseは本運用で新承認未取り込みの意味。merged事実と区別する。",
+      "validation": "独立22suite/URL8ケース成功。追加設定probe部分成功・2回で停止。Chromiumのみ。",
+      "merged_at": "2026-11-12T13:01:23Z",
+      "merge_commit": "86514eda054a5a2e09204df3a0668e40624c16de",
+      "pages_observation": {
+        "head": "86514eda054a5a2e09204df3a0668e40624c16de",
+        "state": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/naoyanakajima-cyber/yuika-study/actions/runs/43223305924",
+        "observed_at": "2026-11-12T13:08:45.192835+00:00",
+        "public_page_render_verified": false
+      },
+      "latest_static_review": {
+        "pdm": "pdm_merge26_reconcile",
+        "prm": "root",
+        "reviewer": "qa_merge26_reconcile",
+        "commit": "86514eda054a5a2e09204df3a0668e40624c16de",
+        "compared_head": "acd169882b626ef255ba68cd73c995024c30e515",
+        "tree": "fc44857441e0f2344e488d141c5c4fa47065a0c6",
+        "app_tests_run": false,
+        "result": "passed_static_ancestry_tree_and_evidence_review",
+        "report": "ops/evidence/2026-11-12-pr26-merge/QA.md"
+      }
     }
   ]
 }
