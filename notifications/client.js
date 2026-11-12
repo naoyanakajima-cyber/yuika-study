@@ -8,7 +8,7 @@ function config(){try{return JSON.parse(window.YuikaParent.storage.getItem(CONFI
 function store(job){memory.set(job.report?.id||job.id,job);try{window.YuikaParent.storage.setItem(PREFIX+(job.report?.id||job.id),JSON.stringify(job));return true;}catch{last='通知の保留データを保存できません。この画面を閉じる前に接続を確認してください。学習記録の保存状況も確認してください。';return false;}}
 function jobs(){const all=new Map(memory);try{for(let i=0;i<window.YuikaParent.storage.length;i++){const k=window.YuikaParent.storage.key(i);if(k?.startsWith(PREFIX)){try{const v=JSON.parse(window.YuikaParent.storage.getItem(k));if(v&&typeof v.id==='string'&&!all.has(v.id))all.set(v.id,v);}catch{last='読み取れない通知記録があります。上書きせず保管しています。';}}}}catch{}return [...all.values()];}
 function show(){const el=document.getElementById('yuika-mail-status');if(!el)return;const cfg=config(),pending=jobs().filter(j=>j.status!=='accepted').length;
- el.textContent=last||(!cfg?.enabled?'自動メールは未接続です。接続後のチャレンジから通知します。':`自動メール：${cfg.recipient}。${pending?`保留 ${pending}件。アプリを開いている間に再試行します。`:'通知の保留はありません。'}`);
+ el.textContent=last||(!cfg?.enabled?'自動メールは未接続です。接続後のチャレンジから通知します。':`自動メールは接続済みです。${pending?`保留 ${pending}件。アプリを開いている間に再試行します。`:'通知の保留はありません。'}`);
 }
 function schedule(){clearTimeout(timer);timer=setTimeout(()=>flush(),60_000);}
 async function process(){if(window.YuikaParent.suppress())return;const cfg=config();if(!cfg?.enabled||!navigator.onLine){show();return;}

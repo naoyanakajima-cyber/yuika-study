@@ -105,7 +105,7 @@ try:
     assert(document.body.textContent.includes('今日の再確認：0'),'before midnight display');
    }''')
    page.clock.fast_forward(30001)
-   assert page.locator('body').inner_text().count('今日の再確認：1') >= 1, name
+   assert page.locator('.stats .stat').nth(1).inner_text().split()[0]=='1', name
    page.evaluate('''() => {if(isScience){view='analysis';analysis();}else{screen='parent';parent();}}''')
    assert '今日の再確認 1' in page.locator('body').inner_text(), name
    # Focus and visibility restoration repaint summary views, even if the browser

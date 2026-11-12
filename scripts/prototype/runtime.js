@@ -44,7 +44,10 @@ function prototypeNotice(){
  return `<section class="note" id="prototype-notice"><strong>合成データで試す復習</strong><p>この試作の回答・設定は元のアプリと別に保存します。旧画面には試作の回答は表示されません。</p><p>${old}</p><p>追加練習の試作用JSONは旧版へ取り込めません。既に混在した元記録の復旧は行いません。</p>${blocked?'<p>試作の記録を読み取れないため、分析と保存を休止しています。元データを書き出してください。</p>':''}</section>`;
 }
 const prototypeHome=home;
-home=function(){prototypeHome();main.insertAdjacentHTML('afterbegin',prototypeNotice());};
+home=function(){prototypeHome();};
+const prototypeParent=prototypeScience?analysis:parent;
+if(prototypeScience){analysis=function(){prototypeParent();main.insertAdjacentHTML('afterbegin',prototypeNotice());};}
+else{parent=function(){prototypeParent();main.insertAdjacentHTML('afterbegin',prototypeNotice());};}
 const prototypeRecords=records;
 records=function(){
  prototypeRecords();main.insertAdjacentHTML('afterbegin',prototypeNotice());

@@ -93,7 +93,7 @@ try:
    fresh.goto(BASE+'mock-focus-review.html');assert not fresh.evaluate('YuikaParent.active');fresh.close()
    # Remove pending synthetic work before leaving so that normal retry is separate.
    p.evaluate("localStorage.removeItem('yuika-mail-job-v1:synthetic')")
-   p.locator('#parent-exit').click();p.wait_for_function('()=>!YuikaParent.active')
+   p.locator('#parent-exit').click();p.wait_for_function('()=>window.YuikaParent&&!YuikaParent.active')
    assert p.evaluate("Object.keys(sessionStorage).filter(k=>k.startsWith('yuika-parent-check-v1')).length")==0
    assert p.locator('#parent-check-banner').count()==0
    if app not in ('index.html','mock-focus-review.html'):

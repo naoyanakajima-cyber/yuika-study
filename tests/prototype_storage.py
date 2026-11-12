@@ -100,7 +100,7 @@ try:
     assert page.evaluate('localStorage.getItem(KEY)')==old_snapshot
    # Old malformed storage is separate from a malformed trial store.
    page.evaluate("localStorage.setItem(LEGACY_KEY,'old-invalid');localStorage.removeItem(KEY)")
-   page.reload();assert not page.evaluate('blocked')
+   page.reload();assert not page.evaluate('blocked');page.evaluate('prototypeScience?analysis():parent()')
    assert '元の保存先のJSONは読み取れません' in page.locator('#prototype-notice').inner_text()
    page.evaluate("localStorage.setItem(KEY,'trial-invalid')");page.reload();assert page.evaluate('blocked')
    page.evaluate('records()')

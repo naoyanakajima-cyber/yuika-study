@@ -65,7 +65,7 @@ with sync_playwright() as pw:
  q=p.evaluate('run.qs[run.index]');expect(p.locator('h1.question')).to_contain_text(f"「{q['answer']}」の読み")
  p.locator('#response').fill(q['readings'][0]);p.locator('#check').click();expect(p.locator('#feedback')).to_contain_text('できたね')
  p.on('dialog',lambda d:d.accept());p.locator('#end').click()
- p.locator('[data-view=parent]').click();expect(p.locator('table')).to_contain_text('村の自治')
+ p.locator('.unit-footer a').click();expect(p.locator('table')).to_contain_text('村の自治')
  assert not errors,errors
  b.close()
 print('onin-review: all checks passed')

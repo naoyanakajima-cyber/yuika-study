@@ -69,7 +69,7 @@ try:
      assert(!candidates('wrong').some(o=>o.id===q.id),'original wrong filter sees recovery');
      data.events=[recovered];home();
      assert(!candidates('unseen').some(o=>o.id===q.id),'extra-only record counts as seen');
-     assert(document.querySelectorAll('.stat strong')[1].textContent.trim().startsWith('1'),'seen total maps origin');
+     assert(document.querySelectorAll('.stat strong')[0].textContent.trim().startsWith('1'),'completed total maps origin');
      if(typeof UNIT_ID==='undefined'){
       for(const course of ['memory','pairs','flow','reason']){
        const question=QUESTIONS.find(o=>o.course===course);

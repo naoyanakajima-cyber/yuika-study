@@ -126,3 +126,17 @@ Use Codex Cloud; development must not depend on a local PC remaining online.
 - Existing-record cleanup is an explicit exception to sandbox isolation: the
   parent banner exposes a timestamp, preview count and confirmation. Use
   synthetic data in tests; never delete the user's records during development.
+
+## Shared design C
+
+- 新しいページは共通デザインを使う。Read `assets/design.css` and
+  `assets/design.js`; load both assets and use their buttons, cards, headers,
+  subject colors and M PLUS Rounded 1c (500/700/800). Do not add emoji icons.
+- Presentation changes must preserve question IDs, grading, selection, storage
+  formats and notification configuration. Keep the parent verification banner.
+- After question or review projection changes, run
+  `python scripts/design/build_summary.py`. The generated home summary reuses
+  existing read-only review projections; do not add a separate review algorithm.
+- After standalone HTML generators, run `python scripts/design/embed.py`,
+  then `python scripts/parent/embed.py`. Keep the parent boundary before all
+  scripts, including shared assets. The focus generator also follows this order.
