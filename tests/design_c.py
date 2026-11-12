@@ -87,6 +87,48 @@ with ThreadingHTTPServer(('127.0.0.1',0),partial(Quiet,directory=str(ROOT))) as 
       const summary=YuikaDesign.summary(location.pathname.split('/').pop());
       if(!summary||summary.correct!==1||summary.due!==(science?scienceDue():dueReviews()).length||summary.weakCount!==(science?scienceWeak():additional()).length)throw Error('Home counts disagree with existing review engine');
       if(summary.due!==1||summary.weakCount!==1||summary.normalCount!==3)throw Error('Synthetic due / weak / normal breakdown');
+      // The home adapter must accept/reject the same stored history as this
+      // unit, including duplicate identity, historical grading and old data.
+      const original=YuikaParent.storage.getItem(KEY),valid=JSON.parse(original);
+      const checkState=value=>science?validateState(value):validate(value);
+      const invalid=[
+       '', '{', JSON.stringify({events:[]}),
+       JSON.stringify({...valid,datasetVersion:'synthetic-future'}),
+       JSON.stringify({...valid,events:[{...valid.events[0],questionId:'unknown-question'}]}),
+       JSON.stringify({...valid,events:[{...valid.events[0],correct:!valid.events[0].correct}]}),
+       JSON.stringify({...valid,events:[{...valid.events[0],questionVersion:999999}]}),
+       JSON.stringify({...valid,events:[valid.events[0],{...valid.events[0],sessionId:'different-synthetic-session'}]})
+      ];
+      if(science)invalid.push(JSON.stringify({...valid,legacy:[{raw:'{}',capturedAt:new Date().toISOString()}]}));
+      const store=YuikaParent.storage,set=store.setItem,remove=store.removeItem;
+      let writes=0;
+      try{
+       for(const raw of invalid){
+        set.call(store,KEY,raw);
+        let rejected=false;try{checkState(JSON.parse(raw));}catch{rejected=true;}
+        if(!rejected)throw Error('Invalid regression fixture was accepted by the unit');
+        store.setItem=()=>{writes++;throw Error('Summary must not write');};
+        store.removeItem=()=>{writes++;throw Error('Summary must not delete');};
+        if(YuikaDesign.summary(location.pathname.split('/').pop())!==null)throw Error('Invalid history shown as valid home counts');
+        if(store.getItem(KEY)!==raw)throw Error('Invalid raw changed');
+        store.setItem=set;store.removeItem=remove;
+       }
+       const duplicate={...valid,events:[...valid.events,valid.events[0]]};
+       set.call(store,KEY,JSON.stringify(duplicate));
+       const duplicateSummary=YuikaDesign.summary(location.pathname.split('/').pop());
+       if(!duplicateSummary||duplicateSummary.correct!==summary.correct||duplicateSummary.dueCount!==summary.dueCount||duplicateSummary.weakCount!==summary.weakCount)throw Error('Valid duplicate identity changed summary');
+       if(writes)throw Error('Summary attempted a storage mutation');
+       set.call(store,KEY,original);
+       const prefKey=KEY+'-preferences-v1',oldPrefs=store.getItem(prefKey);
+       try{
+        const invalidVariants=location.pathname.includes('heian')?['yomi']:location.pathname.includes('mock-focus')?['kanji','yomi']:[];
+        for(const variant of invalidVariants){
+         set.call(store,prefKey,JSON.stringify({count:5,course:'all',unit:'all',variant}));
+         const restored=YuikaDesign.summary(location.pathname.split('/').pop());
+         if(!restored||restored.dueCount!==summary.dueCount||restored.weakCount!==summary.weakCount||restored.normalCount!==summary.normalCount)throw Error('Unsupported saved variant must fall back to normal');
+        }
+       }finally{if(oldPrefs===null)remove.call(store,prefKey);else set.call(store,prefKey,oldPrefs);}
+      }finally{store.setItem=set;store.removeItem=remove;set.call(store,KEY,original);}
       home();
      }''')
     p.locator('#start').click();expect(p.locator('#check')).to_be_visible()
