@@ -92,7 +92,7 @@ with sync_playwright() as pw:
   return 'ナショナルトラスト'
  before=len(received)
  for i in range(4):
-  if i in [0,3]:p.get_by_role('button',name='🤔 わからない',exact=True).click()
+  if i in [0,3]:p.get_by_role('button',name='わからない',exact=True).click()
   else:p.locator('input[placeholder="答えを入力…"]').fill(flash_expected());p.get_by_role('button',name='答え合わせ',exact=True).click()
   p.get_by_role('button',name='次のカード',exact=False).or_(p.get_by_role('button',name='結果を見る',exact=False)).click()
  p.locator('input[placeholder="答えを入力…"]').wait_for();assert len(received)==before

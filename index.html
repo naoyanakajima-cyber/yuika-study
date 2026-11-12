@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" data-subject="all">
 <head>
 
   <meta charset="UTF-8" />
@@ -8,13 +8,13 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="apple-mobile-web-app-title" content="ゆいかの学習帳" />
   <title>ゆいかの学習帳</title>
-  <link rel="apple-touch-icon" href="data:image/svg+xml;charset=utf-8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23FFE0EB'/><text x='50' y='68' text-anchor='middle' font-size='55'>💖</text></svg>" />
+  <link rel="apple-touch-icon" href="data:image/svg+xml;charset=utf-8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23FFE0EB'/><text x='50' y='68' text-anchor='middle' font-size='55'></text></svg>" />
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     body { background: #FFF5F7; overflow-x: hidden; -webkit-text-size-adjust: 100%; }
     input { -webkit-appearance: none; appearance: none; }
   </style>
-<!-- YUIKA_PARENT_BEGIN -->
+<link rel="stylesheet" href="assets/design.css"><!-- YUIKA_PARENT_BEGIN -->
 <script>
 /* Parent-only URL entry. Loaded before every application/notification script. */
 (()=>{
@@ -107,6 +107,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 
 </script>
 <!-- YUIKA_PARENT_END -->
+<script src="assets/design.js"></script><script src="assets/progress.js"></script>
 </head>
 <body>
 <!-- YUIKA_REPORTS_BEGIN -->
@@ -121,7 +122,7 @@ function config(){try{return JSON.parse(window.YuikaParent.storage.getItem(CONFI
 function store(job){memory.set(job.report?.id||job.id,job);try{window.YuikaParent.storage.setItem(PREFIX+(job.report?.id||job.id),JSON.stringify(job));return true;}catch{last='通知の保留データを保存できません。この画面を閉じる前に接続を確認してください。学習記録の保存状況も確認してください。';return false;}}
 function jobs(){const all=new Map(memory);try{for(let i=0;i<window.YuikaParent.storage.length;i++){const k=window.YuikaParent.storage.key(i);if(k?.startsWith(PREFIX)){try{const v=JSON.parse(window.YuikaParent.storage.getItem(k));if(v&&typeof v.id==='string'&&!all.has(v.id))all.set(v.id,v);}catch{last='読み取れない通知記録があります。上書きせず保管しています。';}}}}catch{}return [...all.values()];}
 function show(){const el=document.getElementById('yuika-mail-status');if(!el)return;const cfg=config(),pending=jobs().filter(j=>j.status!=='accepted').length;
- el.textContent=last||(!cfg?.enabled?'自動メールは未接続です。接続後のチャレンジから通知します。':`自動メール：${cfg.recipient}。${pending?`保留 ${pending}件。アプリを開いている間に再試行します。`:'通知の保留はありません。'}`);
+ el.textContent=last||(!cfg?.enabled?'自動メールは未接続です。接続後のチャレンジから通知します。':`自動メールは接続済みです。${pending?`保留 ${pending}件。アプリを開いている間に再試行します。`:'通知の保留はありません。'}`);
 }
 function schedule(){clearTimeout(timer);timer=setTimeout(()=>flush(),60_000);}
 async function process(){if(window.YuikaParent.suppress())return;const cfg=config();if(!cfg?.enabled||!navigator.onLine){show();return;}
@@ -207,18 +208,25 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 // ============================================================
 
 // --- FONTS ---
-const FONT_LINK = "https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700;900&family=Noto+Sans+JP:wght@400;700;900&display=swap";
+const FONT_LINK = "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap";
 
 // --- THEME (恋の呼吸: 蜜璃カラー ライトモード) ---
+const cssColor=name=>getComputedStyle(document.documentElement).getPropertyValue(name).trim();
 const T = {
-  bg: "#FFF5F7", bgMid: "#FFF0F3", bgDeep: "#FFEBEF",
-  pink: "#E84887", pinkLight: "#FF6B9D", pinkPale: "#FFB6C1",
-  green: "#4CAF50", greenLight: "#7BC67E",
-  gold: "#FFD700", white: "#FFFFFF", smoke: "rgba(232,72,135,0.05)",
-  text: "#3D2B33", textDim: "rgba(61,43,51,0.6)", textMuted: "rgba(61,43,51,0.3)",
-  correct: "#4CAF50", wrong: "#E53935", dunno: "#FF9800",
-  card: "#FFFFFF",
+  bg:cssColor('--bg'),bgMid:cssColor('--bg'),bgDeep:cssColor('--bg'),
+  pink:cssColor('--ink'),pinkLight:cssColor('--ink'),pinkPale:cssColor('--muted'),
+  green:cssColor('--science-text'),greenLight:'#E4F5F2',gold:'#A24E17',white:'#FFFFFF',smoke:'#FFFFFF',
+  text:cssColor('--ink'),textDim:cssColor('--muted'),textMuted:cssColor('--muted'),
+  correct:'#146660',wrong:'#A12636',dunno:'#A24E17',card:'#FFFFFF',
 };
+function LineIcon({name}){return <span aria-hidden="true" dangerouslySetInnerHTML={{__html:window.YuikaDesign.icon(name)}}/>;}
+function subjectStyle(subject){const [color,ink,pale]=window.YuikaDesign.subjects[subject];return {'--unit-color':color,'--unit-text':ink,'--chip-bg':pale,'--chip-ink':ink};}
+function startHomeDaily(){
+ let unit="onin-review.html";
+ try{const saved=window.YuikaParent.storage.getItem("yuika-prototype-v1:last-daily-unit");if(["onin-review.html","kamakura-review.html","heian-review.html","yuika-review-v2.html","mock-focus-review.html"].includes(saved))unit=saved;}catch(e){}
+ window.YuikaParent.navigate(unit+"?daily=1");
+}
+
 
 // --- CSS Keyframes (injected once) ---
 const STYLE_ID = "yuika-app-styles";
@@ -267,7 +275,7 @@ function injectStyles() {
 // --- QUESTION DATA ---
 const UNITS = [
   {
-    subject: "理科", subjectIcon: "🔬", subjectColor: "#4fc3f7",
+    subject: "理科", subjectIcon: "", subjectColor: "#4fc3f7",
     id: "rika-weather", name: "天気", textbook: "小5・中学受験向けオリジナル · 基本10問＋標準5問",
     quizDescription: "基本と標準をひと通り確認", strictFlashAnswers: true,
     quizQuestions: [
@@ -288,7 +296,7 @@ const UNITS = [
       { id:815, category:"標準・天気図から予想", type:"multi_choice", question:"春の天気図で、ある町の西に低気圧と雨雲がありました。それらがそのまま東へ進んで町を通るとき、町の天気はどう変わると考えられますか？", hint:"低気圧の名前だけでなく、雨雲の位置と進む向きを見ます。", options:[{text:"雨雲は町から遠ざかるので、必ず晴れ続ける",correct:false},{text:"町は必ず雪になる",correct:false},{text:"雨雲が近づくので、雨が降ると予想できる",correct:true},{text:"天気図からは雨雲の動きを全く考えられない",correct:false}], explanation:"町の西にある雨雲が東へ進んで町を通るので、雨が降ると予想できます。実際の予報では、雨雲の発達・消滅や速さも確かめます。ここでは問題に示された進み方をもとに考えます。" },
     ],
     flashDecks: [
-      { name:"天気の基本用語", icon:"🌦️", color:"#0288D1", cards:[
+      { name:"天気の基本用語", icon:"", color:"#0288D1", cards:[
         {q:"雲をつくる細かい粒は、水滴と何の粒？",a:"氷",alt:["こおり"]},
         {q:"風向は、風が吹いてくる方角？向かう方角？",a:"吹いてくる方角",alt:["吹いてくる方向","吹いてくる","ふいてくるほうがく"]},
         {q:"気温を測るとき、直射日光は当てる？さえぎる？",a:"さえぎる",alt:["遮る"]},
@@ -303,7 +311,7 @@ const UNITS = [
     ],
   },
   {
-    subject: "社会", subjectIcon: "🌍", subjectColor: T.green,
+    subject: "社会", subjectIcon: "", subjectColor: T.green,
     id: "shakai-japan-land-climate", name: "日本の地形・気候", textbook: "小5・中学受験向けオリジナル · 基本10問＋標準5問",
     quizDescription: "基本と標準をひと通り確認", strictFlashAnswers: true,
     quizQuestions: [
@@ -324,7 +332,7 @@ const UNITS = [
       { id:915, category:"標準・気温差の比較", type:"multi_choice", question:"1月と8月の平均気温の差が大きい地点と、その差の組み合わせはどれですか？", hint:"それぞれ、8月の気温から1月の気温を引いて比べましょう。", table:{caption:"2地点の月平均気温（学習用の仮のデータ）",headers:["地点","1月","8月"],rows:[["A","2℃","26℃"],["B","7℃","27℃"]]}, options:[{text:"B、34℃",correct:false},{text:"A、28℃",correct:false},{text:"B、20℃",correct:false},{text:"A、24℃",correct:true}], explanation:"Aは26−2＝24℃、Bは27−7＝20℃なので、差が大きいのはAです。内陸は海沿いより夏と冬の気温差が大きくなる傾向がありますが、この表だけで各地点の位置までは断定できません。" },
     ],
     flashDecks: [
-      { name:"地形・気候の基本用語", icon:"🗾", color:T.green, cards:[
+      { name:"地形・気候の基本用語", icon:"", color:T.green, cards:[
         {q:"日本で最も広い平野は？",a:"関東平野",alt:["かんとうへいや"]},
         {q:"日本で最も長い川は？",a:"信濃川",alt:["しなのがわ"]},
         {q:"日本で流域面積が最も広い川は？",a:"利根川",alt:["とねがわ"]},
@@ -338,12 +346,12 @@ const UNITS = [
       ]},
     ],
   },
-  {subject:"社会",subjectIcon:"🌍",subjectColor:T.green,id:"mock-focus",name:"模試の弱点対策（社会・理科・算数・国語）",textbook:"重点分野 · 46問（オリジナル）",externalPage:"mock-focus-review.html",externalNote:"根拠・解説 / 弱点分析 / 再確認 / 今日の5問",quizQuestions:[],flashDecks:[]},
-  {subject:"社会",subjectIcon:"🌍",subjectColor:T.green,id:"sapix-540-25",name:"鎌倉幕府の成立（平安〜鎌倉時代）",textbook:"540-25 · 38問（用語・しくみ・つながり）",externalPage:"kamakura-review.html",externalNote:"5・10・15問 / 漢字・読み確認 / 復習 / 保護者のノート",quizQuestions:[],flashDecks:[]},
-  {subject:"社会",subjectIcon:"🌍",subjectColor:T.green,id:"sapix-540-27",name:"応仁の乱（室町時代）",textbook:"540-27 · 30問（用語・理由・つながり）",externalPage:"onin-review.html",externalNote:"5・10・15問 / 漢字・読み確認 / 復習 / 保護者のノート",quizQuestions:[],flashDecks:[]},
-  {subject:"社会",subjectIcon:"🌍",subjectColor:T.green,id:"shakai-heian-540-24",name:"貴族の世の中（平安時代）",textbook:"540-24 · 暗記50問＋理解25問",externalPage:"heian-review.html",quizQuestions:[],flashDecks:[]},
+  {subject:"社会",subjectIcon:"",subjectColor:T.green,id:"mock-focus",name:"模試の弱点対策（社会・理科・算数・国語）",textbook:"重点分野 · 46問（オリジナル）",externalPage:"mock-focus-review.html",externalNote:"根拠・解説 / 弱点分析 / 再確認 / 今日の5問",quizQuestions:[],flashDecks:[]},
+  {subject:"社会",subjectIcon:"",subjectColor:T.green,id:"sapix-540-25",name:"鎌倉幕府の成立（平安〜鎌倉時代）",textbook:"540-25 · 38問（用語・しくみ・つながり）",externalPage:"kamakura-review.html",externalNote:"5・10・15問 / 漢字・読み確認 / 復習 / 保護者のノート",quizQuestions:[],flashDecks:[]},
+  {subject:"社会",subjectIcon:"",subjectColor:T.green,id:"sapix-540-27",name:"応仁の乱（室町時代）",textbook:"540-27 · 30問（用語・理由・つながり）",externalPage:"onin-review.html",externalNote:"5・10・15問 / 漢字・読み確認 / 復習 / 保護者のノート",quizQuestions:[],flashDecks:[]},
+  {subject:"社会",subjectIcon:"",subjectColor:T.green,id:"shakai-heian-540-24",name:"貴族の世の中（平安時代）",textbook:"540-24 · 暗記50問＋理解25問",externalPage:"heian-review.html",quizQuestions:[],flashDecks:[]},
   {
-    subject: "社会", subjectIcon: "🌍", subjectColor: T.green,
+    subject: "社会", subjectIcon: "", subjectColor: T.green,
     id: "shakai-env",
     name: "環境問題・公害",
     textbook: "H54-01 / H54-02",
@@ -360,28 +368,28 @@ const UNITS = [
       { id:10, category:"記述の型", type:"fill_blanks", question:"「18世紀後半以降にCO₂が急増した理由」の記述を完成させましょう。", hint:"18世紀後半に何が始まった？", template:"18世紀後半に（　①　）が起こり、（　②　）が大量に使われるようになったから。", blanks:[{id:"①",correct:"産業革命",options:["産業革命","フランス革命","明治維新","市民革命"]},{id:"②",correct:"化石燃料",options:["化石燃料","原子力","木材","太陽光"]}], explanation:"産業革命 → 化石燃料の大量消費 → CO₂急増。「産業革命」は必ず書くキーワード！" },
     ],
     flashDecks: [
-      { name:"環境問題と原因", icon:"🌍", color:T.green, cards:[
+      { name:"環境問題と原因", icon:"", color:T.green, cards:[
         {q:"オゾン層の破壊の原因は？",a:"フロンガス"},{q:"地球温暖化の主な原因となる気体は？",a:"二酸化炭素"},{q:"酸性雨の原因物質①は？",a:"硫黄酸化物"},{q:"酸性雨の原因物質②は？",a:"窒素酸化物"},{q:"熱帯雨林減少の主な原因は？",a:"大規模な伐採"},{q:"砂漠化の原因①（家畜関連）は？",a:"過放牧"},{q:"砂漠化の原因②（農業関連）は？",a:"過度な耕作"},
       ]},
-      { name:"国際会議", icon:"🏛️", color:"#1565C0", cards:[
+      { name:"国際会議", icon:"", color:"#1565C0", cards:[
         {q:"1972年の国連人間環境会議の開催都市は？",a:"ストックホルム"},{q:"国連人間環境会議の開催国は？",a:"スウェーデン"},{q:"1992年の地球サミットの開催都市は？",a:"リオデジャネイロ"},{q:"地球サミットの開催国は？",a:"ブラジル"},{q:"2002年の環境開発サミットの開催都市は？",a:"ヨハネスブルグ"},{q:"環境開発サミットの開催国は？",a:"南アフリカ"},{q:"2015年のCOP21で採択されたものは？",a:"パリ協定"},{q:"1997年に京都で採択された議定書は？",a:"京都議定書"},
       ]},
-      { name:"条約・制度", icon:"📜", color:T.pinkLight, cards:[
+      { name:"条約・制度", icon:"", color:T.pinkLight, cards:[
         {q:"湿地と水鳥の生息地を守る条約は？",a:"ラムサール条約"},{q:"世界遺産条約を進める国連機関は？",a:"ユネスコ"},{q:"絶滅のおそれのある動植物の取引を規制する条約は？",a:"ワシントン条約"},{q:"市民が自然や歴史的環境を保護する運動を何という？",a:"ナショナルトラスト"},
       ]},
-      { name:"自然遺産", icon:"🏔️", color:"#00695C", cards:[
+      { name:"自然遺産", icon:"", color:"#00695C", cards:[
         {q:"白神山地がある県は？（2つのうち1つ）",a:"青森県"},{q:"白神山地の世界遺産登録年は？",a:"1993年"},{q:"屋久島がある県は？",a:"鹿児島県"},{q:"屋久島の世界遺産登録年は？",a:"1993年"},{q:"知床がある都道府県は？",a:"北海道"},{q:"知床の世界遺産登録年は？",a:"2005年"},{q:"小笠原諸島がある都道府県は？",a:"東京都"},{q:"小笠原諸島の登録年は？",a:"2011年"},{q:"日本最大の湿原は？",a:"釧路湿原"},
       ]},
-      { name:"四大公害", icon:"⚠️", color:T.pink, cards:[
+      { name:"四大公害", icon:"", color:T.pink, cards:[
         {q:"水俣病の原因物質は？",a:"有機水銀"},{q:"水俣病が発生した県は？",a:"熊本県"},{q:"四日市ぜんそくの原因は？",a:"亜硫酸ガス"},{q:"イタイイタイ病の原因物質は？",a:"カドミウム"},{q:"イタイイタイ病が発生した川は？",a:"神通川"},{q:"新潟水俣病が発生した川は？",a:"阿賀野川"},{q:"1967年に制定された公害対策の法律は？",a:"公害対策基本法"},
       ]},
-      { name:"データ・数値", icon:"📊", color:T.dunno, cards:[
+      { name:"データ・数値", icon:"", color:T.dunno, cards:[
         {q:"2022年の温室効果ガス排出量1位の国は？",a:"中国",alt:["中華人民共和国"]},{q:"2022年の中国の排出割合は約何%？",a:"29.7%"},{q:"2022年の日本の排出割合は約何%？",a:"2.6%"},{q:"CO₂が急増し始めたきっかけ（18世紀後半）は？",a:"産業革命"},{q:"2022年の世界の排出量合計は？",a:"約384億トン"},
       ]},
     ],
   },
   {
-    subject: "理科", subjectIcon: "🔬", subjectColor: "#4fc3f7",
+    subject: "理科", subjectIcon: "", subjectColor: "#4fc3f7",
     id: "rika-earth-sun",
     name: "地球と太陽",
     textbook: "地理クイズ",
@@ -408,16 +416,16 @@ const UNITS = [
       { id:120, category:"季節と地軸", type:"order", question:"太陽の南中高度を高い順に並べましょう（北緯36度の場合）。", hint:"夏至が一番高くて、冬至が一番低い", items:["冬至（30.6度）","春分・秋分（54度）","夏至（77.4度）"], correctOrder:[2,1,0], explanation:"夏至 77.4度 → 春分・秋分 54度 → 冬至 30.6度。\n地軸の傾き23.4度が季節ごとの高度差を生む！" },
     ],
     flashDecks: [
-      { name:"自転・公転", icon:"🔄", color:"#4fc3f7", cards:[
+      { name:"自転・公転", icon:"", color:"#4fc3f7", cards:[
         {q:"地球の自転の向きは？（北極上から見て）",a:"反時計回り"},{q:"地球の公転の向きは？",a:"反時計回り"},{q:"自転の周期は約何時間？",a:"24時間"},{q:"公転の周期は約何日？",a:"365日"},{q:"太陽が東から昇るのは地球がどっちに自転するから？",a:"西から東"},
       ]},
-      { name:"経度・時差", icon:"🌐", color:"#ffb74d", cards:[
+      { name:"経度・時差", icon:"", color:"#ffb74d", cards:[
         {q:"日本の標準時子午線は東経何度？",a:"135度"},{q:"標準時子午線が通る都市は？",a:"明石市"},{q:"経度15度＝何時間の時差？",a:"1時間"},{q:"経度1度＝何分の時差？",a:"4分"},{q:"本初子午線（経度0度）がある国は？",a:"イギリス"},
       ]},
-      { name:"季節と地軸", icon:"🌸", color:"#81c784", cards:[
+      { name:"季節と地軸", icon:"", color:"#81c784", cards:[
         {q:"地軸の傾きは約何度？",a:"23.4度"},{q:"北半球が夏至のとき南半球は？",a:"冬至"},{q:"夏至の日の出の方角は？（日本）",a:"北東"},{q:"冬至の日の出の方角は？（日本）",a:"南東"},{q:"春分・秋分の日の出の方角は？",a:"真東"},
       ]},
-      { name:"南中高度の公式", icon:"☀️", color:"#ce93d8", cards:[
+      { name:"南中高度の公式", icon:"", color:"#ce93d8", cards:[
         {q:"春分・秋分の南中高度の公式は？",a:"90° − 緯度"},{q:"夏至の南中高度の公式は？",a:"90° − 緯度 + 23.4°"},{q:"冬至の南中高度の公式は？",a:"90° − 緯度 − 23.4°"},{q:"赤道での春分の南中高度は何度？",a:"90度"},{q:"北緯36度・夏至の南中高度は？",a:"77.4度"},{q:"北緯36度・冬至の南中高度は？",a:"30.6度"},
       ]},
     ],
@@ -426,7 +434,7 @@ const UNITS = [
   //  2026/4/6 新規追加（難易度UP版）
   // ============================================================
   {
-    subject: "社会", subjectIcon: "🌍", subjectColor: "#4CAF50",
+    subject: "社会", subjectIcon: "", subjectColor: "#4CAF50",
     id: "shakai-inga-0406",
     name: "因果記述トレーニング（4/6）",
     textbook: "記述対策",
@@ -439,13 +447,13 @@ const UNITS = [
       { id:206, category:"因果記述", type:"fill_blanks", question:"3R（リデュース・リユース・リサイクル）のうち、最も優先すべきものとその理由を完成させよう。", hint:"ごみをそもそも出さないことが一番大事", template:"3Rの中で最も優先すべきは（　①　）（ごみを減らすこと）である。なぜなら、（　②　）自体を減らすことが、資源の（　③　）や環境への負担を最も効果的に減らせるからである。", blanks:[{id:"①",correct:"リデュース",options:["リデュース","リユース","リサイクル","リフューズ","リペア","リターン"]},{id:"②",correct:"ごみ",options:["ごみ","費用","時間","労力","電力","人口"]},{id:"③",correct:"消費",options:["消費","生産","輸出","開発","汚染","回収"]}], explanation:"3Rの優先順位：リデュース＞リユース＞リサイクル。「そもそもごみを出さない」のが最も効果的。" },
     ],
     flashDecks: [
-      { name:"因果記述キーワード", icon:"✏️", color:"#4CAF50", cards:[
+      { name:"因果記述キーワード", icon:"", color:"#4CAF50", cards:[
         {q:"高度経済成長で工業製品の価格はどうなった？",a:"下がった"},{q:"大量消費で不足するものは？",a:"最終処分場"},{q:"リサイクルのために消費者がやることは？",a:"分別"},{q:"火力発電で排出される温暖化の原因物質は？",a:"二酸化炭素"},{q:"原発事故で広がる危険な物質は？",a:"放射性物質"},{q:"3Rで最も優先すべきものは？",a:"リデュース"},{q:"3Rの「リユース」の意味は？",a:"再利用"},{q:"3Rの「リサイクル」の意味は？",a:"再資源化"},
       ]},
     ],
   },
   {
-    subject: "理科", subjectIcon: "🔬", subjectColor: "#4fc3f7",
+    subject: "理科", subjectIcon: "", subjectColor: "#4fc3f7",
     id: "rika-sun-marubatsu-0406",
     name: "太陽の動き ○×（4/6）",
     textbook: "○×チェック",
@@ -462,13 +470,13 @@ const UNITS = [
       { id:310, category:"計算", type:"multi_choice", question:"北緯36度の夏至の南中高度は77.4度。では冬至の南中高度は？", hint:"夏至と冬至の差は23.4°×2＝46.8°", options:[{text:"30.6度",correct:true},{text:"54度",correct:false},{text:"46.8度",correct:false},{text:"77.4度のまま変わらない",correct:false}], explanation:"冬至＝90−36−23.4＝30.6度。54度は春分・秋分の値。夏至との差は23.4×2＝46.8度になる。" },
     ],
     flashDecks: [
-      { name:"太陽の動き", icon:"☀️", color:"#4fc3f7", cards:[
+      { name:"太陽の動き", icon:"", color:"#4fc3f7", cards:[
         {q:"南中時刻を決めるのは？",a:"経度"},{q:"南中高度を決めるのは？",a:"緯度"},{q:"春分の日の出の方角は？",a:"真東"},{q:"冬至の日の出の方角は？",a:"南東"},{q:"夏至の日の出の方角は？",a:"北東"},{q:"冬至の日の入りの方角は？",a:"南西"},{q:"緯度が高いほど昼の長さの変化は？",a:"大きい"},{q:"夏至に昼が長いのは北海道と沖縄どちら？",a:"北海道"},{q:"北緯36度の春分の南中高度は？",a:"54度"},{q:"北緯36度の冬至の南中高度は？",a:"30.6度"},
       ]},
     ],
   },
   {
-    subject: "理科", subjectIcon: "🔬", subjectColor: "#4fc3f7",
+    subject: "理科", subjectIcon: "", subjectColor: "#4fc3f7",
     id: "rika-hatsuden-0406",
     name: "発電のしくみ（4/6）",
     textbook: "エネルギー",
@@ -481,10 +489,10 @@ const UNITS = [
       { id:406, category:"応用", type:"multi_choice", question:"日本のエネルギー問題を解決するために最も重要なのはどれ？", hint:"1つだけに頼らないことが大事", options:[{text:"火力発電だけを増やす",correct:false},{text:"原子力発電だけに切り替える",correct:false},{text:"多様な発電方法を組み合わせる（エネルギーミックス）",correct:true},{text:"すべての発電をやめて輸入電力に頼る",correct:false}], explanation:"どの発電方法にも長所と短所がある。だからこそ「エネルギーミックス」＝多様な方法を組み合わせることが重要。これは入試でも頻出の考え方。" },
     ],
     flashDecks: [
-      { name:"発電方式の良い点", icon:"⚡", color:"#4CAF50", cards:[
+      { name:"発電方式の良い点", icon:"", color:"#4CAF50", cards:[
         {q:"火力発電の良い点は？",a:"需要に応じた調整"},{q:"水力発電の良い点は？（エネルギーの種類）",a:"再生可能"},{q:"原子力発電の良い点は？（燃料の量）",a:"少ない燃料で大量の電力"},{q:"太陽光・風力の良い点は？（排出物）",a:"CO₂を出さない"},{q:"太陽光・風力の良い点は？（資源）",a:"枯渇しない"},
       ]},
-      { name:"発電方式の悪い点", icon:"⚠️", color:"#E53935", cards:[
+      { name:"発電方式の悪い点", icon:"", color:"#E53935", cards:[
         {q:"火力発電の悪い点は？（排出物）",a:"二酸化炭素"},{q:"水力発電の悪い点は？（建設の影響）",a:"自然環境の破壊"},{q:"原子力発電の悪い点①は？（事故時）",a:"放射性物質"},{q:"原子力発電の悪い点②は？（燃料の処理）",a:"使用済み燃料の処分"},{q:"太陽光・風力の悪い点は？（安定性）",a:"不安定"},{q:"日本が火力に頼るリスクの原因は？",a:"燃料を輸入に頼っている"},{q:"多様な発電を組み合わせることを何という？",a:"エネルギーミックス"},
       ]},
     ],
@@ -493,7 +501,7 @@ const UNITS = [
   //  2026/4/7 新規追加
   // ============================================================
   {
-    subject: "理科", subjectIcon: "🔬", subjectColor: "#4fc3f7",
+    subject: "理科", subjectIcon: "", subjectColor: "#4fc3f7",
     id: "rika-plant-0407",
     name: "植物のはたらき（4/7）",
     textbook: "光合成・蒸散・分類",
@@ -515,13 +523,13 @@ const UNITS = [
       { id:515, category:"植物の分類", type:"multi_select", question:"単子葉類をすべて選びなさい。", hint:"葉脈が平行、根がひげ根、花は3の倍数", options:[{text:"イネ",correct:true},{text:"トウモロコシ",correct:true},{text:"ユリ",correct:true},{text:"アサガオ",correct:false},{text:"サクラ",correct:false},{text:"ヒマワリ",correct:false}], explanation:"単子葉類：イネ・トウモロコシ・ユリ・チューリップ・ススキ。双子葉類：アサガオ・サクラ・ヒマワリ。見分け：平行脈＝単子葉、網目脈＝双子葉。" },
     ],
     flashDecks: [
-      { name:"光合成の基本", icon:"🌿", color:"#4CAF50", cards:[
+      { name:"光合成の基本", icon:"", color:"#4CAF50", cards:[
         {q:"光合成で作られる栄養分は？",a:"でんぷん"},{q:"でんぷんがあるとヨウ素液は何色？",a:"青紫色"},{q:"光合成が行われる場所（細胞内）は？",a:"葉緑体"},{q:"光合成で吸収する気体は？",a:"二酸化炭素"},{q:"光合成で放出する気体は？",a:"酸素"},{q:"対照実験で変える条件はいくつ？",a:"1つだけ"},
       ]},
-      { name:"蒸散と管", icon:"💧", color:"#29B6F6", cards:[
+      { name:"蒸散と管", icon:"", color:"#29B6F6", cards:[
         {q:"葉から水蒸気が出る現象は？",a:"蒸散"},{q:"水蒸気が出る穴は？",a:"気孔"},{q:"気孔はおもにどこに多い？",a:"葉の裏側"},{q:"水の通り道の管は？",a:"道管"},{q:"養分の通り道の管は？",a:"師管"},{q:"道管と師管をまとめて？",a:"維管束"},
       ]},
-      { name:"植物の分類", icon:"🌱", color:"#66BB6A", cards:[
+      { name:"植物の分類", icon:"", color:"#66BB6A", cards:[
         {q:"単子葉類の葉脈は？",a:"平行"},{q:"双子葉類の葉脈は？",a:"網目状"},{q:"単子葉類の根は？",a:"ひげ根"},{q:"双子葉類の根は？",a:"主根と側根"},{q:"チューリップの花びらは何枚？",a:"6枚"},{q:"イネは単子葉？双子葉？",a:"単子葉類"},{q:"呼吸で植物が出す気体は？",a:"二酸化炭素"},{q:"植物の呼吸はいつ行う？",a:"24時間"},
       ]},
     ],
@@ -530,7 +538,7 @@ const UNITS = [
   //  2026/4/8 新規追加
   // ============================================================
   {
-    subject: "理科", subjectIcon: "🔬", subjectColor: "#4fc3f7",
+    subject: "理科", subjectIcon: "", subjectColor: "#4fc3f7",
     id: "rika-sekitsui-0408",
     name: "セキツイ動物の分類（4/8）",
     textbook: "コアプラス 106〜120",
@@ -558,22 +566,22 @@ const UNITS = [
       { id:615, category:"見た目のワナ", type:"multi_choice", question:"次のうち、見た目と分類が一致しないのはどれ？", hint:"飛ぶから鳥、海にいるから魚…ではない！", options:[{text:"コウモリは空を飛ぶが哺乳類",correct:true},{text:"スズメは空を飛ぶ鳥類",correct:false},{text:"サケは水中にいる魚類",correct:false},{text:"カエルは水辺にいる両生類",correct:false}], explanation:"コウモリは翼があって飛ぶが、母乳で子を育てる哺乳類。シャチやクジラも海にいるが哺乳類。見た目にだまされないのがこの単元のポイント！" },
     ],
     flashDecks: [
-      { name:"哺乳類・鳥類", icon:"🦇", color:"#E84887", cards:[
+      { name:"哺乳類・鳥類", icon:"", color:"#E84887", cards:[
         {q:"胎児と母体をつなぐ管は？",a:"へそのお"},{q:"母体の子宮にできる栄養交換の器官は？",a:"胎盤"},{q:"哺乳類の子の育て方は？",a:"胎生＋母乳"},{q:"コウモリは何類？",a:"哺乳類"},{q:"シャチは何類？",a:"哺乳類"},{q:"クジラは何類？",a:"哺乳類"},{q:"カッコウが他の鳥の巣に卵を産む習性は？",a:"托卵"},
       ]},
-      { name:"ヤモリ vs イモリ", icon:"🦎", color:"#FF9800", cards:[
+      { name:"ヤモリ vs イモリ", icon:"", color:"#FF9800", cards:[
         {q:"ヤモリは何類？",a:"爬虫類"},{q:"イモリは何類？",a:"両生類"},{q:"「家守」はどっち？",a:"ヤモリ"},{q:"「井守」はどっち？",a:"イモリ"},{q:"卵に殻があるのは？",a:"ヤモリ（爬虫類）"},{q:"お腹が赤いのは？",a:"イモリ"},
       ]},
-      { name:"5分類の特徴", icon:"🐾", color:"#4fc3f7", cards:[
+      { name:"5分類の特徴", icon:"", color:"#4fc3f7", cards:[
         {q:"恒温動物は何類と何類？",a:"哺乳類と鳥類"},{q:"胎生の動物は何類だけ？",a:"哺乳類"},{q:"一生エラ呼吸なのは？",a:"魚類"},{q:"子どもエラ→大人は肺＋皮膚呼吸は？",a:"両生類"},{q:"体がうろこで覆われた陸上動物は？",a:"爬虫類"},{q:"卵に殻がある分類は？（2つ）",a:"鳥類と爬虫類"},
       ]},
-      { name:"卵のつくり", icon:"🥚", color:"#FFB74D", cards:[
+      { name:"卵のつくり", icon:"", color:"#FFB74D", cards:[
         {q:"卵でひなになる部分を何という？",a:"胚"},{q:"胚は卵のどこにある？",a:"黄身の表面"},{q:"黄身の役割は？",a:"栄養"},{q:"白身の役割は？",a:"クッション（保護）"},{q:"殻の役割は？",a:"保護＋空気を通す"},
       ]},
     ],
   },
   {
-    subject: "理科", subjectIcon: "🔬", subjectColor: "#4fc3f7",
+    subject: "理科", subjectIcon: "", subjectColor: "#4fc3f7",
     id: "rika-koten-hikage-0408",
     name: "公転と季節・日かげ曲線（4/8）",
     textbook: "デイリーステップ④",
@@ -600,16 +608,16 @@ const UNITS = [
       { id:715, category:"外来種", type:"multi_choice", question:"オオイヌノフグリやシロツメクサのように、もともと日本にいなかったが外国から入ってきた生物を何という？", hint:"「外」から「来」た", options:[{text:"外来種",correct:true},{text:"天然記念物",correct:false},{text:"絶滅危惧種",correct:false},{text:"帰化植物",correct:false}], explanation:"外来種＝外国から持ち込まれた生物。帰化植物は外来種の中で定着したもの。テストでは「外来種」が正解。" },
     ],
     flashDecks: [
-      { name:"用語の使い分け", icon:"📝", color:"#E84887", cards:[
+      { name:"用語の使い分け", icon:"", color:"#E84887", cards:[
         {q:"南中高度に使う言葉は？",a:"高い／低い"},{q:"昼の長さに使う言葉は？",a:"長い／短い"},{q:"太陽の弧に使う言葉は？",a:"大きい／小さい"},{q:"南中高度が最も高い日は？",a:"夏至"},{q:"南中高度が最も低い日は？",a:"冬至"},
       ]},
-      { name:"公転と季節", icon:"🌍", color:"#4fc3f7", cards:[
+      { name:"公転と季節", icon:"", color:"#4fc3f7", cards:[
         {q:"公転の向きは？（北極上から見て）",a:"反時計回り"},{q:"地軸の傾きは約何度？",a:"23.4度"},{q:"夏至の地球の位置は？（図2）",a:"B"},{q:"秋分の地球の位置は？（図2）",a:"D"},{q:"冬至の地球の位置は？（図2）",a:"C"},{q:"春分の地球の位置は？（図2）",a:"A"},{q:"公転の季節の順は？（春分から）",a:"A→B→D→C"},
       ]},
-      { name:"日かげ曲線", icon:"🕐", color:"#FF9800", cards:[
+      { name:"日かげ曲線", icon:"", color:"#FF9800", cards:[
         {q:"南中時に棒の影が指す方角は？",a:"北"},{q:"影は太陽のどちら側にできる？",a:"反対側"},{q:"影の先端の動く向きは？",a:"西→北→東"},{q:"夏至の日かげ曲線の特徴は？",a:"影が短い（棒に近い）"},{q:"冬至の日かげ曲線の特徴は？",a:"影が長い（棒から遠い）"},
       ]},
-      { name:"渡り鳥と外来種", icon:"🐦", color:"#66BB6A", cards:[
+      { name:"渡り鳥と外来種", icon:"", color:"#66BB6A", cards:[
         {q:"ツバメは夏鳥？冬鳥？留鳥？",a:"夏鳥"},{q:"カッコウは夏鳥？冬鳥？留鳥？",a:"夏鳥"},{q:"ハクチョウは夏鳥？冬鳥？留鳥？",a:"冬鳥"},{q:"スズメは夏鳥？冬鳥？留鳥？",a:"留鳥"},{q:"外国から入ってきた生物を何という？",a:"外来種"},
       ]},
     ],
@@ -731,10 +739,10 @@ async function loadFeedback() {
 function FeedbackBox({ question, answer, subject, unit }) {
   const [text, setText] = useState("");
   const [sent, setSent] = useState(false);
-  if (sent) return <div style={{fontSize:12,color:T.green,textAlign:"center",marginTop:8}}>✅ おくったよ！</div>;
+  if (sent) return <div style={{fontSize:12,color:T.green,textAlign:"center",marginTop:8}}> おくったよ！</div>;
   return (
     <div style={{marginTop:12}}>
-      <div style={{fontSize:12,color:T.textMuted,marginBottom:6}}>💬 この問題どう思った？（なおしてほしいときに書いてね）</div>
+      <div style={{fontSize:12,color:T.textMuted,marginBottom:6}}> この問題どう思った？（なおしてほしいときに書いてね）</div>
       <div style={{display:"flex",gap:8}}>
         <input type="text" value={text} onChange={e=>setText(e.target.value)}
           placeholder="例: 答えあってるのに×だった、意味がわからなかった…"
@@ -801,7 +809,7 @@ function SlashEffect({ show, streak }) {
           whiteSpace:"nowrap",
         }}>
           {KATA_NAMES[Math.min(streak - 1, 9)]}
-          {streak >= 3 && " 💕"}
+          {streak >= 3 && " "}
           {streak >= 5 && " きゅん！"}
         </div>
       )}
@@ -819,7 +827,7 @@ function SlashEffect({ show, streak }) {
 // --- SHARED BTN ---
 const btnPrimary = {
   width:"100%", padding:"14px", borderRadius:12, border:"none",
-  background:`linear-gradient(135deg, ${T.pink}, ${T.pinkLight})`,
+  background:T.text,
   color:"#fff", fontSize:17, fontWeight:700, cursor:"pointer",
   fontFamily:"'Zen Maru Gothic',sans-serif", marginTop:8,
 };
@@ -830,8 +838,8 @@ const btnDunno = {
   fontFamily:"'Zen Maru Gothic',sans-serif", marginTop:6,
 };
 const cardBase = {
-  background:T.card, borderRadius:20, border:`1px solid rgba(232,72,135,0.12)`,
-  overflow:"hidden", boxShadow:"0 2px 12px rgba(232,72,135,0.06)",
+  background:T.card, borderRadius:20, border:"none",
+  overflow:"hidden", boxShadow:"none",
 };
 
 // ============================================================
@@ -855,14 +863,14 @@ function OrderQ({ q, onAnswer }) {
         <span style={{ width:28,height:28,borderRadius:"50%",background:done?(q.correctOrder[pos]===idx?T.correct:T.wrong):T.textMuted,
           color:T.bg,display:"flex",alignItems:"center",justifyContent:"center",fontSize:14,fontWeight:700,flexShrink:0 }}>{pos+1}</span>
         <span>{q.items[idx]}</span>
-        {!done && <span style={{marginLeft:"auto",color:T.textMuted,fontSize:20}}>☰</span>}
+        {!done && <span style={{marginLeft:"auto",color:T.textMuted,fontSize:20}}></span>}
       </div>
     ))}
     {!done && <div style={{display:"flex",gap:6,flexWrap:"wrap",marginBottom:12,marginTop:8}}>
       {items.map((_,pos)=>(<button key={pos} onClick={()=>{if(pos<items.length-1)move(pos,pos+1);}}
         style={{padding:"6px 14px",borderRadius:8,border:`1px solid ${T.textMuted}`,background:"transparent",color:T.textDim,cursor:"pointer",fontSize:13,fontFamily:"'Noto Sans JP',sans-serif"}}>{pos+1}↓</button>))}
     </div>}
-    {!done && <><button onClick={check} style={btnPrimary}>答え合わせ</button><button onClick={dunno} style={btnDunno}>🤔 わからない（正解を見る）</button></>}
+    {!done && <><button onClick={check} style={btnPrimary}>答え合わせ</button><button onClick={dunno} style={btnDunno}> わからない（正解を見る）</button></>}
   </div>);
 }
 
@@ -893,7 +901,7 @@ function FillQ({ q, onAnswer }) {
           color:T.text,cursor:done?"default":"pointer",fontSize:15,fontFamily:"'Noto Sans JP',sans-serif",fontWeight:ans[b.id]===o?700:400}}>{o}</button>
       ))}</div>
     </div>))}
-    {!done && <><button onClick={check} disabled={Object.keys(ans).length<q.blanks.length} style={{...btnPrimary,opacity:Object.keys(ans).length<q.blanks.length?0.5:1}}>答え合わせ</button><button onClick={dunno} style={btnDunno}>🤔 わからない（正解を見る）</button></>}
+    {!done && <><button onClick={check} disabled={Object.keys(ans).length<q.blanks.length} style={{...btnPrimary,opacity:Object.keys(ans).length<q.blanks.length?0.5:1}}>答え合わせ</button><button onClick={dunno} style={btnDunno}> わからない（正解を見る）</button></>}
   </div>);
 }
 
@@ -921,7 +929,7 @@ function MatchQ({ q, onAnswer }) {
         }}>{r}</div>
       );})}</div>
     </div>
-    {!done && <><button onClick={check} disabled={Object.keys(sel).length<q.pairs.length} style={{...btnPrimary,opacity:Object.keys(sel).length<q.pairs.length?0.5:1}}>答え合わせ</button><button onClick={dunno} style={btnDunno}>🤔 わからない（正解を見る）</button></>}
+    {!done && <><button onClick={check} disabled={Object.keys(sel).length<q.pairs.length} style={{...btnPrimary,opacity:Object.keys(sel).length<q.pairs.length?0.5:1}}>答え合わせ</button><button onClick={dunno} style={btnDunno}> わからない（正解を見る）</button></>}
   </div>);
 }
 
@@ -937,7 +945,7 @@ function McQ({ q, onAnswer }) {
       border:`2px solid ${sel===i?(done?o.correct?T.correct:T.wrong:T.dunno):done&&o.correct?T.correct:T.textMuted}`,
       background:sel===i?(done?o.correct?`${T.correct}22`:`${T.wrong}22`:`${T.dunno}22`):done&&o.correct?`${T.correct}22`:"transparent"
     }}>{o.text}</div>))}
-    {!done && <><button onClick={check} disabled={sel===null} style={{...btnPrimary,opacity:sel===null?0.5:1}}>答え合わせ</button><button onClick={dunno} style={btnDunno}>🤔 わからない（正解を見る）</button></>}
+    {!done && <><button onClick={check} disabled={sel===null} style={{...btnPrimary,opacity:sel===null?0.5:1}}>答え合わせ</button><button onClick={dunno} style={btnDunno}> わからない（正解を見る）</button></>}
   </div>);
 }
 
@@ -957,10 +965,10 @@ function MsQ({ q, onAnswer }) {
       background:done?o.correct?`${T.correct}22`:sel.has(i)?`${T.wrong}22`:"transparent":sel.has(i)?`${T.dunno}22`:"transparent"
     }}>
       <span style={{width:22,height:22,borderRadius:6,border:`2px solid ${sel.has(i)?T.dunno:T.textMuted}`,background:sel.has(i)?T.dunno:"transparent",
-        display:"flex",alignItems:"center",justifyContent:"center",color:T.bg,fontSize:14,fontWeight:700,flexShrink:0}}>{sel.has(i)?"✓":""}</span>
+        display:"flex",alignItems:"center",justifyContent:"center",color:T.bg,fontSize:14,fontWeight:700,flexShrink:0}}>{sel.has(i)?<LineIcon name="check"/>:""}</span>
       {o.text}
     </div>))}
-    {!done && <><button onClick={check} style={btnPrimary}>答え合わせ</button><button onClick={dunno} style={btnDunno}>🤔 わからない（正解を見る）</button></>}
+    {!done && <><button onClick={check} style={btnPrimary}>答え合わせ</button><button onClick={dunno} style={btnDunno}> わからない（正解を見る）</button></>}
   </div>);
 }
 
@@ -1034,8 +1042,8 @@ function QuizScreen({ unit, onBack, email, onSessionSaved }) {
   const sendEmail = () => {
     if (window.YuikaParent.suppress()) return;
     if (!email) return;
-    const wrongList = results.map((r,i)=>r.result==="wrong"?`  ❌ Q${i+1}: ${qs[i].category}（${r.sec}秒）`:null).filter(Boolean).join("\n");
-    const dunnoList = results.map((r,i)=>r.result==="dunno"?`  🤔 Q${i+1}: ${qs[i].category}（${r.sec}秒）`:null).filter(Boolean).join("\n");
+    const wrongList = results.map((r,i)=>r.result==="wrong"?`   Q${i+1}: ${qs[i].category}（${r.sec}秒）`:null).filter(Boolean).join("\n");
+    const dunnoList = results.map((r,i)=>r.result==="dunno"?`   Q${i+1}: ${qs[i].category}（${r.sec}秒）`:null).filter(Boolean).join("\n");
     const slowList = results.filter(r=>r.sec>=60).map((r,i)=>results.indexOf(r)).map(i=>`  ⏱ Q${i+1}: ${qs[i].category} ${results[i].sec}秒`).join("\n");
     const body = `📅 ${new Date().toLocaleDateString("ja-JP")}\n📚 ${unit.subject} ＞ ${unit.name}\n\n${title.icon} 称号: ${title.label}\n\n⭕ 正解: ${cc}問\n❌ まちがい: ${wc}問\n🤔 わからない: ${dc}問\n\n⏱ 合計: ${fmtTime(totalSec)} / 平均: ${fmtTime(avgSec)}1問\n\n${wrongList?`❌まちがえた問題:\n${wrongList}\n`:""}\n${dunnoList?`🤔わからなかった問題:\n${dunnoList}\n`:""}${slowList?`\n⏱ 時間がかかった問題（60秒以上）:\n${slowList}\n`:""}`;
     const subj = encodeURIComponent(`[ゆいか学習] ${title.icon}${title.label} ${unit.subject}・${unit.name}`);
@@ -1047,31 +1055,31 @@ function QuizScreen({ unit, onBack, email, onSessionSaved }) {
     return (<Wrapper><div ref={topRef}/>
       <div style={{...cardBase,textAlign:"center",padding:"40px 20px",position:"relative"}} className="sakura-bg">
         {cc===qs.length&&dc===0 && <div style={{position:"absolute",inset:0,background:`radial-gradient(circle at center, ${T.gold}22 0%, transparent 60%)`,pointerEvents:"none"}}/>}
-        <div style={{fontSize:64,marginBottom:8}}>{title.icon}</div>
+        <div style={{fontSize:64,marginBottom:8}}>{<LineIcon name="check"/>}</div>
         <h2 style={{fontSize:28,fontWeight:900,margin:"8px 0",color:title.color,fontFamily:"'Zen Maru Gothic',sans-serif",textShadow:title.color===T.gold?`0 0 20px ${T.gold}66`:"none"}}>{title.label}</h2>
         <p style={{fontSize:15,color:T.textDim,margin:"4px 0 20px"}}>{title.msg}</p>
-        {honestBadge && <div style={{display:"inline-block",background:`${T.pinkLight}22`,border:`1px solid ${T.pinkLight}`,borderRadius:20,padding:"6px 16px",fontSize:13,color:T.pinkLight,fontWeight:700,marginBottom:16}}>🌸 正直者の呼吸</div>}
+        {honestBadge && <div style={{display:"inline-block",background:`${T.pinkLight}22`,border:`1px solid ${T.pinkLight}`,borderRadius:20,padding:"6px 16px",fontSize:13,color:T.pinkLight,fontWeight:700,marginBottom:16}}> 正直者の呼吸</div>}
         <div style={{display:"flex",justifyContent:"center",gap:16,margin:"20px 0"}}>
-          <div><div style={{fontSize:32,fontWeight:900,color:T.correct}}>{cc}</div><div style={{fontSize:11,color:T.textDim}}>⭕正解</div></div>
-          <div><div style={{fontSize:32,fontWeight:900,color:T.wrong}}>{wc}</div><div style={{fontSize:11,color:T.textDim}}>❌まちがい</div></div>
-          <div><div style={{fontSize:32,fontWeight:900,color:T.dunno}}>{dc}</div><div style={{fontSize:11,color:T.textDim}}>🤔わからない</div></div>
-          <div><div style={{fontSize:32,fontWeight:900,color:T.pink}}>{fmtTime(avgSec)}</div><div style={{fontSize:11,color:T.textDim}}>⏱平均</div></div>
+          <div><div style={{fontSize:32,fontWeight:900,color:T.correct}}>{cc}</div><div style={{fontSize:11,color:T.textDim}}>正解</div></div>
+          <div><div style={{fontSize:32,fontWeight:900,color:T.wrong}}>{wc}</div><div style={{fontSize:11,color:T.textDim}}>まちがい</div></div>
+          <div><div style={{fontSize:32,fontWeight:900,color:T.dunno}}>{dc}</div><div style={{fontSize:11,color:T.textDim}}>わからない</div></div>
+          <div><div style={{fontSize:32,fontWeight:900,color:T.pink}}>{fmtTime(avgSec)}</div><div style={{fontSize:11,color:T.textDim}}>平均</div></div>
         </div>
-        <div style={{fontSize:13,color:T.textDim,marginBottom:16}}>⏱ 合計 {fmtTime(totalSec)}</div>
+        <div style={{fontSize:13,color:T.textDim,marginBottom:16}}> 合計 {fmtTime(totalSec)}</div>
         {wc>0&&<div style={{textAlign:"left",background:`${T.wrong}11`,borderRadius:12,padding:14,marginBottom:10,border:`1px solid ${T.wrong}33`}}>
-          <p style={{fontWeight:700,fontSize:13,color:T.wrong,marginBottom:6}}>❌ まちがえた問題：</p>
+          <p style={{fontWeight:700,fontSize:13,color:T.wrong,marginBottom:6}}> まちがえた問題：</p>
           {results.map((r,i)=>r.result==="wrong"?<div key={i} style={{fontSize:13,color:T.textDim,padding:"3px 0"}}>• Q{i+1}: {qs[i].category}</div>:null)}
         </div>}
         {dc>0&&<div style={{textAlign:"left",background:`${T.dunno}11`,borderRadius:12,padding:14,marginBottom:16,border:`1px solid ${T.dunno}33`}}>
-          <p style={{fontWeight:700,fontSize:13,color:T.dunno,marginBottom:6}}>🤔 わからなかった → 暗記カードで復習！</p>
+          <p style={{fontWeight:700,fontSize:13,color:T.dunno,marginBottom:6}}> わからなかった → 暗記カードで復習！</p>
           {results.map((r,i)=>r.result==="dunno"?<div key={i} style={{fontSize:13,color:T.textDim,padding:"3px 0"}}>• Q{i+1}: {qs[i].category}</div>:null)}
         </div>}
         {email ? (
           emailSent
             ? <button onClick={()=>setEmailSent(false)} style={{...btnPrimary,background:`linear-gradient(135deg, ${T.green}, #2E7D32)`,marginBottom:8}}>メール作成画面を開きました（再度開く）</button>
-            : <button onClick={sendEmail} style={{...btnPrimary,background:`linear-gradient(135deg, ${T.green}, #2E7D32)`,marginBottom:8}}>📧 結果を保護者に送る</button>
+            : <button onClick={sendEmail} style={{...btnPrimary,background:`linear-gradient(135deg, ${T.green}, #2E7D32)`,marginBottom:8}}> 結果を保護者に送る</button>
         ) : (
-          <div style={{fontSize:12,color:T.textDim,textAlign:"center",marginBottom:8,padding:8}}>⚙️ 設定からメールアドレスを登録すると、メール作成画面を開けます。自動通知はページ下部で接続してください</div>
+          <div style={{fontSize:12,color:T.textDim,textAlign:"center",marginBottom:8,padding:8}}> 設定からメールアドレスを登録すると、メール作成画面を開けます。自動通知はページ下部で接続してください</div>
         )}
         <button onClick={()=>{setIdx(0);setResults([]);setShowExp(false);setDone(false);setStreak(0);setEmailSent(false);setSaved(false);reportId.current=window.YuikaReports.id();}} style={{...btnPrimary,background:`linear-gradient(135deg, ${T.pink}, #C2185B)`}}>もう一度チャレンジ</button>
         <button onClick={onBack} style={{...btnDunno,marginTop:12}}>ホームに戻る</button>
@@ -1085,14 +1093,14 @@ function QuizScreen({ unit, onBack, email, onSessionSaved }) {
     <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:16}}>
       <button onClick={onBack} style={{background:T.card||T.smoke,border:"none",borderRadius:10,padding:"8px 14px",color:T.textDim,fontSize:14,cursor:"pointer",fontFamily:"'Noto Sans JP',sans-serif"}}>← 戻る</button>
       <div style={{display:"flex",gap:8,alignItems:"center"}}>
-        <span style={{fontSize:12,fontWeight:700}}><span style={{color:T.correct}}>⭕{cc}</span> <span style={{color:T.wrong}}>❌{wc}</span> <span style={{color:T.dunno}}>🤔{dc}</span></span>
+        <span style={{fontSize:12,fontWeight:700}}><span style={{color:T.correct}}>{cc}</span> <span style={{color:T.wrong}}>{wc}</span> <span style={{color:T.dunno}}>{dc}</span></span>
         <span style={{background:T.card||T.smoke,borderRadius:10,padding:"6px 12px",fontSize:14,fontWeight:700,color:T.pink}}>{idx+1}/{qs.length}</span>
       </div>
     </div>
     <div style={{height:4,borderRadius:2,background:T.card||T.smoke,marginBottom:20,overflow:"hidden"}}>
       <div style={{height:"100%",borderRadius:2,background:`linear-gradient(90deg, ${T.pink}, ${T.gold})`,width:`${(idx/qs.length)*100}%`,transition:"width 0.4s"}}/>
     </div>
-    {streak >= 3 && <div style={{textAlign:"center",fontSize:13,color:T.pink,fontWeight:700,marginBottom:8,fontFamily:"'Zen Maru Gothic',sans-serif"}}>🔥 {streak}連続正解中！</div>}
+    {streak >= 3 && <div style={{textAlign:"center",fontSize:13,color:T.pink,fontWeight:700,marginBottom:8,fontFamily:"'Zen Maru Gothic',sans-serif"}}> {streak}連続正解中！</div>}
     <div style={cardBase}>
       <div style={{background:`${T.pink}11`,borderBottom:`2px solid ${T.pink}33`,padding:"10px 20px",display:"flex",alignItems:"center",gap:8}} className="sakura-bg">
         <span style={{background:T.pink,color:T.white,borderRadius:6,padding:"3px 10px",fontSize:12,fontWeight:700}}>{q.category}</span>
@@ -1107,7 +1115,7 @@ function QuizScreen({ unit, onBack, email, onSessionSaved }) {
             <tbody>{q.table.rows.map((row,i)=><tr key={i}>{row.map((cell,j)=>j===0?<th key={j} scope="row" style={{border:`1px solid ${T.textMuted}`,padding:"8px 10px"}}>{cell}</th>:<td key={j} style={{border:`1px solid ${T.textMuted}`,padding:"8px 10px"}}>{cell}</td>)}</tr>)}</tbody>
           </table>
         </div>}
-        <div style={{fontSize:13,color:T.dunno,background:`${T.dunno}11`,borderRadius:8,padding:"8px 12px",marginBottom:16,border:`1px solid ${T.dunno}33`}}>💡 {q.hint}</div>
+        <div style={{fontSize:13,color:T.dunno,background:`${T.dunno}11`,borderRadius:8,padding:"8px 12px",marginBottom:16,border:`1px solid ${T.dunno}33`}}> {q.hint}</div>
         {q.type==="order"&&<OrderQ q={q} onAnswer={handleAnswer}/>}
         {q.type==="fill_blanks"&&<FillQ q={q} onAnswer={handleAnswer}/>}
         {q.type==="matching"&&<MatchQ q={q} onAnswer={handleAnswer}/>}
@@ -1115,7 +1123,7 @@ function QuizScreen({ unit, onBack, email, onSessionSaved }) {
         {q.type==="multi_select"&&<MsQ q={q} onAnswer={handleAnswer}/>}
         {showExp&&(<div style={{marginTop:20,background:lastR==="correct"?`${T.correct}11`:lastR==="dunno"?`${T.dunno}11`:`${T.wrong}11`,borderRadius:14,padding:18,border:`1px solid ${lastR==="correct"?`${T.correct}33`:lastR==="dunno"?`${T.dunno}33`:`${T.wrong}33`}`}}>
           <div style={{fontSize:16,fontWeight:700,marginBottom:8,color:lastR==="correct"?T.correct:lastR==="dunno"?T.dunno:T.wrong,fontFamily:"'Zen Maru Gothic',sans-serif"}}>
-            {lastR==="correct"?"⭕ 正解！":lastR==="dunno"?"🤔 わからなかった → 覚えよう！":"❌ おしい！"}
+            {lastR==="correct"?" 正解！":lastR==="dunno"?" わからなかった → 覚えよう！":" おしい！"}
           </div>
           <p style={{fontSize:14,lineHeight:1.8,color:T.text,whiteSpace:"pre-line",margin:0}}>{q.explanation}</p>
           <FeedbackBox question={q.question} answer={q.explanation} subject={unit.subject} unit={unit.name}/>
@@ -1217,12 +1225,12 @@ function FlashScreen({ unit, onBack, email, onSessionSaved }) {
     <Wrapper>
       <button onClick={onBack} style={{background:T.card||T.smoke,border:"none",borderRadius:10,padding:"8px 14px",color:T.textDim,fontSize:14,cursor:"pointer",fontFamily:"'Noto Sans JP',sans-serif",marginBottom:20}}>← 戻る</button>
       <div style={{textAlign:"center",marginBottom:28}}>
-        <div style={{fontSize:42,marginBottom:4}}>🧠</div>
+        <div style={{fontSize:42,marginBottom:4}}></div>
         <h2 style={{fontSize:22,fontWeight:900,color:T.text,fontFamily:"'Zen Maru Gothic',sans-serif",margin:"0 0 4px"}}>暗記トレーニング</h2>
         <p style={{fontSize:13,color:T.textDim,margin:0}}>{unit.name}</p>
       </div>
       <button onClick={()=>startDeck(-1)} style={{...btnPrimary,marginBottom:20,display:"flex",alignItems:"center",justifyContent:"center",gap:10}}>
-        <span style={{fontSize:20}}>🔥</span> 全{unit.flashDecks.reduce((s,d)=>s+d.cards.length,0)}問チャレンジ
+        <span style={{fontSize:20}}></span> 全{unit.flashDecks.reduce((s,d)=>s+d.cards.length,0)}問チャレンジ
       </button>
       <p style={{fontSize:12,color:T.textMuted,textAlign:"center",marginBottom:12}}>または分野を選ぶ</p>
       {unit.flashDecks.map((d,i)=>(
@@ -1238,26 +1246,26 @@ function FlashScreen({ unit, onBack, email, onSessionSaved }) {
   if (phase==="done") return (
     <Wrapper>
       <div style={{...cardBase,textAlign:"center",padding:"40px 20px",marginTop:30}} className="sakura-bg">
-        <div style={{fontSize:64,marginBottom:12}}>🎊</div>
+        <div style={{fontSize:64,marginBottom:12}}></div>
         <h2 style={{fontSize:24,fontWeight:900,color:T.gold,fontFamily:"'Zen Maru Gothic',sans-serif",textShadow:`0 0 20px ${T.gold}44`}}>全集中・暗記完了！</h2>
         {retry>0&&<p style={{fontSize:14,color:T.textDim,margin:"8px 0"}}>リトライ {retry}回で完全制覇</p>}
         <div style={{display:"flex",justifyContent:"center",gap:16,margin:"20px 0"}}>
           <div style={{textAlign:"center"}}><div style={{fontSize:28,fontWeight:900,color:T.correct}}>{firstCorrect}</div><div style={{fontSize:11,color:T.textDim}}>1回目で正解</div></div>
           <div style={{textAlign:"center"}}><div style={{fontSize:28,fontWeight:900,color:T.wrong}}>{firstRoundWrongs.length}</div><div style={{fontSize:11,color:T.textDim}}>リトライした</div></div>
           <div style={{textAlign:"center"}}><div style={{fontSize:28,fontWeight:900,color:T.text}}>{totalCards}</div><div style={{fontSize:11,color:T.textDim}}>全カード数</div></div>
-          <div style={{textAlign:"center"}}><div style={{fontSize:28,fontWeight:900,color:T.pink}}>{fmtTime(avgSec)}</div><div style={{fontSize:11,color:T.textDim}}>⏱平均</div></div>
+          <div style={{textAlign:"center"}}><div style={{fontSize:28,fontWeight:900,color:T.pink}}>{fmtTime(avgSec)}</div><div style={{fontSize:11,color:T.textDim}}>平均</div></div>
         </div>
-        <div style={{fontSize:13,color:T.textDim,marginBottom:16}}>⏱ 合計 {fmtTime(totalSec)}</div>
+        <div style={{fontSize:13,color:T.textDim,marginBottom:16}}> 合計 {fmtTime(totalSec)}</div>
         {firstRoundWrongs.length>0&&<div style={{textAlign:"left",background:`${T.wrong}11`,borderRadius:12,padding:14,marginBottom:16,border:`1px solid ${T.wrong}33`}}>
-          <p style={{fontWeight:700,fontSize:13,color:T.wrong,marginBottom:6}}>😅 1回目でわからなかったカード：</p>
+          <p style={{fontWeight:700,fontSize:13,color:T.wrong,marginBottom:6}}> 1回目でわからなかったカード：</p>
           {firstRoundWrongs.map((c,i)=><div key={i} style={{fontSize:13,color:T.textDim,padding:"3px 0"}}>• {c.q} → <span style={{color:T.dunno}}>{c.a}</span></div>)}
         </div>}
         {email ? (
           emailSent
             ? <button onClick={()=>setEmailSent(false)} style={{...btnPrimary,background:`linear-gradient(135deg, ${T.green}, #2E7D32)`,marginBottom:8}}>メール作成画面を開きました（再度開く）</button>
-            : <button onClick={sendFlashEmail} style={{...btnPrimary,background:`linear-gradient(135deg, ${T.green}, #2E7D32)`,marginBottom:8}}>📧 結果を保護者に送る</button>
+            : <button onClick={sendFlashEmail} style={{...btnPrimary,background:`linear-gradient(135deg, ${T.green}, #2E7D32)`,marginBottom:8}}> 結果を保護者に送る</button>
         ) : (
-          <div style={{fontSize:12,color:T.textDim,textAlign:"center",marginBottom:8,padding:8}}>⚙️ 設定からメールアドレスを登録すると結果を送信できます</div>
+          <div style={{fontSize:12,color:T.textDim,textAlign:"center",marginBottom:8,padding:8}}> 設定からメールアドレスを登録すると結果を送信できます</div>
         )}
         <div style={{display:"flex",gap:12,justifyContent:"center",marginTop:8}}>
           <button onClick={onBack} style={{padding:"14px 28px",borderRadius:12,border:`1px solid ${T.textMuted}`,background:"transparent",color:T.text,fontSize:15,fontWeight:700,cursor:"pointer",fontFamily:"'Zen Maru Gothic',sans-serif"}}>戻る</button>
@@ -1332,7 +1340,7 @@ function FlashScreen({ unit, onBack, email, onSessionSaved }) {
             </button>
             <button onClick={()=>{setJudged("wrong");setUserInput("");}}
               style={{...btnDunno,flex:1,marginTop:8}}>
-              🤔 わからない
+               わからない
             </button>
           </div>
         </div>
@@ -1347,7 +1355,7 @@ function FlashScreen({ unit, onBack, email, onSessionSaved }) {
             border:`1px solid ${judged==="correct"?`${T.correct}44`:`${T.wrong}44`}`,
           }}>
             <div style={{fontSize:18,fontWeight:900,color:judged==="correct"?T.correct:T.wrong,marginBottom:8,fontFamily:"'Zen Maru Gothic',sans-serif"}}>
-              {judged==="correct"?"⭕ 正解！":"❌ 不正解"}
+              {judged==="correct"?" 正解！":" 不正解"}
             </div>
             {judged==="wrong"&&userInput&&(
               <div style={{fontSize:13,color:T.textDim,marginBottom:8}}>
@@ -1372,115 +1380,45 @@ function FlashScreen({ unit, onBack, email, onSessionSaved }) {
 //  UNIT SCREEN (choose quiz or flash)
 // ============================================================
 function UnitScreen({ unit, onBack, email, onSessionSaved }) {
-  const [mode, setMode] = useState(null);
-  if (mode==="quiz") return <QuizScreen unit={unit} onBack={()=>setMode(null)} email={email} onSessionSaved={onSessionSaved}/>;
-  if (mode==="flash") return <FlashScreen unit={unit} onBack={()=>setMode(null)} email={email} onSessionSaved={onSessionSaved}/>;
-  return (<Wrapper>
-    <button onClick={onBack} style={{background:T.card||T.smoke,border:"none",borderRadius:10,padding:"8px 14px",color:T.textDim,fontSize:14,cursor:"pointer",fontFamily:"'Noto Sans JP',sans-serif",marginBottom:20}}>← ホーム</button>
-    <div style={{textAlign:"center",marginBottom:28}}>
-      <div style={{fontSize:42,marginBottom:4}}>{unit.subjectIcon}</div>
-      <h2 style={{fontSize:22,fontWeight:900,color:T.text,fontFamily:"'Zen Maru Gothic',sans-serif",margin:"0 0 4px"}}>{unit.name}</h2>
-      <p style={{fontSize:13,color:T.textDim,margin:0}}>{unit.subject} ・ {unit.textbook}</p>
-    </div>
-    <div style={{display:"flex",flexDirection:"column",gap:12}}>
-      <button onClick={()=>setMode("quiz")} style={{...cardBase,padding:"24px 20px",cursor:"pointer",display:"flex",alignItems:"center",gap:16,border:`1px solid ${T.pink}44`,textAlign:"left"}}>
-        <span style={{fontSize:36,width:56,height:56,display:"flex",alignItems:"center",justifyContent:"center",background:`${T.pink}22`,borderRadius:16}}>⚔️</span>
-        <div><div style={{fontSize:18,fontWeight:900,color:T.text,fontFamily:"'Zen Maru Gothic',sans-serif"}}>復習クイズ</div>
-          <div style={{fontSize:13,color:T.textDim,marginTop:4}}>{unit.quizDescription || "テストの弱点を重点的に"}・{unit.quizQuestions.length}問</div></div>
-      </button>
-      <button onClick={()=>setMode("flash")} style={{...cardBase,padding:"24px 20px",cursor:"pointer",display:"flex",alignItems:"center",gap:16,border:`1px solid ${T.green}44`,textAlign:"left"}}>
-        <span style={{fontSize:36,width:56,height:56,display:"flex",alignItems:"center",justifyContent:"center",background:`${T.green}22`,borderRadius:16}}>🧠</span>
-        <div><div style={{fontSize:18,fontWeight:900,color:T.text,fontFamily:"'Zen Maru Gothic',sans-serif"}}>暗記カード</div>
-          <div style={{fontSize:13,color:T.textDim,marginTop:4}}>フラッシュカードで定着・{unit.flashDecks.reduce((s,d)=>s+d.cards.length,0)}問</div></div>
-      </button>
-    </div>
-  </Wrapper>);
+ const [mode,setMode]=useState(null);
+ const [sessions,setSessions]=useState([]);
+ useEffect(()=>{loadSessions().then(setSessions);},[]);
+ if(mode==="quiz")return <div className="inline-unit" style={subjectStyle(unit.subject)}><QuizScreen unit={unit} onBack={()=>setMode(null)} email={email} onSessionSaved={onSessionSaved}/></div>;
+ if(mode==="flash")return <div className="inline-unit" style={subjectStyle(unit.subject)}><FlashScreen unit={unit} onBack={()=>setMode(null)} email={email} onSessionSaved={onSessionSaved}/></div>;
+ const last=sessions.find(s=>s.unit===unit.name&&s.mode==='quiz');
+ return <div className="inline-unit" style={subjectStyle(unit.subject)}>
+  <header className="unit-header"><button onClick={onBack}><LineIcon name="back"/> ホーム</button><button onClick={()=>setMode('history')}>きろく</button></header>
+  {mode==='history'?<HistoryScreen onBack={()=>setMode(null)}/>:<main className="unit-main">
+   <section className="unit-hero"><div>{unit.subject} · {unit.textbook}</div><h1>{unit.name}</h1><p>{unit.quizDescription||'思い出して、少しずつできるように。'}</p></section>
+   <div className="stats">{[['できた数',`${last?.correct||0}／${unit.quizQuestions.length}`],['今日の再確認','—'],['にがて','—']].map(([label,value])=><div className="stat" key={label}><strong>{value}</strong><span>{label}</span></div>)}</div>
+   <section className="card practice-card"><h2>れんしゅう</h2><button className="primary wide" onClick={()=>setMode('quiz')}>復習クイズ · {unit.quizQuestions.length}問</button></section>
+   {unit.flashDecks.length>0&&<section className="other-methods"><h2>ほかのやり方</h2><button onClick={()=>setMode('flash')}><span><LineIcon name="book"/> 暗記カード</span><LineIcon name="arrow"/></button></section>}
+   <footer className="unit-footer"><span>{unit.id}</span><button onClick={()=>setMode('history')}>保護者のノート</button></footer>
+  </main>}
+ </div>;
 }
 
 // ============================================================
 //  HOME SCREEN
 // ============================================================
-function HomeScreen({ onSelectUnit, onSettings, onHistory, email }) {
-  const subjects = [...new Set(UNITS.map(u=>u.subject))];
-  const [cleared, setCleared] = useState({});
-  useEffect(() => { loadCleared().then(setCleared); }, []);
-
-  const getBadge = (unitId, mode) => {
-    const key = unitId + "_" + mode;
-    const c = cleared[key];
-    if (!c) return null;
-    if (c.rate >= 1) return {icon:"💖",label:"恋柱",color:T.gold};
-    if (c.rate >= 0.8) return {icon:"🌸",label:"甲",color:T.pink};
-    if (c.rate >= 0.6) return {icon:"🎀",label:"丙",color:T.pinkPale};
-    return {icon:"📖",label:"挑戦済",color:T.textDim};
-  };
-
-  return (<Wrapper>
-    <div style={{textAlign:"center",marginBottom:32,paddingTop:16}}>
-      <div style={{display:"flex",justifyContent:"flex-end",marginBottom:8,gap:8}}>
-        <button onClick={onHistory} style={{background:T.card||T.smoke,border:`1px solid ${T.textMuted}`,borderRadius:10,padding:"8px 14px",color:T.textDim,fontSize:14,cursor:"pointer",fontFamily:"'Noto Sans JP',sans-serif",display:"flex",alignItems:"center",gap:6}}>
-          📊 きろく
-        </button>
-        <button onClick={onSettings} style={{background:T.card||T.smoke,border:`1px solid ${T.textMuted}`,borderRadius:10,padding:"8px 14px",color:T.textDim,fontSize:14,cursor:"pointer",fontFamily:"'Noto Sans JP',sans-serif",display:"flex",alignItems:"center",gap:6}}>
-          ⚙️ 設定
-        </button>
-      </div>
-      <div style={{fontSize:14,color:T.pink,fontWeight:700,letterSpacing:4,marginBottom:8,fontFamily:"'Zen Maru Gothic',sans-serif"}}>恋 の 呼 吸</div>
-      <h1 style={{fontSize:28,fontWeight:900,color:T.text,fontFamily:"'Zen Maru Gothic',sans-serif",margin:"0 0 4px",letterSpacing:2}}>ゆいかの学習帳</h1>
-      <div style={{width:60,height:3,background:`linear-gradient(90deg, ${T.pink}, ${T.green})`,margin:"12px auto",borderRadius:2}}/>
-      <p style={{fontSize:13,color:T.textDim,margin:0}}>SAPIX 中学受験対策</p>
-      {email && <p style={{fontSize:11,color:T.green,margin:"8px 0 0"}}>📧 通知先: {email}</p>}
-    </div>
-    {subjects.map(subj => {
-      const units = UNITS.filter(u=>u.subject===subj);
-      return (
-        <div key={subj} style={{marginBottom:24}}>
-          <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:12}}>
-            <span style={{fontSize:24}}>{units[0].subjectIcon}</span>
-            <h2 style={{fontSize:18,fontWeight:900,color:T.text,fontFamily:"'Zen Maru Gothic',sans-serif",margin:0}}>{subj}</h2>
-          </div>
-          {units.map(u=>{
-            const qBadge = getBadge(u.id, "quiz");
-            const fBadge = getBadge(u.id, "flash");
-            return (
-              <button key={u.id} onClick={()=>u.externalPage ? window.YuikaParent.navigate(u.externalPage) : onSelectUnit(u)} style={{
-                width:"100%",padding:"18px 20px",borderRadius:16,marginBottom:8,
-                border:`1px solid ${(qBadge?.color===T.gold||fBadge?.color===T.gold)?`${T.gold}44`:T.textMuted}`,
-                background:(qBadge?.color===T.gold&&fBadge?.color===T.gold)?`${T.gold}08`:T.smoke,
-                cursor:"pointer",fontFamily:"'Noto Sans JP',sans-serif",display:"flex",alignItems:"center",gap:14,textAlign:"left",
-              }} className="sakura-bg">
-                <div style={{flex:1}}>
-                  <div style={{fontSize:16,fontWeight:700,color:T.text,display:"flex",alignItems:"center",gap:8}}>
-                    {u.name}
-                    {qBadge?.color===T.gold&&fBadge?.color===T.gold&&<span style={{fontSize:14}}>💖</span>}
-                  </div>
-                  <div style={{fontSize:12,color:T.textDim,marginTop:4}}>{u.textbook}</div>
-                  {u.externalPage ? <div style={{fontSize:12,color:T.green,marginTop:6}}>{u.externalNote || "５問・10問 / 漢字確認 / 復習 / 保護者のノート"}</div> : <div style={{display:"flex",gap:8,marginTop:6}}>
-                    <span style={{fontSize:11,padding:"2px 8px",borderRadius:8,
-                      background:qBadge?`${qBadge.color}22`:T.smoke,
-                      border:`1px solid ${qBadge?`${qBadge.color}44`:T.textMuted}`,
-                      color:qBadge?qBadge.color:T.textMuted}}>
-                      ⚔️ クイズ {qBadge?qBadge.icon:"🔒"}
-                    </span>
-                    <span style={{fontSize:11,padding:"2px 8px",borderRadius:8,
-                      background:fBadge?`${fBadge.color}22`:T.smoke,
-                      border:`1px solid ${fBadge?`${fBadge.color}44`:T.textMuted}`,
-                      color:fBadge?fBadge.color:T.textMuted}}>
-                      🧠 暗記 {fBadge?fBadge.icon:"🔒"}
-                    </span>
-                  </div>}
-                </div>
-                <span style={{color:T.pink,fontSize:20,fontWeight:700}}>→</span>
-              </button>
-            );
-          })}
-        </div>
-      );
-    })}
-    <div style={{textAlign:"center",marginTop:24,padding:"16px 0",borderTop:`1px solid ${T.textMuted}`}}>
-      <p style={{fontSize:12,color:T.textMuted,margin:0}}>教科・単元はテスト答案をClaudeに送って追加できます</p>
-    </div>
-  </Wrapper>);
+function HomeScreen({ onSelectUnit, onSettings, onHistory }) {
+ const [subject,setSubject]=useState('すべて');
+ const [sessions,setSessions]=useState([]);
+ useEffect(()=>{loadSessions().then(setSessions);},[]);
+ const external=window.YuikaDesign.summary;
+ function progress(u){
+  if(u.externalPage){const info=external(u.externalPage);return info&&!info.unavailable?`${info.correct}／${info.total}　再確認${info.due}`:'記録を単元で確認';}
+  const last=sessions.find(e=>e.unit===u.name&&e.mode==='quiz');return `${last?.correct||0}／${u.quizQuestions.length}　クイズ`;
+ }
+ let dailyFile='onin-review.html';try{dailyFile=window.YuikaParent.storage.getItem('yuika-prototype-v1:last-daily-unit')||dailyFile;}catch{}
+ const daily=external(dailyFile);
+ const breakdown=daily&&!daily.unavailable?`再確認${daily.dueCount}問＋弱点の練習${daily.weakCount}問${daily.normalCount?`＋通常${daily.normalCount}問`:''}`:'単元で記録を確認しよう';
+ return <Wrapper>
+  <header className="home-top"><h1>ゆいかの学習帳</h1><div className="home-actions"><button onClick={onHistory}><LineIcon name="chart"/>きろく</button><button onClick={onSettings}><LineIcon name="settings"/>設定</button></div></header>
+  <section className="daily-panel"><div><h2>今日の5問</h2><p>{breakdown}</p><p>前回の単元から（問数は単元の設定）</p></div><button aria-label="今日の5問をはじめる" onClick={startHomeDaily}>はじめる <LineIcon name="arrow"/></button></section>
+  <nav className="subject-chips" aria-label="教科の切り替え">{['すべて','社会','理科','算数','国語'].map(subj=><button key={subj} style={subjectStyle(subj)} aria-pressed={subject===subj} onClick={()=>setSubject(subj)}>{subj}</button>)}</nav>
+  <div className="unit-grid">{UNITS.filter(u=>subject==='すべて'||u.subject===subject||u.id==='mock-focus').map(u=>{const subj=u.id==='mock-focus'?'4教科まとめ':u.subject;return <button className="unit-card" key={u.id} style={subjectStyle(subj)} onClick={()=>u.externalPage?window.YuikaParent.navigate(u.externalPage):onSelectUnit(u)}><span className="unit-subject">{subj}</span><span className="unit-name">{u.name}</span><span className="unit-progress">{progress(u)}</span></button>;})}</div>
+ </Wrapper>;
 }
 
 // ============================================================
@@ -1489,12 +1427,12 @@ function HomeScreen({ onSelectUnit, onSettings, onHistory, email }) {
 function Wrapper({ children }) {
   return (
     <div style={{
-      maxWidth:500, margin:"0 auto", padding:"16px 16px 40px",
+      maxWidth:1000, margin:"0 auto", padding:"16px 16px 40px",
       fontFamily:"'Noto Sans JP',sans-serif",
       minHeight:"100vh",
       background:`linear-gradient(180deg, ${T.bg} 0%, ${T.bgMid} 40%, ${T.bgDeep} 100%)`,
       color:T.text,
-    }} className="sakura-bg">
+    }} className="app-shell">
       <link href={FONT_LINK} rel="stylesheet"/>
       {children}
     </div>
@@ -1526,13 +1464,13 @@ function SettingsScreen({ email, onSave, onBack }) {
     <Wrapper>
       <button onClick={onBack} style={{background:T.card||T.smoke,border:"none",borderRadius:10,padding:"8px 14px",color:T.textDim,fontSize:14,cursor:"pointer",fontFamily:"'Noto Sans JP',sans-serif",marginBottom:24}}>← ホーム</button>
       <div style={{textAlign:"center",marginBottom:32}}>
-        <div style={{fontSize:42,marginBottom:4}}>⚙️</div>
+        <div style={{fontSize:42,marginBottom:4}}></div>
         <h2 style={{fontSize:22,fontWeight:900,color:T.text,fontFamily:"'Zen Maru Gothic',sans-serif",margin:"0 0 4px"}}>設定</h2>
         <p style={{fontSize:13,color:T.textDim,margin:0}}>保護者の方が設定してください</p>
       </div>
 
       <div style={{...cardBase,padding:24}}>
-        <h3 style={{fontSize:16,fontWeight:700,color:T.text,fontFamily:"'Zen Maru Gothic',sans-serif",margin:"0 0 16px"}}>📧 進捗メール通知</h3>
+        <h3 style={{fontSize:16,fontWeight:700,color:T.text,fontFamily:"'Zen Maru Gothic',sans-serif",margin:"0 0 16px"}}> 進捗メール通知</h3>
         <p style={{fontSize:13,color:T.textDim,marginBottom:16,lineHeight:1.7}}>
           メールアドレスを登録すると、ゆいかがクイズを完了したときに結果を送信できます。ゆいかは「結果を送る」ボタンを押すだけでOK。
         </p>
@@ -1562,27 +1500,27 @@ function SettingsScreen({ email, onSave, onBack }) {
             ? `linear-gradient(135deg, ${T.green}, #2E7D32)`
             : `linear-gradient(135deg, ${T.pink}, #C2185B)`,
         }}>
-          {saved ? "✅ 保存しました" : "保存する"}
+          {saved ? " 保存しました" : "保存する"}
         </button>
 
         {email && (
           <div style={{marginTop:16,padding:12,borderRadius:10,background:`${T.green}11`,border:`1px solid ${T.green}33`}}>
             <p style={{fontSize:13,color:T.green,margin:0}}>
-              ✅ 現在の送信先: {email}
+               現在の送信先: {email}
             </p>
           </div>
         )}
       </div>
 
       <div style={{...cardBase,padding:24,marginTop:16}}>
-        <h3 style={{fontSize:16,fontWeight:700,color:T.text,fontFamily:"'Zen Maru Gothic',sans-serif",margin:"0 0 12px"}}>💬 ゆいかからのメッセージ</h3>
+        <h3 style={{fontSize:16,fontWeight:700,color:T.text,fontFamily:"'Zen Maru Gothic',sans-serif",margin:"0 0 12px"}}> ゆいかからのメッセージ</h3>
         <FeedbackViewer/>
       </div>
 
       <div style={{...cardBase,padding:24,marginTop:16}}>
-        <h3 style={{fontSize:16,fontWeight:700,color:T.text,fontFamily:"'Zen Maru Gothic',sans-serif",margin:"0 0 12px"}}>ℹ️ このアプリについて</h3>
+        <h3 style={{fontSize:16,fontWeight:700,color:T.text,fontFamily:"'Zen Maru Gothic',sans-serif",margin:"0 0 12px"}}> このアプリについて</h3>
         <p style={{fontSize:13,color:T.textDim,lineHeight:1.8,margin:0}}>
-          SAPIXのテスト答案をClaudeに送ることで、弱点を分析して復習問題を自動生成できます。今後、理科・算数・国語にも対応予定です。
+          記録はこのブラウザー内に保存されます。
         </p>
       </div>
     </Wrapper>
@@ -1630,7 +1568,7 @@ function HistoryScreen({ onBack }) {
     return `${d.getMonth()+1}/${d.getDate()}（${days[d.getDay()]}）${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")}`;
   };
 
-  const titleIcons = {"恋柱":"💖","甲":"🌸","丙":"🎀","修行中":"📖"};
+  const titleIcons = {"恋柱":"","甲":"","丙":"","修行中":""};
   const titleColors = {"恋柱":T.gold,"甲":T.pink,"丙":T.text,"修行中":T.textDim};
 
   if (loading) return (<Wrapper><div style={{textAlign:"center",paddingTop:80}}><p style={{color:T.textDim}}>読み込み中…</p></div></Wrapper>);
@@ -1693,7 +1631,7 @@ function HistoryScreen({ onBack }) {
         {sessions.length === 0 && <p style={{fontSize:13,color:T.textMuted,textAlign:"center",padding:20}}>まだ学習記録がありません。クイズや暗記カードに挑戦しよう！</p>}
         {sessions.slice(0, 20).map((s, i) => (
           <div key={i} style={{background:T.card||T.smoke,borderRadius:12,padding:"12px 14px",marginBottom:8,border:`1px solid rgba(232,72,135,0.04)`,display:"flex",alignItems:"center",gap:12}}>
-            <div style={{fontSize:20}}>{s.mode==="quiz"?"⚔️":"🧠"}</div>
+            <div style={{fontSize:20}}>{s.mode==="quiz"?"":""}</div>
             <div style={{flex:1}}>
               <div style={{fontSize:13,fontWeight:700,color:T.text}}>{s.subject}・{s.unit}</div>
               {s.mode==="flash" && <div style={{fontSize:11,color:T.textDim}}>答えの確認方法：{flashGradingLabel(s.gradingVersion)}</div>}
@@ -1703,12 +1641,12 @@ function HistoryScreen({ onBack }) {
               {s.mode==="quiz" && s.title ? (
                 <>
                   <div style={{fontSize:15,fontWeight:900,color:titleColors[s.title]||T.text}}>{s.title}</div>
-                  <div style={{fontSize:11,color:T.textMuted}}>{s.correct}/{s.total}{s.avgSec?` ⏱${s.avgSec}秒`:""}</div>
+                  <div style={{fontSize:11,color:T.textMuted}}>{s.correct}/{s.total}{s.avgSec?` ${s.avgSec}秒`:""}</div>
                 </>
               ) : (
                 <>
                   <div style={{fontSize:14,fontWeight:700,color:s.correct===s.total?T.correct:T.dunno}}>{s.correct}/{s.total}</div>
-                  <div style={{fontSize:11,color:T.textMuted}}>{s.retry > 0 ? `リトライ${s.retry}回` : ""}{s.avgSec?` ⏱${s.avgSec}秒`:""}</div>
+                  <div style={{fontSize:11,color:T.textMuted}}>{s.retry > 0 ? `リトライ${s.retry}回` : ""}{s.avgSec?` ${s.avgSec}秒`:""}</div>
                 </>
               )}
             </div>
@@ -1745,7 +1683,7 @@ function App() {
   if (!loaded) return (
     <Wrapper>
       <div style={{textAlign:"center",paddingTop:100}}>
-        <div style={{fontSize:36,marginBottom:12}}>⏳</div>
+        <div style={{fontSize:36,marginBottom:12}}></div>
         <p style={{color:T.textDim,fontFamily:"'Zen Maru Gothic',sans-serif"}}>読み込み中…</p>
       </div>
     </Wrapper>
@@ -1763,11 +1701,7 @@ function App() {
     return <UnitScreen unit={activeUnit} onBack={() => setActiveUnit(null)} email={email} onSessionSaved={handleSessionSaved} />;
   }
 
-  return <><div style={{padding:16,textAlign:"center"}}><button style={{background:T.card||T.smoke,border:`1px solid ${T.textMuted}`,borderRadius:10,padding:"8px 14px",color:T.textDim,fontSize:14,cursor:"pointer",fontFamily:"'Noto Sans JP',sans-serif",display:"inline-flex",alignItems:"center",gap:6}} onClick={() => {
-    let unit="onin-review.html";
-    try { const saved=window.YuikaParent.storage.getItem("yuika-prototype-v1:last-daily-unit");if(["onin-review.html","kamakura-review.html","heian-review.html","yuika-review-v2.html","mock-focus-review.html"].includes(saved))unit=saved; } catch(e) {}
-    window.YuikaParent.navigate(unit+"?daily=1");
-  }}>今日の5問をはじめる</button><p>前回の続きから5問</p></div><HomeScreen onSelectUnit={setActiveUnit} onSettings={() => setScreen("settings")} onHistory={() => setScreen("history")} email={email} /></>;
+  return <HomeScreen onSelectUnit={setActiveUnit} onSettings={() => setScreen("settings")} onHistory={() => setScreen("history")} />;
 }
 
 

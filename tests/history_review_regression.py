@@ -46,7 +46,8 @@ try:
    byId.delete(q.id);QUESTIONS.splice(QUESTIONS.indexOf(q),1);
    assert(validateState(state).events.length===2,'retired history rejected');
    home();
-   assert(main.querySelectorAll('.stats .stat strong')[2].textContent===String(QUESTIONS.length),'retired IDs reduce remaining questions');
+   assert(candidates('unseen').length===QUESTIONS.length,'retired IDs reduce remaining questions');
+   assert(main.querySelector('.stats .stat strong').textContent==='0／'+QUESTIONS.length,'retired IDs counted in completed display');
    analysis();
    assert(main.querySelectorAll('.stats .stat strong')[1].textContent.trim().startsWith('0'),'retired IDs counted as current questions');
    assert(document.getElementById('history').textContent.includes('問題の版 記録なし'),'legacy version label');

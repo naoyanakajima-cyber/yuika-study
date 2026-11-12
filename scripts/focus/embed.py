@@ -10,7 +10,7 @@ qs=json.loads((ROOT/'scripts/focus/questions.json').read_text())
 text=(ROOT/'kamakura-review.html').read_text()
 # Notification integration is deliberately absent from this new mixed-subject unit.
 text=re.sub(r'<!-- YUIKA_REPORTS_BEGIN -->.*?<!-- YUIKA_REPORTS_END -->','',text,flags=re.S)
-for section in ('ADAPTIVE','HISTORY','PROTOTYPE'):
+for section in ('ADAPTIVE','HISTORY','PROTOTYPE','DESIGN_C'):
  text=re.sub(r'// '+section+r'_START\n.*?// '+section+r'_END\n','',text,flags=re.S)
 text=re.sub(r'const QUESTIONS=\[.*?\n\];',lambda _: 'const QUESTIONS='+json.dumps(qs,ensure_ascii=False,indent=2)+';',text,flags=re.S)
 text=text.replace("VERSION='kamakura-540-25-v1',LEGACY_KEY='yuika-social-540-25-v1'","VERSION='mock-focus-v1',LEGACY_KEY='study-mock-focus-v1'").replace("UNIT_ID='sapix-540-25'","UNIT_ID='mock-focus'")

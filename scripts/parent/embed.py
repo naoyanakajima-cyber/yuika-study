@@ -10,6 +10,6 @@ for p in ROOT.glob('*.html'):
   if text[b:b+1]=='\n':b+=1
   text=text[:a]+text[b:]
  # Keep charset within the first 1024 bytes and CSP before executable code.
- pos=text.lower().index('</head>')
+ pos=min(text.lower().index('</head>'), text.lower().index('<script'))
  text=text[:pos]+block+'\n'+text[pos:]
  p.write_text(text)

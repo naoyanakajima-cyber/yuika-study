@@ -26,6 +26,7 @@ def verify_storage_access_recovery(browser, base, fixture):
   errors=[];posts=[];external=[]
   def block_external(route):
    if route.request.method=='POST':posts.append(route.request.url);route.abort()
+   elif route.request.url.startswith('https://fonts.googleapis.com/css2?') and route.request.resource_type=='stylesheet':route.abort()
    elif not route.request.url.startswith(base+'/'):external.append(route.request.url);route.abort()
    else:route.continue_()
   ctx.route('**/*',block_external)
