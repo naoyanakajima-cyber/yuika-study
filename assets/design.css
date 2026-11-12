@@ -255,7 +255,7 @@ margin-top:auto
 max-width:none!important;
 background:var(--subject)!important;
 color:white!important;
-padding:18px max(28px,calc((100vw - 944px)/2))!important;
+padding:18px max(28px,calc((100% - 944px)/2))!important;
 border:0!important;
 margin:0!important;
 display:flex!important;
@@ -282,16 +282,16 @@ text-decoration:none
 min-height:48px
 }
 .unit-main {
-max-width:1000px!important;
+max-width:none!important;
 margin:0 auto!important;
-padding:0 28px 40px!important
+padding:0 0 40px!important
 }
 .unit-hero {
 background:var(--subject)!important;
 color:white!important;
 border-radius:0!important;
-margin:0 calc((min(100vw,1000px) - 100vw)/2 - 28px) 26px!important;
-padding:24px max(28px,calc((100vw - 944px)/2)) 36px!important;
+margin:0 0 26px!important;
+padding:24px max(28px,calc((100% - 944px)/2)) 36px!important;
 display:block!important;
 border:0!important;
 min-height:0!important
@@ -478,11 +478,11 @@ gap:6px
 padding:8px 16px
 }
 .unit-main {
-padding:0 16px 32px!important
+padding:0 0 32px!important
 }
 .unit-hero {
-margin-left:-16px!important;
-margin-right:-16px!important;
+margin-left:0!important;
+margin-right:0!important;
 padding:22px 20px 30px!important
 }
 .unit-hero h1 {
@@ -551,6 +551,8 @@ color:var(--hero-ink)!important
 color:var(--hero-ink)!important
 }
 .other-methods b {
+flex-shrink:0;
+white-space:nowrap;
 font-size:18px;
 color:var(--muted)!important
 }
@@ -559,6 +561,9 @@ margin-left:auto
 }
 .other-methods button {
 color:var(--ink)!important
+}
+.other-methods button.primary {
+color:white!important
 }
 details {
 background:white!important;
@@ -582,4 +587,56 @@ min-height:44px
 }
 .unit-hero p {
 max-width:none!important
+}
+/* Center content inside full-width surfaces without viewport-width bleeds. */
+.unit-main>section,.unit-main>div,.unit-main>details {
+max-width:944px;
+margin-left:auto!important;
+margin-right:auto!important
+}
+.unit-main>.unit-hero {
+max-width:none;
+margin-left:0!important;
+margin-right:0!important;
+padding-left:max(28px,calc((100% - 944px)/2))!important;
+padding-right:max(28px,calc((100% - 944px)/2))!important
+}
+.unit-main>:not(.unit-hero) {
+width:calc(100% - 56px)
+}
+.unit-header,.unit-header nav,.home-top,.home-actions,.unit-footer {
+flex-wrap:wrap
+}
+.unit-main *,.app-shell *,.unit-header *,.unit-footer * {
+min-width:0;
+overflow-wrap:anywhere
+}
+select,input,textarea,svg[role="img"] {
+max-width:100%
+}
+.unit-main pre {
+white-space:pre-wrap
+}
+:root[data-subject="math"] {
+--subject:#2C4A8A;
+--subject-text:#2C4A8A;
+--pale:#EAF0FC
+}
+:root[data-subject="japanese"] {
+--subject:#6A3E8E;
+--subject-text:#6A3E8E;
+--pale:#F2EBF8
+}
+:root[data-subject="math"] .unit-header,:root[data-subject="math"] .unit-hero,
+:root[data-subject="japanese"] .unit-header,:root[data-subject="japanese"] .unit-hero {
+--hero-ink:white
+}
+@media(max-width:600px) {
+.unit-main>:not(.unit-hero) {
+width:calc(100% - 32px)
+}
+.unit-main>.unit-hero {
+padding-left:20px!important;
+padding-right:20px!important
+}
 }

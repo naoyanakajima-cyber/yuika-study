@@ -43,10 +43,10 @@ with ThreadingHTTPServer(('127.0.0.1',0),partial(Quiet,directory=str(ROOT))) as 
    text=p.locator('body').inner_text()
    assert 'hidden-parent@' not in text and 'hidden-recipient@' not in text
    assert 'Claude' not in text
-   assert len(p.locator('.unit-card').all())==14
+   assert len(p.locator('.unit-card').all())==17
    assert p.locator('.unit-grid').evaluate("e=>getComputedStyle(e).gridTemplateColumns.split(' ').length")==2
    p.get_by_role('button',name='理科',exact=True).click()
-   assert p.locator('.unit-card').count()==8 # seven science units and the four-subject review
+   assert p.locator('.unit-card').count()==8 # seven science units and the science focus view
    p.get_by_role('button',name='国語',exact=True).click()
    assert p.locator('.unit-card').count()==1
    p.get_by_role('button',name='すべて',exact=True).click()
@@ -140,4 +140,4 @@ with ThreadingHTTPServer(('127.0.0.1',0),partial(Quiet,directory=str(ROOT))) as 
    assert not errors,errors
    c.close()
   browser.close()
-print('design_c: all 14 home units, five standalone units, three widths, controls, no writes, colors and recipient privacy PASS')
+print('design_c: all 17 home units, five standalone units, three widths, controls, no writes, colors and recipient privacy PASS')

@@ -1473,7 +1473,7 @@ const QUESTIONS=[
 ];
 const VERSION='mock-focus-v1',LEGACY_KEY='study-mock-focus-v1',KEY='yuika-prototype-v1:'+LEGACY_KEY,UNIT_ID='mock-focus';
 const COURSES={all:'ぜんぶから',d1:'基本',d2:'理由・資料',d3:'発展'};
-const UNITS=["S1 自動車工業", "S2 輸送機関", "S3 食料の輸入と自給率", "S4 大工場と中小工場", "S5 発酵食品", "S6 日本海側の冬", "S7 海沿いの工業", "S8 農業・水産業の働き手", "S9 道具とくらし", "R1 台風の特徴", "R2 台風の記録", "R3 夏と冬の星座", "R4 水の温度と体積", "R5 発芽と実験", "M1 割合", "M2 円と三角形", "M3 三角形の合同", "K1 同音異字", "K2 説明文の読み方"];
+let UNITS=[...new Set(QUESTIONS.map(q=>q.unit))];
 const MODES={normal:'通常練習',unseen:'未回答',wrong:'もう一度',spaced:'日をあけて',hint:'ヒントなしで'};
 const VARIANTS={normal:'通常練習'};
 const Q=new Map(QUESTIONS.map(q=>[q.id,q]));
@@ -1600,11 +1600,11 @@ function submit(){
 const modeLabel=e=>MODES[e.mode]+(e.variant!=='normal'?'・'+VARIANTS[e.variant]+'確認':'');
 function result(){const es=run.results;main.innerHTML=`<div class="quiz card"><div class="result"><div class="eyebrow">TODAY’S DISCOVERY</div><h1>おつかれさま！</h1><p>まちがえた問題は、次のチャレンジで出やすくなるよ。</p><strong>${es.filter(e=>e.correct).length}<small> / ${es.length}問 正解</small></strong><p class="muted">ヒントを見た問題：${es.filter(e=>e.hint).length}問</p></div>${es.map(e=>`<div class="listline"><span class="badge">${e.correct?'できた':'また思い出そう'}</span> ${esc(e.question)}</div>`).join('')}<div class="actions"><button id="again" class="primary">単元のホームへ</button><button id="parent">保護者のノート</button></div></div>`;document.getElementById('again').onclick=()=>go('home');document.getElementById('parent').onclick=()=>go('parent');}
 function detail(e){return `<details><summary><span class="badge">${e.correct?'正解':'もう一度'}</span> ${esc(e.question)}<br><small>${label(e.at)} · ${VARIANTS[e.variant]} · ${e.unit}</small></summary><div class="facts"><p>観測した回答：<b>${esc(e.response)}</b></p><p>正解：${esc(e.expected)}</p><p>ヒント${e.hint?'あり':'なし'} ／ ${MODES[e.mode]} ／ 回答日 ${e.day}</p><p>${esc(e.explanation)}</p></div><small class="overflow">問題 ${e.questionId} ／ セッション ${e.sessionId} ／ 問題版 ${VERSION}</small></details>`;}
-function parent(){const a=analysis(),es=data.events,repeated=[...a.g.values()].filter(rows=>rows.filter(e=>!e.correct).length>=2);main.innerHTML=`<div class="eyebrow">PARENT’S NOTE · 重点分野</div><h1>学びのようす</h1><div class="note">この単元で記録した回答だけを集計します。既存の社会・理科の記録は含みません。選択式の通常練習を記録します。「初回」は問題・確認方法ごとに最初に記録した回答で、本当の初回学習とは限りません。</div><section class="card"><h2>分野と確認方法</h2><div class="tablewrap"><table><tr><th>分野</th>${Object.values(VARIANTS).map(v=>`<th>${v}</th>`).join('')}</tr>${UNITS.map(u=>`<tr><td>${u}</td>${Object.keys(VARIANTS).map(v=>`<td>${rate(es.filter(e=>e.unit===u&&e.variant===v))}</td>`).join('')}</tr>`).join('')}</table></div><p class="muted">正解した回答数／全回答数。繰り返しを含みます。</p></section><div class="layout"><section class="card"><h2>初めの回答とヒント</h2>${[['通常練習の記録初回',a.first.filter(e=>e.variant==='normal')],['漢字確認の記録初回',a.first.filter(e=>e.variant==='kanji')],['読み確認の記録初回',a.first.filter(e=>e.variant==='yomi')],['ヒントあり',es.filter(e=>e.hint)],['ヒントなし',es.filter(e=>!e.hint)]].map(([t,r])=>`<div class="listline">${t}：<b>${rate(r)}</b></div>`).join('')}<p class="muted">問題構成や難しさが違うので、ヒントの効果を単純比較はできません。</p></section><section class="card"><h2>時間をおいた確認</h2>${[['直後の再挑戦',a.immediate],['同日・30分より後',a.same],['別の日の再回答',a.later],['最初の誤答の後、初めて別日に答えた結果',a.afterError]].map(([t,r])=>`<div class="listline">${t}：<b>${rate(r)}</b></div>`).join('')}<p class="muted">同じ問題・確認方法の前の回答と比較。直後＝同日30分以内。別日＝記録時の現地日付が異なること（24時間以上とは限りません）。</p></section></div><section class="card"><h2>繰り返し確認したい問題</h2><p class="muted">同じ確認方法で２回以上間違えた問題。すでに正解したものも振り返れます。</p>${repeated.length?repeated.map(rows=>`<details><summary>${esc(rows[0].question)}<br><small>${VARIANTS[rows[0].variant]}：誤答${rows.filter(e=>!e.correct).length}/${rows.length}回答・最後は${rows.at(-1).correct?'正解':'誤答'}</small></summary>${rows.filter(e=>!e.correct).map(detail).join('')}<p class="muted">観測：上記の答えを入力・選択しました。推測：取り違え、読み違い、変換ミスなど、原因はこの記録だけでは特定できません。</p></details>`).join(''):'<p class="empty">２回以上の誤答はまだありません。</p>'}</section><section class="card"><h2>１回答ずつの記録</h2><p class="muted">表示日時は閲覧端末の時刻帯。回答日は記録時の現地日付です。</p><div id="history"></div></section><div class="note">少数の回答だけで「苦手」と断定しません。回答時間は記録しません。漢字入力の結果は、手書きできることを保証しません。</div><div class="actions"><button id="report" class="primary">分析用テキストを書き出す</button><button id="practice">復習を選ぶ</button></div>`;history();document.getElementById('report').onclick=exportReport;document.getElementById('practice').onclick=()=>go('home');}
-function history(){const es=order(data.events).reverse(),pages=Math.max(1,Math.ceil(es.length/20));page=Math.min(page,pages-1);document.getElementById('history').innerHTML=es.slice(page*20,page*20+20).map(detail).join('')||'<p class="empty">これから回答すると、ここに記録されます。</p>';if(pages>1){document.getElementById('history').insertAdjacentHTML('beforeend',`<div class="pages"><button id="prev" ${page?'':'disabled'}>前へ</button>${page+1}/${pages}<button id="more" ${page+1===pages?'disabled':''}>次へ</button></div>`);document.getElementById('prev').onclick=()=>{page--;history();};document.getElementById('more').onclick=()=>{page++;history();};}}
+function parent(){const a=analysis(),es=focusEvents(),repeated=[...a.g.values()].filter(rows=>rows.filter(e=>!e.correct).length>=2);main.innerHTML=`<div class="eyebrow">PARENT’S NOTE · 重点分野</div><h1>学びのようす</h1><div class="note">この単元で記録した回答だけを集計します。既存の社会・理科の記録は含みません。選択式の通常練習を記録します。「初回」は問題・確認方法ごとに最初に記録した回答で、本当の初回学習とは限りません。</div><section class="card"><h2>分野と確認方法</h2><div class="tablewrap"><table><tr><th>分野</th>${Object.values(VARIANTS).map(v=>`<th>${v}</th>`).join('')}</tr>${UNITS.map(u=>`<tr><td>${u}</td>${Object.keys(VARIANTS).map(v=>`<td>${rate(es.filter(e=>e.unit===u&&e.variant===v))}</td>`).join('')}</tr>`).join('')}</table></div><p class="muted">正解した回答数／全回答数。繰り返しを含みます。</p></section><div class="layout"><section class="card"><h2>初めの回答とヒント</h2>${[['通常練習の記録初回',a.first.filter(e=>e.variant==='normal')],['漢字確認の記録初回',a.first.filter(e=>e.variant==='kanji')],['読み確認の記録初回',a.first.filter(e=>e.variant==='yomi')],['ヒントあり',es.filter(e=>e.hint)],['ヒントなし',es.filter(e=>!e.hint)]].map(([t,r])=>`<div class="listline">${t}：<b>${rate(r)}</b></div>`).join('')}<p class="muted">問題構成や難しさが違うので、ヒントの効果を単純比較はできません。</p></section><section class="card"><h2>時間をおいた確認</h2>${[['直後の再挑戦',a.immediate],['同日・30分より後',a.same],['別の日の再回答',a.later],['最初の誤答の後、初めて別日に答えた結果',a.afterError]].map(([t,r])=>`<div class="listline">${t}：<b>${rate(r)}</b></div>`).join('')}<p class="muted">同じ問題・確認方法の前の回答と比較。直後＝同日30分以内。別日＝記録時の現地日付が異なること（24時間以上とは限りません）。</p></section></div><section class="card"><h2>繰り返し確認したい問題</h2><p class="muted">同じ確認方法で２回以上間違えた問題。すでに正解したものも振り返れます。</p>${repeated.length?repeated.map(rows=>`<details><summary>${esc(rows[0].question)}<br><small>${VARIANTS[rows[0].variant]}：誤答${rows.filter(e=>!e.correct).length}/${rows.length}回答・最後は${rows.at(-1).correct?'正解':'誤答'}</small></summary>${rows.filter(e=>!e.correct).map(detail).join('')}<p class="muted">観測：上記の答えを入力・選択しました。推測：取り違え、読み違い、変換ミスなど、原因はこの記録だけでは特定できません。</p></details>`).join(''):'<p class="empty">２回以上の誤答はまだありません。</p>'}</section><section class="card"><h2>１回答ずつの記録</h2><p class="muted">表示日時は閲覧端末の時刻帯。回答日は記録時の現地日付です。</p><div id="history"></div></section><div class="note">少数の回答だけで「苦手」と断定しません。回答時間は記録しません。漢字入力の結果は、手書きできることを保証しません。</div><div class="actions"><button id="report" class="primary">分析用テキストを書き出す</button><button id="practice">復習を選ぶ</button></div>`;history();document.getElementById('report').onclick=exportReport;document.getElementById('practice').onclick=()=>go('home');}
+function history(){const es=order(focusEvents()).reverse(),pages=Math.max(1,Math.ceil(es.length/20));page=Math.min(page,pages-1);document.getElementById('history').innerHTML=es.slice(page*20,page*20+20).map(detail).join('')||'<p class="empty">これから回答すると、ここに記録されます。</p>';if(pages>1){document.getElementById('history').insertAdjacentHTML('beforeend',`<div class="pages"><button id="prev" ${page?'':'disabled'}>前へ</button>${page+1}/${pages}<button id="more" ${page+1===pages?'disabled':''}>次へ</button></div>`);document.getElementById('prev').onclick=()=>{page--;history();};document.getElementById('more').onclick=()=>{page++;history();};}}
 function download(name,text,type='application/json'){const url=URL.createObjectURL(new Blob([text],{type:type+';charset=utf-8'})),a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),10000);}
 const exportJSON=()=>download('study-prototype-mock-focus-'+new Date().toISOString().slice(0,10)+'.json',JSON.stringify(prototypePacket(data),null,2));
-function exportReport(){const a=analysis(),es=data.events;download('study-prototype-mock-focus-analysis.txt',['模試の弱点対策 重点分野：保護者用ノート','出力：'+label(new Date().toISOString()),'問題版：'+VERSION,...UNITS.flatMap(u=>Object.keys(VARIANTS).map(v=>`${u}・${VARIANTS[v]}：${rate(es.filter(e=>e.unit===u&&e.variant===v))}`)),...Object.keys(VARIANTS).map(v=>`${VARIANTS[v]}の記録初回：${rate(a.first.filter(e=>e.variant===v))}`),`ヒントあり：${rate(es.filter(e=>e.hint))}`,`ヒントなし：${rate(es.filter(e=>!e.hint))}`,`直後（同日30分以内）：${rate(a.immediate)}`,`同日30分より後：${rate(a.same)}`,`別日再回答：${rate(a.later)}`,`最初の誤答の後、最初の別日回答：${rate(a.afterError)}`,'日付は回答時の現地日付。別日は24時間以上とは限りません。ヒントありも含みます。','初回は各問題・確認方法の記録初回です。本当の初回学習は不明。','少数回答で苦手・定着と断定せず、誤答だけから原因を決めつけません。回答時間も評価しません。','',...order(es).map(e=>`${e.at}（現地日付 ${e.day} / UTCとの差 ${-e.offset}分）\n${e.questionId} / ${e.unit} / ${e.variant} / ${MODES[e.mode]} / セッション ${e.sessionId}\n${e.question}\n観測した答え：${e.response}\n正解：${e.expected} / ${e.correct?'正解':'誤答'} / ヒント${e.hint?'あり':'なし'}\n解説：${e.explanation}\n`),dirty?'未保存の回答を含みます。JSONでも保管してください。':''].join('\n'),'text/plain');}
+function exportReport(){const a=analysis(),es=focusEvents();download('study-prototype-mock-focus-analysis.txt',['模試の弱点対策 重点分野：保護者用ノート','出力：'+label(new Date().toISOString()),'問題版：'+VERSION,...UNITS.flatMap(u=>Object.keys(VARIANTS).map(v=>`${u}・${VARIANTS[v]}：${rate(es.filter(e=>e.unit===u&&e.variant===v))}`)),...Object.keys(VARIANTS).map(v=>`${VARIANTS[v]}の記録初回：${rate(a.first.filter(e=>e.variant===v))}`),`ヒントあり：${rate(es.filter(e=>e.hint))}`,`ヒントなし：${rate(es.filter(e=>!e.hint))}`,`直後（同日30分以内）：${rate(a.immediate)}`,`同日30分より後：${rate(a.same)}`,`別日再回答：${rate(a.later)}`,`最初の誤答の後、最初の別日回答：${rate(a.afterError)}`,'日付は回答時の現地日付。別日は24時間以上とは限りません。ヒントありも含みます。','初回は各問題・確認方法の記録初回です。本当の初回学習は不明。','少数回答で苦手・定着と断定せず、誤答だけから原因を決めつけません。回答時間も評価しません。','',...order(es).map(e=>`${e.at}（現地日付 ${e.day} / UTCとの差 ${-e.offset}分）\n${e.questionId} / ${e.unit} / ${e.variant} / ${MODES[e.mode]} / セッション ${e.sessionId}\n${e.question}\n観測した答え：${e.response}\n正解：${e.expected} / ${e.correct?'正解':'誤答'} / ヒント${e.hint?'あり':'なし'}\n解説：${e.explanation}\n`),dirty?'未保存の回答を含みます。JSONでも保管してください。':''].join('\n'),'text/plain');}
 async function importFile(file){if(!file)return;try{check(file.size<=25000000,'25MBまでのJSONを選んでください。');const incoming=validate(JSON.parse(await file.text())),next=merge(data,incoming),added=next.events.length-data.events.length;data=next;const saved=save();note(`読み込み：新しい回答 ${added}件。重複は追加していません。${saved?'ブラウザーに保存しました。':'未保存です。閉じる前にJSONを書き出してください。'}`);records();}catch(e){note('読み込みを中止しました。既存記録は変更していません。'+e.message);}}
 function records(){main.innerHTML=`<div class="eyebrow">KEEP YOUR DISCOVERIES</div><h1>記録の保存</h1><div class="note">この単元の回答：${data.events.length}件。${dirty||blocked?'一時保持の回答があります。閉じる前にJSONを保存してください。':'このブラウザーに保存しています。'}<br>社会の既存単元・理科の記録は別に保管され、このページでは書き換えません。</div><div class="layout"><section class="card"><h2>書き出し</h2><p>端末を替える前にJSONを保管しましょう。保護者への分析資料にはTXTを使えます。</p><div class="stack"><button id="export" class="primary">JSONを書き出す</button><button id="report">分析用テキストを書き出す</button><button id="retry">保存を再試行</button>${broken!==null?'<button id="broken">読み取れなかった元データを保存</button>':''}</div></section><section class="card"><h2>読み込み</h2><p>この単元のJSONを今ある記録に追加します。同じ回答IDは重複させません。同じIDで内容が異なる場合や、不正なデータはファイル全体の取込みを中止します。</p><label class="field">JSONファイル<input id="import" type="file" accept=".json,application/json"></label></section></div><section class="card"><h2>iPadで使うとき</h2><p>Safariの「共有」→「ホーム画面に追加」で使えます。ブラウザー・端末・ホーム画面からの起動などで保存領域が異なる場合があるため、切り替える前にJSONを書き出してください。自動同期はしません。</p><p>プライベートブラウズや履歴・Webサイトデータの削除では記録が消えることがあります。学習は１つのタブで行い、ときどきJSONを保管してください。</p><p>保存キー：${KEY}</p></section>`;document.getElementById('export').onclick=exportJSON;document.getElementById('report').onclick=exportReport;document.getElementById('import').onchange=e=>importFile(e.target.files[0]);document.getElementById('retry').onclick=()=>{if(save())note('保存できました。');records();};if(broken!==null)document.getElementById('broken').onclick=()=>download('yuika-mock-focus-original-unreadable.json',broken);}
 window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.returnValue='';}});
@@ -1920,12 +1920,60 @@ importFile=async function(file){
  }
 };
 // PROTOTYPE_END
+// FOCUS_SUBJECT_START
+// Subject views share the complete durable store and revision archive.
+// Filter projections and candidates, never the imported/exported event stream.
+const focusSubject=new URLSearchParams(location.search).get('subject');
+const FOCUS_SUBJECTS={social:'社会',science:'理科',math:'算数',japanese:'国語'};
+const focusLabel=Object.hasOwn(FOCUS_SUBJECTS,focusSubject)?FOCUS_SUBJECTS[focusSubject]:null;
+const focusQuestions=QUESTIONS.filter(q=>!focusLabel||q.subject===focusLabel);
+UNITS=[...new Set(focusQuestions.map(q=>q.unit))];
+const inFocus=q=>!!q&&(!focusLabel||q.subject===focusLabel);
+const focusEvents=()=>data.events.filter(e=>inFocus(Q.get(e.questionId)));
+const focusCandidates=candidates;
+candidates=function(...args){return focusCandidates(...args).filter(inFocus);};
+const focusGrouped=grouped;
+grouped=function(events=data.events){return focusGrouped(events.filter(e=>inFocus(Q.get(e.questionId))));};
+const focusWeaknesses=weaknesses;
+weaknesses=function(...args){return focusWeaknesses(...args).filter(r=>inFocus(Q.get(r.originId)));};
+const focusRetention=retention;
+retention=function(...args){return focusRetention(...args).filter(r=>inFocus(Q.get(r.originId)));};
+const focusHome=home;
+home=function(){
+ focusHome();
+ if(focusLabel){
+  main.querySelector('.hero h1').textContent='模試の弱点対策 '+focusLabel;
+  main.querySelector('.hero p').textContent=focusLabel+'の重点分野を、ちがう聞き方で確かめよう。';
+  main.querySelector('.hero .tag').textContent=focusQuestions.length+'問・根拠と解説つき';
+ }
+};
+const focusRecords=records;
+records=function(){focusRecords();main.querySelector('.note').insertAdjacentHTML('beforeend','<p>JSONは4教科すべての記録を保管します。分析用テキストは表示中の教科が対象です。</p>');};
+// Keep per-subject preferences separate from the original mixed daily entry.
+const focusRestore=restorePrefs,focusRemember=rememberPrefs;
+const focusPrefKey=PREF_KEY+':'+focusSubject;
+restorePrefs=function(){
+ if(!focusLabel){focusRestore();return;}
+ prefs={count:5,course:'all',unit:'all',variant:'normal'};
+ try{const p=JSON.parse(window.YuikaParent.storage.getItem(focusPrefKey)||'null');if(!p)return;
+  if([5,10,15].includes(p.count))prefs.count=p.count;
+  if(Object.hasOwn(COURSES,p.course))prefs.course=p.course;
+  if(UNITS.includes(p.unit))prefs.unit=p.unit;
+ }catch{note('学習設定を読み取れません。初期設定で始めます。');}
+};
+rememberPrefs=function(){
+ if(!focusLabel){focusRemember();return;}
+ try{window.YuikaParent.storage.setItem(focusPrefKey,JSON.stringify(prefs));window.YuikaParent.storage.setItem('yuika-prototype-v1:last-daily-unit','mock-focus-review.html?subject='+focusSubject);}
+ catch{note('学習設定を保存できません。次回起動時は初期設定になります。');}
+};
+restorePrefs();
+// FOCUS_SUBJECT_END
 // DESIGN_C_START
 const designHome=home;
 home=function(){
  designHome();
  const latest=new Map();for(const e of [...data.events].sort((a,b)=>a.at.localeCompare(b.at)))if(Q.has(e.questionId)&&(e.variant||'normal')==='normal')latest.set(Q.get(e.questionId).originId||e.questionId,e);
- window.YuikaDesign.unitHome(main,{subject:'4教科まとめ',code:'mock-focus',total:QUESTIONS.length,correct:[...latest.values()].filter(e=>e.correct).length,due:dueReviews().length,weak:practiceWeaknesses().length});
+ window.YuikaDesign.unitHome(main,{subject:focusLabel||'4教科まとめ',code:'mock-focus',total:focusQuestions.length,correct:[...latest.values()].filter(e=>e.correct&&inFocus(Q.get(e.questionId))).length,due:dueReviews().length,weak:practiceWeaknesses().length});
 };
 // DESIGN_C_END
 load();render();
