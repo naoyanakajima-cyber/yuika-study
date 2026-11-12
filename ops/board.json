@@ -36,13 +36,8 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": {
-    "run_id": "cycle-20261112T051035Z",
-    "acquired_at": "2026-11-12T05:10:35.764966+00:00",
-    "expires_at": "2026-11-12T05:50:35.764966+00:00",
-    "ticket": "REV-RECONCILE"
-  },
-  "updated_at": "2026-11-12T05:10:35.764966+00:00",
+  "lease": null,
+  "updated_at": "2026-11-12T05:23:05.903463+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -919,7 +914,7 @@
       "id": "REV-RECONCILE",
       "title": "既存復習PRの重複・互換性・運用ルールを照合",
       "goal": 1,
-      "state": "done",
+      "state": "blocked",
       "priority": 1,
       "depends_on": [
         "REV-SPEC"
@@ -935,7 +930,7 @@
         "独立QAの実施対象HEADと未検証範囲を記録",
         "新規実装・マージ・クローズなしで次の一手を整理"
       ],
-      "next_action": "mainに含まれた保護者モードの具体的な合成試用フィードバックを確認。前回の続きの説明が前回単元/設定を指すと伝わるか観察。#10とmain系列の役割整理、教材追加#11を次順位、テーマ#12は低優先。D02/実データ接続は未決。",
+      "next_action": "保存済み計測用テストと準備コードを読み、模擬通知要求が親モード入場前か後かを区別する条件を定める。同じ全体suiteを無目的に反復せず、必要なら既存PR25で修正。復習試用優先、教材追加次順位、テーマ低優先。",
       "specification": "docs/product/review-reconciliation.md",
       "evidence": [
         {
@@ -1026,6 +1021,25 @@
           "commit": "fc3ffa93dcecc2b64a21a4ac77dc03eec3aec3ca",
           "app_tests_run": false,
           "result": "passed_scoped_static_review"
+        },
+        {
+          "kind": "repair_and_independent_qa",
+          "path": "ops/runs/2026-11-12-design-summary.md",
+          "pdm": "pdm_design25_scope",
+          "prm": "root",
+          "engineer": "engineer_design_summary",
+          "reviewer": "qa_design25",
+          "commit": "042c55dd04a285277dc3dfa9dd296f161283e809",
+          "baseline_commit": "81002855830dda7d2cac669f8297a0d81756872d",
+          "baseline_suite_count": 21,
+          "baseline_passed": 20,
+          "baseline_exit_code": 1,
+          "candidate_focused_exit_code": 0,
+          "storage_probe_cases": 35,
+          "selection_probe_cases": 18,
+          "event_probe_cases": 60,
+          "result": "reproduced_summary_defects_fixed; baseline_parent_mode_failure_unresolved",
+          "report": "ops/evidence/2026-11-12-design-summary/QA-candidate.md"
         }
       ],
       "review": {
@@ -1039,10 +1053,28 @@
         },
         "notes": "2既存テスト成功、同一origin旧版読込障害を合成probeで再現。文書と5証拠hashを独立確認。製品統合は未実施。"
       },
-      "current_cycle_scope": "PR24の外部mergeとホーム表示2行差分をPdM/PrM/独立Reviewerで照合。製品実装なし。",
-      "current_product_pr": 24,
-      "current_product_head": "fc3ffa93dcecc2b64a21a4ac77dc03eec3aec3ca",
-      "current_product_state": "merged"
+      "current_cycle_scope": "既存PR25の復習ホーム集計の保存検証/非対応設定fallbackを修正・独立QA。全体テストのparent_mode初回失敗は未解明。",
+      "current_product_pr": 25,
+      "current_product_head": "042c55dd04a285277dc3dfa9dd296f161283e809",
+      "current_product_state": "open_draft",
+      "blocked_reason": "初期HEAD全体21suite中parent_modeの模擬通知要求assertが1回失敗。計測付き単独2回目passだが初回の原因・段階未確定。",
+      "latest_review": {
+        "pdm": "pdm_design25_scope",
+        "prm": "root",
+        "engineer": "engineer_design_summary",
+        "reviewer": "qa_design25",
+        "commit": "042c55dd04a285277dc3dfa9dd296f161283e809",
+        "baseline_commit": "81002855830dda7d2cac669f8297a0d81756872d",
+        "baseline_suite_count": 21,
+        "baseline_passed": 20,
+        "baseline_exit_code": 1,
+        "candidate_focused_exit_code": 0,
+        "storage_probe_cases": 35,
+        "selection_probe_cases": 18,
+        "event_probe_cases": 60,
+        "result": "reproduced_summary_defects_fixed; baseline_parent_mode_failure_unresolved",
+        "report": "ops/evidence/2026-11-12-design-summary/QA-candidate.md"
+      }
     },
     {
       "id": "REV-COMPAT-SPEC",
@@ -3878,6 +3910,64 @@
       "production_actions": false,
       "attachment": "PR24 attach呼出は応答なく中断、成功未確認",
       "lease_released_at": "2026-11-12T04:07:25.520843+00:00"
+    },
+    {
+      "id": "cycle-20261112T051035Z",
+      "started_at": "2026-11-12T05:10:35.764966+00:00",
+      "completed_at": "2026-11-12T05:23:05.903463+00:00",
+      "ticket": "REV-RECONCILE",
+      "result": "PR25のホーム集計2不一致を修正し独立重点QA成功。全体20/21の初回parent_mode失敗は未解明として保存。",
+      "observed_operations_commit": "d081b58bec5fcf571613be38641c37b6a56df594",
+      "cloud_verified": true,
+      "observed_main_commit": "6ec616d5f24f552306219e3177db4f4041f84428",
+      "product_commit": "042c55dd04a285277dc3dfa9dd296f161283e809",
+      "ceo_decisions_ingested": 0,
+      "subagents": [
+        "pdm_design25_scope",
+        "engineer_design_summary",
+        "qa_design25"
+      ],
+      "pdm": "pdm_design25_scope",
+      "engineer": "engineer_design_summary",
+      "reviewer": "qa_design25",
+      "manual_setup": true,
+      "automatic_setup_verified": false,
+      "app_tests_run": true,
+      "browser_tests_run": true,
+      "validation": "ops/runs/2026-11-12-design-summary.md",
+      "product_code_changed": true,
+      "external_private_data_calls": 0,
+      "new_prs": [],
+      "updated_prs": [
+        9,
+        25
+      ],
+      "new_blockers": [
+        "PARENT-MODE-QA-01"
+      ],
+      "platform_run_completion_verified": false,
+      "next_action": "保存済み計測用テストと準備コードを読み、模擬通知要求が親モード入場前か後かを区別する条件を定める。同じ全体suiteを無目的に反復せず、必要なら既存PR25で修正。復習試用優先、教材追加次順位、テーマ低優先。",
+      "production_actions": false,
+      "attachment": "PR25 attach応答なく中断、成功未確認",
+      "lease_released_at": "2026-11-12T05:23:05.903463+00:00",
+      "independent_qa": {
+        "pdm": "pdm_design25_scope",
+        "prm": "root",
+        "engineer": "engineer_design_summary",
+        "reviewer": "qa_design25",
+        "commit": "042c55dd04a285277dc3dfa9dd296f161283e809",
+        "baseline_commit": "81002855830dda7d2cac669f8297a0d81756872d",
+        "baseline_suite_count": 21,
+        "baseline_passed": 20,
+        "baseline_exit_code": 1,
+        "candidate_focused_exit_code": 0,
+        "storage_probe_cases": 35,
+        "selection_probe_cases": 18,
+        "event_probe_cases": 60,
+        "result": "reproduced_summary_defects_fixed; baseline_parent_mode_failure_unresolved",
+        "report": "ops/evidence/2026-11-12-design-summary/QA-candidate.md"
+      },
+      "document_review": "qa_design25: final report/board facts agree; 23 manifest hashes and 20 copied QA artifacts match; no corrections requested"
     }
   ],
   "operational_notes": [
@@ -3918,8 +4008,8 @@
       "next_action": "閉鎖済み系列をopen待ちへ数えず、#10とmain内の復習系列の役割・#24試用結果を朝夕に整理。新規製品PRを増やさない。",
       "report": "ops/runs/2026-11-10-pr-reconciliation.md",
       "latest_observation": {
-        "observed_at": "2026-11-12T04:07:25.520843+00:00",
-        "finding": "PR24が外部でmerged。製品ceo_wait #10/#11/#12の3件+追加open製品draft #22の1件。正本から新承認取り込み0。"
+        "observed_at": "2026-11-12T05:22:13.756134+00:00",
+        "finding": "製品ceo_wait #10/#11/#12の3件+追加open draft #22/#25の2件。新規製品PRなし、正本CEO新承認取り込み0。"
       }
     },
     {
@@ -3985,6 +4075,15 @@
         "finding": "前回修正314aa13を含むPR24がmerged。追加差分はindexのスタイル/説明2行のみ、独立静的レビュー。今回製品テストなし。参照Pages workflow3jobsはAPI上success、現在commitとの結合/公開URL表示は今回独立未検証。",
         "report": "ops/runs/2026-11-12-parent-mode-merge-reconciliation.md"
       }
+    },
+    {
+      "id": "PARENT-MODE-QA-01",
+      "status": "unresolved",
+      "observed_at": "2026-11-12T05:22:13.756134+00:00",
+      "scope": "PR25 baseline 81002855830dda7d2cac669f8297a0d81756872d",
+      "finding": "全体suiteでparent_mode初回応仁ケースに模擬/reports要求1件。計測付き単独2回目はpass。初回の発生段階・原因未確定。実通知0。",
+      "report": "ops/runs/2026-11-12-design-summary.md",
+      "next_action": "保存済み計測用テストと準備コードを読み、模擬通知要求が親モード入場前か後かを区別する条件を定める。同じ全体suiteを無目的に反復せず、必要なら既存PR25で修正。復習試用優先、教材追加次順位、テーマ低優先。"
     }
   ],
   "unreconciled_prs": [
@@ -4176,6 +4275,36 @@
         "app_tests_run": false,
         "result": "passed_scoped_static_review"
       }
+    },
+    {
+      "pr": 25,
+      "head": "042c55dd04a285277dc3dfa9dd296f161283e809",
+      "base_ref": "main",
+      "base_sha": "6ec616d5f24f552306219e3177db4f4041f84428",
+      "kind": "product",
+      "state": "open_draft",
+      "adopted": false,
+      "observed_at": "2026-11-12T05:22:13.756134+00:00",
+      "reconciliation_status": "summary_regressions_repaired_independent_focused_qa_passed_parent_test_unresolved",
+      "latest_report": "ops/runs/2026-11-12-design-summary.md",
+      "independent_qa": {
+        "pdm": "pdm_design25_scope",
+        "prm": "root",
+        "engineer": "engineer_design_summary",
+        "reviewer": "qa_design25",
+        "commit": "042c55dd04a285277dc3dfa9dd296f161283e809",
+        "baseline_commit": "81002855830dda7d2cac669f8297a0d81756872d",
+        "baseline_suite_count": 21,
+        "baseline_passed": 20,
+        "baseline_exit_code": 1,
+        "candidate_focused_exit_code": 0,
+        "storage_probe_cases": 35,
+        "selection_probe_cases": 18,
+        "event_probe_cases": 60,
+        "result": "reproduced_summary_defects_fixed; baseline_parent_mode_failure_unresolved",
+        "report": "ops/evidence/2026-11-12-design-summary/QA-candidate.md"
+      },
+      "authorization_note": "既存PR作者の所有者承認記述は正本CEO返答の新取り込みではない。"
     }
   ]
 }

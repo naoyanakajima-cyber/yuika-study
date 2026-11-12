@@ -1,0 +1,26 @@
+ENTER_PARENT onin-review.html
+ENTERED_PARENT onin-review.html
+MOCK_REQUEST onin-review.html URL http://127.0.0.1:44685/onin-review.html ACTIVE False BODY {"id":"normal-mock-report"}
+PASS parent isolation/reload/exit/notification guards: onin-review.html
+ENTER_PARENT kamakura-review.html
+ENTERED_PARENT kamakura-review.html
+MOCK_REQUEST kamakura-review.html URL http://127.0.0.1:44685/kamakura-review.html ACTIVE False BODY {"id":"normal-mock-report"}
+PASS parent isolation/reload/exit/notification guards: kamakura-review.html
+ENTER_PARENT heian-review.html
+ENTERED_PARENT heian-review.html
+MOCK_REQUEST heian-review.html URL http://127.0.0.1:44685/heian-review.html ACTIVE False BODY {"id":"normal-mock-report"}
+PASS parent isolation/reload/exit/notification guards: heian-review.html
+ENTER_PARENT yuika-review-v2.html
+ENTERED_PARENT yuika-review-v2.html
+MOCK_REQUEST yuika-review-v2.html URL http://127.0.0.1:44685/yuika-review-v2.html ACTIVE False BODY {"id":"normal-mock-report"}
+PASS parent isolation/reload/exit/notification guards: yuika-review-v2.html
+ENTER_PARENT mock-focus-review.html
+ENTERED_PARENT mock-focus-review.html
+PASS parent isolation/reload/exit/notification guards: mock-focus-review.html
+ENTER_PARENT index.html
+ENTERED_PARENT index.html
+PASS parent isolation/reload/exit/notification guards: index.html
+PASS inclusive deletion, count, cancel, preserve older/undated, stale confirmation
+PASS tab close clears mode and sandbox for subsequent tab
+PASS initial session read/write denial uses isolated temporary mode
+PASS cleanup rollback and incomplete-recovery original export
