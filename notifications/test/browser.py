@@ -13,7 +13,7 @@ BASE=f'http://127.0.0.1:{srv.server_port}/'
 CONFIG={'enabled':True,'endpoint':'https://test-notify.example.workers.dev','token':'test-device-key-123456789012345678901234','recipient':'parent@example.test, mother@example.test'}
 with sync_playwright() as pw:
  b=pw.chromium.launch(executable_path='/usr/bin/chromium',args=['--no-sandbox'])
- c=b.new_context(viewport={'width':768,'height':1024});p=c.new_page();errors=[];p.on('pageerror',lambda e:errors.append(str(e)))
+ c=b.new_context(viewport={'width':768,'height':1024});c.add_init_script(path=str(ROOT / 'tests/seed_random.js'));p=c.new_page();errors=[];p.on('pageerror',lambda e:errors.append(str(e)))
  received=[];fail=[False]
  def handle(r):
   if r.request.method=='OPTIONS':r.fulfill(status=204,headers={'Access-Control-Allow-Origin':'*','Access-Control-Allow-Headers':'Authorization, Content-Type','Access-Control-Allow-Methods':'GET, POST, OPTIONS'});return
@@ -29,7 +29,8 @@ with sync_playwright() as pw:
  expect(p.locator('#yuika-mail-status')).to_contain_text('未接続')
  # Explicit pairing, credentials stored on device only.
  p.get_by_text('保護者：チャレンジ結果の自動メール',exact=True).click();p.locator('#yuika-mail-url').fill(CONFIG['endpoint']);p.locator('#yuika-mail-token').fill(CONFIG['token']);p.on('dialog',lambda d:d.accept());p.locator('#yuika-mail-form button[type=submit]').click()
- p.wait_for_function("JSON.parse(localStorage.getItem('yuika-mail-config-v1')||'null')?.enabled===true")
+ # A function avoids repeated string eval during polling under the page's CSP.
+ p.wait_for_function("() => JSON.parse(localStorage.getItem('yuika-mail-config-v1')||'null')?.enabled===true")
  p.locator('#course').select_option('memory');p.locator('#start').click()
  for i in range(5):
   q=p.evaluate('run.qs[run.index]')
@@ -52,13 +53,13 @@ with sync_playwright() as pw:
  science=received[-1];assert science['app']=='science' and science['total']==5
  pending=p.evaluate("Object.keys(localStorage).filter(k=>k.startsWith('yuika-mail-job-v1:')).map(k=>JSON.parse(localStorage.getItem(k))).filter(j=>j.status==='pending')")
  assert len(pending)==1 and pending[0]['report']==science
- learning=p.evaluate("localStorage.getItem('yuika-science-review-v2')")
+ learning=p.evaluate("localStorage.getItem('yuika-prototype-v1:yuika-science-review-v2')")
  assert learning is not None
  # Simulate passage of backoff time and a new visit.
  p.evaluate("()=>{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k.startsWith('yuika-mail-job-v1:')){const v=JSON.parse(localStorage.getItem(k));if(v.status==='pending'){v.nextAttempt=0;localStorage.setItem(k,JSON.stringify(v));}}}}")
  fail[0]=False;p.reload();expect(p.locator('#yuika-mail-status')).to_contain_text('受け付けました')
  assert received[-1]==science
- assert p.evaluate("localStorage.getItem('yuika-science-review-v2')")==learning
+ assert p.evaluate("localStorage.getItem('yuika-prototype-v1:yuika-science-review-v2')")==learning
  print('PASS science completion; queued on provider failure; same payload and ID retried on next visit',flush=True)
  # Quota failures do not break learning; accepted receipts contain no answer payload.
  receipts=p.evaluate("Object.keys(localStorage).filter(k=>k.startsWith('yuika-mail-job-v1:')).map(k=>JSON.parse(localStorage.getItem(k)))")

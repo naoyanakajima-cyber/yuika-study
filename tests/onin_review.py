@@ -1,5 +1,5 @@
 """540-27「応仁の乱」ページのブラウザーテスト。python3 tests/onin_review.py で実行（Playwright＋Chromium）。"""
-import json
+import json,os
 from pathlib import Path
 from http.server import ThreadingHTTPServer,SimpleHTTPRequestHandler
 from functools import partial
@@ -15,7 +15,7 @@ OTHER={'yuika-social-540-24-v1':'{"schemaVersion":1,"datasetVersion":"heian-540-
 MK="""(id,correct,variant,at)=>{const q=Q.get(id),v=variantOf(q,variant),d=new Date(at);const response=correct?(q.type==='text'?expectedOf(q,v):q.answer):(q.type==='text'?'ちがう':q.options.find(o=>o!==q.answer));
 return validateEvent({id:uuid(),sessionId:'seed-session',questionId:id,unitId:UNIT_ID,version:VERSION,unit:q.unit,course:q.course,question:promptOf(q,v),response,expected:expectedOf(q,v),explanation:q.explanation,correct,variant:v,mode:'normal',hint:false,at:d.toISOString(),offset:0,day:day(d.toISOString(),0)});}"""
 with sync_playwright() as pw:
- b=pw.chromium.launch();c=b.new_context(viewport={'width':768,'height':1024});p=c.new_page();errors=[];p.on('pageerror',lambda e:errors.append(str(e)))
+ b=pw.chromium.launch(executable_path=os.environ.get('PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH'));c=b.new_context(viewport={'width':768,'height':1024});c.add_init_script(path=str(ROOT / 'tests/seed_random.js'));p=c.new_page();errors=[];p.on('pageerror',lambda e:errors.append(str(e)))
  p.route('https://**/*',lambda r:r.abort())
  p.goto(BASE+'onin-review.html');p.evaluate(f"o=>{{localStorage.clear();for(const[k,v]of Object.entries(o))localStorage.setItem(k,v)}}",OTHER);p.reload()
  # データ：30問・一意ID・必須項目・単元
@@ -42,7 +42,7 @@ with sync_playwright() as pw:
   const g=grouped(es),weak=new Set(QUESTIONS.slice(15).map(q=>q.id));let n=0;for(let t=0;t<200;t++)n+=pick(QUESTIONS,'normal',15,g,'normal').filter(q=>weak.has(q.id)).length;return n/200;}}""")
  assert avg>=12,avg
  # 画面：15問チャレンジ、誤答時は 正解→なぜ→覚え方 の順
- expect(p.locator('h1')).to_have_text('応仁の乱');expect(p.locator('[data-count="15"]')).to_have_attribute('aria-pressed','true')
+ expect(p.locator('h1')).to_have_text('応仁の乱');expect(p.locator('[data-count="5"]')).to_have_attribute('aria-pressed','true');p.locator('[data-count="15"]').click()
  expect(p.locator('svg[role=img]')).to_be_visible();expect(p.get_by_text('慈照寺',exact=True)).to_be_visible()
  p.locator('#start').click();assert p.evaluate('run.qs.length')==15
  for i in range(15):
@@ -54,9 +54,10 @@ with sync_playwright() as pw:
   if i==0:assert 'いっしょに見てみよう' in fb and q['explanation'] in fb
   p.locator('#next').click()
  expect(p.locator('.result strong')).to_contain_text('14')
- stored=json.loads(p.evaluate("localStorage.getItem('yuika-social-540-27-v1')"))
+ stored=json.loads(p.evaluate("localStorage.getItem('yuika-prototype-v1:yuika-social-540-27-v1')"))
  assert len(stored['events'])==15 and all(e['unitId']=='sapix-540-27' for e in stored['events'])
  for k,v in OTHER.items():assert p.evaluate('k=>localStorage.getItem(k)',k)==v,k
+ assert p.evaluate("localStorage.getItem('yuika-social-540-27-v1')") is None
  # 再読み込み後、前回誤答が「もう一度」に出る
  p.reload();expect(p.locator('[data-mode="wrong"] b')).to_contain_text('1')
  # 読みの確認

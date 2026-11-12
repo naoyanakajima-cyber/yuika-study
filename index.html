@@ -242,6 +242,7 @@ const UNITS = [
       ]},
     ],
   },
+  {subject:"社会",subjectIcon:"🌍",subjectColor:T.green,id:"mock-focus",name:"模試の弱点対策（社会・理科・算数・国語）",textbook:"重点分野 · 46問（オリジナル）",externalPage:"mock-focus-review.html",externalNote:"根拠・解説 / 弱点分析 / 再確認 / 今日の5問",quizQuestions:[],flashDecks:[]},
   {subject:"社会",subjectIcon:"🌍",subjectColor:T.green,id:"sapix-540-25",name:"鎌倉幕府の成立（平安〜鎌倉時代）",textbook:"540-25 · 38問（用語・しくみ・つながり）",externalPage:"kamakura-review.html",externalNote:"5・10・15問 / 漢字・読み確認 / 復習 / 保護者のノート",quizQuestions:[],flashDecks:[]},
   {subject:"社会",subjectIcon:"🌍",subjectColor:T.green,id:"sapix-540-27",name:"応仁の乱（室町時代）",textbook:"540-27 · 30問（用語・理由・つながり）",externalPage:"onin-review.html",externalNote:"5・10・15問 / 漢字・読み確認 / 復習 / 保護者のノート",quizQuestions:[],flashDecks:[]},
   {subject:"社会",subjectIcon:"🌍",subjectColor:T.green,id:"shakai-heian-540-24",name:"貴族の世の中（平安時代）",textbook:"540-24 · 暗記50問＋理解25問",externalPage:"heian-review.html",quizQuestions:[],flashDecks:[]},
@@ -518,6 +519,23 @@ const UNITS = [
     ],
   }
 ];
+
+// Flash grading v2: only registered answers/alt, after spelling normalization.
+const FLASH_GRADING_VERSION = "registered-exact-v2";
+function normalizeFlashAnswer(s) {
+  return s.replace(/[\uFF01-\uFFEF]+/g, part => part.normalize("NFKC"))
+    .normalize("NFC").replace(/\s/g, "")
+    .replace(/[ァ-ヶ]/g, m => String.fromCharCode(m.charCodeAt(0) - 0x60));
+}
+function checkFlashAnswer(input, answer, alts = []) {
+  const normalized = normalizeFlashAnswer(input);
+  return normalized.length > 0 && [answer, ...alts].some(a => normalizeFlashAnswer(a) === normalized);
+}
+function flashGradingLabel(version) {
+  if (!version) return "以前の方法（版の記録なし）";
+  if (version === FLASH_GRADING_VERSION) return "登録された答えで確認";
+  return `別の採点方法（版：${version}）`;
+}
 
 // --- UTILS ---
 function shuffle(arr) {
@@ -1075,7 +1093,7 @@ function FlashScreen({ unit, onBack, email, onSessionSaved }) {
     if (phase === "done") {
       const dn = deckIdx===-1 ? "全問" : (unit.flashDecks[deckIdx]?.name || "");
       saveSession({
-        ts: new Date().toISOString(), mode: "flash",
+        ts: new Date().toISOString(), mode: "flash", gradingVersion: FLASH_GRADING_VERSION,
         subject: unit.subject, unit: unit.name + "（" + dn + "）",
         correct: firstCorrect, wrong: firstRoundWrongs.length, dunno: 0,
         total: totalCards, title: "", retry: retry, totalSec, avgSec,
@@ -1153,33 +1171,9 @@ function FlashScreen({ unit, onBack, email, onSessionSaved }) {
 
   const card = cards[ci];
 
-  // Normalize for flexible matching: lowercase, trim, remove spaces/punctuation, convert katakana to hiragana
-  const normalize = (s) => {
-    return s.toLowerCase().trim()
-      .replace(/[\s　・、。（）()「」\-\/]/g, "")
-      .replace(/[ァ-ヶ]/g, m => String.fromCharCode(m.charCodeAt(0) - 0x60)) // katakana→hiragana
-      .replace(/[０-９]/g, m => String.fromCharCode(m.charCodeAt(0) - 0xFEE0)) // fullwidth→ascii
-      .replace(/[Ａ-Ｚａ-ｚ]/g, m => String.fromCharCode(m.charCodeAt(0) - 0xFEE0));
-  };
-
-  // Check if user answer matches (partial match for long answers, supports alt answers)
-  const checkAnswer = (input, answer, alts) => {
-    const ni = normalize(input);
-    const na = normalize(answer);
-    if (!ni) return false;
-    if (unit.strictFlashAnswers) return [answer, ...(alts || [])].some(a => normalize(a) === ni);
-    if (ni === na) return true;
-    if (na.includes(ni) && ni.length >= 2) return true;
-    if (ni.includes(na)) return true;
-    const parts = answer.split(/[／\/、。（）()・\n]/).map(normalize).filter(p => p.length > 0);
-    if (parts.some(p => p === ni || ni.includes(p) || p.includes(ni))) return true;
-    if (alts && alts.some(a => { const nalt = normalize(a); return ni === nalt || nalt.includes(ni) || ni.includes(nalt); })) return true;
-    return false;
-  };
-
   const handleSubmitAnswer = () => {
     if (judged || !userInput.trim()) return;
-    const isCorrect = checkAnswer(userInput, card.a, card.alt);
+    const isCorrect = checkFlashAnswer(userInput, card.a, card.alt);
     setJudged(isCorrect ? "correct" : "wrong");
   };
 
@@ -1604,6 +1598,7 @@ function HistoryScreen({ onBack }) {
             <div style={{fontSize:20}}>{s.mode==="quiz"?"⚔️":"🧠"}</div>
             <div style={{flex:1}}>
               <div style={{fontSize:13,fontWeight:700,color:T.text}}>{s.subject}・{s.unit}</div>
+              {s.mode==="flash" && <div style={{fontSize:11,color:T.textDim}}>答えの確認方法：{flashGradingLabel(s.gradingVersion)}</div>}
               <div style={{fontSize:11,color:T.textMuted}}>{formatDate(s.ts)}</div>
             </div>
             <div style={{textAlign:"right"}}>
@@ -1670,7 +1665,11 @@ function App() {
     return <UnitScreen unit={activeUnit} onBack={() => setActiveUnit(null)} email={email} onSessionSaved={handleSessionSaved} />;
   }
 
-  return <HomeScreen onSelectUnit={setActiveUnit} onSettings={() => setScreen("settings")} onHistory={() => setScreen("history")} email={email} />;
+  return <><div style={{padding:16,textAlign:"center"}}><button onClick={() => {
+    let unit="onin-review.html";
+    try { const saved=localStorage.getItem("yuika-prototype-v1:last-daily-unit");if(["onin-review.html","kamakura-review.html","heian-review.html","yuika-review-v2.html","mock-focus-review.html"].includes(saved))unit=saved; } catch(e) {}
+    window.location.href=unit+"?daily=1";
+  }}>今日の5問をはじめる</button><p>この試作で前回開いた単元と設定で開始（初回は応仁の乱）</p></div><HomeScreen onSelectUnit={setActiveUnit} onSettings={() => setScreen("settings")} onHistory={() => setScreen("history")} email={email} /></>;
 }
 
 

@@ -842,7 +842,7 @@ const QUESTIONS=[
     ]
   }
 ];
-const VERSION='kamakura-540-25-v1',KEY='yuika-social-540-25-v1',UNIT_ID='sapix-540-25';
+const VERSION='kamakura-540-25-v1',LEGACY_KEY='yuika-social-540-25-v1',KEY='yuika-prototype-v1:'+LEGACY_KEY,UNIT_ID='sapix-540-25';
 const COURSES={all:'ぜんぶから',d1:'用語確認（難度1）',d2:'理由・比較（難度2）',d3:'つながり（難度3）'};
 const UNITS=['平氏','源平の争乱','鎌倉幕府','北条氏','武士のくらし','新しい仏教','鎌倉文化'];
 const MODES={normal:'通常練習',unseen:'未回答',wrong:'もう一度',spaced:'日をあけて',hint:'ヒントなしで'};
@@ -853,7 +853,7 @@ const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'
 const uuid=()=>crypto.randomUUID?crypto.randomUUID():Array.from(crypto.getRandomValues(new Uint8Array(16)),v=>v.toString(16).padStart(2,'0')).join('');
 const empty=()=>({schemaVersion:1,datasetVersion:VERSION,events:[]});
 let data=empty(),screen='home',run=null,dirty=false,blocked=false,broken=null,page=0;
-let prefs={count:15,course:'all',unit:'all',variant:'normal'};
+let prefs={count:5,course:'all',unit:'all',variant:'normal'};
 const note=s=>notice.textContent=s;
 const order=es=>[...es].sort((a,b)=>a.at.localeCompare(b.at)||a.id.localeCompare(b.id));
 const day=(iso,offset)=>new Date(Date.parse(iso)-offset*60000).toISOString().slice(0,10);
@@ -875,7 +875,7 @@ function grade(q,response,variant){
 function check(ok,msg){if(!ok)throw Error(msg);}
 function validDate(s){return typeof s==='string'&&/^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d\.\d{3}Z$/.test(s)&&Number.isFinite(Date.parse(s))&&new Date(s).toISOString()===s;}
 function validateEvent(e){
- check(e&&typeof e==='object','回答の形式が不正です。');const q=Q.get(e.questionId);
+ check(e&&typeof e==='object','回答の形式が不正です。');const q=historicalQuestion(e);
  check(q&&e.version===VERSION&&e.unitId===UNIT_ID,'対応していない問題ID・問題版です。元ファイルを保管してください。');
  for(const k of ['id','sessionId'])check(typeof e[k]==='string'&&/^[a-zA-Z0-9_-]{8,100}$/.test(e[k]),'回答ID・セッションIDが不正です。');
  check(Object.hasOwn(VARIANTS,e.variant)&&e.variant===variantOf(q,e.variant)&&fits(q,e.variant)&&Object.hasOwn(MODES,e.mode),'確認方法・モードが不正です。');
@@ -885,7 +885,7 @@ function validateEvent(e){
  if(q.type==='text')check(typeof e.response==='string'&&e.response.trim().length>0&&e.response.length<=200,'入力回答が不正です。');
  else check(q.options.includes(e.response),'選択肢が不正です。');
  check(e.correct===grade(q,e.response,e.variant),'採点結果と記録の正誤が一致しません。');
- return {id:e.id,sessionId:e.sessionId,questionId:q.id,unitId:UNIT_ID,version:VERSION,unit:q.unit,course:q.course,question:e.question,response:e.response,expected:e.expected,explanation:q.explanation,correct:e.correct,variant:e.variant,mode:e.mode,hint:e.hint,at:e.at,offset:e.offset,day:e.day};
+ return {...(Object.hasOwn(e,'questionVersion')?{questionVersion:e.questionVersion}:{}),id:e.id,sessionId:e.sessionId,questionId:q.id,unitId:UNIT_ID,version:VERSION,unit:q.unit,course:q.course,question:e.question,response:e.response,expected:e.expected,explanation:q.explanation,correct:e.correct,variant:e.variant,mode:e.mode,hint:e.hint,at:e.at,offset:e.offset,day:e.day};
 }
 function validate(v){
  check(v&&v.schemaVersion===1&&v.datasetVersion===VERSION&&Array.isArray(v.events),'この単元のJSONではありません。ほかの単元や理科のJSONは元のアプリで保管してください。');
@@ -894,14 +894,16 @@ function validate(v){
 }
 const merge=(a,b)=>validate({...empty(),events:[...a.events,...b.events]});
 function save(){
- if(blocked){dirty=true;note('保存先を読み取れないため上書きしません。今回の回答は一時保持です。「記録の保存」からJSONを書き出してください。');return false;}
- try{const raw=localStorage.getItem(KEY),disk=raw?validate(JSON.parse(raw)):empty(),next=merge(disk,data);localStorage.setItem(KEY,JSON.stringify(next));data=next;dirty=false;return true;}
+ if(blocked&&broken!==null){dirty=true;note('保存先を読み取れないため上書きしません。今回の回答は一時保持です。「記録の保存」からJSONを書き出してください。');return false;}
+ try{const raw=localStorage.getItem(KEY);let disk;
+  try{disk=raw!==null?validate(JSON.parse(raw)):empty();}catch(e){broken=raw;blocked=true;throw e;}
+  const next=merge(disk,data);localStorage.setItem(KEY,JSON.stringify(next));data=next;dirty=false;blocked=false;return true;}
  catch(e){dirty=true;note('保存できませんでした。今回の回答は一時保持です。閉じる前にJSONを書き出してください。'+e.message);return false;}
 }
-function load(){try{const raw=localStorage.getItem(KEY);if(raw){try{data=validate(JSON.parse(raw));}catch(e){broken=raw;blocked=true;note('保存済みの記録を読み取れません。上書きせず保護しています。「記録の保存」から元データを保存できます。');}}}catch(e){blocked=true;note('保存領域を利用できません。回答は一時保持できます。閉じる前にJSONで保存してください。');}}
-function grouped(es=data.events){const g=new Map();for(const e of order(es)){const k=e.questionId+':'+e.variant;if(!g.has(k))g.set(k,[]);g.get(k).push(e);}return g;}
+function load(){try{const raw=localStorage.getItem(KEY);if(raw!==null){try{data=validate(JSON.parse(raw));}catch(e){broken=raw;blocked=true;note('保存済みの記録を読み取れません。上書きせず保護しています。「記録の保存」から元データを保存できます。');}}}catch(e){blocked=true;note('保存領域を利用できません。回答は一時保持できます。閉じる前にJSONで保存してください。');}}
+function grouped(es=data.events){const g=new Map();for(const e of order(es)){const k=(Q.get(e.questionId)?.originId||e.questionId)+':'+e.variant;if(!g.has(k))g.set(k,[]);g.get(k).push(e);}return g;}
 const historyOf=(g,q,v)=>g.get(q.id+':'+variantOf(q,v))||[];
-function candidates(mode,p=prefs){const g=grouped();return QUESTIONS.filter(q=>{
+function candidates(mode,p=prefs){if(mode==='adaptive')return additional(p).map(r=>r.q);const g=grouped();return QUESTIONS.filter(q=>{
  if(p.course!=='all'&&q.course!==p.course||p.unit!=='all'&&q.unit!==p.unit||!fits(q,p.variant))return false;
  const last=historyOf(g,q,p.variant).at(-1);
  if(mode==='unseen')return !last;if(mode==='wrong')return last&&!last.correct;if(mode==='spaced')return last&&Date.now()-Date.parse(last.at)>=86400000;if(mode==='hint')return last&&last.correct&&last.hint;return true;
@@ -924,9 +926,10 @@ function tree(){const box=(x,y,w,t,f='#386455')=>`<rect x="${x}" y="${y}" width=
  const col=(rows,x)=>rows.map(([n,r],i)=>{const y=160+i*42;return `<path d="M${x-10} ${y+15}H${x}" stroke="#7f978c" stroke-width="2"/>${box(x,y,82,n)}<text x="${x+88}" y="${y+20}" fill="#293e3b" font-size="11">${r}</text>`;}).join('');
  return `<svg viewBox="0 0 450 290" role="img" aria-label="鎌倉幕府のしくみの模式図。将軍の下に執権。鎌倉に侍所（御家人の取りしまり）・政所（政治）・問注所（裁判）。地方に守護（国ごと・軍事と警察）・地頭（荘園ごと・年貢）・六波羅探題（京都・朝廷の監視、承久の乱の後に設置）。" style="width:450px;max-width:100%"><rect x="1" y="1" width="448" height="288" rx="12" fill="#edf3ec"/><path d="M225 38V56M225 86V100H60V112M225 100H285V112M30 142V257M245 142V257" stroke="#7f978c" stroke-width="2" fill="none"/>${box(185,8,80,'将軍','#b57c65')}${box(170,56,110,'執権（北条氏）','#b57c65')}${box(20,112,80,'鎌倉','#64736e')}${box(245,112,80,'地方','#64736e')}${col(ORG,40)}${col(LOCAL,255)}</svg>`;}
 function home(){
- const total=new Set(data.events.map(e=>e.questionId)).size,n=QUESTIONS.length;
+ const total=new Set(data.events.map(e=>Q.get(e.questionId)?.originId||e.questionId)).size,n=QUESTIONS.length;
  main.innerHTML=`<section class="hero"><div><div class="eyebrow">SOCIAL STUDIES · 540-25</div><h1>鎌倉幕府の成立</h1><p>平氏から源氏、そして北条氏へ。<br>しくみと人物をつなげて覚えよう。</p><span class="tag">平安時代〜鎌倉時代</span><span class="tag">${n}問・ヒントと解説</span></div><div class="art" aria-hidden="true" style="display:grid;place-items:center;font-size:72px">🏹</div>
 </section><div class="stats"><div class="stat"><strong>${data.events.length}</strong><span>この単元の回答</span></div><div class="stat"><strong>${total}<small> / ${n}</small></strong><span>出会った問題</span></div><div class="stat"><strong>${n-total}</strong><span>これからの問題</span></div></div><div class="layout"><section class="card"><h2>今日のチャレンジ</h2><p class="muted">用語確認 → 理由・比較 → つながり。</p><label class="field">コース<select id="course">${Object.entries(COURSES).map(([k,v])=>`<option value="${k}" ${prefs.course===k?'selected':''}>${v}</option>`).join('')}</select></label><label class="field">分野<select id="unit"><option value="all">ぜんぶ</option>${UNITS.map(u=>`<option ${prefs.unit===u?'selected':''}>${u}</option>`).join('')}</select></label><label class="field">確認方法<select id="variant"><option value="normal" ${prefs.variant==='normal'?'selected':''}>通常練習（読みもOK）</option><option value="kanji" ${prefs.variant==='kanji'?'selected':''}>漢字・正式名の確認（入力問題）</option><option value="yomi" ${prefs.variant==='yomi'?'selected':''}>読みの確認（漢字の用語）</option></select></label><p class="muted">iPadの変換入力は、手書きの漢字力の確認とは異なります。</p><div class="chips">${[5,10,15].map(c=>`<button data-count="${c}" aria-pressed="${prefs.count===c}">${c}問</button>`).join('')}</div><button id="start" class="primary wide" style="margin-top:18px" ${candidates('normal').length?'':'disabled'}>チャレンジをはじめる →</button><p class="muted" style="margin-top:10px">候補 ${candidates('normal').length}問。１回の中では同じ問題は出ません。まだ答えていない問題・前回まちがえた問題が出やすく、続けて正解した問題は出にくくなります。</p></section><section class="card green-card"><h2>自分のペースで復習</h2><p class="muted">選んだコース・分野・確認方法から出題します。</p>${[['unseen','まだ答えていない問題','この確認方法で未回答'],['wrong','もう一度やってみよう','最後の回答がちがった問題'],['spaced','日をあけて思い出そう','最後の回答から24時間以上'],['hint','ヒントなしでできるかな','最後はヒントを見て正解']].map(([m,t,s])=>`<button class="review" data-mode="${m}" ${candidates(m).length?'':'disabled'}><span>${t}<small>${s}</small></span><b>${candidates(m).length}<small>問</small></b></button>`).join('')}<div class="note">通常練習・漢字確認・読み確認は別々に記録します。</div></section></div><section class="card"><h2>鎌倉幕府のしくみ</h2><div class="row">${tree()}<p>将軍を助ける<b>執権</b>には北条氏が代々ついた。<br>守護＝<b>国</b>ごと、地頭＝<b>荘園</b>ごと。<br>六波羅探題は<b>承久の乱（1221年）の後</b>に京都に置かれた。<br><small>模式図です。政所ははじめ公文所といいました。</small></p></div></section><section class="card"><h2>流れをつかもう</h2><div class="tablewrap"><table><tr><th>年</th><th>できごと</th></tr><tr><td>1156・1159</td><td>保元の乱・平治の乱。平清盛が勝つ</td></tr><tr><td>1167</td><td>平清盛が武士で初めて太政大臣に</td></tr><tr><td>1180</td><td>源頼朝が伊豆で挙兵</td></tr><tr><td>1185</td><td>壇ノ浦の戦いで平氏滅亡。守護・地頭を置く</td></tr><tr><td>1192</td><td>頼朝が征夷大将軍に</td></tr><tr><td>1221</td><td>承久の乱（後鳥羽上皇 対 2代執権北条義時）</td></tr><tr><td>1232</td><td>御成敗式目（3代執権北条泰時）</td></tr></table></div></section><section class="card"><h2>新しい仏教をくらべよう</h2><div class="tablewrap"><table><tr><th>宗派</th><th>開いた人</th><th>教え</th></tr><tr><td>浄土宗</td><td>法然</td><td>念仏「南無阿弥陀仏」</td></tr><tr><td>浄土真宗（一向宗）</td><td>親鸞（法然の弟子）</td><td>阿弥陀仏を信じれば救われる</td></tr><tr><td>時宗</td><td>一遍</td><td>踊念仏</td></tr><tr><td>日蓮宗（法華宗）</td><td>日蓮</td><td>題目「南無妙法蓮華経」</td></tr><tr><td>臨済宗</td><td>栄西</td><td>座禅（禅宗）・幕府の上級武士に</td></tr><tr><td>曹洞宗</td><td>道元</td><td>座禅（禅宗）・地方の武士に</td></tr></table></div></section><details><summary>教材の扱い・保護者の方へ</summary><p>デイリーサピックス540-25の学習内容（平氏の滅亡、鎌倉幕府のしくみ、北条氏と承久の乱、武士のくらし、新しい仏教と鎌倉文化）をもとにした非公式のオリジナル問題です。教材や外部サイトの画像は使用していません。本人の理解度を見て作った問題ではなく、テキストの重要語句から作っています。</p><p>那須与一の扇の的や倶利伽羅峠の牛の話は、伝説として扱っています。鎌倉幕府の成立は1192年のほか、1185年とする考え方もあります。別の社会単元と理科の記録は、このページから変更しません。</p></details>`;
+ main.insertAdjacentHTML('beforeend',adaptivePanel());
  for(const id of ['course','unit','variant'])document.getElementById(id).onchange=e=>{prefs[id]=e.target.value;home();};
  main.querySelectorAll('[data-count]').forEach(b=>b.onclick=()=>{prefs.count=Number(b.dataset.count);home();});document.getElementById('start').onclick=()=>start('normal');main.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>start(b.dataset.mode));
 }
@@ -951,7 +954,7 @@ function submit(){
  const response=q.type==='text'?document.getElementById('response').value:s.selected;
  if(q.type==='text'?!response.trim():response===null){document.getElementById('error').textContent='答えを入力・選択してから確認しよう。';return;}
  s.answered=true;document.getElementById('error').textContent='';const now=new Date();
- const e=validateEvent({id:uuid(),sessionId:s.id,questionId:q.id,unitId:UNIT_ID,version:VERSION,unit:q.unit,course:q.course,question:promptOf(q,v),response,expected:expectedOf(q,v),explanation:q.explanation,correct:grade(q,response,v),variant:v,mode:s.mode,hint:s.hint,at:now.toISOString(),offset:now.getTimezoneOffset(),day:day(now.toISOString(),now.getTimezoneOffset())});
+ const e=validateEvent({questionVersion:currentQuestionVersion(q),id:uuid(),sessionId:s.id,questionId:q.id,unitId:UNIT_ID,version:VERSION,unit:q.unit,course:q.course,question:promptOf(q,v),response,expected:expectedOf(q,v),explanation:q.explanation,correct:grade(q,response,v),variant:v,mode:s.mode,hint:s.hint,at:now.toISOString(),offset:now.getTimezoneOffset(),day:day(now.toISOString(),now.getTimezoneOffset())});
  data.events.push(e);s.results.push(e);const saved=save();main.querySelectorAll('[data-choice],#response,#hint,#check').forEach(el=>el.disabled=true);
  const kanaOnly=v==='kanji'&&!e.correct&&grade(q,response,'normal');
  document.getElementById('feedback').innerHTML=`<div class="answerbox ${e.correct?'':'again'}"><h2>${e.correct?'できたね！':(kanaOnly?'読みは合っているよ。漢字も確認しよう':'ここをいっしょに見てみよう')}</h2><p>あなたの答え：<b>${esc(response)}</b></p><p>① 正解：<b>${esc(shownAnswer(q,v))}</b></p><p>② なぜ？ ${esc(q.explanation)}</p><p>③ 覚え方：${esc(q.pitfall)}</p><small>${saved?'回答を保存しました':'回答は一時保持です。閉じる前にJSONを書き出してください。'}</small></div><button id="next" class="primary wide" style="margin-top:15px">${s.index+1===s.qs.length?'今回のふりかえり →':'次の問題へ →'}</button>`;
@@ -963,13 +966,320 @@ function detail(e){return `<details><summary><span class="badge">${e.correct?'�
 function parent(){const a=analysis(),es=data.events,repeated=[...a.g.values()].filter(rows=>rows.filter(e=>!e.correct).length>=2);main.innerHTML=`<div class="eyebrow">PARENT’S NOTE · 540-25</div><h1>学びのようす</h1><div class="note">この単元で記録した回答だけを集計します。既存の社会・理科の記録は含みません。通常練習・漢字確認・読み確認を別に扱います。「初回」は問題・確認方法ごとに最初に記録した回答で、本当の初回学習とは限りません。</div><section class="card"><h2>分野と確認方法</h2><div class="tablewrap"><table><tr><th>分野</th>${Object.values(VARIANTS).map(v=>`<th>${v}</th>`).join('')}</tr>${UNITS.map(u=>`<tr><td>${u}</td>${Object.keys(VARIANTS).map(v=>`<td>${rate(es.filter(e=>e.unit===u&&e.variant===v))}</td>`).join('')}</tr>`).join('')}</table></div><p class="muted">正解した回答数／全回答数。繰り返しを含みます。</p></section><div class="layout"><section class="card"><h2>初めの回答とヒント</h2>${[['通常練習の記録初回',a.first.filter(e=>e.variant==='normal')],['漢字確認の記録初回',a.first.filter(e=>e.variant==='kanji')],['読み確認の記録初回',a.first.filter(e=>e.variant==='yomi')],['ヒントあり',es.filter(e=>e.hint)],['ヒントなし',es.filter(e=>!e.hint)]].map(([t,r])=>`<div class="listline">${t}：<b>${rate(r)}</b></div>`).join('')}<p class="muted">問題構成や難しさが違うので、ヒントの効果を単純比較はできません。</p></section><section class="card"><h2>時間をおいた確認</h2>${[['直後の再挑戦',a.immediate],['同日・30分より後',a.same],['別の日の再回答',a.later],['最初の誤答の後、初めて別日に答えた結果',a.afterError]].map(([t,r])=>`<div class="listline">${t}：<b>${rate(r)}</b></div>`).join('')}<p class="muted">同じ問題・確認方法の前の回答と比較。直後＝同日30分以内。別日＝記録時の現地日付が異なること（24時間以上とは限りません）。</p></section></div><section class="card"><h2>繰り返し確認したい問題</h2><p class="muted">同じ確認方法で２回以上間違えた問題。すでに正解したものも振り返れます。</p>${repeated.length?repeated.map(rows=>`<details><summary>${esc(rows[0].question)}<br><small>${VARIANTS[rows[0].variant]}：誤答${rows.filter(e=>!e.correct).length}/${rows.length}回答・最後は${rows.at(-1).correct?'正解':'誤答'}</small></summary>${rows.filter(e=>!e.correct).map(detail).join('')}<p class="muted">観測：上記の答えを入力・選択しました。推測：取り違え、読み違い、変換ミスなど、原因はこの記録だけでは特定できません。</p></details>`).join(''):'<p class="empty">２回以上の誤答はまだありません。</p>'}</section><section class="card"><h2>１回答ずつの記録</h2><p class="muted">表示日時は閲覧端末の時刻帯。回答日は記録時の現地日付です。</p><div id="history"></div></section><div class="note">少数の回答だけで「苦手」と断定しません。回答時間は記録しません。漢字入力の結果は、手書きできることを保証しません。</div><div class="actions"><button id="report" class="primary">分析用テキストを書き出す</button><button id="practice">復習を選ぶ</button></div>`;history();document.getElementById('report').onclick=exportReport;document.getElementById('practice').onclick=()=>go('home');}
 function history(){const es=order(data.events).reverse(),pages=Math.max(1,Math.ceil(es.length/20));page=Math.min(page,pages-1);document.getElementById('history').innerHTML=es.slice(page*20,page*20+20).map(detail).join('')||'<p class="empty">これから回答すると、ここに記録されます。</p>';if(pages>1){document.getElementById('history').insertAdjacentHTML('beforeend',`<div class="pages"><button id="prev" ${page?'':'disabled'}>前へ</button>${page+1}/${pages}<button id="more" ${page+1===pages?'disabled':''}>次へ</button></div>`);document.getElementById('prev').onclick=()=>{page--;history();};document.getElementById('more').onclick=()=>{page++;history();};}}
 function download(name,text,type='application/json'){const url=URL.createObjectURL(new Blob([text],{type:type+';charset=utf-8'})),a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),10000);}
-const exportJSON=()=>download('yuika-social-540-25-'+new Date().toISOString().slice(0,10)+'.json',JSON.stringify({...data,exportedAt:new Date().toISOString()},null,2));
-function exportReport(){const a=analysis(),es=data.events;download('yuika-social-540-25-analysis.txt',['鎌倉幕府の成立 540-25：保護者用ノート','出力：'+label(new Date().toISOString()),'問題版：'+VERSION,...UNITS.flatMap(u=>Object.keys(VARIANTS).map(v=>`${u}・${VARIANTS[v]}：${rate(es.filter(e=>e.unit===u&&e.variant===v))}`)),...Object.keys(VARIANTS).map(v=>`${VARIANTS[v]}の記録初回：${rate(a.first.filter(e=>e.variant===v))}`),`ヒントあり：${rate(es.filter(e=>e.hint))}`,`ヒントなし：${rate(es.filter(e=>!e.hint))}`,`直後（同日30分以内）：${rate(a.immediate)}`,`同日30分より後：${rate(a.same)}`,`別日再回答：${rate(a.later)}`,`最初の誤答の後、最初の別日回答：${rate(a.afterError)}`,'日付は回答時の現地日付。別日は24時間以上とは限りません。ヒントありも含みます。','初回は各問題・確認方法の記録初回です。本当の初回学習は不明。','少数回答で苦手・定着と断定せず、誤答だけから原因を決めつけません。回答時間も評価しません。','',...order(es).map(e=>`${e.at}（現地日付 ${e.day} / UTCとの差 ${-e.offset}分）\n${e.questionId} / ${e.unit} / ${e.variant} / ${MODES[e.mode]} / セッション ${e.sessionId}\n${e.question}\n観測した答え：${e.response}\n正解：${e.expected} / ${e.correct?'正解':'誤答'} / ヒント${e.hint?'あり':'なし'}\n解説：${e.explanation}\n`),dirty?'未保存の回答を含みます。JSONでも保管してください。':''].join('\n'),'text/plain');}
+const exportJSON=()=>download('yuika-prototype-social-540-25-'+new Date().toISOString().slice(0,10)+'.json',JSON.stringify(prototypePacket(data),null,2));
+function exportReport(){const a=analysis(),es=data.events;download('yuika-prototype-social-540-25-analysis.txt',['鎌倉幕府の成立 540-25：保護者用ノート','出力：'+label(new Date().toISOString()),'問題版：'+VERSION,...UNITS.flatMap(u=>Object.keys(VARIANTS).map(v=>`${u}・${VARIANTS[v]}：${rate(es.filter(e=>e.unit===u&&e.variant===v))}`)),...Object.keys(VARIANTS).map(v=>`${VARIANTS[v]}の記録初回：${rate(a.first.filter(e=>e.variant===v))}`),`ヒントあり：${rate(es.filter(e=>e.hint))}`,`ヒントなし：${rate(es.filter(e=>!e.hint))}`,`直後（同日30分以内）：${rate(a.immediate)}`,`同日30分より後：${rate(a.same)}`,`別日再回答：${rate(a.later)}`,`最初の誤答の後、最初の別日回答：${rate(a.afterError)}`,'日付は回答時の現地日付。別日は24時間以上とは限りません。ヒントありも含みます。','初回は各問題・確認方法の記録初回です。本当の初回学習は不明。','少数回答で苦手・定着と断定せず、誤答だけから原因を決めつけません。回答時間も評価しません。','',...order(es).map(e=>`${e.at}（現地日付 ${e.day} / UTCとの差 ${-e.offset}分）\n${e.questionId} / ${e.unit} / ${e.variant} / ${MODES[e.mode]} / セッション ${e.sessionId}\n${e.question}\n観測した答え：${e.response}\n正解：${e.expected} / ${e.correct?'正解':'誤答'} / ヒント${e.hint?'あり':'なし'}\n解説：${e.explanation}\n`),dirty?'未保存の回答を含みます。JSONでも保管してください。':''].join('\n'),'text/plain');}
 async function importFile(file){if(!file)return;try{check(file.size<=25000000,'25MBまでのJSONを選んでください。');const incoming=validate(JSON.parse(await file.text())),next=merge(data,incoming),added=next.events.length-data.events.length;data=next;const saved=save();note(`読み込み：新しい回答 ${added}件。重複は追加していません。${saved?'ブラウザーに保存しました。':'未保存です。閉じる前にJSONを書き出してください。'}`);records();}catch(e){note('読み込みを中止しました。既存記録は変更していません。'+e.message);}}
 function records(){main.innerHTML=`<div class="eyebrow">KEEP YOUR DISCOVERIES</div><h1>記録の保存</h1><div class="note">この単元の回答：${data.events.length}件。${dirty||blocked?'一時保持の回答があります。閉じる前にJSONを保存してください。':'このブラウザーに保存しています。'}<br>社会の既存単元・理科の記録は別に保管され、このページでは書き換えません。</div><div class="layout"><section class="card"><h2>書き出し</h2><p>端末を替える前にJSONを保管しましょう。保護者への分析資料にはTXTを使えます。</p><div class="stack"><button id="export" class="primary">JSONを書き出す</button><button id="report">分析用テキストを書き出す</button><button id="retry">保存を再試行</button>${broken!==null?'<button id="broken">読み取れなかった元データを保存</button>':''}</div></section><section class="card"><h2>読み込み</h2><p>この単元のJSONを今ある記録に追加します。同じ回答IDは重複させません。同じIDで内容が異なる場合や、不正なデータはファイル全体の取込みを中止します。</p><label class="field">JSONファイル<input id="import" type="file" accept=".json,application/json"></label></section></div><section class="card"><h2>iPadで使うとき</h2><p>Safariの「共有」→「ホーム画面に追加」で使えます。ブラウザー・端末・ホーム画面からの起動などで保存領域が異なる場合があるため、切り替える前にJSONを書き出してください。自動同期はしません。</p><p>プライベートブラウズや履歴・Webサイトデータの削除では記録が消えることがあります。学習は１つのタブで行い、ときどきJSONを保管してください。自動メールに接続した場合だけ、チャレンジ結果を送信サーバー経由で保護者へ送ります。</p><p>保存キー：${KEY}</p></section>`;document.getElementById('export').onclick=exportJSON;document.getElementById('report').onclick=exportReport;document.getElementById('import').onchange=e=>importFile(e.target.files[0]);document.getElementById('retry').onclick=()=>{if(save())note('保存できました。');records();};if(broken!==null)document.getElementById('broken').onclick=()=>download('yuika-kamakura-original-unreadable.json',broken);}
 window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.returnValue='';}});
-window.addEventListener('storage',e=>{if(e.key===KEY&&e.newValue){try{data=merge(data,validate(JSON.parse(e.newValue)));if(screen!=='quiz')render();}catch(err){note('別タブの記録と競合しました。JSONを書き出して保全してください。');}}});
+window.addEventListener('storage',e=>{if(e.key===KEY&&e.newValue!==null){try{data=merge(data,validate(JSON.parse(e.newValue)));if(screen!=='quiz')render();}catch(err){blocked=true;broken=e.newValue;note('別タブの記録と競合しました。JSONを書き出して保全してください。');if(screen!=='quiz')render();}}});
 document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>go(b.dataset.view));
 document.getElementById('socialHome').onclick=e=>{if(screen==='quiz'&&!leave())e.preventDefault();};
+// ADAPTIVE_START
+// Embedded by embed.py. v1 IDs and prompts are durable record contracts.
+const EXTRA=new Map();
+for(const q of QUESTIONS){
+ const extra={...q,id:q.id+'-review-v1',originId:q.id,prompt:'復習：'+q.prompt};
+ EXTRA.set(q.id,extra);Q.set(extra.id,extra);
+}
+MODES.adaptive='弱点に合わせた追加練習';
+// Derive Japan dates for analysis only; historical day/offset fields remain intact.
+const japanDay=iso=>day(iso,-540);
+const adaptiveLabel=iso=>new Date(iso).toLocaleString('ja-JP',{timeZone:'Asia/Tokyo'})+'（日本時間）';
+function weaknesses(events=data.events,now=Date.now(),includeRecovered=false){
+ const groups=new Map(),seen=new Set();
+ for(const e of order(events)){
+  if(seen.has(e.id))continue;seen.add(e.id);
+  const q=Q.get(e.questionId),age=now-Date.parse(e.at);
+  if(!q||age<0||age>30*86400000)continue;
+  const id=q.originId||q.id,key=id+':'+e.variant;
+  if(!groups.has(key))groups.set(key,[]);groups.get(key).push(e);
+ }
+ const rows=[];
+ for(const [key,all] of groups){
+  // One observation per Japan day; retain hints/errors from earlier retries.
+  const days=new Map();
+  for(const e of all){
+   const key=japanDay(e.at),previous=days.get(key);
+   days.set(key,{last:e,wrong:!e.correct||!!previous?.wrong,hint:e.hint||!!previous?.hint});
+  }
+  const samples=[...days.values()].slice(-5),last=samples.at(-1).last;
+  // A hinted success cannot undo an earlier unassisted success by itself.
+  let recovered=false;
+  for(const e of all){if(!e.correct)recovered=false;else if(!e.hint)recovered=true;}
+  const wrong=samples.filter(d=>!d.last.correct||((d.last.hint||(includeRecovered&&recovered))&&d.wrong)).length;
+  if(samples.length<2||wrong<2||(!includeRecovered&&recovered))continue;
+  const q=Q.get(last.questionId),origin=Q.get(q.originId||q.id);
+  const confusion=QUESTIONS.filter(o=>o.id!==origin.id&&o.pair&&o.pair===origin.pair)
+   .some(o=>grade(o,last.response,last.variant));
+  rows.push({originId:origin.id,unit:origin.unit,variant:last.variant,wrong,total:samples.length,
+   recovered,lastHint:last.hint,lastCorrect:last.correct,level:origin.level||({memory:1,pairs:2,flow:2,reason:3}[origin.course]||1),hintCount:samples.filter(d=>d.hint).length,lastAt:last.at,confusion});
+ }
+ return rows.sort((a,b)=>b.wrong/b.total-a.wrong/a.total||b.lastAt.localeCompare(a.lastAt)||a.originId.localeCompare(b.originId)||a.variant.localeCompare(b.variant));
+}
+// A device clock is not a trusted time source. Do not reinterpret future-dated
+// history as a recovered/empty weakness set after the clock moves backwards.
+function practiceClockIssue(events=data.events,now=Date.now()){
+ return events.some(e=>Date.parse(e.at)>now+5*60000);
+}
+function practiceUnavailable(events=data.events,now=Date.now()){return blocked||dirty||practiceClockIssue(events,now);}
+const PRACTICE_CLOCK_NOTICE='今より5分以上先の回答記録があります。端末の日付と時刻を確認してください。弱点の判定と今日の5問はお休みします。記録の時刻は自動で直しません。';
+let adaptiveLevel='all';
+function additional(p=prefs,events=data.events,now=Date.now()){
+ if(practiceUnavailable(events,now))return [];
+ return practiceWeaknesses(events,now).filter(r=>r.variant===p.variant).map(r=>({...r,q:EXTRA.get(r.originId)}))
+  .filter(r=>(p.unit==='all'||r.q.unit===p.unit)&&(p.course==='all'||r.q.course===p.course)&&fits(r.q,p.variant)&&(adaptiveLevel==='all'||r.level===Number(adaptiveLevel))).slice(0,10);
+}
+function adaptiveStatus(){
+ if(practiceClockIssue())return PRACTICE_CLOCK_NOTICE;
+ if(blocked||dirty)return '保存済みの記録を読み取れないため、弱点の判定を休止しています。「記録の保存」で元データを保管してください。';
+ if(!data.events.length)return 'まだ回答記録がありません。まず通常練習をしてみよう。';
+ return '候補がない場合は、別日の記録が足りない・直近30日の対象外・最後にヒントなしで正解・選択条件の対象外の可能性があります。';
+}
+function adaptiveSummary(){
+ const all=weaknesses(data.events,Date.now(),true),active=practiceWeaknesses(),recovered=all.filter(r=>r.recovered);
+ const groups=new Map();for(const r of active){const key=r.unit+' / '+({normal:'通常',kanji:'漢字・正式名',yomi:'読み'}[r.variant]);groups.set(key,(groups.get(key)||0)+1);}
+ return `<section class="card" id="adaptive-summary"><h2>保護者向け・追加練習のサマリー</h2>${practiceUnavailable()?`<p>${esc(adaptiveStatus())}</p>`:`<p>要確認 ${active.length}論点・最後にヒントなしで正解 ${recovered.length}論点（直近30日・確認方法別）。絞り込み前の全分野です。</p>${[...groups].map(([k,n])=>`<p>${esc(k)}：${n}論点</p>`).join('')}<p>ヒント付き正解は候補に残し、ヒントなしの正解で追加練習を減らします。１回の正解は定着の証明ではありません。再確認待ちに進み、別の日の再確認で確かめます。</p>`}</section>`;
+}
+function adaptivePanel(){
+ const rows=additional();
+ return `<section class="card" id="adaptive"><h2>弱点に合わせた追加練習</h2><p>最近30日で、まちがえた日が2日以上ある問題を練習します。日本時間で日付を分け、最後に答えた5日分を使います。同じ日にヒントを見て正解した場合も、その日のまちがいを数えます。ヒントなしで正解すると候補（こうほ）から外れます。再確認待ちに進み、期限が来たら今日の5問で確かめます。まちがえたら弱点に戻ります。読みと漢字は別々に数えます。記録が少ないので、苦手とは決めつけません。</p><label class="field">追加問題のむずかしさ<select id="adaptive-level">${[['all','すべて'],['1','基本'],['2','標準'],['3','発展']].map(([v,t])=>`<option value="${v}" ${adaptiveLevel===v?'selected':''}>${t}</option>`).join('')}</select></label><p>もとの問題と同じむずかしさです。平安は暗記＝基本、ペア・流れ＝標準、理由＝発展です。１回は選んだ問題数まで、候補は最大10問です。</p>${rows.map(r=>`<details><summary>${esc(r.unit)}：${esc(promptOf(r.q,r.variant))}</summary><p>選んだ理由：${r.wrong}/${r.total}日でまちがい・ヒントを見た日${r.hintCount}日。最後の回答：${esc(adaptiveLabel(r.lastAt))}（${r.lastCorrect?'ヒント付き正解':'まちがい'}）。むずかしさ${r.level}。${r.confusion?'同じペアの別の答えと一致しました。原因は未確定です。':''}</p><p>元問題：${esc(r.originId)} ／ 出典：${esc(r.q.source||'既存の平安単元問題')}</p><p>正解：${esc(expectedOf(r.q,r.variant))}</p><p>説明：${esc(r.q.explanation)}</p></details>`).join('')||`<p>${esc(adaptiveStatus())}</p>`}<button data-mode="adaptive" ${rows.length?'':'disabled'}>追加練習をはじめる（候補${rows.length}問・今回${Math.min(rows.length,prefs.count)}問）</button></section>`;
+}
+// Bind after each home render; all content remains inside the standalone app.
+const originalHome=home;
+home=function(){
+ const focused=document.activeElement?.id;
+ originalHome();
+ document.getElementById('adaptive-level').onchange=e=>{adaptiveLevel=e.target.value;home();};
+ if(focused)document.getElementById(focused)?.focus({preventScroll:true});
+};
+const originalParent=parent;
+parent=function(){originalParent();main.insertAdjacentHTML('afterbegin',adaptiveSummary());};
+
+// Retention v1 is a deterministic projection of durable events, independent of
+// the current 30-day extraction window. Replaying legacy JSON migrates without
+// rewriting any event, ID, timestamp, key, or historical grade.
+const REVIEW_INTERVAL_DAYS=Object.freeze([1,3,7]); // provisional, editable configuration
+MODES.daily='今日の5問';
+const addJapanDays=(d,n)=>new Date(Date.parse(d+'T00:00:00Z')+n*86400000).toISOString().slice(0,10);
+function retention(events=data.events,now=Date.now()){
+ const states=new Map(),histories=new Map(),seen=new Set();
+ for(const e of order(events)){
+  if(seen.has(e.id)||Date.parse(e.at)>now)continue;seen.add(e.id);
+  const q=Q.get(e.questionId);if(!q)continue;
+  const originId=q.originId||q.id,key=originId+':'+e.variant;
+  let s=states.get(key);
+  if(!s){
+   // A new weakness requires errors on two Japan days. Success cannot add an
+   // error day; examine the existing rule only when an error can change it.
+   // Keep its rolling window small instead of replaying a growing full history
+   // for every success (quadratic on long, previously correct-only histories).
+   if(!histories.has(key))histories.set(key,{events:[],start:0,wrongDays:new Map()});
+   const history=histories.get(key),stamp=Date.parse(e.at),cutoff=stamp-30*86400000;
+   history.events.push(e);
+   while(Date.parse(history.events[history.start].at)<cutoff)history.start++;
+   if(e.correct)continue;
+   history.wrongDays.set(japanDay(e.at),stamp);
+   for(const [d,t] of history.wrongDays)if(t<cutoff)history.wrongDays.delete(d);
+   if(history.wrongDays.size<2||!weaknesses(history.events.slice(history.start),stamp).length)continue;
+   s={originId,variant:e.variant,status:'weak',stage:0,due:null,anchor:null};states.set(key,s);histories.delete(key);
+  }
+  const date=japanDay(e.at);
+  if(!e.correct){s.status='weak';s.stage=0;s.due=null;s.anchor=null;}
+  else if(!e.hint){
+   if(s.status==='weak'){
+    s.status='waiting';s.stage=0;s.anchor=date;s.due=addJapanDays(date,REVIEW_INTERVAL_DAYS[0]);
+   }else if(s.status==='waiting'&&date>=s.due){
+    s.stage++;
+    if(s.stage===REVIEW_INTERVAL_DAYS.length){s.status='retained';s.due=null;}
+    else s.due=addJapanDays(date,REVIEW_INTERVAL_DAYS[s.stage]-REVIEW_INTERVAL_DAYS[s.stage-1]);
+   }
+  }
+ }
+ return [...states.values()];
+}
+function practiceWeaknesses(events=data.events,now=Date.now()){
+ if(practiceUnavailable(events,now))return [];
+ const rows=weaknesses(events,now),keys=new Set(rows.map(r=>r.originId+':'+r.variant));
+ for(const s of retention(events,now).filter(s=>s.status==='weak')){
+  if(keys.has(s.originId+':'+s.variant))continue;
+  const q=Q.get(s.originId),es=order(events).filter(e=>(Q.get(e.questionId)?.originId||e.questionId)===s.originId&&e.variant===s.variant&&Date.parse(e.at)<=now),last=es.at(-1);
+  rows.push({...s,unit:q.unit,level:q.level||({memory:1,pairs:2,flow:2,reason:3}[q.course]||1),wrong:1,total:1,hintCount:0,lastAt:last.at,lastCorrect:last.correct,lastHint:last.hint});
+ }
+ return rows;
+}
+function dueReviews(p=prefs,events=data.events,now=Date.now()){
+ if(practiceUnavailable(events,now))return [];
+ const today=japanDay(new Date(now).toISOString());
+ return retention(events,now).filter(s=>s.status==='waiting'&&s.due<=today)
+  .sort((a,b)=>a.due.localeCompare(b.due)||a.originId.localeCompare(b.originId)||a.variant.localeCompare(b.variant))
+  .filter(s=>{const q=Q.get(s.originId);return s.variant===p.variant&&fits(q,p.variant)&&(p.unit==='all'||p.unit===q.unit)&&(p.course==='all'||p.course===q.course);});
+}
+function dailyQuestions(p=prefs){
+ if(practiceUnavailable())return [];
+ const result=[],seen=new Set();
+ const push=q=>{const id=q.originId||q.id;if(!seen.has(id)){seen.add(id);result.push(q);}};
+ dueReviews(p).forEach(s=>push(EXTRA.get(s.originId)));
+ additional(p).forEach(s=>push(s.q));
+ shuffle(candidates('normal',p)).forEach(push);
+ return result.slice(0,p.count);
+}
+function startDaily(){
+ if(practiceUnavailable()){note(adaptiveStatus());return;}
+ const qs=dailyQuestions();if(!qs.length){note('この条件では候補がありません。');return;}
+ rememberPrefs();run={id:uuid(),mode:'daily',variant:prefs.variant,qs,index:0,results:[],done:false};
+ screen='quiz';prepare();render();main.focus();window.scrollTo(0,0);
+}
+const PREF_KEY=KEY+'-preferences-v1';
+function restorePrefs(){
+ try{const p=JSON.parse(localStorage.getItem(PREF_KEY)||'null');if(!p)return;
+  if([5,10,15].includes(p.count))prefs.count=p.count;
+  if(Object.hasOwn(COURSES,p.course))prefs.course=p.course;
+  if(p.unit==='all'||UNITS.includes(p.unit))prefs.unit=p.unit;
+  if((typeof VARIANTS==='undefined'?['normal','kanji'].includes(p.variant):Object.hasOwn(VARIANTS,p.variant)))prefs.variant=p.variant;
+ }catch{note('学習設定を読み取れません。初期設定で始めます。');}
+}
+function rememberPrefs(){
+ try{localStorage.setItem(PREF_KEY,JSON.stringify(prefs));localStorage.setItem('yuika-prototype-v1:last-daily-unit',location.pathname.split('/').pop());}
+ catch{note('学習設定を保存できません。次回起動時は初期設定になります。');}
+}
+const retentionHome=home;
+home=function(){
+ retentionHome();
+ main.insertAdjacentHTML('afterbegin',`<section class="card"><button id="daily-five" class="primary wide" ${practiceUnavailable()?'disabled':''}>今日の5問をはじめる（今回は${prefs.count}問）</button><p>期限の来た再確認 → 弱点の追加練習 → 通常問題。分野・確認方法・問題数は下で変更できます。</p><p>今日の再確認：${dueReviews().length}件</p></section>`);
+ document.getElementById('daily-five').onclick=startDaily;
+ main.querySelectorAll('#course,#unit,#variant,[data-count]').forEach(el=>{
+  const type=el.tagName==='SELECT'?'onchange':'onclick',previous=el[type];
+  el[type]=e=>{previous(e);rememberPrefs();};
+ });
+};
+const retentionParent=parent;
+parent=function(){retentionParent();if(!practiceUnavailable()){
+ const states=retention(),today=japanDay(new Date().toISOString());
+ document.getElementById('adaptive-summary').insertAdjacentHTML('beforeend',`<p id="retention-summary">今日の再確認 ${states.filter(s=>s.status==='waiting'&&s.due<=today).length}件（期限超過を含む・全分野と確認方法）／再確認待ち ${states.filter(s=>s.status==='waiting').length}件／定着 ${states.filter(s=>s.status==='retained').length}件</p>`);
+}};
+restorePrefs();
+// Normal sessions also remember the last visited learning unit.
+const rememberedStart=start;
+start=function(mode){rememberPrefs();rememberedStart(mode);};
+
+// Repaint only summary screens. A suspended iPad tab can cross midnight without
+// navigation; active answers and entered text must never be replaced by refresh.
+let practiceDisplayDay=japanDay(new Date().toISOString());
+function refreshPracticeDate(force=false){
+ const today=japanDay(new Date().toISOString()),changed=today!==practiceDisplayDay;
+ practiceDisplayDay=today;
+ if((force||changed)&&(screen==='home'||screen==='parent'))render();
+}
+setInterval(()=>refreshPracticeDate(),30000);
+window.addEventListener('focus',()=>refreshPracticeDate(true));
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshPracticeDate(true);});
+// ADAPTIVE_END
+// HISTORY_START
+const QUESTION_REVISIONS={"54025-01":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54025-01","unitId":"sapix-540-25","course":"d1","level":1,"unit":"平氏","source":"教材準拠","type":"text","prompt":"1167年、武士として初めて太政大臣になった人物は？","answer":"平清盛","hint":"平氏の中心人物。厳島神社を保護したよ。","explanation":"平清盛は保元の乱・平治の乱に勝って力をのばし、1167年に武士として初めて太政大臣になりました。娘を天皇の后にし、生まれた子を天皇にしました。","pitfall":"太政大臣は朝廷の最高の地位。「武士なのに貴族のような政治をした」ことが反感を買ったよ。","pair":"","aliases":[],"readings":["たいらのきよもり"]}}],"54025-02":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54025-02","unitId":"sapix-540-25","course":"d1","level":1,"unit":"平氏","source":"教材準拠","type":"choice","prompt":"1159年、都で源氏と平氏が戦い、平清盛が勝った戦いは？","answer":"平治の乱","hint":"保元の乱の3年後に起こったよ。","explanation":"平治の乱（1159年）で勝った平清盛は大きな力を持ち、やぶれた源氏の勢力は弱まりました。","pitfall":"保元の乱（1156年）→平治の乱（1159年）の順。「保」が先、「平」が後。どちらも清盛が勝った側。","pair":"ran","options":["平治の乱","保元の乱","承久の乱","応仁の乱"]}}],"54025-03":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54025-03","unitId":"sapix-540-25","course":"d2","level":2,"unit":"平氏","source":"教材準拠","type":"choice","prompt":"1156年に都で起こり、平清盛らが勝った争いは？","answer":"保元の乱","hint":"平治の乱より3年前だよ。","explanation":"保元の乱（1156年）と平治の乱（1159年）に勝ったことで、平清盛は力を強めました。","pitfall":"保元の乱（1156年）→平治の乱（1159年）の順。承久の乱は鎌倉時代（1221年）。","pair":"ran","options":["保元の乱","平治の乱","承久の乱","壬申の乱"]}}],"54025-04":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54025-04","unitId":"sapix-540-25","course":"d2","level":2,"unit":"平氏","source":"教材準拠","type":"text","prompt":"平清盛が中国（宋）と行った貿易は？","answer":"日宋貿易","hint":"当時の中国の王朝の名前が入るよ。","explanation":"平清盛は中国の宋との日宋貿易で大きな利益をあげました。そのために大輪田泊（今の神戸港）を改修しました。","pitfall":"平安末＝日宋貿易（宋）。室町時代の足利義満は日明貿易（明）。王朝名で区別しよう。","pair":"","aliases":[],"readings":["にっそうぼうえき"]}}],"54025-05":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54025-05","unitId":"sapix-540-25","course":"d2","level":2,"unit":"平氏","source":"教材準拠","type":"text","prompt":"日宋貿易のために平清盛が改修した港（今の神戸港）は？","answer":"大輪田泊","hint":"「〇〇〇のとまり」と読むよ。","explanation":"平清盛は大輪田泊（今の兵庫県神戸市）を改修して、宋の船が来られるようにしました。","pitfall":"「泊」は船がとまる港のこと。大輪田泊＝今の神戸港。","pair":"","aliases":[],"readings":["おおわだのとまり"]}}],"54025-06":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54025-06","unitId":"sapix-540-25","course":"d1","level":1,"unit":"平氏","source":"教材準拠","type":"choice","prompt":"平清盛が瀬戸内海の航路の安全を願って保護した神社は？","answer":"厳島神社","hint":"広島県の、海の中に鳥居が立つ神社だよ。","explanation":"平清盛は瀬戸内海の航路の安全を願い、厳島神社（広島県）を保護しました。","pitfall":"厳島神社＝平氏（清盛）、鶴岡八幡宮＝源氏の守り神（鎌倉）。","pair":"","options":["厳島神社","鶴岡八幡宮","出雲大社","伊勢神宮"]}}],"54025-07":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54025-07","unitId":"sapix-540-25","course":"d1","level":1,"unit":"源平の争乱","source":"教材準拠","type":"text","prompt":"1180年に伊豆で兵を挙げ、のちに鎌倉幕府を開いた人物は？","answer":"源頼朝","hint":"13歳で伊豆に流され、そこで北条氏と出会ったよ。","explanation":"源頼朝は1180年に伊豆で兵を挙げ、北条氏などの関東の武士を味方につけました。平氏をたおした後、鎌倉に幕府を開きました。","pitfall":"頼朝＝兵を挙げて幕府を開いた兄、義経＝平氏と戦った弟。","pair":"genji","aliases":[],"readings":["みなもとのよりとも"]}}],"54025-08":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54025-08","unitId":"sapix-540-25","course":"d1","level":1,"unit":"源平の争乱","source":"教材準拠","type":"text","prompt":"1185年、平氏が滅亡した戦いは？","answer":"壇ノ浦の戦い","hint":"本州の西のはし（山口県）の海での戦いだよ。","explanation":"1185年、源義経の軍に追いつめられた平氏は、壇ノ浦（山口県）の戦いで滅亡しました。幼い安徳天皇もこのとき亡くなりました。","pitfall":"一ノ谷（1184年）→屋島（1185年）→壇ノ浦（1185年）の順に西へ。最後が壇ノ浦。","pair":"","aliases":["壇の浦の戦い","壇ノ浦の合戦","壇の浦の合戦"],"readings":["だんのうらのたたかい"]}}],"54025-09":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54025-09","unitId":"sapix-540-25","course":"d2","level":2,"unit":"源平の争乱","source":"教材準拠","type":"choice","prompt":"一ノ谷・屋島・壇ノ浦の戦いで平氏をやぶった、頼朝の弟は？","answer":"源義経","hint":"子どものころは「牛若丸」とよばれていたよ。","explanation":"源義経は頼朝の弟で、平氏を次々にやぶりました。のちに兄の頼朝と対立し、平泉（奥州藤原氏のもと）で倒されました。","pitfall":"義経＝一ノ谷・屋島・壇ノ浦、義仲＝倶利伽羅峠。どちらも「源義〇」なので注意。","pair":"genji","options":["源義経","源義仲","源頼家","北条義時"]}}],"54025-10":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54025-10","unitId":"sapix-540-25","course":"d2","level":2,"unit":"源平の争乱","source":"教材準拠","type":"choice","prompt":"倶利伽羅峠の戦いで、牛の角にたいまつをつけて平氏をやぶったと伝えられる人物は？","answer":"源義仲","hint":"木曽（長野県）で兵を挙げた人物で、「木曽義仲」ともよばれるよ。","explanation":"源義仲は1183年の倶利伽羅峠の戦いで平氏をやぶり京都に入りましたが、のちに頼朝が送った軍に倒されました。","pitfall":"義仲＝倶利伽羅峠（1183年）、義経＝一ノ谷・屋島・壇ノ浦。","pair":"genji","options":["源義仲","源義経","源頼朝","平清盛"]}}],"54025-11":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54025-11","unitId":"sapix-540-25","course":"d3","level":3,"unit":"源平の争乱","source":"教材準拠","type":"choice","prompt":"屋島の戦いで、平氏の船の上にかかげられた扇を射抜いたと伝えられる人物は？","answer":"那須与一","hint":"弓の名手として知られる人物だよ。","explanation":"屋島の戦い（1185年、香川県）では、源氏の弓の名手・那須与一が、遠くの船の上の扇を見事に射抜いたと伝えられています。","pitfall":"屋島＝那須与一の扇の的。伝説として語られている話だよ。","pair":"","options":["那須与一","源義経","武蔵坊弁慶","北条時政"]}}],"54025-12":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54025-12","unitId":"sapix-540-25","course":"d1","level":1,"unit":"鎌倉幕府","source":"教材準拠","type":"text","prompt":"国ごとに置かれ、軍事や警察の仕事をした役職は？","answer":"守護","hint":"「守る」という字が入るよ。","explanation":"源頼朝は国ごとに守護を置き、軍事や警察などの仕事をさせました。","pitfall":"守護＝国ごと・軍事と警察、地頭＝荘園ごと・土地の管理と年貢。「守る」のが守護。","pair":"shugo","aliases":[],"readings":["しゅご"]}}],"54025-13":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54025-13","unitId":"sapix-540-25","course":"d1","level":1,"unit":"鎌倉幕府","source":"教材準拠","type":"text","prompt":"荘園ごとに置かれ、土地の管理や年貢の取り立てをした役職は？","answer":"地頭","hint":"「土地」の「地」の字が入るよ。","explanation":"地頭は主に荘園ごとに置かれ、土地の管理や農民からの年貢（税）の取り立てなどを行いました。","pitfall":"守護＝国ごと・軍事と警察、地頭＝荘園ごと・土地と年貢。「土地」なら地頭。","pair":"shugo","aliases":[],"readings":["じとう"]}}],"54025-14":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54025-14","unitId":"sapix-540-25","course":"d2","level":2,"unit":"鎌倉幕府","source":"教材準拠","type":"text","prompt":"1192年、源頼朝が朝廷から任命された役職は？","answer":"征夷大将軍","hint":"「〇〇〇大将軍」という6文字の役職だよ。","explanation":"1192年、源頼朝は朝廷から征夷大将軍に任命されました。ここから始まる時代を鎌倉時代といいます（幕府の成立を1185年とする考え方もあります）。","pitfall":"1185年＝守護・地頭を置く、1192年＝征夷大将軍。どちらの年も問われるよ。","pair":"","aliases":[],"readings":["せいいたいしょうぐん"]}}],"54025-15":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54025-15","unitId":"sapix-540-25","course":"d1","level":1,"unit":"鎌倉幕府","source":"教材準拠","type":"text","prompt":"将軍から領地を認めてもらう代わりに、将軍に忠誠をちかった武士を何という？","answer":"御家人","hint":"将軍の家来のことで、「御」の字から始まるよ。","explanation":"将軍の家来となった武士を御家人といいます。将軍と御家人は「御恩と奉公」の関係で結ばれていました。","pitfall":"御家人＝人、御恩＝将軍がすること、奉公＝御家人がすること。","pair":"","aliases":[],"readings":["ごけにん"]}}],"54025-16":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54025-16","unitId":"sapix-540-25","course":"d2","level":2,"unit":"鎌倉幕府","source":"教材準拠","type":"choice","prompt":"将軍が、御家人の領地を認めたり新しい領地を与えたりすることを何という？","answer":"御恩","hint":"「恩」を与えるのは将軍の側だよ。","explanation":"将軍は御家人の領地を認めたり、手がらに応じて新しい領地を与えたり、守護や地頭に任命したりしました。これを御恩といいます。","pitfall":"将軍→御家人＝御恩、御家人→将軍＝奉公。土地を仲立ちにした関係を封建制度というよ。","pair":"goon","options":["御恩","奉公","年貢","徳政"]}}],"54025-17":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54025-17","unitId":"sapix-540-25","course":"d2","level":2,"unit":"鎌倉幕府","source":"教材準拠","type":"choice","prompt":"御家人が、将軍のために命がけで戦ったり鎌倉や京都を守ったりすることを何という？","answer":"奉公","hint":"御家人が将軍に「仕える」ことだよ。","explanation":"御家人は御恩を受ける代わりに、いざというときは将軍のために命がけで戦い、ふだんは京都や鎌倉を守る役につきました。これを奉公といいます。","pitfall":"将軍→御家人＝御恩、御家人→将軍＝奉公。","pair":"goon","options":["奉公","御恩","一揆","寄合"]}}],"54025-18":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54025-18","unitId":"sapix-540-25","course":"d2","level":2,"unit":"鎌倉幕府","source":"教材準拠","type":"choice","prompt":"鎌倉幕府で、裁判に関する仕事をした役所は？","answer":"問注所","hint":"「問う」という字が入っているよ。","explanation":"鎌倉には、御家人を取りしまる侍所、政治を行う政所、裁判を行う問注所が置かれました。","pitfall":"侍所＝侍（御家人）の取りしまり、政所＝政治、問注所＝問いただす（裁判）。字の意味で覚えよう。","pair":"office","options":["問注所","侍所","政所","六波羅探題"]}}],"54025-19":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54025-19","unitId":"sapix-540-25","course":"d2","level":2,"unit":"鎌倉幕府","source":"教材準拠","type":"choice","prompt":"鎌倉幕府で、御家人の取りしまりをした役所は？","answer":"侍所","hint":"御家人は武士＝「さむらい」だよ。","explanation":"侍所は御家人の取りしまりをする役所です。政所は政治（はじめは公文所といいました）、問注所は裁判を担当しました。","pitfall":"侍所＝侍の取りしまり、政所＝政治、問注所＝裁判。","pair":"office","options":["侍所","政所","問注所","公文所"]}}],"54025-20":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54025-20","unitId":"sapix-540-25","course":"d2","level":2,"unit":"鎌倉幕府","source":"教材準拠","type":"text","prompt":"鎌倉と各地を結ぶため、山や丘を切り開いてつくった道は？","answer":"切通し","hint":"山を「切って」「通した」道だよ。","explanation":"鎌倉は三方を山、一方を海に囲まれて守りやすい土地でした。人や馬が行き来できるように、山や丘を切り開いた切通しがつくられました。","pitfall":"鎌倉が守りやすい理由＝三方が山・一方が海。出入り口が切通し。","pair":"","aliases":["切り通し"],"readings":["きりどおし"]}}],"54025-21":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54025-21","unitId":"sapix-540-25","course":"d1","level":1,"unit":"北条氏","source":"教材準拠","type":"text","prompt":"将軍を助ける役職で、北条氏が代々ついたものは？","answer":"執権","hint":"「権力を執る」と書くよ。","explanation":"鎌倉幕府では将軍を助ける執権が置かれ、北条氏が代々その地位につきました。執権の北条氏が将軍をおさえて幕府の政治を動かすようになりました。","pitfall":"室町幕府で将軍を補佐したのは管領。鎌倉＝執権、室町＝管領。","pair":"","aliases":[],"readings":["しっけん"]}}],"54025-22":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54025-22","unitId":"sapix-540-25","course":"d2","level":2,"unit":"北条氏","source":"教材準拠","type":"text","prompt":"源頼朝の妻で、頼朝の死後「尼将軍」とよばれた人物は？","answer":"北条政子","hint":"初代執権北条時政の娘だよ。","explanation":"北条政子は頼朝の妻で、頼朝の死後は幕府の実力者として「尼将軍」とよばれました。承久の乱では御家人たちにうったえ、団結させました。","pitfall":"政子＝頼朝の妻・尼将軍、時政＝政子の父・初代執権。","pair":"hojo","aliases":[],"readings":["ほうじょうまさこ"]}}],"54025-23":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54025-23","unitId":"sapix-540-25","course":"d2","level":2,"unit":"北条氏","source":"教材準拠","type":"text","prompt":"1221年、後鳥羽上皇が幕府をたおそうとして兵を挙げ、敗れた戦いは？","answer":"承久の乱","hint":"元号の名前がつく乱だよ。","explanation":"1221年、後鳥羽上皇は2代執権北条義時をたおすよう命じて兵を挙げましたが、北条政子のうったえで団結した御家人の軍に敗れました。","pitfall":"承久の乱＝1221年・後鳥羽上皇。平安末の保元の乱・平治の乱と取り違えないように。","pair":"","aliases":[],"readings":["じょうきゅうのらん"]}}],"54025-24":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54025-24","unitId":"sapix-540-25","course":"d2","level":2,"unit":"北条氏","source":"教材準拠","type":"choice","prompt":"承久の乱の後、朝廷の監視や西国の武士の統制のため京都に置かれた役所は？","answer":"六波羅探題","hint":"京都の地名がついた役所だよ。","explanation":"承久の乱の後、幕府は後鳥羽上皇を隠岐（島根県）へ流し、京都に六波羅探題を置いて朝廷の監視や西国の武士の統制を行いました。","pitfall":"六波羅探題＝承久の乱の後・京都。侍所・政所・問注所は鎌倉にある役所。","pair":"","options":["六波羅探題","問注所","政所","侍所"]}}],"54025-25":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54025-25","unitId":"sapix-540-25","course":"d2","level":2,"unit":"北条氏","source":"教材準拠","type":"text","prompt":"1232年、3代執権北条泰時が定めた、武士がつくった最初の法律は？","answer":"御成敗式目","hint":"「貞永式目」ともいうよ。","explanation":"北条泰時は、土地をめぐる争いをさばく裁判の基準として御成敗式目（貞永式目）を定めました。武士がつくった最初の法律で、のちの武家法の手本になりました。","pitfall":"御成敗式目＝1232年・3代執権北条泰時。承久の乱の義時（2代）と区別しよう。","pair":"hojo","aliases":["貞永式目"],"readings":["ごせいばいしきもく","じょうえいしきもく"]}}],"54025-26":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54025-26","unitId":"sapix-540-25","course":"d3","level":3,"unit":"北条氏","source":"教材準拠","type":"choice","prompt":"承久の乱のとき、後鳥羽上皇に討つよう命じられた2代執権は？","answer":"北条義時","hint":"政子の弟だよ。御成敗式目を定めた人物の父でもあるよ。","explanation":"後鳥羽上皇は2代執権北条義時をたおすよう命じましたが、幕府軍が勝ちました。","pitfall":"初代＝時政（政子の父）、2代＝義時（承久の乱）、3代＝泰時（御成敗式目）。","pair":"hojo","options":["北条義時","北条泰時","北条時政","北条政子"]}}],"54025-27":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54025-27","unitId":"sapix-540-25","course":"d1","level":1,"unit":"武士のくらし","source":"教材準拠","type":"choice","prompt":"走る馬の上から、3つの的に向かって次々に矢を射る武芸は？","answer":"流鏑馬","hint":"今も神社の行事で見られることがあるよ。","explanation":"鎌倉時代の武士の戦いは馬に乗った一騎打ちが基本でした。そのため、流鏑馬・笠懸・犬追物などで、ふだんから馬に乗って弓を射る訓練をしました。","pitfall":"流鏑馬＝3つの的、笠懸＝遠くに置いた笠。蹴鞠は貴族の遊び。","pair":"","options":["流鏑馬","笠懸","犬追物","蹴鞠"]}}],"54025-28":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54025-28","unitId":"sapix-540-25","course":"d2","level":2,"unit":"武士のくらし","source":"教材準拠","type":"text","prompt":"「一か所の領地を命がけで守る」ことから生まれ、今の「一生懸命」のもとになった言葉は？","answer":"一所懸命","hint":"「一生」ではなく「一〇」と書くよ。","explanation":"武士は自分の領地を命がけで守り、それを生活のよりどころにしていました。そこから「一所懸命」という言葉が生まれました。","pitfall":"一所＝一か所の領地。「一生懸命」と書かないように。","pair":"","aliases":[],"readings":["いっしょけんめい"]}}],"54025-29":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54025-29","unitId":"sapix-540-25","course":"d2","level":2,"unit":"武士のくらし","source":"教材準拠","type":"choice","prompt":"幕府に大事が起きたとき、御家人がすぐに鎌倉へかけつける心意気を表す言葉は？","answer":"いざ鎌倉","hint":"「もしもの時は急いで鎌倉へ」という意味だよ。","explanation":"御家人はふだんは自分の領地でくらし、幕府に大事が起きると鎌倉へかけつけました。「いざ鎌倉」はこの心意気が由来です。各地と鎌倉は鎌倉街道で結ばれていました。","pitfall":"いざ鎌倉＝鎌倉へかけつける、一所懸命＝領地を守る。","pair":"","options":["いざ鎌倉","一所懸命","下剋上","御恩と奉公"]}}],"54025-30":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54025-30","unitId":"sapix-540-25","course":"d1","level":1,"unit":"新しい仏教","source":"教材準拠","type":"text","prompt":"「南無阿弥陀仏」と念仏を唱えればだれでも極楽浄土へ行けると説き、浄土宗を開いたのは？","answer":"法然","hint":"親鸞の師だよ。","explanation":"法然は、念仏を唱えればだれでも救われると説いて浄土宗を開き、貴族・武士・庶民に広まりました。","pitfall":"法然（師）＝浄土宗、親鸞（弟子）＝浄土真宗。「真」がつく方が弟子。","pair":"jodo","aliases":[],"readings":["ほうねん"]}}],"54025-31":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54025-31","unitId":"sapix-540-25","course":"d2","level":2,"unit":"新しい仏教","source":"教材準拠","type":"text","prompt":"法然の弟子で、阿弥陀仏を信じれば救われると説き、浄土真宗（一向宗）を開いたのは？","answer":"親鸞","hint":"関東の武士や庶民に教えが広まったよ。","explanation":"親鸞は法然の教えをさらにおし進め、阿弥陀仏を信じさえすれば救われると説いて浄土真宗（一向宗）を開きました。","pitfall":"法然（師）＝浄土宗、親鸞（弟子）＝浄土真宗。一向宗は室町時代の一向一揆にもつながるよ。","pair":"jodo","aliases":[],"readings":["しんらん"]}}],"54025-32":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54025-32","unitId":"sapix-540-25","course":"d2","level":2,"unit":"新しい仏教","source":"教材準拠","type":"choice","prompt":"各地をまわって踊念仏を広め、時宗を開いたのは？","answer":"一遍","hint":"踊りながら念仏を唱えたよ。","explanation":"一遍は、踊りながら念仏を唱える踊念仏で教えを広め、時宗を開きました。","pitfall":"念仏の宗派：浄土宗（法然）・浄土真宗（親鸞）・時宗（一遍）。","pair":"","options":["一遍","日蓮","法然","道元"]}}],"54025-33":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54025-33","unitId":"sapix-540-25","course":"d2","level":2,"unit":"新しい仏教","source":"教材準拠","type":"text","prompt":"「南無妙法蓮華経」と題目を唱えれば人も国も救われると説き、日蓮宗を開いたのは？","answer":"日蓮","hint":"宗派の名前と同じ名前の人物だよ。","explanation":"日蓮は法華経を信じ、「南無妙法蓮華経」という題目を唱えれば人も国も救われると説いて日蓮宗（法華宗）を開きました。他の宗派をきびしく批判しました。","pitfall":"念仏＝南無阿弥陀仏（法然・親鸞・一遍）、題目＝南無妙法蓮華経（日蓮）。","pair":"","aliases":[],"readings":["にちれん"]}}],"54025-34":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54025-34","unitId":"sapix-540-25","course":"d2","level":2,"unit":"新しい仏教","source":"教材準拠","type":"choice","prompt":"宋で修行し、座禅を重視する臨済宗を開いたのは？","answer":"栄西","hint":"幕府の上級武士などに広まった禅宗だよ。","explanation":"栄西は宋で修行して帰国後に臨済宗を開きました。臨済宗は貴族や将軍家、幕府の上級武士に広まりました。","pitfall":"栄西＝臨済宗（幕府の上級武士）、道元＝曹洞宗（地方の武士）。どちらも座禅の禅宗。","pair":"zen","options":["栄西","道元","親鸞","一遍"]}}],"54025-35":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54025-35","unitId":"sapix-540-25","course":"d2","level":2,"unit":"新しい仏教","source":"教材準拠","type":"choice","prompt":"宋で修行し、座禅を重視する曹洞宗を開いたのは？","answer":"道元","hint":"地方の武士に広まった禅宗だよ。","explanation":"道元も宋で修行し、ひたすら座禅を行うことを重視して曹洞宗を開きました。曹洞宗は地方の武士に広まりました。","pitfall":"栄西＝臨済宗、道元＝曹洞宗。「栄・臨」「道・曹」とセットで覚えよう。","pair":"zen","options":["道元","栄西","日蓮","法然"]}}],"54025-36":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54025-36","unitId":"sapix-540-25","course":"d1","level":1,"unit":"鎌倉文化","source":"教材準拠","type":"choice","prompt":"東大寺南大門の金剛力士像をつくった人物の組み合わせは？","answer":"運慶と快慶","hint":"どちらも名前に「慶」の字がつくよ。","explanation":"東大寺南大門は鎌倉時代を代表する建築物で、その内部には運慶・快慶らがつくった2体の金剛力士像が納められています。","pitfall":"鎌倉文化＝質素で力強い。東大寺南大門・金剛力士像（運慶・快慶）。","pair":"","options":["運慶と快慶","法然と親鸞","栄西と道元","平清盛と源頼朝"]}}],"54025-37":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54025-37","unitId":"sapix-540-25","course":"d2","level":2,"unit":"鎌倉文化","source":"教材準拠","type":"text","prompt":"琵琶法師が語り伝えた、平氏の繁栄から滅亡までをえがいた物語は？","answer":"平家物語","hint":"平氏のことを「平家」ともいうよ。","explanation":"『平家物語』は平氏の繁栄から滅亡までをえがいた物語で、琵琶法師によって各地に語り伝えられました。","pitfall":"平家物語＝琵琶法師が語る。平安時代の『源氏物語』（紫式部）と取り違えないように。","pair":"","aliases":[],"readings":["へいけものがたり"]}}],"54025-38":[{"revision":1,"kind":"initial","reason":"PR #18 baseline","question":{"id":"54025-38","unitId":"sapix-540-25","course":"d3","level":3,"unit":"新しい仏教","source":"教材準拠","type":"choice","prompt":"鎌倉時代に新しい仏教が人々の間に広まった理由として、最もふさわしいものは？","answer":"念仏や題目を唱えるなど、教えがわかりやすかったから","hint":"戦乱や災害が続き、不安になった人々は何を求めたかな？","explanation":"平安時代の終わりから戦乱や災害が続き、人々は仏教に救いを求めました。新しい仏教は伝統的な仏教に比べて教えがわかりやすく、だれでも救われると説いたため広まりました。","pitfall":"「戦乱・災害で不安」→「わかりやすい教え」→「庶民にも広まる」の順につなげよう。","pair":"","options":["念仏や題目を唱えるなど、教えがわかりやすかったから","寺に多くのお金を納めた人だけが救われる教えだったから","貴族だけが学べるむずかしい教えだったから","中国の皇帝が日本に広めるよう命じたから"]}}]};
+// Dataset versions/keys retain their existing meaning; revisions are per question.
+function currentQuestionVersion(q){
+ const id=q.originId||q.id;
+ return QUESTION_REVISIONS[id].at(-1).revision;
+}
+function historicalQuestion(e){
+ const science=typeof byId!=='undefined';
+ const extra=!science&&e.questionId.endsWith('-review-v1');
+ const id=extra?e.questionId.slice(0,-10):e.questionId;
+ const records=QUESTION_REVISIONS[id]||[];
+ const matches=[];
+ for(const r of records){
+  if(Object.hasOwn(e,'questionVersion')&&e.questionVersion!==r.revision)continue;
+  const q=extra?{...r.question,id:e.questionId,originId:id,prompt:'復習：'+r.question.prompt}:r.question;
+  const prompt=science?q.prompt:typeof promptOf==='function'?promptOf(q,e.variant):q.prompt;
+  const expected=science?q.answer:typeof expectedOf==='function'?expectedOf(q,e.variant):q.answer;
+  if(e.unit===q.unit&&(science?e.type===q.type:e.course===q.course)&&e.question===prompt&&e.expected===expected&&e.explanation===q.explanation)matches.push(q);
+ }
+ // Versionless histories can match multiple spelling revisions. Select the one
+ // whose historical grade matches, without recalculating or rewriting the event.
+ return matches.find(q=>e.correct===grade(q,e.response,e.variant));
+}
+// HISTORY_END
+// PROTOTYPE_START
+// Draft-only records are isolated from the original application's storage.
+const PROTOTYPE_FORMAT='yuika-review-prototype';
+const prototypeScience=typeof byId!=='undefined';
+const prototypeHeian=VERSION==='heian-540-24-v1';
+let rejectedImportRaw=null;
+function prototypeCheck(ok,message){if(!ok)throw Error(message);}
+function prototypeFields(value,allowed){
+ prototypeCheck(value&&typeof value==='object'&&!Array.isArray(value),'記録の形式が不正です。');
+ prototypeCheck(Object.keys(value).every(k=>allowed.includes(k)),'未対応の項目があります。元ファイルを保管してください。');
+}
+const prototypeEventValidator=validateEvent;
+validateEvent=function(e){
+ const fields=prototypeScience?
+  ['questionVersion','id','sessionId','questionId','datasetVersion','unit','type','question','response','inputRaw','expected','correct','answeredAt','timezoneOffset','localDay','hintUsed','mode','explanation']:
+  ['questionVersion','id','sessionId','questionId','version','unit','course','question','response','expected','explanation','correct','variant','mode','hint','at','offset','day',...(prototypeHeian?['reflection']:['unitId'])];
+ prototypeFields(e,fields);
+ if(prototypeHeian&&e.response&&typeof e.response==='object')prototypeFields(e.response,['steps','fills']);
+ return prototypeEventValidator(e);
+};
+function prototypeStateFields(v){
+ prototypeFields(v,['schemaVersion','datasetVersion','events','exportedAt',...(prototypeScience?['legacy']:[])]);
+ if(prototypeScience&&Array.isArray(v.legacy))for(const item of v.legacy)prototypeFields(item,['raw','capturedAt']);
+}
+if(prototypeScience){
+ const original=validateState;
+ validateState=function(v){prototypeStateFields(v);return original(v);};
+}else{
+ const original=validate;
+ validate=function(v){prototypeStateFields(v);return original(v);};
+}
+function prototypePacket(payload){return {format:PROTOTYPE_FORMAT,formatVersion:1,datasetVersion:VERSION,payload,exportedAt:new Date().toISOString()};}
+function prototypeUnpack(v){
+ if(v&&Object.hasOwn(v,'format')){
+  prototypeFields(v,['format','formatVersion','datasetVersion','payload','exportedAt']);
+  prototypeCheck(v.format===PROTOTYPE_FORMAT&&v.formatVersion===1&&v.datasetVersion===VERSION,'別の試作・版のJSONです。元ファイルを保管してください。');
+  return v.payload;
+ }
+ return v; // Only the existing strict legacy validator can accept this branch.
+}
+function prototypeNotice(){
+ let old='元の回答は自動で取り込まず、試作の記録は空から始まります。';
+ try{const raw=localStorage.getItem(LEGACY_KEY);if(raw!==null){old='元の保存先に記録があります。自動では取り込まず、試作の履歴とは別に保管しています。';try{JSON.parse(raw);}catch{old='元の保存先のJSONは読み取れません。元データは変更せず、この試作とは別に保護しています。';}}}
+ catch{old='元の保存先を確認できません。変更はしていません。';}
+ return `<section class="note" id="prototype-notice"><strong>合成データで試す復習</strong><p>この試作の回答・設定は元のアプリと別に保存します。旧画面には試作の回答は表示されません。</p><p>${old}</p><p>追加練習の試作用JSONは旧版へ取り込めません。既に混在した元記録の復旧は行いません。</p>${blocked?'<p>試作の記録を読み取れないため、分析と保存を休止しています。元データを書き出してください。</p>':''}</section>`;
+}
+const prototypeHome=home;
+home=function(){prototypeHome();main.insertAdjacentHTML('afterbegin',prototypeNotice());};
+const prototypeRecords=records;
+records=function(){
+ prototypeRecords();main.insertAdjacentHTML('afterbegin',prototypeNotice());
+ main.insertAdjacentHTML('beforeend',`<section class="card"><h2>元データをそのまま保管</h2><p>読み取れない・旧版で開けない記録も変換しません。合成データだけを明示的に取り込んで試してください。</p><button id="prototype-original">元の回答データを保存</button>${rejectedImportRaw!==null?'<button id="prototype-rejected">取り込めなかったファイルを保存</button>':''}</section>`);
+ document.getElementById('prototype-original').onclick=()=>{
+  try{const raw=localStorage.getItem(LEGACY_KEY);prototypeCheck(raw!==null,'元の回答データはこの場所にありません。');download('yuika-original-unchanged.json',raw);}
+  catch(e){(prototypeScience?message:note)(e.message);}
+ };
+ if(rejectedImportRaw!==null)document.getElementById('prototype-rejected').onclick=()=>download('yuika-rejected-original.json',rejectedImportRaw);
+};
+importFile=async function(file){
+ if(!file)return;
+ let raw=null;
+ try{
+  prototypeCheck(file.size<=(prototypeScience?10000000:25000000),'JSONのサイズが上限を超えています。');
+  raw=await file.text();const value=JSON.parse(raw),v=prototypeUnpack(value);let incoming;
+  if(prototypeScience&&v&&Object.hasOwn(v,'attempts')&&!Object.hasOwn(value,'format')){
+   // Explicit legacy aggregate import only; never infer individual responses.
+   prototypeFields(v,['attempts','correct','wrong']);legacyData(raw);incoming=emptyState();incoming.legacy=[{raw,capturedAt:new Date().toISOString()}];
+  }else incoming=prototypeScience?validateState(v):validate(v);
+  prototypeCheck(!blocked,'試作の保存済み記録が読み取れません。先に元データを保管してください。');
+  const diskRaw=localStorage.getItem(KEY),disk=diskRaw!==null?(prototypeScience?validateState(JSON.parse(diskRaw)):validate(JSON.parse(diskRaw))):(prototypeScience?emptyState():empty());
+  const next=merge(merge(disk,prototypeScience?state:data),incoming);
+  // Commit only after complete validation and a successful atomic setItem.
+  localStorage.setItem(KEY,JSON.stringify(next));
+  if(prototypeScience)state=next;else data=next;
+  dirty=false;rejectedImportRaw=null;
+  (prototypeScience?message:note)('試作へ読み込みました。同じ回答IDは重複させず、元の保存先は変更していません。');records();
+ }catch(e){
+  rejectedImportRaw=raw;(prototypeScience?message:note)('読み込みを中止しました。保存済み記録は変更していません。'+e.message);records();
+ }
+};
+// PROTOTYPE_END
 load();render();
+if(new URLSearchParams(location.search).get('daily')==='1')startDaily();
 </script></body></html>
