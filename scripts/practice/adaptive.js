@@ -154,7 +154,7 @@ function startDaily(){
 }
 const PREF_KEY=KEY+'-preferences-v1';
 function restorePrefs(){
- try{const p=JSON.parse(localStorage.getItem(PREF_KEY)||'null');if(!p)return;
+ try{const p=JSON.parse(window.YuikaParent.storage.getItem(PREF_KEY)||'null');if(!p)return;
   if([5,10,15].includes(p.count))prefs.count=p.count;
   if(Object.hasOwn(COURSES,p.course))prefs.course=p.course;
   if(p.unit==='all'||UNITS.includes(p.unit))prefs.unit=p.unit;
@@ -162,7 +162,7 @@ function restorePrefs(){
  }catch{note('学習設定を読み取れません。初期設定で始めます。');}
 }
 function rememberPrefs(){
- try{localStorage.setItem(PREF_KEY,JSON.stringify(prefs));localStorage.setItem('yuika-prototype-v1:last-daily-unit',location.pathname.split('/').pop());}
+ try{window.YuikaParent.storage.setItem(PREF_KEY,JSON.stringify(prefs));window.YuikaParent.storage.setItem('yuika-prototype-v1:last-daily-unit',location.pathname.split('/').pop());}
  catch{note('学習設定を保存できません。次回起動時は初期設定になります。');}
 }
 const retentionHome=home;

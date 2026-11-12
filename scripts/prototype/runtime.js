@@ -39,7 +39,7 @@ function prototypeUnpack(v){
 }
 function prototypeNotice(){
  let old='元の回答は自動で取り込まず、試作の記録は空から始まります。';
- try{const raw=localStorage.getItem(LEGACY_KEY);if(raw!==null){old='元の保存先に記録があります。自動では取り込まず、試作の履歴とは別に保管しています。';try{JSON.parse(raw);}catch{old='元の保存先のJSONは読み取れません。元データは変更せず、この試作とは別に保護しています。';}}}
+ try{const raw=window.YuikaParent.storage.getItem(LEGACY_KEY);if(raw!==null){old='元の保存先に記録があります。自動では取り込まず、試作の履歴とは別に保管しています。';try{JSON.parse(raw);}catch{old='元の保存先のJSONは読み取れません。元データは変更せず、この試作とは別に保護しています。';}}}
  catch{old='元の保存先を確認できません。変更はしていません。';}
  return `<section class="note" id="prototype-notice"><strong>合成データで試す復習</strong><p>この試作の回答・設定は元のアプリと別に保存します。旧画面には試作の回答は表示されません。</p><p>${old}</p><p>追加練習の試作用JSONは旧版へ取り込めません。既に混在した元記録の復旧は行いません。</p>${blocked?'<p>試作の記録を読み取れないため、分析と保存を休止しています。元データを書き出してください。</p>':''}</section>`;
 }
@@ -50,7 +50,7 @@ records=function(){
  prototypeRecords();main.insertAdjacentHTML('afterbegin',prototypeNotice());
  main.insertAdjacentHTML('beforeend',`<section class="card"><h2>元データをそのまま保管</h2><p>読み取れない・旧版で開けない記録も変換しません。合成データだけを明示的に取り込んで試してください。</p><button id="prototype-original">元の回答データを保存</button>${rejectedImportRaw!==null?'<button id="prototype-rejected">取り込めなかったファイルを保存</button>':''}</section>`);
  document.getElementById('prototype-original').onclick=()=>{
-  try{const raw=localStorage.getItem(LEGACY_KEY);prototypeCheck(raw!==null,'元の回答データはこの場所にありません。');download('yuika-original-unchanged.json',raw);}
+  try{const raw=window.YuikaParent.storage.getItem(LEGACY_KEY);prototypeCheck(raw!==null,'元の回答データはこの場所にありません。');download('yuika-original-unchanged.json',raw);}
   catch(e){(prototypeScience?message:note)(e.message);}
  };
  if(rejectedImportRaw!==null)document.getElementById('prototype-rejected').onclick=()=>download('yuika-rejected-original.json',rejectedImportRaw);
@@ -66,10 +66,10 @@ importFile=async function(file){
    prototypeFields(v,['attempts','correct','wrong']);legacyData(raw);incoming=emptyState();incoming.legacy=[{raw,capturedAt:new Date().toISOString()}];
   }else incoming=prototypeScience?validateState(v):validate(v);
   prototypeCheck(!blocked,'試作の保存済み記録が読み取れません。先に元データを保管してください。');
-  const diskRaw=localStorage.getItem(KEY),disk=diskRaw!==null?(prototypeScience?validateState(JSON.parse(diskRaw)):validate(JSON.parse(diskRaw))):(prototypeScience?emptyState():empty());
+  const diskRaw=window.YuikaParent.storage.getItem(KEY),disk=diskRaw!==null?(prototypeScience?validateState(JSON.parse(diskRaw)):validate(JSON.parse(diskRaw))):(prototypeScience?emptyState():empty());
   const next=merge(merge(disk,prototypeScience?state:data),incoming);
   // Commit only after complete validation and a successful atomic setItem.
-  localStorage.setItem(KEY,JSON.stringify(next));
+  window.YuikaParent.storage.setItem(KEY,JSON.stringify(next));
   if(prototypeScience)state=next;else data=next;
   dirty=false;rejectedImportRaw=null;
   (prototypeScience?message:note)('試作へ読み込みました。同じ回答IDは重複させず、元の保存先は変更していません。');records();
