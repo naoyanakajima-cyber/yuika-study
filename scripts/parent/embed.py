@@ -7,8 +7,9 @@ for p in ROOT.glob('*.html'):
  text=p.read_text()
  if START in text:
   a=text.index(START);b=text.index(END,a)+len(END)
-  text=text[:a]+block+text[b:]
- else:
-  pos=text.index('>',text.lower().index('<head'))+1
-  text=text[:pos]+'\n'+block+text[pos:]
+  if text[b:b+1]=='\n':b+=1
+  text=text[:a]+text[b:]
+ # Keep charset within the first 1024 bytes and CSP before executable code.
+ pos=text.lower().index('</head>')
+ text=text[:pos]+block+'\n'+text[pos:]
  p.write_text(text)

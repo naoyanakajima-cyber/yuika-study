@@ -10,6 +10,8 @@ ROOT=Path(__file__).resolve().parents[1]
 for entry in ROOT.glob('*.html'):
  text=entry.read_text();body=text.split('<!-- YUIKA_PARENT_BEGIN -->')[1].split('<!-- YUIKA_PARENT_END -->')[0]
  assert (ROOT/'scripts/parent/runtime.js').read_text() in body
+ assert text.lower().index('<meta charset')<1024
+ assert text.index('<!-- YUIKA_PARENT_BEGIN -->')<text.index('<script')
  rest=text.replace(body,'')
  assert 'localStorage.' not in rest,entry.name
 
