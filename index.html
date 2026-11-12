@@ -1763,11 +1763,11 @@ function App() {
     return <UnitScreen unit={activeUnit} onBack={() => setActiveUnit(null)} email={email} onSessionSaved={handleSessionSaved} />;
   }
 
-  return <><div style={{padding:16,textAlign:"center"}}><button onClick={() => {
+  return <><div style={{padding:16,textAlign:"center"}}><button style={{background:T.card||T.smoke,border:`1px solid ${T.textMuted}`,borderRadius:10,padding:"8px 14px",color:T.textDim,fontSize:14,cursor:"pointer",fontFamily:"'Noto Sans JP',sans-serif",display:"inline-flex",alignItems:"center",gap:6}} onClick={() => {
     let unit="onin-review.html";
     try { const saved=window.YuikaParent.storage.getItem("yuika-prototype-v1:last-daily-unit");if(["onin-review.html","kamakura-review.html","heian-review.html","yuika-review-v2.html","mock-focus-review.html"].includes(saved))unit=saved; } catch(e) {}
     window.YuikaParent.navigate(unit+"?daily=1");
-  }}>今日の5問をはじめる</button><p>この試作で前回開いた単元と設定で開始（初回は応仁の乱）</p></div><HomeScreen onSelectUnit={setActiveUnit} onSettings={() => setScreen("settings")} onHistory={() => setScreen("history")} email={email} /></>;
+  }}>今日の5問をはじめる</button><p>前回の続きから5問</p></div><HomeScreen onSelectUnit={setActiveUnit} onSettings={() => setScreen("settings")} onHistory={() => setScreen("history")} email={email} /></>;
 }
 
 
