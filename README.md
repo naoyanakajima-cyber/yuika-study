@@ -26,6 +26,7 @@
 `python scripts/cloud/serve.py --port 8000` を実行し、`http://127.0.0.1:8000/content-review.html`を開きます。
 このプレビューは通知APIを遮断します。検証は `python tests/content_review.py`。
 共通形式・対象外・受入条件は[教材追加仕様](docs/product/content-spec.md)を参照してください。
+JSON読み込み中の編集・確認・出力は保持し、古い読み込み結果で置き換えません。読み込みの明示取消もできます。[非同期読み込み保護の仕様](docs/product/content-import-guard-spec.md)と `tests/content_import_guard.py` を参照してください。
 
 ## 天気／日本の地形・気候
 
