@@ -16,13 +16,15 @@ class PreviewHandler(SimpleHTTPRequestHandler):
         super().end_headers()
 
     def do_GET(self):
-        # Serve only listed app/prototype entry points, not .git, records, or photos.
+        # Serve only public app entry points, not .git, records, or photos.
         path = self.path.split('?', 1)[0]
         if path == '/':
             self.path = '/index.html'
         elif path not in {f'/{name}' for name in (
+            'assets/design.css', 'assets/design.js', 'assets/progress.js',
             'index.html', 'heian-review.html', 'onin-review.html',
-            'kamakura-review.html', 'yuika-review-v2.html', 'content-review.html',
+            'kamakura-review.html', 'yuika-review-v2.html', 'mock-focus-review.html',
+            'content-review.html',
         )}:
             self.send_error(404)
             return

@@ -28,7 +28,8 @@ description: Start work in the saved yuika-study Codex Cloud environment and ver
    as manual recovery; identify it as manual. If the dedicated checkout is absent,
    use the saved, commit-pinned Install script. Do not assume setup files exist on
    main, substitute a moving branch, or overwrite the initial checkout.
-6. Run these five commands after activation in the same shell:
+6. Run these six commands after activation in the same shell and record each
+   exit code:
 
    ```bash
    python tests/onin_review.py
@@ -36,6 +37,7 @@ description: Start work in the saved yuika-study Codex Cloud environment and ver
    python tests/cloud_preview.py
    node --test notifications/test/worker.test.mjs
    python notifications/test/browser.py
+   python tests/cloud_bootstrap.py
    ```
 
 7. For a requested development preview, after activation run
