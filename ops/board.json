@@ -36,14 +36,8 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": {
-    "run_id": "cycle-20261114T191016Z",
-    "acquired_at": "2026-11-14T19:10:16.299208+00:00",
-    "expires_at": "2026-11-14T19:50:16.299208+00:00",
-    "ticket": "REV-MVP",
-    "owner": "root/coordinator"
-  },
-  "updated_at": "2026-11-14T19:22:50.572052+00:00",
+  "lease": null,
+  "updated_at": "2026-11-14T19:25:22.177217+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -9848,7 +9842,7 @@
       "specification": "docs/product/review-current-base.md",
       "platform_run_completion_verified": false,
       "next_action": "既存PR10の現main統合を受入済み。次はdaily-count-specに沿い、日次開始前の実問数と0件開始不可を同PR内で修正する。共通adaptive/4生成先、理科/トップの対象境界と時刻・別タブ変化をPdM/PrMで確定し、選定/乱数/保存を変えず独立QAする。新製品PRを増やさない。",
-      "attachment": "既存PR10 attach呼出応答が空で今回成功未確認。新規PRなし。",
+      "attachment": "既存PR10/9のattachを呼出。両応答が空で今回成功未確認。新規PRなし。",
       "product_pr_readback": {
         "head": "132f9f59ebd23b6dab33e7d1e23bf4d077b8070d",
         "base": "main",
@@ -9862,6 +9856,18 @@
         "completed_at": "2026-11-14T19:22:23Z",
         "cause": "not_investigated",
         "rerun_or_deploy_invoked": false
+      },
+      "completed_at": "2026-11-14T19:25:22.177217+00:00",
+      "lease_released_at": "2026-11-14T19:25:22.177217+00:00",
+      "accepted_operations_commit": "25622a1fc72194a9b4a4908adb32d003fc812166",
+      "metadata_reviewer": "qa_rev_current",
+      "metadata_review_result": "accepted: prior128runs and other tickets unchanged;37 evidence hashes match; check completion time wording corrected by coordinator. metadata-review copy added after review.",
+      "pr_body_updated": true,
+      "operations_pr_readback": {
+        "head": "25622a1fc72194a9b4a4908adb32d003fc812166",
+        "state": "open",
+        "draft": true,
+        "body_matches": true
       }
     }
   ],
