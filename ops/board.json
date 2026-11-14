@@ -43,7 +43,7 @@
     "ticket": "CONTENT-MVP",
     "owner": "root/coordinator"
   },
-  "updated_at": "2026-11-14T23:08:30.647006+00:00",
+  "updated_at": "2026-11-14T23:11:31.116207+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -887,17 +887,16 @@
         "automatic_chat_connection_verified": false
       },
       "independent_followup": {
-        "id": "content-import-guard",
-        "state": "independent_qa_passed",
-        "pdm": "pdm_content_trial_scope",
+        "id": "content-trial-delivery",
+        "state": "in_progress",
+        "pdm": "pdm_content_trial_delivery",
         "prm": "root/coordinator",
-        "engineer": "engineer_content_import_guard",
-        "reviewer": "qa_content_import_guard",
-        "base_commit": "f1e84a7b998dfbcd71c6692974015bdd08e1877e",
-        "specification": "docs/product/content-import-guard-spec.md",
-        "trial_feature_implemented": false,
-        "commit": "62f34de238e9d1d62c796aac3a4b43418043d17f",
-        "report": "ops/runs/2026-11-14-content-import-guard.md"
+        "engineer": "engineer_content_trial_delivery",
+        "reviewer": "qa_content_trial_delivery",
+        "base_commit": "62f34de238e9d1d62c796aac3a4b43418043d17f",
+        "specification": "docs/product/content-try-spec.md",
+        "scope": "全G01-G13/S01-S13の保存しない合成試し解き",
+        "trial_feature_implemented": false
       },
       "base_history": [
         {
@@ -925,6 +924,19 @@
           "engineer": "engineer_content_base_sync",
           "reviewer": "qa_content_base_sync",
           "report": "ops/runs/2026-11-14-content-base-sync.md"
+        },
+        {
+          "id": "content-import-guard",
+          "state": "independent_qa_passed",
+          "pdm": "pdm_content_trial_scope",
+          "prm": "root/coordinator",
+          "engineer": "engineer_content_import_guard",
+          "reviewer": "qa_content_import_guard",
+          "base_commit": "f1e84a7b998dfbcd71c6692974015bdd08e1877e",
+          "specification": "docs/product/content-import-guard-spec.md",
+          "trial_feature_implemented": false,
+          "commit": "62f34de238e9d1d62c796aac3a4b43418043d17f",
+          "report": "ops/runs/2026-11-14-content-import-guard.md"
         }
       ]
     },
@@ -10339,6 +10351,41 @@
       "completed_at": "2026-11-14T22:23:13.407558+00:00",
       "lease_released_at": "2026-11-14T22:23:13.407558+00:00",
       "notification": "none; include in morning/evening CEO checkpoint"
+    },
+    {
+      "id": "cycle-20261114T230830Z",
+      "started_at": "2026-11-14T23:08:30.647006+00:00",
+      "observed_operations_commit": "4207084a1ddc6b88e54a429c07e8ce0a2bfefdfa",
+      "observed_main_commit": "86514eda054a5a2e09204df3a0668e40624c16de",
+      "ticket": "CONTENT-MVP",
+      "result": "確認済み合成教材の保存しない試し解きを実装・検証中",
+      "cloud_verified": true,
+      "ceo_decisions_ingested": 0,
+      "subagents": [
+        "pdm_content_trial_delivery",
+        "engineer_content_trial_delivery",
+        "qa_content_trial_delivery"
+      ],
+      "base_commit": "62f34de238e9d1d62c796aac3a4b43418043d17f",
+      "review_status": "pending",
+      "new_prs": [],
+      "ceo_wait_product_prs": [
+        10,
+        11,
+        12
+      ],
+      "additional_existing_product_drafts": [
+        22
+      ],
+      "specification": "docs/product/content-try-spec.md",
+      "evidence": "ops/evidence/2026-11-14-content-trial-delivery",
+      "report": "ops/runs/2026-11-14-content-trial-delivery.md",
+      "external_private_data_calls": 0,
+      "production_actions": false,
+      "manual_dependency_reuse": true,
+      "automatic_snapshot_handoff_verified": false,
+      "platform_run_completion_verified": false,
+      "attachment": "既存PR9/11 attachと一覧を呼出。空応答で添付成功未確認。"
     }
   ],
   "operational_notes": [
