@@ -1,0 +1,3 @@
+onin-review.html: R1-R7/R9 synthetic recommendation and compatibility checks passed
+kamakura-review.html: R1-R7/R9 synthetic recommendation and compatibility checks passed
+recommended-review: all checks passed; actual POST arrivals 0

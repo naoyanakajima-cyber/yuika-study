@@ -1,0 +1,27 @@
+{
+  "head": "132f9f59ebd23b6dab33e7d1e23bf4d077b8070d",
+  "method": "git archive into isolated temporary tree",
+  "commands": [
+    {
+      "command": "python scripts/practice/embed.py",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "python scripts/design/embed.py",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": "python scripts/parent/embed.py",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "html_count": 6,
+  "changed_html": [],
+  "passed": true
+}

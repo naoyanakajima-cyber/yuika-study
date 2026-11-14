@@ -1,0 +1,95 @@
+[
+  {
+    "path": "scripts/practice/adaptive.js",
+    "equal_main": true,
+    "sha256": "aa82eca8636be227d3bcaf1f0004004d74b55ec8ec325e4cfd8300e74811eac9"
+  },
+  {
+    "path": "scripts/practice/embed.py",
+    "equal_main": true,
+    "sha256": "afef4b5060ecf0b75a9bc660872c1c761bf5def4b6d65f81bb4ebdedb9404284"
+  },
+  {
+    "path": "scripts/prototype/runtime.js",
+    "equal_main": true,
+    "sha256": "ef151513bbca3b425389fc9d17a7a0037e74e63ebd7c5a2e4c8af79070464770"
+  },
+  {
+    "path": "scripts/parent/runtime.js",
+    "equal_main": true,
+    "sha256": "345c190adf1c7c92d11f153c422d7783d1a7799557d83d43dd3f6e04e5df9957"
+  },
+  {
+    "path": "assets/design.css",
+    "equal_main": true,
+    "sha256": "a1c239291637b2721052453b457ad106637a93dfe1412162b615ab7a4d9f967d"
+  },
+  {
+    "path": "heian-review.html",
+    "equal_main": true,
+    "sha256": "b484052d4e0a9bc81c96dae69f03c452e736093fe4d9b73b539d87ccda369775"
+  },
+  {
+    "path": "mock-focus-review.html",
+    "equal_main": true,
+    "sha256": "fe3a1040a54bbcd486fd2f3efb6ede501716d6d542d3e12dff2f070ec3e628dc"
+  },
+  {
+    "path": "yuika-review-v2.html",
+    "equal_main": true,
+    "sha256": "72b7cef43c02d22d4ae0c17fddc6aefdeb0ec9908ab974e49c727d0800a25314"
+  },
+  {
+    "path": "index.html",
+    "equal_main": true,
+    "sha256": "7cda10be2e54fada58627c407a6bd269bff9745cb7239aed61883306b282611f"
+  },
+  {
+    "path": "onin-review.html",
+    "segment": "const QUESTIONS=",
+    "equal_main": true,
+    "sha256": "95bad60c59b9eaf99da6321c3c2ac45ac7199140f274f817341e1d790f677d73"
+  },
+  {
+    "path": "onin-review.html",
+    "segment": "const normalize=",
+    "equal_main": true,
+    "sha256": "3bfcdb2c15bdda22e8c9aa28a7abb7e813156e9f572c02890a24e6d3f561171c"
+  },
+  {
+    "path": "onin-review.html",
+    "segment": "// ADAPTIVE_START\n",
+    "equal_main": true,
+    "sha256": "aa82eca8636be227d3bcaf1f0004004d74b55ec8ec325e4cfd8300e74811eac9"
+  },
+  {
+    "path": "onin-review.html",
+    "segment": "<!-- YUIKA_PARENT_BEGIN -->",
+    "equal_main": true,
+    "sha256": "eae97d0e29e30f8a3cb0ac03865fbb7146922dbe20573aae97e79c2157e781e4"
+  },
+  {
+    "path": "kamakura-review.html",
+    "segment": "const QUESTIONS=",
+    "equal_main": true,
+    "sha256": "edcabbe4d88791ae01b2c0ed4357ebb433d0b7570a498f7b92d8eabc60dff594"
+  },
+  {
+    "path": "kamakura-review.html",
+    "segment": "const normalize=",
+    "equal_main": true,
+    "sha256": "3bfcdb2c15bdda22e8c9aa28a7abb7e813156e9f572c02890a24e6d3f561171c"
+  },
+  {
+    "path": "kamakura-review.html",
+    "segment": "// ADAPTIVE_START\n",
+    "equal_main": true,
+    "sha256": "aa82eca8636be227d3bcaf1f0004004d74b55ec8ec325e4cfd8300e74811eac9"
+  },
+  {
+    "path": "kamakura-review.html",
+    "segment": "<!-- YUIKA_PARENT_BEGIN -->",
+    "equal_main": true,
+    "sha256": "eae97d0e29e30f8a3cb0ac03865fbb7146922dbe20573aae97e79c2157e781e4"
+  }
+]

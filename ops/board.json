@@ -43,7 +43,7 @@
     "ticket": "REV-MVP",
     "owner": "root/coordinator"
   },
-  "updated_at": "2026-11-14T19:13:04.191910+00:00",
+  "updated_at": "2026-11-14T19:22:50.572052+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -244,7 +244,7 @@
         "既存ID・保存キー・旧履歴を保護する",
         "768x1024で開始・回答・採点・保存・再読込を合成データで確認する"
       ],
-      "next_action": "PdM/PrMで既存PR10の残すべき選定理由と現mainの日次・保存契約を両立させる修正範囲/基点/4生成先を具体化し、確認済み日次件数不一致を既存PR内で修正できるか判断する。旧branchへ単純投入せず、新製品PR・merge/公開を増やさない。",
+      "next_action": "既存PR10の現main統合を受入済み。次はdaily-count-specに沿い、日次開始前の実問数と0件開始不可を同PR内で修正する。共通adaptive/4生成先、理科/トップの対象境界と時刻・別タブ変化をPdM/PrMで確定し、選定/乱数/保存を変えず独立QAする。新製品PRを増やさない。",
       "evidence": [
         {
           "kind": "test",
@@ -359,22 +359,33 @@
             "C",
             "D"
           ]
+        },
+        {
+          "kind": "current_main_compatibility",
+          "path": "ops/runs/2026-11-14-rev-current-base.md",
+          "commit": "132f9f59ebd23b6dab33e7d1e23bf4d077b8070d",
+          "required_suites_passed": 24,
+          "independent_ui_unique_cases": 10
         }
       ],
       "review": {
-        "author": "engineer_rev_entry",
-        "pdm": "pdm_rev_discoverability",
+        "pdm": "pdm_rev_current_scope",
         "prm": "root/coordinator",
-        "reviewer": "qa_rev_entry",
-        "result": "passed",
-        "commit": "ba829a1176ff1ead7d312526890afe8792178c99",
-        "completed_at": "2026-11-09T22:18:38.289151+00:00",
-        "notes": "独立QAが5コマンドと両単元の上部案内/0件/読取不能/keyboard/focus/設定同期を検証。最終commitと変更4ファイルhash照合。既存テスト・CSP・通知・選定採点保存処理は維持。"
+        "author": "engineer_rev_current",
+        "reviewer": "qa_rev_current",
+        "commit": "132f9f59ebd23b6dab33e7d1e23bf4d077b8070d",
+        "result": "passed_current_main_integration",
+        "completed_at": "2026-11-14T19:20:18.890176+00:00",
+        "required_suites": 24,
+        "exit_code": 0,
+        "seconds": 300,
+        "additional_ui_unique_cases": 10,
+        "report": "ops/evidence/2026-11-14-rev-current-base/QA.md"
       },
-      "base_ref": "codex/cloud-automatic-bootstrap",
-      "base_sha": "edad8065c1f2b726e61c5cf405f8d9ff6d807480",
+      "base_ref": "main",
+      "base_sha": "86514eda054a5a2e09204df3a0668e40624c16de",
       "specification": "docs/product/review-spec.md",
-      "commit": "ba829a1176ff1ead7d312526890afe8792178c99",
+      "commit": "132f9f59ebd23b6dab33e7d1e23bf4d077b8070d",
       "direction_adopted": true,
       "direction_decision": "D03",
       "release": {
@@ -425,12 +436,22 @@
           "commit": "bd7a055a1169416dbdd82654ac19c228a739f9cf",
           "completed_at": "2026-11-09T14:20:46.097483+00:00",
           "notes": "独立QAが4コマンド実行、最終commitの検証済みtree一致確認。READMEのみ統括が追記。"
+        },
+        {
+          "author": "engineer_rev_entry",
+          "pdm": "pdm_rev_discoverability",
+          "prm": "root/coordinator",
+          "reviewer": "qa_rev_entry",
+          "result": "passed",
+          "commit": "ba829a1176ff1ead7d312526890afe8792178c99",
+          "completed_at": "2026-11-09T22:18:38.289151+00:00",
+          "notes": "独立QAが5コマンドと両単元の上部案内/0件/読取不能/keyboard/focus/設定同期を検証。最終commitと変更4ファイルhash照合。既存テスト・CSP・通知・選定採点保存処理は維持。"
         }
       ],
-      "ceo_wait_reason": "入口改善後の試作品確認待ち。方向性D03は採用済み。マージ・公開は未承認。",
+      "ceo_wait_reason": "現main互換性修正後の合成試作品確認待ち。D03方向性採用は維持。マージ・公開は未承認。",
       "independent_followup": {
         "kind": "current_main_compatibility",
-        "state": "in_progress",
+        "state": "independent_qa_passed",
         "run_id": "cycle-20261114T191016Z",
         "source_pr_head": "ba829a1176ff1ead7d312526890afe8792178c99",
         "observed_main": "86514eda054a5a2e09204df3a0668e40624c16de",
@@ -439,8 +460,12 @@
         "prm": "root/coordinator",
         "engineer": "engineer_rev_current",
         "reviewer": "qa_rev_current",
-        "review_status": "not_yet_run",
-        "daily_count_fix": "deferred_until_integration_accepted"
+        "review_status": "passed",
+        "daily_count_fix": "not_implemented",
+        "candidate_commit": "132f9f59ebd23b6dab33e7d1e23bf4d077b8070d",
+        "delivered": true,
+        "pr_base": "main",
+        "report": "ops/runs/2026-11-14-rev-current-base.md"
       },
       "independent_followup_history": [
         {
@@ -9702,6 +9727,133 @@
         "state": "open",
         "draft": true,
         "body_matches": true
+      }
+    },
+    {
+      "id": "cycle-20261114T191016Z",
+      "started_at": "2026-11-14T19:10:16.299208+00:00",
+      "observed_operations_commit": "7c7ad83953a32ae459e9aafb272d5071957f40ac",
+      "ticket": "REV-MVP",
+      "result": "既存PR10を現main保存保護へ統合。24suiteと独立10ケース合格、同draftへ反映。日次件数修正は次工程。",
+      "cloud_verified": true,
+      "observed_main_commit": "86514eda054a5a2e09204df3a0668e40624c16de",
+      "observed_prs": [
+        {
+          "number": 22,
+          "head_sha": "bd4f48de0404614eb84275969bfccff0a368e866",
+          "state": "open",
+          "draft": true,
+          "base": "codex/review-17-19-quality",
+          "base_sha": "79d546891940b6f5e3030940f7c52c2ff7b3d36b"
+        },
+        {
+          "number": 13,
+          "head_sha": "139c8b8b56bcd979068b61984120d9f312efe182",
+          "state": "open",
+          "draft": true,
+          "base": "codex/cloud-handoff-hardening-20261108",
+          "base_sha": "4329daaeec15641289d7edbcb7f3237d0da1e0e3"
+        },
+        {
+          "number": 12,
+          "head_sha": "57171ad9cab02fec6a080ecbe317fe11d3f51dcf",
+          "state": "open",
+          "draft": true,
+          "base": "codex/cloud-automatic-bootstrap",
+          "base_sha": "edad8065c1f2b726e61c5cf405f8d9ff6d807480"
+        },
+        {
+          "number": 11,
+          "head_sha": "f1e84a7b998dfbcd71c6692974015bdd08e1877e",
+          "state": "open",
+          "draft": true,
+          "base": "main",
+          "base_sha": "86514eda054a5a2e09204df3a0668e40624c16de"
+        },
+        {
+          "number": 10,
+          "head_sha": "ba829a1176ff1ead7d312526890afe8792178c99",
+          "state": "open",
+          "draft": true,
+          "base": "codex/cloud-automatic-bootstrap",
+          "base_sha": "edad8065c1f2b726e61c5cf405f8d9ff6d807480"
+        },
+        {
+          "number": 9,
+          "head_sha": "03b48689be5ee25f5e76df1ee6e63a4c1fdf8acd",
+          "state": "open",
+          "draft": true,
+          "base": "main",
+          "base_sha": "d526d65fbae116f834d14ad994a27bc50ca23b62"
+        },
+        {
+          "number": 4,
+          "head_sha": "ff211ee8e144e955fa5837e8b8ff5cabf51f60a4",
+          "state": "open",
+          "draft": true,
+          "base": "main",
+          "base_sha": "d526d65fbae116f834d14ad994a27bc50ca23b62"
+        }
+      ],
+      "ceo_decisions_ingested": 0,
+      "subagents": [
+        "pdm_rev_current_scope",
+        "engineer_rev_current",
+        "qa_rev_current"
+      ],
+      "pdm": "pdm_rev_current_scope",
+      "prm": "root/coordinator",
+      "engineer": "engineer_rev_current",
+      "reviewer": "qa_rev_current",
+      "independent_review_performed": true,
+      "app_tests_run": true,
+      "browser_tests_run": true,
+      "candidate_commit": "132f9f59ebd23b6dab33e7d1e23bf4d077b8070d",
+      "verification": {
+        "command": "bash scripts/check_all.sh",
+        "attempts": 1,
+        "suites_passed": 24,
+        "exit_code": 0,
+        "seconds": 300,
+        "clean_fixed_head": true,
+        "independent_ui_unique_cases": 10,
+        "probe_attempts": 3,
+        "harness_causes": 2,
+        "repair_per_cause": 1,
+        "product_failures": 0
+      },
+      "manual_setup": true,
+      "automatic_setup_verified": false,
+      "product_runtime_changed": true,
+      "test_code_changed": true,
+      "new_prs": [],
+      "updated_prs": [
+        10,
+        9
+      ],
+      "product_pr_updated": true,
+      "ceo_wait_product_prs": [
+        10,
+        11,
+        12
+      ],
+      "additional_existing_product_drafts": [
+        22
+      ],
+      "external_private_data_calls": 0,
+      "production_actions": false,
+      "new_blockers": [],
+      "new_product_findings": [],
+      "report": "ops/runs/2026-11-14-rev-current-base.md",
+      "specification": "docs/product/review-current-base.md",
+      "platform_run_completion_verified": false,
+      "next_action": "既存PR10の現main統合を受入済み。次はdaily-count-specに沿い、日次開始前の実問数と0件開始不可を同PR内で修正する。共通adaptive/4生成先、理科/トップの対象境界と時刻・別タブ変化をPdM/PrMで確定し、選定/乱数/保存を変えず独立QAする。新製品PRを増やさない。",
+      "attachment": "既存PR10 attach呼出応答が空で今回成功未確認。新規PRなし。",
+      "product_pr_readback": {
+        "head": "132f9f59ebd23b6dab33e7d1e23bf4d077b8070d",
+        "base": "main",
+        "state": "open",
+        "draft": true
       }
     }
   ],
