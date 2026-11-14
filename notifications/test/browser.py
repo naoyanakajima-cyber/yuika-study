@@ -13,7 +13,7 @@ BASE=f'http://127.0.0.1:{srv.server_port}/'
 CONFIG={'enabled':True,'endpoint':'https://test-notify.example.workers.dev','token':'test-device-key-123456789012345678901234','recipient':'parent@example.test, mother@example.test'}
 with sync_playwright() as pw:
  b=pw.chromium.launch(executable_path='/usr/bin/chromium',args=['--no-sandbox'])
- c=b.new_context(viewport={'width':768,'height':1024});p=c.new_page();errors=[];p.on('pageerror',lambda e:errors.append(str(e)))
+ c=b.new_context(viewport={'width':768,'height':1024});c.add_init_script(path=str(ROOT / 'tests/seed_random.js'));p=c.new_page();errors=[];p.on('pageerror',lambda e:errors.append(str(e)))
  received=[];fail=[False]
  def handle(r):
   if r.request.method=='OPTIONS':r.fulfill(status=204,headers={'Access-Control-Allow-Origin':'*','Access-Control-Allow-Headers':'Authorization, Content-Type','Access-Control-Allow-Methods':'GET, POST, OPTIONS'});return
@@ -53,13 +53,13 @@ with sync_playwright() as pw:
  science=received[-1];assert science['app']=='science' and science['total']==5
  pending=p.evaluate("Object.keys(localStorage).filter(k=>k.startsWith('yuika-mail-job-v1:')).map(k=>JSON.parse(localStorage.getItem(k))).filter(j=>j.status==='pending')")
  assert len(pending)==1 and pending[0]['report']==science
- learning=p.evaluate("localStorage.getItem('yuika-science-review-v2')")
+ learning=p.evaluate("localStorage.getItem('yuika-prototype-v1:yuika-science-review-v2')")
  assert learning is not None
  # Simulate passage of backoff time and a new visit.
  p.evaluate("()=>{for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(k.startsWith('yuika-mail-job-v1:')){const v=JSON.parse(localStorage.getItem(k));if(v.status==='pending'){v.nextAttempt=0;localStorage.setItem(k,JSON.stringify(v));}}}}")
  fail[0]=False;p.reload();expect(p.locator('#yuika-mail-status')).to_contain_text('受け付けました')
  assert received[-1]==science
- assert p.evaluate("localStorage.getItem('yuika-science-review-v2')")==learning
+ assert p.evaluate("localStorage.getItem('yuika-prototype-v1:yuika-science-review-v2')")==learning
  print('PASS science completion; queued on provider failure; same payload and ID retried on next visit',flush=True)
  # Quota failures do not break learning; accepted receipts contain no answer payload.
  receipts=p.evaluate("Object.keys(localStorage).filter(k=>k.startsWith('yuika-mail-job-v1:')).map(k=>JSON.parse(localStorage.getItem(k)))")
@@ -92,7 +92,7 @@ with sync_playwright() as pw:
   return 'ナショナルトラスト'
  before=len(received)
  for i in range(4):
-  if i in [0,3]:p.get_by_role('button',name='🤔 わからない',exact=True).click()
+  if i in [0,3]:p.get_by_role('button',name='わからない',exact=True).click()
   else:p.locator('input[placeholder="答えを入力…"]').fill(flash_expected());p.get_by_role('button',name='答え合わせ',exact=True).click()
   p.get_by_role('button',name='次のカード',exact=False).or_(p.get_by_role('button',name='結果を見る',exact=False)).click()
  p.locator('input[placeholder="答えを入力…"]').wait_for();assert len(received)==before

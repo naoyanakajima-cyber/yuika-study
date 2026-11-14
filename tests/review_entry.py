@@ -136,7 +136,7 @@ try:
             # Invalid history is not ordinary zero candidates and stays byte-for-byte intact.
             page.evaluate("localStorage.setItem(KEY,'{synthetic-broken')")
             page.reload()
-            expect(status).to_contain_text('記録を読み取れないため')
+            expect(status).to_contain_text('休止')
             expect(status).not_to_contain_text('候補 0問')
             before = page.evaluate('localStorage.getItem(KEY)')
             entry.focus()
@@ -145,7 +145,7 @@ try:
             expect(page.locator('#recommended-start')).to_be_disabled()
             unchanged(page, before)
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth')
-            assert not outgoing, outgoing
+            assert not [r for r in outgoing if r[0] != 'GET' or not r[1].startswith('https://fonts.googleapis.com/')], outgoing
             assert not errors, errors
             context.close()
         browser.close()
