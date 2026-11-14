@@ -37,7 +37,7 @@ Chromiumの合成検証であり、実機iPad/Safari・CEO本人試用・公開�
 
 D04方向性採用は維持。新CEO判断取込み0、D02実資料接続/保存先未決。製品待ちは#10/#11/#12の3件と別途既存draft#22を明示し、新しい待ち枠を作らない。旧#4〜#8・運用PRは別枠。
 本番merge・公開/デプロイ・実通知・課金・Secrets/権限/共有変更なし。旧停止中の自律更新は再開しない。
-次はこの候補の合成教材確認の使い勝手評価。依存しない改善候補は、既存REV-MVPの日次件数表示と実出題数のずれを、次回PdM/PrM確認後に合成条件で再現し、確認できた不具合だけ既存PR内で扱う。新しい試し解き機能の実装は今回の修正へ混ぜない。
+次はこの候補の合成教材確認の使い勝手評価。依存しない改善候補は、既存REV-MVPの日次件数表示と実出題数のずれについて、次回PdM/PrMで合成再現調査の対象・重複・範囲を確認すること。実装着手は今回の決定に含めない。新しい試し解き機能の実装は今回の修正へ混ぜない。
 通常の成果/判断待ちは朝夕CEOチェックへまとめる。CEO判断はこの運用を設定した元チャットでチケットID付きの返答を実際に読めた担当が台帳へ反映するまで承認扱いにしない。
 
 ## 独立QAで発見した統合時の検査不整合
@@ -58,3 +58,6 @@ PdM追加判断をPrMが確認し、tests/parent_mode.pyとscripts/parent/embed.
 統括がremote leaseと現HEADを再確認し通常push。PR11をmain基点へ更新し、open/draft、HEAD=f1e84a7、base=86514ed、changed_files=15、本文一致、未mergedを読戻し確認した。GitHub raw APIはmergeable=true / mergeable_state=unstable。更新直後の正規化API falseと区別し、競合解消をraw結果と祖先関係で照合した。これはmerge実行の承認ではない。
 既存外部Workers Builds checkはin_progress、combined statusesはpending/配列空という観測。外部check結果や公開確認をローカル24suite成功と混同しない。deploy命令・設定変更は行っていない。
 既存PR11/9へattachを呼び出したが応答が空で、この呼出の成功確認はできなかった。新規PRなし。
+
+最終メタデータ414d1e8を独立QAが受入。コピー12原本とmanifest13hash一致、過去126runs・他11ticket・decisions/policy/authorization/lease不変を確認。次の仕事は再現調査の候補へ文言を限定した。運用PR9本文を更新し、open/draft・HEAD414d1e8・本文一致を別取得で確認。製品テスト再実行なし。
+最終保存・lease解除時刻: 2026-11-14T17:26:26.316438+00:00。

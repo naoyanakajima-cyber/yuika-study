@@ -36,14 +36,8 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": {
-    "run_id": "cycle-20261114T170613Z",
-    "owner": "root/coordinator",
-    "ticket": "CONTENT-MVP",
-    "acquired_at": "2026-11-14T17:06:13.989800+00:00",
-    "expires_at": "2026-11-14T17:46:13.989800+00:00"
-  },
-  "updated_at": "2026-11-14T17:24:55.352112+00:00",
+  "lease": null,
+  "updated_at": "2026-11-14T17:26:26.316438+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -499,7 +493,7 @@
         "未確認出力と確認済み案を区別し、既存教材/記録に接続しない",
         "768x1024で編集・確認・取消・出力/再入力、外部要求/通知POST 0を検証"
       ],
-      "next_action": "合成教材確認の使い勝手評価待ち。独立候補はREV-MVPの日次件数表示と実出題数のずれを次回PdM/PrM確認後に合成条件で再現し、確認できた不具合だけ既存PR内で扱う。新試し解き実装・新製品PR・main merge/公開を増やさない。",
+      "next_action": "合成教材確認の使い勝手評価待ち。次回の独立候補はREV-MVPの日次件数表示と実出題数のずれについて、PdM/PrMで合成再現調査の対象・既存PRとの重複・範囲を確認する。実装着手は今回の決定に含めない。新製品PR・main merge/公開を増やさない。",
       "evidence": [
         {
           "kind": "test",
@@ -9524,11 +9518,22 @@
       ],
       "coordination_limitation": "初回fullsuite中にEngineer修正commit。初回はmixed-HEAD診断とし成功転用せず、その後freezeした最終HEADで独立全24suiteを実施。",
       "report": "ops/runs/2026-11-14-content-base-sync.md",
-      "next_action": "合成教材確認の使い勝手評価待ち。独立候補はREV-MVPの日次件数表示と実出題数のずれを次回PdM/PrM確認後に合成条件で再現し、確認できた不具合だけ既存PR内で扱う。新試し解き実装・新製品PR・main merge/公開を増やさない。",
+      "next_action": "合成教材確認の使い勝手評価待ち。次回の独立候補はREV-MVPの日次件数表示と実出題数のずれについて、PdM/PrMで合成再現調査の対象・既存PRとの重複・範囲を確認する。実装着手は今回の決定に含めない。新製品PR・main merge/公開を増やさない。",
       "production_actions": false,
       "external_private_data_calls": 0,
       "platform_run_completion_verified": false,
-      "attachment": "既存PR11/9のattach呼出応答は空、今回成功未確認。新規PRなし。"
+      "attachment": "既存PR11/9のattach呼出応答は空、今回成功未確認。新規PRなし。",
+      "completed_at": "2026-11-14T17:26:26.316438+00:00",
+      "lease_released_at": "2026-11-14T17:26:26.316438+00:00",
+      "final_metadata_reviewed_commit": "414d1e8326c9473f09eb4127237b369f5d048ec1",
+      "metadata_review_result": "qa_content_base_sync accepted: copied artifacts/hash, prior126runs/11other tickets/decisions/policy/lease unchanged; final wording narrowed to next-cycle PdM/PrM investigation candidate.",
+      "pr_body_updated": true,
+      "operations_pr_readback": {
+        "head": "414d1e8326c9473f09eb4127237b369f5d048ec1",
+        "state": "open",
+        "draft": true,
+        "body_matches": true
+      }
     }
   ],
   "operational_notes": [
