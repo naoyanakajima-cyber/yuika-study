@@ -43,7 +43,7 @@
     "acquired_at": "2026-11-14T16:00:52.407276+00:00",
     "expires_at": "2026-11-14T16:40:52.407276+00:00"
   },
-  "updated_at": "2026-11-14T16:00:52.407276+00:00",
+  "updated_at": "2026-11-14T16:09:59.761375+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -499,7 +499,7 @@
         "未確認出力と確認済み案を区別し、既存教材/記録に接続しない",
         "768x1024で編集・確認・取消・出力/再入力、外部要求/通知POST 0を検証"
       ],
-      "next_action": "D01の合成チャット引き継ぎT1/T2を独立QA済み。具体的なCEO操作フィードバックのみ既存PRで対応。D02の実接続/保存先は未決。新しい根拠がなければ同一試験を繰り返さない。",
+      "next_action": "既存draft PR11と現mainの配信互換性（serve.py仮想統合競合）をPdM→PrMで範囲確認。旧branch履歴・両側の既存localhost入口/CSPを保つ修正だけを独立checkout/独立QAで扱う候補。試し解き新機能の実装や新PR枠は増やさない。D02実接続は未決。",
       "evidence": [
         {
           "kind": "test",
@@ -675,6 +675,15 @@
         "product_code_changed": false,
         "ceo_hands_on_verified": false,
         "automatic_chat_connection_verified": false
+      },
+      "independent_followup": {
+        "kind": "existing_draft_compatibility_repair",
+        "state": "requirements",
+        "pr": 11,
+        "observed_head": "3d2ed2f9a62673d2fb086a360ae841096f35b63e",
+        "observed_main": "86514eda054a5a2e09204df3a0668e40624c16de",
+        "evidence": "ops/evidence/2026-11-14-improvement-gaps/Engineer.md",
+        "boundary": "次回のPdM/PrM範囲確認を先に行う。mainへのマージ・公開・新試し解き実装は含めない。"
       }
     },
     {
@@ -1328,7 +1337,7 @@
       "id": "CONTENT-TRY-SPEC",
       "title": "確認済み合成教材の保存しない試し解き契約を定義",
       "goal": 2,
-      "state": "requirements",
+      "state": "done",
       "priority": 2,
       "depends_on": [
         "CONTENT-SPEC",
@@ -1344,11 +1353,29 @@
         "回答前の正答非表示、戻る・再読込・編集、全storage非書込を定義",
         "PdM→PrM→独立レビューで文書成果を保存し、未実装を明記"
       ],
-      "next_action": "PdMが改善仕様P2の採点・状態遷移契約を既存CONTENT-SPECの未確定点に対応づけて作成。PrM確認後に独立レビュー。新製品コード/PR・実接続・公開は行わない。",
+      "next_action": "要件文書完了。試し解き機能は未実装。既存PR11の基点/配信互換性修正を先に範囲確認し、新機能実装枠は増やさない。D02実接続は未決。",
       "base_ref": "codex/content-review-mvp",
       "base_sha": "3d2ed2f9a62673d2fb086a360ae841096f35b63e",
       "source": "docs/product/improvement-next-step.md",
-      "ceo_adoption_claimed": false
+      "ceo_adoption_claimed": false,
+      "specification": "docs/product/content-try-spec.md",
+      "report": "ops/runs/2026-11-14-content-try-contract.md",
+      "review": {
+        "pdm": "pdm_content_try_contract",
+        "prm": "root",
+        "engineer": null,
+        "reviewer": "qa_content_try_contract",
+        "candidate_commit": "5838f023e4dbd972af46783cd4707f875b5a96a9",
+        "accepted_commit": "a6ac479",
+        "result": "accepted_documentation_only",
+        "oracle_unique_cases": 38,
+        "oracle_runs": 2,
+        "oracle_passed": 38,
+        "state_transition_rows_desk_reviewed": 13,
+        "app_tests_run": false,
+        "browser_tests_run": false,
+        "report": "ops/evidence/2026-11-14-content-try-contract/QA.md"
+      }
     }
   ],
   "runs": [

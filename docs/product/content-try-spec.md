@@ -1,6 +1,6 @@
 # CONTENT-TRY-SPEC：確認済み合成案のメモリ内試し解き
 
-状態：PrM範囲確認済み、独立レビュー待ち。製品未実装、利用者の採用返答なし。
+状態：PrM範囲確認・独立レビュー済み。文書成果のみ。製品未実装、利用者の採用返答なし。
 対象：CONTENT-TRY-SPEC。利用者が求めた改善のアイデアを具体化する文書成果。
 作成基点：PR #11固定HEAD `3d2ed2f9a62673d2fb086a360ae841096f35b63e` の `content-review.html` と合成fixture、運用ブランチの `content-spec.md` / `improvement-next-step.md`。
 
@@ -143,3 +143,5 @@ NFKC展開で200を超える正答候補を受理して答えられない問題�
 画像成功fixtureを必須にせずtext/choiceの契約と未解決画像拒否を今回範囲とする調整を確認した。
 採点例・状態表の独立レビュー結果は[統括報告](../../ops/runs/2026-11-14-content-try-contract.md)へ保存する。
 新しい実装枠・マージ/公開・実データ接続の承認を含めない。
+
+独立Reviewer `qa_content_try_contract` は `a6ac479` の文書成果を受入可と判断した。仕様オラクル38例は一致、状態遷移13行は机上確認。製品の採点・状態管理・ブラウザー・storage/network計測は未実施。詳細は統括報告・独立QA証拠を参照。
