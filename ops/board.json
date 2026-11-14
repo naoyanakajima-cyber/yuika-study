@@ -43,7 +43,7 @@
     "ticket": "REV-MVP",
     "owner": "root/coordinator"
   },
-  "updated_at": "2026-11-14T21:03:38.720564+00:00",
+  "updated_at": "2026-11-14T21:05:33.687726+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -10011,8 +10011,7 @@
       "test_code_changed": true,
       "new_prs": [],
       "updated_prs": [
-        10,
-        9
+        10
       ],
       "product_pr_updated": true,
       "ceo_wait_product_prs": [
@@ -10046,7 +10045,12 @@
         "completed_at": "2026-11-14T20:23:30Z",
         "cause": "not_investigated",
         "rerun_or_deploy_invoked": false
-      }
+      },
+      "interrupted_before_finalization": true,
+      "interruption_reason": "朝のCEOチェックが読み取り専用に切り替えたため、PR9本文整合・metadata QA保存・lease解除前に中断。期限切れ後、次サイクルで回復。",
+      "finalization_recovered_by": "cycle-20261114T210338Z",
+      "metadata_review_report": "ops/evidence/2026-11-14-daily-count-fix/QA-metadata.md",
+      "operations_metadata_reviewed_commit": "2428174fbb39c6bc70c7bc5cc2c150f1b6169139"
     }
   ],
   "operational_notes": [
