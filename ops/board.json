@@ -10038,6 +10038,14 @@
         "state": "open",
         "draft": true,
         "body_matches": true
+      },
+      "external_check": {
+        "head": "55435567d44f05dc35f3ea6d73c4ba9cac2dc496",
+        "name": "Workers Builds: yuika-study",
+        "conclusion": "failure",
+        "completed_at": "2026-11-14T20:23:30Z",
+        "cause": "not_investigated",
+        "rerun_or_deploy_invoked": false
       }
     }
   ],
