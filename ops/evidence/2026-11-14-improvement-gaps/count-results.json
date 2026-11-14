@@ -1,0 +1,335 @@
+{
+  "sourceCommit": "86514eda054a5a2e09204df3a0668e40624c16de",
+  "sourcePath": "scripts/practice/adaptive.js",
+  "sourceSha256": "aa82eca8636be227d3bcaf1f0004004d74b55ec8ec325e4cfd8300e74811eac9",
+  "extractedFunctionSha256": "d6376c8ec43d06ffff041973720c3429ac93fd767c5d20a51d5c642a32eb4e9f",
+  "limits": "Synthetic dependencies; no browser, storage, real candidate reachability or full algorithm validation",
+  "cases": [
+    {
+      "selected": 5,
+      "candidates": 0,
+      "label": 5,
+      "actual": 0,
+      "ids": []
+    },
+    {
+      "selected": 5,
+      "candidates": 1,
+      "label": 5,
+      "actual": 1,
+      "ids": [
+        "synthetic-0"
+      ]
+    },
+    {
+      "selected": 5,
+      "candidates": 4,
+      "label": 5,
+      "actual": 4,
+      "ids": [
+        "synthetic-0",
+        "synthetic-1",
+        "synthetic-2",
+        "synthetic-3"
+      ]
+    },
+    {
+      "selected": 5,
+      "candidates": 5,
+      "label": 5,
+      "actual": 5,
+      "ids": [
+        "synthetic-0",
+        "synthetic-1",
+        "synthetic-2",
+        "synthetic-3",
+        "synthetic-4"
+      ]
+    },
+    {
+      "selected": 5,
+      "candidates": 9,
+      "label": 5,
+      "actual": 5,
+      "ids": [
+        "synthetic-0",
+        "synthetic-1",
+        "synthetic-2",
+        "synthetic-3",
+        "synthetic-4"
+      ]
+    },
+    {
+      "selected": 5,
+      "candidates": 10,
+      "label": 5,
+      "actual": 5,
+      "ids": [
+        "synthetic-0",
+        "synthetic-1",
+        "synthetic-2",
+        "synthetic-3",
+        "synthetic-4"
+      ]
+    },
+    {
+      "selected": 5,
+      "candidates": 14,
+      "label": 5,
+      "actual": 5,
+      "ids": [
+        "synthetic-0",
+        "synthetic-1",
+        "synthetic-2",
+        "synthetic-3",
+        "synthetic-4"
+      ]
+    },
+    {
+      "selected": 5,
+      "candidates": 15,
+      "label": 5,
+      "actual": 5,
+      "ids": [
+        "synthetic-0",
+        "synthetic-1",
+        "synthetic-2",
+        "synthetic-3",
+        "synthetic-4"
+      ]
+    },
+    {
+      "selected": 10,
+      "candidates": 0,
+      "label": 10,
+      "actual": 0,
+      "ids": []
+    },
+    {
+      "selected": 10,
+      "candidates": 1,
+      "label": 10,
+      "actual": 1,
+      "ids": [
+        "synthetic-0"
+      ]
+    },
+    {
+      "selected": 10,
+      "candidates": 4,
+      "label": 10,
+      "actual": 4,
+      "ids": [
+        "synthetic-0",
+        "synthetic-1",
+        "synthetic-2",
+        "synthetic-3"
+      ]
+    },
+    {
+      "selected": 10,
+      "candidates": 5,
+      "label": 10,
+      "actual": 5,
+      "ids": [
+        "synthetic-0",
+        "synthetic-1",
+        "synthetic-2",
+        "synthetic-3",
+        "synthetic-4"
+      ]
+    },
+    {
+      "selected": 10,
+      "candidates": 9,
+      "label": 10,
+      "actual": 9,
+      "ids": [
+        "synthetic-0",
+        "synthetic-1",
+        "synthetic-2",
+        "synthetic-3",
+        "synthetic-4",
+        "synthetic-5",
+        "synthetic-6",
+        "synthetic-7",
+        "synthetic-8"
+      ]
+    },
+    {
+      "selected": 10,
+      "candidates": 10,
+      "label": 10,
+      "actual": 10,
+      "ids": [
+        "synthetic-0",
+        "synthetic-1",
+        "synthetic-2",
+        "synthetic-3",
+        "synthetic-4",
+        "synthetic-5",
+        "synthetic-6",
+        "synthetic-7",
+        "synthetic-8",
+        "synthetic-9"
+      ]
+    },
+    {
+      "selected": 10,
+      "candidates": 14,
+      "label": 10,
+      "actual": 10,
+      "ids": [
+        "synthetic-0",
+        "synthetic-1",
+        "synthetic-2",
+        "synthetic-3",
+        "synthetic-4",
+        "synthetic-5",
+        "synthetic-6",
+        "synthetic-7",
+        "synthetic-8",
+        "synthetic-9"
+      ]
+    },
+    {
+      "selected": 10,
+      "candidates": 15,
+      "label": 10,
+      "actual": 10,
+      "ids": [
+        "synthetic-0",
+        "synthetic-1",
+        "synthetic-2",
+        "synthetic-3",
+        "synthetic-4",
+        "synthetic-5",
+        "synthetic-6",
+        "synthetic-7",
+        "synthetic-8",
+        "synthetic-9"
+      ]
+    },
+    {
+      "selected": 15,
+      "candidates": 0,
+      "label": 15,
+      "actual": 0,
+      "ids": []
+    },
+    {
+      "selected": 15,
+      "candidates": 1,
+      "label": 15,
+      "actual": 1,
+      "ids": [
+        "synthetic-0"
+      ]
+    },
+    {
+      "selected": 15,
+      "candidates": 4,
+      "label": 15,
+      "actual": 4,
+      "ids": [
+        "synthetic-0",
+        "synthetic-1",
+        "synthetic-2",
+        "synthetic-3"
+      ]
+    },
+    {
+      "selected": 15,
+      "candidates": 5,
+      "label": 15,
+      "actual": 5,
+      "ids": [
+        "synthetic-0",
+        "synthetic-1",
+        "synthetic-2",
+        "synthetic-3",
+        "synthetic-4"
+      ]
+    },
+    {
+      "selected": 15,
+      "candidates": 9,
+      "label": 15,
+      "actual": 9,
+      "ids": [
+        "synthetic-0",
+        "synthetic-1",
+        "synthetic-2",
+        "synthetic-3",
+        "synthetic-4",
+        "synthetic-5",
+        "synthetic-6",
+        "synthetic-7",
+        "synthetic-8"
+      ]
+    },
+    {
+      "selected": 15,
+      "candidates": 10,
+      "label": 15,
+      "actual": 10,
+      "ids": [
+        "synthetic-0",
+        "synthetic-1",
+        "synthetic-2",
+        "synthetic-3",
+        "synthetic-4",
+        "synthetic-5",
+        "synthetic-6",
+        "synthetic-7",
+        "synthetic-8",
+        "synthetic-9"
+      ]
+    },
+    {
+      "selected": 15,
+      "candidates": 14,
+      "label": 15,
+      "actual": 14,
+      "ids": [
+        "synthetic-0",
+        "synthetic-1",
+        "synthetic-2",
+        "synthetic-3",
+        "synthetic-4",
+        "synthetic-5",
+        "synthetic-6",
+        "synthetic-7",
+        "synthetic-8",
+        "synthetic-9",
+        "synthetic-10",
+        "synthetic-11",
+        "synthetic-12",
+        "synthetic-13"
+      ]
+    },
+    {
+      "selected": 15,
+      "candidates": 15,
+      "label": 15,
+      "actual": 15,
+      "ids": [
+        "synthetic-0",
+        "synthetic-1",
+        "synthetic-2",
+        "synthetic-3",
+        "synthetic-4",
+        "synthetic-5",
+        "synthetic-6",
+        "synthetic-7",
+        "synthetic-8",
+        "synthetic-9",
+        "synthetic-10",
+        "synthetic-11",
+        "synthetic-12",
+        "synthetic-13",
+        "synthetic-14"
+      ]
+    }
+  ]
+}

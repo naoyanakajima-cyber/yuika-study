@@ -920,12 +920,12 @@
       "id": "REV-RECONCILE",
       "title": "既存復習PRの重複・互換性・運用ルールを照合",
       "goal": 1,
-      "state": "blocked",
+      "state": "review",
       "priority": 1,
       "depends_on": [
         "REV-SPEC"
       ],
-      "owner": null,
+      "owner": "coordinator",
       "branch": "codex/agent-team-operations",
       "pr": 9,
       "base_ref": "codex/agent-team-operations",
@@ -936,7 +936,7 @@
         "独立QAの実施対象HEADと未検証範囲を記録",
         "新規実装・マージ・クローズなしで次の一手を整理"
       ],
-      "next_action": "PR26外部mergeと検証済み成果のmain包含を照合済み。苦手復習の合成試用から具体的な修正依頼・再現不具合・新差分が出た場合に対応。closed PR26へ追記せず提出先と待ち枠を再照合する。製品待ち#10/#11/#12の3件と追加draft#22を明示し新規PR枠を増やさない。教材追加は合成データ継続、テーマ低優先、D02実保存/接続は別判断。独立して進められる仕事がなければ終了。",
+      "next_action": "固定HEADのPR10/11/12対応表と件数仕様を独立レビューし、CONTENT-TRY-SPECの文書作業へ引き継ぐ。製品実装枠は増やさない。",
       "specification": "docs/product/review-reconciliation.md",
       "evidence": [
         {
@@ -1111,7 +1111,7 @@
       "current_product_pr": 26,
       "current_product_head": "acd169882b626ef255ba68cd73c995024c30e515",
       "current_product_state": "merged",
-      "blocked_reason": "既存修正は外部mergeでmainへ包含。新しい不具合/具体的試用フィードバックなし。3既存製品PRの採用整理・本人試用は未完了。マージ事実から追加権限を導かない。",
+      "blocked_reason": "製品の採用整理・実機試用は未完了。今回の固定HEAD照合と改善仕様は独立レビュー中。",
       "latest_review": {
         "pdm": "pdm_pr26_scope",
         "prm": "root",
@@ -1152,7 +1152,8 @@
         "app_tests_run": false,
         "result": "passed_static_ancestry_tree_and_evidence_review",
         "report": "ops/evidence/2026-11-12-pr26-merge/QA.md"
-      }
+      },
+      "improvement_spec": "docs/product/improvement-next-step.md"
     },
     {
       "id": "REV-COMPAT-SPEC",
@@ -1309,6 +1310,32 @@
         "code_included": true,
         "chat_merge_approval_ingested": false
       }
+    },
+    {
+      "id": "CONTENT-TRY-SPEC",
+      "title": "確認済み合成教材の保存しない試し解き契約を定義",
+      "goal": 2,
+      "state": "requirements",
+      "priority": 2,
+      "depends_on": [
+        "CONTENT-SPEC",
+        "CONTENT-CHAT-SPEC"
+      ],
+      "owner": null,
+      "branch": "codex/agent-team-operations",
+      "pr": 9,
+      "kind": "requirements_only",
+      "acceptance": [
+        "PR11固定HEADのtext/choice案を対象に確認revision・失効・未解決の状態遷移表を定義",
+        "正規化と許容表記・採点を合成入出力例で決め、意味推定を行わない",
+        "回答前の正答非表示、戻る・再読込・編集、全storage非書込を定義",
+        "PdM→PrM→独立レビューで文書成果を保存し、未実装を明記"
+      ],
+      "next_action": "PdMが改善仕様P2の採点・状態遷移契約を既存CONTENT-SPECの未確定点に対応づけて作成。PrM確認後に独立レビュー。新製品コード/PR・実接続・公開は行わない。",
+      "base_ref": "codex/content-review-mvp",
+      "base_sha": "3d2ed2f9a62673d2fb086a360ae841096f35b63e",
+      "source": "docs/product/improvement-next-step.md",
+      "ceo_adoption_claimed": false
     }
   ],
   "runs": [
