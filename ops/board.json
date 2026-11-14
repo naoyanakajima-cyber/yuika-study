@@ -43,7 +43,7 @@
     "ticket": "REV-MVP",
     "owner": "root/coordinator"
   },
-  "updated_at": "2026-11-14T19:10:16.299208+00:00",
+  "updated_at": "2026-11-14T19:13:04.191910+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -429,20 +429,36 @@
       ],
       "ceo_wait_reason": "入口改善後の試作品確認待ち。方向性D03は採用済み。マージ・公開は未承認。",
       "independent_followup": {
-        "kind": "daily_count_requirements_and_ui_reproduction",
-        "state": "requirements_reviewed",
-        "product_fix": "not_implemented",
+        "kind": "current_main_compatibility",
+        "state": "in_progress",
+        "run_id": "cycle-20261114T191016Z",
+        "source_pr_head": "ba829a1176ff1ead7d312526890afe8792178c99",
         "observed_main": "86514eda054a5a2e09204df3a0668e40624c16de",
-        "existing_pr": 10,
-        "existing_pr_head": "ba829a1176ff1ead7d312526890afe8792178c99",
-        "specification": "docs/product/daily-count-spec.md",
-        "report": "ops/runs/2026-11-14-daily-count-investigation.md",
-        "pdm": "pdm_daily_count_scope",
+        "specification": "docs/product/review-current-base.md",
+        "pdm": "pdm_rev_current_scope",
         "prm": "root/coordinator",
-        "engineer": "engineer_daily_count_probe",
-        "reviewer": "qa_daily_count_investigation",
-        "acceptance": "UI5例と独立C/D再現を受入。既存main22suite成功はベースラインのみ。製品未修正、既存PR10の基点/互換範囲未確定。"
-      }
+        "engineer": "engineer_rev_current",
+        "reviewer": "qa_rev_current",
+        "review_status": "not_yet_run",
+        "daily_count_fix": "deferred_until_integration_accepted"
+      },
+      "independent_followup_history": [
+        {
+          "kind": "daily_count_requirements_and_ui_reproduction",
+          "state": "requirements_reviewed",
+          "product_fix": "not_implemented",
+          "observed_main": "86514eda054a5a2e09204df3a0668e40624c16de",
+          "existing_pr": 10,
+          "existing_pr_head": "ba829a1176ff1ead7d312526890afe8792178c99",
+          "specification": "docs/product/daily-count-spec.md",
+          "report": "ops/runs/2026-11-14-daily-count-investigation.md",
+          "pdm": "pdm_daily_count_scope",
+          "prm": "root/coordinator",
+          "engineer": "engineer_daily_count_probe",
+          "reviewer": "qa_daily_count_investigation",
+          "acceptance": "UI5例と独立C/D再現を受入。既存main22suite成功はベースラインのみ。製品未修正、既存PR10の基点/互換範囲未確定。"
+        }
+      ]
     },
     {
       "id": "CONTENT-SPEC",
