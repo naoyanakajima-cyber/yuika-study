@@ -1,5 +1,4 @@
 {
-  "observed_at": "2026-11-14T19:11:00Z",
   "main": "86514eda054a5a2e09204df3a0668e40624c16de",
   "prs": [
     {
@@ -67,5 +66,7 @@
       "completed_at": "2026-11-09T22:16:51Z",
       "html_url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/129478193830"
     }
-  ]
+  ],
+  "recorded_at": "2026-11-14T19:23:47.313935+00:00",
+  "observation_window": "cycle-20261114T191016Z before implementation"
 }

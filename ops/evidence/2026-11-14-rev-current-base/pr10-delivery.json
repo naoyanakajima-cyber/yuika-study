@@ -1,5 +1,4 @@
 {
-  "observed_at": "2026-11-14T19:23:00Z",
   "head": "132f9f59ebd23b6dab33e7d1e23bf4d077b8070d",
   "base": "main",
   "base_sha": "86514eda054a5a2e09204df3a0668e40624c16de",
@@ -14,5 +13,7 @@
       "completed_at": "2026-11-14T19:22:23Z",
       "html_url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/132559633509"
     }
-  ]
+  ],
+  "recorded_at": "2026-11-14T19:23:47.314215+00:00",
+  "observation_window": "cycle-20261114T191016Z after PR10 push and retarget"
 }
