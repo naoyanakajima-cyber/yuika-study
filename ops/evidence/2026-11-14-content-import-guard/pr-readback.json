@@ -1,0 +1,33 @@
+{
+  "observed_at": "2026-11-14 22:21:38 UTC",
+  "prs": [
+    {
+      "number": 11,
+      "head": "62f34de238e9d1d62c796aac3a4b43418043d17f",
+      "state": "open",
+      "draft": true,
+      "merged": false,
+      "body": "教材を学習に使う前に、合成テキスト・画像の原本、転記、問題案を見比べて編集・個別確認・JSON出力/再入力ができる「教材の確認室」を追加します。不明箇所や不足項目がある案は確認できず、編集・再入力で以前の確認を失効させます。進み具合と次の作業への案内を表示します。\n\nJSONの読み込み待ち中に問題案を直しても、遅れて完了した古い読み込みで編集を失わないようにしました。確認・JSON保存・別サンプル・案取消も同様に保持します。新しい読み込みが失敗しても古い結果は復活せず、読み込み中表示と明示的な取消を利用できます。\n\n- 取込識別子と案作業世代で、結果採用・エラー表示・ファイル入力の後始末を制御します。JSONのrevisionやschema、既存の破棄確認と出典検査は維持します。\n- 現mainの限定プレビューと親モード検査に対応。メモリ内の教材確認画面を固定SHA256で例外化し、今回のHTML変更についても独立レビュー済み。既存6学習画面・CSP・親runtimeの保護は維持しています。\n- OCR、自動生成、保存しない試し解き本体、実資料入力、既存教材・記録への接続は未実装です。作業状態はメモリ内だけです。\n\n検証対象は `62f34de238e9d1d62c796aac3a4b43418043d17f`。PdM→PrM確認→Engineer→実装者と別のQAで検証しました。固定clean HEADの `bash scripts/check_all.sh` は25/25成功・終了0。独立した17分岐の実DOM操作で、編集/確認/出力保持、A/B両完了順、旧エラー、新取込不正/失敗/サイズ超過、取消、破棄拒否、同じファイルの再入力を確認しています。768×1024 ChromiumでFile.textのPromise順を制御した試験であり、OSの実ファイル速度による再現とは区別しています。\n\n独立probeの範囲ではstorage/history/cookie等書込み、非許可要求、POST、pageerror各0。全suiteには公開JSの読取りとmock通知を含むため、全体の外部要求0とは扱いません。隔離コピーで未知HTML・改変済み確認室の拒否と生成器の書込前拒否を検証。6学習HTML/CSP/validator/同梱fixturesは基点f1e84a7と一致。Engineerは修正前の編集消失と修正後の保持を再現しています。\n\n[今回の仕様・分担・証拠](https://github.com/naoyanakajima-cyber/yuika-study/blob/codex/agent-team-operations/ops/runs/2026-11-14-content-import-guard.md)。既存の検証済みvenvを手動再利用し、自動snapshot引継ぎ成功とは扱いません。実機iPad/Safari、本人試用、学習効果、公開環境は未検証。ファイル選択ダイアログがchangeなしで閉じた場合の自動取消検出は保証せず、明示取消を使います。\n\nD04方向性採用済み、合成試用判断待ちのdraft・未マージです。新CEO返答なし。D02実資料保管・実接続は未決。mainマージ・公開・手動デプロイ・実通知・課金・Secrets/権限/共有変更は行っていません。外部Workers Buildsの結果はクラウド内QAと分けて記録します。\n\n最新製品HEADの外部チェック：Workers Buildsは2026-11-14T22:19:22Zにcompleted/failure。原因は未調査です。クラウド内の独立25suite成功と分けて扱い、再実行・デプロイ・設定変更は行っていません。",
+      "base": "main"
+    },
+    {
+      "number": 9,
+      "head": "babd86f5fbbd52a56f2b0e3c9a50ecf7f6d4d624",
+      "state": "open",
+      "draft": true,
+      "merged": false,
+      "body": "回答記録による苦手復習、画像・テキストからの教材追加、好みに合わせたUIを進める運用正本・仕様・合成検証証拠です。このbranchはmainへマージする前から運用に使います。自律範囲は要件整理・実装・テスト・draft PRまでです。\n\n教材確認室で、JSON読み込み中の編集・確認・JSON保存を古い読込結果が上書きする問題を修正しました。合成File入力で修正前の編集消失と修正後の保持を確認し、読み込み状態と明示取消を追加しています。画像/テキスト教材追加の前段となる確認作業を守ります。\n\n- [教材確認PR11](https://github.com/naoyanakajima-cyber/yuika-study/pull/11)：固定HEAD `62f34de238e9d1d62c796aac3a4b43418043d17f`。実装者と別のQAで必須25/25成功、独立17分岐と隔離防御検査成功。既存6学習HTML・CSP・JSON形式を維持。保存しない試し解き本体は未実装です。\n- [苦手復習PR10](https://github.com/naoyanakajima-cyber/yuika-study/pull/10)：73fe2ee、既存独立26suite成功。理由付きおすすめ復習と実際の開始問数を示す「今日の復習」。\n- [テーマPR12](https://github.com/naoyanakajima-cyber/yuika-study/pull/12)：57171ad、鎌倉限定の状態を保つ切替、既存QAを保持。\n\n[今回の仕様・分担・検証証拠](https://github.com/naoyanakajima-cyber/yuika-study/blob/codex/agent-team-operations/ops/runs/2026-11-14-content-import-guard.md)。PdM→PrM→Engineer→独立QAを実施。17分岐は768×1024 Chromiumの実DOM入力と制御したFile.textによる合成試験で、OS速度・実機Safari/iPad・本人試用・学習効果は未検証です。probe範囲の非許可要求/POST/保存書込は0、全suiteには公開JS読取り/mock通知が含まれます。依存は手動再利用で自動snapshot引継ぎ成功ではありません。\n\n次は既存PR11内で「保存しない試し解き」のG/S契約全体と実装範囲を再確認します。今回の作業保全だけを試し解き完成と呼びません。製品待ちは #10/#11/#12 と追加既存draft #22。旧 #4〜#8・運用 #9/#13 は別枠、新規製品PRなし。D01/D03〜D05を維持、新CEO判断取り込みなし。D02実資料保管・実接続は未決です。\n\n合成データのみ。mainマージ・公開・手動デプロイ・実通知・課金・Secrets/権限/共有変更は行いません。外部Workers Buildsはクラウド内QAと別に記録します。停止中の旧自律更新は再開せず、通常報告は朝夕CEOチェックへ集約します。\n\n最新製品HEADの外部チェック：Workers Buildsは2026-11-14T22:19:22Zにcompleted/failure。原因は未調査です。クラウド内の独立25suite成功と分けて扱い、再実行・デプロイ・設定変更は行っていません。",
+      "base": "main"
+    }
+  ],
+  "check_runs": [
+    {
+      "name": "Workers Builds: yuika-study",
+      "head": "62f34de238e9d1d62c796aac3a4b43418043d17f",
+      "status": "completed",
+      "conclusion": "failure",
+      "completed_at": "2026-11-14T22:19:22Z",
+      "url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/132608359119"
+    }
+  ]
+}

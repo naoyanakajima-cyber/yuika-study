@@ -36,14 +36,8 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": {
-    "run_id": "cycle-20261114T220551Z",
-    "acquired_at": "2026-11-14T22:05:51.373303+00:00",
-    "expires_at": "2026-11-14T22:45:51.373303+00:00",
-    "ticket": "CONTENT-MVP",
-    "owner": "root/coordinator"
-  },
-  "updated_at": "2026-11-14T22:09:20.416761+00:00",
+  "lease": null,
+  "updated_at": "2026-11-14T22:23:13.407558+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -646,7 +640,7 @@
         "未確認出力と確認済み案を区別し、既存教材/記録に接続しない",
         "768x1024で編集・確認・取消・出力/再入力、外部要求/通知POST 0を検証"
       ],
-      "next_action": "現main互換の合成教材確認試作PR11の使い勝手評価待ち。前回候補の日次件数調査は完了しREV-MVPのindependent_followup/next_actionへ引継ぎ。D02実接続/保存先未決。merge/公開未承認。",
+      "next_action": "既存PR11の合成教材確認試用判断待ち。依存しない次段は保存しない試し解きのG/S契約全体を現行HEADへ照合し、35分内の実装/独立QA範囲をPrM確認する。D02実入力/保存先は未決、merge/公開未承認。",
       "evidence": [
         {
           "kind": "test",
@@ -763,22 +757,48 @@
           "kind": "report",
           "path": "ops/runs/2026-11-14-content-base-sync.md",
           "commit": "f1e84a7b998dfbcd71c6692974015bdd08e1877e"
+        },
+        {
+          "kind": "test",
+          "command": "bash scripts/check_all.sh",
+          "commit": "62f34de238e9d1d62c796aac3a4b43418043d17f",
+          "executor": "qa_content_import_guard",
+          "exit_code": 0,
+          "suites_passed": 25,
+          "suites_total": 25,
+          "attempt": 1,
+          "seconds": 257,
+          "path": "ops/evidence/2026-11-14-content-import-guard/qa/check-all.log"
+        },
+        {
+          "kind": "independent_probe",
+          "commit": "62f34de238e9d1d62c796aac3a4b43418043d17f",
+          "executor": "qa_content_import_guard",
+          "scenarios": 17,
+          "attempt": 1,
+          "exit_code": 0,
+          "path": "ops/evidence/2026-11-14-content-import-guard/qa/probe-result.json"
+        },
+        {
+          "kind": "report",
+          "path": "ops/runs/2026-11-14-content-import-guard.md",
+          "commit": "62f34de238e9d1d62c796aac3a4b43418043d17f"
         }
       ],
       "review": {
-        "author": "engineer_content_base_sync",
-        "pdm": "pdm_content_base_scope",
+        "author": "engineer_content_import_guard",
+        "pdm": "pdm_content_trial_scope",
         "prm": "root/coordinator",
-        "reviewer": "qa_content_base_sync",
+        "reviewer": "qa_content_import_guard",
         "result": "passed",
-        "commit": "f1e84a7b998dfbcd71c6692974015bdd08e1877e",
-        "completed_at": "2026-11-14T17:22:08.794453+00:00",
-        "notes": "固定clean HEADで24/24・終了0。初回23/24失敗はmixed-HEAD診断として区別。15path限定、元CONTENT8blob/既存main製品blob維持。生成器隔離copy/未知HTML/改変CONTENT負例成功。"
+        "commit": "62f34de238e9d1d62c796aac3a4b43418043d17f",
+        "completed_at": "2026-11-14T22:18:12Z",
+        "notes": "固定clean HEAD25/25・初回終了0・257秒。独立17分岐/静的/隔離負例も初回PASS。非同期JSON取込から編集・確認・出力を保全。試し解き本体未実装。"
       },
       "base_ref": "main",
       "base_sha": "86514eda054a5a2e09204df3a0668e40624c16de",
       "specification": "docs/product/content-spec.md",
-      "commit": "f1e84a7b998dfbcd71c6692974015bdd08e1877e",
+      "commit": "62f34de238e9d1d62c796aac3a4b43418043d17f",
       "direction_adopted": true,
       "direction_decision": "D04",
       "release": {
@@ -828,15 +848,25 @@
           "commit": "3d2ed2f9a62673d2fb086a360ae841096f35b63e",
           "completed_at": "2026-11-09T23:19:12.927506+00:00",
           "notes": "独立QAが最終commitで5テストと複数問・複数不明箇所・状態分岐・keyboard/focusを検証。案内操作による確認・revision・出力・保存の変更なし。既存C1-C11、validator/issues/changed/export/CSP/既存教材HTMLを維持。"
+        },
+        {
+          "author": "engineer_content_base_sync",
+          "pdm": "pdm_content_base_scope",
+          "prm": "root/coordinator",
+          "reviewer": "qa_content_base_sync",
+          "result": "passed",
+          "commit": "f1e84a7b998dfbcd71c6692974015bdd08e1877e",
+          "completed_at": "2026-11-14T17:22:08.794453+00:00",
+          "notes": "固定clean HEADで24/24・終了0。初回23/24失敗はmixed-HEAD診断として区別。15path限定、元CONTENT8blob/既存main製品blob維持。生成器隔離copy/未知HTML/改変CONTENT負例成功。"
         }
       ],
-      "ceo_wait_reason": "現mainとのプレビュー・親検査/生成器互換性を修正した既存教材確認試作の合成試用判断待ち。D04採用済み、merge/公開未承認。",
+      "ceo_wait_reason": "後着JSON取込から編集・確認・出力を保護した教材確認試作の合成試用判断待ち。D04方向性採用は維持、今回の新CEO回答なし。",
       "ceo_trial": {
         "synthetic_qa": "passed",
         "ceo_hands_on": "not_verified",
         "real_ipad_safari": "not_tested",
-        "latest_synthetic_qa_commit": "f1e84a7b998dfbcd71c6692974015bdd08e1877e",
-        "latest_cloud_artifacts": "/workspace/yuika-team-ops/ops/evidence/2026-11-14-content-base-sync",
+        "latest_synthetic_qa_commit": "62f34de238e9d1d62c796aac3a4b43418043d17f",
+        "latest_cloud_artifacts": "ops/evidence/2026-11-14-content-import-guard",
         "shared_browser_handoff": "not_completed"
       },
       "chat_handoff_trial": {
@@ -852,14 +882,16 @@
       },
       "independent_followup": {
         "id": "content-import-guard",
-        "state": "in_progress",
+        "state": "independent_qa_passed",
         "pdm": "pdm_content_trial_scope",
         "prm": "root/coordinator",
         "engineer": "engineer_content_import_guard",
         "reviewer": "qa_content_import_guard",
         "base_commit": "f1e84a7b998dfbcd71c6692974015bdd08e1877e",
         "specification": "docs/product/content-import-guard-spec.md",
-        "trial_feature_implemented": false
+        "trial_feature_implemented": false,
+        "commit": "62f34de238e9d1d62c796aac3a4b43418043d17f",
+        "report": "ops/runs/2026-11-14-content-import-guard.md"
       },
       "base_history": [
         {
@@ -10223,7 +10255,7 @@
       "observed_operations_commit": "317916beda1d8b7b808b198e7b6c1173b7e42e3a",
       "observed_main_commit": "86514eda054a5a2e09204df3a0668e40624c16de",
       "ticket": "CONTENT-MVP",
-      "result": "既存確認室の非同期JSON読込競合を修正中。試し解き本体は未実装。",
+      "result": "教材JSON後着読込から編集・確認・出力を保護。固定候補の独立25suite/17分岐/防御検査成功、既存draft PR11へ通常push。試し解き本体未実装。",
       "cloud_verified": true,
       "ceo_decisions_ingested": 0,
       "subagents": [
@@ -10236,7 +10268,7 @@
       "engineer": "engineer_content_import_guard",
       "reviewer": "qa_content_import_guard",
       "base_commit": "f1e84a7b998dfbcd71c6692974015bdd08e1877e",
-      "review_status": "pending",
+      "review_status": "passed",
       "new_prs": [],
       "ceo_wait_product_prs": [
         10,
@@ -10252,7 +10284,55 @@
       "production_actions": false,
       "platform_run_completion_verified": false,
       "attachment": "既存PR9/11 attachと一覧確認を呼出。空応答のため成功未確認。",
-      "next_action": "固定候補の独立QA後に既存PR11へ保存。試し解き本体は未実装のまま、次段でG/S契約全体の実装範囲を確認する。"
+      "next_action": "既存PR11の合成教材確認試用判断待ち。依存しない次段は保存しない試し解きのG/S契約全体を現行HEADへ照合し、35分内の実装/独立QA範囲をPrM確認する。D02実入力/保存先は未決、merge/公開未承認。",
+      "commit": "62f34de238e9d1d62c796aac3a4b43418043d17f",
+      "checks": {
+        "command": "bash scripts/check_all.sh",
+        "passed": 25,
+        "total": 25,
+        "exit_code": 0,
+        "attempt": 1,
+        "seconds": 257,
+        "independent_probe": 17,
+        "probe_attempt": 1,
+        "static_attempt": 1
+      },
+      "evidence": "ops/evidence/2026-11-14-content-import-guard",
+      "product_push": "normal_fast_forward",
+      "pr_body_readback": [
+        9,
+        11
+      ],
+      "manual_dependency_reuse": true,
+      "automatic_snapshot_handoff_verified": false,
+      "engineer_baseline_harness_attempts": 2,
+      "external_checks": {
+        "head": "62f34de238e9d1d62c796aac3a4b43418043d17f",
+        "observed_at": "2026-11-14 22:21:38 UTC",
+        "checks": [
+          {
+            "name": "Workers Builds: yuika-study",
+            "head": "62f34de238e9d1d62c796aac3a4b43418043d17f",
+            "status": "completed",
+            "conclusion": "failure",
+            "completed_at": "2026-11-14T22:19:22Z",
+            "url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/132608359119"
+          }
+        ],
+        "result": "failure",
+        "cause": "not_investigated",
+        "manual_rerun": false,
+        "deployment_performed": false
+      },
+      "metadata_review": {
+        "reviewer": "qa_content_import_guard",
+        "result": "passed",
+        "path": "ops/evidence/2026-11-14-content-import-guard/Metadata-QA.md",
+        "scope": "固定working treeと保存PR readback照合。最終完了時刻/lease解除/pushは統括の後続処理。"
+      },
+      "completed_at": "2026-11-14T22:23:13.407558+00:00",
+      "lease_released_at": "2026-11-14T22:23:13.407558+00:00",
+      "notification": "none; include in morning/evening CEO checkpoint"
     }
   ],
   "operational_notes": [

@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/tmp/yuika-qa-boundary-xu6fbr6j/scripts/parent/embed.py", line 10, in <module>
+    assert hashlib.sha256(content.read_bytes()).hexdigest()=='4e4ef7c02f95d37f8ba0dce412045fc3a188d65debbb67fd6e87dfe7f307a12c'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
