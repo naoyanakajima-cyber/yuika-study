@@ -14,7 +14,7 @@ assert required <= {entry.name for entry in ROOT.glob('*.html')}
 for entry in ROOT.glob('*.html'):
  text=entry.read_text()
  if entry.name=='content-review.html':
-  assert hashlib.sha256(entry.read_bytes()).hexdigest()=='4e4ef7c02f95d37f8ba0dce412045fc3a188d65debbb67fd6e87dfe7f307a12c'
+  assert hashlib.sha256(entry.read_bytes()).hexdigest()=='7566a53868976bdfa8feb279c87cc6b4bccaba8fe7777545fef5d4e21ca650a7'
   assert 'let proposal=null,unsaved=false;' in text
   for forbidden in ('localStorage','sessionStorage','indexedDB','Storage','cookie',
                     'YuikaParent','YuikaReports','YUIKA_PARENT_BEGIN','YUIKA_PARENT_END'):

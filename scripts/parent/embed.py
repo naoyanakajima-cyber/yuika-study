@@ -7,7 +7,7 @@ block=START+'\n<script>\n'+Path(__file__).with_name('runtime.js').read_text()+'\
 # Preserve only the existing memory-only prototype reviewed at PR11 HEAD
 # 3d2ed2f9a62673d2fb086a360ae841096f35b63e; validate before any HTML writes.
 content=ROOT/'content-review.html'
-assert hashlib.sha256(content.read_bytes()).hexdigest()=='4e4ef7c02f95d37f8ba0dce412045fc3a188d65debbb67fd6e87dfe7f307a12c'
+assert hashlib.sha256(content.read_bytes()).hexdigest()=='7566a53868976bdfa8feb279c87cc6b4bccaba8fe7777545fef5d4e21ca650a7'
 for p in ROOT.glob('*.html'):
  if p.name=='content-review.html':continue
  text=p.read_text()

@@ -3,10 +3,10 @@
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src 'none'; connect-src 'none'; form-action 'none'; base-uri 'none'; object-src 'none'">
 <title>教材の確認室 · 合成サンプル</title><style>
 *{box-sizing:border-box}body{margin:0;background:#f6f3ec;color:#213b35;font-family:system-ui,sans-serif;line-height:1.65}main{max-width:1000px;margin:auto;padding:24px}h1{font-size:1.9rem;margin:10px 0}h2{font-size:1.3rem}h3{font-size:1.1rem}.eyebrow{font-size:.8rem;letter-spacing:.13em;color:#526e61}.intro{max-width:45em}.card{overflow-wrap:anywhere;background:#fff;border:1px solid #d4dfd5;border-radius:16px;padding:22px;margin:18px 0;min-width:0}.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start}.grid>.card{margin:0}.muted{overflow-wrap:anywhere;color:#57655f;font-size:.92rem}.note{padding:14px;background:#edf2e9;border-radius:9px;overflow-wrap:anywhere}.warning{background:#fff2d9;color:#664813}.error{color:#8c2d24;overflow-wrap:anywhere}label{display:block;font-weight:600;margin:13px 0}input,textarea,select{display:block;width:100%;max-width:100%;margin-top:5px;padding:10px;border:1px solid #98aaa0;border-radius:7px;font:inherit;color:inherit;background:#fff}textarea{min-height:90px;resize:vertical}button{padding:12px 16px;min-height:46px;border:1px solid #9bab9e;border-radius:8px;background:#fff;color:#24483a;font:inherit;cursor:pointer}button.primary{background:#2d604c;color:#fff;border-color:#2d604c}button:disabled{opacity:.48;cursor:default}:focus-visible{outline:3px solid #c58a3a;outline-offset:3px}.checkline input{display:inline;width:auto;margin-right:8px}pre{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit}svg{display:block;width:100%;height:auto}summary{cursor:pointer;font-weight:600}details{margin:12px 0}ul{padding-left:24px}.status{font-weight:700}.footer{font-size:.85rem;color:#57655f;margin:25px 0}#notice{min-height:1.6em}#work[hidden]{display:none}@media(max-width:800px){.grid{grid-template-columns:1fr}main{padding:16px}.card{padding:18px}}
-.flow-target:focus{outline:3px solid #c58a3a;outline-offset:3px}#workflow p{margin:8px 0}#workflow h2{margin:0}
-</style></head><body><main><div class="eyebrow">YUIKA · MATERIAL REVIEW</div><h1>教材の確認室</h1><p class="intro">資料と問題案を見比べて、読み取りや答えを確かめる試作です。ここでは同梱の合成サンプルだけを使います。</p><p class="note warning">実教材・写真・個人情報は入力しないでください。OCRや問題の自動生成は行っていません。確認済みの案も学習アプリには追加されません。</p>
+[hidden]{display:none!important}.flow-target:focus{outline:3px solid #c58a3a;outline-offset:3px}#workflow p{margin:8px 0}#workflow h2{margin:0}
+</style></head><body><main><div id="editor"><div class="eyebrow">YUIKA · MATERIAL REVIEW</div><h1>教材の確認室</h1><p class="intro">資料と問題案を見比べて、読み取りや答えを確かめる試作です。ここでは同梱の合成サンプルだけを使います。</p><p class="note warning">実教材・写真・個人情報は入力しないでください。OCRや問題の自動生成は行っていません。確認済みの案も学習アプリには追加されません。</p>
 <section class="card"><h2>合成サンプルを選ぶ</h2><div class="row"><button id="sample-text" class="primary">テキストの例</button><button id="sample-image">画像・判読不明の例</button></div><label>保存した合成案JSONを再入力<input id="import" type="file" accept=".json,application/json"></label><p id="import-status" role="status" aria-live="polite"></p><button id="cancel-import" hidden>読み込みを取り消す</button><p class="muted">再入力した確認状態は未確認に戻します。学習記録のJSONは読み込めません。</p></section>
-<div id="notice" role="status" aria-live="polite"></div><section id="work" hidden><div class="row"><span id="revision" class="status"></span><button id="cancel">この案を取り消す</button></div><aside id="workflow" class="card" aria-labelledby="workflow-title"><h2 id="workflow-title" class="flow-target" tabindex="-1">確認の進み具合</h2><p id="workflow-count" class="status"></p><p id="workflow-next" role="status"></p><button id="next-step">次の作業へ</button><p class="muted">案内は移動だけです。内容の確認とJSON保存は、それぞれのボタンで行います。</p></aside><p class="note">作業はこの画面の一時保持です。再読み込みで未保存内容は失われます。内容を変更すると全問の確認が外れます。</p><div class="grid"><section class="card"><h2>1. 原本（同梱サンプル）</h2><div id="source-preview"></div><p id="source-meta" class="muted"></p></section><section class="card"><h2>2. 読み取りの確認</h2><div id="transcription-editor"></div></section></div><div id="metadata"></div><div id="questions"></div><section class="card"><h2 id="export-title" class="flow-target" tabindex="-1">4. 問題案を保管する</h2><p id="all-status" class="status"></p><div class="row"><button id="export-draft">未確認の案をJSONで保存</button><button id="export-confirmed" class="primary">確認済みの案をJSONで保存</button></div><p class="muted">内容の確認と、本番への導入・公開承認は別です。案のJSONは現在の学習記録JSONとは異なります。</p></section></section><p class="footer">合成サンプルによる確認用試作 · 外部送信なし · 学習記録への書き込みなし</p></main><script>
+<div id="notice" role="status" aria-live="polite"></div><section id="work" hidden><div class="row"><span id="revision" class="status"></span><button id="cancel">この案を取り消す</button></div><aside id="workflow" class="card" aria-labelledby="workflow-title"><h2 id="workflow-title" class="flow-target" tabindex="-1">確認の進み具合</h2><p id="workflow-count" class="status"></p><p id="workflow-next" role="status"></p><button id="next-step">次の作業へ</button><p class="muted">案内は移動だけです。内容の確認とJSON保存は、それぞれのボタンで行います。</p></aside><p class="note">作業はこの画面の一時保持です。再読み込みで未保存内容は失われます。内容を変更すると全問の確認が外れます。</p><div class="grid"><section class="card"><h2>1. 原本（同梱サンプル）</h2><div id="source-preview"></div><p id="source-meta" class="muted"></p></section><section class="card"><h2>2. 読み取りの確認</h2><div id="transcription-editor"></div></section></div><div id="metadata"></div><div id="questions"></div><section class="card"><h2>確認済みの案を試し解き</h2><p>保護者役の合成案点検です。回答は保存せず、終了・再読み込みで消えます。登録した答え・別表記・読みを認めます。</p><p id="trial-start-status" role="status"></p><button id="trial-start" disabled>確認済みの案を試し解き</button><h2 id="export-title" class="flow-target" tabindex="-1">4. 問題案を保管する</h2><p id="all-status" class="status"></p><div class="row"><button id="export-draft">未確認の案をJSONで保存</button><button id="export-confirmed" class="primary">確認済みの案をJSONで保存</button></div><p class="muted">内容の確認と、本番への導入・公開承認は別です。案のJSONは現在の学習記録JSONとは異なります。</p></section></section><p class="footer">合成サンプルによる確認用試作 · 外部送信なし · 学習記録への書き込みなし</p></div><section id="trial-panel" class="card" hidden aria-label="保存しない試し解き"></section></main><script>
 'use strict';
 const SAMPLES=[{"format": "yuika-content-proposal", "schemaVersion": 1, "packageId": "draft-synthetic-text-package", "revision": 1, "source": {"kind": "text", "sourceId": "synthetic-text-source", "label": "合成教材テキスト（実資料ではありません）", "locator": "synthetic-source.txt"}, "transcription": {"text": "水を冷やすと氷になります。\n太陽は東からのぼります。\n", "uncertainties": []}, "unit": {"id": "draft-synthetic-material", "title": "合成教材：水と方角"}, "questions": [{"id": "draft-synthetic-water-001", "questionVersion": 1, "type": "text", "prompt": "水を冷やすと何になりますか？", "answer": "氷", "aliases": [], "readings": ["こおり"], "options": [], "explanation": "水は冷やすと氷になることがあります。元の合成文に対応する説明案です。", "hint": "冷凍庫で水を冷やしたときを思い出そう。", "sourceRefs": [{"sourceId": "synthetic-text-source", "locator": "lines:1-1"}], "generatedFields": ["prompt", "explanation", "hint", "readings"], "status": "draft", "confirmedRevision": null}]}, {"format": "yuika-content-proposal", "schemaVersion": 1, "packageId": "draft-synthetic-image-package", "revision": 1, "source": {"kind": "image", "sourceId": "synthetic-image-source", "label": "手作りの合成画像（OCR実行結果ではありません）", "locator": "synthetic-source.svg"}, "transcription": {"text": "水を冷やすと氷になります。\n太陽は［判読不明］からのぼります。", "uncertainties": [{"id": "synthetic-uncertainty-001", "quote": "［判読不明］", "candidates": ["東", "西"], "resolution": null}]}, "unit": {"id": "draft-synthetic-material", "title": "合成教材：水と方角"}, "questions": [{"id": "draft-synthetic-direction-001", "questionVersion": 1, "type": "text", "prompt": "太陽はどの方角からのぼりますか？", "answer": null, "aliases": [], "readings": [], "options": [], "explanation": null, "hint": null, "sourceRefs": [{"sourceId": "synthetic-image-source", "locator": "page:1;region:24,124,552,72"}], "generatedFields": ["prompt"], "status": "draft", "confirmedRevision": null}]}];
 const ASSETS={"text": "水を冷やすと氷になります。\n太陽は東からのぼります。\n", "image": "\u003csvg xmlns=\"http://www.w3.org/2000/svg\" width=\"600\" height=\"240\" viewBox=\"0 0 600 240\" role=\"img\" aria-labelledby=\"title desc\">\n  \u003ctitle id=\"title\">合成教材・読み取り確認用\u003c/title>\n  \u003cdesc id=\"desc\">手作りのテスト入力例。水を冷やすと氷になるという文と、方角を判読不明にした太陽の文。実教材の写真でもOCRの実行結果でもありません。\u003c/desc>\n  \u003crect width=\"600\" height=\"240\" fill=\"#ffffff\"/>\n  \u003cg font-family=\"sans-serif\" fill=\"#172d3f\">\n    \u003ctext x=\"24\" y=\"38\" font-size=\"18\">合成教材・読み取り確認用\u003c/text>\n    \u003ctext x=\"24\" y=\"100\" font-size=\"24\">水を冷やすと氷になります。\u003c/text>\n    \u003ctext x=\"24\" y=\"160\" font-size=\"24\">太陽は［判読不明］からのぼります。\u003c/text>\n    \u003ctext x=\"24\" y=\"218\" font-size=\"14\">※ 手作りの仕様例です。OCRは実行していません。\u003c/text>\n  \u003c/g>\n\u003c/svg>\n"};
@@ -72,8 +72,8 @@ function issues(p,index){
 }
 function clearConfirm(p){for(const q of p.questions){q.status='draft';q.confirmedRevision=null;}}
 function mayDiscard(){return !unsaved||confirm('未保存の案を破棄しますか？');}
-function acceptProposal(value,stillCurrent=()=>true){const next=clone(validateShape(value));if(!stillCurrent()||!mayDiscard()||!stillCurrent())return false;clearConfirm(next);workGeneration++;proposal=next;unsaved=true;render();notice('合成案を読み込みました。内容を確かめてください。');moveTo('workflow-title');return true;}
-function changed(mutator){if(proposal.revision>=Number.MAX_SAFE_INTEGER-1){notice('案の版が上限です。JSONを保管し、新しい合成案を選んでください。');render();return;}mutator();workGeneration++;proposal.revision++;clearConfirm(proposal);unsaved=true;updateStatus();}
+function acceptProposal(value,stillCurrent=()=>true){if(trial)return false;const next=clone(validateShape(value));if(trial||!stillCurrent()||!mayDiscard()||trial||!stillCurrent())return false;clearConfirm(next);workGeneration++;proposal=next;unsaved=true;render();notice('合成案を読み込みました。内容を確かめてください。');moveTo('workflow-title');return true;}
+function changed(mutator){if(trial||!proposal)return;if(proposal.revision>=Number.MAX_SAFE_INTEGER-1){notice('案の版が上限です。JSONを保管し、新しい合成案を選んでください。');render();return;}mutator();workGeneration++;proposal.revision++;clearConfirm(proposal);unsaved=true;updateStatus();}
 function element(tag,text,parent){const el=document.createElement(tag);if(text!==undefined)el.textContent=text;if(parent)parent.append(el);return el;}
 function field(parent,label,value,onChange,{id,lines=false,array=false,nullable=false}={}){
  const wrap=element('label',label,parent),input=element(lines?'textarea':'input',undefined,wrap);input.id=id||'';input.value=array?value.join('\n'):(value??'');
@@ -82,6 +82,7 @@ function field(parent,label,value,onChange,{id,lines=false,array=false,nullable=
 }
 function moveTo(id){
  const target=$(id);if(!target)return;
+ for(let parent=target.parentElement;parent;parent=parent.parentElement)if(parent.tagName==='DETAILS')parent.open=true;
  target.focus({preventScroll:true});target.scrollIntoView({block:'center'});
 }
 function updateGuidance(){
@@ -129,9 +130,11 @@ function updateStatus(){
  else if(asset.source.kind==='text')element('pre',ASSETS.text,preview);
  else preview.innerHTML=ASSETS.image; // Only this compile-time trusted SVG; never proposal text/URLs.
  $('source-meta').textContent=proposal.source.label+' / '+proposal.source.locator;
- updateGuidance();
+ updateGuidance();updateTrialStart();
 }
 function render(){
+ if(trial)endTrial('案が変わったため試し解きを終了しました。内容を確認してください。',false);
+ updateTrialStart();
  $('work').hidden=!proposal;if(!proposal)return;
  const trans=$('transcription-editor');trans.replaceChildren();
  field(trans,'転記本文（原本と見比べてください）',proposal.transcription.text,v=>proposal.transcription.text=v,{id:'transcription',lines:true});
@@ -162,36 +165,38 @@ function render(){
   for(const [key,title]of [['aliases','別表記（1行1件）'],['readings','読み（1行1件）'],['options','選択肢（1行1件）']])field(extras,title,q[key],v=>{q[key]=v;if(!q.generatedFields.includes(key))q.generatedFields.push(key);},{id:'q-'+i+'-'+key,lines:true,array:true});
   element('p','別表記・読みを増やすと、正答として認める範囲が変わります。',extras).className='muted';
   q.sourceRefs.forEach((ref,j)=>{field(extras,'出典の原本ID '+(j+1),ref.sourceId,v=>ref.sourceId=v,{id:'q-'+i+'-ref-'+j+'-id'});field(extras,'出典の範囲 '+(j+1),ref.locator,v=>ref.locator=v,{id:'q-'+i+'-ref-'+j+'-locator'});});
-  const addRef=element('button','出典を追加',extras);addRef.id='q-'+i+'-add-ref';addRef.onclick=()=>{if(q.sourceRefs.length>=20)return;changed(()=>q.sourceRefs.push({sourceId:proposal.source.sourceId,locator:''}));render();const input=$('q-'+i+'-ref-'+(q.sourceRefs.length-1)+'-locator');input.closest('details').open=true;input.focus();};
+  const addRef=element('button','出典を追加',extras);addRef.id='q-'+i+'-add-ref';addRef.onclick=()=>{if(trial||q.sourceRefs.length>=20)return;changed(()=>q.sourceRefs.push({sourceId:proposal.source.sourceId,locator:''}));render();const input=$('q-'+i+'-ref-'+(q.sourceRefs.length-1)+'-locator');input.closest('details').open=true;input.focus();};
   const generated=element('fieldset',undefined,extras);element('legend','生成・編集した項目',generated);
   for(const key of FIELDS){const line=element('label',undefined,generated);line.className='checkline';const cb=element('input',undefined,line);cb.type='checkbox';cb.id='q-'+i+'-generated-'+key;cb.checked=q.generatedFields.includes(key);cb.onchange=()=>changed(()=>{q.generatedFields=q.generatedFields.filter(field=>field!==key);if(cb.checked)q.generatedFields.push(key);});line.append(document.createTextNode(FIELD_LABELS[key]));}
   const applyGenerated=element('button','選択した項目だけにする',generated);applyGenerated.id='q-'+i+'-apply-generated';applyGenerated.onclick=()=>changed(()=>q.generatedFields=FIELDS.filter(key=>$('q-'+i+'-generated-'+key).checked));
   element('p',undefined,box).id='generated-'+i;const ul=element('ul',undefined,box);ul.id='issues-'+i;ul.className='error flow-target';ul.tabIndex=-1;ul.setAttribute('aria-label','問題案 '+(i+1)+' の不足理由');ul.setAttribute('aria-live','polite');
-  const button=element('button','この内容を確認した',box);button.id='confirm-'+i;button.className='primary';button.onclick=()=>{if(issues(proposal,i).length||q.status==='confirmed'&&q.confirmedRevision===proposal.revision)return;workGeneration++;q.status='confirmed';q.confirmedRevision=proposal.revision;unsaved=true;updateStatus();};
+  const button=element('button','この内容を確認した',box);button.id='confirm-'+i;button.className='primary';button.onclick=()=>{if(trial||issues(proposal,i).length||q.status==='confirmed'&&q.confirmedRevision===proposal.revision)return;workGeneration++;q.status='confirmed';q.confirmedRevision=proposal.revision;unsaved=true;updateStatus();};
  });updateStatus();
 }
 function exportProposal(confirmed){
- if(!proposal)return;if(confirmed&&proposal.questions.some((q,i)=>issues(proposal,i).length||q.status!=='confirmed'||q.confirmedRevision!==proposal.revision))return;
+ if(trial||!proposal)return;if(confirmed&&proposal.questions.some((q,i)=>issues(proposal,i).length||q.status!=='confirmed'||q.confirmedRevision!==proposal.revision))return;
  const output=clone(proposal);if(!confirmed)clearConfirm(output);
  const blob=new Blob([JSON.stringify(output,null,2)+'\n'],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=confirmed?'confirmed-content-proposal.json':'draft-content-proposal.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);workGeneration++;unsaved=false;notice(confirmed?'確認済みの問題案を保存しました。学習アプリにはまだ追加されていません。':'未確認の問題案を保存しました。');
 }
 $('sample-text').onclick=()=>acceptProposal(SAMPLES[0]);$('sample-image').onclick=()=>acceptProposal(SAMPLES[1]);
-$('cancel').onclick=()=>{if(proposal&&mayDiscard()){workGeneration++;proposal=null;unsaved=false;render();notice('案を取り消しました。学習記録は変更していません。');}};
+$('cancel').onclick=()=>{if(!trial&&proposal&&mayDiscard()){workGeneration++;proposal=null;unsaved=false;render();notice('案を取り消しました。学習記録は変更していません。');}};
 $('export-draft').onclick=()=>exportProposal(false);$('export-confirmed').onclick=()=>exportProposal(true);
 function setImportPending(pending){
  pendingImport=pending;$('import-status').textContent=pending?'合成案JSONを読み込み中です。現在の案は引き続き編集できます。':'';
- $('cancel-import').hidden=!pending;
+ $('cancel-import').hidden=!pending;updateTrialStart();
 }
 function cancelImport(){
+ if(trial)return;
  importGeneration++;setImportPending(false);$('import').value='';
  notice('読み込みを取り消しました。現在の案は保持しています。');
 }
 $('cancel-import').onclick=()=>{cancelImport();$('import').focus();};
 $('import').onchange=async e=>{
+ if(trial){e.target.value='';return;}
  const input=e.target,file=input.files[0];if(!file){cancelImport();return;}
  const generation=++importGeneration,startedWork=workGeneration;
  const latest=()=>generation===importGeneration;
- const current=()=>latest()&&startedWork===workGeneration;
+ const current=()=>!trial&&latest()&&startedWork===workGeneration;
  const changedNotice=()=>notice('読み込み中に案が変わったため再入力してください。現在の案は保持しています。');
  setImportPending(true);notice('');
  try{
@@ -209,5 +214,109 @@ $('import').onchange=async e=>{
   if(latest()){setImportPending(false);input.value='';}
  }
 };
-window.addEventListener('beforeunload',e=>{if(unsaved){e.preventDefault();e.returnValue='';}});
+// Trial answers exist only in this document's current in-memory session.
+let trial=null,trialSequence=0;
+function trialReady(){
+ if(!proposal)return {message:'合成案を選び、全問の内容を確認してください。',target:'sample-text'};
+ if(pendingImport)return {message:'JSONの読み込みが終わってから試し解きを始めてください。',target:'import'};
+ try{validateShape(proposal);}catch(error){return {message:error.message,target:'workflow-title'};}
+ for(let i=0;i<proposal.questions.length;i++){
+  const q=proposal.questions[i],errors=issues(proposal,i);
+  if(errors.length)return {message:'問題案 '+(i+1)+'：'+errors.join(' '),target:'issues-'+i};
+  if(q.status!=='confirmed'||q.confirmedRevision!==proposal.revision)return {message:'問題案 '+(i+1)+' の内容を確認してください。',target:'confirm-'+i};
+  if(q.type==='text')for(const key of ['answer','aliases','readings']){const values=key==='answer'?[q.answer]:q[key];if(values.some(v=>!norm(v).length||norm(v).length>200))return {message:'問題案 '+(i+1)+' の'+FIELD_LABELS[key]+'を、全角などの変換後も200文字以内に修正してください。',target:'q-'+i+'-'+key};}
+ }
+ return null;
+}
+function updateTrialStart(){
+ const problem=trialReady();$('trial-start').disabled=!!problem||!!trial;
+ $('trial-start-status').textContent=problem?problem.message:'全'+proposal.questions.length+'問。登録した答え・別表記・読みを認めます。';
+}
+function trialToken(){return trial?{session:trial.session,index:trial.index,id:trial.snapshot.questions[trial.index].id,epoch:trial.epoch}:null;}
+function wipeTrialDOM(){
+ for(const input of $('trial-panel').querySelectorAll('input,textarea')){input.value='';if(input.type==='radio')input.checked=false;}
+ $('trial-panel').replaceChildren();
+}
+function endTrial(message='試し解きを終了し、回答を消去しました。',focus=true){
+ if(!trial)return;
+ trial.answer=null;trial.result=null;trial.hint=false;trial.snapshot=null;trial.serialized=null;trial.node=null;trial.elements=[];trial.session=null;trial.epoch++;
+ trial=null;wipeTrialDOM();$('trial-panel').hidden=true;$('editor').hidden=false;$('editor').inert=false;
+ notice(message);updateTrialStart();if(focus)moveTo('trial-start');
+}
+function trialStructureCurrent(){
+ if(!trial.node||trial.node.parentNode!==$('trial-panel')||!trial.node.isConnected||$('trial-panel').children.length!==1)return false;
+ const current=[...trial.node.querySelectorAll('*')];return current.length===trial.elements.length&&current.every((el,i)=>el===trial.elements[i]);
+}
+function trialCurrent(token,phase){
+ if(!trial||!token||token.session!==trial.session||token.index!==trial.index||token.epoch!==trial.epoch||token.id!==trial.snapshot.questions[trial.index].id)return false;
+ if(trialReady()||JSON.stringify(proposal)!==trial.serialized||!trialStructureCurrent()){
+  endTrial('案が変わったため試し解きを終了しました。内容を確認してください。');return false;
+ }
+ return !phase||trial.phase===phase;
+}
+function gradeTrialValue(q,value){
+ if(q.type==='choice'){
+  if(!Number.isInteger(value)||value<0||value>=q.options.length)return {error:'選択肢を選んでください。'};
+  return {match:q.options[value]===q.answer};
+ }
+ if(typeof value!=='string')return {error:'答えを入力してください。'};
+ if(value.length>200)return {error:'200文字以内で入力してください（全角などの変換後も含む）。'};
+ const normalized=norm(value);
+ if(!normalized.length)return {error:'答えを入力してください。'};
+ if(normalized.length>200)return {error:'200文字以内で入力してください（全角などの変換後も含む）。'};
+ return {match:[q.answer,...q.aliases,...q.readings].some(v=>norm(v)===normalized)};
+}
+function trialInput(token,value){if(!trialCurrent(token,'A'))return;trial.answer=value;$('trial-error').textContent='';}
+function trialHint(token){if(!trialCurrent(token,'A'))return;trial.hint=true;$('trial-hint').textContent=trial.snapshot.questions[trial.index].hint;$('trial-hint').hidden=false;$('trial-hint-button').disabled=true;$('trial-hint-used').textContent='この問でヒントを見ました。';}
+function gradeTrial(token){
+ if(!trialCurrent(token,'A'))return;
+ const result=gradeTrialValue(trial.snapshot.questions[trial.index],trial.answer);
+ if(result.error){$('trial-error').textContent=result.error;return;}
+ trial.result=result;trial.phase='G';trial.epoch++;drawTrial(trialToken());moveTo('trial-result');
+}
+function nextTrial(token){
+ if(!trialCurrent(token,'G')||trial.index>=trial.snapshot.questions.length-1)return;
+ trial.answer=null;trial.result=null;trial.hint=false;trial.index++;trial.epoch++;trial.phase='A';drawTrial(trialToken());moveTo('trial-title');
+}
+function drawTrial(expected){
+ const active=trialToken();if(!active||!expected||Object.keys(active).some(k=>active[k]!==expected[k])){endTrial('試し解きの表示が変わったため回答を消去しました。');return;}
+ wipeTrialDOM();const panel=$('trial-panel'),box=element('div',undefined,panel);trial.node=box;
+ const q=trial.snapshot.questions[trial.index],token=trialToken(),graded=trial.phase==='G';
+ const title=element('h2','保存しない試し解き',box);title.id='trial-title';title.tabIndex=-1;title.className='flow-target';
+ element('p','保護者役の合成案点検です。回答は保存せず、終了・再読み込みで消えます。',box).className='note';
+ element('p',(trial.index+1)+' / '+trial.snapshot.questions.length+'問',box).id='trial-progress';
+ element('p',q.prompt,box).id='trial-prompt';
+ if(q.type==='text'){
+  const label=element('label','答え',box),input=element('textarea',undefined,label);input.id='trial-answer';input.value=typeof trial.answer==='string'?trial.answer:'';input.disabled=graded;
+  input.oninput=()=>trialInput(token,input.value);
+ }else{
+  const choices=element('fieldset',undefined,box);element('legend','選択肢',choices);
+  q.options.forEach((option,i)=>{const label=element('label',undefined,choices);label.className='checkline';const input=element('input',undefined,label);input.type='radio';input.name='trial-choice';input.id='trial-choice-'+i;input.value=String(i);input.checked=trial.answer===i;input.disabled=graded;input.onchange=()=>{if(input.checked)trialInput(token,i);};label.append(document.createTextNode(option));});
+ }
+ const hintButton=element('button','ヒントを見る',box);hintButton.id='trial-hint-button';hintButton.disabled=graded||trial.hint;hintButton.onclick=()=>trialHint(token);
+ const hint=element('p',trial.hint?q.hint:'',box);hint.id='trial-hint';hint.hidden=!trial.hint;
+ element('p',trial.hint?'この問でヒントを見ました。':'',box).id='trial-hint-used';
+ const error=element('p','',box);error.id='trial-error';error.setAttribute('role','status');
+ const grade=element('button','答えを確かめる',box);grade.id='trial-grade';grade.disabled=graded;grade.onclick=()=>gradeTrial(token);
+ if(graded){
+  const result=element('p',trial.result.match?'登録した答えに一致しました':'登録した答えとは一致しません',box);result.id='trial-result';result.tabIndex=-1;result.className='flow-target';result.setAttribute('role','status');
+  const solutions=element('div',undefined,box);solutions.id='trial-solutions';element('p','登録した正答：'+q.answer,solutions);element('p','別表記：'+(q.aliases.join('、')||'なし')+' / 読み：'+(q.readings.join('、')||'なし'),solutions);element('p','解説：'+q.explanation,solutions);
+ }
+ if(trial.index<trial.snapshot.questions.length-1){const next=element('button','次の問題へ',box);next.id='trial-next';next.disabled=!graded;next.onclick=()=>nextTrial(token);}
+ const exit=element('button',graded&&trial.index===trial.snapshot.questions.length-1?'試し解きを終了（回答を消去）':'終了して確認画面へ戻る（回答を消去）',box);exit.id='trial-exit';exit.onclick=()=>{if(trialCurrent(token))endTrial();};
+ trial.elements=[...box.querySelectorAll('*')];
+}
+function startTrial(){
+ if(trial)return;
+ const problem=trialReady();if(problem){notice(problem.message);moveTo(problem.target);return;}
+ trial={session:++trialSequence,index:0,epoch:0,snapshot:clone(proposal),serialized:JSON.stringify(proposal),answer:null,hint:false,phase:'A',result:null,node:null};
+ $('editor').inert=true;$('editor').hidden=true;$('trial-panel').hidden=false;drawTrial(trialToken());moveTo('trial-title');
+}
+$('trial-start').onclick=startTrial;
+new MutationObserver(()=>{if(trial&&!trialStructureCurrent())endTrial('試し解きの表示が変わったため回答を消去しました。');}).observe($('trial-panel'),{childList:true,subtree:true});
+window.addEventListener('pagehide',()=>endTrial('ページを離れたため試し解きの回答を消去しました。',false));
+window.addEventListener('pageshow',e=>{if(e.persisted)endTrial('履歴から戻ったため試し解きの回答を消去しました。',false);});
+
+updateTrialStart();
+window.addEventListener('beforeunload',e=>{if(unsaved||trial){e.preventDefault();e.returnValue='';}});
 </script></body></html>

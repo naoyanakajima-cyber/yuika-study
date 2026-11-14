@@ -21,6 +21,9 @@
 同梱サンプルとテスト用の合成JSONだけを扱い、作業内容はメモリ上に保持します。
 必要な案は再読み込み前にJSONへ書き出してください。再入力では内容を復元し、確認はやり直します。
 既存の学習記録は読み書きしません。
+全問を確認すると「確認済みの案を試し解き」で問題・許容表記・ヒント・解説を点検できます。
+回答は保存せず、次の問題・終了・ページ離脱で消去します。児童の到達度測定ではありません。
+[試し解き契約](docs/product/content-try-spec.md)と `tests/content_trial.py` を参照してください。
 
 クラウド内で `source scripts/cloud/activate.sh` の後に
 `python scripts/cloud/serve.py --port 8000` を実行し、`http://127.0.0.1:8000/content-review.html`を開きます。

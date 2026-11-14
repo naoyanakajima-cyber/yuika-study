@@ -47,6 +47,7 @@ run tests/responsive_subjects.py python tests/responsive_subjects.py
 run tests/content_review.py python tests/content_review.py
 run tests/content_guidance.py python tests/content_guidance.py
 run tests/content_import_guard.py python tests/content_import_guard.py
+run tests/content_trial.py python tests/content_trial.py
 printf '\n%-40s %6s %8s\n' 'Suite' 'Exit' 'Seconds'
 for i in "${!names[@]}"; do
   printf '%-40s %6s %8s\n' "${names[$i]}" "${codes[$i]}" "${times[$i]}"
