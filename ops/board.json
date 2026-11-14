@@ -43,7 +43,7 @@
     "ticket": "REV-MVP",
     "owner": "root/coordinator"
   },
-  "updated_at": "2026-11-14T21:05:33.687726+00:00",
+  "updated_at": "2026-11-14T21:06:43.889435+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -473,21 +473,17 @@
       ],
       "ceo_wait_reason": "理由付きおすすめと対象4画面の日次実問数修正を含むdraft試作品確認待ち。D03方向性採用を維持、採用/マージ/公開は未承認。",
       "independent_followup": {
-        "kind": "daily_count_fix",
-        "state": "independent_qa_passed",
-        "run_id": "cycle-20261114T201009Z",
-        "source_pr_head": "132f9f59ebd23b6dab33e7d1e23bf4d077b8070d",
-        "specification": "docs/product/daily-count-spec.md",
-        "pdm": "pdm_daily_count_fix",
+        "id": "daily_science_count",
+        "state": "in_progress",
+        "pdm": "pdm_daily_residual",
         "prm": "root/coordinator",
-        "engineer": "engineer_daily_count_fix",
-        "reviewer": "qa_daily_count_fix",
-        "review_status": "passed",
-        "scope": "common adaptive and four generated pages; science/top excluded",
-        "candidate_commit": "55435567d44f05dc35f3ea6d73c4ba9cac2dc496",
-        "delivered": true,
-        "report": "ops/runs/2026-11-14-daily-count-fix.md",
-        "residual": "science/top excluded; full cross-tab synchronization not added"
+        "engineer": "engineer_daily_residual",
+        "reviewer": "qa_daily_residual",
+        "base_commit": "55435567d44f05dc35f3ea6d73c4ba9cac2dc496",
+        "scope": "science actual daily count and home display name only",
+        "specification": "docs/product/daily-count-spec.md",
+        "implemented": false,
+        "independent_qa_passed": false
       },
       "independent_followup_history": [
         {
@@ -522,6 +518,23 @@
           "delivered": true,
           "pr_base": "main",
           "report": "ops/runs/2026-11-14-rev-current-base.md"
+        },
+        {
+          "kind": "daily_count_fix",
+          "state": "independent_qa_passed",
+          "run_id": "cycle-20261114T201009Z",
+          "source_pr_head": "132f9f59ebd23b6dab33e7d1e23bf4d077b8070d",
+          "specification": "docs/product/daily-count-spec.md",
+          "pdm": "pdm_daily_count_fix",
+          "prm": "root/coordinator",
+          "engineer": "engineer_daily_count_fix",
+          "reviewer": "qa_daily_count_fix",
+          "review_status": "passed",
+          "scope": "common adaptive and four generated pages; science/top excluded",
+          "candidate_commit": "55435567d44f05dc35f3ea6d73c4ba9cac2dc496",
+          "delivered": true,
+          "report": "ops/runs/2026-11-14-daily-count-fix.md",
+          "residual": "science/top excluded; full cross-tab synchronization not added"
         }
       ]
     },
