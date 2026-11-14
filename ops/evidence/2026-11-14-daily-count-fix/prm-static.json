@@ -1,0 +1,22 @@
+{
+  "base": "132f9f59ebd23b6dab33e7d1e23bf4d077b8070d",
+  "candidate": "55435567d44f05dc35f3ea6d73c4ba9cac2dc496",
+  "paths": [
+    "README.md",
+    "assets/design.js",
+    "heian-review.html",
+    "kamakura-review.html",
+    "mock-focus-review.html",
+    "onin-review.html",
+    "scripts/check_all.sh",
+    "scripts/practice/adaptive.js",
+    "tests/daily_count.py"
+  ],
+  "all_other_files_unchanged": true,
+  "working_tree_clean": true,
+  "scope": "PrM path/ancestry only; independent QA pending",
+  "visual_check": {
+    "image": "qa/D-before.png",
+    "result": "coordinator visually confirmed disabled zero-count button and visible condition guidance directly below; screenshot is scrolled view, not initial viewport claim"
+  }
+}

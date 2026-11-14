@@ -43,7 +43,7 @@
     "ticket": "REV-MVP",
     "owner": "root/coordinator"
   },
-  "updated_at": "2026-11-14T20:13:10.437040+00:00",
+  "updated_at": "2026-11-14T20:24:19.767290+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -244,7 +244,7 @@
         "既存ID・保存キー・旧履歴を保護する",
         "768x1024で開始・回答・採点・保存・再読込を合成データで確認する"
       ],
-      "next_action": "既存PR10の現main統合を受入済み。次はdaily-count-specに沿い、日次開始前の実問数と0件開始不可を同PR内で修正する。共通adaptive/4生成先、理科/トップの対象境界と時刻・別タブ変化をPdM/PrMで確定し、選定/乱数/保存を変えず独立QAする。新製品PRを増やさない。",
+      "next_action": "残る理科の日次件数とトップ固定名称を実UI・導線で確認し、同PR10内の修正範囲をPdM/PrMで確定する。対象4画面は修正・独立QA済みのdraft試用判断待ち。新製品PRや採用/マージ/公開の承認を推測しない。",
       "evidence": [
         {
           "kind": "test",
@@ -366,26 +366,35 @@
           "commit": "132f9f59ebd23b6dab33e7d1e23bf4d077b8070d",
           "required_suites_passed": 24,
           "independent_ui_unique_cases": 10
+        },
+        {
+          "kind": "daily_count_fix",
+          "path": "ops/runs/2026-11-14-daily-count-fix.md",
+          "commit": "55435567d44f05dc35f3ea6d73c4ba9cac2dc496",
+          "required_suites_passed": 25,
+          "independent_ui_unique_cases": 8,
+          "independent_selection_cases": 18
         }
       ],
       "review": {
-        "pdm": "pdm_rev_current_scope",
+        "pdm": "pdm_daily_count_fix",
         "prm": "root/coordinator",
-        "author": "engineer_rev_current",
-        "reviewer": "qa_rev_current",
-        "commit": "132f9f59ebd23b6dab33e7d1e23bf4d077b8070d",
-        "result": "passed_current_main_integration",
-        "completed_at": "2026-11-14T19:20:18.890176+00:00",
-        "required_suites": 24,
+        "author": "engineer_daily_count_fix",
+        "reviewer": "qa_daily_count_fix",
+        "commit": "55435567d44f05dc35f3ea6d73c4ba9cac2dc496",
+        "result": "passed_daily_count_fix_four_pages",
+        "completed_at": "2026-11-14T20:21:31.711285+00:00",
+        "required_suites": 25,
         "exit_code": 0,
-        "seconds": 300,
-        "additional_ui_unique_cases": 10,
-        "report": "ops/evidence/2026-11-14-rev-current-base/QA.md"
+        "seconds": 352,
+        "independent_ui_unique_cases": 8,
+        "independent_selection_cases": 18,
+        "report": "ops/evidence/2026-11-14-daily-count-fix/QA.md"
       },
       "base_ref": "main",
       "base_sha": "86514eda054a5a2e09204df3a0668e40624c16de",
       "specification": "docs/product/review-spec.md",
-      "commit": "132f9f59ebd23b6dab33e7d1e23bf4d077b8070d",
+      "commit": "55435567d44f05dc35f3ea6d73c4ba9cac2dc496",
       "direction_adopted": true,
       "direction_decision": "D03",
       "release": {
@@ -446,12 +455,26 @@
           "commit": "ba829a1176ff1ead7d312526890afe8792178c99",
           "completed_at": "2026-11-09T22:18:38.289151+00:00",
           "notes": "独立QAが5コマンドと両単元の上部案内/0件/読取不能/keyboard/focus/設定同期を検証。最終commitと変更4ファイルhash照合。既存テスト・CSP・通知・選定採点保存処理は維持。"
+        },
+        {
+          "pdm": "pdm_rev_current_scope",
+          "prm": "root/coordinator",
+          "author": "engineer_rev_current",
+          "reviewer": "qa_rev_current",
+          "commit": "132f9f59ebd23b6dab33e7d1e23bf4d077b8070d",
+          "result": "passed_current_main_integration",
+          "completed_at": "2026-11-14T19:20:18.890176+00:00",
+          "required_suites": 24,
+          "exit_code": 0,
+          "seconds": 300,
+          "additional_ui_unique_cases": 10,
+          "report": "ops/evidence/2026-11-14-rev-current-base/QA.md"
         }
       ],
-      "ceo_wait_reason": "現main互換性修正後の合成試作品確認待ち。D03方向性採用は維持。マージ・公開は未承認。",
+      "ceo_wait_reason": "理由付きおすすめと対象4画面の日次実問数修正を含むdraft試作品確認待ち。D03方向性採用を維持、採用/マージ/公開は未承認。",
       "independent_followup": {
         "kind": "daily_count_fix",
-        "state": "in_progress",
+        "state": "independent_qa_passed",
         "run_id": "cycle-20261114T201009Z",
         "source_pr_head": "132f9f59ebd23b6dab33e7d1e23bf4d077b8070d",
         "specification": "docs/product/daily-count-spec.md",
@@ -459,8 +482,12 @@
         "prm": "root/coordinator",
         "engineer": "engineer_daily_count_fix",
         "reviewer": "qa_daily_count_fix",
-        "review_status": "not_yet_run",
-        "scope": "common adaptive and four generated pages; science/top excluded"
+        "review_status": "passed",
+        "scope": "common adaptive and four generated pages; science/top excluded",
+        "candidate_commit": "55435567d44f05dc35f3ea6d73c4ba9cac2dc496",
+        "delivered": true,
+        "report": "ops/runs/2026-11-14-daily-count-fix.md",
+        "residual": "science/top excluded; full cross-tab synchronization not added"
       },
       "independent_followup_history": [
         {
@@ -9888,6 +9915,130 @@
         "draft": true,
         "body_matches": true
       }
+    },
+    {
+      "id": "cycle-20261114T201009Z",
+      "started_at": "2026-11-14T20:10:09.329874+00:00",
+      "observed_operations_commit": "bbe1494f3823744c1b491087019b82e5cd56b429",
+      "ticket": "REV-MVP",
+      "result": "4画面の日次実問数・0件開始不可を既存PR10で修正。25suiteと独立UI/選定QA合格。理科・トップは未修正。",
+      "cloud_verified": true,
+      "observed_main_commit": "86514eda054a5a2e09204df3a0668e40624c16de",
+      "observed_prs": [
+        {
+          "number": 22,
+          "head_sha": "bd4f48de0404614eb84275969bfccff0a368e866",
+          "base": "codex/review-17-19-quality",
+          "state": "open",
+          "draft": true
+        },
+        {
+          "number": 13,
+          "head_sha": "139c8b8b56bcd979068b61984120d9f312efe182",
+          "base": "codex/cloud-handoff-hardening-20261108",
+          "state": "open",
+          "draft": true
+        },
+        {
+          "number": 12,
+          "head_sha": "57171ad9cab02fec6a080ecbe317fe11d3f51dcf",
+          "base": "codex/cloud-automatic-bootstrap",
+          "state": "open",
+          "draft": true
+        },
+        {
+          "number": 11,
+          "head_sha": "f1e84a7b998dfbcd71c6692974015bdd08e1877e",
+          "base": "main",
+          "state": "open",
+          "draft": true
+        },
+        {
+          "number": 10,
+          "head_sha": "132f9f59ebd23b6dab33e7d1e23bf4d077b8070d",
+          "base": "main",
+          "state": "open",
+          "draft": true
+        },
+        {
+          "number": 9,
+          "head_sha": "bbe1494f3823744c1b491087019b82e5cd56b429",
+          "base": "main",
+          "state": "open",
+          "draft": true
+        },
+        {
+          "number": 4,
+          "head_sha": "ff211ee8e144e955fa5837e8b8ff5cabf51f60a4",
+          "base": "main",
+          "state": "open",
+          "draft": true
+        }
+      ],
+      "ceo_decisions_ingested": 0,
+      "subagents": [
+        "pdm_daily_count_fix",
+        "engineer_daily_count_fix",
+        "qa_daily_count_fix"
+      ],
+      "pdm": "pdm_daily_count_fix",
+      "prm": "root/coordinator",
+      "engineer": "engineer_daily_count_fix",
+      "reviewer": "qa_daily_count_fix",
+      "independent_review_performed": true,
+      "app_tests_run": true,
+      "browser_tests_run": true,
+      "candidate_commit": "55435567d44f05dc35f3ea6d73c4ba9cac2dc496",
+      "verification": {
+        "command": "bash scripts/check_all.sh",
+        "attempts": 1,
+        "suites_passed": 25,
+        "exit_code": 0,
+        "seconds": 352,
+        "clean_fixed_head": true,
+        "independent_ui_unique_cases": 8,
+        "independent_selection_cases": 18,
+        "independent_boundary_cases": 3,
+        "ui_probe_attempts": 3,
+        "selection_probe_attempts": 2,
+        "independent_harness_causes": 3,
+        "repair_per_cause": 1,
+        "product_failures": 0
+      },
+      "manual_setup": true,
+      "automatic_setup_verified": false,
+      "product_runtime_changed": true,
+      "test_code_changed": true,
+      "new_prs": [],
+      "updated_prs": [
+        10,
+        9
+      ],
+      "product_pr_updated": true,
+      "ceo_wait_product_prs": [
+        10,
+        11,
+        12
+      ],
+      "additional_existing_product_drafts": [
+        22
+      ],
+      "external_private_data_calls": 0,
+      "production_actions": false,
+      "new_blockers": [],
+      "new_product_findings": [],
+      "report": "ops/runs/2026-11-14-daily-count-fix.md",
+      "specification": "docs/product/daily-count-spec.md",
+      "platform_run_completion_verified": false,
+      "next_action": "残る理科の日次件数とトップ固定名称を実UI・導線で確認し、同PR10内の修正範囲をPdM/PrMで確定する。対象4画面は修正・独立QA済みのdraft試用判断待ち。新製品PRや採用/マージ/公開の承認を推測しない。",
+      "attachment": "既存PR10 attachと一覧確認を呼出。応答が空で今回成功未確認。新規PRなし。",
+      "product_pr_readback": {
+        "head": "55435567d44f05dc35f3ea6d73c4ba9cac2dc496",
+        "base": "main",
+        "state": "open",
+        "draft": true,
+        "body_matches": true
+      }
     }
   ],
   "operational_notes": [
@@ -10059,7 +10210,7 @@
     },
     {
       "id": "DAILY-COUNT-DISPLAY-01",
-      "status": "confirmed_unfixed",
+      "status": "fixed_in_draft_only",
       "observed_at": "2026-11-14T18:20:00.423005+00:00",
       "scope": "current main daily entry count on Onin/Heian via existing UI",
       "head": "86514eda054a5a2e09204df3a0668e40624c16de",
@@ -10067,7 +10218,17 @@
       "report": "ops/runs/2026-11-14-daily-count-investigation.md",
       "specification": "docs/product/daily-count-spec.md",
       "reviewer": "qa_daily_count_investigation",
-      "next_action": "PdM/PrMで既存PR10の残すべき選定理由と現mainの日次・保存契約を両立させる修正範囲/基点/4生成先を具体化し、確認済み日次件数不一致を既存PR内で修正できるか判断する。旧branchへ単純投入せず、新製品PR・merge/公開を増やさない。"
+      "next_action": "残る理科の日次件数とトップ固定名称を実UI・導線で確認し、同PR10内の修正範囲をPdM/PrMで確定する。対象4画面は修正・独立QA済みのdraft試用判断待ち。新製品PRや採用/マージ/公開の承認を推測しない。",
+      "draft_resolution": {
+        "pr": 10,
+        "head": "55435567d44f05dc35f3ea6d73c4ba9cac2dc496",
+        "scope": "common adaptive / onin, kamakura, heian, mock-focus",
+        "reviewer": "qa_daily_count_fix",
+        "report": "ops/runs/2026-11-14-daily-count-fix.md",
+        "main_changed": false,
+        "published": false,
+        "residual": "science/top excluded"
+      }
     }
   ],
   "unreconciled_prs": [

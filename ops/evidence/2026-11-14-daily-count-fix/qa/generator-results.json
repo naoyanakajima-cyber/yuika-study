@@ -1,0 +1,43 @@
+{
+  "head": "55435567d44f05dc35f3ea6d73c4ba9cac2dc496",
+  "steps": [
+    {
+      "script": "scripts/practice/embed.py",
+      "exit_code": 0,
+      "output": ""
+    },
+    {
+      "script": "scripts/design/build_summary.py",
+      "exit_code": 0,
+      "output": ""
+    },
+    {
+      "script": "scripts/design/embed.py",
+      "exit_code": 0,
+      "output": ""
+    },
+    {
+      "script": "scripts/parent/embed.py",
+      "exit_code": 0,
+      "output": ""
+    }
+  ],
+  "all_six_html_unchanged": true,
+  "before": {
+    "yuika-review-v2.html": "72b7cef43c02d22d4ae0c17fddc6aefdeb0ec9908ab974e49c727d0800a25314",
+    "onin-review.html": "b55a50a057098f4d397bbba50c779e2a9d9ac973a88a85e6e950bc91e7c31b2c",
+    "mock-focus-review.html": "09bd8eea735256c1120bd084130310d8dcf10ce8cce99da0b734c68f8aca5e15",
+    "kamakura-review.html": "657bc082b0c6f30d325127812413425d765d0885ce053e7821bf245d13b6359b",
+    "index.html": "7cda10be2e54fada58627c407a6bd269bff9745cb7239aed61883306b282611f",
+    "heian-review.html": "53d82a8c8f0ba9d87c8e8927eb7b333a30411945f84a1b743e2decbc534a6a30"
+  },
+  "after": {
+    "yuika-review-v2.html": "72b7cef43c02d22d4ae0c17fddc6aefdeb0ec9908ab974e49c727d0800a25314",
+    "onin-review.html": "b55a50a057098f4d397bbba50c779e2a9d9ac973a88a85e6e950bc91e7c31b2c",
+    "mock-focus-review.html": "09bd8eea735256c1120bd084130310d8dcf10ce8cce99da0b734c68f8aca5e15",
+    "kamakura-review.html": "657bc082b0c6f30d325127812413425d765d0885ce053e7821bf245d13b6359b",
+    "index.html": "7cda10be2e54fada58627c407a6bd269bff9745cb7239aed61883306b282611f",
+    "heian-review.html": "53d82a8c8f0ba9d87c8e8927eb7b333a30411945f84a1b743e2decbc534a6a30"
+  },
+  "progress_unchanged": true
+}
