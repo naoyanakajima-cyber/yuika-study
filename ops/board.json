@@ -36,14 +36,8 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": {
-    "run_id": "cycle-20261114T210338Z",
-    "acquired_at": "2026-11-14T21:03:38.720564+00:00",
-    "expires_at": "2026-11-14T21:43:38.720564+00:00",
-    "ticket": "REV-MVP",
-    "owner": "root/coordinator"
-  },
-  "updated_at": "2026-11-14T21:17:17.692397+00:00",
+  "lease": null,
+  "updated_at": "2026-11-14T21:19:03.049201+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -10181,7 +10175,28 @@
         "url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/132590781437"
       },
       "external_check_cause": "not_investigated",
-      "new_blockers": []
+      "new_blockers": [],
+      "completed_at": "2026-11-14T21:19:03.049201+00:00",
+      "lease_released_at": "2026-11-14T21:19:03.049201+00:00",
+      "metadata_review": {
+        "reviewer": "qa_daily_residual",
+        "accepted_operations_commit": "6b5426b8ff20b23d209b55869c29cd8657d1ac29",
+        "result": "passed",
+        "report": "ops/evidence/2026-11-14-daily-science-count/QA-metadata.md",
+        "outer_evidence_files_reviewed": 40,
+        "qa_evidence_files_reviewed": 27,
+        "prior_evidence_files_reviewed": 49
+      },
+      "final_evidence_files": 41,
+      "operations_pr_body_readback": {
+        "pr": 9,
+        "head_at_readback": "6b5426b8ff20b23d209b55869c29cd8657d1ac29",
+        "state": "open",
+        "draft": true,
+        "body_matches": true
+      },
+      "notification": "no_update; ordinary results deferred to CEO checkpoints",
+      "completion_scope": "この実行でのcommit/PR/台帳保存とlease解除。自動化プラットフォームの完了・配信成功は別途未確認。"
     }
   ],
   "operational_notes": [
