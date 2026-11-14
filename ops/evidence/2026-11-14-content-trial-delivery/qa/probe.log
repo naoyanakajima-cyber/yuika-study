@@ -1,0 +1,27 @@
+PASS G01
+PASS G02
+PASS G03
+PASS G04
+PASS G05
+PASS G06
+PASS G07
+PASS G08a
+PASS G08b
+PASS G09
+PASS G10a
+PASS G10b
+PASS G11a
+PASS G11b
+PASS G12
+PASS B01
+PASS B02
+PASS B03
+PASS B04
+PASS B05
+PASS B06
+PASS B07
+PASS B08
+PASS B09
+PASS B10
+PASS B11
+{"head": "ee51e68d7e1eeb21bd0e959ec58166a869947d0a", "cases": ["G01", "G02", "G03", "G04", "G05", "G06", "G07", "G08a", "G08b", "G09", "G10a", "G10b", "G11a", "G11b", "G12", "B01", "B02", "B03", "B04", "B05", "B06", "B07", "B08", "B09", "B10", "B11", "G13 0", "G13 1", "G13 None", "G13 2", "G13 '\u6771'", "G13 0.5", "G13 -1", "G13 '0'", "S02 draft", "S02 partial", "S02 stale", "S02 source", "S02 shape", "S02 choice-answer", "S02 norm-answer", "S02 norm-alias", "S02 norm-reading", "S02 unresolved image", "S02 imported confirmed", "S02 pending import", "S01", "S03", "S05", "S06", "S07", "S08", "S09", "S13 old tokens", "S10 runtime guards", "S13 proposal.revision++", "S13 proposal.questions[0].prompt=\"synthetic changed\"", "S13 proposal.questions[0].status=\"draft\"", "S13 render()", "S13 drawTrial()", "S13 document.getElementById('trial-answer').replaceWith(document.getElementById('trial-answer').cloneNode(true))", "S11 cancel", "S12 synthetic persisted", "S12 actual reload cancel then accept", "safe text rendering"], "case_count": 65, "nonlocal_or_other_requests": [], "writes": [], "posts": 0, "page_errors": [], "console": [], "viewport": [768, 1024], "synthetic_only": true, "bfcache": "synthetic persisted event; actual reload cancellation/acceptance separately exercised"}

@@ -1,0 +1,9 @@
+{
+  "head": "8e2111b4e9c535c4632976a6f384992e839d1329",
+  "trial_start_disabled": true,
+  "trial_status": "問題案 1 の別表記を、全角などの変換後も200文字以内に修正してください。",
+  "workflow_next": "全問の内容を確認しました。確認済みの案をJSONで保存できます。学習アプリへの導入・公開は別の判断です。",
+  "next_step_label": "JSON保存欄へ",
+  "next_step_focus": "export-title",
+  "repair_actions": 0
+}
