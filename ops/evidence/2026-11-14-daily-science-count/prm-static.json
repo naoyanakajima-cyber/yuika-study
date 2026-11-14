@@ -1,0 +1,35 @@
+{
+  "candidate": "73fe2ee9d776b3e3360614752fb722ff4aee4f85",
+  "base": "55435567d44f05dc35f3ea6d73c4ba9cac2dc496",
+  "changed_paths": [
+    "README.md",
+    "assets/progress.js",
+    "index.html",
+    "scripts/check_all.sh",
+    "scripts/design/build_summary.py",
+    "scripts/practice/science.js",
+    "tests/flash_grading.py",
+    "tests/focus_practice.py",
+    "tests/responsive_subjects.py",
+    "tests/science_adaptive.py",
+    "tests/science_daily_count.py",
+    "yuika-review-v2.html"
+  ],
+  "checks": {
+    "index.html_only_label": true,
+    "scripts/design/build_summary.py_only_label": true,
+    "assets/progress.js_only_label": true,
+    "tests/flash_grading.py_only_label": true,
+    "tests/focus_practice.py_only_label": true,
+    "tests/responsive_subjects.py_only_label": true,
+    "tests/science_adaptive.py_only_label": true,
+    "onin-review.html_unchanged": true,
+    "kamakura-review.html_unchanged": true,
+    "heian-review.html_unchanged": true,
+    "mock-focus-review.html_unchanged": true,
+    "scripts/practice/adaptive.js_unchanged": true,
+    "assets/design.js_unchanged": true,
+    "clean": true
+  },
+  "product_tests_run_by_prm": false
+}

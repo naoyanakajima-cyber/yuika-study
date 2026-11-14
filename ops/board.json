@@ -43,7 +43,7 @@
     "ticket": "REV-MVP",
     "owner": "root/coordinator"
   },
-  "updated_at": "2026-11-14T21:06:43.889435+00:00",
+  "updated_at": "2026-11-14T21:10:10.372180+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -10064,6 +10064,61 @@
       "finalization_recovered_by": "cycle-20261114T210338Z",
       "metadata_review_report": "ops/evidence/2026-11-14-daily-count-fix/QA-metadata.md",
       "operations_metadata_reviewed_commit": "2428174fbb39c6bc70c7bc5cc2c150f1b6169139"
+    },
+    {
+      "id": "cycle-20261114T210338Z",
+      "started_at": "2026-11-14T21:03:38.720564+00:00",
+      "observed_operations_commit": "2428174fbb39c6bc70c7bc5cc2c150f1b6169139",
+      "ticket": "REV-MVP",
+      "result": "前回終了処理を回復。理科実問数/top名称の候補73fe2eeを独立QA中。未push。",
+      "cloud_verified": true,
+      "observed_main_commit": "86514eda054a5a2e09204df3a0668e40624c16de",
+      "recovered_run": "cycle-20261114T201009Z",
+      "expired_lease_replaced": {
+        "run_id": "cycle-20261114T201009Z",
+        "acquired_at": "2026-11-14T20:10:09.329874+00:00",
+        "expires_at": "2026-11-14T20:50:09.329874+00:00",
+        "ticket": "REV-MVP",
+        "owner": "root/coordinator"
+      },
+      "ceo_decisions_ingested": 0,
+      "subagents": [
+        "pdm_daily_residual",
+        "engineer_daily_residual",
+        "qa_daily_residual"
+      ],
+      "pdm": "pdm_daily_residual",
+      "prm": "root/coordinator",
+      "engineer": "engineer_daily_residual",
+      "reviewer": "qa_daily_residual",
+      "candidate_commit": "73fe2ee9d776b3e3360614752fb722ff4aee4f85",
+      "base_commit": "55435567d44f05dc35f3ea6d73c4ba9cac2dc496",
+      "independent_review_performed": false,
+      "review_status": "in_progress",
+      "manual_setup": true,
+      "automatic_setup_verified": false,
+      "new_prs": [],
+      "updated_prs": [
+        9,
+        10
+      ],
+      "product_pr_updated": false,
+      "metadata_pr_updated": true,
+      "ceo_wait_product_prs": [
+        10,
+        11,
+        12
+      ],
+      "additional_existing_product_drafts": [
+        22
+      ],
+      "external_private_data_calls": 0,
+      "production_actions": false,
+      "report": "ops/runs/2026-11-14-daily-science-count.md",
+      "specification": "docs/product/daily-count-spec.md",
+      "platform_run_completion_verified": false,
+      "attachment": "既存PR9/10 attachと一覧を呼出。空応答のため成功未確認。",
+      "next_action": "固定候補の独立QA完了後に同PR10へ統合。未達なら同じ候補と残件を保存して再開する。"
     }
   ],
   "operational_notes": [
