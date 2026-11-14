@@ -1,0 +1,33 @@
+{
+  "head": "f1e84a7b998dfbcd71c6692974015bdd08e1877e",
+  "allowlist_exact": [
+    "README.md",
+    "content-review.html",
+    "docs/codex-cloud.md",
+    "docs/product/content-spec.md",
+    "docs/product/fixtures/synthetic-content.json",
+    "docs/product/fixtures/synthetic-image-content.json",
+    "docs/product/fixtures/synthetic-source.svg",
+    "docs/product/fixtures/synthetic-source.txt",
+    "scripts/check_all.sh",
+    "scripts/cloud/serve.py",
+    "scripts/parent/embed.py",
+    "tests/cloud_preview.py",
+    "tests/content_guidance.py",
+    "tests/content_review.py",
+    "tests/parent_mode.py"
+  ],
+  "eight_original_blobs_equal": true,
+  "both_ancestors": true,
+  "browser_test_body_main_identical": true,
+  "sources": {
+    "tests/parent_mode.py": "78171138bf0092da5966be270ac535e3d25f7cc2e032b4c04f61263b72fb4f44",
+    "scripts/parent/embed.py": "5ec705176793085981daa1a6b050343f8efc9234129bc9e68411faf46e6e7401"
+  },
+  "reviewed_entries_static_pass": true,
+  "generator_once_all_seven_html_bytes_unchanged": true,
+  "unknown_markerless_html_rejected": true,
+  "tampered_content_test_rejected": true,
+  "tampered_content_generator_rejected_before_html_writes": true,
+  "product_head_and_clean_state_preserved": true
+}
