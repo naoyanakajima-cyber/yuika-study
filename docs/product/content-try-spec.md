@@ -1,6 +1,6 @@
 # CONTENT-TRY-SPEC：確認済み合成案のメモリ内試し解き
 
-状態：cycle23の製品実装候補。PdM/PrM範囲確認済み、独立QA待ち。利用者の採用返答なし。
+状態：cycle23の製品実装候補。PdM/PrM範囲確認済み。独立QAの結果は運用台帳・PRへ別途記録。利用者の製品採用・公開承認なし。
 対象：CONTENT-TRY-SPEC。利用者が求めた改善のアイデアを具体化する文書成果。
 作成基点：PR #11固定HEAD `3d2ed2f9a62673d2fb086a360ae841096f35b63e` の `content-review.html` と合成fixture、運用ブランチの `content-spec.md` / `improvement-next-step.md`。
 

@@ -52,6 +52,7 @@ with ThreadingHTTPServer(('127.0.0.1',0),partial(Quiet,directory=str(ROOT))) as 
             # Two-question real UI session; all state remains in proposal unchanged.
             value=copy.deepcopy(TEXT);value['questions'].append(qc);value['questions'][1]['id']='draft-synthetic-choice-002'
             upload(value);expect(p.locator('#trial-start')).to_be_disabled()
+            p.locator('#trial-repair').click();expect(p.locator('#confirm-0')).to_be_focused()
             p.evaluate('startTrial()');assert p.evaluate('trial') is None
             p.locator('#confirm-0').click();expect(p.locator('#trial-start')).to_be_disabled();p.locator('#confirm-1').click()
             saved=state();start()
@@ -102,8 +103,19 @@ with ThreadingHTTPServer(('127.0.0.1',0),partial(Quiet,directory=str(ROOT))) as 
             huge=copy.deepcopy(TEXT);huge['questions'][0]['answer']='㍍'*51
             upload(huge);confirm_all();expect(p.locator('#trial-start')).to_be_disabled();p.evaluate('startTrial()');assert p.evaluate('trial') is None
             aliases=copy.deepcopy(TEXT);aliases['questions'][0]['aliases']=['㍍'*51]
-            upload(aliases);confirm_all();p.evaluate('startTrial()');assert p.evaluate('trial') is None
-            expect(p.locator('#q-0-aliases')).to_be_focused()
+            upload(aliases);confirm_all();expect(p.locator('#trial-start')).to_be_disabled()
+            p.locator('#trial-repair').click();expect(p.locator('#q-0-aliases')).to_be_focused();assert p.evaluate('trial') is None
+            readings=copy.deepcopy(TEXT);readings['questions'][0]['readings']=['㍍'*51]
+            upload(readings);confirm_all();p.locator('#trial-repair').click();expect(p.locator('#q-0-readings')).to_be_focused()
+            # Pending read has an actual keyboard-accessible route to its input.
+            upload(TEXT);confirm_all()
+            p.evaluate('window.originalText=File.prototype.text;File.prototype.text=function(){return new Promise(()=>{})};void 0')
+            p.locator('#import').set_input_files({'name':'pending.json','mimeType':'application/json','buffer':b'{}'})
+            expect(p.locator('#trial-start')).to_be_disabled()
+            p.locator('#trial-repair').focus();p.locator('#trial-repair').press('Enter');expect(p.locator('#import')).to_be_focused()
+            p.locator('#cancel-import').click();p.evaluate('File.prototype.text=originalText;void 0')
+            expect(p.locator('#trial-repair')).to_be_hidden()
+            start();p.evaluate('document.getElementById("trial-repair").onclick()');expect(p.locator('#trial-title')).to_be_focused();end()
             assert p.evaluate('writes')==[] and bad==[] and errors==[],(bad,errors)
             browser.close()
     finally:server.shutdown()
