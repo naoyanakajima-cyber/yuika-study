@@ -43,7 +43,7 @@
     "ticket": "REV-MVP",
     "owner": "root/coordinator"
   },
-  "updated_at": "2026-11-14T21:10:10.372180+00:00",
+  "updated_at": "2026-11-14T21:17:17.692397+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -244,7 +244,7 @@
         "既存ID・保存キー・旧履歴を保護する",
         "768x1024で開始・回答・採点・保存・再読込を合成データで確認する"
       ],
-      "next_action": "残る理科の日次件数とトップ固定名称を実UI・導線で確認し、同PR10内の修正範囲をPdM/PrMで確定する。対象4画面は修正・独立QA済みのdraft試用判断待ち。新製品PRや採用/マージ/公開の承認を推測しない。",
+      "next_action": "対象の日次実問数/名称修正は既存PR10へ保存・独立QA済み。本人の具体的な試用フィードバックは未確認。新差分や再現不具合がなければ同じQAを反復せず、CONTENT-TRY-SPECの保存しない合成試し解きについて既存PR11内の実装範囲をPdM/PrMで確認する。採用/公開承認は推測しない。",
       "evidence": [
         {
           "kind": "test",
@@ -374,27 +374,36 @@
           "required_suites_passed": 25,
           "independent_ui_unique_cases": 8,
           "independent_selection_cases": 18
+        },
+        {
+          "kind": "science_daily_count_fix",
+          "path": "ops/runs/2026-11-14-daily-science-count.md",
+          "commit": "73fe2ee9d776b3e3360614752fb722ff4aee4f85",
+          "required_suites_passed": 26,
+          "independent_ui_unique_cases": 7,
+          "independent_selection_cases": 16
         }
       ],
       "review": {
-        "pdm": "pdm_daily_count_fix",
+        "pdm": "pdm_daily_residual",
         "prm": "root/coordinator",
-        "author": "engineer_daily_count_fix",
-        "reviewer": "qa_daily_count_fix",
-        "commit": "55435567d44f05dc35f3ea6d73c4ba9cac2dc496",
-        "result": "passed_daily_count_fix_four_pages",
-        "completed_at": "2026-11-14T20:21:31.711285+00:00",
-        "required_suites": 25,
+        "author": "engineer_daily_residual",
+        "reviewer": "qa_daily_residual",
+        "commit": "73fe2ee9d776b3e3360614752fb722ff4aee4f85",
+        "result": "passed_science_daily_count_and_home_label",
+        "completed_at": "2026-11-14T21:13:54.013743+00:00",
+        "required_suites": 26,
         "exit_code": 0,
-        "seconds": 352,
-        "independent_ui_unique_cases": 8,
-        "independent_selection_cases": 18,
-        "report": "ops/evidence/2026-11-14-daily-count-fix/QA.md"
+        "seconds": 310,
+        "independent_ui_unique_cases": 7,
+        "independent_boundary_cases": 5,
+        "independent_selection_cases": 16,
+        "report": "ops/evidence/2026-11-14-daily-science-count/QA.md"
       },
       "base_ref": "main",
       "base_sha": "86514eda054a5a2e09204df3a0668e40624c16de",
       "specification": "docs/product/review-spec.md",
-      "commit": "55435567d44f05dc35f3ea6d73c4ba9cac2dc496",
+      "commit": "73fe2ee9d776b3e3360614752fb722ff4aee4f85",
       "direction_adopted": true,
       "direction_decision": "D03",
       "release": {
@@ -469,12 +478,27 @@
           "seconds": 300,
           "additional_ui_unique_cases": 10,
           "report": "ops/evidence/2026-11-14-rev-current-base/QA.md"
+        },
+        {
+          "pdm": "pdm_daily_count_fix",
+          "prm": "root/coordinator",
+          "author": "engineer_daily_count_fix",
+          "reviewer": "qa_daily_count_fix",
+          "commit": "55435567d44f05dc35f3ea6d73c4ba9cac2dc496",
+          "result": "passed_daily_count_fix_four_pages",
+          "completed_at": "2026-11-14T20:21:31.711285+00:00",
+          "required_suites": 25,
+          "exit_code": 0,
+          "seconds": 352,
+          "independent_ui_unique_cases": 8,
+          "independent_selection_cases": 18,
+          "report": "ops/evidence/2026-11-14-daily-count-fix/QA.md"
         }
       ],
-      "ceo_wait_reason": "理由付きおすすめと対象4画面の日次実問数修正を含むdraft試作品確認待ち。D03方向性採用を維持、採用/マージ/公開は未承認。",
+      "ceo_wait_reason": "理由付きおすすめと5学習画面の日次実問数・トップ名称を整合したdraft試作品確認待ち。D03方向性採用済み、mainマージ・公開は未承認。",
       "independent_followup": {
         "id": "daily_science_count",
-        "state": "in_progress",
+        "state": "independent_qa_passed",
         "pdm": "pdm_daily_residual",
         "prm": "root/coordinator",
         "engineer": "engineer_daily_residual",
@@ -482,8 +506,11 @@
         "base_commit": "55435567d44f05dc35f3ea6d73c4ba9cac2dc496",
         "scope": "science actual daily count and home display name only",
         "specification": "docs/product/daily-count-spec.md",
-        "implemented": false,
-        "independent_qa_passed": false
+        "implemented": true,
+        "independent_qa_passed": true,
+        "delivered": true,
+        "commit": "73fe2ee9d776b3e3360614752fb722ff4aee4f85",
+        "report": "ops/runs/2026-11-14-daily-science-count.md"
       },
       "independent_followup_history": [
         {
@@ -10070,7 +10097,7 @@
       "started_at": "2026-11-14T21:03:38.720564+00:00",
       "observed_operations_commit": "2428174fbb39c6bc70c7bc5cc2c150f1b6169139",
       "ticket": "REV-MVP",
-      "result": "前回終了処理を回復。理科実問数/top名称の候補73fe2eeを独立QA中。未push。",
+      "result": "前回中断の終了処理を回復し、理科実問数/top名称を既存PR10へ保存。独立26suiteと実UI7/境界5/選定16合格。draft未マージ。",
       "cloud_verified": true,
       "observed_main_commit": "86514eda054a5a2e09204df3a0668e40624c16de",
       "recovered_run": "cycle-20261114T201009Z",
@@ -10093,8 +10120,8 @@
       "reviewer": "qa_daily_residual",
       "candidate_commit": "73fe2ee9d776b3e3360614752fb722ff4aee4f85",
       "base_commit": "55435567d44f05dc35f3ea6d73c4ba9cac2dc496",
-      "independent_review_performed": false,
-      "review_status": "in_progress",
+      "independent_review_performed": true,
+      "review_status": "passed",
       "manual_setup": true,
       "automatic_setup_verified": false,
       "new_prs": [],
@@ -10102,7 +10129,7 @@
         9,
         10
       ],
-      "product_pr_updated": false,
+      "product_pr_updated": true,
       "metadata_pr_updated": true,
       "ceo_wait_product_prs": [
         10,
@@ -10118,7 +10145,43 @@
       "specification": "docs/product/daily-count-spec.md",
       "platform_run_completion_verified": false,
       "attachment": "既存PR9/10 attachと一覧を呼出。空応答のため成功未確認。",
-      "next_action": "固定候補の独立QA完了後に同PR10へ統合。未達なら同じ候補と残件を保存して再開する。"
+      "next_action": "対象の日次実問数/名称修正は既存PR10へ保存・独立QA済み。本人の具体的な試用フィードバックは未確認。新差分や再現不具合がなければ同じQAを反復せず、CONTENT-TRY-SPECの保存しない合成試し解きについて既存PR11内の実装範囲をPdM/PrMで確認する。採用/公開承認は推測しない。",
+      "app_tests_run": true,
+      "browser_tests_run": true,
+      "verification": {
+        "command": "bash scripts/check_all.sh",
+        "attempts": 1,
+        "suites_passed": 26,
+        "exit_code": 0,
+        "seconds": 310,
+        "clean_fixed_head": true,
+        "independent_ui_unique_cases": 7,
+        "independent_boundary_cases": 5,
+        "independent_selection_cases": 16,
+        "independent_probe_starts": 3,
+        "independent_harness_causes": 2,
+        "repair_per_cause": 1,
+        "product_failures": 0
+      },
+      "product_runtime_changed": true,
+      "test_code_changed": true,
+      "product_pr_readback": {
+        "head": "73fe2ee9d776b3e3360614752fb722ff4aee4f85",
+        "base": "main",
+        "state": "open",
+        "draft": true,
+        "merged": false,
+        "body_matches": true
+      },
+      "external_check": {
+        "name": "Workers Builds: yuika-study",
+        "status": "completed",
+        "conclusion": "failure",
+        "completed_at": "2026-11-14T21:15:04Z",
+        "url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/132590781437"
+      },
+      "external_check_cause": "not_investigated",
+      "new_blockers": []
     }
   ],
   "operational_notes": [
@@ -10298,16 +10361,35 @@
       "report": "ops/runs/2026-11-14-daily-count-investigation.md",
       "specification": "docs/product/daily-count-spec.md",
       "reviewer": "qa_daily_count_investigation",
-      "next_action": "残る理科の日次件数とトップ固定名称を実UI・導線で確認し、同PR10内の修正範囲をPdM/PrMで確定する。対象4画面は修正・独立QA済みのdraft試用判断待ち。新製品PRや採用/マージ/公開の承認を推測しない。",
+      "next_action": "対象の日次実問数/名称修正は既存PR10へ保存・独立QA済み。本人の具体的な試用フィードバックは未確認。新差分や再現不具合がなければ同じQAを反復せず、CONTENT-TRY-SPECの保存しない合成試し解きについて既存PR11内の実装範囲をPdM/PrMで確認する。採用/公開承認は推測しない。",
       "draft_resolution": {
         "pr": 10,
-        "head": "55435567d44f05dc35f3ea6d73c4ba9cac2dc496",
-        "scope": "common adaptive / onin, kamakura, heian, mock-focus",
-        "reviewer": "qa_daily_count_fix",
-        "report": "ops/runs/2026-11-14-daily-count-fix.md",
+        "head": "73fe2ee9d776b3e3360614752fb722ff4aee4f85",
+        "scope": "common adaptive four screens plus science actual count and top display name",
+        "reviewer": "qa_daily_residual",
+        "report": "ops/runs/2026-11-14-daily-science-count.md",
         "main_changed": false,
         "published": false,
-        "residual": "science/top excluded"
+        "residual": "real-device/CEO trial and complete cross-tab/deletion sync unverified"
+      },
+      "draft_resolution_history": [
+        {
+          "pr": 10,
+          "head": "55435567d44f05dc35f3ea6d73c4ba9cac2dc496",
+          "scope": "common adaptive / onin, kamakura, heian, mock-focus",
+          "reviewer": "qa_daily_count_fix",
+          "report": "ops/runs/2026-11-14-daily-count-fix.md",
+          "main_changed": false,
+          "published": false,
+          "residual": "science/top excluded"
+        }
+      ],
+      "science_observation": {
+        "base": "55435567d44f05dc35f3ea6d73c4ba9cac2dc496",
+        "case": "実験器具/上限10/空合成履歴",
+        "before": "表示10問/実出題8問",
+        "after": "表示8問/実出題8問",
+        "report": "ops/runs/2026-11-14-daily-science-count.md"
       }
     }
   ],

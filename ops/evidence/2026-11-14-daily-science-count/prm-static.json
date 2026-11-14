@@ -31,5 +31,11 @@
     "assets/design.js_unchanged": true,
     "clean": true
   },
-  "product_tests_run_by_prm": false
+  "product_tests_run_by_prm": false,
+  "visual_review": {
+    "reviewer": "root/coordinator",
+    "source": "qa/equipment8-before.png",
+    "observed": "768x1024 screenshot: upper 10 selected, equipment unit selected, daily button shows actual 8; status guidance immediately follows button",
+    "scope": "synthetic screenshot only; not real-device validation"
+  }
 }
