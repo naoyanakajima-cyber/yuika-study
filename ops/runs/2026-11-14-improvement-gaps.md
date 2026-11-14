@@ -32,7 +32,7 @@ Engineer `engineer_improvement_delta` は製品実装をせず、固定HEADの�
 - [PdM提案](../evidence/2026-11-14-improvement-gaps/PdM.md)
 - [Engineerの固定HEAD対応表](../evidence/2026-11-14-improvement-gaps/Engineer.md)。#10のHTML2件、#11のserve.py、#12のREADME/鎌倉HTMLに仮想3方向統合で競合。実統合は未実施。
 - [抽出関数probe](../evidence/2026-11-14-improvement-gaps/count-harness.js) / [24合成ケースの結果](../evidence/2026-11-14-improvement-gaps/count-results.json)。Engineerが1回exit0。表示用設定値と実結果長の差を確認、実教材での到達条件・ブラウザーは未検証。
-- 独立Reviewerの文書・証拠照合結果を保存する。
+- [独立QA](../evidence/2026-11-14-improvement-gaps/QA.md)：`qa_improvement_spec` が候補 `592e3dde63bb98921b2d9cb696df5e2d422b82fc` を確認し受入可。24ケースを独立に1回実行、保存JSON・抽出元hash一致、差戻し必須事項なし。
 - コードの読み取り・Git統合診断を製品のブラウザーQAと混同しない。
 - 統括の初回diffコマンドは欠けた `--` によりexit128。区切りを補った2回目は成功。製品不具合ではない。
 - 実機Safari・CEO本人の試用・公開画面は今回未確認。環境・依存の準備変更なし。
@@ -43,3 +43,5 @@ Engineer `engineer_improvement_delta` は製品実装をせず、固定HEADの�
 採点の正規化、確認の失効、戻る/再読込、保存非接続を決め、既存CONTENT-MVPの未解決仕様に対応づける。
 新製品PR枠や実データ接続を必要としない。製品コード変更は待ち枠・適切な既存提出先と互換性を確認してから。
 通常報告は朝夕CEOチェックへまとめ、外部への別送なし。
+
+REV-RECONCILEは照合文書としてdone。製品PR採用・本人試用は完了しておらず、CONTENT-TRY-SPECはrequirementsとして次回へ渡す。

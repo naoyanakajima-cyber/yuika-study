@@ -43,7 +43,7 @@
     "acquired_at": "2026-11-14T15:03:07.541971+00:00",
     "expires_at": "2026-11-14T15:43:07.541971+00:00"
   },
-  "updated_at": "2026-11-14T15:03:07.541971+00:00",
+  "updated_at": "2026-11-14T15:12:32.911357+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -920,12 +920,12 @@
       "id": "REV-RECONCILE",
       "title": "既存復習PRの重複・互換性・運用ルールを照合",
       "goal": 1,
-      "state": "review",
+      "state": "done",
       "priority": 1,
       "depends_on": [
         "REV-SPEC"
       ],
-      "owner": "coordinator",
+      "owner": null,
       "branch": "codex/agent-team-operations",
       "pr": 9,
       "base_ref": "codex/agent-team-operations",
@@ -936,7 +936,7 @@
         "独立QAの実施対象HEADと未検証範囲を記録",
         "新規実装・マージ・クローズなしで次の一手を整理"
       ],
-      "next_action": "固定HEADのPR10/11/12対応表と件数仕様を独立レビューし、CONTENT-TRY-SPECの文書作業へ引き継ぐ。製品実装枠は増やさない。",
+      "next_action": "固定HEADの対応表・件数仕様の独立レビュー完了。CONTENT-TRY-SPECで採点/状態遷移/非保存の合成要件を具体化する。新製品PR枠を増やさず、製品修正は提出先と互換性確認後。",
       "specification": "docs/product/review-reconciliation.md",
       "evidence": [
         {
@@ -1111,7 +1111,6 @@
       "current_product_pr": 26,
       "current_product_head": "acd169882b626ef255ba68cd73c995024c30e515",
       "current_product_state": "merged",
-      "blocked_reason": "製品の採用整理・実機試用は未完了。今回の固定HEAD照合と改善仕様は独立レビュー中。",
       "latest_review": {
         "pdm": "pdm_pr26_scope",
         "prm": "root",
@@ -1153,7 +1152,21 @@
         "result": "passed_static_ancestry_tree_and_evidence_review",
         "report": "ops/evidence/2026-11-12-pr26-merge/QA.md"
       },
-      "improvement_spec": "docs/product/improvement-next-step.md"
+      "improvement_spec": "docs/product/improvement-next-step.md",
+      "remaining_product_constraints": "既存製品PRの採用整理・本人/実機試用は未完了。文書doneは製品採用・公開の意味ではない。",
+      "latest_document_review": {
+        "pdm": "pdm_improvement_gaps",
+        "prm": "root",
+        "engineer": "engineer_improvement_delta",
+        "reviewer": "qa_improvement_spec",
+        "commit": "592e3dde63bb98921b2d9cb696df5e2d422b82fc",
+        "result": "accepted_documentation_only",
+        "synthetic_extracted_function_cases": 24,
+        "independent_probe_exit_code": 0,
+        "app_tests_run": false,
+        "report": "ops/evidence/2026-11-14-improvement-gaps/QA.md"
+      },
+      "latest_report": "ops/runs/2026-11-14-improvement-gaps.md"
     },
     {
       "id": "REV-COMPAT-SPEC",

@@ -1,6 +1,6 @@
 # 次の改善：日次練習の件数表示と合成教材の試し解き
 
-状態：PrM範囲確認済み、技術照合・独立レビュー待ち。製品未実装。
+状態：PrM範囲確認・技術照合・独立レビュー済み。文書成果のみ、製品未実装。
 対象チケット：REV-RECONCILE。既存の要件整理権限で進める文書成果。
 
 ## 目的と提案の訂正
@@ -59,3 +59,5 @@ text/choiceの採点・正規化、回答前の正答非表示、終了/再読�
 - [PdM提案](../../ops/evidence/2026-11-14-improvement-gaps/PdM.md)
 - [固定HEADの技術対応表](../../ops/evidence/2026-11-14-improvement-gaps/Engineer.md)
 - [統括報告](../../ops/runs/2026-11-14-improvement-gaps.md)
+
+独立Reviewer `qa_improvement_spec` は候補commit `592e3dde63bb98921b2d9cb696df5e2d422b82fc` を確認し文書成果として受入可と判断。採点契約の詳細は次回の未確定要件のまま。
