@@ -1149,7 +1149,7 @@ function practiceClockIssue(events=data.events,now=Date.now()){
  return events.some(e=>Date.parse(e.at)>now+5*60000);
 }
 function practiceUnavailable(events=data.events,now=Date.now()){return blocked||dirty||practiceClockIssue(events,now);}
-const PRACTICE_CLOCK_NOTICE='今より5分以上先の回答記録があります。端末の日付と時刻を確認してください。弱点の判定と今日の5問はお休みします。記録の時刻は自動で直しません。';
+const PRACTICE_CLOCK_NOTICE='今より5分以上先の回答記録があります。端末の日付と時刻を確認してください。弱点の判定と今日の復習はお休みします。記録の時刻は自動で直しません。';
 let adaptiveLevel='all';
 function additional(p=prefs,events=data.events,now=Date.now()){
  if(practiceUnavailable(events,now))return [];
@@ -1169,7 +1169,7 @@ function adaptiveSummary(){
 }
 function adaptivePanel(){
  const rows=additional();
- return `<section class="card" id="adaptive"><h2>弱点に合わせた追加練習</h2><p>最近30日で、まちがえた日が2日以上ある問題を練習します。日本時間で日付を分け、最後に答えた5日分を使います。同じ日にヒントを見て正解した場合も、その日のまちがいを数えます。ヒントなしで正解すると候補（こうほ）から外れます。再確認待ちに進み、期限が来たら今日の5問で確かめます。まちがえたら弱点に戻ります。読みと漢字は別々に数えます。記録が少ないので、苦手とは決めつけません。</p><label class="field">追加問題のむずかしさ<select id="adaptive-level">${[['all','すべて'],['1','基本'],['2','標準'],['3','発展']].map(([v,t])=>`<option value="${v}" ${adaptiveLevel===v?'selected':''}>${t}</option>`).join('')}</select></label><p>もとの問題と同じむずかしさです。平安は暗記＝基本、ペア・流れ＝標準、理由＝発展です。１回は選んだ問題数まで、候補は最大10問です。</p>${rows.map(r=>`<details><summary>${esc(r.unit)}：${esc(promptOf(r.q,r.variant))}</summary><p>選んだ理由：${r.wrong}/${r.total}日でまちがい・ヒントを見た日${r.hintCount}日。最後の回答：${esc(adaptiveLabel(r.lastAt))}（${r.lastCorrect?'ヒント付き正解':'まちがい'}）。むずかしさ${r.level}。${r.confusion?'同じペアの別の答えと一致しました。原因は未確定です。':''}</p><p>元問題：${esc(r.originId)} ／ 出典：${esc(r.q.source||'既存の平安単元問題')}</p><p>正解：${esc(expectedOf(r.q,r.variant))}</p><p>説明：${esc(r.q.explanation)}</p></details>`).join('')||`<p>${esc(adaptiveStatus())}</p>`}<button data-mode="adaptive" ${rows.length?'':'disabled'}>追加練習をはじめる（候補${rows.length}問・今回${Math.min(rows.length,prefs.count)}問）</button></section>`;
+ return `<section class="card" id="adaptive"><h2>弱点に合わせた追加練習</h2><p>最近30日で、まちがえた日が2日以上ある問題を練習します。日本時間で日付を分け、最後に答えた5日分を使います。同じ日にヒントを見て正解した場合も、その日のまちがいを数えます。ヒントなしで正解すると候補（こうほ）から外れます。再確認待ちに進み、期限が来たら今日の復習で確かめます。まちがえたら弱点に戻ります。読みと漢字は別々に数えます。記録が少ないので、苦手とは決めつけません。</p><label class="field">追加問題のむずかしさ<select id="adaptive-level">${[['all','すべて'],['1','基本'],['2','標準'],['3','発展']].map(([v,t])=>`<option value="${v}" ${adaptiveLevel===v?'selected':''}>${t}</option>`).join('')}</select></label><p>もとの問題と同じむずかしさです。平安は暗記＝基本、ペア・流れ＝標準、理由＝発展です。１回は選んだ問題数まで、候補は最大10問です。</p>${rows.map(r=>`<details><summary>${esc(r.unit)}：${esc(promptOf(r.q,r.variant))}</summary><p>選んだ理由：${r.wrong}/${r.total}日でまちがい・ヒントを見た日${r.hintCount}日。最後の回答：${esc(adaptiveLabel(r.lastAt))}（${r.lastCorrect?'ヒント付き正解':'まちがい'}）。むずかしさ${r.level}。${r.confusion?'同じペアの別の答えと一致しました。原因は未確定です。':''}</p><p>元問題：${esc(r.originId)} ／ 出典：${esc(r.q.source||'既存の平安単元問題')}</p><p>正解：${esc(expectedOf(r.q,r.variant))}</p><p>説明：${esc(r.q.explanation)}</p></details>`).join('')||`<p>${esc(adaptiveStatus())}</p>`}<button data-mode="adaptive" ${rows.length?'':'disabled'}>追加練習をはじめる（候補${rows.length}問・今回${Math.min(rows.length,prefs.count)}問）</button></section>`;
 }
 // Bind after each home render; all content remains inside the standalone app.
 const originalHome=home;
@@ -1186,7 +1186,7 @@ parent=function(){originalParent();main.insertAdjacentHTML('afterbegin',adaptive
 // the current 30-day extraction window. Replaying legacy JSON migrates without
 // rewriting any event, ID, timestamp, key, or historical grade.
 const REVIEW_INTERVAL_DAYS=Object.freeze([1,3,7]); // provisional, editable configuration
-MODES.daily='今日の5問';
+MODES.daily='今日の復習';
 const addJapanDays=(d,n)=>new Date(Date.parse(d+'T00:00:00Z')+n*86400000).toISOString().slice(0,10);
 function retention(events=data.events,now=Date.now()){
  const states=new Map(),histories=new Map(),seen=new Set();
@@ -1241,18 +1241,34 @@ function dueReviews(p=prefs,events=data.events,now=Date.now()){
   .sort((a,b)=>a.due.localeCompare(b.due)||a.originId.localeCompare(b.originId)||a.variant.localeCompare(b.variant))
   .filter(s=>{const q=Q.get(s.originId);return s.variant===p.variant&&fits(q,p.variant)&&(p.unit==='all'||p.unit===q.unit)&&(p.course==='all'||p.course===q.course);});
 }
-function dailyQuestions(p=prefs){
- if(practiceUnavailable())return [];
- const result=[],seen=new Set();
+// Count the same origin union without drawing/shuffling normal questions.
+function dailySources(p=prefs,now=Date.now()){
+ if(practiceUnavailable(data.events,now))return {due:[],weak:[],normal:[]};
+ return {due:dueReviews(p,data.events,now).map(s=>EXTRA.get(s.originId)),
+  weak:additional(p,data.events,now).map(s=>s.q),normal:candidates('normal',p)};
+}
+function dailyCount(p=prefs,now=Date.now()){
+ const {due,weak,normal}=dailySources(p,now);
+ return Math.min(p.count,new Set([...due,...weak,...normal].map(q=>q.originId||q.id)).size);
+}
+function dailyQuestions(p=prefs,now=Date.now()){
+ if(practiceUnavailable(data.events,now))return [];
+ const {due,weak,normal}=dailySources(p,now),result=[],seen=new Set();
  const push=q=>{const id=q.originId||q.id;if(!seen.has(id)){seen.add(id);result.push(q);}};
- dueReviews(p).forEach(s=>push(EXTRA.get(s.originId)));
- additional(p).forEach(s=>push(s.q));
- shuffle(candidates('normal',p)).forEach(push);
+ due.forEach(push);weak.forEach(push);shuffle(normal).forEach(push);
  return result.slice(0,p.count);
 }
+const DAILY_EMPTY='この条件では候補がありません。コース・分野・確認方法を見直してください。';
 function startDaily(){
- if(practiceUnavailable()){note(adaptiveStatus());return;}
- const qs=dailyQuestions();if(!qs.length){note('この条件では候補がありません。');return;}
+ const now=Date.now();
+ if(practiceUnavailable(data.events,now)){if(screen==='home')render();note(adaptiveStatus());return;}
+ const count=dailyCount(prefs,now),button=document.getElementById('daily-five');
+ if(!count){if(screen==='home')render();note(DAILY_EMPTY);return;}
+ // A changed home count needs a fresh confirmation, before any random draw.
+ if(screen==='home'&&button&&Number(button.dataset.dailyCount)!==count){
+  render();note('問題数が変わりました。今回の問数を確認して、もう一度はじめてください。');return;
+ }
+ const qs=dailyQuestions(prefs,now);if(!qs.length){note(DAILY_EMPTY);return;}
  rememberPrefs();run={id:uuid(),mode:'daily',variant:prefs.variant,qs,index:0,results:[],done:false};
  screen='quiz';prepare();render();main.focus();window.scrollTo(0,0);
 }
@@ -1272,7 +1288,8 @@ function rememberPrefs(){
 const retentionHome=home;
 home=function(){
  retentionHome();
- main.insertAdjacentHTML('afterbegin',`<section class="card"><button id="daily-five" class="primary wide" ${practiceUnavailable()?'disabled':''}>今日の5問をはじめる（今回は${prefs.count}問）</button><p>期限の来た再確認 → 弱点の追加練習 → 通常問題。分野・確認方法・問題数は下で変更できます。</p><p>今日の再確認：${dueReviews().length}件</p></section>`);
+ const now=Date.now(),unavailable=practiceUnavailable(data.events,now),count=dailyCount(prefs,now);
+ main.insertAdjacentHTML('afterbegin',`<section class="card"><button id="daily-five" class="primary wide" data-daily-count="${count}" aria-describedby="daily-status" ${unavailable||!count?'disabled':''}>${unavailable?'今日の復習はお休み中':`今日の復習をはじめる（今回は${count}問）`}</button><p id="daily-status" role="status">${esc(unavailable?adaptiveStatus():!count?DAILY_EMPTY:'期限の来た再確認 → 弱点の追加練習 → 通常問題。分野・確認方法・問題数を選べます。')}</p><p>今日の再確認：${dueReviews(prefs,data.events,now).length}件</p></section>`);
  document.getElementById('daily-five').onclick=startDaily;
  main.querySelectorAll('#course,#unit,#variant,[data-count]').forEach(el=>{
   const type=el.tagName==='SELECT'?'onchange':'onclick',previous=el[type];
