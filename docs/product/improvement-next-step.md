@@ -63,3 +63,5 @@ text/choiceの採点・正規化、回答前の正答非表示、終了/再読�
 独立Reviewer `qa_improvement_spec` は候補commit `592e3dde63bb98921b2d9cb696df5e2d422b82fc` を確認し文書成果として受入可と判断。採点契約の詳細は次回の未確定要件のまま。
 
 詳細化先：[CONTENT-TRY-SPEC](content-try-spec.md)。採点・状態遷移・保存しない境界を定義する文書成果であり、試し解き機能は未実装。
+
+日次件数の実UI照合：[修正要件案と再現例](daily-count-spec.md)。応仁5→4・平安10→2、候補0件時の有効ボタンを合成空履歴で観測し、独立QAが主要例を確認。修正は未実装。

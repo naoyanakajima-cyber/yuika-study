@@ -43,7 +43,7 @@
     "acquired_at": "2026-11-14T18:08:19.792025+00:00",
     "expires_at": "2026-11-14T18:48:19.792025+00:00"
   },
-  "updated_at": "2026-11-14T18:08:19.792025+00:00",
+  "updated_at": "2026-11-14T18:20:00.423005+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -244,7 +244,7 @@
         "既存ID・保存キー・旧履歴を保護する",
         "768x1024で開始・回答・採点・保存・再読込を合成データで確認する"
       ],
-      "next_action": "改善・独立QA済み。正本からの具体的な試作品修正依頼があれば同じPRで対応。方向性採用は再要求しない。D01チャット入力は採用済み。実データ接続/保存先はD02待ち。3試作品の追加確認が済んだため、依存しない仕事がなければ終了する。",
+      "next_action": "PdM/PrMで既存PR10の残すべき選定理由と現mainの日次・保存契約を両立させる修正範囲/基点/4生成先を具体化し、確認済み日次件数不一致を既存PR内で修正できるか判断する。旧branchへ単純投入せず、新製品PR・merge/公開を増やさない。",
       "evidence": [
         {
           "kind": "test",
@@ -348,6 +348,17 @@
           "kind": "report",
           "path": "ops/runs/2026-11-10-review-entry.md",
           "commit": "ba829a1176ff1ead7d312526890afe8792178c99"
+        },
+        {
+          "kind": "requirements_and_synthetic_ui_investigation",
+          "path": "ops/runs/2026-11-14-daily-count-investigation.md",
+          "commit": "86514eda054a5a2e09204df3a0668e40624c16de",
+          "product_changed": false,
+          "engineer_ui_cases": 5,
+          "independent_ui_cases": [
+            "C",
+            "D"
+          ]
         }
       ],
       "review": {
@@ -416,7 +427,22 @@
           "notes": "独立QAが4コマンド実行、最終commitの検証済みtree一致確認。READMEのみ統括が追記。"
         }
       ],
-      "ceo_wait_reason": "入口改善後の試作品確認待ち。方向性D03は採用済み。マージ・公開は未承認。"
+      "ceo_wait_reason": "入口改善後の試作品確認待ち。方向性D03は採用済み。マージ・公開は未承認。",
+      "independent_followup": {
+        "kind": "daily_count_requirements_and_ui_reproduction",
+        "state": "requirements_reviewed",
+        "product_fix": "not_implemented",
+        "observed_main": "86514eda054a5a2e09204df3a0668e40624c16de",
+        "existing_pr": 10,
+        "existing_pr_head": "ba829a1176ff1ead7d312526890afe8792178c99",
+        "specification": "docs/product/daily-count-spec.md",
+        "report": "ops/runs/2026-11-14-daily-count-investigation.md",
+        "pdm": "pdm_daily_count_scope",
+        "prm": "root/coordinator",
+        "engineer": "engineer_daily_count_probe",
+        "reviewer": "qa_daily_count_investigation",
+        "acceptance": "UI5例と独立C/D再現を受入。既存main22suite成功はベースラインのみ。製品未修正、既存PR10の基点/互換範囲未確定。"
+      }
     },
     {
       "id": "CONTENT-SPEC",
@@ -499,7 +525,7 @@
         "未確認出力と確認済み案を区別し、既存教材/記録に接続しない",
         "768x1024で編集・確認・取消・出力/再入力、外部要求/通知POST 0を検証"
       ],
-      "next_action": "合成教材確認の使い勝手評価待ち。次回の独立候補はREV-MVPの日次件数表示と実出題数のずれについて、PdM/PrMで合成再現調査の対象・既存PRとの重複・範囲を確認する。実装着手は今回の決定に含めない。新製品PR・main merge/公開を増やさない。",
+      "next_action": "現main互換の合成教材確認試作PR11の使い勝手評価待ち。前回候補の日次件数調査は完了しREV-MVPのindependent_followup/next_actionへ引継ぎ。D02実接続/保存先未決。merge/公開未承認。",
       "evidence": [
         {
           "kind": "test",
@@ -9540,6 +9566,115 @@
         "draft": true,
         "body_matches": true
       }
+    },
+    {
+      "id": "cycle-20261114T180819Z",
+      "started_at": "2026-11-14T18:08:19.792025+00:00",
+      "observed_operations_commit": "08515714845c62e3276cb53c4b498c31edcbe158",
+      "ticket": "REV-MVP",
+      "result": "日次件数不一致を既存UIで再現し独立確認。修正要件案を運用draftへ保存、製品は未修正。",
+      "cloud_verified": true,
+      "observed_main_commit": "86514eda054a5a2e09204df3a0668e40624c16de",
+      "observed_prs": [
+        {
+          "number": 22,
+          "head": "bd4f48de0404614eb84275969bfccff0a368e866",
+          "state": "open",
+          "draft": true
+        },
+        {
+          "number": 13,
+          "head": "139c8b8b56bcd979068b61984120d9f312efe182",
+          "state": "open",
+          "draft": true
+        },
+        {
+          "number": 12,
+          "head": "57171ad9cab02fec6a080ecbe317fe11d3f51dcf",
+          "state": "open",
+          "draft": true
+        },
+        {
+          "number": 11,
+          "head": "f1e84a7b998dfbcd71c6692974015bdd08e1877e",
+          "state": "open",
+          "draft": true
+        },
+        {
+          "number": 10,
+          "head": "ba829a1176ff1ead7d312526890afe8792178c99",
+          "state": "open",
+          "draft": true
+        },
+        {
+          "number": 9,
+          "head": "08515714845c62e3276cb53c4b498c31edcbe158",
+          "state": "open",
+          "draft": true
+        },
+        {
+          "number": 4,
+          "head": "ff211ee8e144e955fa5837e8b8ff5cabf51f60a4",
+          "state": "open",
+          "draft": true
+        }
+      ],
+      "ceo_decisions_ingested": 0,
+      "subagents": [
+        "pdm_daily_count_scope",
+        "engineer_daily_count_probe",
+        "qa_daily_count_investigation"
+      ],
+      "pdm": "pdm_daily_count_scope",
+      "prm": "root/coordinator",
+      "engineer": "engineer_daily_count_probe",
+      "reviewer": "qa_daily_count_investigation",
+      "independent_review_performed": true,
+      "app_tests_run": true,
+      "browser_tests_run": true,
+      "baseline": {
+        "head": "86514eda054a5a2e09204df3a0668e40624c16de",
+        "command": "bash scripts/check_all.sh",
+        "attempts": 1,
+        "suites_passed": 22,
+        "exit_code": 0,
+        "seconds": 274,
+        "scope": "unchanged main baseline, not fix acceptance"
+      },
+      "engineer_ui_cases": 5,
+      "independent_ui_cases": [
+        "C",
+        "D"
+      ],
+      "product_runtime_changed": false,
+      "test_code_changed": false,
+      "evidence_probes_added": true,
+      "manual_setup": true,
+      "automatic_setup_verified": false,
+      "external_private_data_calls": 0,
+      "production_actions": false,
+      "new_prs": [],
+      "updated_prs": [
+        9
+      ],
+      "product_pr_updated": false,
+      "ceo_wait_product_prs": [
+        10,
+        11,
+        12
+      ],
+      "additional_existing_product_drafts": [
+        22
+      ],
+      "report": "ops/runs/2026-11-14-daily-count-investigation.md",
+      "specification": "docs/product/daily-count-spec.md",
+      "new_blockers": [],
+      "new_product_findings": [
+        "DAILY-COUNT-DISPLAY-01"
+      ],
+      "platform_run_completion_verified": false,
+      "next_action": "PdM/PrMで既存PR10の残すべき選定理由と現mainの日次・保存契約を両立させる修正範囲/基点/4生成先を具体化し、確認済み日次件数不一致を既存PR内で修正できるか判断する。旧branchへ単純投入せず、新製品PR・merge/公開を増やさない。",
+      "attachment": "既存PR9へのattach呼出応答が空で今回成功未確認。新規PRなし。"
     }
   ],
   "operational_notes": [
@@ -9567,8 +9702,10 @@
       "report": "ops/runs/2026-11-10-approval-check-0403.md",
       "next_action": "No redeploy or configuration changes. Obtain relevant build log through an authorized read-only connection or supplied evidence before further diagnosis. Preserve existing cloud test evidence separately.",
       "latest_observation": {
-        "observed_at": "2026-11-10T00:08:14.222274+00:00",
-        "finding": "PR #11 current head 3d2ed2f also has bot Build Failed and empty deployment URL. No build log obtained or redeploy performed."
+        "observed_at": "2026-11-14T18:20:00.423005+00:00",
+        "head": "f1e84a7b998dfbcd71c6692974015bdd08e1877e",
+        "finding": "Workers Builds: yuika-study completed failure at2026-11-14T17:24:11Z。前回ローカル24suite成功とは別。原因ログ未取得・公開未確認・再デプロイなし。",
+        "source": "https://github.com/naoyanakajima-cyber/yuika-study/runs/132526156264"
       }
     },
     {
@@ -9706,6 +9843,18 @@
         "report": "ops/runs/2026-11-12-pr26-merge-reconciliation.md",
         "finding": "PR26外部merge、検証HEAD/main tree一致。以前のテスト修正とURL境界修正はmain包含。今回テスト再実行なし。"
       }
+    },
+    {
+      "id": "DAILY-COUNT-DISPLAY-01",
+      "status": "confirmed_unfixed",
+      "observed_at": "2026-11-14T18:20:00.423005+00:00",
+      "scope": "current main daily entry count on Onin/Heian via existing UI",
+      "head": "86514eda054a5a2e09204df3a0668e40624c16de",
+      "finding": "応仁表示5→実4、平安表示10→実2。0候補で日次ボタン有効だがクリック時拒否・session未作成。空合成履歴のみ、データ消失/選定アルゴリズム誤りとは判断していない。",
+      "report": "ops/runs/2026-11-14-daily-count-investigation.md",
+      "specification": "docs/product/daily-count-spec.md",
+      "reviewer": "qa_daily_count_investigation",
+      "next_action": "PdM/PrMで既存PR10の残すべき選定理由と現mainの日次・保存契約を両立させる修正範囲/基点/4生成先を具体化し、確認済み日次件数不一致を既存PR内で修正できるか判断する。旧branchへ単純投入せず、新製品PR・merge/公開を増やさない。"
     }
   ],
   "unreconciled_prs": [
