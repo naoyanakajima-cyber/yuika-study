@@ -36,14 +36,8 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": {
-    "run_id": "cycle-20261114T180819Z",
-    "owner": "root/coordinator",
-    "ticket": "REV-MVP",
-    "acquired_at": "2026-11-14T18:08:19.792025+00:00",
-    "expires_at": "2026-11-14T18:48:19.792025+00:00"
-  },
-  "updated_at": "2026-11-14T18:20:00.423005+00:00",
+  "lease": null,
+  "updated_at": "2026-11-14T18:22:19.920579+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -9674,7 +9668,19 @@
       ],
       "platform_run_completion_verified": false,
       "next_action": "PdM/PrMで既存PR10の残すべき選定理由と現mainの日次・保存契約を両立させる修正範囲/基点/4生成先を具体化し、確認済み日次件数不一致を既存PR内で修正できるか判断する。旧branchへ単純投入せず、新製品PR・merge/公開を増やさない。",
-      "attachment": "既存PR9へのattach呼出応答が空で今回成功未確認。新規PRなし。"
+      "attachment": "既存PR9へのattach呼出応答が空で今回成功未確認。新規PRなし。",
+      "completed_at": "2026-11-14T18:22:19.920579+00:00",
+      "lease_released_at": "2026-11-14T18:22:19.920579+00:00",
+      "accepted_operations_commit": "4fe7cb3440703dc08b2b0c373f7c8b08afc720e5",
+      "metadata_reviewer": "qa_daily_count_investigation",
+      "metadata_review_result": "passed;36 evidence hashes and copied originals match, prior127runs/decisions/policy/lease unchanged; product unfixed and baseline scope explicit",
+      "pr_body_updated": true,
+      "operations_pr_readback": {
+        "head": "4fe7cb3440703dc08b2b0c373f7c8b08afc720e5",
+        "state": "open",
+        "draft": true,
+        "body_matches": true
+      }
     }
   ],
   "operational_notes": [
