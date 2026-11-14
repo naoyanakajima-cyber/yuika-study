@@ -43,7 +43,7 @@
     "ticket": "REV-MVP",
     "owner": "root/coordinator"
   },
-  "updated_at": "2026-11-14T20:10:09.329874+00:00",
+  "updated_at": "2026-11-14T20:13:10.437040+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -450,22 +450,17 @@
       ],
       "ceo_wait_reason": "現main互換性修正後の合成試作品確認待ち。D03方向性採用は維持。マージ・公開は未承認。",
       "independent_followup": {
-        "kind": "current_main_compatibility",
-        "state": "independent_qa_passed",
-        "run_id": "cycle-20261114T191016Z",
-        "source_pr_head": "ba829a1176ff1ead7d312526890afe8792178c99",
-        "observed_main": "86514eda054a5a2e09204df3a0668e40624c16de",
-        "specification": "docs/product/review-current-base.md",
-        "pdm": "pdm_rev_current_scope",
+        "kind": "daily_count_fix",
+        "state": "in_progress",
+        "run_id": "cycle-20261114T201009Z",
+        "source_pr_head": "132f9f59ebd23b6dab33e7d1e23bf4d077b8070d",
+        "specification": "docs/product/daily-count-spec.md",
+        "pdm": "pdm_daily_count_fix",
         "prm": "root/coordinator",
-        "engineer": "engineer_rev_current",
-        "reviewer": "qa_rev_current",
-        "review_status": "passed",
-        "daily_count_fix": "not_implemented",
-        "candidate_commit": "132f9f59ebd23b6dab33e7d1e23bf4d077b8070d",
-        "delivered": true,
-        "pr_base": "main",
-        "report": "ops/runs/2026-11-14-rev-current-base.md"
+        "engineer": "engineer_daily_count_fix",
+        "reviewer": "qa_daily_count_fix",
+        "review_status": "not_yet_run",
+        "scope": "common adaptive and four generated pages; science/top excluded"
       },
       "independent_followup_history": [
         {
@@ -482,6 +477,24 @@
           "engineer": "engineer_daily_count_probe",
           "reviewer": "qa_daily_count_investigation",
           "acceptance": "UI5例と独立C/D再現を受入。既存main22suite成功はベースラインのみ。製品未修正、既存PR10の基点/互換範囲未確定。"
+        },
+        {
+          "kind": "current_main_compatibility",
+          "state": "independent_qa_passed",
+          "run_id": "cycle-20261114T191016Z",
+          "source_pr_head": "ba829a1176ff1ead7d312526890afe8792178c99",
+          "observed_main": "86514eda054a5a2e09204df3a0668e40624c16de",
+          "specification": "docs/product/review-current-base.md",
+          "pdm": "pdm_rev_current_scope",
+          "prm": "root/coordinator",
+          "engineer": "engineer_rev_current",
+          "reviewer": "qa_rev_current",
+          "review_status": "passed",
+          "daily_count_fix": "not_implemented",
+          "candidate_commit": "132f9f59ebd23b6dab33e7d1e23bf4d077b8070d",
+          "delivered": true,
+          "pr_base": "main",
+          "report": "ops/runs/2026-11-14-rev-current-base.md"
         }
       ]
     },
