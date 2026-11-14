@@ -1,0 +1,56 @@
+{
+  "head": "79d546891940b6f5e3030940f7c52c2ff7b3d36b",
+  "cases": [
+    {
+      "case": "baseline_known_defect",
+      "head": "408805b06092b9eec5971426a8a1c2cb45194620",
+      "expected_recovery": false,
+      "observed_blocked": true,
+      "old_raw_unchanged": true
+    },
+    {
+      "case": "real_ui_retry_merges_current_disk_and_pending",
+      "passed": true,
+      "events": 3,
+      "reload": true,
+      "actual_export": true
+    },
+    {
+      "case": "denial_then_quota_then_ui_retry",
+      "passed": true
+    },
+    {
+      "case": "newly_readable_invalid_raw",
+      "raw_kind": "empty",
+      "passed": true
+    },
+    {
+      "case": "newly_readable_invalid_raw",
+      "raw_kind": "invalid",
+      "passed": true
+    },
+    {
+      "case": "newly_readable_invalid_raw",
+      "raw_kind": "invalid",
+      "passed": true
+    },
+    {
+      "case": "known_invalid_raw_stays_protected",
+      "raw_kind": "empty",
+      "passed": true
+    },
+    {
+      "case": "known_invalid_raw_stays_protected",
+      "raw_kind": "invalid",
+      "passed": true
+    },
+    {
+      "case": "same_id_conflict",
+      "passed": true
+    }
+  ],
+  "post_attempts": 0,
+  "post_arrivals": 0,
+  "external_requests": 0,
+  "page_errors": []
+}

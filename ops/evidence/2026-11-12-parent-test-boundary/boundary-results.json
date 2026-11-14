@@ -1,0 +1,32 @@
+[
+  {
+    "case": "normal_mount_flush_after_fixture_seed",
+    "pending_lock_count": 1,
+    "requests": [
+      {
+        "url": "https://synthetic.example.workers.dev/reports",
+        "body": {
+          "id": "synthetic-pending"
+        }
+      }
+    ],
+    "fetch_evidence": [
+      {
+        "url": "https://synthetic.example.workers.dev/reports",
+        "active": false,
+        "href": "http://127.0.0.1:40705/onin-review.html",
+        "report": {
+          "id": "synthetic-pending"
+        }
+      }
+    ],
+    "parent_requests_after_entry": 0,
+    "old_assert_not_calls_would_fail": true
+  },
+  {
+    "case": "inert_seed_then_parent_entry_reload_triggers",
+    "requests": [],
+    "child_raw_preserved": true,
+    "parent_active": true
+  }
+]

@@ -1,0 +1,146 @@
+[
+  {
+    "label": "null",
+    "questions": 46,
+    "candidates": 46,
+    "hero": "模試の弱点対策",
+    "raw": "{}",
+    "summary": {
+      "correct": 0,
+      "total": 46,
+      "due": 0,
+      "dueCount": 0,
+      "weakCount": 0,
+      "normalCount": 5,
+      "unavailable": false
+    },
+    "query": "",
+    "errors": []
+  },
+  {
+    "label": "null",
+    "questions": 46,
+    "candidates": 46,
+    "hero": "模試の弱点対策",
+    "raw": "{}",
+    "summary": {
+      "correct": 0,
+      "total": 46,
+      "due": 0,
+      "dueCount": 0,
+      "weakCount": 0,
+      "normalCount": 5,
+      "unavailable": false
+    },
+    "query": "?subject=unknown",
+    "errors": []
+  },
+  {
+    "label": "null",
+    "questions": 46,
+    "candidates": 46,
+    "hero": "模試の弱点対策",
+    "raw": "{}",
+    "summary": {
+      "correct": 0,
+      "total": 46,
+      "due": 0,
+      "dueCount": 0,
+      "weakCount": 0,
+      "normalCount": 5,
+      "unavailable": false
+    },
+    "query": "?subject=",
+    "errors": []
+  },
+  {
+    "label": "社会",
+    "questions": 21,
+    "candidates": 21,
+    "hero": "模試の弱点対策 社会",
+    "raw": "{}",
+    "summary": {
+      "correct": 0,
+      "total": 21,
+      "due": 0,
+      "dueCount": 0,
+      "weakCount": 0,
+      "normalCount": 5,
+      "unavailable": false
+    },
+    "query": "?subject=social",
+    "errors": []
+  },
+  {
+    "label": "function Object() { [native code] }",
+    "questions": 0,
+    "candidates": 0,
+    "hero": "模試の弱点対策 function Object() { [native code] }",
+    "raw": "{}",
+    "summary": {
+      "correct": 0,
+      "total": 0,
+      "due": 0,
+      "dueCount": 0,
+      "weakCount": 0,
+      "normalCount": 0,
+      "unavailable": false
+    },
+    "query": "?subject=constructor",
+    "errors": []
+  },
+  {
+    "label": "function toString() { [native code] }",
+    "questions": 0,
+    "candidates": 0,
+    "hero": "模試の弱点対策 function toString() { [native code] }",
+    "raw": "{}",
+    "summary": {
+      "correct": 0,
+      "total": 0,
+      "due": 0,
+      "dueCount": 0,
+      "weakCount": 0,
+      "normalCount": 0,
+      "unavailable": false
+    },
+    "query": "?subject=toString",
+    "errors": []
+  },
+  {
+    "label": "[object Object]",
+    "questions": 0,
+    "candidates": 0,
+    "hero": "模試の弱点対策 [object Object]",
+    "raw": "{}",
+    "summary": {
+      "correct": 0,
+      "total": 0,
+      "due": 0,
+      "dueCount": 0,
+      "weakCount": 0,
+      "normalCount": 0,
+      "unavailable": false
+    },
+    "query": "?subject=__proto__",
+    "errors": []
+  },
+  {
+    "label": "算数",
+    "questions": 6,
+    "candidates": 6,
+    "hero": "模試の弱点対策 算数",
+    "raw": "{}",
+    "summary": {
+      "correct": 0,
+      "total": 6,
+      "due": 0,
+      "dueCount": 0,
+      "weakCount": 0,
+      "normalCount": 5,
+      "unavailable": false
+    },
+    "query": "?subject=math&subject=social",
+    "errors": []
+  }
+]

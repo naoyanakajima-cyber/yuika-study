@@ -1,0 +1,148 @@
+Exception in callback Connection.dispatch.<locals>._done_callback(<Task cancell...ntext.py:246>>) at /workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/_impl/_connection.py:539
+handle: <Handle Connection.dispatch.<locals>._done_callback(<Task cancell...ntext.py:246>>) at /workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/_impl/_connection.py:539>
+Traceback (most recent call last):
+  File "/tmp/yuika-pr26-qa/preferences_probe.py", line 41, in <module>
+    p.locator('#parent-exit').click();p.wait_for_function('!YuikaParent.active');assert prefs()==math_prefs
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/sync_api/_generated.py", line 12761, in wait_for_function
+    self._sync(
+  File "/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/_impl/_sync_base.py", line 115, in _sync
+    return task.result()
+           ^^^^^^^^^^^^^
+  File "/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/_impl/_page.py", line 1151, in wait_for_function
+    return await self._main_frame.wait_for_function(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/_impl/_frame.py", line 940, in wait_for_function
+    await self._channel.send("waitForFunction", self._timeout, params)
+  File "/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/_impl/_connection.py", line 76, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/_impl/_connection.py", line 632, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.Error: Page.wait_for_function: ReferenceError: YuikaParent is not defined
+    at eval (eval at predicate (eval at evaluate (:311:30)), <anonymous>:1:1)
+    at eval (<anonymous>)
+    at predicate (eval at evaluate (:311:30), <anonymous>:4:60)
+    at next (eval at evaluate (:311:30), <anonymous>:29:33)
+    at eval (eval at evaluate (:311:30), <anonymous>:42:13)
+    at UtilityScript.evaluate (<anonymous>:313:16)
+    at UtilityScript.<anonymous> (<anonymous>:1:44)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/events.py", line 88, in _run
+    self._context.run(self._callback, *self._args)
+  File "/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/_impl/_connection.py", line 540, in _done_callback
+    exc = future.exception()
+          ^^^^^^^^^^^^^^^^^^
+  File "/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/_impl/_browser_context.py", line 261, in _on_route
+    handled = await route_handler.handle(route)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/_impl/_helper.py", line 442, in handle
+    return await self._handle_internal(route)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/_impl/_helper.py", line 478, in _handle_internal
+    await handler_finished_future
+asyncio.exceptions.CancelledError
+Exception in callback SyncBase._sync.<locals>.<lambda>(<Task cancell...twork.py:505>>) at /workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/_impl/_sync_base.py:111
+handle: <Handle SyncBase._sync.<locals>.<lambda>(<Task cancell...twork.py:505>>) at /workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/_impl/_sync_base.py:111>
+Traceback (most recent call last):
+  File "/tmp/yuika-pr26-qa/preferences_probe.py", line 41, in <module>
+    p.locator('#parent-exit').click();p.wait_for_function('!YuikaParent.active');assert prefs()==math_prefs
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/sync_api/_generated.py", line 12761, in wait_for_function
+    self._sync(
+  File "/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/_impl/_sync_base.py", line 115, in _sync
+    return task.result()
+           ^^^^^^^^^^^^^
+  File "/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/_impl/_page.py", line 1151, in wait_for_function
+    return await self._main_frame.wait_for_function(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/_impl/_frame.py", line 940, in wait_for_function
+    await self._channel.send("waitForFunction", self._timeout, params)
+  File "/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/_impl/_connection.py", line 76, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/_impl/_connection.py", line 632, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.Error: Page.wait_for_function: ReferenceError: YuikaParent is not defined
+    at eval (eval at predicate (eval at evaluate (:311:30)), <anonymous>:1:1)
+    at eval (<anonymous>)
+    at predicate (eval at evaluate (:311:30), <anonymous>:4:60)
+    at next (eval at evaluate (:311:30), <anonymous>:29:33)
+    at eval (eval at evaluate (:311:30), <anonymous>:42:13)
+    at UtilityScript.evaluate (<anonymous>:313:16)
+    at UtilityScript.<anonymous> (<anonymous>:1:44)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/events.py", line 88, in _run
+    self._context.run(self._callback, *self._args)
+  File "/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/_impl/_sync_base.py", line 111, in <lambda>
+    task.add_done_callback(lambda _: g_self.switch())
+                                     ^^^^^^^^^^^^^^^
+  File "/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/_impl/_helper.py", line 469, in _handler
+    self.handler(route, route.request)  # type: ignore
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/_impl/_impl_to_api_mapping.py", line 139, in wrapper_func
+    return handler(
+           ^^^^^^^^
+  File "/tmp/yuika-pr26-qa/preferences_probe.py", line 15, in <lambda>
+    b=pw.chromium.launch(executable_path=os.environ.get('PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH'));c=b.new_context(viewport={'width':768,'height':1024});c.route('**/*',lambda r:r.continue_() if r.request.url.startswith(base) else r.abort());p=c.new_page();errors=[];p.on('pageerror',lambda e:errors.append(str(e)))
+                                                                                                                                                                              ^^^^^^^^^^^^^
+  File "/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/sync_api/_generated.py", line 1025, in continue_
+    self._sync(
+  File "/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/_impl/_sync_base.py", line 115, in _sync
+    return task.result()
+           ^^^^^^^^^^^^^
+  File "/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/_impl/_network.py", line 518, in continue_
+    return await self._handle_route(_inner)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/_impl/_network.py", line 464, in _handle_route
+    await callback()
+  File "/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/_impl/_network.py", line 516, in _inner
+    await self._inner_continue(False)
+  File "/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/_impl/_network.py", line 522, in _inner_continue
+    await self._race_with_page_close(
+  File "/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/_impl/_network.py", line 559, in _race_with_page_close
+    await asyncio.wait(
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/tasks.py", line 464, in wait
+    return await _wait(fs, timeout, return_when, loop)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/asyncio/tasks.py", line 550, in _wait
+    await waiter
+asyncio.exceptions.CancelledError
+Traceback (most recent call last):
+  File "/tmp/yuika-pr26-qa/preferences_probe.py", line 41, in <module>
+    p.locator('#parent-exit').click();p.wait_for_function('!YuikaParent.active');assert prefs()==math_prefs
+                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/sync_api/_generated.py", line 12761, in wait_for_function
+    self._sync(
+  File "/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/_impl/_sync_base.py", line 115, in _sync
+    return task.result()
+           ^^^^^^^^^^^^^
+  File "/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/_impl/_page.py", line 1151, in wait_for_function
+    return await self._main_frame.wait_for_function(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/_impl/_frame.py", line 940, in wait_for_function
+    await self._channel.send("waitForFunction", self._timeout, params)
+  File "/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/_impl/_connection.py", line 76, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/_impl/_connection.py", line 632, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.Error: Page.wait_for_function: ReferenceError: YuikaParent is not defined
+    at eval (eval at predicate (eval at evaluate (:311:30)), <anonymous>:1:1)
+    at eval (<anonymous>)
+    at predicate (eval at evaluate (:311:30), <anonymous>:4:60)
+    at next (eval at evaluate (:311:30), <anonymous>:29:33)
+    at eval (eval at evaluate (:311:30), <anonymous>:42:13)
+    at UtilityScript.evaluate (<anonymous>:313:16)
+    at UtilityScript.<anonymous> (<anonymous>:1:44)
+Task was destroyed but it is pending!
+task: <Task cancelling name='Task-175' coro=<Channel.send() running at /workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/_impl/_connection.py:76> wait_for=<Future finished result=None>>
+Future exception was never retrieved
+future: <Future finished exception=TargetClosedError('Target page, context or browser has been closed')>
+playwright._impl._errors.TargetClosedError: Target page, context or browser has been closed

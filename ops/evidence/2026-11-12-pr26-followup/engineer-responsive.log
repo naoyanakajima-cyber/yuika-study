@@ -1,0 +1,9 @@
+width 390, parent=False: all pages PASS
+width 390, parent=True: all pages PASS
+width 768, parent=False: all pages PASS
+width 768, parent=True: all pages PASS
+width 1024, parent=False: all pages PASS
+width 1024, parent=True: all pages PASS
+width 1280, parent=False: all pages PASS
+width 1280, parent=True: all pages PASS
+responsive_subjects: all 17 units + questions/flash, 4 widths, parent banner, scrollbar gutters, subject boundaries and unchanged mixed histories PASS

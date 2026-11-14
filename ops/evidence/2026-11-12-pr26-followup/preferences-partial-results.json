@@ -1,0 +1,30 @@
+{
+  "head": "acd169882b626ef255ba68cd73c995024c30e515",
+  "status": "partial_harness_failure",
+  "attempts": 2,
+  "passed_before_wait": [
+    "Legacy mixed-route count15 persisted separately",
+    "Math route initialized count5/course all/unit all/normal",
+    "Math UI count10 and chosen unit saved",
+    "Math summary normalCount equaled selectable dailyQuestions length",
+    "Science route initialized independently count5/course all/unit all/normal",
+    "Science UI count15 and chosen unit saved",
+    "Science summary normalCount equaled selectable dailyQuestions length",
+    "Returning math/science restored each own preferences",
+    "Returning mixed route restored legacy preferences",
+    "Parent math initialized independent defaults",
+    "Parent math preferences persisted across science navigation",
+    "Parent science initialized independent defaults",
+    "Normal localStorage remained byte-for-byte unchanged through parent navigation"
+  ],
+  "unverified": [
+    "Normal math preferences restoration after parent exit",
+    "Normal localStorage after parent exit",
+    "Final accumulated page-error assertion"
+  ],
+  "failures": [
+    "Attempt1: wait_for_function accessed YuikaParent during navigation before initialization",
+    "Attempt2: wait_for_function string evaluation rejected by app CSP"
+  ],
+  "disposition": "Stopped after 2 attempts; product/CSP unchanged; regular parent-mode suite provides separate coverage"
+}

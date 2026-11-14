@@ -1,0 +1,38 @@
+{
+  "case": "768x1024_parent_controls",
+  "result": "pass",
+  "boxes": {
+    "#parent-check-banner": {
+      "x": 0,
+      "y": 0,
+      "width": 768,
+      "height": 362
+    },
+    "#parent-exit": {
+      "x": 288.1875,
+      "y": 12,
+      "width": 70.015625,
+      "height": 48
+    },
+    "#parent-since": {
+      "x": 269.015625,
+      "y": 217,
+      "width": 254,
+      "height": 50
+    },
+    "#parent-count": {
+      "x": 523.015625,
+      "y": 218,
+      "width": 150.015625,
+      "height": 48
+    },
+    "#parent-delete": {
+      "x": 29,
+      "y": 279,
+      "width": 182.015625,
+      "height": 48
+    }
+  },
+  "horizontal_overflow": false,
+  "keyboard_exit": true
+}

@@ -1,0 +1,367 @@
+[
+  {
+    "entry": "onin-review.html",
+    "case": "missing_schema",
+    "summary": null,
+    "blocked": true,
+    "dailyDisabled": true,
+    "unchanged": true
+  },
+  {
+    "entry": "onin-review.html",
+    "case": "wrong_version",
+    "summary": null,
+    "blocked": true,
+    "dailyDisabled": true,
+    "unchanged": true
+  },
+  {
+    "entry": "onin-review.html",
+    "case": "valid_empty",
+    "summary": {
+      "correct": 0,
+      "total": 30,
+      "due": 0,
+      "dueCount": 0,
+      "weakCount": 0,
+      "normalCount": 5,
+      "unavailable": false
+    },
+    "blocked": false,
+    "dailyDisabled": false,
+    "unchanged": true
+  },
+  {
+    "entry": "onin-review.html",
+    "case": "bad_json",
+    "summary": null,
+    "blocked": true,
+    "dailyDisabled": true,
+    "unchanged": true
+  },
+  {
+    "entry": "onin-review.html",
+    "case": "future_valid",
+    "summary": {
+      "correct": 1,
+      "total": 30,
+      "due": 0,
+      "dueCount": 0,
+      "weakCount": 0,
+      "normalCount": 5,
+      "unavailable": true
+    },
+    "dailyDisabled": true
+  },
+  {
+    "entry": "onin-review.html",
+    "case": "read_refusal",
+    "summary": null
+  },
+  {
+    "entry": "onin-review.html",
+    "case": "parent_isolation",
+    "summary": {
+      "correct": 0,
+      "total": 30,
+      "due": 0,
+      "dueCount": 0,
+      "weakCount": 0,
+      "normalCount": 5,
+      "unavailable": false
+    },
+    "child_unchanged": true
+  },
+  {
+    "entry": "kamakura-review.html",
+    "case": "missing_schema",
+    "summary": null,
+    "blocked": true,
+    "dailyDisabled": true,
+    "unchanged": true
+  },
+  {
+    "entry": "kamakura-review.html",
+    "case": "wrong_version",
+    "summary": null,
+    "blocked": true,
+    "dailyDisabled": true,
+    "unchanged": true
+  },
+  {
+    "entry": "kamakura-review.html",
+    "case": "valid_empty",
+    "summary": {
+      "correct": 0,
+      "total": 38,
+      "due": 0,
+      "dueCount": 0,
+      "weakCount": 0,
+      "normalCount": 5,
+      "unavailable": false
+    },
+    "blocked": false,
+    "dailyDisabled": false,
+    "unchanged": true
+  },
+  {
+    "entry": "kamakura-review.html",
+    "case": "bad_json",
+    "summary": null,
+    "blocked": true,
+    "dailyDisabled": true,
+    "unchanged": true
+  },
+  {
+    "entry": "kamakura-review.html",
+    "case": "future_valid",
+    "summary": {
+      "correct": 1,
+      "total": 38,
+      "due": 0,
+      "dueCount": 0,
+      "weakCount": 0,
+      "normalCount": 5,
+      "unavailable": true
+    },
+    "dailyDisabled": true
+  },
+  {
+    "entry": "kamakura-review.html",
+    "case": "read_refusal",
+    "summary": null
+  },
+  {
+    "entry": "kamakura-review.html",
+    "case": "parent_isolation",
+    "summary": {
+      "correct": 0,
+      "total": 38,
+      "due": 0,
+      "dueCount": 0,
+      "weakCount": 0,
+      "normalCount": 5,
+      "unavailable": false
+    },
+    "child_unchanged": true
+  },
+  {
+    "entry": "heian-review.html",
+    "case": "missing_schema",
+    "summary": null,
+    "blocked": true,
+    "dailyDisabled": true,
+    "unchanged": true
+  },
+  {
+    "entry": "heian-review.html",
+    "case": "wrong_version",
+    "summary": null,
+    "blocked": true,
+    "dailyDisabled": true,
+    "unchanged": true
+  },
+  {
+    "entry": "heian-review.html",
+    "case": "valid_empty",
+    "summary": {
+      "correct": 0,
+      "total": 75,
+      "due": 0,
+      "dueCount": 0,
+      "weakCount": 0,
+      "normalCount": 5,
+      "unavailable": false
+    },
+    "blocked": false,
+    "dailyDisabled": false,
+    "unchanged": true
+  },
+  {
+    "entry": "heian-review.html",
+    "case": "bad_json",
+    "summary": null,
+    "blocked": true,
+    "dailyDisabled": true,
+    "unchanged": true
+  },
+  {
+    "entry": "heian-review.html",
+    "case": "future_valid",
+    "summary": {
+      "correct": 1,
+      "total": 75,
+      "due": 0,
+      "dueCount": 0,
+      "weakCount": 0,
+      "normalCount": 5,
+      "unavailable": true
+    },
+    "dailyDisabled": true
+  },
+  {
+    "entry": "heian-review.html",
+    "case": "read_refusal",
+    "summary": null
+  },
+  {
+    "entry": "heian-review.html",
+    "case": "parent_isolation",
+    "summary": {
+      "correct": 0,
+      "total": 75,
+      "due": 0,
+      "dueCount": 0,
+      "weakCount": 0,
+      "normalCount": 5,
+      "unavailable": false
+    },
+    "child_unchanged": true
+  },
+  {
+    "entry": "yuika-review-v2.html",
+    "case": "missing_schema",
+    "summary": null,
+    "blocked": true,
+    "dailyDisabled": true,
+    "unchanged": true
+  },
+  {
+    "entry": "yuika-review-v2.html",
+    "case": "wrong_version",
+    "summary": null,
+    "blocked": true,
+    "dailyDisabled": true,
+    "unchanged": true
+  },
+  {
+    "entry": "yuika-review-v2.html",
+    "case": "valid_empty",
+    "summary": {
+      "correct": 0,
+      "total": 47,
+      "due": 0,
+      "dueCount": 0,
+      "weakCount": 0,
+      "normalCount": 5,
+      "unavailable": false
+    },
+    "blocked": false,
+    "dailyDisabled": false,
+    "unchanged": true
+  },
+  {
+    "entry": "yuika-review-v2.html",
+    "case": "bad_json",
+    "summary": null,
+    "blocked": true,
+    "dailyDisabled": true,
+    "unchanged": true
+  },
+  {
+    "entry": "yuika-review-v2.html",
+    "case": "future_valid",
+    "summary": {
+      "correct": 1,
+      "total": 47,
+      "due": 0,
+      "dueCount": 0,
+      "weakCount": 0,
+      "normalCount": 5,
+      "unavailable": true
+    },
+    "dailyDisabled": true
+  },
+  {
+    "entry": "yuika-review-v2.html",
+    "case": "read_refusal",
+    "summary": null
+  },
+  {
+    "entry": "yuika-review-v2.html",
+    "case": "parent_isolation",
+    "summary": {
+      "correct": 0,
+      "total": 47,
+      "due": 0,
+      "dueCount": 0,
+      "weakCount": 0,
+      "normalCount": 5,
+      "unavailable": false
+    },
+    "child_unchanged": true
+  },
+  {
+    "entry": "mock-focus-review.html",
+    "case": "missing_schema",
+    "summary": null,
+    "blocked": true,
+    "dailyDisabled": true,
+    "unchanged": true
+  },
+  {
+    "entry": "mock-focus-review.html",
+    "case": "wrong_version",
+    "summary": null,
+    "blocked": true,
+    "dailyDisabled": true,
+    "unchanged": true
+  },
+  {
+    "entry": "mock-focus-review.html",
+    "case": "valid_empty",
+    "summary": {
+      "correct": 0,
+      "total": 46,
+      "due": 0,
+      "dueCount": 0,
+      "weakCount": 0,
+      "normalCount": 5,
+      "unavailable": false
+    },
+    "blocked": false,
+    "dailyDisabled": false,
+    "unchanged": true
+  },
+  {
+    "entry": "mock-focus-review.html",
+    "case": "bad_json",
+    "summary": null,
+    "blocked": true,
+    "dailyDisabled": true,
+    "unchanged": true
+  },
+  {
+    "entry": "mock-focus-review.html",
+    "case": "future_valid",
+    "summary": {
+      "correct": 1,
+      "total": 46,
+      "due": 0,
+      "dueCount": 0,
+      "weakCount": 0,
+      "normalCount": 5,
+      "unavailable": true
+    },
+    "dailyDisabled": true
+  },
+  {
+    "entry": "mock-focus-review.html",
+    "case": "read_refusal",
+    "summary": null
+  },
+  {
+    "entry": "mock-focus-review.html",
+    "case": "parent_isolation",
+    "summary": {
+      "correct": 0,
+      "total": 46,
+      "due": 0,
+      "dueCount": 0,
+      "weakCount": 0,
+      "normalCount": 5,
+      "unavailable": false
+    },
+    "child_unchanged": true
+  }
+]
