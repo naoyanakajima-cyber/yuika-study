@@ -45,3 +45,6 @@ Engineer `engineer_improvement_delta` は製品実装をせず、固定HEADの�
 通常報告は朝夕CEOチェックへまとめ、外部への別送なし。
 
 REV-RECONCILEは照合文書としてdone。製品PR採用・本人試用は完了しておらず、CONTENT-TRY-SPECはrequirementsとして次回へ渡す。
+
+最終メタデータ `081941f337135cc8fac69ba54b537b64e77a4cd7` を同じ独立Reviewerが確認。原本/コピー一致・hash5件一致、過去run/decisions維持、文書doneと製品未完了の区別を確認。再テストなし。PR9本文の更新・open/draft維持を読戻し、このタスクへのattachも成功。
+最終保存・lease解除時刻：2026-11-14T15:14:05.109741+00:00。
