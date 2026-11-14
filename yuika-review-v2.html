@@ -981,7 +981,7 @@ const day=localDay;
 const japanDay=iso=>localDay(iso,-540);
 const REVIEW_INTERVAL_DAYS=Object.freeze([1,3,7]);
 const addJapanDays=(d,n)=>new Date(Date.parse(d+'T00:00:00Z')+n*86400000).toISOString().slice(0,10);
-MODES.daily='今日の5問';MODES.adaptive='弱点の復習';
+MODES.daily='今日の復習';MODES.adaptive='弱点の復習';
 let scienceUnit='all';
 const SCIENCE_PREF_KEY=KEY+'-preferences-v1';
 function rememberScience(){
@@ -999,21 +999,40 @@ function scienceDue(events=data.events,now=Date.now()){
  return retention(events,now).filter(s=>s.status==='waiting'&&s.due<=today&&(scienceUnit==='all'||Q.get(s.originId).unit===scienceUnit))
  .sort((a,b)=>a.due.localeCompare(b.due)||a.originId.localeCompare(b.originId));
 }
-function scienceDaily(){
- if(practiceUnavailable())return [];
- const qs=[],seen=new Set();
+function scienceDailySources(events=data.events,now=Date.now()){
+ if(practiceUnavailable(events,now))return {due:[],weak:[],normal:[]};
+ return {due:scienceDue(events,now).map(s=>Q.get(s.originId)),weak:scienceWeak(events,now).map(s=>Q.get(s.originId)),normal:candidates('normal',scienceUnit)};
+}
+function scienceDailyCount(events=data.events,now=Date.now()){
+ const {due,weak,normal}=scienceDailySources(events,now);
+ return Math.min(count,new Set([...due,...weak,...normal].map(q=>q.id)).size);
+}
+function scienceDaily(events=data.events,now=Date.now()){
+ if(practiceUnavailable(events,now))return [];
+ const source=scienceDailySources(events,now),qs=[],seen=new Set();
  const push=q=>{if(!seen.has(q.id)){seen.add(q.id);qs.push(q);}};
- scienceDue().forEach(s=>push(Q.get(s.originId)));
- scienceWeak().forEach(s=>push(Q.get(s.originId)));
- const normal=[...candidates('normal',scienceUnit)];
+ source.due.forEach(push);source.weak.forEach(push);
+ const normal=[...source.normal];
  for(let i=normal.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[normal[i],normal[j]]=[normal[j],normal[i]];}
  normal.forEach(push);return qs.slice(0,count);
+}
+const SCIENCE_DAILY_EMPTY='この条件では候補がありません。単元を見直してください。';
+function scienceDailyStatus(events=data.events,now=Date.now()){
+ return practiceClockIssue(events,now)?PRACTICE_CLOCK_NOTICE:'記録を保存・読み取りできないため、弱点の復習と今日の復習は休止しています。「記録の引きつぎ」で保管してください。';
 }
 const scienceStart=start;
 start=function(mode,unit='all'){
  if(mode!=='daily'&&mode!=='adaptive'){scienceUnit=unit;rememberScience();scienceStart(mode,unit);return;}
- if(practiceUnavailable()){message(practiceClockIssue()?PRACTICE_CLOCK_NOTICE:'記録を保存・読み取りできないため、弱点の復習と今日の5問は休止しています。「記録の引きつぎ」で保管してください。');return;}
- const qs=mode==='daily'?scienceDaily():scienceWeak().slice(0,count).map(s=>Q.get(s.originId));
+ const now=Date.now(),events=data.events;
+ if(practiceUnavailable(events,now)){if(mode==='daily'&&view==='home')render();message(scienceDailyStatus(events,now));return;}
+ if(mode==='daily'){
+  const actual=scienceDailyCount(events,now),button=document.getElementById('daily-five');
+  if(!actual){if(view==='home')render();message(SCIENCE_DAILY_EMPTY);return;}
+  if(view==='home'&&button&&Number(button.dataset.dailyCount)!==actual){
+   render();message('問題数が変わりました。今回の問数を確認して、もう一度はじめてください。');return;
+  }
+ }
+ const qs=mode==='daily'?scienceDaily(events,now):scienceWeak(events,now).slice(0,count).map(s=>Q.get(s.originId));
  if(!qs.length){message('今はこの練習の候補がありません。');return;}
  rememberScience();session={id:uid(),mode,questions:qs,index:0,results:[],hint:false,selected:null,answered:false,done:false};view='quiz';render();main.focus();window.scrollTo(0,0);
 };
@@ -1027,8 +1046,8 @@ const scienceHome=home;
 home=function(){
  scienceHome();
  document.getElementById('unit').value=scienceUnit;
- const rows=scienceWeak();
- main.insertAdjacentHTML('afterbegin',`<section class="card"><button id="daily-five" class="primary" ${practiceUnavailable()?'disabled':''}>今日の5問をはじめる（今回は${count}問）</button><p>期限の来た再確認 → 弱点の復習 → 通常問題。既存の47問を使います。下の単元と問題数を適用します。</p><p>今日の再確認：${scienceDue().length}問 ／ 弱点の復習：${rows.length}問</p><button id="science-adaptive" ${rows.length?'':'disabled'}>弱点の復習をはじめる</button>${rows.map(r=>`<details><summary>${esc(r.unit)}：${esc(Q.get(r.originId).prompt)}</summary><p>${r.wrong}/${r.total}日でまちがい・ヒントを見た日${r.hintCount}日。最後の回答：${esc(new Date(r.lastAt).toLocaleString('ja-JP',{timeZone:'Asia/Tokyo'}))}（日本時間）。原因は未確定です。</p></details>`).join('')}</section>`+scienceSummary());
+ const now=Date.now(),events=data.events,rows=scienceWeak(events,now),actual=scienceDailyCount(events,now),unavailable=practiceUnavailable(events,now);
+ main.insertAdjacentHTML('afterbegin',`<section class="card"><button id="daily-five" class="primary" data-daily-count="${actual}" aria-describedby="daily-status" ${unavailable||!actual?'disabled':''}>${unavailable?'今日の復習はお休み中':`今日の復習をはじめる（今回は${actual}問）`}</button><p id="daily-status" role="status">${esc(unavailable?scienceDailyStatus(events,now):!actual?SCIENCE_DAILY_EMPTY:'期限の来た再確認 → 弱点の復習 → 通常問題。既存の47問を使います。下の単元と問題数を適用します。')}</p><p>今日の再確認：${scienceDue(events,now).length}問 ／ 弱点の復習：${rows.length}問</p><button id="science-adaptive" ${rows.length?'':'disabled'}>弱点の復習をはじめる</button>${rows.map(r=>`<details><summary>${esc(r.unit)}：${esc(Q.get(r.originId).prompt)}</summary><p>${r.wrong}/${r.total}日でまちがい・ヒントを見た日${r.hintCount}日。最後の回答：${esc(new Date(r.lastAt).toLocaleString('ja-JP',{timeZone:'Asia/Tokyo'}))}（日本時間）。原因は未確定です。</p></details>`).join('')}</section>`+scienceSummary());
  document.getElementById('daily-five').onclick=()=>start('daily');
  document.getElementById('science-adaptive').onclick=()=>start('adaptive');
  document.getElementById('unit').onchange=e=>{scienceUnit=e.target.value;rememberScience();home();document.getElementById('unit').focus();};
@@ -1084,7 +1103,7 @@ function practiceClockIssue(events=data.events,now=Date.now()){
  return events.some(e=>Date.parse(e.at)>now+5*60000);
 }
 function practiceUnavailable(events=data.events,now=Date.now()){return blocked||dirty||practiceClockIssue(events,now);}
-const PRACTICE_CLOCK_NOTICE='今より5分以上先の回答記録があります。端末の日付と時刻を確認してください。弱点の判定と今日の5問はお休みします。記録の時刻は自動で直しません。';
+const PRACTICE_CLOCK_NOTICE='今より5分以上先の回答記録があります。端末の日付と時刻を確認してください。弱点の判定と今日の復習はお休みします。記録の時刻は自動で直しません。';
 function retention(events=data.events,now=Date.now()){
  const states=new Map(),histories=new Map(),seen=new Set();
  for(const e of order(events)){

@@ -117,7 +117,7 @@ with ThreadingHTTPServer(('127.0.0.1',0),partial(Quiet,directory=str(ROOT))) as 
   new=p.evaluate('data.events');assert len(new)==45
   assert all(e in new for e in original['events'])
   p.goto(base+'index.html');p.locator('.unit-card').first.wait_for()
-  p.get_by_role('button',name='今日の5問をはじめる',exact=True).click()
+  p.get_by_role('button',name='今日の復習をはじめる',exact=True).click()
   p.wait_for_url('**/mock-focus-review.html?subject=math&daily=1')
   assert p.evaluate('run.mode==="daily" && run.qs.every(q=>q.subject==="算数")')
   p.goto(base+'mock-focus-review.html');assert p.evaluate('QUESTIONS.length')==46

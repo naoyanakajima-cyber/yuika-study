@@ -94,7 +94,7 @@ try:
    assets[url]=subprocess.check_output(['curl','--fail','--silent','--show-error','--location','--max-time','30',url])
   page.route('https://unpkg.com/**',lambda r:r.fulfill(body=assets[r.request.url],content_type='application/javascript'))
   page.goto(base+'index.html')
-  page.get_by_role('button',name='今日の5問をはじめる',exact=True).click()
+  page.get_by_role('button',name='今日の復習をはじめる',exact=True).click()
   page.wait_for_url('**/mock-focus-review.html?daily=1')
   assert page.evaluate("run.mode==='daily' && run.qs.length===5")
   assert page.evaluate("localStorage.getItem('synthetic-other-key')")=='preserved'
