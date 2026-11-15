@@ -98,7 +98,8 @@ try:
   page.goto(base+'/yuika-review-v2.html')
   page.evaluate('''() => {
    const assert=(x,m)=>{if(!x)throw Error(m);};
-   assert(QUESTIONS.length===47,'47 originals');
+   assert(QUESTIONS.filter(q=>q.id.startsWith('ys2-')).length===47,'47 originals preserved');
+   assert(QUESTIONS.length===67,'20 microscope questions added');
    window.mk=(q,at,correct=false,hintUsed=false)=>{
     const response=correct?q.answer:q.type==='number'?q.answer+1:q.options.find(o=>o!==q.answer);
     return validateEvent({id:uid(),sessionId:'synthetic-science',questionId:q.id,datasetVersion:VERSION,

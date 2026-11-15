@@ -65,7 +65,9 @@ window.YuikaDesign.summary=function(file){
  file=url.pathname.split('/').pop();const meta=catalog[file];if(!meta)throw Error('unknown unit');
  const store=window.YuikaParent.storage,raw=validators[file](store.getItem(meta.key));
  const events=raw.events.map(e=>({...e,at:e.at||e.answeredAt,hint:e.hint??e.hintUsed,variant:e.variant||'normal'}));
- const QUESTIONS=meta.questions.filter(q=>file!=='mock-focus-review.html'||!subject||q.subject===subject),Q=new Map(QUESTIONS.map(q=>[q.id,q]));
+ const requestedUnit=url.searchParams.get('unit');
+ const validRequestedUnit=meta.science&&meta.questions.some(q=>q.unit===requestedUnit);
+ const QUESTIONS=meta.questions.filter(q=>(file!=='mock-focus-review.html'||!subject||q.subject===subject)&&(!validRequestedUnit||q.unit===requestedUnit)),Q=new Map(QUESTIONS.map(q=>[q.id,q]));
  if(!meta.science)for(const q of QUESTIONS)Q.set(q.id+'-review-v1',{...q,originId:q.id});
  const now=Date.now(),today=new Date(now+9*3600000).toISOString().slice(0,10);
  const data={events},blocked=false,dirty=false;
@@ -77,6 +79,7 @@ FUNCTIONS
  const prefs={count:5,course:'all',unit:'all',variant:'normal'};
  const saved=JSON.parse(store.getItem(meta.key+'-preferences-v1'+(file==='mock-focus-review.html'&&subject?':'+url.searchParams.get('subject'):''))||'null');
  if(saved){if((meta.science?[5,10]:[5,10,15]).includes(saved.count))prefs.count=saved.count;if(QUESTIONS.some(q=>q.unit===saved.unit))prefs.unit=saved.unit;if(!meta.science){if(QUESTIONS.some(q=>q.course===saved.course))prefs.course=saved.course;if(meta.variants.includes(saved.variant))prefs.variant=saved.variant;}}
+ if(meta.science&&QUESTIONS.some(q=>q.unit===requestedUnit))prefs.unit=requestedUnit;
  const matches=q=>(prefs.unit==='all'||q.unit===prefs.unit)&&(prefs.course==='all'||q.course===prefs.course)&&(prefs.variant==='normal'||(prefs.variant==='kanji'?q.type==='text':q.yomi));
  const latest=new Map();for(const e of order(events))if(Q.has(e.questionId)&&e.variant==='normal')latest.set(Q.get(e.questionId).originId||e.questionId,e);
  const unavailable=practiceUnavailable(events,now);
