@@ -36,8 +36,14 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": null,
-  "updated_at": "2026-11-15T10:20:53.144292+00:00",
+  "lease": {
+    "run_id": "cycle-20261115T110235Z",
+    "owner": "coordinator",
+    "ticket": "THEME-MVP",
+    "acquired_at": "2026-11-15T11:03:26.112400+00:00",
+    "expires_at": "2026-11-15T11:37:26.112400+00:00"
+  },
+  "updated_at": "2026-11-15T11:03:26.112400+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -11983,6 +11989,27 @@
       "lease_released": true,
       "evidence_save_note": "git diff --check caught one trailing space in failed-probe log; normalized public copy with original/saved hashes, original /tmp preserved.",
       "final_save_transport": "Git ls-remote authentication unavailable after product push; connected GitHub API expected_sha ref update planned. No credential/connection/settings changes."
+    },
+    {
+      "id": "cycle-20261115T110235Z",
+      "started_at": "2026-11-15T11:02:35+00:00",
+      "observed_operations_commit": "35364fb8503b6e6cf2248f8c43c52e5be354d8fe",
+      "observed_main_commit": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
+      "ticket": "THEME-MVP",
+      "result": "in_progress",
+      "phase": "pdm_scope_review",
+      "cloud_verified": true,
+      "ceo_decisions_ingested": 0,
+      "subagents": [],
+      "new_prs": [],
+      "product_code_changed": false,
+      "product_tests_run": false,
+      "ceo_wait_product_prs": [
+        10,
+        11,
+        12
+      ],
+      "report": "ops/runs/2026-11-15-theme-current-main.md"
     }
   ],
   "operational_notes": [
