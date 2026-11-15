@@ -174,6 +174,23 @@ class BootstrapTests(unittest.TestCase):
         self.assertIn('FAIL stage=runtime exit=1', result.stdout)
         self.assertFalse(list((self.source / '.venv').glob('yuika-cloud-*.json')))
 
+    def test_setup_log_directory_failure_invalidates_previous_receipts(self):
+        # A logging failure must not leave an earlier setup looking current.
+        setup = self.source / 'scripts/cloud/setup.sh'
+        setup.parent.mkdir(parents=True, exist_ok=True)
+        setup.write_text((ROOT / 'scripts/cloud/setup.sh').read_text())
+        (self.source / '.venv').mkdir()
+        for name in ('yuika-cloud-setup.json', 'yuika-cloud-install.json'):
+            (self.source / '.venv' / name).write_text('{}')
+        self.logs.write_text('Synthetic file blocking log directory creation\n')
+        result = subprocess.run(
+            ['bash', str(setup)],
+            env=dict(os.environ, YUIKA_CLOUD_LOG_DIR=str(self.logs)),
+            text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        self.assertEqual(result.returncode, 1, result.stdout)
+        self.assertFalse(list((self.source / '.venv').glob('yuika-cloud-*.json')))
+        self.assertFalse((self.source / '.venv/bin').exists())
+
 
 if __name__ == '__main__':
     unittest.main(verbosity=2)

@@ -11,7 +11,7 @@ from playwright.sync_api import sync_playwright, expect
 
 ROOT = Path(__file__).resolve().parents[1]
 KEY = 'yuika-ui-theme-kamakura-v1'
-LEARNING = 'yuika-social-540-25-v1'
+LEARNING = 'yuika-prototype-v1:yuika-social-540-25-v1'
 OTHER = {
     'yuika-social-540-27-v1': '{"schemaVersion":1,"datasetVersion":"onin-540-27-v1","events":[]}',
     'yuika-social-540-24-v1': '{"schemaVersion":1,"datasetVersion":"heian-540-24-v1","events":[]}',
@@ -33,11 +33,18 @@ server = ThreadingHTTPServer(('127.0.0.1', 0), partial(Handler, directory=str(RO
 Thread(target=server.serve_forever, daemon=True).start()
 BASE = f'http://127.0.0.1:{server.server_port}/'
 external = []
+blocked_fonts = []
 errors = []
 
-def fresh(browser, initial=None, fault=None):
+def fresh(browser, initial=None, fault=None, parent=False, session_fault=False):
     context = browser.new_context(viewport={'width': 768, 'height': 1024})
-    context.route('**/*', lambda route: route.continue_() if route.request.url.startswith(BASE) else (external.append(route.request.url), route.abort())[-1])
+    def route_request(route):
+        if route.request.url.startswith(BASE): route.continue_()
+        elif route.request.url.startswith(('https://fonts.googleapis.com/', 'https://fonts.gstatic.com/')) and route.request.method == 'GET':
+            blocked_fonts.append(route.request.url);route.abort()
+        else: external.append(route.request.url);route.abort()
+    context.route('**/*', route_request)
+    context.add_init_script(path=str(ROOT/'tests/seed_random.js'))
     if initial is not None or fault:
         context.add_init_script(f"""(()=>{{
           const key={json.dumps(KEY)}, seed={json.dumps(initial or {})};
@@ -47,9 +54,13 @@ def fresh(browser, initial=None, fault=None):
           Storage.prototype.getItem=function(k){{if(k===key&&window.themeFault==='get')throw new DOMException('synthetic','SecurityError');return get.call(this,k);}};
           Storage.prototype.setItem=function(k,v){{if(k===key){{window.themeWrites++;if(window.themeFault==='set')throw new DOMException('synthetic','QuotaExceededError');}}return set.call(this,k,v);}};
         }})();""")
+    if session_fault:
+        context.add_init_script("""(()=>{const get=Storage.prototype.getItem,set=Storage.prototype.setItem;
+          Storage.prototype.getItem=function(k){if(this===sessionStorage)throw new DOMException('synthetic','SecurityError');return get.call(this,k);};
+          Storage.prototype.setItem=function(k,v){if(this===sessionStorage)throw new DOMException('synthetic','SecurityError');return set.call(this,k,v);};})();""")
     page = context.new_page()
     page.on('pageerror', lambda error: errors.append(str(error)))
-    page.goto(BASE + 'kamakura-review.html')
+    page.goto(BASE + 'kamakura-review.html' + ('?parent-check=1' if parent else ''))
     return context, page
 
 def storage(page):
@@ -102,7 +113,7 @@ try:
         assert page.evaluate('QUESTIONS') == questions
         assert page.evaluate("QUESTIONS.map(q=>[grade(q,q.answer,'normal'),grade(q,'synthetic wrong','normal')])") == expected_grade
         # T8/T9: actual browser colors and controls, including keyboard operation.
-        for selector in ['.theme-description', '.theme-choice', '.hero p', '.green-card .muted', '.card h2']:
+        for selector in ['.theme-description', '.theme-choice', '.hero p', '.stats .stat span', '.card h2']:
             colors = page.locator(selector).first.evaluate("e=>{let b=e;while(b&&getComputedStyle(b).backgroundColor==='rgba(0, 0, 0, 0)')b=b.parentElement;return [getComputedStyle(e).color,getComputedStyle(b).backgroundColor];}")
             assert contrast(*colors) >= 4.5, (selector, colors)
         sizes = page.locator('.theme-choice').evaluate_all('es=>es.map(e=>({w:e.getBoundingClientRect().width,h:e.getBoundingClientRect().height}))')
@@ -120,6 +131,7 @@ try:
         theme(page,'standard');theme(page,'kamakura')
         # T5/T6: same run and every input stage survive switches; regular grading persists.
         page.evaluate('Math.random=(()=>{let n=37;return()=>((n=(n*16807)%2147483647)/2147483647);})()')
+        page.locator('[data-count="15"]').click()
         page.locator('#start').click()
         seen = set()
         for i in range(15):
@@ -146,14 +158,15 @@ try:
         assert page.evaluate('themeEnqueues') == 0 and requests == []
         assert storage(page)[LEARNING] == saved
         for view in ['parent','records','home']:
-            page.locator(f'[data-view={view}]').click()
+            (page.locator('.unit-footer a') if view=='parent' else page.locator(f'[data-view={view}]')).click()
             theme(page,'standard');theme(page,'kamakura')
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth')
         # Export schema excludes theme setting.
         page.locator('[data-view=records]').click()
         with page.expect_download() as event: page.locator('#export').click()
         exported=json.loads(Path(event.value.path()).read_text())
-        assert KEY not in exported and exported['events'] == json.loads(saved)['events']
+        assert exported['format'] == 'yuika-review-prototype' and exported['formatVersion'] == 1
+        assert KEY not in json.dumps(exported) and exported['payload']['events'] == json.loads(saved)['events']
         page.reload()
         assert storage(page)[LEARNING] == saved
         # T10: print is neutral without mutating preference.
@@ -195,10 +208,39 @@ try:
         theme(page,'standard');expect(page.locator('#theme-status')).to_be_empty()
         assert page.locator('#notice').inner_text() == '合成の学習保存警告'
         context.close()
+        # Parent-check mode uses its session boundary, never the child's preference.
+        normal={**OTHER,KEY:'kamakura','yuika-social-540-25-v1':'synthetic-child-record'}
+        context,page=fresh(browser,normal,parent=True)
+        expect(page.locator('#parent-check-banner')).to_be_visible()
+        expect(page.locator('html')).to_have_attribute('data-ui-theme','standard')
+        baseline=storage(page); original=state(page)
+        page.locator('#theme-kamakura').click()
+        assert state(page)==original and storage(page)==baseline
+        assert page.evaluate("sessionStorage.getItem('yuika-parent-check-v1:'+"+json.dumps(KEY)+")")=='kamakura'
+        page.reload();expect(page.locator('html')).to_have_attribute('data-ui-theme','kamakura')
+        page.locator('#theme-standard').click();assert storage(page)==baseline
+        page.locator('#parent-exit').click()
+        expect(page.locator('#parent-check-banner')).to_have_count(0)
+        expect(page.locator('html')).to_have_attribute('data-ui-theme','kamakura')
+        assert storage(page)==baseline
+        assert page.evaluate("Object.keys(sessionStorage).filter(k=>k.startsWith('yuika-parent-check-v1')).length")==0
+        context.close()
+        # A blocked session store uses the existing in-memory parent boundary.
+        context,page=fresh(browser,normal,session_fault=True)
+        expect(page.locator('#parent-check-banner')).to_be_visible()
+        expect(page.locator('html')).to_have_attribute('data-ui-theme','standard')
+        baseline=storage(page);original=state(page)
+        page.locator('#theme-kamakura').click()
+        expect(page.locator('html')).to_have_attribute('data-ui-theme','kamakura')
+        assert state(page)==original and storage(page)==baseline
+        assert page.evaluate('YuikaParent.storage.getItem('+json.dumps(KEY)+')')=='kamakura'
+        page.reload();expect(page.locator('html')).to_have_attribute('data-ui-theme','standard')
+        assert storage(page)==baseline
+        context.close()
         assert not external, external
         assert not posts, posts
         assert not errors, errors
         browser.close()
 finally:
     server.shutdown();server.server_close()
-print('theme-review: all checks passed; external requests 0, POST arrivals 0')
+print('theme-review: all checks passed; unexpected external requests 0, POST arrivals 0; existing public font GETs blocked',len(blocked_fonts))

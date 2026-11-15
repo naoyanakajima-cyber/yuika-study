@@ -4,7 +4,30 @@
 環境設定の保存と、アプリの公開・本番デプロイは別の操作。本番マージ・実通知・
 Secrets変更・課金変更はこの手順に含めない。
 
-## 現在の到達点と証拠の限界（2026-11-06 JST）
+## 引き継ぎ時点（2026-11-08 JST）
+
+現在のCodex Cloudでは `/workspace/yuika-study-cloud` に固定commit
+`edad8065c1f2b726e61c5cf405f8d9ff6d807480` のcheckoutと `.venv` があり、
+両成功記録の要求commit・HEAD・依存hash、参照するログの存在と成功を確認した。
+元の `/workspace/yuika-study` は `work` / `d526d65`、両checkoutとも未コミット変更なし。
+この記録だけでは保存済みInstall/Startの自動適用成功と判断しない。
+自動セットアップの問題はOpenAIサポートへ照会中。今回、設定の保存・公開や
+自動適用の再調査は行わず、既存環境を手動で有効化して利用した。
+
+下記6コマンドを同じシェルで順番に実行し、すべて終了コード0。
+Workerは9/9、追加構築テストは12/12成功した。2名の子エージェントが
+読み取り専用でセットアップとテスト安全性を独立レビューし、書き込みは主担当だけが行った。
+
+レビューで、`setup.sh` のログ先作成が失敗すると旧成功記録が残る経路を
+合成環境で再現した。成功記録の失効をログ先作成より先へ移し、回帰テストを追加。
+修正後の追加構築テストは13/13成功。アプリ本体・既存assert・CSP・模擬API・TLS検証は維持。
+全テストの無根拠な再実行はせず、修正後は影響する構築テストを確認した。
+
+初問の選択肢や乱数テストも確認した。現行の選択問題はすべて元の `options[0]` が正答で、
+テストが初問で選ぶ `options[1]` は誤答。画面上のshuffleでこの前提は変わらない。
+平均200回の乱数サンプリングは確率的な検証だが、今回失敗は観測しておらず変更していない。
+
+## 以前の検証記録と証拠の限界（2026-11-06 JST）
 
 保存済み環境を編集する正規ツール、新規Codex Cloudタスクを作成するツール、
 Browserの操作ツールは、この検証セッションには提供されていない。
@@ -74,8 +97,10 @@ Python・Node.js・システムChromiumが不足していれば該当工程で�
 各工程の時刻、失敗stage、終了コードを記録し、コマンド全文や環境変数一覧は出力しない。
 失敗した一時checkoutを自動削除しない。個人データをログへ追加しない。
 
-成功時だけ次の記録を生成する。再setup前に以前の成功記録を失効させるため、
-失敗した再実行を「前回成功済み」と誤認しない。
+成功時だけ次の記録を生成する。setupは `.venv` のsymlink拒否後、ログ先作成より先に
+以前の成功記録を失効させる。ログ先を作れない失敗も端末に非0終了で報告する。
+Installの引数不正・既存作業保護によるsetup前の拒否では、既存作業と過去の記録を保存する。
+その場合の過去の記録を今回の成功と扱わず、終了コード・時刻・失敗工程と照合する。
 
 - `.venv/yuika-cloud-install.json`：要求commit、実HEAD、作業先、依存定義のhash、時刻、Installログ
 - `.venv/yuika-cloud-setup.json`：実HEAD、依存定義のhash、Python・Playwright・Chromium版、時刻、setupログ
@@ -87,7 +112,7 @@ Startは、保存版の要求commitとInstall記録の一致、
 保存版ID・プラットフォームのInstall実行ログ・時刻と照合する。
 取得できなければ自動準備は未確認とし、手動補完のコマンドと結果を別に記録する。
 
-## 起動と全5テスト
+## 起動と6コマンドの検証
 
 ```bash
 cd /workspace/yuika-study-cloud
@@ -97,11 +122,19 @@ python tests/kamakura_review.py
 python tests/cloud_preview.py
 node --test notifications/test/worker.test.mjs
 python notifications/test/browser.py
+python tests/cloud_bootstrap.py
 ```
 
 必ず同じシェルで有効化してから実行する。setupのexportが次のシェルへ持ち越されると
 仮定しない。手動復旧が必要なら、branch・変更・取得元commitを確認したうえで
 `bash scripts/cloud/setup.sh` を実行し、「手動準備」と記録する。
+
+専用作業先がない新規環境では、初期mainからsetupを呼ばず、
+[PR #7](https://github.com/naoyanakajima-cyber/yuika-study/pull/7)に記載された
+上記固定commit版Installの全文を確認して手動実行する。元checkoutや既存 `.venv` は削除しない。
+固定版のセットアップには今回のログ先失敗修正は含まれないため、修正PRを別途レビューする。
+構築後はbranch・dirty状態・両成功記録・ログを確認し、この起動手順で検証する。
+手動実行の成功を自動適用成功とは報告しない。
 
 指定2単元のテストは768×1024で起動、15問の回答、14問正解の採点、15件の保存、
 他単元記録の保持、再読込後の誤答表示、読み、保護者表を確認する。
@@ -116,6 +149,7 @@ CSPを緩めず、接続完了条件・assert・模擬APIは維持する。
 ## プレビューとデータ保護
 
 ```bash
+cd /workspace/yuika-study-cloud
 source scripts/cloud/activate.sh
 python scripts/cloud/serve.py --port 8000
 ```
@@ -130,13 +164,17 @@ CSP `connect-src 'none'` と `form-action 'none'` で通知API・フォーム送
 `.venv`・キャッシュ・ログ・private-data・成果物はコミットしない。
 `.gitignore`に頼らずステージするパスと差分を明示的に確認する。
 
-## 今回の検証とPRの依存関係
+## PRの依存関係
 
 PRの順序は、main → [PR #5](https://github.com/naoyanakajima-cyber/yuika-study/pull/5)
 （環境基盤）→ [PR #6](https://github.com/naoyanakajima-cyber/yuika-study/pull/6)
-（通知テスト待機）→ `codex/cloud-automatic-bootstrap`（この追加）。
-この追加PRのbaseはPR #6のブランチとし、既存差分を重複させない。
+（通知テスト待機）→ [PR #7](https://github.com/naoyanakajima-cyber/yuika-study/pull/7)
+（固定commit版Install/Start）→ `codex/cloud-handoff-hardening-20261108`
+（ログ先失敗時の成功記録失効・引き継ぎ手順）。
+引き継ぎ修正PRのbaseはPR #7のブランチ `codex/cloud-automatic-bootstrap`。
 すべてdraftで、環境利用のためにmainへマージする必要はない。
+
+## 以前の手動再構築の検証（2026-11-06 JST）
 
 今回、合成Gitリポジトリによる `python tests/cloud_bootstrap.py` の12件が成功。
 setupのないmain・元checkoutのdirty変更・既存topic branch・untrackedファイル・
@@ -166,12 +204,25 @@ Playwright 1.62.0、Chromium 154.0.8037.57。
 これは**同一インスタンス内の手動Install再構築**であり、保存済み環境からの
 新規タスク自動適用成功ではない。過去の成功を今回の結果へ流用していない。
 
-## 残る最少の管理操作
+## 複数エージェントで次の作業を始めるとき
 
-1. 対象の保存済み環境で、同じ固定commitから生成したInstall/Startの全文を登録する。
-   Only meと既存の最小ネットワーク許可を確認し、保存・Publish/Republishする。
-2. その環境を明示して新規タスクを開始し、手動補完前のInstall実行ログ・保存版ID・
-   成功記録を確認する。全5テストと子エージェント実起動の結果まで確認する。
+共有checkoutではファイルごとに書き込み担当を1名にし、setup・commit・統合担当も1名にする。
+独立レビュー担当は読み取り専用とし、同じテストやsetupを重複実行しない。
+独立した並行開発は別checkout・別topic branchを使い、プレビューのポートも分ける。
+新規作業でdetached HEADなら固有branchを作り、再開時は既存branchと未コミット変更を保持する。
+具体的な対象ファイルと実行した検証は各PRへ残す。
 
-新規タスク作成機能がない今回のセッションでは、この2操作は代行できていない。
-同一インスタンス内の別checkoutでの再構築を代替検証とし、その限界を維持する。
+## サポート回答後に確認する項目
+
+サポート返信待ちの間は現在の手動起動で開発できる。次の確認を今は繰り返さない。
+
+1. 公開済み設定本文と編集中の下書きを区別し、Install/Startが同じ固定commit・作業先か照合する。
+2. 選択された保存済み環境、設定版、Only meが意図どおりか確認する。私的な環境IDや版IDは
+   非公開の診断記録に置き、公開文書・PRへ追加しない。
+3. 新規環境で、手動補完より前のプラットフォームInstall実行ログ・終了コード・成功記録を取得し、
+   未実行と途中失敗を区別する。専用checkoutの不在や空のスキル一覧だけで原因を断定しない。
+4. Startの提供・実行と、インストール済み環境の再開手順を確認する。
+5. 設定修正が必要なら、採用するcommitのレビューと設定変更の扱いを確認してから進める。
+   新規環境で6コマンドと子エージェント起動まで確認できて初めて、その結果を別途記録する。
+
+今回、本番マージ、実メール・Chat、アプリ公開・デプロイ、Secrets・課金・共有範囲の変更は行っていない。
