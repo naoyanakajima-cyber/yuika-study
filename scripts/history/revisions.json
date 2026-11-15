@@ -5191,6 +5191,647 @@
           "pitfall": "倍率を上げると視野は暗くなりやすくなります。必要に応じて明るさを調整します。"
         }
       }
+    ],
+    "medaka-01": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 18: initial original medaka questions",
+        "question": {
+          "id": "medaka-01",
+          "unitId": "rika-medaka",
+          "conceptId": "medaka-hatch",
+          "subject": "理科",
+          "unit": "メダカの飼育・ひれ・成長",
+          "course": "d1",
+          "level": 1,
+          "source": "オリジナル問題・自作模式図",
+          "basis": "25℃前後では、ふ化まで約10〜11日が目安です。水温などで変わり、いつも同じ日数ではありません。",
+          "type": "recall",
+          "area": "growth",
+          "prompt": "水温が25℃前後のとき、卵がふ化するまで約何日？ 数字だけ、または「○〜○日」の形で入力しよう。",
+          "answer": "約10〜11日",
+          "options": [
+            "約10〜11日",
+            "約1〜2日",
+            "約40〜50日"
+          ],
+          "aliases": [
+            "10",
+            "11",
+            "10日",
+            "11日",
+            "約10日",
+            "約11日",
+            "10〜11日",
+            "10～11日",
+            "10-11日",
+            "10から11日",
+            "10〜11",
+            "10～11",
+            "10-11",
+            "10から11",
+            "10、11日"
+          ],
+          "hint": "まず自分で思い出そう。",
+          "explanation": "25℃前後では、ふ化まで約10〜11日が目安です。水温などで変わり、いつも同じ日数ではありません。",
+          "pitfall": "25℃前後では、ふ化まで約10〜11日が目安です。水温などで変わり、いつも同じ日数ではありません。"
+        }
+      }
+    ],
+    "medaka-02": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 18: initial original medaka questions",
+        "question": {
+          "id": "medaka-02",
+          "unitId": "rika-medaka",
+          "conceptId": "medaka-length",
+          "subject": "理科",
+          "unit": "メダカの飼育・ひれ・成長",
+          "course": "d1",
+          "level": 1,
+          "source": "オリジナル問題・自作模式図",
+          "basis": "ふ化直後の体長は約4〜5mmが目安です。個体差があり、ぴったり同じ長さではありません。",
+          "type": "recall",
+          "area": "growth",
+          "prompt": "ふ化したばかりの子メダカの体長は約何mm？ 数字だけ、または「○〜○mm」の形で入力しよう。",
+          "answer": "約4〜5mm",
+          "options": [
+            "約4〜5mm",
+            "約40〜50mm",
+            "約1m"
+          ],
+          "aliases": [
+            "4",
+            "5",
+            "4mm",
+            "5mm",
+            "約4mm",
+            "約5mm",
+            "4〜5mm",
+            "4～5mm",
+            "4-5mm",
+            "4から5mm",
+            "4〜5",
+            "4～5",
+            "4-5",
+            "4から5",
+            "4ミリ",
+            "5ミリ",
+            "4ミリメートル",
+            "5ミリメートル",
+            "4〜5ミリ",
+            "4〜5ミリメートル"
+          ],
+          "hint": "まず自分で思い出そう。",
+          "explanation": "ふ化直後の体長は約4〜5mmが目安です。個体差があり、ぴったり同じ長さではありません。",
+          "pitfall": "ふ化直後の体長は約4〜5mmが目安です。個体差があり、ぴったり同じ長さではありません。"
+        }
+      }
+    ],
+    "medaka-03": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 18: initial original medaka questions",
+        "question": {
+          "id": "medaka-03",
+          "unitId": "rika-medaka",
+          "conceptId": "medaka-yolk",
+          "subject": "理科",
+          "unit": "メダカの飼育・ひれ・成長",
+          "course": "d1",
+          "level": 1,
+          "source": "オリジナル問題・自作模式図",
+          "basis": "卵黄のうは、子メダカが成長するための養分をたくわえています。",
+          "type": "recall",
+          "area": "growth",
+          "prompt": "ふ化直後の子メダカのおなかにある、養分をたくわえたふくろの名前は？",
+          "answer": "卵黄のう",
+          "options": [
+            "卵黄のう",
+            "心ぞう",
+            "えら"
+          ],
+          "aliases": [
+            "らんおうのう",
+            "卵黄嚢",
+            "らんおう嚢",
+            "卵黄のう（ふくろ）"
+          ],
+          "hint": "まず自分で思い出そう。",
+          "explanation": "卵黄のうは、子メダカが成長するための養分をたくわえています。",
+          "pitfall": "卵黄のうは、子メダカが成長するための養分をたくわえています。"
+        }
+      }
+    ],
+    "medaka-04": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 18: initial original medaka questions",
+        "question": {
+          "id": "medaka-04",
+          "unitId": "rika-medaka",
+          "conceptId": "medaka-yolk",
+          "subject": "理科",
+          "unit": "メダカの飼育・ひれ・成長",
+          "course": "d1",
+          "level": 1,
+          "source": "オリジナル問題・自作模式図",
+          "basis": "しばらくは卵黄のうの養分を使います。養分を使い終えるころには、子メダカに合ったエサが必要です。",
+          "type": "recall",
+          "area": "growth",
+          "prompt": "ふ化直後にしばらくエサを食べなくてもよいのは、どこの養分を使うから？ ふくろの名前を入力しよう。",
+          "answer": "卵黄のう",
+          "options": [
+            "卵黄のう",
+            "心ぞう",
+            "おびれ"
+          ],
+          "aliases": [
+            "らんおうのう",
+            "卵黄嚢"
+          ],
+          "hint": "まず自分で思い出そう。",
+          "explanation": "しばらくは卵黄のうの養分を使います。養分を使い終えるころには、子メダカに合ったエサが必要です。",
+          "pitfall": "しばらくは卵黄のうの養分を使います。養分を使い終えるころには、子メダカに合ったエサが必要です。"
+        }
+      }
+    ],
+    "medaka-05": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 18: initial original medaka questions",
+        "question": {
+          "id": "medaka-05",
+          "unitId": "rika-medaka",
+          "conceptId": "medaka-heart",
+          "subject": "理科",
+          "unit": "メダカの飼育・ひれ・成長",
+          "course": "d1",
+          "level": 1,
+          "source": "オリジナル問題・自作模式図",
+          "basis": "心ぞうは血液を送ります。養分をたくわえる卵黄のうとは、別の器官です。",
+          "type": "recall",
+          "area": "growth",
+          "prompt": "卵黄のうは養分をたくわえる。血液を体に送る器官の名前は？",
+          "answer": "心ぞう",
+          "options": [
+            "心ぞう",
+            "卵黄のう",
+            "せびれ"
+          ],
+          "aliases": [
+            "しんぞう",
+            "心臓"
+          ],
+          "hint": "まず自分で思い出そう。",
+          "explanation": "心ぞうは血液を送ります。養分をたくわえる卵黄のうとは、別の器官です。",
+          "pitfall": "心ぞうは血液を送ります。養分をたくわえる卵黄のうとは、別の器官です。"
+        }
+      }
+    ],
+    "medaka-06": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 18: initial original medaka questions",
+        "question": {
+          "id": "medaka-06",
+          "unitId": "rika-medaka",
+          "conceptId": "medaka-fin-types",
+          "subject": "理科",
+          "unit": "メダカの飼育・ひれ・成長",
+          "course": "d1",
+          "level": 1,
+          "source": "オリジナル問題・自作模式図",
+          "basis": "むなびれ・はらびれ・せびれ・しりびれ・おびれの5種類です。左右にあるひれも1種類と数えます。",
+          "type": "recall",
+          "area": "fins",
+          "prompt": "メダカのひれは、むな・はら・せ・しり・おの何種類？ 数字だけでもよい。",
+          "answer": "5種類",
+          "options": [
+            "5種類",
+            "3種類",
+            "7種類"
+          ],
+          "aliases": [
+            "5",
+            "5しゅるい",
+            "五種類",
+            "五"
+          ],
+          "hint": "まず自分で思い出そう。",
+          "explanation": "むなびれ・はらびれ・せびれ・しりびれ・おびれの5種類です。左右にあるひれも1種類と数えます。",
+          "pitfall": "むなびれ・はらびれ・せびれ・しりびれ・おびれの5種類です。左右にあるひれも1種類と数えます。"
+        }
+      }
+    ],
+    "medaka-07": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 18: initial original medaka questions",
+        "question": {
+          "id": "medaka-07",
+          "unitId": "rika-medaka",
+          "conceptId": "medaka-paired",
+          "subject": "理科",
+          "unit": "メダカの飼育・ひれ・成長",
+          "course": "d1",
+          "level": 1,
+          "source": "オリジナル問題・自作模式図",
+          "basis": "左右一対なのは、むなびれとはらびれです。オス・メスを見分けるときは、せびれとしりびれを比べます。",
+          "type": "recall",
+          "area": "fins",
+          "prompt": "左右一対（右と左に1つずつ）ある2種類のひれは？ 「○びれと○びれ」と入力しよう。",
+          "answer": "むなびれ・はらびれ",
+          "options": [
+            "むなびれ・はらびれ",
+            "せびれ・しりびれ",
+            "しりびれ・おびれ"
+          ],
+          "aliases": [
+            "はらびれ・むなびれ",
+            "むなびれとはらびれ",
+            "はらびれとむなびれ",
+            "むなびれ、はらびれ",
+            "はらびれ、むなびれ",
+            "胸びれと腹びれ",
+            "胸鰭と腹鰭",
+            "胸びれ・腹びれ"
+          ],
+          "hint": "まず自分で思い出そう。",
+          "explanation": "左右一対なのは、むなびれとはらびれです。オス・メスを見分けるときは、せびれとしりびれを比べます。",
+          "pitfall": "左右一対なのは、むなびれとはらびれです。オス・メスを見分けるときは、せびれとしりびれを比べます。"
+        }
+      }
+    ],
+    "medaka-08": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 18: initial original medaka questions",
+        "question": {
+          "id": "medaka-08",
+          "unitId": "rika-medaka",
+          "conceptId": "medaka-sex-fins",
+          "subject": "理科",
+          "unit": "メダカの飼育・ひれ・成長",
+          "course": "d1",
+          "level": 1,
+          "source": "オリジナル問題・自作模式図",
+          "basis": "せびれの切れこみと、しりびれの形や大きさを比べます。左右一対のひれとは組合せがちがいます。",
+          "type": "recall",
+          "area": "fins",
+          "prompt": "オス・メスを見分けるときに比べる2種類のひれは？ 「○びれと○びれ」と入力しよう。",
+          "answer": "せびれ・しりびれ",
+          "options": [
+            "せびれ・しりびれ",
+            "むなびれ・はらびれ",
+            "むなびれ・おびれ"
+          ],
+          "aliases": [
+            "しりびれ・せびれ",
+            "せびれとしりびれ",
+            "しりびれとせびれ",
+            "せびれ、しりびれ",
+            "しりびれ、せびれ",
+            "背びれと尻びれ",
+            "背鰭と尻鰭"
+          ],
+          "hint": "まず自分で思い出そう。",
+          "explanation": "せびれの切れこみと、しりびれの形や大きさを比べます。左右一対のひれとは組合せがちがいます。",
+          "pitfall": "せびれの切れこみと、しりびれの形や大きさを比べます。左右一対のひれとは組合せがちがいます。"
+        }
+      }
+    ],
+    "medaka-09": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 18: initial original medaka questions",
+        "question": {
+          "id": "medaka-09",
+          "unitId": "rika-medaka",
+          "conceptId": "medaka-dorsal-sex",
+          "subject": "理科",
+          "unit": "メダカの飼育・ひれ・成長",
+          "course": "d1",
+          "level": 1,
+          "source": "オリジナル問題・自作模式図",
+          "basis": "オスのせびれには切れこみがあります。しりびれの形も合わせて比べます。",
+          "type": "recall",
+          "area": "fins",
+          "prompt": "オスのせびれに見られる、メスとの見分けの手がかりは？",
+          "answer": "切れこみ",
+          "options": [
+            "切れこみ",
+            "左右一対の形",
+            "長い毛"
+          ],
+          "aliases": [
+            "きれこみ",
+            "切れ込み"
+          ],
+          "hint": "まず自分で思い出そう。",
+          "explanation": "オスのせびれには切れこみがあります。しりびれの形も合わせて比べます。",
+          "pitfall": "オスのせびれには切れこみがあります。しりびれの形も合わせて比べます。"
+        }
+      }
+    ],
+    "medaka-10": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 18: initial original medaka questions",
+        "question": {
+          "id": "medaka-10",
+          "unitId": "rika-medaka",
+          "conceptId": "medaka-anal-sex",
+          "subject": "理科",
+          "unit": "メダカの飼育・ひれ・成長",
+          "course": "d1",
+          "level": 1,
+          "source": "オリジナル問題・自作模式図",
+          "basis": "オスのしりびれは大きく平行四辺形に近い形です。メスは後ろが短く、三角形に近い形です。",
+          "type": "recall",
+          "area": "fins",
+          "prompt": "大きく、平行四辺形に近いしりびれを持つのは、オスとメスのどちら？",
+          "answer": "オス",
+          "options": [
+            "オス",
+            "メス",
+            "どちらも必ず同じ"
+          ],
+          "aliases": [
+            "おす",
+            "雄"
+          ],
+          "hint": "まず自分で思い出そう。",
+          "explanation": "オスのしりびれは大きく平行四辺形に近い形です。メスは後ろが短く、三角形に近い形です。",
+          "pitfall": "オスのしりびれは大きく平行四辺形に近い形です。メスは後ろが短く、三角形に近い形です。"
+        }
+      }
+    ],
+    "medaka-11": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 18: initial original medaka questions",
+        "question": {
+          "id": "medaka-11",
+          "unitId": "rika-medaka",
+          "conceptId": "medaka-position",
+          "subject": "理科",
+          "unit": "メダカの飼育・ひれ・成長",
+          "course": "d1",
+          "level": 1,
+          "source": "オリジナル問題・自作模式図",
+          "basis": "せびれの位置を確認しよう。せびれは背中、しりびれは体の後ろ側の腹、むなびれはえらのすぐ後ろです。左右一対のひれは、横からは片側を中心に示しています。",
+          "type": "recall",
+          "area": "fins",
+          "prompt": "図はオスを横から見た模式図です。せびれの位置をタップしよう。",
+          "answer": "せびれ",
+          "options": [
+            "むなびれ",
+            "はらびれ",
+            "せびれ",
+            "しりびれ",
+            "おびれ"
+          ],
+          "aliases": [],
+          "hint": "まず自分で思い出そう。",
+          "explanation": "せびれの位置を確認しよう。せびれは背中、しりびれは体の後ろ側の腹、むなびれはえらのすぐ後ろです。左右一対のひれは、横からは片側を中心に示しています。",
+          "pitfall": "せびれの位置を確認しよう。せびれは背中、しりびれは体の後ろ側の腹、むなびれはえらのすぐ後ろです。左右一対のひれは、横からは片側を中心に示しています。",
+          "diagram": {
+            "sex": "male",
+            "target": "せびれ"
+          }
+        }
+      }
+    ],
+    "medaka-12": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 18: initial original medaka questions",
+        "question": {
+          "id": "medaka-12",
+          "unitId": "rika-medaka",
+          "conceptId": "medaka-position",
+          "subject": "理科",
+          "unit": "メダカの飼育・ひれ・成長",
+          "course": "d1",
+          "level": 1,
+          "source": "オリジナル問題・自作模式図",
+          "basis": "しりびれの位置を確認しよう。せびれは背中、しりびれは体の後ろ側の腹、むなびれはえらのすぐ後ろです。左右一対のひれは、横からは片側を中心に示しています。",
+          "type": "recall",
+          "area": "fins",
+          "prompt": "図はメスを横から見た模式図です。しりびれの位置をタップしよう。",
+          "answer": "しりびれ",
+          "options": [
+            "むなびれ",
+            "はらびれ",
+            "せびれ",
+            "しりびれ",
+            "おびれ"
+          ],
+          "aliases": [],
+          "hint": "まず自分で思い出そう。",
+          "explanation": "しりびれの位置を確認しよう。せびれは背中、しりびれは体の後ろ側の腹、むなびれはえらのすぐ後ろです。左右一対のひれは、横からは片側を中心に示しています。",
+          "pitfall": "しりびれの位置を確認しよう。せびれは背中、しりびれは体の後ろ側の腹、むなびれはえらのすぐ後ろです。左右一対のひれは、横からは片側を中心に示しています。",
+          "diagram": {
+            "sex": "female",
+            "target": "しりびれ"
+          }
+        }
+      }
+    ],
+    "medaka-13": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 18: initial original medaka questions",
+        "question": {
+          "id": "medaka-13",
+          "unitId": "rika-medaka",
+          "conceptId": "medaka-position",
+          "subject": "理科",
+          "unit": "メダカの飼育・ひれ・成長",
+          "course": "d1",
+          "level": 1,
+          "source": "オリジナル問題・自作模式図",
+          "basis": "むなびれの位置を確認しよう。せびれは背中、しりびれは体の後ろ側の腹、むなびれはえらのすぐ後ろです。左右一対のひれは、横からは片側を中心に示しています。",
+          "type": "recall",
+          "area": "fins",
+          "prompt": "図はオスを横から見た模式図です。むなびれの位置をタップしよう。",
+          "answer": "むなびれ",
+          "options": [
+            "むなびれ",
+            "はらびれ",
+            "せびれ",
+            "しりびれ",
+            "おびれ"
+          ],
+          "aliases": [],
+          "hint": "まず自分で思い出そう。",
+          "explanation": "むなびれの位置を確認しよう。せびれは背中、しりびれは体の後ろ側の腹、むなびれはえらのすぐ後ろです。左右一対のひれは、横からは片側を中心に示しています。",
+          "pitfall": "むなびれの位置を確認しよう。せびれは背中、しりびれは体の後ろ側の腹、むなびれはえらのすぐ後ろです。左右一対のひれは、横からは片側を中心に示しています。",
+          "diagram": {
+            "sex": "male",
+            "target": "むなびれ"
+          }
+        }
+      }
+    ],
+    "medaka-14": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 18: initial original medaka questions",
+        "question": {
+          "id": "medaka-14",
+          "unitId": "rika-medaka",
+          "conceptId": "medaka-chlorine",
+          "subject": "理科",
+          "unit": "メダカの飼育・ひれ・成長",
+          "course": "d1",
+          "level": 1,
+          "source": "オリジナル問題・自作模式図",
+          "basis": "水道水の消毒用の塩素（カルキ）はメダカに害になります。使う前にくみ置きなどでぬきます。",
+          "type": "recall",
+          "area": "water",
+          "prompt": "水道水をそのまま使わないのは、消毒用の何がメダカに害になるから？",
+          "answer": "塩素",
+          "options": [
+            "塩素",
+            "酸素",
+            "砂"
+          ],
+          "aliases": [
+            "えんそ",
+            "カルキ",
+            "かるき",
+            "塩素（カルキ）"
+          ],
+          "hint": "まず自分で思い出そう。",
+          "explanation": "水道水の消毒用の塩素（カルキ）はメダカに害になります。使う前にくみ置きなどでぬきます。",
+          "pitfall": "水道水の消毒用の塩素（カルキ）はメダカに害になります。使う前にくみ置きなどでぬきます。"
+        }
+      }
+    ],
+    "medaka-15": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 18: initial original medaka questions",
+        "question": {
+          "id": "medaka-15",
+          "unitId": "rika-medaka",
+          "conceptId": "medaka-standing",
+          "subject": "理科",
+          "unit": "メダカの飼育・ひれ・成長",
+          "course": "d1",
+          "level": 1,
+          "source": "オリジナル問題・自作模式図",
+          "basis": "水道水はくみ置きして塩素をぬいてから使います。ぬけるまでの時間は条件で変わるので、置く時間だけで決めつけません。",
+          "type": "recall",
+          "area": "water",
+          "prompt": "水道水の塩素をぬくため、容器に入れてしばらく置くことを何という？",
+          "answer": "くみ置き",
+          "options": [
+            "くみ置き",
+            "かき混ぜた直後に使うこと",
+            "塩を加えること"
+          ],
+          "aliases": [
+            "くみおき",
+            "汲み置き",
+            "汲みおき"
+          ],
+          "hint": "まず自分で思い出そう。",
+          "explanation": "水道水はくみ置きして塩素をぬいてから使います。ぬけるまでの時間は条件で変わるので、置く時間だけで決めつけません。",
+          "pitfall": "水道水はくみ置きして塩素をぬいてから使います。ぬけるまでの時間は条件で変わるので、置く時間だけで決めつけません。"
+        }
+      }
+    ],
+    "medaka-16": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 18: initial original medaka questions",
+        "question": {
+          "id": "medaka-16",
+          "unitId": "rika-medaka",
+          "conceptId": "medaka-sources",
+          "subject": "理科",
+          "unit": "メダカの飼育・ひれ・成長",
+          "course": "d1",
+          "level": 1,
+          "source": "オリジナル問題・自作模式図",
+          "basis": "井戸水や、汚れていない川・池の水を使えます。水質や水温を確かめ、汚れた水は使いません。",
+          "type": "recall",
+          "area": "water",
+          "prompt": "メダカの飼育に使える水の一つ。井戸からくみ上げた水を何という？",
+          "answer": "井戸水",
+          "options": [
+            "井戸水",
+            "海水",
+            "洗剤入りの水"
+          ],
+          "aliases": [
+            "いどみず",
+            "井戸の水",
+            "いどのみず",
+            "地下水",
+            "ちかすい"
+          ],
+          "hint": "まず自分で思い出そう。",
+          "explanation": "井戸水や、汚れていない川・池の水を使えます。水質や水温を確かめ、汚れた水は使いません。",
+          "pitfall": "井戸水や、汚れていない川・池の水を使えます。水質や水温を確かめ、汚れた水は使いません。"
+        }
+      }
+    ],
+    "medaka-17": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 18: initial original medaka questions",
+        "question": {
+          "id": "medaka-17",
+          "unitId": "rika-medaka",
+          "conceptId": "medaka-sources",
+          "subject": "理科",
+          "unit": "メダカの飼育・ひれ・成長",
+          "course": "d1",
+          "level": 1,
+          "source": "オリジナル問題・自作模式図",
+          "basis": "くみ置きした水は、塩素がぬけたことと水温を確かめてから使います。井戸水や汚れていない川・池の水も使えます。",
+          "type": "recall",
+          "area": "water",
+          "prompt": "水道水を用意した。塩素をぬくために容器に入れてしばらく置いた。この水を「何した水」という？",
+          "answer": "くみ置きした水",
+          "options": [
+            "くみ置きした水",
+            "消毒用の塩素を加えた水",
+            "洗剤を溶かした水"
+          ],
+          "aliases": [
+            "くみおきしたみず",
+            "汲み置きした水",
+            "くみ置き水",
+            "くみおきみず"
+          ],
+          "hint": "まず自分で思い出そう。",
+          "explanation": "くみ置きした水は、塩素がぬけたことと水温を確かめてから使います。井戸水や汚れていない川・池の水も使えます。",
+          "pitfall": "くみ置きした水は、塩素がぬけたことと水温を確かめてから使います。井戸水や汚れていない川・池の水も使えます。"
+        }
+      }
     ]
   },
   "mock-focus-review.html": {

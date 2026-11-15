@@ -33,7 +33,7 @@ def validator(text, science):
  unit=re.search(r"UNIT_ID='([^']+)'",text)
  if unit: constants.append('const UNIT_ID='+json.dumps(unit[1])+';')
  constants.append(declaration('QUESTION_REVISIONS',text))
- if science: constants.append('const byId=true;')
+ if science: constants += ['const byId=true;',declaration('recallNormalize',text)]
  constants.append("MODES.adaptive='弱点に合わせた追加練習';MODES.daily='今日の5問';")
  names=(['numeric','requireThat','validDate','legacyData','validateEvent','validateState'] if science else
         ['grade','check','validDate','validateEvent','validate'])
@@ -64,7 +64,7 @@ window.YuikaDesign.summary=function(file){
  const subject=Object.hasOwn(subjects,subjectKey)?subjects[subjectKey]:null;
  file=url.pathname.split('/').pop();const meta=catalog[file];if(!meta)throw Error('unknown unit');
  const store=window.YuikaParent.storage,raw=validators[file](store.getItem(meta.key));
- const events=raw.events.map(e=>({...e,at:e.at||e.answeredAt,hint:e.hint??e.hintUsed,variant:e.variant||'normal'}));
+ const events=raw.events.map(e=>({...e,at:e.at||e.answeredAt,hint:e.hint??e.hintUsed,variant:e.variant||'normal',correct:meta.science&&e.type==='recall'?e.recallOutcome==='unaided':e.correct}));
  const requestedUnit=url.searchParams.get('unit');
  const validRequestedUnit=meta.science&&meta.questions.some(q=>q.unit===requestedUnit);
  const QUESTIONS=meta.questions.filter(q=>(file!=='mock-focus-review.html'||!subject||q.subject===subject)&&(!validRequestedUnit||q.unit===requestedUnit)),Q=new Map(QUESTIONS.map(q=>[q.id,q]));
