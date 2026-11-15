@@ -1,0 +1,10 @@
+[
+  {
+    "name": "Workers Builds: yuika-study",
+    "head_sha": "b416d3c08a0d3952e5f0153fdc691d6fa0e492b7",
+    "status": "completed",
+    "conclusion": "failure",
+    "completed_at": "2026-11-15T01:21:45Z",
+    "html_url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/132655374833"
+  }
+]

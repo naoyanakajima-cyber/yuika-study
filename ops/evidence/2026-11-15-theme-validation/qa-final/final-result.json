@@ -1,0 +1,166 @@
+{
+  "head": "b416d3c08a0d3952e5f0153fdc691d6fa0e492b7",
+  "status": "",
+  "final_verified_at": "2026-11-15T01:20:08.159947+00:00",
+  "executor": "qa_theme_compatibility",
+  "implementer": "engineer_theme_compatibility",
+  "command": "bash scripts/check_all.sh",
+  "full_suite_attempts_on_this_head": 1,
+  "full_suite_exit": 0,
+  "total_seconds": 267,
+  "suites": [
+    {
+      "suite": "tests/onin_review.py",
+      "exit_code": 0,
+      "seconds": 4
+    },
+    {
+      "suite": "tests/kamakura_review.py",
+      "exit_code": 0,
+      "seconds": 4
+    },
+    {
+      "suite": "tests/cloud_preview.py",
+      "exit_code": 0,
+      "seconds": 2
+    },
+    {
+      "suite": "notifications/test/worker.test.mjs",
+      "exit_code": 0,
+      "seconds": 0
+    },
+    {
+      "suite": "notifications/test/browser.py",
+      "exit_code": 0,
+      "seconds": 13
+    },
+    {
+      "suite": "tests/cloud_bootstrap.py",
+      "exit_code": 0,
+      "seconds": 2
+    },
+    {
+      "suite": "tests/adaptive_practice.py",
+      "exit_code": 0,
+      "seconds": 3
+    },
+    {
+      "suite": "tests/adaptive_daily.py",
+      "exit_code": 0,
+      "seconds": 5
+    },
+    {
+      "suite": "tests/adaptive_quality.py",
+      "exit_code": 0,
+      "seconds": 4
+    },
+    {
+      "suite": "tests/flash_grading.py",
+      "exit_code": 0,
+      "seconds": 9
+    },
+    {
+      "suite": "tests/spaced_daily.py",
+      "exit_code": 0,
+      "seconds": 5
+    },
+    {
+      "suite": "tests/history_compat.py",
+      "exit_code": 0,
+      "seconds": 4
+    },
+    {
+      "suite": "tests/science_adaptive.py",
+      "exit_code": 0,
+      "seconds": 8
+    },
+    {
+      "suite": "tests/registered_answers.py",
+      "exit_code": 0,
+      "seconds": 3
+    },
+    {
+      "suite": "tests/history_review_regression.py",
+      "exit_code": 0,
+      "seconds": 3
+    },
+    {
+      "suite": "tests/state_review_regression.py",
+      "exit_code": 0,
+      "seconds": 4
+    },
+    {
+      "suite": "tests/prototype_storage.py",
+      "exit_code": 0,
+      "seconds": 8
+    },
+    {
+      "suite": "tests/focus_data.py",
+      "exit_code": 0,
+      "seconds": 0
+    },
+    {
+      "suite": "tests/focus_practice.py",
+      "exit_code": 0,
+      "seconds": 12
+    },
+    {
+      "suite": "tests/parent_mode.py",
+      "exit_code": 0,
+      "seconds": 22
+    },
+    {
+      "suite": "tests/design_c.py",
+      "exit_code": 0,
+      "seconds": 20
+    },
+    {
+      "suite": "tests/responsive_subjects.py",
+      "exit_code": 0,
+      "seconds": 118
+    },
+    {
+      "suite": "tests/theme_review.py",
+      "exit_code": 0,
+      "seconds": 14
+    }
+  ],
+  "started_at": "2026-11-15T01:14:07.450947+00:00",
+  "completed_at": "2026-11-15T01:18:34.202055+00:00",
+  "independent_diagram_probe_attempts": 1,
+  "independent_diagram_probe_exit": 0,
+  "target_minimum_contrast": 6.265720821251096,
+  "all_ten_white_node_minimum_contrast": 4.977109637969801,
+  "diagram_states": 4,
+  "diagram_screenshots_visually_reviewed": 4,
+  "product_blockers": [],
+  "review_result": "passed_for_synthetic_trial_with_documented_limits",
+  "persistence_status": "coordinator PR/board/evidence commit push and lease release pending; not performed by QA",
+  "prior_candidate": {
+    "head": "c81fb6b3a7e9c5c6c5d42431afe1d13a73c780d3",
+    "full_suites": 23,
+    "full_suite_exit": 0,
+    "C6_contrast": 3.479281384346954,
+    "final_acceptance": false,
+    "reason": "new independent long-diagram inspection found inherited contrast below 4.5; fix required a new candidate"
+  },
+  "prior_cycle24_evidence": "c81 static + scoped14/68 colors reused, not counted as cycle25 execution; C81→b416 only two CSS lines added to HTML, main scripts/DOM source unchanged",
+  "C1_C8": {
+    "C1": "pass: approved narrow scope/history/main preserved; exact final diff reviewed",
+    "C2": "pass within explicit PrM exception: only diagram two box colors changed in standard; shared design and rest preserved",
+    "C3": "pass: full theme suite unknown/read-write failures and recovery",
+    "C4": "pass: full parent/theme suites and prior same-behavior scoped evidence",
+    "C5": "pass: full theme run/input/grade/results/storage/DOM checks; scripts unchanged",
+    "C6": "pass in sampled synthetic Chromium coverage: prior six views; current long diagram/table/longest explanation and final diagram defect fix; no real device guarantee",
+    "C7": "pass: 23 required suites executed successfully at final clean HEAD; no weakened assertions",
+    "C8": "QA evidence ready; parent must persist PR/board and read back before declaring operational completion"
+  },
+  "limitations": [
+    "Chromium only; no actual iPad/Safari/WebKit or native zoom",
+    "Synthetic data only; no learner preference or learning-effect assessment",
+    "Print media emulation only; not a physical printer result",
+    "Existing font GETs blocked; fallback rendering; full suites may fetch public JS and use mock notification APIs, not overall zero network",
+    "No production merge/deploy/actual notification/billing/Secrets/access changes",
+    "Not a complete pixel or accessibility audit of every screen/content state"
+  ]
+}

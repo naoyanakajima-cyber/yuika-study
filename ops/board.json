@@ -36,14 +36,8 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": {
-    "run_id": "cycle-20261115T010205Z",
-    "acquired_at": "2026-11-15T01:02:05.543711+00:00",
-    "expires_at": "2026-11-15T01:42:05.543711+00:00",
-    "ticket": "THEME-MVP",
-    "owner": "root/coordinator"
-  },
-  "updated_at": "2026-11-15T01:02:05.543711+00:00",
+  "lease": null,
+  "updated_at": "2026-11-15T01:26:27.033964+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -1038,7 +1032,7 @@
       "id": "THEME-MVP",
       "title": "標準と鎌倉テーマの切替試作",
       "goal": 3,
-      "state": "blocked",
+      "state": "ceo_wait",
       "priority": 3,
       "depends_on": [
         "THEME-SPEC"
@@ -1051,7 +1045,7 @@
         "切替前後の問題・採点・既存履歴が同一",
         "768x1024で可読性と主要操作を確認する"
       ],
-      "next_action": "最優先で既存PR12固定候補c81fb6bを再開し、ソース定数とexport期待値を照合してから必須23suiteと独立QAを完了する。今回export期待値は2試行後に修正保存のみ、第三試行なし。未知値/read-write例外/回復/他画面往復を含む後半も未完。新機能/新PRを増やさず、成功までCEO試用準備完了としない。",
+      "next_action": "既存PR12 b416d3cを合成試用候補として朝夕CEOチェックへ提示。推奨は標準/鎌倉の見やすさ・途中切替・標準復帰を本人が確認し、THEME-MVPを添えて元チャットへ具体的フィードバック。実際の返答が台帳へ記録されるまで採用/merge/公開承認としない。製品3枠10/11/12はCEO待ち。新たな差分・具体的再現がなければ同じQAや環境調査を反復せず終了。",
       "evidence": [
         {
           "kind": "test",
@@ -1121,6 +1115,36 @@
           "path": "ops/evidence/2026-11-15-theme-compatibility/engineer",
           "commit": "c81fb6b3a7e9c5c6c5d42431afe1d13a73c780d3",
           "note": "precommit focused theme attempts1/2 failed; final expectation saved unexecuted; separate parent/memory/print probe passed"
+        },
+        {
+          "kind": "report",
+          "path": "ops/runs/2026-11-15-theme-validation.md",
+          "commit": "b416d3c08a0d3952e5f0153fdc691d6fa0e492b7"
+        },
+        {
+          "kind": "independent_qa",
+          "path": "ops/evidence/2026-11-15-theme-validation/QA.md",
+          "executor": "qa_theme_compatibility",
+          "commit": "b416d3c08a0d3952e5f0153fdc691d6fa0e492b7",
+          "result": "passed_for_synthetic_trial_with_documented_limits"
+        },
+        {
+          "kind": "test",
+          "command": "bash scripts/check_all.sh",
+          "exit_code": 0,
+          "suites": 23,
+          "seconds": 267,
+          "commit": "b416d3c08a0d3952e5f0153fdc691d6fa0e492b7",
+          "executor": "qa_theme_compatibility",
+          "path": "ops/evidence/2026-11-15-theme-validation/qa-final/final-result.json"
+        },
+        {
+          "kind": "diagram_contrast",
+          "commit": "b416d3c08a0d3952e5f0153fdc691d6fa0e492b7",
+          "executor": "qa_theme_compatibility",
+          "before": 3.479281384346954,
+          "after": 6.265720821251096,
+          "path": "ops/evidence/2026-11-15-theme-validation/qa-final/diagram-result.json"
         }
       ],
       "review": {
@@ -1128,15 +1152,15 @@
         "prm": "root/coordinator",
         "author": "engineer_theme_compatibility",
         "reviewer": "qa_theme_compatibility",
-        "result": "partial_review_passed_required_checks_pending",
-        "commit": "c81fb6b3a7e9c5c6c5d42431afe1d13a73c780d3",
-        "completed_at": "2026-11-15T00:14:03.412251+00:00",
-        "notes": "静的境界初回成功・限定14検査/文字色68組はハーネス修正後2回目成功。必須23suite/export未実行、製品受入未完。"
+        "result": "passed_for_synthetic_trial_with_documented_limits",
+        "commit": "b416d3c08a0d3952e5f0153fdc691d6fa0e492b7",
+        "completed_at": "2026-11-15T01:20:08+00:00",
+        "notes": "新固定clean候補で全23suite初回成功267秒。対象2図ラベルのcontrast6.2657、両テーマ/画面print独立検証。C2限定例外採択、実機/本人嗜好/学習効果未確認。"
       },
       "base_ref": "main",
       "base_sha": "86514eda054a5a2e09204df3a0668e40624c16de",
       "specification": "docs/product/theme-spec.md",
-      "commit": "c81fb6b3a7e9c5c6c5d42431afe1d13a73c780d3",
+      "commit": "b416d3c08a0d3952e5f0153fdc691d6fa0e492b7",
       "direction_adopted": true,
       "direction_decision": "D05",
       "release": {
@@ -1144,7 +1168,7 @@
         "deployment_authorized": false,
         "state": "draft_unmerged"
       },
-      "implementation_status": "compatibility_candidate_implemented_validation_incomplete",
+      "implementation_status": "compatibility_and_diagram_contrast_independently_verified",
       "followup_scope": {
         "id": "THEME-MVP-readability",
         "status": "focused_trial_completed_no_product_change",
@@ -1165,22 +1189,22 @@
         "completed_at": "2026-11-10T00:08:14.222274+00:00",
         "excluded_scope": "parent/recordsは未完run遷移確認が不足していたため今回の成功範囲から除外。証拠を訂正し再実行なし。"
       },
-      "ceo_wait_reason": "D05方向性採用は維持。現在HEADは互換性修正候補の検証継続中で、CEO試用準備完了・製品受入済みとはしない。merge/公開未承認。",
+      "ceo_wait_reason": "D05方向性採用を維持。現候補は合成Chromiumの受入範囲で独立QA済み、本人の嗜好/実機試用は未確認。CEO返答の実読取り・台帳反映待ち。merge/公開未承認。",
       "ceo_trial": {
-        "synthetic_focused_qa": "passed_for_home_and_feedback_only",
+        "synthetic_focused_qa": "passed_current_synthetic_acceptance_scope",
         "ceo_hands_on": "not_verified",
         "real_ipad_safari": "not_tested",
         "native_browser_zoom": "not_tested",
-        "latest_synthetic_qa_commit": "57171ad9cab02fec6a080ecbe317fe11d3f51dcf",
-        "latest_cloud_artifacts": "/workspace/work/theme-readability-qa-20261110/",
+        "latest_synthetic_qa_commit": "b416d3c08a0d3952e5f0153fdc691d6fa0e492b7",
+        "latest_cloud_artifacts": "ops/evidence/2026-11-15-theme-validation/qa-final",
         "shared_browser_handoff": "not_completed",
-        "current_candidate_commit": "c81fb6b3a7e9c5c6c5d42431afe1d13a73c780d3",
-        "current_candidate_validation": "incomplete; scoped independent QA passed; required 23 suites and export pending",
-        "current_candidate_artifacts": "ops/evidence/2026-11-15-theme-compatibility"
+        "current_candidate_commit": "b416d3c08a0d3952e5f0153fdc691d6fa0e492b7",
+        "current_candidate_validation": "23 required suites and independent scoped QA passed; real device and user preference unverified",
+        "current_candidate_artifacts": "ops/evidence/2026-11-15-theme-validation"
       },
       "independent_followup": {
         "id": "theme-main-compatibility",
-        "state": "blocked_validation",
+        "state": "completed_awaiting_ceo_trial",
         "pdm": "pdm_theme_compatibility",
         "prm": "root/coordinator",
         "engineer": "engineer_theme_compatibility",
@@ -1189,11 +1213,12 @@
         "integration_base_commit": "86514eda054a5a2e09204df3a0668e40624c16de",
         "specification": "docs/product/theme-main-compatibility.md",
         "scope": "既存PR12の保存境界・共通表示互換性、鎌倉限定",
-        "report": "ops/runs/2026-11-15-theme-compatibility.md",
-        "commit": "c81fb6b3a7e9c5c6c5d42431afe1d13a73c780d3",
-        "review_result": "partial_review_passed_required_checks_pending",
-        "blocking_reason": "テーマ検証のexport期待値移行で同原因2試行に到達。最終期待値修正は保存済み・動的未検証。必須23suite未実行。新CEO承認ではなく次runの固定候補検証が必要。",
-        "completed_scoped_qa_at": "2026-11-15T00:14:03.412251+00:00"
+        "report": "ops/runs/2026-11-15-theme-validation.md",
+        "commit": "b416d3c08a0d3952e5f0153fdc691d6fa0e492b7",
+        "review_result": "passed_for_synthetic_trial_with_documented_limits",
+        "completed_at": "2026-11-15T01:20:08+00:00",
+        "prior_scoped_qa_at": "2026-11-15T00:14:03.412251+00:00",
+        "prior_scoped_qa_commit": "c81fb6b3a7e9c5c6c5d42431afe1d13a73c780d3"
       },
       "review_history": [
         {
@@ -1205,6 +1230,16 @@
           "commit": "57171ad9cab02fec6a080ecbe317fe11d3f51dcf",
           "completed_at": "2026-11-09T18:15:28.833276+00:00",
           "notes": "独立QAが4コマンド実行、両テーマ各画面・破損合成記録/保存障害/通知spyを追加検証。最終4ファイルhash一致、作業ツリーcleanを確認。"
+        },
+        {
+          "pdm": "pdm_theme_compatibility",
+          "prm": "root/coordinator",
+          "author": "engineer_theme_compatibility",
+          "reviewer": "qa_theme_compatibility",
+          "result": "partial_review_passed_required_checks_pending",
+          "commit": "c81fb6b3a7e9c5c6c5d42431afe1d13a73c780d3",
+          "completed_at": "2026-11-15T00:14:03.412251+00:00",
+          "notes": "静的境界初回成功・限定14検査/文字色68組はハーネス修正後2回目成功。必須23suite/export未実行、製品受入未完。"
         }
       ],
       "base_history": [
@@ -1214,7 +1249,16 @@
           "commit": "57171ad9cab02fec6a080ecbe317fe11d3f51dcf"
         }
       ],
-      "blocked_reason": "テーマ検証のexport期待値移行で同原因2試行に到達。最終期待値修正は保存済み・動的未検証。必須23suite未実行。新CEO承認ではなく次runの固定候補検証が必要。"
+      "validation_history": [
+        {
+          "commit": "c81fb6b3a7e9c5c6c5d42431afe1d13a73c780d3",
+          "state": "blocked",
+          "blocked_reason": "テーマ検証のexport期待値移行で同原因2試行に到達。最終期待値修正は保存済み・動的未検証。必須23suite未実行。新CEO承認ではなく次runの固定候補検証が必要。",
+          "report": "ops/runs/2026-11-15-theme-compatibility.md",
+          "resolved_by": "b416d3c08a0d3952e5f0153fdc691d6fa0e492b7",
+          "resolution": "Prior export expectation verified; 23 suites passed on c81; newly identified C6 contrast issue fixed and independently verified on b416d3c."
+        }
+      ]
     },
     {
       "id": "CONTENT-CHAT-SPEC",
@@ -10663,29 +10707,83 @@
       "observed_operations_commit": "6bd73af6ea92623f51d99d20b977857fa9369cd5",
       "observed_main_commit": "86514eda054a5a2e09204df3a0668e40624c16de",
       "ticket": "THEME-MVP",
-      "result": "lease_acquired; resume fixed theme candidate required validation",
+      "result": "completed_existing_draft_pr_updated_ceo_wait",
       "cloud_verified": true,
       "ceo_decisions_ingested": 0,
-      "subagents": [],
+      "subagents": [
+        "pdm_theme_compatibility",
+        "engineer_theme_compatibility",
+        "qa_theme_compatibility"
+      ],
       "new_prs": [],
       "ceo_wait_product_prs": [
         10,
-        11
+        11,
+        12
       ],
       "reserved_product_pr_slots": [
         10,
         11,
         12
       ],
-      "validation_pending_product_prs": [
-        12
-      ],
+      "validation_pending_product_prs": [],
       "additional_existing_product_drafts": [
         22
       ],
       "base_commit": "c81fb6b3a7e9c5c6c5d42431afe1d13a73c780d3",
       "external_private_data_calls": 0,
-      "production_actions": false
+      "production_actions": false,
+      "scope_review": "Initially resume fixed candidate C1-C8/T1-T11 validation; after independent C6 finding, PdM/PrM explicitly accepted a C2 exception limited to the two diagram box backgrounds in both themes, retaining C6 contrast threshold and all other boundaries.",
+      "evidence": "ops/evidence/2026-11-15-theme-validation",
+      "manual_environment_preparation": "Verified existing venv reused manually; not automatic snapshot handoff",
+      "commit": "b416d3c08a0d3952e5f0153fdc691d6fa0e492b7",
+      "report": "ops/runs/2026-11-15-theme-validation.md",
+      "tests": {
+        "baseline": {
+          "commit": "c81fb6b3a7e9c5c6c5d42431afe1d13a73c780d3",
+          "suites": 23,
+          "exit_code": 0,
+          "seconds": 312,
+          "acceptance": "C6 contrast issue found separately"
+        },
+        "final": {
+          "commit": "b416d3c08a0d3952e5f0153fdc691d6fa0e492b7",
+          "suites": 23,
+          "exit_code": 0,
+          "seconds": 267,
+          "reviewer": "qa_theme_compatibility"
+        }
+      },
+      "new_findings": [
+        {
+          "issue": "Inherited diagram labels contrast 3.479 below 4.5",
+          "resolution": "Scoped two-box CSS fix, independently measured 6.266 in screen/print both themes",
+          "commit": "b416d3c08a0d3952e5f0153fdc691d6fa0e492b7"
+        }
+      ],
+      "next_action": "既存PR12 b416d3cを合成試用候補として朝夕CEOチェックへ提示。推奨は標準/鎌倉の見やすさ・途中切替・標準復帰を本人が確認し、THEME-MVPを添えて元チャットへ具体的フィードバック。実際の返答が台帳へ記録されるまで採用/merge/公開承認としない。製品3枠10/11/12はCEO待ち。新たな差分・具体的再現がなければ同じQAや環境調査を反復せず終了。",
+      "external_checks": [
+        {
+          "head": "b416d3c08a0d3952e5f0153fdc691d6fa0e492b7",
+          "name": "Workers Builds: yuika-study",
+          "conclusion": "failure",
+          "completed_at": "2026-11-15T01:21:45Z",
+          "url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/132655374833",
+          "action": "observed only; no rerun/deploy"
+        }
+      ],
+      "pr_metadata_readback": "PR9/12 body match, draft/open/unmerged; PR12 b416d3c",
+      "attach_result": "Existing PR9/12 attach called; empty response, success unconfirmed",
+      "completed_at": "2026-11-15T01:26:27.033964+00:00",
+      "metadata_review": {
+        "reviewer": "qa_theme_compatibility",
+        "result": "passed_after_two_metadata_clarifications",
+        "path": "ops/evidence/2026-11-15-theme-validation/Metadata-QA.md"
+      },
+      "lease_released_at": "2026-11-15T01:26:27.033964+00:00",
+      "notification": "NO_UPDATE",
+      "product_push": "normal fast-forward c81fb6b to b416d3c on existing PR12 branch",
+      "operational_completion": "Final commit includes evidence/spec/status and lease release; remote readback follows push"
     }
   ],
   "operational_notes": [

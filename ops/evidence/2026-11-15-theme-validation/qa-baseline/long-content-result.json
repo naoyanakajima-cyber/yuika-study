@@ -1,0 +1,603 @@
+{
+  "head": "c81fb6b3a7e9c5c6c5d42431afe1d13a73c780d3",
+  "completed_at": "2026-11-15T01:11:16.217079+00:00",
+  "checks": [
+    {
+      "name": "organization-diagram",
+      "samples": [
+        {
+          "theme": "standard",
+          "style": {
+            "text": "将軍執権（北条氏）鎌倉地方侍所御家人の取りしまり政所政治問注所裁判守護国ごと・軍事と警察地頭荘園ごと・年貢六波羅探題京都・朝廷の監視",
+            "html": "<rect x=\"1\" y=\"1\" width=\"448\" height=\"288\" rx=\"12\" fill=\"#edf3ec\"></rect><path d=\"M225 38V56M225 86V100H60V112M225 100H285V112M30 142V257M245 142V257\" stroke=\"#7f978c\" stroke-width=\"2\" fill=\"none\"></path><rect x=\"185\" y=\"8\" width=\"80\" height=\"30\" rx=\"7\" fill=\"#b57c65\"></rect><text x=\"225\" y=\"28\" fill=\"white\" font-size=\"13\" text-anchor=\"middle\">将軍</text><rect x=\"170\" y=\"56\" width=\"110\" height=\"30\" rx=\"7\" fill=\"#b57c65\"></rect><text x=\"225\" y=\"76\" fill=\"white\" font-size=\"13\" text-anchor=\"middle\">執権（北条氏）</text><rect x=\"20\" y=\"112\" width=\"80\" height=\"30\" rx=\"7\" fill=\"#64736e\"></rect><text x=\"60\" y=\"132\" fill=\"white\" font-size=\"13\" text-anchor=\"middle\">鎌倉</text><rect x=\"245\" y=\"112\" width=\"80\" height=\"30\" rx=\"7\" fill=\"#64736e\"></rect><text x=\"285\" y=\"132\" fill=\"white\" font-size=\"13\" text-anchor=\"middle\">地方</text><path d=\"M30 175H40\" stroke=\"#7f978c\" stroke-width=\"2\"></path><rect x=\"40\" y=\"160\" width=\"82\" height=\"30\" rx=\"7\" fill=\"#386455\"></rect><text x=\"81\" y=\"180\" fill=\"white\" font-size=\"13\" text-anchor=\"middle\">侍所</text><text x=\"128\" y=\"180\" fill=\"#293e3b\" font-size=\"11\">御家人の取りしまり</text><path d=\"M30 217H40\" stroke=\"#7f978c\" stroke-width=\"2\"></path><rect x=\"40\" y=\"202\" width=\"82\" height=\"30\" rx=\"7\" fill=\"#386455\"></rect><text x=\"81\" y=\"222\" fill=\"white\" font-size=\"13\" text-anchor=\"middle\">政所</text><text x=\"128\" y=\"222\" fill=\"#293e3b\" font-size=\"11\">政治</text><path d=\"M30 259H40\" stroke=\"#7f978c\" stroke-width=\"2\"></path><rect x=\"40\" y=\"244\" width=\"82\" height=\"30\" rx=\"7\" fill=\"#386455\"></rect><text x=\"81\" y=\"264\" fill=\"white\" font-size=\"13\" text-anchor=\"middle\">問注所</text><text x=\"128\" y=\"264\" fill=\"#293e3b\" font-size=\"11\">裁判</text><path d=\"M245 175H255\" stroke=\"#7f978c\" stroke-width=\"2\"></path><rect x=\"255\" y=\"160\" width=\"82\" height=\"30\" rx=\"7\" fill=\"#386455\"></rect><text x=\"296\" y=\"180\" fill=\"white\" font-size=\"13\" text-anchor=\"middle\">守護</text><text x=\"343\" y=\"180\" fill=\"#293e3b\" font-size=\"11\">国ごと・軍事と警察</text><path d=\"M245 217H255\" stroke=\"#7f978c\" stroke-width=\"2\"></path><rect x=\"255\" y=\"202\" width=\"82\" height=\"30\" rx=\"7\" fill=\"#386455\"></rect><text x=\"296\" y=\"222\" fill=\"white\" font-size=\"13\" text-anchor=\"middle\">地頭</text><text x=\"343\" y=\"222\" fill=\"#293e3b\" font-size=\"11\">荘園ごと・年貢</text><path d=\"M245 259H255\" stroke=\"#7f978c\" stroke-width=\"2\"></path><rect x=\"255\" y=\"244\" width=\"82\" height=\"30\" rx=\"7\" fill=\"#386455\"></rect><text x=\"296\" y=\"264\" fill=\"white\" font-size=\"13\" text-anchor=\"middle\">六波羅探題</text><text x=\"343\" y=\"264\" fill=\"#293e3b\" font-size=\"11\">京都・朝廷の監視</text>",
+            "font": "15px",
+            "line": "25.5px",
+            "width": 450,
+            "height": 290
+          },
+          "box": {
+            "x": 52,
+            "y": 367.015625,
+            "width": 450,
+            "height": 290
+          }
+        },
+        {
+          "theme": "kamakura",
+          "style": {
+            "text": "将軍執権（北条氏）鎌倉地方侍所御家人の取りしまり政所政治問注所裁判守護国ごと・軍事と警察地頭荘園ごと・年貢六波羅探題京都・朝廷の監視",
+            "html": "<rect x=\"1\" y=\"1\" width=\"448\" height=\"288\" rx=\"12\" fill=\"#edf3ec\"></rect><path d=\"M225 38V56M225 86V100H60V112M225 100H285V112M30 142V257M245 142V257\" stroke=\"#7f978c\" stroke-width=\"2\" fill=\"none\"></path><rect x=\"185\" y=\"8\" width=\"80\" height=\"30\" rx=\"7\" fill=\"#b57c65\"></rect><text x=\"225\" y=\"28\" fill=\"white\" font-size=\"13\" text-anchor=\"middle\">将軍</text><rect x=\"170\" y=\"56\" width=\"110\" height=\"30\" rx=\"7\" fill=\"#b57c65\"></rect><text x=\"225\" y=\"76\" fill=\"white\" font-size=\"13\" text-anchor=\"middle\">執権（北条氏）</text><rect x=\"20\" y=\"112\" width=\"80\" height=\"30\" rx=\"7\" fill=\"#64736e\"></rect><text x=\"60\" y=\"132\" fill=\"white\" font-size=\"13\" text-anchor=\"middle\">鎌倉</text><rect x=\"245\" y=\"112\" width=\"80\" height=\"30\" rx=\"7\" fill=\"#64736e\"></rect><text x=\"285\" y=\"132\" fill=\"white\" font-size=\"13\" text-anchor=\"middle\">地方</text><path d=\"M30 175H40\" stroke=\"#7f978c\" stroke-width=\"2\"></path><rect x=\"40\" y=\"160\" width=\"82\" height=\"30\" rx=\"7\" fill=\"#386455\"></rect><text x=\"81\" y=\"180\" fill=\"white\" font-size=\"13\" text-anchor=\"middle\">侍所</text><text x=\"128\" y=\"180\" fill=\"#293e3b\" font-size=\"11\">御家人の取りしまり</text><path d=\"M30 217H40\" stroke=\"#7f978c\" stroke-width=\"2\"></path><rect x=\"40\" y=\"202\" width=\"82\" height=\"30\" rx=\"7\" fill=\"#386455\"></rect><text x=\"81\" y=\"222\" fill=\"white\" font-size=\"13\" text-anchor=\"middle\">政所</text><text x=\"128\" y=\"222\" fill=\"#293e3b\" font-size=\"11\">政治</text><path d=\"M30 259H40\" stroke=\"#7f978c\" stroke-width=\"2\"></path><rect x=\"40\" y=\"244\" width=\"82\" height=\"30\" rx=\"7\" fill=\"#386455\"></rect><text x=\"81\" y=\"264\" fill=\"white\" font-size=\"13\" text-anchor=\"middle\">問注所</text><text x=\"128\" y=\"264\" fill=\"#293e3b\" font-size=\"11\">裁判</text><path d=\"M245 175H255\" stroke=\"#7f978c\" stroke-width=\"2\"></path><rect x=\"255\" y=\"160\" width=\"82\" height=\"30\" rx=\"7\" fill=\"#386455\"></rect><text x=\"296\" y=\"180\" fill=\"white\" font-size=\"13\" text-anchor=\"middle\">守護</text><text x=\"343\" y=\"180\" fill=\"#293e3b\" font-size=\"11\">国ごと・軍事と警察</text><path d=\"M245 217H255\" stroke=\"#7f978c\" stroke-width=\"2\"></path><rect x=\"255\" y=\"202\" width=\"82\" height=\"30\" rx=\"7\" fill=\"#386455\"></rect><text x=\"296\" y=\"222\" fill=\"white\" font-size=\"13\" text-anchor=\"middle\">地頭</text><text x=\"343\" y=\"222\" fill=\"#293e3b\" font-size=\"11\">荘園ごと・年貢</text><path d=\"M245 259H255\" stroke=\"#7f978c\" stroke-width=\"2\"></path><rect x=\"255\" y=\"244\" width=\"82\" height=\"30\" rx=\"7\" fill=\"#386455\"></rect><text x=\"296\" y=\"264\" fill=\"white\" font-size=\"13\" text-anchor=\"middle\">六波羅探題</text><text x=\"343\" y=\"264\" fill=\"#293e3b\" font-size=\"11\">京都・朝廷の監視</text>",
+            "font": "15px",
+            "line": "25.5px",
+            "width": 450,
+            "height": 290
+          },
+          "box": {
+            "x": 52,
+            "y": 367.015625,
+            "width": 450,
+            "height": 290
+          }
+        },
+        {
+          "theme": "standard",
+          "style": {
+            "text": "将軍執権（北条氏）鎌倉地方侍所御家人の取りしまり政所政治問注所裁判守護国ごと・軍事と警察地頭荘園ごと・年貢六波羅探題京都・朝廷の監視",
+            "html": "<rect x=\"1\" y=\"1\" width=\"448\" height=\"288\" rx=\"12\" fill=\"#edf3ec\"></rect><path d=\"M225 38V56M225 86V100H60V112M225 100H285V112M30 142V257M245 142V257\" stroke=\"#7f978c\" stroke-width=\"2\" fill=\"none\"></path><rect x=\"185\" y=\"8\" width=\"80\" height=\"30\" rx=\"7\" fill=\"#b57c65\"></rect><text x=\"225\" y=\"28\" fill=\"white\" font-size=\"13\" text-anchor=\"middle\">将軍</text><rect x=\"170\" y=\"56\" width=\"110\" height=\"30\" rx=\"7\" fill=\"#b57c65\"></rect><text x=\"225\" y=\"76\" fill=\"white\" font-size=\"13\" text-anchor=\"middle\">執権（北条氏）</text><rect x=\"20\" y=\"112\" width=\"80\" height=\"30\" rx=\"7\" fill=\"#64736e\"></rect><text x=\"60\" y=\"132\" fill=\"white\" font-size=\"13\" text-anchor=\"middle\">鎌倉</text><rect x=\"245\" y=\"112\" width=\"80\" height=\"30\" rx=\"7\" fill=\"#64736e\"></rect><text x=\"285\" y=\"132\" fill=\"white\" font-size=\"13\" text-anchor=\"middle\">地方</text><path d=\"M30 175H40\" stroke=\"#7f978c\" stroke-width=\"2\"></path><rect x=\"40\" y=\"160\" width=\"82\" height=\"30\" rx=\"7\" fill=\"#386455\"></rect><text x=\"81\" y=\"180\" fill=\"white\" font-size=\"13\" text-anchor=\"middle\">侍所</text><text x=\"128\" y=\"180\" fill=\"#293e3b\" font-size=\"11\">御家人の取りしまり</text><path d=\"M30 217H40\" stroke=\"#7f978c\" stroke-width=\"2\"></path><rect x=\"40\" y=\"202\" width=\"82\" height=\"30\" rx=\"7\" fill=\"#386455\"></rect><text x=\"81\" y=\"222\" fill=\"white\" font-size=\"13\" text-anchor=\"middle\">政所</text><text x=\"128\" y=\"222\" fill=\"#293e3b\" font-size=\"11\">政治</text><path d=\"M30 259H40\" stroke=\"#7f978c\" stroke-width=\"2\"></path><rect x=\"40\" y=\"244\" width=\"82\" height=\"30\" rx=\"7\" fill=\"#386455\"></rect><text x=\"81\" y=\"264\" fill=\"white\" font-size=\"13\" text-anchor=\"middle\">問注所</text><text x=\"128\" y=\"264\" fill=\"#293e3b\" font-size=\"11\">裁判</text><path d=\"M245 175H255\" stroke=\"#7f978c\" stroke-width=\"2\"></path><rect x=\"255\" y=\"160\" width=\"82\" height=\"30\" rx=\"7\" fill=\"#386455\"></rect><text x=\"296\" y=\"180\" fill=\"white\" font-size=\"13\" text-anchor=\"middle\">守護</text><text x=\"343\" y=\"180\" fill=\"#293e3b\" font-size=\"11\">国ごと・軍事と警察</text><path d=\"M245 217H255\" stroke=\"#7f978c\" stroke-width=\"2\"></path><rect x=\"255\" y=\"202\" width=\"82\" height=\"30\" rx=\"7\" fill=\"#386455\"></rect><text x=\"296\" y=\"222\" fill=\"white\" font-size=\"13\" text-anchor=\"middle\">地頭</text><text x=\"343\" y=\"222\" fill=\"#293e3b\" font-size=\"11\">荘園ごと・年貢</text><path d=\"M245 259H255\" stroke=\"#7f978c\" stroke-width=\"2\"></path><rect x=\"255\" y=\"244\" width=\"82\" height=\"30\" rx=\"7\" fill=\"#386455\"></rect><text x=\"296\" y=\"264\" fill=\"white\" font-size=\"13\" text-anchor=\"middle\">六波羅探題</text><text x=\"343\" y=\"264\" fill=\"#293e3b\" font-size=\"11\">京都・朝廷の監視</text>",
+            "font": "15px",
+            "line": "25.5px",
+            "width": 450,
+            "height": 290
+          },
+          "box": {
+            "x": 52,
+            "y": 367.015625,
+            "width": 450,
+            "height": 290
+          }
+        }
+      ],
+      "content_size_lineheight_identical": true,
+      "standard_restore": true,
+      "toggle_reachable": true
+    },
+    {
+      "name": "religion-comparison-table",
+      "samples": [
+        {
+          "theme": "standard",
+          "style": {
+            "text": "宗派開いた人教え浄土宗法然念仏「南無阿弥陀仏」浄土真宗（一向宗）親鸞（法然の弟子）阿弥陀仏を信じれば救われる時宗一遍踊念仏日蓮宗（法華宗）日蓮題目「南無妙法蓮華経」臨済宗栄西座禅（禅宗）・幕府の上級武士に曹洞宗道元座禅（禅宗）・地方の武士に",
+            "html": "<table><tbody><tr><th>宗派</th><th>開いた人</th><th>教え</th></tr><tr><td>浄土宗</td><td>法然</td><td>念仏「南無阿弥陀仏」</td></tr><tr><td>浄土真宗（一向宗）</td><td>親鸞（法然の弟子）</td><td>阿弥陀仏を信じれば救われる</td></tr><tr><td>時宗</td><td>一遍</td><td>踊念仏</td></tr><tr><td>日蓮宗（法華宗）</td><td>日蓮</td><td>題目「南無妙法蓮華経」</td></tr><tr><td>臨済宗</td><td>栄西</td><td>座禅（禅宗）・幕府の上級武士に</td></tr><tr><td>曹洞宗</td><td>道元</td><td>座禅（禅宗）・地方の武士に</td></tr></tbody></table>",
+            "font": "15px",
+            "line": "25.5px",
+            "width": 664,
+            "height": 301.65625
+          },
+          "box": {
+            "x": 52,
+            "y": 360.765625,
+            "width": 664,
+            "height": 301.65625
+          }
+        },
+        {
+          "theme": "kamakura",
+          "style": {
+            "text": "宗派開いた人教え浄土宗法然念仏「南無阿弥陀仏」浄土真宗（一向宗）親鸞（法然の弟子）阿弥陀仏を信じれば救われる時宗一遍踊念仏日蓮宗（法華宗）日蓮題目「南無妙法蓮華経」臨済宗栄西座禅（禅宗）・幕府の上級武士に曹洞宗道元座禅（禅宗）・地方の武士に",
+            "html": "<table><tbody><tr><th>宗派</th><th>開いた人</th><th>教え</th></tr><tr><td>浄土宗</td><td>法然</td><td>念仏「南無阿弥陀仏」</td></tr><tr><td>浄土真宗（一向宗）</td><td>親鸞（法然の弟子）</td><td>阿弥陀仏を信じれば救われる</td></tr><tr><td>時宗</td><td>一遍</td><td>踊念仏</td></tr><tr><td>日蓮宗（法華宗）</td><td>日蓮</td><td>題目「南無妙法蓮華経」</td></tr><tr><td>臨済宗</td><td>栄西</td><td>座禅（禅宗）・幕府の上級武士に</td></tr><tr><td>曹洞宗</td><td>道元</td><td>座禅（禅宗）・地方の武士に</td></tr></tbody></table>",
+            "font": "15px",
+            "line": "25.5px",
+            "width": 664,
+            "height": 301.65625
+          },
+          "box": {
+            "x": 52,
+            "y": 360.765625,
+            "width": 664,
+            "height": 301.65625
+          }
+        },
+        {
+          "theme": "standard",
+          "style": {
+            "text": "宗派開いた人教え浄土宗法然念仏「南無阿弥陀仏」浄土真宗（一向宗）親鸞（法然の弟子）阿弥陀仏を信じれば救われる時宗一遍踊念仏日蓮宗（法華宗）日蓮題目「南無妙法蓮華経」臨済宗栄西座禅（禅宗）・幕府の上級武士に曹洞宗道元座禅（禅宗）・地方の武士に",
+            "html": "<table><tbody><tr><th>宗派</th><th>開いた人</th><th>教え</th></tr><tr><td>浄土宗</td><td>法然</td><td>念仏「南無阿弥陀仏」</td></tr><tr><td>浄土真宗（一向宗）</td><td>親鸞（法然の弟子）</td><td>阿弥陀仏を信じれば救われる</td></tr><tr><td>時宗</td><td>一遍</td><td>踊念仏</td></tr><tr><td>日蓮宗（法華宗）</td><td>日蓮</td><td>題目「南無妙法蓮華経」</td></tr><tr><td>臨済宗</td><td>栄西</td><td>座禅（禅宗）・幕府の上級武士に</td></tr><tr><td>曹洞宗</td><td>道元</td><td>座禅（禅宗）・地方の武士に</td></tr></tbody></table>",
+            "font": "15px",
+            "line": "25.5px",
+            "width": 664,
+            "height": 301.65625
+          },
+          "box": {
+            "x": 52,
+            "y": 360.765625,
+            "width": 664,
+            "height": 301.65625
+          }
+        }
+      ],
+      "content_size_lineheight_identical": true,
+      "standard_restore": true,
+      "toggle_reachable": true
+    },
+    {
+      "name": "longest-feedback",
+      "samples": [
+        {
+          "theme": "standard",
+          "style": {
+            "text": "ここをいっしょに見てみようあなたの答え：寺に多くのお金を納めた人だけが救われる教えだったから① 正解：念仏や題目を唱えるなど、教えがわかりやすかったから② なぜ？ 平安時代の終わりから戦乱や災害が続き、人々は仏教に救いを求めました。新しい仏教は伝統的な仏教に比べて教えがわかりやすく、だれでも救われると説いたため広まりました。③ 覚え方：「戦乱・災害で不安」→「わかりやすい教え」→「庶民にも広まる」の順につなげよう。回答を保存しました今回のふりかえり →",
+            "html": "<div class=\"answerbox again\"><h2>ここをいっしょに見てみよう</h2><p>あなたの答え：<b>寺に多くのお金を納めた人だけが救われる教えだったから</b></p><p>① 正解：<b>念仏や題目を唱えるなど、教えがわかりやすかったから</b></p><p>② なぜ？ 平安時代の終わりから戦乱や災害が続き、人々は仏教に救いを求めました。新しい仏教は伝統的な仏教に比べて教えがわかりやすく、だれでも救われると説いたため広まりました。</p><p>③ 覚え方：「戦乱・災害で不安」→「わかりやすい教え」→「庶民にも広まる」の順につなげよう。</p><small>回答を保存しました</small></div><button id=\"next\" class=\"primary wide\" style=\"margin-top:15px\">今回のふりかえり →</button>",
+            "font": "15px",
+            "line": "25.5px",
+            "width": 664,
+            "height": 413.1875
+          },
+          "box": {
+            "x": 52,
+            "y": 305.828125,
+            "width": 664,
+            "height": 413.1875
+          }
+        },
+        {
+          "theme": "kamakura",
+          "style": {
+            "text": "ここをいっしょに見てみようあなたの答え：寺に多くのお金を納めた人だけが救われる教えだったから① 正解：念仏や題目を唱えるなど、教えがわかりやすかったから② なぜ？ 平安時代の終わりから戦乱や災害が続き、人々は仏教に救いを求めました。新しい仏教は伝統的な仏教に比べて教えがわかりやすく、だれでも救われると説いたため広まりました。③ 覚え方：「戦乱・災害で不安」→「わかりやすい教え」→「庶民にも広まる」の順につなげよう。回答を保存しました今回のふりかえり →",
+            "html": "<div class=\"answerbox again\"><h2>ここをいっしょに見てみよう</h2><p>あなたの答え：<b>寺に多くのお金を納めた人だけが救われる教えだったから</b></p><p>① 正解：<b>念仏や題目を唱えるなど、教えがわかりやすかったから</b></p><p>② なぜ？ 平安時代の終わりから戦乱や災害が続き、人々は仏教に救いを求めました。新しい仏教は伝統的な仏教に比べて教えがわかりやすく、だれでも救われると説いたため広まりました。</p><p>③ 覚え方：「戦乱・災害で不安」→「わかりやすい教え」→「庶民にも広まる」の順につなげよう。</p><small>回答を保存しました</small></div><button id=\"next\" class=\"primary wide\" style=\"margin-top:15px\">今回のふりかえり →</button>",
+            "font": "15px",
+            "line": "25.5px",
+            "width": 664,
+            "height": 413.1875
+          },
+          "box": {
+            "x": 52,
+            "y": 305.828125,
+            "width": 664,
+            "height": 413.1875
+          }
+        },
+        {
+          "theme": "standard",
+          "style": {
+            "text": "ここをいっしょに見てみようあなたの答え：寺に多くのお金を納めた人だけが救われる教えだったから① 正解：念仏や題目を唱えるなど、教えがわかりやすかったから② なぜ？ 平安時代の終わりから戦乱や災害が続き、人々は仏教に救いを求めました。新しい仏教は伝統的な仏教に比べて教えがわかりやすく、だれでも救われると説いたため広まりました。③ 覚え方：「戦乱・災害で不安」→「わかりやすい教え」→「庶民にも広まる」の順につなげよう。回答を保存しました今回のふりかえり →",
+            "html": "<div class=\"answerbox again\"><h2>ここをいっしょに見てみよう</h2><p>あなたの答え：<b>寺に多くのお金を納めた人だけが救われる教えだったから</b></p><p>① 正解：<b>念仏や題目を唱えるなど、教えがわかりやすかったから</b></p><p>② なぜ？ 平安時代の終わりから戦乱や災害が続き、人々は仏教に救いを求めました。新しい仏教は伝統的な仏教に比べて教えがわかりやすく、だれでも救われると説いたため広まりました。</p><p>③ 覚え方：「戦乱・災害で不安」→「わかりやすい教え」→「庶民にも広まる」の順につなげよう。</p><small>回答を保存しました</small></div><button id=\"next\" class=\"primary wide\" style=\"margin-top:15px\">今回のふりかえり →</button>",
+            "font": "15px",
+            "line": "25.5px",
+            "width": 664,
+            "height": 413.1875
+          },
+          "box": {
+            "x": 52,
+            "y": 305.828125,
+            "width": 664,
+            "height": 413.1875
+          }
+        }
+      ],
+      "content_size_lineheight_identical": true,
+      "standard_restore": true,
+      "toggle_reachable": true
+    }
+  ],
+  "main_svg_tree_code_identical": true,
+  "main_svg_baseline": [
+    {
+      "label": "将軍",
+      "fill": "rgb(255, 255, 255)",
+      "backgroundFill": "rgb(181, 124, 101)",
+      "fontSize": "13px",
+      "ratio": 3.479281384346954,
+      "meets_4_5": false
+    },
+    {
+      "label": "執権（北条氏）",
+      "fill": "rgb(255, 255, 255)",
+      "backgroundFill": "rgb(181, 124, 101)",
+      "fontSize": "13px",
+      "ratio": 3.479281384346954,
+      "meets_4_5": false
+    },
+    {
+      "label": "鎌倉",
+      "fill": "rgb(255, 255, 255)",
+      "backgroundFill": "rgb(100, 115, 110)",
+      "fontSize": "13px",
+      "ratio": 4.977109637969801,
+      "meets_4_5": true
+    },
+    {
+      "label": "地方",
+      "fill": "rgb(255, 255, 255)",
+      "backgroundFill": "rgb(100, 115, 110)",
+      "fontSize": "13px",
+      "ratio": 4.977109637969801,
+      "meets_4_5": true
+    },
+    {
+      "label": "侍所",
+      "fill": "rgb(255, 255, 255)",
+      "backgroundFill": "rgb(56, 100, 85)",
+      "fontSize": "13px",
+      "ratio": 6.726038143521916,
+      "meets_4_5": true
+    },
+    {
+      "label": "政所",
+      "fill": "rgb(255, 255, 255)",
+      "backgroundFill": "rgb(56, 100, 85)",
+      "fontSize": "13px",
+      "ratio": 6.726038143521916,
+      "meets_4_5": true
+    },
+    {
+      "label": "問注所",
+      "fill": "rgb(255, 255, 255)",
+      "backgroundFill": "rgb(56, 100, 85)",
+      "fontSize": "13px",
+      "ratio": 6.726038143521916,
+      "meets_4_5": true
+    },
+    {
+      "label": "守護",
+      "fill": "rgb(255, 255, 255)",
+      "backgroundFill": "rgb(56, 100, 85)",
+      "fontSize": "13px",
+      "ratio": 6.726038143521916,
+      "meets_4_5": true
+    },
+    {
+      "label": "地頭",
+      "fill": "rgb(255, 255, 255)",
+      "backgroundFill": "rgb(56, 100, 85)",
+      "fontSize": "13px",
+      "ratio": 6.726038143521916,
+      "meets_4_5": true
+    },
+    {
+      "label": "六波羅探題",
+      "fill": "rgb(255, 255, 255)",
+      "backgroundFill": "rgb(56, 100, 85)",
+      "fontSize": "13px",
+      "ratio": 6.726038143521916,
+      "meets_4_5": true
+    }
+  ],
+  "svg_text_contrast": [
+    {
+      "label": "将軍",
+      "fill": "rgb(255, 255, 255)",
+      "backgroundFill": "rgb(181, 124, 101)",
+      "fontSize": "13px",
+      "theme": "standard",
+      "ratio": 3.479281384346954,
+      "meets_4_5": false
+    },
+    {
+      "label": "執権（北条氏）",
+      "fill": "rgb(255, 255, 255)",
+      "backgroundFill": "rgb(181, 124, 101)",
+      "fontSize": "13px",
+      "theme": "standard",
+      "ratio": 3.479281384346954,
+      "meets_4_5": false
+    },
+    {
+      "label": "鎌倉",
+      "fill": "rgb(255, 255, 255)",
+      "backgroundFill": "rgb(100, 115, 110)",
+      "fontSize": "13px",
+      "theme": "standard",
+      "ratio": 4.977109637969801,
+      "meets_4_5": true
+    },
+    {
+      "label": "地方",
+      "fill": "rgb(255, 255, 255)",
+      "backgroundFill": "rgb(100, 115, 110)",
+      "fontSize": "13px",
+      "theme": "standard",
+      "ratio": 4.977109637969801,
+      "meets_4_5": true
+    },
+    {
+      "label": "侍所",
+      "fill": "rgb(255, 255, 255)",
+      "backgroundFill": "rgb(56, 100, 85)",
+      "fontSize": "13px",
+      "theme": "standard",
+      "ratio": 6.726038143521916,
+      "meets_4_5": true
+    },
+    {
+      "label": "政所",
+      "fill": "rgb(255, 255, 255)",
+      "backgroundFill": "rgb(56, 100, 85)",
+      "fontSize": "13px",
+      "theme": "standard",
+      "ratio": 6.726038143521916,
+      "meets_4_5": true
+    },
+    {
+      "label": "問注所",
+      "fill": "rgb(255, 255, 255)",
+      "backgroundFill": "rgb(56, 100, 85)",
+      "fontSize": "13px",
+      "theme": "standard",
+      "ratio": 6.726038143521916,
+      "meets_4_5": true
+    },
+    {
+      "label": "守護",
+      "fill": "rgb(255, 255, 255)",
+      "backgroundFill": "rgb(56, 100, 85)",
+      "fontSize": "13px",
+      "theme": "standard",
+      "ratio": 6.726038143521916,
+      "meets_4_5": true
+    },
+    {
+      "label": "地頭",
+      "fill": "rgb(255, 255, 255)",
+      "backgroundFill": "rgb(56, 100, 85)",
+      "fontSize": "13px",
+      "theme": "standard",
+      "ratio": 6.726038143521916,
+      "meets_4_5": true
+    },
+    {
+      "label": "六波羅探題",
+      "fill": "rgb(255, 255, 255)",
+      "backgroundFill": "rgb(56, 100, 85)",
+      "fontSize": "13px",
+      "theme": "standard",
+      "ratio": 6.726038143521916,
+      "meets_4_5": true
+    },
+    {
+      "label": "将軍",
+      "fill": "rgb(255, 255, 255)",
+      "backgroundFill": "rgb(181, 124, 101)",
+      "fontSize": "13px",
+      "theme": "kamakura",
+      "ratio": 3.479281384346954,
+      "meets_4_5": false
+    },
+    {
+      "label": "執権（北条氏）",
+      "fill": "rgb(255, 255, 255)",
+      "backgroundFill": "rgb(181, 124, 101)",
+      "fontSize": "13px",
+      "theme": "kamakura",
+      "ratio": 3.479281384346954,
+      "meets_4_5": false
+    },
+    {
+      "label": "鎌倉",
+      "fill": "rgb(255, 255, 255)",
+      "backgroundFill": "rgb(100, 115, 110)",
+      "fontSize": "13px",
+      "theme": "kamakura",
+      "ratio": 4.977109637969801,
+      "meets_4_5": true
+    },
+    {
+      "label": "地方",
+      "fill": "rgb(255, 255, 255)",
+      "backgroundFill": "rgb(100, 115, 110)",
+      "fontSize": "13px",
+      "theme": "kamakura",
+      "ratio": 4.977109637969801,
+      "meets_4_5": true
+    },
+    {
+      "label": "侍所",
+      "fill": "rgb(255, 255, 255)",
+      "backgroundFill": "rgb(56, 100, 85)",
+      "fontSize": "13px",
+      "theme": "kamakura",
+      "ratio": 6.726038143521916,
+      "meets_4_5": true
+    },
+    {
+      "label": "政所",
+      "fill": "rgb(255, 255, 255)",
+      "backgroundFill": "rgb(56, 100, 85)",
+      "fontSize": "13px",
+      "theme": "kamakura",
+      "ratio": 6.726038143521916,
+      "meets_4_5": true
+    },
+    {
+      "label": "問注所",
+      "fill": "rgb(255, 255, 255)",
+      "backgroundFill": "rgb(56, 100, 85)",
+      "fontSize": "13px",
+      "theme": "kamakura",
+      "ratio": 6.726038143521916,
+      "meets_4_5": true
+    },
+    {
+      "label": "守護",
+      "fill": "rgb(255, 255, 255)",
+      "backgroundFill": "rgb(56, 100, 85)",
+      "fontSize": "13px",
+      "theme": "kamakura",
+      "ratio": 6.726038143521916,
+      "meets_4_5": true
+    },
+    {
+      "label": "地頭",
+      "fill": "rgb(255, 255, 255)",
+      "backgroundFill": "rgb(56, 100, 85)",
+      "fontSize": "13px",
+      "theme": "kamakura",
+      "ratio": 6.726038143521916,
+      "meets_4_5": true
+    },
+    {
+      "label": "六波羅探題",
+      "fill": "rgb(255, 255, 255)",
+      "backgroundFill": "rgb(56, 100, 85)",
+      "fontSize": "13px",
+      "theme": "kamakura",
+      "ratio": 6.726038143521916,
+      "meets_4_5": true
+    },
+    {
+      "label": "将軍",
+      "fill": "rgb(255, 255, 255)",
+      "backgroundFill": "rgb(181, 124, 101)",
+      "fontSize": "13px",
+      "theme": "standard",
+      "ratio": 3.479281384346954,
+      "meets_4_5": false
+    },
+    {
+      "label": "執権（北条氏）",
+      "fill": "rgb(255, 255, 255)",
+      "backgroundFill": "rgb(181, 124, 101)",
+      "fontSize": "13px",
+      "theme": "standard",
+      "ratio": 3.479281384346954,
+      "meets_4_5": false
+    },
+    {
+      "label": "鎌倉",
+      "fill": "rgb(255, 255, 255)",
+      "backgroundFill": "rgb(100, 115, 110)",
+      "fontSize": "13px",
+      "theme": "standard",
+      "ratio": 4.977109637969801,
+      "meets_4_5": true
+    },
+    {
+      "label": "地方",
+      "fill": "rgb(255, 255, 255)",
+      "backgroundFill": "rgb(100, 115, 110)",
+      "fontSize": "13px",
+      "theme": "standard",
+      "ratio": 4.977109637969801,
+      "meets_4_5": true
+    },
+    {
+      "label": "侍所",
+      "fill": "rgb(255, 255, 255)",
+      "backgroundFill": "rgb(56, 100, 85)",
+      "fontSize": "13px",
+      "theme": "standard",
+      "ratio": 6.726038143521916,
+      "meets_4_5": true
+    },
+    {
+      "label": "政所",
+      "fill": "rgb(255, 255, 255)",
+      "backgroundFill": "rgb(56, 100, 85)",
+      "fontSize": "13px",
+      "theme": "standard",
+      "ratio": 6.726038143521916,
+      "meets_4_5": true
+    },
+    {
+      "label": "問注所",
+      "fill": "rgb(255, 255, 255)",
+      "backgroundFill": "rgb(56, 100, 85)",
+      "fontSize": "13px",
+      "theme": "standard",
+      "ratio": 6.726038143521916,
+      "meets_4_5": true
+    },
+    {
+      "label": "守護",
+      "fill": "rgb(255, 255, 255)",
+      "backgroundFill": "rgb(56, 100, 85)",
+      "fontSize": "13px",
+      "theme": "standard",
+      "ratio": 6.726038143521916,
+      "meets_4_5": true
+    },
+    {
+      "label": "地頭",
+      "fill": "rgb(255, 255, 255)",
+      "backgroundFill": "rgb(56, 100, 85)",
+      "fontSize": "13px",
+      "theme": "standard",
+      "ratio": 6.726038143521916,
+      "meets_4_5": true
+    },
+    {
+      "label": "六波羅探題",
+      "fill": "rgb(255, 255, 255)",
+      "backgroundFill": "rgb(56, 100, 85)",
+      "fontSize": "13px",
+      "theme": "standard",
+      "ratio": 6.726038143521916,
+      "meets_4_5": true
+    }
+  ],
+  "svg_contrast_findings": [
+    {
+      "label": "将軍",
+      "fill": "rgb(255, 255, 255)",
+      "backgroundFill": "rgb(181, 124, 101)",
+      "fontSize": "13px",
+      "theme": "standard",
+      "ratio": 3.479281384346954,
+      "meets_4_5": false
+    },
+    {
+      "label": "執権（北条氏）",
+      "fill": "rgb(255, 255, 255)",
+      "backgroundFill": "rgb(181, 124, 101)",
+      "fontSize": "13px",
+      "theme": "standard",
+      "ratio": 3.479281384346954,
+      "meets_4_5": false
+    },
+    {
+      "label": "将軍",
+      "fill": "rgb(255, 255, 255)",
+      "backgroundFill": "rgb(181, 124, 101)",
+      "fontSize": "13px",
+      "theme": "kamakura",
+      "ratio": 3.479281384346954,
+      "meets_4_5": false
+    },
+    {
+      "label": "執権（北条氏）",
+      "fill": "rgb(255, 255, 255)",
+      "backgroundFill": "rgb(181, 124, 101)",
+      "fontSize": "13px",
+      "theme": "kamakura",
+      "ratio": 3.479281384346954,
+      "meets_4_5": false
+    },
+    {
+      "label": "将軍",
+      "fill": "rgb(255, 255, 255)",
+      "backgroundFill": "rgb(181, 124, 101)",
+      "fontSize": "13px",
+      "theme": "standard",
+      "ratio": 3.479281384346954,
+      "meets_4_5": false
+    },
+    {
+      "label": "執権（北条氏）",
+      "fill": "rgb(255, 255, 255)",
+      "backgroundFill": "rgb(181, 124, 101)",
+      "fontSize": "13px",
+      "theme": "standard",
+      "ratio": 3.479281384346954,
+      "meets_4_5": false
+    }
+  ],
+  "selected_longest_explanation_question_id": "54025-38",
+  "explanation_characters": 81,
+  "synthetic_answers": 1,
+  "post_arrivals": [],
+  "page_errors": [],
+  "blocked_external_gets": [
+    "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"
+  ],
+  "limitation": "Chromium 768x1024 CSS px; existing SVG colors/labels preserved, SVG white label contrast measured against immediately preceding rect; two inherited labels below 4.5 are acceptance findings; not real iPad/zoom certification; test fixture selects longest existing explanation, no selection-engine coverage claim"
+}
