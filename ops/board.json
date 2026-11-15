@@ -36,14 +36,8 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": {
-    "run_id": "cycle-20261115T000247Z",
-    "acquired_at": "2026-11-15T00:02:47.974783+00:00",
-    "expires_at": "2026-11-15T00:42:47.974783+00:00",
-    "ticket": "THEME-MVP",
-    "owner": "root/coordinator"
-  },
-  "updated_at": "2026-11-15T00:06:19.273050+00:00",
+  "lease": null,
+  "updated_at": "2026-11-15T00:22:48.183464+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -1038,7 +1032,7 @@
       "id": "THEME-MVP",
       "title": "標準と鎌倉テーマの切替試作",
       "goal": 3,
-      "state": "ceo_wait",
+      "state": "blocked",
       "priority": 3,
       "depends_on": [
         "THEME-SPEC"
@@ -1051,7 +1045,7 @@
         "切替前後の問題・採点・既存履歴が同一",
         "768x1024で可読性と主要操作を確認する"
       ],
-      "next_action": "正本からの具体的修正依頼・新しいCEO判断を確認。方向性D05の採用を再要求しない。依存しない仕事がなければ終了し、同じQAを反復しない。実機/CEO本人の試用は未確認。",
+      "next_action": "最優先で既存PR12固定候補c81fb6bを再開し、ソース定数とexport期待値を照合してから必須23suiteと独立QAを完了する。今回export期待値は2試行後に修正保存のみ、第三試行なし。未知値/read-write例外/回復/他画面往復を含む後半も未完。新機能/新PRを増やさず、成功までCEO試用準備完了としない。",
       "evidence": [
         {
           "kind": "test",
@@ -1103,22 +1097,40 @@
           "kind": "report",
           "path": "ops/runs/2026-11-10-theme-readability.md",
           "commit": "57171ad9cab02fec6a080ecbe317fe11d3f51dcf"
+        },
+        {
+          "kind": "report",
+          "path": "ops/runs/2026-11-15-theme-compatibility.md",
+          "commit": "c81fb6b3a7e9c5c6c5d42431afe1d13a73c780d3"
+        },
+        {
+          "kind": "partial_independent_qa",
+          "path": "ops/evidence/2026-11-15-theme-compatibility/QA.md",
+          "executor": "qa_theme_compatibility",
+          "commit": "c81fb6b3a7e9c5c6c5d42431afe1d13a73c780d3",
+          "result": "static and 14 scoped checks passed; full acceptance pending"
+        },
+        {
+          "kind": "test_attempts",
+          "path": "ops/evidence/2026-11-15-theme-compatibility/engineer",
+          "commit": "c81fb6b3a7e9c5c6c5d42431afe1d13a73c780d3",
+          "note": "precommit focused theme attempts1/2 failed; final expectation saved unexecuted; separate parent/memory/print probe passed"
         }
       ],
       "review": {
-        "author": "engineer_theme_mvp",
-        "pdm": "pdm_theme_mvp_check",
-        "prm": "root",
-        "reviewer": "qa_theme_mvp",
-        "result": "passed",
-        "commit": "57171ad9cab02fec6a080ecbe317fe11d3f51dcf",
-        "completed_at": "2026-11-09T18:15:28.833276+00:00",
-        "notes": "独立QAが4コマンド実行、両テーマ各画面・破損合成記録/保存障害/通知spyを追加検証。最終4ファイルhash一致、作業ツリーcleanを確認。"
+        "pdm": "pdm_theme_compatibility",
+        "prm": "root/coordinator",
+        "author": "engineer_theme_compatibility",
+        "reviewer": "qa_theme_compatibility",
+        "result": "partial_review_passed_required_checks_pending",
+        "commit": "c81fb6b3a7e9c5c6c5d42431afe1d13a73c780d3",
+        "completed_at": "2026-11-15T00:14:03.412251+00:00",
+        "notes": "静的境界初回成功・限定14検査/文字色68組はハーネス修正後2回目成功。必須23suite/export未実行、製品受入未完。"
       },
-      "base_ref": "codex/cloud-automatic-bootstrap",
-      "base_sha": "edad8065c1f2b726e61c5cf405f8d9ff6d807480",
+      "base_ref": "main",
+      "base_sha": "86514eda054a5a2e09204df3a0668e40624c16de",
       "specification": "docs/product/theme-spec.md",
-      "commit": "57171ad9cab02fec6a080ecbe317fe11d3f51dcf",
+      "commit": "c81fb6b3a7e9c5c6c5d42431afe1d13a73c780d3",
       "direction_adopted": true,
       "direction_decision": "D05",
       "release": {
@@ -1126,7 +1138,7 @@
         "deployment_authorized": false,
         "state": "draft_unmerged"
       },
-      "implementation_status": "implemented_and_independently_tested",
+      "implementation_status": "compatibility_candidate_implemented_validation_incomplete",
       "followup_scope": {
         "id": "THEME-MVP-readability",
         "status": "focused_trial_completed_no_product_change",
@@ -1147,7 +1159,7 @@
         "completed_at": "2026-11-10T00:08:14.222274+00:00",
         "excluded_scope": "parent/recordsは未完run遷移確認が不足していたため今回の成功範囲から除外。証拠を訂正し再実行なし。"
       },
-      "ceo_wait_reason": "D05方向性採用済み。home/長文解説の追加試用で新しい修正は不要。試作品の操作確認待ち、マージ・公開は未承認。",
+      "ceo_wait_reason": "D05方向性採用は維持。現在HEADは互換性修正候補の検証継続中で、CEO試用準備完了・製品受入済みとはしない。merge/公開未承認。",
       "ceo_trial": {
         "synthetic_focused_qa": "passed_for_home_and_feedback_only",
         "ceo_hands_on": "not_verified",
@@ -1155,11 +1167,14 @@
         "native_browser_zoom": "not_tested",
         "latest_synthetic_qa_commit": "57171ad9cab02fec6a080ecbe317fe11d3f51dcf",
         "latest_cloud_artifacts": "/workspace/work/theme-readability-qa-20261110/",
-        "shared_browser_handoff": "not_completed"
+        "shared_browser_handoff": "not_completed",
+        "current_candidate_commit": "c81fb6b3a7e9c5c6c5d42431afe1d13a73c780d3",
+        "current_candidate_validation": "incomplete; scoped independent QA passed; required 23 suites and export pending",
+        "current_candidate_artifacts": "ops/evidence/2026-11-15-theme-compatibility"
       },
       "independent_followup": {
         "id": "theme-main-compatibility",
-        "state": "in_progress",
+        "state": "blocked_validation",
         "pdm": "pdm_theme_compatibility",
         "prm": "root/coordinator",
         "engineer": "engineer_theme_compatibility",
@@ -1168,8 +1183,32 @@
         "integration_base_commit": "86514eda054a5a2e09204df3a0668e40624c16de",
         "specification": "docs/product/theme-main-compatibility.md",
         "scope": "既存PR12の保存境界・共通表示互換性、鎌倉限定",
-        "report": "ops/runs/2026-11-15-theme-compatibility.md"
-      }
+        "report": "ops/runs/2026-11-15-theme-compatibility.md",
+        "commit": "c81fb6b3a7e9c5c6c5d42431afe1d13a73c780d3",
+        "review_result": "partial_review_passed_required_checks_pending",
+        "blocking_reason": "テーマ検証のexport期待値移行で同原因2試行に到達。最終期待値修正は保存済み・動的未検証。必須23suite未実行。新CEO承認ではなく次runの固定候補検証が必要。",
+        "completed_scoped_qa_at": "2026-11-15T00:14:03.412251+00:00"
+      },
+      "review_history": [
+        {
+          "author": "engineer_theme_mvp",
+          "pdm": "pdm_theme_mvp_check",
+          "prm": "root",
+          "reviewer": "qa_theme_mvp",
+          "result": "passed",
+          "commit": "57171ad9cab02fec6a080ecbe317fe11d3f51dcf",
+          "completed_at": "2026-11-09T18:15:28.833276+00:00",
+          "notes": "独立QAが4コマンド実行、両テーマ各画面・破損合成記録/保存障害/通知spyを追加検証。最終4ファイルhash一致、作業ツリーcleanを確認。"
+        }
+      ],
+      "base_history": [
+        {
+          "base_ref": "codex/cloud-automatic-bootstrap",
+          "base_sha": "edad8065c1f2b726e61c5cf405f8d9ff6d807480",
+          "commit": "57171ad9cab02fec6a080ecbe317fe11d3f51dcf"
+        }
+      ],
+      "blocked_reason": "テーマ検証のexport期待値移行で同原因2試行に到達。最終期待値修正は保存済み・動的未検証。必須23suite未実行。新CEO承認ではなく次runの固定候補検証が必要。"
     },
     {
       "id": "CONTENT-CHAT-SPEC",
@@ -10509,7 +10548,7 @@
       "observed_operations_commit": "b7e142a3a3f50fdfa3033a92e778c2b37c3e0ee9",
       "observed_main_commit": "86514eda054a5a2e09204df3a0668e40624c16de",
       "ticket": "THEME-MVP",
-      "result": "PdM C1-C8をPrM受入、Engineer実装中・独立QA準備中",
+      "result": "既存PR12を現mainへ同期し保存境界/限定配色へ適合。限定独立QA成功、theme export期待値2試行上限により全必須23suite未実行・受入未完、候補をdraftへ保存。",
       "cloud_verified": true,
       "ceo_decisions_ingested": 0,
       "subagents": [
@@ -10520,8 +10559,7 @@
       "new_prs": [],
       "ceo_wait_product_prs": [
         10,
-        11,
-        12
+        11
       ],
       "additional_existing_product_drafts": [
         22
@@ -10536,7 +10574,82 @@
       "manual_dependency_reuse": true,
       "automatic_snapshot_handoff_verified": false,
       "platform_run_completion_verified": false,
-      "attachment": "既存PR12 attach呼出は空応答、成功未確認"
+      "attachment": "既存PR12/9 attach呼出は空応答で成功未確認。新規PRなし。",
+      "commit": "c81fb6b3a7e9c5c6c5d42431afe1d13a73c780d3",
+      "review_status": "partial_review_passed_required_checks_pending",
+      "product_push": "normal_fast_forward",
+      "pdm": "pdm_theme_compatibility",
+      "prm": "root/coordinator",
+      "engineer": "engineer_theme_compatibility",
+      "reviewer": "qa_theme_compatibility",
+      "verification": {
+        "static": "passed_first_attempt",
+        "scoped_independent_checks": 14,
+        "color_samples": 68,
+        "minimum_text_contrast": 5.0101772139755,
+        "scoped_probe_attempts": 2,
+        "scoped_probe_initial_failure": "QA harness returned assigned spy function; callback fixed without product change",
+        "engineer_theme_attempts": 2,
+        "engineer_theme_attempts_result": "both failed at export expectations; last fix saved unexecuted",
+        "engineer_separate_parent_memory_print_probe": "passed_first_attempt_precommit",
+        "mandatory_suites_registered": 23,
+        "mandatory_suites_executed": false,
+        "export_final_expectation_executed": false
+      },
+      "limitations": [
+        "Chromium 768x1024 only; no Safari/WebKit/physical iPad or learner preference assessment",
+        "Theme/read-write error and unknown-value cases not independently executed in this scoped probe",
+        "Normal main appearance comparison limited to six sampled element styles; not a whole-page pixel equivalence claim",
+        "Six-view screenshots and contrast checks are parent-check mode; no native zoom or exhaustive long-diagram/font checks",
+        "Existing public font GET blocked; fallback font rendering, not loaded webfont verification",
+        "No deployment, production communication, private input or export download performed"
+      ],
+      "acceptance_blockers": [
+        "Final corrected theme suite including export and later cases not executed",
+        "Required 23-suite run not executed on final candidate"
+      ],
+      "next_action": "最優先で既存PR12固定候補c81fb6bを再開し、ソース定数とexport期待値を照合してから必須23suiteと独立QAを完了する。今回export期待値は2試行後に修正保存のみ、第三試行なし。未知値/read-write例外/回復/他画面往復を含む後半も未完。新機能/新PRを増やさず、成功までCEO試用準備完了としない。",
+      "external_checks": {
+        "head": "c81fb6b3a7e9c5c6c5d42431afe1d13a73c780d3",
+        "result": "failure",
+        "checks": [
+          {
+            "name": "Workers Builds: yuika-study",
+            "head": "c81fb6b3a7e9c5c6c5d42431afe1d13a73c780d3",
+            "status": "completed",
+            "conclusion": "failure",
+            "completed_at": "2026-11-15T00:15:40Z",
+            "url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/132638525283"
+          }
+        ],
+        "cause_investigated": false,
+        "manual_rerun": false,
+        "manual_deployment_performed": false
+      },
+      "pr_metadata_readback": {
+        "matched": true,
+        "evidence": "ops/evidence/2026-11-15-theme-compatibility/pr-readback.json",
+        "draft": true,
+        "merged": false,
+        "product_base": "main"
+      },
+      "reserved_product_pr_slots": [
+        10,
+        11,
+        12
+      ],
+      "validation_pending_product_prs": [
+        12
+      ],
+      "metadata_review": {
+        "reviewer": "qa_theme_compatibility",
+        "result": "passed_after_wait_classification_fix",
+        "evidence": "ops/evidence/2026-11-15-theme-compatibility/Metadata-QA.md",
+        "product_acceptance": "still_incomplete"
+      },
+      "completed_at": "2026-11-15T00:22:48.183464+00:00",
+      "lease_released_at": "2026-11-15T00:22:48.183464+00:00",
+      "notification": "NO_UPDATE; 通常報告は朝夕CEOチェック"
     }
   ],
   "operational_notes": [

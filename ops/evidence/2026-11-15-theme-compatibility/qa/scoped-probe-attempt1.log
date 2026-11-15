@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/tmp/yuika-cycle24-qa/scoped-probe.py", line 93, in <module>
+    view(p,'parent-mode-result',mode);assert p.evaluate('qaEnqueues')==0
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

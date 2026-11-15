@@ -1,0 +1,18 @@
+{
+  "head": "c81fb6b3a7e9c5c6c5d42431afe1d13a73c780d3",
+  "main": "86514eda054a5a2e09204df3a0668e40624c16de",
+  "old_theme": "57171ad9cab02fec6a080ecbe317fe11d3f51dcf",
+  "changed_files": [
+    "README.md",
+    "docs/product/theme-spec.md",
+    "kamakura-review.html",
+    "scripts/check_all.sh",
+    "tests/theme_review.py"
+  ],
+  "ancestor_preserved": true,
+  "main_embedded_scripts_unchanged": 4,
+  "only_added_script": "theme uses YuikaParent.storage",
+  "csp_unchanged": true,
+  "other_html_shared_assets_runtime_unchanged": true,
+  "suite_registration_only": true
+}

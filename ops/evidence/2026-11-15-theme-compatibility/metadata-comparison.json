@@ -1,0 +1,102 @@
+{
+  "observed_at": "2026-11-15T00:21:34.075930+00:00",
+  "baseline": "b7e142a3a3f50fdfa3033a92e778c2b37c3e0ee9",
+  "changed_top_keys": [
+    "lease",
+    "updated_at",
+    "tickets",
+    "runs"
+  ],
+  "old_runs_count": 133,
+  "new_runs_count": 134,
+  "old_runs_prefix_equal": true,
+  "other_ticket_count": 11,
+  "other_tickets_unchanged": true,
+  "preserved_top_keys": [
+    "schema_version",
+    "timezone",
+    "mission",
+    "operations_branch",
+    "implementation_base_commit",
+    "policy",
+    "authorization",
+    "scheduling",
+    "existing_work",
+    "decisions",
+    "operational_notes",
+    "decision_intake",
+    "operational_findings",
+    "unreconciled_prs"
+  ],
+  "old_review_in_history": true,
+  "old_base_in_history": true,
+  "old_evidence_prefix_preserved": true,
+  "candidate_state": "blocked",
+  "candidate_review": "partial_review_passed_required_checks_pending",
+  "hash_manifests": {
+    "ops/evidence/2026-11-15-theme-compatibility": {
+      "entries": 38,
+      "mismatches": []
+    },
+    "ops/evidence/2026-11-15-theme-compatibility/qa": {
+      "entries": 23,
+      "mismatches": []
+    },
+    "ops/evidence/2026-11-15-theme-compatibility/engineer": {
+      "entries": 7,
+      "mismatches": []
+    }
+  },
+  "qa_report_identical": true,
+  "pr_readback_comparison": {
+    "9": {
+      "fields_compared": [
+        "number",
+        "url",
+        "title",
+        "body",
+        "head",
+        "head_sha",
+        "base",
+        "base_sha",
+        "draft",
+        "state",
+        "merged"
+      ],
+      "differences": []
+    },
+    "12": {
+      "fields_compared": [
+        "number",
+        "url",
+        "title",
+        "body",
+        "head",
+        "head_sha",
+        "base",
+        "base_sha",
+        "draft",
+        "state",
+        "merged"
+      ],
+      "differences": []
+    }
+  },
+  "excluded_runtime_tests": "No new product/UI/test-suite execution; metadata and file hash reads only",
+  "wait_slot_classification": {
+    "ceo_wait_product_prs": [
+      10,
+      11
+    ],
+    "reserved_product_pr_slots": [
+      10,
+      11,
+      12
+    ],
+    "validation_pending_product_prs": [
+      12
+    ]
+  },
+  "classification_fix_verified": true,
+  "lease_release_and_final_operations_push": "Not yet completed; outside this metadata review"
+}
