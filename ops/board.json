@@ -36,8 +36,14 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": null,
-  "updated_at": "2026-11-15T08:29:45.865542+00:00",
+  "lease": {
+    "run_id": "cycle-20261115T090232Z",
+    "owner": "coordinator",
+    "ticket": "CONTENT-MVP",
+    "acquired_at": "2026-11-15T09:03:21.033148+00:00",
+    "expires_at": "2026-11-15T09:38:21.033148+00:00"
+  },
+  "updated_at": "2026-11-15T09:03:21.033148+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -11740,6 +11746,29 @@
       },
       "external_check_failure_observed": true,
       "live_site_verified": false
+    },
+    {
+      "id": "cycle-20261115T090232Z",
+      "started_at": "2026-11-15T09:02:32+00:00",
+      "observed_operations_commit": "c1fa98c81c675a6185612fa1a54952de4b9906a0",
+      "observed_main_commit": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
+      "ticket": "CONTENT-MVP",
+      "result": "in_progress",
+      "phase": "requirements",
+      "cloud_verified": true,
+      "ceo_decisions_ingested": 0,
+      "subagents": [],
+      "new_prs": [],
+      "product_code_changed": false,
+      "product_tests_run": false,
+      "ceo_wait_product_prs": [
+        10,
+        11,
+        12
+      ],
+      "additional_existing_product_drafts": [
+        22
+      ]
     }
   ],
   "operational_notes": [
