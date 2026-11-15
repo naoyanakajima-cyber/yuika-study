@@ -36,8 +36,14 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": null,
-  "updated_at": "2026-11-15T00:22:48.183464+00:00",
+  "lease": {
+    "run_id": "cycle-20261115T010205Z",
+    "acquired_at": "2026-11-15T01:02:05.543711+00:00",
+    "expires_at": "2026-11-15T01:42:05.543711+00:00",
+    "ticket": "THEME-MVP",
+    "owner": "root/coordinator"
+  },
+  "updated_at": "2026-11-15T01:02:05.543711+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -10650,6 +10656,36 @@
       "completed_at": "2026-11-15T00:22:48.183464+00:00",
       "lease_released_at": "2026-11-15T00:22:48.183464+00:00",
       "notification": "NO_UPDATE; 通常報告は朝夕CEOチェック"
+    },
+    {
+      "id": "cycle-20261115T010205Z",
+      "started_at": "2026-11-15T01:02:05.543711+00:00",
+      "observed_operations_commit": "6bd73af6ea92623f51d99d20b977857fa9369cd5",
+      "observed_main_commit": "86514eda054a5a2e09204df3a0668e40624c16de",
+      "ticket": "THEME-MVP",
+      "result": "lease_acquired; resume fixed theme candidate required validation",
+      "cloud_verified": true,
+      "ceo_decisions_ingested": 0,
+      "subagents": [],
+      "new_prs": [],
+      "ceo_wait_product_prs": [
+        10,
+        11
+      ],
+      "reserved_product_pr_slots": [
+        10,
+        11,
+        12
+      ],
+      "validation_pending_product_prs": [
+        12
+      ],
+      "additional_existing_product_drafts": [
+        22
+      ],
+      "base_commit": "c81fb6b3a7e9c5c6c5d42431afe1d13a73c780d3",
+      "external_private_data_calls": 0,
+      "production_actions": false
     }
   ],
   "operational_notes": [
