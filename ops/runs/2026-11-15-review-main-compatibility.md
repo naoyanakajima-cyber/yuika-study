@@ -1,0 +1,13 @@
+# 2026-11-15 外部main更新と既存復習PRの互換性追従
+
+状態：固定main照合完了、既存PR10の独立候補を作成中。製品候補のQA完了・PR更新はまだ主張しない。
+
+運用source b35eef2、lease78358b2を通常push後にPdM/QAを起動。外部でPR27→28→29がmergedとなり、観測mainは60d1a946cc02ed8acea54c0d7af7d6451fcc30ec。各merge treeは対応PRhead treeと一致し、前回PR27修正を含む。外部行為を本運用のCEO承認や自分が行ったmergeとして記録しない。新CEO返答の実読0。
+
+メダカ17問・江戸22問と2段階想起により、自力で思い出せたかを最終正誤と区別する。画像/テキスト入力機能の完成やテーマ全画面拡張ではない。独立QAは現main25suiteを初回25/25成功・308秒、別probe4fresh contextで中断未保存/最終1event/assistedの復習対象維持/元raw不変/親保存隔離を確認。以前の作者報告と今回の実行を区別する。
+
+Pages/Workersの現在main APIcheckはsuccess。公開画面の取得・本人試用・実機Safari/iPadは未確認。過去PR27headのWorkers failureは別の履歴として保持し、同一障害の解消と断定しない。今回merge/公開/手動deploy/実送信/課金/Secrets/権限/自動化変更なし。
+
+PdMが最初に照合のみを提案し、PrMはmain QA成功かつ18分以上残る場合の既存PR10候補作成へ範囲を更新した。08:15:55 UTCにmain QA完了、残り25分以上を確認。Engineerは73fe2eeを保持する独立checkoutでmain60dとのtopic統合と必要な生成整合を進める。理科生成後に江戸も再生成し、両系列の必須試験を維持する。候補は実装者とは別のQAを通るまで既存PRへpushしない。時間不足時は未完checkpointと残件を保存する。
+
+仕様はdocs/product/daily-count-spec.md末尾、担当/根拠はops/evidence/2026-11-15-review-main-compatibility/を参照。実装は同時1件、担当はPdM pdm_theme_compatibility、Engineer engineer_theme_compatibility、独立QA qa_theme_compatibility、統括root。製品待ち10/11/12の3枠と既存draft22を維持し、新規製品PRは作らない。

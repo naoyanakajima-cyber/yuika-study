@@ -43,7 +43,7 @@
     "acquired_at": "2026-11-15T08:06:44.193955+00:00",
     "expires_at": "2026-11-15T08:41:44.193955+00:00"
   },
-  "updated_at": "2026-11-15T08:06:44.193955+00:00",
+  "updated_at": "2026-11-15T08:18:00.066735+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -244,7 +244,7 @@
         "既存ID・保存キー・旧履歴を保護する",
         "768x1024で開始・回答・採点・保存・再読込を合成データで確認する"
       ],
-      "next_action": "既存PR10 73fe2eeの理由付き復習・日次実問数表示を合成試用候補として朝夕CEOチェックへ提示。推奨は開始前のおすすめ理由と表示問数、実際の出題が納得できるかを確認し、REV-MVPを添えて元チャットへ具体的フィードバック。教材の保存しない試し解きはPR11 ee51e68で独立QA済みのため再着手しない。新差分・具体的再現がなければ同じQAを反復せず終了。D03方向性採用とmerge/公開承認は分離し、返答を実読した担当の台帳反映まで伝達済みとしない。",
+      "next_action": "既存PR10の73fe2eeを保持した独立候補でmain60d1a94との互換性追従を進める。recallの自力/選択肢判定、問題/旧履歴/親境界を維持し理科後に江戸も再生成。候補の全必須suiteと代表実UIを独立QAしてから既存draftへ保存。未完時は候補commitと残件を保存。採用/公開は別判断。",
       "evidence": [
         {
           "kind": "test",
@@ -563,7 +563,18 @@
           "report": "ops/runs/2026-11-14-daily-count-fix.md",
           "residual": "science/top excluded; full cross-tab synchronization not added"
         }
-      ]
+      ],
+      "compatibility_followup": {
+        "state": "in_progress",
+        "source_main": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
+        "starting_pr_head": "73fe2ee9d776b3e3360614752fb722ff4aee4f85",
+        "work_branch": "codex/review-main-compat-20261115",
+        "specification": "docs/product/daily-count-spec.md",
+        "engineer": "engineer_theme_compatibility",
+        "reviewer": "qa_theme_compatibility",
+        "report": "ops/runs/2026-11-15-review-main-compatibility.md",
+        "scope": "現mainの新教材/recall履歴を保持し既存PR10の理由付き復習/実問数表示を同期。未検証候補を既存PRへ反映しない。"
+      }
     },
     {
       "id": "CONTENT-SPEC",
@@ -11485,13 +11496,17 @@
       "started_at": "2026-11-15T08:06:14+00:00",
       "observed_operations_commit": "b35eef2afd401915b483bab27ea20c34fbbce781",
       "observed_main_commit": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
-      "ticket": "PR27-MAIN-RECONCILE",
+      "ticket": "REV-MVP",
       "result": "in_progress",
       "cloud_verified": true,
       "ceo_decisions_ingested": 0,
-      "subagents": [],
+      "subagents": [
+        "pdm_theme_compatibility",
+        "engineer_theme_compatibility",
+        "qa_theme_compatibility"
+      ],
       "product_code_changed": false,
-      "product_tests_run": false,
+      "product_tests_run": true,
       "new_prs": [],
       "ceo_wait_product_prs": [
         10,
@@ -11500,7 +11515,162 @@
       ],
       "additional_existing_product_drafts": [
         22
-      ]
+      ],
+      "phase": "candidate_implementation_after_main_reconciliation",
+      "report": "ops/runs/2026-11-15-review-main-compatibility.md",
+      "observations": {
+        "observed_at": "2026-11-15 08:07:58 UTC",
+        "cloud": {
+          "provider": "cloud",
+          "observed_phase": "running",
+          "connectivity": "connected",
+          "observations_current": true,
+          "failure": null
+        },
+        "operations_source": "b35eef2afd401915b483bab27ea20c34fbbce781",
+        "previous_main": "86514eda054a5a2e09204df3a0668e40624c16de",
+        "main": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
+        "open_prs": [
+          {
+            "number": 22,
+            "head": "bd4f48de0404614eb84275969bfccff0a368e866",
+            "base": "codex/review-17-19-quality",
+            "state": "open",
+            "draft": true
+          },
+          {
+            "number": 13,
+            "head": "139c8b8b56bcd979068b61984120d9f312efe182",
+            "base": "codex/cloud-handoff-hardening-20261108",
+            "state": "open",
+            "draft": true
+          },
+          {
+            "number": 12,
+            "head": "b416d3c08a0d3952e5f0153fdc691d6fa0e492b7",
+            "base": "main",
+            "state": "open",
+            "draft": true
+          },
+          {
+            "number": 11,
+            "head": "ee51e68d7e1eeb21bd0e959ec58166a869947d0a",
+            "base": "main",
+            "state": "open",
+            "draft": true
+          },
+          {
+            "number": 10,
+            "head": "73fe2ee9d776b3e3360614752fb722ff4aee4f85",
+            "base": "main",
+            "state": "open",
+            "draft": true
+          },
+          {
+            "number": 9,
+            "head": "b35eef2afd401915b483bab27ea20c34fbbce781",
+            "base": "main",
+            "state": "open",
+            "draft": true
+          },
+          {
+            "number": 4,
+            "head": "ff211ee8e144e955fa5837e8b8ff5cabf51f60a4",
+            "base": "main",
+            "state": "open",
+            "draft": true
+          }
+        ],
+        "merged_prs": [
+          {
+            "number": 27,
+            "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/27",
+            "title": "理科「顕微鏡の使い方」20問を追加（開発タスク17）",
+            "head": "69f77d671b66484b501f7a0f5c292bfa96a22273",
+            "base_sha": "86514eda054a5a2e09204df3a0668e40624c16de",
+            "state": "closed",
+            "merged": true,
+            "merged_at": "2026-11-15T07:46:23Z",
+            "merge_commit": "85009493849b4b97ccc6785476fb6e650833e076"
+          },
+          {
+            "number": 28,
+            "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/28",
+            "title": "理科「メダカの飼育・ひれ・成長」17問と2段階想起を追加（開発タスク18）",
+            "head": "a706fb38dfaf00b0782eea0eb6f5a880800d7939",
+            "base_sha": "85009493849b4b97ccc6785476fb6e650833e076",
+            "state": "closed",
+            "merged": true,
+            "merged_at": "2026-11-15T07:50:02Z",
+            "merge_commit": "b34e1de02772712c6b6aae833543a369b6034cc1"
+          },
+          {
+            "number": 29,
+            "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/29",
+            "title": "社会「江戸幕府の成立・幕藩体制・鎖国」22問を追加（開発タスク19）",
+            "head": "5bcd380a394654bb0adab869235995c67c5d6850",
+            "base_sha": "b34e1de02772712c6b6aae833543a369b6034cc1",
+            "state": "closed",
+            "merged": true,
+            "merged_at": "2026-11-15T07:53:55Z",
+            "merge_commit": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec"
+          }
+        ],
+        "pages_run": {
+          "id": 43691987517,
+          "head_sha": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
+          "status": "completed",
+          "conclusion": "success",
+          "html_url": "https://github.com/naoyanakajima-cyber/yuika-study/actions/runs/43691987517",
+          "updated_at": "2026-11-15T07:54:35Z"
+        },
+        "ceo_decisions_ingested": 0,
+        "live_site_verified": false
+      },
+      "external_checks": [
+        {
+          "name": "Workers Builds: yuika-challenge-reports",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
+          "completed_at": "2026-11-15T07:54:30Z",
+          "html_url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/132744507761"
+        },
+        {
+          "name": "deploy",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
+          "completed_at": "2026-11-15T07:54:35Z",
+          "html_url": "https://github.com/naoyanakajima-cyber/yuika-study/actions/runs/43691987517/job/132744477753"
+        },
+        {
+          "name": "report-build-status",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
+          "completed_at": "2026-11-15T07:54:26Z",
+          "html_url": "https://github.com/naoyanakajima-cyber/yuika-study/actions/runs/43691987517/job/132744477728"
+        },
+        {
+          "name": "build",
+          "status": "completed",
+          "conclusion": "success",
+          "head_sha": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
+          "completed_at": "2026-11-15T07:54:21Z",
+          "html_url": "https://github.com/naoyanakajima-cyber/yuika-study/actions/runs/43691987517/job/132744391969"
+        }
+      ],
+      "main_review": {
+        "reviewer": "qa_theme_compatibility",
+        "commit": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
+        "suite_count": 25,
+        "passed": 25,
+        "exit_code": 0,
+        "seconds": 308,
+        "probe_contexts": 4
+      },
+      "next_action": "既存PR10の73fe2eeを保持した独立候補でmain60d1a94との互換性追従を進める。recallの自力/選択肢判定、問題/旧履歴/親境界を維持し理科後に江戸も再生成。候補の全必須suiteと代表実UIを独立QAしてから既存draftへ保存。未完時は候補commitと残件を保存。採用/公開は別判断。"
     }
   ],
   "operational_notes": [
@@ -11713,8 +11883,8 @@
     },
     {
       "id": "SCIENCE-UNIT-ENTRY-01",
-      "status": "fixed_in_existing_draft_only",
-      "observed_at": "2026-11-15T06:21:50.916701+00:00",
+      "status": "fix_observed_in_main",
+      "observed_at": "2026-11-15T08:18:00.066735+00:00",
       "scope": "PR27 science unit summary fallback and stale total badge",
       "finding": "未知unitの要約0/実5と旧47問tagを合成確認。実在unitだけ絞込み、全理科67問を明示。",
       "baseline_head": "58c3fd4ba10ecfaa249cc3c808c3e8e5fcaf5359",
@@ -11722,7 +11892,9 @@
       "product_pr": 27,
       "report": "ops/runs/2026-11-15-science-entry-consistency.md",
       "verification": "独立必須23suite初回成功264秒、4入口probe成功。baseline全23suite成功だけでは境界不具合を検出しなかった。",
-      "next_action": "具体的な合成試用のフィードバックまたは新差分に対応。PR10の既存件数修正と重複実装しない。採用/公開未実施。"
+      "next_action": "PR27修正は外部mainに包含。旧固定件数や未知unit問題を再実装せず、既存PR10の同期で保持を検証する。",
+      "observed_main": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
+      "resolution_report": "ops/runs/2026-11-15-review-main-compatibility.md"
     }
   ],
   "unreconciled_prs": [
@@ -12035,13 +12207,13 @@
       "base_ref": "main",
       "base_sha": "86514eda054a5a2e09204df3a0668e40624c16de",
       "kind": "product",
-      "state": "open_draft",
+      "state": "merged",
       "adopted": false,
-      "observed_at": "2026-11-15T06:21:50.916701+00:00",
-      "reconciliation_status": "external_draft_reconciled_scoped_entry_fix_independently_verified",
+      "observed_at": "2026-11-15T08:18:00.066735+00:00",
+      "reconciliation_status": "external_merge_observed_main_scoped_independent_qa_passed",
       "comparison_report": "ops/runs/2026-11-15-science-entry-consistency.md",
-      "latest_report": "ops/runs/2026-11-15-science-entry-consistency.md",
-      "authorization_note": "正本CEO返答の新規実読なし。別経路の既存draftへ許可範囲の最小修正を保存した。新規製品PR/採用枠は追加せず、本運用の待ち10/11/12と外部候補22/27を併記。",
+      "latest_report": "ops/runs/2026-11-15-review-main-compatibility.md",
+      "authorization_note": "外部マージはAPI観測。PR本文の別担当による承認記載は本運用の正本CEO返答の実読ではない。adopted=falseは本運用で新承認を取り込んでいない意味で、未マージの意味ではない。",
       "independent_qa": {
         "reviewer": "qa_theme_compatibility",
         "commit": "69f77d671b66484b501f7a0f5c292bfa96a22273",
@@ -12062,7 +12234,73 @@
           "html_url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/132723386624"
         }
       ],
-      "next_action": "合成試用と採用優先順位の判断を待つ。PR10と理科/ホーム集計が交差するため、統合判断時は両方を含む候補で検証。新CEO返答の台帳反映前に採用済みとしない。"
+      "next_action": "現mainへの包含を確認済み。同じ修正を再実装せず、既存PR10のrecall/日次表示互換候補を別途独立QA。公開画面/本人試用/実機は未確認。",
+      "merged_at": "2026-11-15T07:46:23Z",
+      "merge_commit": "85009493849b4b97ccc6785476fb6e650833e076",
+      "included_in_observed_main": true,
+      "observed_main": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
+      "latest_main_qa": {
+        "reviewer": "qa_theme_compatibility",
+        "commit": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
+        "suite_count": 25,
+        "passed": 25,
+        "exit_code": 0,
+        "seconds": 308,
+        "probe_contexts": 4,
+        "report": "ops/evidence/2026-11-15-review-main-compatibility/QA-main.md"
+      }
+    },
+    {
+      "pr": 28,
+      "kind": "product",
+      "adopted": false,
+      "head": "a706fb38dfaf00b0782eea0eb6f5a880800d7939",
+      "state": "merged",
+      "observed_at": "2026-11-15T08:18:00.066735+00:00",
+      "merged_at": "2026-11-15T07:50:02Z",
+      "merge_commit": "b34e1de02772712c6b6aae833543a369b6034cc1",
+      "included_in_observed_main": true,
+      "observed_main": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
+      "reconciliation_status": "external_merge_observed_main_scoped_independent_qa_passed",
+      "latest_report": "ops/runs/2026-11-15-review-main-compatibility.md",
+      "authorization_note": "外部マージはAPI観測。PR本文の別担当による承認記載は本運用の正本CEO返答の実読ではない。adopted=falseは本運用で新承認を取り込んでいない意味で、未マージの意味ではない。",
+      "latest_main_qa": {
+        "reviewer": "qa_theme_compatibility",
+        "commit": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
+        "suite_count": 25,
+        "passed": 25,
+        "exit_code": 0,
+        "seconds": 308,
+        "probe_contexts": 4,
+        "report": "ops/evidence/2026-11-15-review-main-compatibility/QA-main.md"
+      },
+      "next_action": "現mainへの包含を確認済み。同じ修正を再実装せず、既存PR10のrecall/日次表示互換候補を別途独立QA。公開画面/本人試用/実機は未確認。"
+    },
+    {
+      "pr": 29,
+      "kind": "product",
+      "adopted": false,
+      "head": "5bcd380a394654bb0adab869235995c67c5d6850",
+      "state": "merged",
+      "observed_at": "2026-11-15T08:18:00.066735+00:00",
+      "merged_at": "2026-11-15T07:53:55Z",
+      "merge_commit": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
+      "included_in_observed_main": true,
+      "observed_main": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
+      "reconciliation_status": "external_merge_observed_main_scoped_independent_qa_passed",
+      "latest_report": "ops/runs/2026-11-15-review-main-compatibility.md",
+      "authorization_note": "外部マージはAPI観測。PR本文の別担当による承認記載は本運用の正本CEO返答の実読ではない。adopted=falseは本運用で新承認を取り込んでいない意味で、未マージの意味ではない。",
+      "latest_main_qa": {
+        "reviewer": "qa_theme_compatibility",
+        "commit": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
+        "suite_count": 25,
+        "passed": 25,
+        "exit_code": 0,
+        "seconds": 308,
+        "probe_contexts": 4,
+        "report": "ops/evidence/2026-11-15-review-main-compatibility/QA-main.md"
+      },
+      "next_action": "現mainへの包含を確認済み。同じ修正を再実装せず、既存PR10のrecall/日次表示互換候補を別途独立QA。公開画面/本人試用/実機は未確認。"
     }
   ]
 }

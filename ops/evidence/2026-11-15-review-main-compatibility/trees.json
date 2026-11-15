@@ -1,0 +1,32 @@
+[
+  {
+    "pr": 27,
+    "merge": "85009493849b4b97ccc6785476fb6e650833e076",
+    "head": "69f77d671b66484b501f7a0f5c292bfa96a22273",
+    "trees": [
+      "285b80aa7f0dde096f9c1fbc8966e2326ed7310d",
+      "285b80aa7f0dde096f9c1fbc8966e2326ed7310d"
+    ],
+    "trees_equal": true
+  },
+  {
+    "pr": 28,
+    "merge": "b34e1de02772712c6b6aae833543a369b6034cc1",
+    "head": "a706fb38dfaf00b0782eea0eb6f5a880800d7939",
+    "trees": [
+      "26d759e5b3466af04c221da8ae00ccf0b525ea6f",
+      "26d759e5b3466af04c221da8ae00ccf0b525ea6f"
+    ],
+    "trees_equal": true
+  },
+  {
+    "pr": 29,
+    "merge": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
+    "head": "5bcd380a394654bb0adab869235995c67c5d6850",
+    "trees": [
+      "2eb6f6e3d43e9a6680517de4d632f8736c28e9d4",
+      "2eb6f6e3d43e9a6680517de4d632f8736c28e9d4"
+    ],
+    "trees_equal": true
+  }
+]

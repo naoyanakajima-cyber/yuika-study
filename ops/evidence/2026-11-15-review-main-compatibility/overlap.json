@@ -1,0 +1,48 @@
+[
+  {
+    "pr": 10,
+    "head": "73fe2ee9d776b3e3360614752fb722ff4aee4f85",
+    "overlapping_files": [
+      "README.md",
+      "assets/design.js",
+      "assets/progress.js",
+      "heian-review.html",
+      "index.html",
+      "kamakura-review.html",
+      "mock-focus-review.html",
+      "onin-review.html",
+      "scripts/check_all.sh",
+      "scripts/design/build_summary.py",
+      "scripts/practice/adaptive.js",
+      "scripts/practice/science.js",
+      "tests/responsive_subjects.py",
+      "tests/science_adaptive.py",
+      "yuika-review-v2.html"
+    ],
+    "merge_performed": false,
+    "integration_verified": false
+  },
+  {
+    "pr": 11,
+    "head": "ee51e68d7e1eeb21bd0e959ec58166a869947d0a",
+    "overlapping_files": [
+      "README.md",
+      "scripts/check_all.sh",
+      "scripts/cloud/serve.py",
+      "tests/parent_mode.py"
+    ],
+    "merge_performed": false,
+    "integration_verified": false
+  },
+  {
+    "pr": 12,
+    "head": "b416d3c08a0d3952e5f0153fdc691d6fa0e492b7",
+    "overlapping_files": [
+      "README.md",
+      "kamakura-review.html",
+      "scripts/check_all.sh"
+    ],
+    "merge_performed": false,
+    "integration_verified": false
+  }
+]
