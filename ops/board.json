@@ -43,7 +43,7 @@
     "acquired_at": "2026-11-15T10:02:43.268662+00:00",
     "expires_at": "2026-11-15T10:37:43.268662+00:00"
   },
-  "updated_at": "2026-11-15T10:02:43.268662+00:00",
+  "updated_at": "2026-11-15T10:05:41.434225+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -1062,14 +1062,24 @@
         "updated_pr": 11
       },
       "next_proposal": {
-        "state": "proposed_not_implemented",
+        "state": "prm_scope_accepted_in_progress",
         "path": "docs/product/content-image-trial-proposal.md",
         "pdm": "pdm_content_trial_delivery",
         "independent_document_review": "qa_content_trial_delivery",
         "scope": "readable bundled synthetic image→transcription comparison→explicit confirmation→memory-only trial",
         "next_gate": "PrM scope review against latest main/PR and lease at next cycle",
         "private_data_connection": false,
-        "release_authorized": false
+        "release_authorized": false,
+        "specification": "docs/product/content-image-trial-spec.md"
+      },
+      "image_trial_followup": {
+        "state": "in_progress",
+        "starting_pr_head": "d75a5469fbf1e8c5011a6307308546e5ec669ceb",
+        "source_main": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
+        "work_branch": "codex/content-image-trial-20261115",
+        "specification": "docs/product/content-image-trial-spec.md",
+        "engineer": "engineer_content_trial_delivery",
+        "report": "ops/runs/2026-11-15-content-image-trial.md"
       }
     },
     {
@@ -11897,10 +11907,13 @@
       "observed_main_commit": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
       "ticket": "CONTENT-MVP",
       "result": "in_progress",
-      "phase": "requirements",
+      "phase": "implementation",
       "cloud_verified": true,
       "ceo_decisions_ingested": 0,
-      "subagents": [],
+      "subagents": [
+        "pdm_content_trial_delivery",
+        "engineer_content_trial_delivery"
+      ],
       "new_prs": [],
       "product_code_changed": false,
       "product_tests_run": false,
@@ -11908,7 +11921,8 @@
         10,
         11,
         12
-      ]
+      ],
+      "report": "ops/runs/2026-11-15-content-image-trial.md"
     }
   ],
   "operational_notes": [
