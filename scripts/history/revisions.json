@@ -4611,6 +4611,586 @@
           "explanation": "ふたをかぶせて消します。息で吹き消したり、点火中に燃料を補給したりしてはいけません。先生の指示で扱いましょう。"
         }
       }
+    ],
+    "microscope-01": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 17: initial original microscope questions",
+        "question": {
+          "id": "microscope-01",
+          "unitId": "rika-microscope",
+          "conceptId": "microscope-lenses",
+          "subject": "理科",
+          "unit": "顕微鏡の使い方",
+          "course": "d1",
+          "level": 1,
+          "source": "オリジナル問題",
+          "basis": "接眼レンズは目でのぞく側、対物レンズは観察する物に近い側です。",
+          "type": "choice",
+          "prompt": "目を近づけてのぞく側のレンズの名前は？",
+          "answer": "接眼レンズ（せつがんレンズ）",
+          "options": [
+            "接眼レンズ（せつがんレンズ）",
+            "対物レンズ（たいぶつレンズ）",
+            "反射鏡（はんしゃきょう）"
+          ],
+          "hint": "操作の順と、何を動かすかを確かめよう。",
+          "explanation": "接眼レンズは目でのぞく側、対物レンズは観察する物に近い側です。",
+          "pitfall": "接眼レンズは目でのぞく側、対物レンズは観察する物に近い側です。"
+        }
+      }
+    ],
+    "microscope-02": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 17: initial original microscope questions",
+        "question": {
+          "id": "microscope-02",
+          "unitId": "rika-microscope",
+          "conceptId": "microscope-lenses",
+          "subject": "理科",
+          "unit": "顕微鏡の使い方",
+          "course": "d1",
+          "level": 1,
+          "source": "オリジナル問題",
+          "basis": "対物レンズは観察する物に近い側のレンズです。",
+          "type": "choice",
+          "prompt": "プレパラートの近くにあるレンズの名前は？",
+          "answer": "対物レンズ（たいぶつレンズ）",
+          "options": [
+            "接眼レンズ（せつがんレンズ）",
+            "調節ねじ",
+            "対物レンズ（たいぶつレンズ）"
+          ],
+          "hint": "操作の順と、何を動かすかを確かめよう。",
+          "explanation": "対物レンズは観察する物に近い側のレンズです。",
+          "pitfall": "対物レンズは観察する物に近い側のレンズです。"
+        }
+      }
+    ],
+    "microscope-03": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 17: initial original microscope questions",
+        "question": {
+          "id": "microscope-03",
+          "unitId": "rika-microscope",
+          "conceptId": "microscope-installation",
+          "subject": "理科",
+          "unit": "顕微鏡の使い方",
+          "course": "d1",
+          "level": 1,
+          "source": "オリジナル問題",
+          "basis": "接眼レンズを先に付けて鏡筒の上をふさぎ、ほこりが入りにくくします。その後、対物レンズを付けます。",
+          "type": "choice",
+          "prompt": "取り外してあるレンズを付けるとき、接眼レンズを先に付ける理由は？",
+          "answer": "鏡筒（きょうとう）の中にほこりが入りにくくするため",
+          "options": [
+            "プレパラートを固定するため",
+            "鏡筒（きょうとう）の中にほこりが入りにくくするため",
+            "倍率を必ず高くするため"
+          ],
+          "hint": "操作の順と、何を動かすかを確かめよう。",
+          "explanation": "接眼レンズを先に付けて鏡筒の上をふさぎ、ほこりが入りにくくします。その後、対物レンズを付けます。",
+          "pitfall": "接眼レンズを先に付けて鏡筒の上をふさぎ、ほこりが入りにくくします。その後、対物レンズを付けます。"
+        }
+      }
+    ],
+    "microscope-04": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 17: initial original microscope questions",
+        "question": {
+          "id": "microscope-04",
+          "unitId": "rika-microscope",
+          "conceptId": "microscope-focus",
+          "subject": "理科",
+          "unit": "顕微鏡の使い方",
+          "course": "d1",
+          "level": 1,
+          "source": "オリジナル問題",
+          "basis": "横から見て対物レンズとプレパラートを接触しないところまで近づけ、のぞきながら少しずつ遠ざけます。",
+          "type": "choice",
+          "prompt": "ピント合わせの合言葉「横から近づけ、のぞいて○○」。○○は？",
+          "answer": "離す",
+          "options": [
+            "離す",
+            "近づける",
+            "押しつける"
+          ],
+          "hint": "操作の順と、何を動かすかを確かめよう。",
+          "explanation": "横から見て対物レンズとプレパラートを接触しないところまで近づけ、のぞきながら少しずつ遠ざけます。",
+          "pitfall": "横から見て対物レンズとプレパラートを接触しないところまで近づけ、のぞきながら少しずつ遠ざけます。"
+        }
+      }
+    ],
+    "microscope-05": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 17: initial original microscope questions",
+        "question": {
+          "id": "microscope-05",
+          "unitId": "rika-microscope",
+          "conceptId": "microscope-focus",
+          "subject": "理科",
+          "unit": "顕微鏡の使い方",
+          "course": "d1",
+          "level": 1,
+          "source": "オリジナル問題",
+          "basis": "のぞいているとレンズとガラスのすき間を確かめにくく、ぶつけて割る危険があります。近づけるときは横から見ます。",
+          "type": "choice",
+          "prompt": "のぞきながら対物レンズをプレパラートに近づけてはいけない理由は？",
+          "answer": "ぶつけてプレパラートのガラスを割るおそれがあるから",
+          "options": [
+            "接眼レンズの倍率が変わるから",
+            "像が必ず消えて戻らないから",
+            "ぶつけてプレパラートのガラスを割るおそれがあるから"
+          ],
+          "hint": "操作の順と、何を動かすかを確かめよう。",
+          "explanation": "のぞいているとレンズとガラスのすき間を確かめにくく、ぶつけて割る危険があります。近づけるときは横から見ます。",
+          "pitfall": "のぞいているとレンズとガラスのすき間を確かめにくく、ぶつけて割る危険があります。近づけるときは横から見ます。"
+        }
+      }
+    ],
+    "microscope-06": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 17: initial original microscope questions",
+        "question": {
+          "id": "microscope-06",
+          "unitId": "rika-microscope",
+          "conceptId": "microscope-focus",
+          "subject": "理科",
+          "unit": "顕微鏡の使い方",
+          "course": "d1",
+          "level": 1,
+          "source": "オリジナル問題",
+          "basis": "横から見ながら調節ねじを使い、対物レンズを接触しないところまで近づけます。",
+          "type": "choice",
+          "prompt": "プレパラートを固定した。対物レンズを近づける間、どこから見る？",
+          "answer": "横から、レンズとガラスのすき間を見る",
+          "options": [
+            "目を閉じる",
+            "横から、レンズとガラスのすき間を見る",
+            "接眼レンズをのぞく"
+          ],
+          "hint": "操作の順と、何を動かすかを確かめよう。",
+          "explanation": "横から見ながら調節ねじを使い、対物レンズを接触しないところまで近づけます。",
+          "pitfall": "横から見ながら調節ねじを使い、対物レンズを接触しないところまで近づけます。"
+        }
+      }
+    ],
+    "microscope-07": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 17: initial original microscope questions",
+        "question": {
+          "id": "microscope-07",
+          "unitId": "rika-microscope",
+          "conceptId": "microscope-focus",
+          "subject": "理科",
+          "unit": "顕微鏡の使い方",
+          "course": "d1",
+          "level": 1,
+          "source": "オリジナル問題",
+          "basis": "接眼レンズをのぞきながら、対物レンズとプレパラートの間を少しずつ広げてピントを合わせます。",
+          "type": "choice",
+          "prompt": "横から見て対物レンズをガラスに当たらないところまで近づけた。次にピントを合わせる動かし方は？",
+          "answer": "のぞきながら少しずつ遠ざける",
+          "options": [
+            "のぞきながら少しずつ遠ざける",
+            "のぞきながらさらに近づける",
+            "横から見てガラスに押しつける"
+          ],
+          "hint": "操作の順と、何を動かすかを確かめよう。",
+          "explanation": "接眼レンズをのぞきながら、対物レンズとプレパラートの間を少しずつ広げてピントを合わせます。",
+          "pitfall": "接眼レンズをのぞきながら、対物レンズとプレパラートの間を少しずつ広げてピントを合わせます。"
+        }
+      }
+    ],
+    "microscope-08": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 17: initial original microscope questions",
+        "question": {
+          "id": "microscope-08",
+          "unitId": "rika-microscope",
+          "conceptId": "microscope-motion",
+          "subject": "理科",
+          "unit": "顕微鏡の使い方",
+          "course": "d1",
+          "level": 1,
+          "source": "オリジナル問題",
+          "basis": "像の動きはプレパラートの動きと逆です。プレパラートを右へ動かすと像は左へ動きます。",
+          "type": "choice",
+          "prompt": "プレパラートを右へ動かすと、視野の中の像はどちらへ動く？",
+          "answer": "左",
+          "options": [
+            "右",
+            "上",
+            "左"
+          ],
+          "hint": "操作の順と、何を動かすかを確かめよう。",
+          "explanation": "像の動きはプレパラートの動きと逆です。プレパラートを右へ動かすと像は左へ動きます。",
+          "pitfall": "像の動きはプレパラートの動きと逆です。プレパラートを右へ動かすと像は左へ動きます。"
+        }
+      }
+    ],
+    "microscope-09": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 17: initial original microscope questions",
+        "question": {
+          "id": "microscope-09",
+          "unitId": "rika-microscope",
+          "conceptId": "microscope-motion",
+          "subject": "理科",
+          "unit": "顕微鏡の使い方",
+          "course": "d1",
+          "level": 1,
+          "source": "オリジナル問題",
+          "basis": "右の像を中央へ寄せるには像を左へ動かします。そのためプレパラートを右へ動かします。",
+          "type": "choice",
+          "prompt": "像が右にある。中央へ寄せるためプレパラートを右へ動かす理由は？",
+          "answer": "像はプレパラートと逆の左へ動くから",
+          "options": [
+            "レンズの倍率が下がるから",
+            "像はプレパラートと逆の左へ動くから",
+            "像も同じ右へ動くから"
+          ],
+          "hint": "操作の順と、何を動かすかを確かめよう。",
+          "explanation": "右の像を中央へ寄せるには像を左へ動かします。そのためプレパラートを右へ動かします。",
+          "pitfall": "右の像を中央へ寄せるには像を左へ動かします。そのためプレパラートを右へ動かします。"
+        }
+      }
+    ],
+    "microscope-10": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 17: initial original microscope questions",
+        "question": {
+          "id": "microscope-10",
+          "unitId": "rika-microscope",
+          "conceptId": "microscope-motion",
+          "subject": "理科",
+          "unit": "顕微鏡の使い方",
+          "course": "d1",
+          "level": 1,
+          "source": "オリジナル問題",
+          "basis": "プレパラートを右下へ動かすと像は左上へ動き、右下にあった像が中央に近づきます。",
+          "type": "choice",
+          "prompt": "像が視野の右下に見える。中央へ寄せるにはプレパラートをどちらへ少し動かす？",
+          "answer": "右下",
+          "options": [
+            "右下",
+            "左上",
+            "右上"
+          ],
+          "hint": "操作の順と、何を動かすかを確かめよう。",
+          "explanation": "プレパラートを右下へ動かすと像は左上へ動き、右下にあった像が中央に近づきます。",
+          "pitfall": "プレパラートを右下へ動かすと像は左上へ動き、右下にあった像が中央に近づきます。"
+        }
+      }
+    ],
+    "microscope-11": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 17: initial original microscope questions",
+        "question": {
+          "id": "microscope-11",
+          "unitId": "rika-microscope",
+          "conceptId": "microscope-motion",
+          "subject": "理科",
+          "unit": "顕微鏡の使い方",
+          "course": "d1",
+          "level": 1,
+          "source": "オリジナル問題",
+          "basis": "プレパラートを左上へ動かすと像は右下へ動き、左上にあった像が中央に近づきます。",
+          "type": "choice",
+          "prompt": "像が視野の左上に見える。中央へ寄せるにはプレパラートをどちらへ少し動かす？",
+          "answer": "左上",
+          "options": [
+            "右下",
+            "左下",
+            "左上"
+          ],
+          "hint": "操作の順と、何を動かすかを確かめよう。",
+          "explanation": "プレパラートを左上へ動かすと像は右下へ動き、左上にあった像が中央に近づきます。",
+          "pitfall": "プレパラートを左上へ動かすと像は右下へ動き、左上にあった像が中央に近づきます。"
+        }
+      }
+    ],
+    "microscope-12": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 17: initial original microscope questions",
+        "question": {
+          "id": "microscope-12",
+          "unitId": "rika-microscope",
+          "conceptId": "microscope-sequence",
+          "subject": "理科",
+          "unit": "顕微鏡の使い方",
+          "course": "d1",
+          "level": 1,
+          "source": "オリジナル問題",
+          "basis": "この練習の順序は、接眼レンズ→対物レンズ→反射鏡で明るくする→プレパラートを固定→横から近づける→のぞいて離す、です。反射鏡を太陽に向けてはいけません。",
+          "type": "choice",
+          "prompt": "接眼レンズ、対物レンズの順に付けた。反射鏡のある顕微鏡で、次にすることは？",
+          "answer": "接眼レンズをのぞき、反射鏡で視野を明るくする",
+          "options": [
+            "プレパラートに対物レンズを当てる",
+            "接眼レンズをのぞき、反射鏡で視野を明るくする",
+            "すぐに高倍率でピントを合わせる"
+          ],
+          "hint": "操作の順と、何を動かすかを確かめよう。",
+          "explanation": "この練習の順序は、接眼レンズ→対物レンズ→反射鏡で明るくする→プレパラートを固定→横から近づける→のぞいて離す、です。反射鏡を太陽に向けてはいけません。",
+          "pitfall": "この練習の順序は、接眼レンズ→対物レンズ→反射鏡で明るくする→プレパラートを固定→横から近づける→のぞいて離す、です。反射鏡を太陽に向けてはいけません。"
+        }
+      }
+    ],
+    "microscope-13": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 17: initial original microscope questions",
+        "question": {
+          "id": "microscope-13",
+          "unitId": "rika-microscope",
+          "conceptId": "microscope-sequence",
+          "subject": "理科",
+          "unit": "顕微鏡の使い方",
+          "course": "d1",
+          "level": 1,
+          "source": "オリジナル問題",
+          "basis": "明るくした後、プレパラートをステージに置いてクリップで固定します。その後、横から見て対物レンズを近づけます。",
+          "type": "choice",
+          "prompt": "レンズを付け、反射鏡で視野を明るくした。次にすることは？",
+          "answer": "プレパラートをステージに置き、クリップでとめる",
+          "options": [
+            "プレパラートをステージに置き、クリップでとめる",
+            "接眼レンズを外す",
+            "対物レンズをガラスに押しつける"
+          ],
+          "hint": "操作の順と、何を動かすかを確かめよう。",
+          "explanation": "明るくした後、プレパラートをステージに置いてクリップで固定します。その後、横から見て対物レンズを近づけます。",
+          "pitfall": "明るくした後、プレパラートをステージに置いてクリップで固定します。その後、横から見て対物レンズを近づけます。"
+        }
+      }
+    ],
+    "microscope-14": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 17: initial original microscope questions",
+        "question": {
+          "id": "microscope-14",
+          "unitId": "rika-microscope",
+          "conceptId": "microscope-sequence",
+          "subject": "理科",
+          "unit": "顕微鏡の使い方",
+          "course": "d1",
+          "level": 1,
+          "source": "オリジナル問題",
+          "basis": "固定した後は横から見て近づけます。接触させず、その後のぞきながら遠ざけてピントを合わせます。",
+          "type": "choice",
+          "prompt": "視野を明るくし、プレパラートをクリップで固定した。次の安全な操作は？",
+          "answer": "横から見て、調節ねじで対物レンズをガラスに触れないところまで近づける",
+          "options": [
+            "のぞきながら対物レンズを近づける",
+            "プレパラートを外してからピントを合わせる",
+            "横から見て、調節ねじで対物レンズをガラスに触れないところまで近づける"
+          ],
+          "hint": "操作の順と、何を動かすかを確かめよう。",
+          "explanation": "固定した後は横から見て近づけます。接触させず、その後のぞきながら遠ざけてピントを合わせます。",
+          "pitfall": "固定した後は横から見て近づけます。接触させず、その後のぞきながら遠ざけてピントを合わせます。"
+        }
+      }
+    ],
+    "microscope-15": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 17: initial original microscope questions",
+        "question": {
+          "id": "microscope-15",
+          "unitId": "rika-microscope",
+          "conceptId": "microscope-low-power",
+          "subject": "理科",
+          "unit": "顕微鏡の使い方",
+          "course": "d1",
+          "level": 1,
+          "source": "オリジナル問題",
+          "basis": "低倍率は見える範囲が広いので、観察する物を探しやすくなります。",
+          "type": "choice",
+          "prompt": "観察する物を探し始めるとき、どの倍率にする？",
+          "answer": "低倍率",
+          "options": [
+            "倍率は関係ない",
+            "低倍率",
+            "最も高い倍率"
+          ],
+          "hint": "操作の順と、何を動かすかを確かめよう。",
+          "explanation": "低倍率は見える範囲が広いので、観察する物を探しやすくなります。",
+          "pitfall": "低倍率は見える範囲が広いので、観察する物を探しやすくなります。"
+        }
+      }
+    ],
+    "microscope-16": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 17: initial original microscope questions",
+        "question": {
+          "id": "microscope-16",
+          "unitId": "rika-microscope",
+          "conceptId": "microscope-low-power",
+          "subject": "理科",
+          "unit": "顕微鏡の使い方",
+          "course": "d1",
+          "level": 1,
+          "source": "オリジナル問題",
+          "basis": "高倍率にすると見える範囲が狭くなります。端にある像を見失わないよう、先に中央へ移します。",
+          "type": "choice",
+          "prompt": "低倍率で観察する物が見つかった。高倍率に変える前にすることは？",
+          "answer": "観察する物の像を視野の中央へ移す",
+          "options": [
+            "観察する物の像を視野の中央へ移す",
+            "像を視野の端へ移す",
+            "接眼レンズを外す"
+          ],
+          "hint": "操作の順と、何を動かすかを確かめよう。",
+          "explanation": "高倍率にすると見える範囲が狭くなります。端にある像を見失わないよう、先に中央へ移します。",
+          "pitfall": "高倍率にすると見える範囲が狭くなります。端にある像を見失わないよう、先に中央へ移します。"
+        }
+      }
+    ],
+    "microscope-17": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 17: initial original microscope questions",
+        "question": {
+          "id": "microscope-17",
+          "unitId": "rika-microscope",
+          "conceptId": "microscope-magnification",
+          "subject": "理科",
+          "unit": "顕微鏡の使い方",
+          "course": "d1",
+          "level": 1,
+          "source": "オリジナル問題",
+          "basis": "倍率は接眼レンズの倍率×対物レンズの倍率。10×40＝400倍です。",
+          "type": "choice",
+          "prompt": "接眼レンズが10倍、対物レンズが40倍。顕微鏡の倍率は？",
+          "answer": "400倍",
+          "options": [
+            "50倍",
+            "40倍",
+            "400倍"
+          ],
+          "hint": "操作の順と、何を動かすかを確かめよう。",
+          "explanation": "倍率は接眼レンズの倍率×対物レンズの倍率。10×40＝400倍です。",
+          "pitfall": "倍率は接眼レンズの倍率×対物レンズの倍率。10×40＝400倍です。"
+        }
+      }
+    ],
+    "microscope-18": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 17: initial original microscope questions",
+        "question": {
+          "id": "microscope-18",
+          "unitId": "rika-microscope",
+          "conceptId": "microscope-magnification",
+          "subject": "理科",
+          "unit": "顕微鏡の使い方",
+          "course": "d1",
+          "level": 1,
+          "source": "オリジナル問題",
+          "basis": "倍率は接眼レンズの倍率×対物レンズの倍率。15×20＝300倍です。",
+          "type": "choice",
+          "prompt": "接眼レンズが15倍、対物レンズが20倍。顕微鏡の倍率は？",
+          "answer": "300倍",
+          "options": [
+            "200倍",
+            "300倍",
+            "35倍"
+          ],
+          "hint": "操作の順と、何を動かすかを確かめよう。",
+          "explanation": "倍率は接眼レンズの倍率×対物レンズの倍率。15×20＝300倍です。",
+          "pitfall": "倍率は接眼レンズの倍率×対物レンズの倍率。15×20＝300倍です。"
+        }
+      }
+    ],
+    "microscope-19": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 17: initial original microscope questions",
+        "question": {
+          "id": "microscope-19",
+          "unitId": "rika-microscope",
+          "conceptId": "microscope-field",
+          "subject": "理科",
+          "unit": "顕微鏡の使い方",
+          "course": "d1",
+          "level": 1,
+          "source": "オリジナル問題",
+          "basis": "倍率を上げると像は大きく見えますが、一度に見える範囲は狭くなります。",
+          "type": "choice",
+          "prompt": "低倍率から高倍率にすると、見える範囲はどうなる？",
+          "answer": "狭くなる",
+          "options": [
+            "狭くなる",
+            "広くなる",
+            "必ず変わらない"
+          ],
+          "hint": "操作の順と、何を動かすかを確かめよう。",
+          "explanation": "倍率を上げると像は大きく見えますが、一度に見える範囲は狭くなります。",
+          "pitfall": "倍率を上げると像は大きく見えますが、一度に見える範囲は狭くなります。"
+        }
+      }
+    ],
+    "microscope-20": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 17: initial original microscope questions",
+        "question": {
+          "id": "microscope-20",
+          "unitId": "rika-microscope",
+          "conceptId": "microscope-field",
+          "subject": "理科",
+          "unit": "顕微鏡の使い方",
+          "course": "d1",
+          "level": 1,
+          "source": "オリジナル問題",
+          "basis": "倍率を上げると視野は暗くなりやすくなります。必要に応じて明るさを調整します。",
+          "type": "choice",
+          "prompt": "光の調整を変えずに倍率を上げると、視野の明るさはどうなりやすい？",
+          "answer": "暗くなりやすい",
+          "options": [
+            "明るくなりやすい",
+            "必ず変わらない",
+            "暗くなりやすい"
+          ],
+          "hint": "操作の順と、何を動かすかを確かめよう。",
+          "explanation": "倍率を上げると視野は暗くなりやすくなります。必要に応じて明るさを調整します。",
+          "pitfall": "倍率を上げると視野は暗くなりやすくなります。必要に応じて明るさを調整します。"
+        }
+      }
     ]
   },
   "mock-focus-review.html": {

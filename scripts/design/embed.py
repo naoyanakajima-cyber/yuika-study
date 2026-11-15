@@ -10,7 +10,7 @@ UNITS={
  'onin-review.html':('social','社会','540-27'),
  'kamakura-review.html':('social','社会','540-25'),
  'heian-review.html':('social','社会','540-24'),
- 'yuika-review-v2.html':('science','理科','溶解度／酸とアルカリ'),
+ 'yuika-review-v2.html':('science','理科','水溶液／顕微鏡'),
  'mock-focus-review.html':('all','4教科まとめ','mock-focus'),
 }
 for file,(theme,subject,code) in UNITS.items():
