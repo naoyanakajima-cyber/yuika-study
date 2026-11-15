@@ -36,8 +36,13 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": null,
-  "updated_at": "2026-11-15T05:08:59.919228+00:00",
+  "lease": {
+    "run_id": "cycle-20261115T060304Z",
+    "owner": "coordinator",
+    "acquired_at": "2026-11-15T06:05:54.287849+00:00",
+    "expires_at": "2026-11-15T06:35:54.287849+00:00"
+  },
+  "updated_at": "2026-11-15T06:05:54.287849+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -11106,6 +11111,29 @@
       "environment_preparation": "Not needed; no new checkout or dependency setup; no automatic snapshot handoff claim",
       "external_check_status": "Previously recorded Workers failure retained as historical evidence; not re-fetched or rerun this cycle",
       "authority_note": "No real data access, production merge, publication/deploy, real messages, billing, Secrets/permissions/sharing or automation changes"
+    },
+    {
+      "id": "cycle-20261115T060304Z",
+      "started_at": "2026-11-15T06:03:04+00:00",
+      "observed_operations_commit": "e5f20f3db3bc49b7076fe6dfe41f58c1425cca98",
+      "observed_main_commit": "86514eda054a5a2e09204df3a0668e40624c16de",
+      "ticket": "PR27-RECONCILE",
+      "result": "in_progress",
+      "cloud_verified": true,
+      "ceo_decisions_ingested": 0,
+      "subagents": [],
+      "product_code_changed": false,
+      "product_tests_run": false,
+      "new_prs": [],
+      "ceo_wait_product_prs": [
+        10,
+        11,
+        12
+      ],
+      "additional_existing_product_drafts": [
+        22,
+        27
+      ]
     }
   ],
   "operational_notes": [
