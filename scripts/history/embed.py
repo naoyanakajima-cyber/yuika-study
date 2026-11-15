@@ -7,7 +7,7 @@ import json
 import re
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
-APPS = ('onin-review.html', 'kamakura-review.html', 'heian-review.html', 'yuika-review-v2.html', 'mock-focus-review.html')
+APPS = ('onin-review.html', 'kamakura-review.html', 'heian-review.html', 'yuika-review-v2.html', 'mock-focus-review.html', 'edo-review.html')
 ARCHIVE = Path(__file__).with_name('revisions.json')
 START, END = '// HISTORY_START\n', '// HISTORY_END\n'
 

@@ -156,7 +156,7 @@ python scripts/cloud/serve.py --port 8000
 
 クラウド内のブラウザーで `http://127.0.0.1:8000/` を開く。停止はCtrl-C。
 並行プレビューは別ポートを使う。127.0.0.1だけにbindし、明示した学習入口
-`index.html`、`heian-review.html`、`onin-review.html`、`kamakura-review.html`、
+`index.html`、`heian-review.html`、`onin-review.html`、`edo-review.html`、`kamakura-review.html`、
 `yuika-review-v2.html`、`mock-focus-review.html` と合成教材確認用の `content-review.html`、
 共通資産 `assets/design.css`、`assets/design.js`、`assets/progress.js` だけを配信する。
 ルート `/` は `index.html` を開く。ディレクトリやその他のファイルは配信しない。

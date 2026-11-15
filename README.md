@@ -252,3 +252,33 @@ sessionStorageの寿命に従って終了します（ブラウザーの「閉じ
 再確認状態、教科別候補、保存・再読込・JSON再取り込みも合成記録で検証します。
 `bash scripts/check_all.sh` に含まれます。ChromiumでのiPad相当サイズの確認であり、
 Safari/WebKit・iPad実機の確認は含みません。
+
+## 理科「顕微鏡の使い方」
+
+学習帳の理科一覧から開けます。理科アプリの単元「顕微鏡の使い方」に、オリジナル20問を追加しました。ピント合わせ4問・像とプレパラートの向き4問を重点に、レンズ名2問・取り付け理由1問・操作順3問・低倍率からの観察2問・倍率計算2問・見える範囲と明るさ2問です。
+
+操作順は「次にすること」を選ぶ3段階の選択問題です。倍率計算も既存の選択式で、iPadでタップして回答できます。共通の理科カラー・問題ごとの版管理・概念ID・根拠/解説を使い、既存の弱点分析・再確認・今日の5問の対象になります。既存47問の内容、保存キー、採点規則は変更しません。再確認の1・3・7日間隔は従来どおり仮案です。
+
+検証：`python tests/microscope.py`（`scripts/check_all.sh`にも含む）。Chromiumでのタップ相当操作であり、iPad実機Safariの確認ではありません。
+
+## 理科「メダカの飼育・ひれ・成長」（draft）
+
+理科一覧から開く17問（成長5・ひれ8・水4）です。文章・オス/メスの線画SVGはオリジナルで、教材画像や個人情報は含めません。各問に固有ID、概念ID、根拠・解説、revision 1を登録しています。
+
+最初は選択肢なしの文字入力、図3問はひれの位置をタップします。まちがえた場合だけ選択肢で再回答し、「自力で正解」「選択肢で正解」「不正解」を分けて記録します。ひらがな/カタカナ・全半角・登録済みの同義表記を認め、部分一致は使いません。ふ化日数は約10〜11日、体長は約4〜5mmを目安とし、両端の数値も正解にします。
+
+選択肢で正解しても、自力正解までは弱点・再確認の対象です。新形式は1回目から対象になり、自力正解後は既存の別日再確認（1・3・7日という仮案）で確かめます。今日の5問とホームの集計も同じ読み取り用の判定を使います。従来67問の問題・保存キー・過去の採点は保持します。旧版は新形式のJSONを読めないため、元のJSONを保管してください。
+
+回答は最終確定時に最初の答えと最終回答を一つの記録として保存します。選択肢が出たあとで中断した回答は未確定のため保存しません。図の当たり判定は最低50px（図の最小表示幅320px）で、キーボードでも選択できます。Safari/WebKit・実機iPadでの確認は別途必要です。
+
+検証は `bash scripts/check_all.sh`（`tests/medaka.py`を含む）。再生成は `python scripts/medaka/embed.py` → `python scripts/history/embed.py` → `python scripts/practice/embed.py` → `python scripts/practice/embed_science.py` → `python scripts/prototype/embed.py` → `python scripts/design/build_summary.py` → `python scripts/design/embed.py` → `python scripts/parent/embed.py` の順です。
+
+## 社会「江戸幕府の成立・幕藩体制・鎖国」
+
+`edo-review.html`。学習帳の社会一覧から開けます。年表10問・しくみ6問・外交6問の計22問です。文章はオリジナルで、肖像画・建物写真や教材の転載はありません。
+
+#28の2段階回答を再利用し、まず文字入力、まちがえたときだけ選択肢で再回答します。年代順は6つの記号を入力します。自力正解・選択肢正解・不正解と最初の回答を分けて保存し、選択肢正解は自力正解になるまで弱点・再確認に残ります。今日の5問とホームの件数も同じ復習判定を使います。1・3・7日の再確認間隔は既存の仮案です。
+
+保存キーは `yuika-prototype-v1:yuika-social-edo-v1`、問題IDは `edo-01〜22`、各問に概念ID・版番号・根拠/解説があります。既存単元のキー・問題・履歴は変更しません。このページには通知を接続していません。
+
+再生成は `python scripts/edo/build.py` → `python scripts/history/embed.py` → `python scripts/design/build_summary.py` → `python scripts/design/embed.py` → `python scripts/parent/embed.py`。専用テストは `python tests/edo.py`、全体テストは `bash scripts/check_all.sh` です。

@@ -9,7 +9,7 @@ ROOT=Path(__file__).resolve().parents[1]
 # All learning apps require the boundary; only the reviewed memory-only prototype
 # from PR11 HEAD 3d2ed2f9a62673d2fb086a360ae841096f35b63e is exempt.
 required={'index.html','onin-review.html','kamakura-review.html','heian-review.html',
-          'yuika-review-v2.html','mock-focus-review.html','content-review.html'}
+          'yuika-review-v2.html','mock-focus-review.html','edo-review.html','content-review.html'}
 assert required <= {entry.name for entry in ROOT.glob('*.html')}
 for entry in ROOT.glob('*.html'):
  text=entry.read_text()
@@ -83,6 +83,9 @@ try:
      q=p.evaluate('prototypeScience?session.questions[session.index]:run.qs[run.index]')
      if app=='yuika-review-v2.html':
       if q['type']=='number':p.locator('#numeric').fill(str(q['answer']))
+      elif q['type']=='recall':
+       if q.get('diagram'):p.locator(f'[data-fin="{q["answer"]}"]').click()
+       else:p.locator('#recall-text').fill(q['answer'])
       else:p.locator('[data-choice]').first.click()
      elif q['type']=='choice':p.locator('[data-choice]').first.click()
      elif q['type']=='structure':

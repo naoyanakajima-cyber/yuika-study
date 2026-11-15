@@ -44,7 +44,7 @@ with ThreadingHTTPServer(('127.0.0.1', 0), partial(ProbeHandler, directory=str(R
                 error.close()
         for name in ('index.html', 'heian-review.html', 'onin-review.html',
                      'kamakura-review.html', 'yuika-review-v2.html', 'mock-focus-review.html',
-                     'content-review.html', 'assets/design.css', 'assets/design.js', 'assets/progress.js'):
+                     'edo-review.html', 'content-review.html', 'assets/design.css', 'assets/design.js', 'assets/progress.js'):
             with urlopen(f'{base}/{name}') as response:
                 assert response.status == 200, name
                 assert response.read() == (ROOT / name).read_bytes(), name

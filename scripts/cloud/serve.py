@@ -23,7 +23,7 @@ class PreviewHandler(SimpleHTTPRequestHandler):
         elif path not in {f'/{name}' for name in (
             'assets/design.css', 'assets/design.js', 'assets/progress.js',
             'index.html', 'heian-review.html', 'onin-review.html',
-            'kamakura-review.html', 'yuika-review-v2.html', 'mock-focus-review.html',
+            'edo-review.html', 'kamakura-review.html', 'yuika-review-v2.html', 'mock-focus-review.html',
             'content-review.html',
         )}:
             self.send_error(404)
