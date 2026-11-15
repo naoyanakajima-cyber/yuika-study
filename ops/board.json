@@ -36,8 +36,14 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": null,
-  "updated_at": "2026-11-15T06:23:16.946362+00:00",
+  "lease": {
+    "run_id": "cycle-20261115T070454Z",
+    "owner": "coordinator",
+    "ticket": "readiness-check",
+    "acquired_at": "2026-11-15T07:05:38.194246+00:00",
+    "expires_at": "2026-11-15T07:20:38.194246+00:00"
+  },
+  "updated_at": "2026-11-15T07:05:38.194246+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -11362,6 +11368,29 @@
       "authority_note": "No new CEO decision ingested; no real data, main merge, publication/manual deployment, real messages, billing, Secrets/permissions/sharing or automation changes.",
       "completed_at": "2026-11-15T06:23:16.946362+00:00",
       "lease_released_at": "2026-11-15T06:23:16.946362+00:00"
+    },
+    {
+      "id": "cycle-20261115T070454Z",
+      "started_at": "2026-11-15T07:04:54+00:00",
+      "observed_operations_commit": "90a5980160d1ad7b73ac87e3503defce2db3abab",
+      "observed_main_commit": "86514eda054a5a2e09204df3a0668e40624c16de",
+      "ticket": "readiness-check",
+      "result": "in_progress",
+      "cloud_verified": true,
+      "ceo_decisions_ingested": 0,
+      "subagents": [],
+      "product_code_changed": false,
+      "product_tests_run": false,
+      "new_prs": [],
+      "ceo_wait_product_prs": [
+        10,
+        11,
+        12
+      ],
+      "additional_existing_product_drafts": [
+        22,
+        27
+      ]
     }
   ],
   "operational_notes": [
