@@ -43,7 +43,7 @@
     "ticket": "THEME-MVP",
     "owner": "root/coordinator"
   },
-  "updated_at": "2026-11-15T00:02:47.974783+00:00",
+  "updated_at": "2026-11-15T00:06:19.273050+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -1156,6 +1156,19 @@
         "latest_synthetic_qa_commit": "57171ad9cab02fec6a080ecbe317fe11d3f51dcf",
         "latest_cloud_artifacts": "/workspace/work/theme-readability-qa-20261110/",
         "shared_browser_handoff": "not_completed"
+      },
+      "independent_followup": {
+        "id": "theme-main-compatibility",
+        "state": "in_progress",
+        "pdm": "pdm_theme_compatibility",
+        "prm": "root/coordinator",
+        "engineer": "engineer_theme_compatibility",
+        "reviewer": "qa_theme_compatibility",
+        "resume_from_commit": "57171ad9cab02fec6a080ecbe317fe11d3f51dcf",
+        "integration_base_commit": "86514eda054a5a2e09204df3a0668e40624c16de",
+        "specification": "docs/product/theme-main-compatibility.md",
+        "scope": "既存PR12の保存境界・共通表示互換性、鎌倉限定",
+        "report": "ops/runs/2026-11-15-theme-compatibility.md"
       }
     },
     {
@@ -10496,10 +10509,14 @@
       "observed_operations_commit": "b7e142a3a3f50fdfa3033a92e778c2b37c3e0ee9",
       "observed_main_commit": "86514eda054a5a2e09204df3a0668e40624c16de",
       "ticket": "THEME-MVP",
-      "result": "lease_acquired; existing PR12 compatibility scope pending PdM/PrM",
+      "result": "PdM C1-C8をPrM受入、Engineer実装中・独立QA準備中",
       "cloud_verified": true,
       "ceo_decisions_ingested": 0,
-      "subagents": [],
+      "subagents": [
+        "pdm_theme_compatibility",
+        "engineer_theme_compatibility",
+        "qa_theme_compatibility"
+      ],
       "new_prs": [],
       "ceo_wait_product_prs": [
         10,
@@ -10510,7 +10527,16 @@
         22
       ],
       "external_private_data_calls": 0,
-      "production_actions": false
+      "production_actions": false,
+      "base_commit": "57171ad9cab02fec6a080ecbe317fe11d3f51dcf",
+      "integration_base_commit": "86514eda054a5a2e09204df3a0668e40624c16de",
+      "specification": "docs/product/theme-main-compatibility.md",
+      "evidence": "ops/evidence/2026-11-15-theme-compatibility",
+      "report": "ops/runs/2026-11-15-theme-compatibility.md",
+      "manual_dependency_reuse": true,
+      "automatic_snapshot_handoff_verified": false,
+      "platform_run_completion_verified": false,
+      "attachment": "既存PR12 attach呼出は空応答、成功未確認"
     }
   ],
   "operational_notes": [
