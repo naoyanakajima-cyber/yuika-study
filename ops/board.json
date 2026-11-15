@@ -36,14 +36,8 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": {
-    "run_id": "cycle-20261115T090232Z",
-    "owner": "coordinator",
-    "ticket": "CONTENT-MVP",
-    "acquired_at": "2026-11-15T09:03:21.033148+00:00",
-    "expires_at": "2026-11-15T09:38:21.033148+00:00"
-  },
-  "updated_at": "2026-11-15T09:05:42.601860+00:00",
+  "lease": null,
+  "updated_at": "2026-11-15T09:19:00.010826+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -683,7 +677,7 @@
         "未確認出力と確認済み案を区別し、既存教材/記録に接続しない",
         "768x1024で編集・確認・取消・出力/再入力、外部要求/通知POST 0を検証"
       ],
-      "next_action": "次cycleは既存PR11 ee51e68と最新mainを固定比較し、main60d1a94以降の新ページ/親モード/履歴形式を教材案の確認・保存しない試し解きが損なわないかPdM→PrMで限定する。既存PR内の独立候補1件だけを実装・QAし、新規製品PRを増やさない。私的教材接続/保存先D02と公開は未承認。",
+      "next_action": "次cycleで読める同梱合成画像→転記照合→明示確認→保存しない試し解きの成功経路をPdM提案からPrMで範囲確定する。既存PR11内、未知source/判読不明拒否・固定hash/CSP・案schema/記録非接続を保持。新規製品PR・実写真・外部OCR・D02接続・公開なし。THEME単純追従より目標②の具体的成功経路を優先し、テーマ試用を止める再現不具合があれば再順位付け。",
       "evidence": [
         {
           "kind": "test",
@@ -852,6 +846,15 @@
           "kind": "report",
           "commit": "ee51e68d7e1eeb21bd0e959ec58166a869947d0a",
           "path": "ops/runs/2026-11-14-content-trial-delivery.md"
+        },
+        {
+          "kind": "current_main_compatibility",
+          "path": "ops/runs/2026-11-15-content-main-compatibility.md",
+          "commit": "d75a5469fbf1e8c5011a6307308546e5ec669ceb",
+          "required_suites_passed": 29,
+          "seconds": 325,
+          "http_boundary_cases": 9,
+          "external_check": "Workers Builds: yuika-study failure; separate from local QA"
         }
       ],
       "review": {
@@ -859,15 +862,23 @@
         "prm": "root/coordinator",
         "author": "engineer_content_trial_delivery",
         "reviewer": "qa_content_trial_delivery",
-        "result": "passed",
-        "commit": "ee51e68d7e1eeb21bd0e959ec58166a869947d0a",
-        "completed_at": "2026-11-14T23:29:10.778434+00:00",
-        "notes": "最終固定clean HEAD26/26終了0・256秒、独立65probe/static/修正導線成功。初回8eは全suite成功でも実UI導線不足で差戻し、修正1回。実BFCache/実機未検証、blank画像と描画後確認を区別。"
+        "commit": "d75a5469fbf1e8c5011a6307308546e5ec669ceb",
+        "result": "passed_current_main_compatibility",
+        "completed_at": "2026-11-15T09:15:16.286978+00:00",
+        "required_suites": 29,
+        "exit_code": 0,
+        "seconds": 325,
+        "attempt": 1,
+        "http_boundary_cases": 9,
+        "independent_ui": "synthetic confirm→trial→grade→exit→export→empty restart",
+        "main_unchanged_files": 84,
+        "prior_content_unchanged_paths": 12,
+        "report": "ops/evidence/2026-11-15-content-main-compatibility/QA.md"
       },
       "base_ref": "main",
-      "base_sha": "86514eda054a5a2e09204df3a0668e40624c16de",
+      "base_sha": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
       "specification": "docs/product/content-spec.md",
-      "commit": "ee51e68d7e1eeb21bd0e959ec58166a869947d0a",
+      "commit": "d75a5469fbf1e8c5011a6307308546e5ec669ceb",
       "direction_adopted": true,
       "direction_decision": "D04",
       "release": {
@@ -937,15 +948,25 @@
           "commit": "62f34de238e9d1d62c796aac3a4b43418043d17f",
           "completed_at": "2026-11-14T22:18:12Z",
           "notes": "固定clean HEAD25/25・初回終了0・257秒。独立17分岐/静的/隔離負例も初回PASS。非同期JSON取込から編集・確認・出力を保全。試し解き本体未実装。"
+        },
+        {
+          "pdm": "pdm_content_trial_delivery",
+          "prm": "root/coordinator",
+          "author": "engineer_content_trial_delivery",
+          "reviewer": "qa_content_trial_delivery",
+          "result": "passed",
+          "commit": "ee51e68d7e1eeb21bd0e959ec58166a869947d0a",
+          "completed_at": "2026-11-14T23:29:10.778434+00:00",
+          "notes": "最終固定clean HEAD26/26終了0・256秒、独立65probe/static/修正導線成功。初回8eは全suite成功でも実UI導線不足で差戻し、修正1回。実BFCache/実機未検証、blank画像と描画後確認を区別。"
         }
       ],
-      "ceo_wait_reason": "合成教材の確認・編集・保存しない試し解きの試用判断待ち。D04方向性採用は維持、新たな試し解き採用/本番承認は受領していない。",
+      "ceo_wait_reason": "現mainの新教材・recall履歴・親境界を保持した合成教材確認/保存しない試し解きの試用判断待ち。D04方向性採用を維持、公開承認なし。",
       "ceo_trial": {
         "synthetic_qa": "passed",
         "ceo_hands_on": "not_verified",
         "real_ipad_safari": "not_tested",
-        "latest_synthetic_qa_commit": "ee51e68d7e1eeb21bd0e959ec58166a869947d0a",
-        "latest_cloud_artifacts": "ops/evidence/2026-11-14-content-trial-delivery",
+        "latest_synthetic_qa_commit": "d75a5469fbf1e8c5011a6307308546e5ec669ceb",
+        "latest_cloud_artifacts": "ops/evidence/2026-11-15-content-main-compatibility",
         "shared_browser_handoff": "not_completed"
       },
       "chat_handoff_trial": {
@@ -980,6 +1001,13 @@
           "head": "3d2ed2f9a62673d2fb086a360ae841096f35b63e",
           "changed_at": "2026-11-14T17:24:55.352112+00:00",
           "reason": "Preserve existing PR11 history while integrating tested current main; draft base retarget only."
+        },
+        {
+          "base_ref": "main",
+          "base_sha": "86514eda054a5a2e09204df3a0668e40624c16de",
+          "head": "ee51e68d7e1eeb21bd0e959ec58166a869947d0a",
+          "changed_at": "2026-11-15T09:19:00.010826+00:00",
+          "reason": "Preserve existing PR11 history while following current main without changing content trial or learning behavior."
         }
       ],
       "independent_followup_history": [
@@ -1015,13 +1043,27 @@
         }
       ],
       "compatibility_followup": {
-        "state": "in_progress",
+        "state": "independent_qa_passed",
         "source_main": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
         "starting_pr_head": "ee51e68d7e1eeb21bd0e959ec58166a869947d0a",
         "work_branch": "codex/content-main-compat-20261115",
         "specification": "docs/product/content-spec.md",
         "engineer": "engineer_content_trial_delivery",
-        "report": "ops/runs/2026-11-15-content-main-compatibility.md"
+        "report": "ops/runs/2026-11-15-content-main-compatibility.md",
+        "commit": "d75a5469fbf1e8c5011a6307308546e5ec669ceb",
+        "reviewer": "qa_content_trial_delivery",
+        "delivered": true,
+        "updated_pr": 11
+      },
+      "next_proposal": {
+        "state": "proposed_not_implemented",
+        "path": "docs/product/content-image-trial-proposal.md",
+        "pdm": "pdm_content_trial_delivery",
+        "independent_document_review": "qa_content_trial_delivery",
+        "scope": "readable bundled synthetic image→transcription comparison→explicit confirmation→memory-only trial",
+        "next_gate": "PrM scope review against latest main/PR and lease at next cycle",
+        "private_data_connection": false,
+        "release_authorized": false
       }
     },
     {
@@ -11762,17 +11804,18 @@
       "observed_operations_commit": "c1fa98c81c675a6185612fa1a54952de4b9906a0",
       "observed_main_commit": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
       "ticket": "CONTENT-MVP",
-      "result": "in_progress",
-      "phase": "implementation",
+      "result": "completed_existing_draft_pr11_main_compatibility",
+      "phase": "saved_and_lease_released",
       "cloud_verified": true,
       "ceo_decisions_ingested": 0,
       "subagents": [
         "pdm_content_trial_delivery",
-        "engineer_content_trial_delivery"
+        "engineer_content_trial_delivery",
+        "qa_content_trial_delivery"
       ],
       "new_prs": [],
-      "product_code_changed": false,
-      "product_tests_run": false,
+      "product_code_changed": true,
+      "product_tests_run": true,
       "ceo_wait_product_prs": [
         10,
         11,
@@ -11781,7 +11824,65 @@
       "additional_existing_product_drafts": [
         22
       ],
-      "report": "ops/runs/2026-11-15-content-main-compatibility.md"
+      "report": "ops/runs/2026-11-15-content-main-compatibility.md",
+      "updated_prs": [
+        11
+      ],
+      "completed_at": "2026-11-15T09:19:00.010826+00:00",
+      "candidate_commit": "d75a5469fbf1e8c5011a6307308546e5ec669ceb",
+      "candidate_review": {
+        "pdm": "pdm_content_trial_delivery",
+        "prm": "root/coordinator",
+        "author": "engineer_content_trial_delivery",
+        "reviewer": "qa_content_trial_delivery",
+        "commit": "d75a5469fbf1e8c5011a6307308546e5ec669ceb",
+        "result": "passed_current_main_compatibility",
+        "completed_at": "2026-11-15T09:15:16.286978+00:00",
+        "required_suites": 29,
+        "exit_code": 0,
+        "seconds": 325,
+        "attempt": 1,
+        "http_boundary_cases": 9,
+        "independent_ui": "synthetic confirm→trial→grade→exit→export→empty restart",
+        "main_unchanged_files": 84,
+        "prior_content_unchanged_paths": 12,
+        "report": "ops/evidence/2026-11-15-content-main-compatibility/QA.md"
+      },
+      "delivery": {
+        "observed_at": "2026-11-15 09:17:02 UTC",
+        "pr": {
+          "number": 11,
+          "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/11",
+          "head_sha": "d75a5469fbf1e8c5011a6307308546e5ec669ceb",
+          "state": "open",
+          "draft": true,
+          "merged": false
+        },
+        "checks": [
+          {
+            "name": "Workers Builds: yuika-study",
+            "status": "completed",
+            "conclusion": "failure",
+            "head_sha": "d75a5469fbf1e8c5011a6307308546e5ec669ceb",
+            "completed_at": "2026-11-15T09:16:20Z",
+            "html_url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/132763996602"
+          }
+        ],
+        "combined_status": {
+          "state": "pending",
+          "total_count": 0
+        },
+        "manual_rerun": false,
+        "live_page_verified": false,
+        "reason": "check output supplied no failure diagnostic details",
+        "post_push_readback": "Initial expected-state assertion failed immediately after successful push; fields were not retained. Second read and ls-remote matched expected HEAD/open/draft/unmerged. No repeated push or force used."
+      },
+      "next_action": "次cycleで読める同梱合成画像→転記照合→明示確認→保存しない試し解きの成功経路をPdM提案からPrMで範囲確定する。既存PR11内、未知source/判読不明拒否・固定hash/CSP・案schema/記録非接続を保持。新規製品PR・実写真・外部OCR・D02接続・公開なし。THEME単純追従より目標②の具体的成功経路を優先し、テーマ試用を止める再現不具合があれば再順位付け。",
+      "next_proposal": "docs/product/content-image-trial-proposal.md",
+      "external_check_failure_observed": true,
+      "live_site_verified": false,
+      "manual_preparation": true,
+      "automatic_snapshot_handoff_verified": false
     }
   ],
   "operational_notes": [
@@ -11809,21 +11910,39 @@
       "report": "ops/runs/2026-11-10-approval-check-0403.md",
       "next_action": "No redeploy or configuration changes. Obtain relevant build log through an authorized read-only connection or supplied evidence before further diagnosis. Preserve existing cloud test evidence separately.",
       "latest_observation": {
-        "at": "2026-11-15 08:28:28 UTC",
-        "commit": "6d01386dba0bb3cdafa7e8f431a6a17bc81e913f",
-        "pr": 10,
+        "at": "2026-11-15 09:17:02 UTC",
+        "commit": "d75a5469fbf1e8c5011a6307308546e5ec669ceb",
+        "pr": 11,
         "check": {
           "name": "Workers Builds: yuika-study",
           "status": "completed",
           "conclusion": "failure",
-          "head_sha": "6d01386dba0bb3cdafa7e8f431a6a17bc81e913f",
-          "completed_at": "2026-11-15T08:27:48Z",
-          "html_url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/132752305706"
+          "head_sha": "d75a5469fbf1e8c5011a6307308546e5ec669ceb",
+          "completed_at": "2026-11-15T09:16:20Z",
+          "html_url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/132763996602"
         },
-        "cause": "取得したcheck情報に原因詳細なし。過去の別HEADの失敗と同一原因とは断定しない。",
-        "local_required_suites": "29/29 passed,349s",
+        "cause": "取得check情報に原因詳細なし。旧HEADと同一原因とは断定しない。",
+        "local_required_suites": "29/29 passed,325s",
         "action": "再実行/設定変更/手動deployなし。朝夕チェックへ集約。"
-      }
+      },
+      "observation_history": [
+        {
+          "at": "2026-11-15 08:28:28 UTC",
+          "commit": "6d01386dba0bb3cdafa7e8f431a6a17bc81e913f",
+          "pr": 10,
+          "check": {
+            "name": "Workers Builds: yuika-study",
+            "status": "completed",
+            "conclusion": "failure",
+            "head_sha": "6d01386dba0bb3cdafa7e8f431a6a17bc81e913f",
+            "completed_at": "2026-11-15T08:27:48Z",
+            "html_url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/132752305706"
+          },
+          "cause": "取得したcheck情報に原因詳細なし。過去の別HEADの失敗と同一原因とは断定しない。",
+          "local_required_suites": "29/29 passed,349s",
+          "action": "再実行/設定変更/手動deployなし。朝夕チェックへ集約。"
+        }
+      ]
     },
     {
       "id": "PR-RECONCILIATION-01",

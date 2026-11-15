@@ -198,8 +198,10 @@ PdM `pdm_content_flow` と統括/PrMが次の範囲を確認した。C1〜C11は
 形式検証・確認条件・JSON形式・メモリのみの保持・CSPは変更しない。OCR、学習アプリへの導入、実資料入力は追加しない。
 実装者と別のQAが、合成テキスト・画像・複数問題の各状態とJSON出入を検証する。
 
-## 2026-11-15：現mainとの互換性追従（着手）
+## 2026-11-15：現mainとの互換性追従（draftで実装・独立QA完了）
 
-PdM pdm_content_trial_deliveryの差分確認をPrM rootが採択。旧PR11 ee51e68を保持した独立候補へmain60d1a94をtopic統合し、教材案を確認→保存せず試す機能を現行教材と同じ候補で検証可能にする。content HTML/fixture/案schema/固定hashを保持し、mainの6学習HTML・共通assets・問題ID/保存キー・recall履歴/親runtimeを巻き戻さない。README、限定previewのcontent+江戸入口、全suite和集合（見込29）、親ガードとrecall回答操作を併存させる。未知ファイルの許可や学習記録接続を広げない。
+PdM pdm_content_trial_deliveryの差分確認をPrM rootが採択。旧PR11 ee51e68を保持した独立候補へmain60d1a94をtopic統合し、教材案を確認→保存せず試す機能を現行教材と同じ候補で検証可能にする。content HTML/fixture/案schema/固定hashを保持し、mainの学習・ホームHTML（7件）・共通assets・問題ID/保存キー・recall履歴/親runtimeを巻き戻さない。README、限定previewのcontent+江戸入口、全suite和集合（見込29）、親ガードとrecall回答操作を併存させる。未知ファイルの許可や学習記録接続を広げない。
 
 実装者とは別のQAが固定clean HEADの全必須suite、合成768×1024の確認→試行→採点→終了、元案/確認状態の不変・回答非保存、隔離コピーでの生成/拒否境界を検証する。PR10独自改善・テーマ・新教材/実画像/OCR・D02保存先・公開は対象外。過去26suite成功を統合候補の合格に流用しない。採用/本人試用/実機Safari/iPadは別確認。
+
+候補 `d75a5469fbf1e8c5011a6307308546e5ec669ceb` を独立qa_content_trial_deliveryが検証。全29suite初回成功325秒、固定HEAD前後clean、独立HTTP9境界と短い合成試行操作・生成器/親preflight防御が成功。main共有接点以外84files、旧content12paths不変。統括は有効lease/remoteを再確認して既存draft PR11へ通常push。外部Workers checkは同HEADでfailure、原因詳細不明として別記。旧65独立ケースは今回反復していない。詳細は[運用記録](../../ops/runs/2026-11-15-content-main-compatibility.md)。本人試用/実機/公開は未確認。[次回画像成功経路案](content-image-trial-proposal.md)は提案のみで今回実装していない。

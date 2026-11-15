@@ -1,0 +1,61 @@
+{
+  "head": "d75a5469fbf1e8c5011a6307308546e5ec669ceb",
+  "routes": [
+    {
+      "path": "/content-review.html",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/edo-review.html",
+      "method": "GET",
+      "status": 200
+    },
+    {
+      "path": "/unknown.html",
+      "method": "GET",
+      "status": 404
+    },
+    {
+      "path": "/.git/config",
+      "method": "GET",
+      "status": 404
+    },
+    {
+      "path": "/docs/product/fixtures/synthetic-content.json",
+      "method": "GET",
+      "status": 404
+    },
+    {
+      "path": "/api/notify",
+      "method": "GET",
+      "status": 404
+    },
+    {
+      "path": "/api/notify",
+      "method": "POST",
+      "status": 501
+    },
+    {
+      "path": "/content-review.html",
+      "method": "HEAD",
+      "status": 405
+    },
+    {
+      "path": "/edo-review.html",
+      "method": "HEAD",
+      "status": 405
+    }
+  ],
+  "real_ui": "sample→confirm→trial→answer→grade→exit→export→restart-empty",
+  "proposal_confirmation_unsaved_unchanged_during_trial": true,
+  "export_json_no_trial_fields": true,
+  "observed_storage_history_idb_cache_sw_writes": [],
+  "nonallowed_browser_requests": [],
+  "page_errors": [],
+  "viewport": [
+    768,
+    1024
+  ],
+  "synthetic_only": true
+}

@@ -1,0 +1,10 @@
+PASS parent isolation/reload/exit/notification guards: onin-review.html
+PASS parent isolation/reload/exit/notification guards: kamakura-review.html
+PASS parent isolation/reload/exit/notification guards: heian-review.html
+PASS parent isolation/reload/exit/notification guards: yuika-review-v2.html
+PASS parent isolation/reload/exit/notification guards: mock-focus-review.html
+PASS parent isolation/reload/exit/notification guards: index.html
+PASS inclusive deletion, count, cancel, preserve older/undated, stale confirmation
+PASS tab close clears mode and sandbox for subsequent tab
+PASS initial session read/write denial uses isolated temporary mode
+PASS cleanup rollback and incomplete-recovery original export
