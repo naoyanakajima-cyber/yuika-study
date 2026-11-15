@@ -36,8 +36,14 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": null,
-  "updated_at": "2026-11-15T07:06:31.163359+00:00",
+  "lease": {
+    "run_id": "cycle-20261115T080614Z",
+    "owner": "coordinator",
+    "ticket": "PR27-MAIN-RECONCILE",
+    "acquired_at": "2026-11-15T08:06:44.193955+00:00",
+    "expires_at": "2026-11-15T08:41:44.193955+00:00"
+  },
+  "updated_at": "2026-11-15T08:06:44.193955+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -11473,6 +11479,28 @@
       "external_check_status": "Prior exact-HEAD Workers failure retained as historical evidence; not re-fetched or rerun this cycle.",
       "ledger_validation_note": "First finalization check stopped before file write because a shallow comparison map mutated the in-memory reference snapshot. Corrected to deepcopy; second comparison preserved prior runs and passed. No product test or external write occurred on failed attempt.",
       "authority_note": "No real data, production merge, publication/deploy, real messages, billing, Secrets/permissions/sharing or automation changes."
+    },
+    {
+      "id": "cycle-20261115T080614Z",
+      "started_at": "2026-11-15T08:06:14+00:00",
+      "observed_operations_commit": "b35eef2afd401915b483bab27ea20c34fbbce781",
+      "observed_main_commit": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
+      "ticket": "PR27-MAIN-RECONCILE",
+      "result": "in_progress",
+      "cloud_verified": true,
+      "ceo_decisions_ingested": 0,
+      "subagents": [],
+      "product_code_changed": false,
+      "product_tests_run": false,
+      "new_prs": [],
+      "ceo_wait_product_prs": [
+        10,
+        11,
+        12
+      ],
+      "additional_existing_product_drafts": [
+        22
+      ]
     }
   ],
   "operational_notes": [
