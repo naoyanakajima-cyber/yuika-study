@@ -65,6 +65,9 @@ try:
      q=p.evaluate('prototypeScience?session.questions[session.index]:run.qs[run.index]')
      if app=='yuika-review-v2.html':
       if q['type']=='number':p.locator('#numeric').fill(str(q['answer']))
+      elif q['type']=='recall':
+       if q.get('diagram'):p.locator(f'[data-fin="{q["answer"]}"]').click()
+       else:p.locator('#recall-text').fill(q['answer'])
       else:p.locator('[data-choice]').first.click()
      elif q['type']=='choice':p.locator('[data-choice]').first.click()
      elif q['type']=='structure':
