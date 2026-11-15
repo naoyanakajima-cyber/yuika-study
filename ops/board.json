@@ -36,8 +36,15 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": null,
-  "updated_at": "2026-11-15T11:17:29.566848+00:00",
+  "lease": {
+    "run_id": "cycle-20261115T120052Z",
+    "owner": "coordinator",
+    "ticket": "THEME-MVP",
+    "scope": "approval_wait_reconciliation_no_product_work",
+    "acquired_at": "2026-11-15T12:01:45.798977+00:00",
+    "expires_at": "2026-11-15T12:26:45.798977+00:00"
+  },
+  "updated_at": "2026-11-15T12:01:45.798977+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -12115,6 +12122,27 @@
       },
       "next_action": "3目標の既存draft候補は今回観測mainへ追従済み。新返答/具体的試用フィードバック/再現不具合/新差分がなければ同じQAや環境調査を反復せず終了。",
       "evidence_save_note": "Omitted two redundant full patch copies after nested diff context whitespace check; original hashes recorded and /tmp sources preserved. All test/failed probe logs retained."
+    },
+    {
+      "id": "cycle-20261115T120052Z",
+      "started_at": "2026-11-15T12:00:52+00:00",
+      "observed_operations_commit": "a39eec49fec4cdbd1262d84b42c2292f84f0c170",
+      "observed_main_commit": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
+      "ticket": "THEME-MVP",
+      "scope": "approval_wait_reconciliation_no_product_work",
+      "result": "in_progress",
+      "cloud_verified": true,
+      "ceo_decisions_ingested": 0,
+      "product_code_changed": false,
+      "product_tests_run": false,
+      "subagents": [],
+      "new_prs": [],
+      "ceo_wait_product_prs": [
+        10,
+        11,
+        12
+      ],
+      "report": "ops/runs/2026-11-15-no-change-1200.md"
     }
   ],
   "operational_notes": [
