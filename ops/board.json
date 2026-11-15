@@ -36,14 +36,8 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": {
-    "run_id": "cycle-20261115T110235Z",
-    "owner": "coordinator",
-    "ticket": "THEME-MVP",
-    "acquired_at": "2026-11-15T11:03:26.112400+00:00",
-    "expires_at": "2026-11-15T11:37:26.112400+00:00"
-  },
-  "updated_at": "2026-11-15T11:05:03.669198+00:00",
+  "lease": null,
+  "updated_at": "2026-11-15T11:17:29.566848+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -1205,7 +1199,7 @@
         "切替前後の問題・採点・既存履歴が同一",
         "768x1024で可読性と主要操作を確認する"
       ],
-      "next_action": "既存PR12 b416d3cの標準/鎌倉テーマ試用はCEO判断待ち。後続で今回更新main60d1a94との限定互換性を照合し、共有runtimeのrecall判定と新必須suiteを失わない。既存23suite成功は旧基点の証拠として保持し、現在mainとの統合成功とはしない。全画面テーマ拡張・公開は未承認。",
+      "next_action": "既存PR12の現在main互換候補を朝夕CEOチェックへ提示。標準/鎌倉切替・学習途中の見やすさ・標準復帰の具体的フィードバックをTHEME-MVP付きで元チャットへ。新返答/再現不具合/新差分がなければ同じQA・環境調査を反復せず終了。全画面展開・公開は別判断。",
       "evidence": [
         {
           "kind": "test",
@@ -1305,6 +1299,23 @@
           "before": 3.479281384346954,
           "after": 6.265720821251096,
           "path": "ops/evidence/2026-11-15-theme-validation/qa-final/diagram-result.json"
+        },
+        {
+          "kind": "test",
+          "command": "bash scripts/check_all.sh",
+          "commit": "9fc4bbf3e6c72e09327b6610338f12937fc7aba5",
+          "executor": "qa_theme_compatibility",
+          "exit_code": 0,
+          "suites_passed": 26,
+          "suites_total": 26,
+          "attempt": 1,
+          "seconds": 319,
+          "path": "ops/evidence/2026-11-15-theme-current-main/qa/check-all-attempt1.log"
+        },
+        {
+          "kind": "report",
+          "commit": "9fc4bbf3e6c72e09327b6610338f12937fc7aba5",
+          "path": "ops/runs/2026-11-15-theme-current-main.md"
         }
       ],
       "review": {
@@ -1312,15 +1323,30 @@
         "prm": "root/coordinator",
         "author": "engineer_theme_compatibility",
         "reviewer": "qa_theme_compatibility",
-        "result": "passed_for_synthetic_trial_with_documented_limits",
-        "commit": "b416d3c08a0d3952e5f0153fdc691d6fa0e492b7",
-        "completed_at": "2026-11-15T01:20:08+00:00",
-        "notes": "新固定clean候補で全23suite初回成功267秒。対象2図ラベルのcontrast6.2657、両テーマ/画面print独立検証。C2限定例外採択、実機/本人嗜好/学習効果未確認。"
+        "result": "passed_current_main_compatibility",
+        "commit": "9fc4bbf3e6c72e09327b6610338f12937fc7aba5",
+        "completed_at": "2026-11-15T11:14:32.198806+00:00",
+        "required_suites": 26,
+        "exit_code": 0,
+        "seconds": 319,
+        "attempt": 1,
+        "report": "ops/evidence/2026-11-15-theme-current-main/QA.md",
+        "scoped_qa": {
+          "harness_failures_preserved": 2,
+          "full_probe_third_attempt": false,
+          "completed_modes": 4,
+          "remaining_modes_first_execution": 3,
+          "actual_keyboard_diagnostic_attempt": 1,
+          "synthetic_images_visually_reviewed": 6,
+          "manual_all_screen_visual_review": false,
+          "diagram_contrast": 6.265720821251096,
+          "keyboard_focus_contrast": 5.509170074497065
+        }
       },
       "base_ref": "main",
-      "base_sha": "86514eda054a5a2e09204df3a0668e40624c16de",
+      "base_sha": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
       "specification": "docs/product/theme-spec.md",
-      "commit": "b416d3c08a0d3952e5f0153fdc691d6fa0e492b7",
+      "commit": "9fc4bbf3e6c72e09327b6610338f12937fc7aba5",
       "direction_adopted": true,
       "direction_decision": "D05",
       "release": {
@@ -1328,7 +1354,7 @@
         "deployment_authorized": false,
         "state": "draft_unmerged"
       },
-      "implementation_status": "compatibility_and_diagram_contrast_independently_verified",
+      "implementation_status": "current_main_compatibility_independently_verified",
       "followup_scope": {
         "id": "THEME-MVP-readability",
         "status": "focused_trial_completed_no_product_change",
@@ -1349,18 +1375,18 @@
         "completed_at": "2026-11-10T00:08:14.222274+00:00",
         "excluded_scope": "parent/recordsは未完run遷移確認が不足していたため今回の成功範囲から除外。証拠を訂正し再実行なし。"
       },
-      "ceo_wait_reason": "D05方向性採用を維持。現候補は合成Chromiumの受入範囲で独立QA済み、本人の嗜好/実機試用は未確認。CEO返答の実読取り・台帳反映待ち。merge/公開未承認。",
+      "ceo_wait_reason": "現main教材/recall契約を保持する標準/鎌倉テーマ候補の合成試用判断待ち。D05方向性維持、本人嗜好/実機未確認、本番権限なし。",
       "ceo_trial": {
         "synthetic_focused_qa": "passed_current_synthetic_acceptance_scope",
         "ceo_hands_on": "not_verified",
         "real_ipad_safari": "not_tested",
         "native_browser_zoom": "not_tested",
-        "latest_synthetic_qa_commit": "b416d3c08a0d3952e5f0153fdc691d6fa0e492b7",
-        "latest_cloud_artifacts": "ops/evidence/2026-11-15-theme-validation/qa-final",
+        "latest_synthetic_qa_commit": "9fc4bbf3e6c72e09327b6610338f12937fc7aba5",
+        "latest_cloud_artifacts": "ops/evidence/2026-11-15-theme-current-main",
         "shared_browser_handoff": "not_completed",
-        "current_candidate_commit": "b416d3c08a0d3952e5f0153fdc691d6fa0e492b7",
-        "current_candidate_validation": "23 required suites and independent scoped QA passed; real device and user preference unverified",
-        "current_candidate_artifacts": "ops/evidence/2026-11-15-theme-validation"
+        "current_candidate_commit": "9fc4bbf3e6c72e09327b6610338f12937fc7aba5",
+        "current_candidate_validation": "26 required suites plus independent scoped QA passed; real device/user preference unverified",
+        "current_candidate_artifacts": "ops/evidence/2026-11-15-theme-current-main"
       },
       "independent_followup": {
         "id": "theme-main-compatibility",
@@ -1400,6 +1426,16 @@
           "commit": "c81fb6b3a7e9c5c6c5d42431afe1d13a73c780d3",
           "completed_at": "2026-11-15T00:14:03.412251+00:00",
           "notes": "静的境界初回成功・限定14検査/文字色68組はハーネス修正後2回目成功。必須23suite/export未実行、製品受入未完。"
+        },
+        {
+          "pdm": "pdm_theme_compatibility",
+          "prm": "root/coordinator",
+          "author": "engineer_theme_compatibility",
+          "reviewer": "qa_theme_compatibility",
+          "result": "passed_for_synthetic_trial_with_documented_limits",
+          "commit": "b416d3c08a0d3952e5f0153fdc691d6fa0e492b7",
+          "completed_at": "2026-11-15T01:20:08+00:00",
+          "notes": "新固定clean候補で全23suite初回成功267秒。対象2図ラベルのcontrast6.2657、両テーマ/画面print独立検証。C2限定例外採択、実機/本人嗜好/学習効果未確認。"
         }
       ],
       "base_history": [
@@ -1407,6 +1443,13 @@
           "base_ref": "codex/cloud-automatic-bootstrap",
           "base_sha": "edad8065c1f2b726e61c5cf405f8d9ff6d807480",
           "commit": "57171ad9cab02fec6a080ecbe317fe11d3f51dcf"
+        },
+        {
+          "base_ref": "main",
+          "base_sha": "86514eda054a5a2e09204df3a0668e40624c16de",
+          "commit": "b416d3c08a0d3952e5f0153fdc691d6fa0e492b7",
+          "changed_at": "2026-11-15T11:16:21.268571+00:00",
+          "reason": "Preserve existing theme history while following current main; no production merge."
         }
       ],
       "validation_history": [
@@ -1420,12 +1463,16 @@
         }
       ],
       "current_main_followup": {
-        "state": "in_progress",
+        "state": "independent_qa_passed",
         "source_main": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
         "starting_pr_head": "b416d3c08a0d3952e5f0153fdc691d6fa0e492b7",
         "specification": "docs/product/theme-current-main-spec.md",
         "engineer": "engineer_theme_compatibility",
-        "report": "ops/runs/2026-11-15-theme-current-main.md"
+        "report": "ops/runs/2026-11-15-theme-current-main.md",
+        "commit": "9fc4bbf3e6c72e09327b6610338f12937fc7aba5",
+        "reviewer": "qa_theme_compatibility",
+        "delivered": true,
+        "updated_pr": 12
       }
     },
     {
@@ -12004,23 +12051,70 @@
       "observed_operations_commit": "35364fb8503b6e6cf2248f8c43c52e5be354d8fe",
       "observed_main_commit": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
       "ticket": "THEME-MVP",
-      "result": "in_progress",
-      "phase": "implementation",
+      "result": "completed_existing_draft_updated",
+      "phase": "completed",
       "cloud_verified": true,
       "ceo_decisions_ingested": 0,
       "subagents": [
         "pdm_theme_compatibility",
-        "engineer_theme_compatibility"
+        "engineer_theme_compatibility",
+        "qa_theme_compatibility"
       ],
       "new_prs": [],
-      "product_code_changed": false,
-      "product_tests_run": false,
+      "product_code_changed": true,
+      "product_tests_run": true,
       "ceo_wait_product_prs": [
         10,
         11,
         12
       ],
-      "report": "ops/runs/2026-11-15-theme-current-main.md"
+      "report": "ops/runs/2026-11-15-theme-current-main.md",
+      "completed_at": "2026-11-15T11:17:29.566848+00:00",
+      "updated_prs": [
+        12
+      ],
+      "commit": "9fc4bbf3e6c72e09327b6610338f12937fc7aba5",
+      "required_suites_passed": 26,
+      "required_suites_total": 26,
+      "seconds": 319,
+      "external_check": {
+        "at": "2026-11-15 11:15:57 UTC",
+        "commit": "9fc4bbf3e6c72e09327b6610338f12937fc7aba5",
+        "pr": 12,
+        "checks": [
+          {
+            "name": "Workers Builds: yuika-study",
+            "status": "completed",
+            "conclusion": "failure",
+            "head_sha": "9fc4bbf3e6c72e09327b6610338f12937fc7aba5",
+            "completed_at": "2026-11-15T11:15:31Z",
+            "html_url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/132793313794",
+            "diagnostic_details_present": false
+          }
+        ],
+        "combined_status": {
+          "state": "pending",
+          "total_count": 0
+        },
+        "cause": "原因未特定。checkのoutput.textに診断詳細なし。過去HEADの失敗と同一原因とは断定しない。",
+        "local_required_suites": "26/26 passed,319s",
+        "action": "再実行/設定変更/手動deployなし。朝夕チェックへ集約。"
+      },
+      "notification": "NO_UPDATE",
+      "lease_released": true,
+      "scoped_qa": {
+        "harness_failures_preserved": 2,
+        "full_probe_third_attempt": false,
+        "completed_modes": 4,
+        "remaining_modes_first_execution": 3,
+        "actual_keyboard_diagnostic_attempt": 1,
+        "synthetic_images_visually_reviewed": 6,
+        "manual_all_screen_visual_review": false,
+        "diagram_contrast": 6.265720821251096,
+        "keyboard_focus_contrast": 5.509170074497065
+      },
+      "next_action": "3目標の既存draft候補は今回観測mainへ追従済み。新返答/具体的試用フィードバック/再現不具合/新差分がなければ同じQAや環境調査を反復せず終了。",
+      "evidence_save_note": "Omitted two redundant full patch copies after nested diff context whitespace check; original hashes recorded and /tmp sources preserved. All test/failed probe logs retained."
     }
   ],
   "operational_notes": [
@@ -12048,25 +12142,26 @@
       "report": "ops/runs/2026-11-10-approval-check-0403.md",
       "next_action": "No redeploy or configuration changes. Obtain relevant build log through an authorized read-only connection or supplied evidence before further diagnosis. Preserve existing cloud test evidence separately.",
       "latest_observation": {
-        "at": "2026-11-15 10:17:41 UTC",
-        "commit": "1678519f916471ba6e38044855de240bd6c4a807",
-        "pr": 11,
+        "at": "2026-11-15 11:15:57 UTC",
+        "commit": "9fc4bbf3e6c72e09327b6610338f12937fc7aba5",
+        "pr": 12,
         "checks": [
           {
             "name": "Workers Builds: yuika-study",
             "status": "completed",
             "conclusion": "failure",
-            "head_sha": "1678519f916471ba6e38044855de240bd6c4a807",
-            "completed_at": "2026-11-15T10:17:24Z",
-            "html_url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/132779047651"
+            "head_sha": "9fc4bbf3e6c72e09327b6610338f12937fc7aba5",
+            "completed_at": "2026-11-15T11:15:31Z",
+            "html_url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/132793313794",
+            "diagnostic_details_present": false
           }
         ],
         "combined_status": {
           "state": "pending",
           "total_count": 0
         },
-        "cause": "取得check情報はビルドへの参照のみで失敗原因の詳細なし。旧HEADと同一原因とは断定しない。",
-        "local_required_suites": "30/30 passed,332s",
+        "cause": "原因未特定。checkのoutput.textに診断詳細なし。過去HEADの失敗と同一原因とは断定しない。",
+        "local_required_suites": "26/26 passed,319s",
         "action": "再実行/設定変更/手動deployなし。朝夕チェックへ集約。"
       },
       "observation_history": [
@@ -12100,6 +12195,28 @@
           },
           "cause": "取得check情報に原因詳細なし。旧HEADと同一原因とは断定しない。",
           "local_required_suites": "29/29 passed,325s",
+          "action": "再実行/設定変更/手動deployなし。朝夕チェックへ集約。"
+        },
+        {
+          "at": "2026-11-15 10:17:41 UTC",
+          "commit": "1678519f916471ba6e38044855de240bd6c4a807",
+          "pr": 11,
+          "checks": [
+            {
+              "name": "Workers Builds: yuika-study",
+              "status": "completed",
+              "conclusion": "failure",
+              "head_sha": "1678519f916471ba6e38044855de240bd6c4a807",
+              "completed_at": "2026-11-15T10:17:24Z",
+              "html_url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/132779047651"
+            }
+          ],
+          "combined_status": {
+            "state": "pending",
+            "total_count": 0
+          },
+          "cause": "取得check情報はビルドへの参照のみで失敗原因の詳細なし。旧HEADと同一原因とは断定しない。",
+          "local_required_suites": "30/30 passed,332s",
           "action": "再実行/設定変更/手動deployなし。朝夕チェックへ集約。"
         }
       ]

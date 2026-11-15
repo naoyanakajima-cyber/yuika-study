@@ -1,0 +1,9 @@
+# Cycle35 PrM範囲・統合記録
+
+正本35364fbの指定4文書を同commitで確認し、lease d050cecを通常push後にPdMを起動。PdMの既存仕様維持と現main接点確認を採択し3fc5bc7に保存した。新規製品PRなし、PR12内の限定追従。製品待ち10/11/12上限3維持。CEO新返答実読0。
+
+独立checkoutの候補9fc4bbf3e6c72e09327b6610338f12937fc7aba5は既存PR12 b416d3cとmain60d1a94を親とするtopic merge。mainへmergeしたものではない。rootもclean・両親commit・mainとの差分5files・鎌倉の2か所を確認。旧テーマUI/CSS/専用保存/図ラベル改善の保持と、最新recall/validator/教材の取り込みが受入範囲。Engineerと別QAが固定候補の26suiteと重点UIを実行し、合格後だけ統合する。
+
+実機/本人嗜好/公開は未確認。D05方向性と本番権限を区別。クラウド手動venv利用を自動引継ぎ成功としない。実データ・実送信・Secrets/権限/共有変更なし。
+
+最終統合 2026-11-15T11:16:21.268571+00:00：固定候補9fc4bbf3e6c72e09327b6610338f12937fc7aba5の独立QA完了後、remote lease/PR HEAD/mainを照合して既存PR12へ通常push。説明/HEADをreadbackし、外部checkをQAとは分離。完了台帳でlease解除。新CEO承認0・公開なし。

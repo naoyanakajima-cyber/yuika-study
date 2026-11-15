@@ -1,0 +1,23 @@
+{
+  "at": "2026-11-15 11:15:57 UTC",
+  "commit": "9fc4bbf3e6c72e09327b6610338f12937fc7aba5",
+  "pr": 12,
+  "checks": [
+    {
+      "name": "Workers Builds: yuika-study",
+      "status": "completed",
+      "conclusion": "failure",
+      "head_sha": "9fc4bbf3e6c72e09327b6610338f12937fc7aba5",
+      "completed_at": "2026-11-15T11:15:31Z",
+      "html_url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/132793313794",
+      "diagnostic_details_present": false
+    }
+  ],
+  "combined_status": {
+    "state": "pending",
+    "total_count": 0
+  },
+  "cause": "原因未特定。checkのoutput.textに診断詳細なし。過去HEADの失敗と同一原因とは断定しない。",
+  "local_required_suites": "26/26 passed,319s",
+  "action": "再実行/設定変更/手動deployなし。朝夕チェックへ集約。"
+}

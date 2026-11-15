@@ -1,0 +1,22 @@
+{
+  "phase": "prepared_not_executed",
+  "at": "2026-11-15T11:06:35.431595+00:00",
+  "lease": {
+    "run_id": "cycle-20261115T110235Z",
+    "owner": "coordinator",
+    "ticket": "THEME-MVP",
+    "acquired_at": "2026-11-15T11:03:26.112400+00:00",
+    "expires_at": "2026-11-15T11:37:26.112400+00:00"
+  },
+  "source_spec": "docs/product/theme-current-main-spec.md",
+  "known_main": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
+  "old_pr12": "b416d3c08a0d3952e5f0153fdc691d6fa0e492b7",
+  "scope": [
+    "exact candidate 26 required suites once",
+    "normal/parent same-run switching and storage boundary",
+    "two diagram labels current computed screen/print contrast",
+    "theme-only failures and temporary memory boundary"
+  ],
+  "product_test_started": false,
+  "prior_cycle_success_not_reused": true
+}
