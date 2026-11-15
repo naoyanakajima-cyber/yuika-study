@@ -13,7 +13,7 @@ function unitHome(main,info){
  const record=header.querySelector('[data-view="records"]');record.textContent='きろく';
  const parent=header.querySelector('[data-view="parent"],[data-view="analysis"]');parent.hidden=true;
  main.classList.add('unit-main');hero.classList.add('unit-hero');hero.querySelector('br')?.replaceWith(document.createTextNode(' '));
- if(info.subject==='理科'&&info.code!=='mock-focus'){const microscope=new URLSearchParams(location.search).get('unit')==='顕微鏡の使い方';hero.querySelector('h1').textContent=microscope?'顕微鏡の使い方':'理科の復習';hero.querySelector('p').textContent=microscope?'レンズの名前、操作の順、像の動きを確かめよう。':'水溶液の性質と、顕微鏡の使い方を確かめよう。';}
+ if(info.subject==='理科'&&info.code!=='mock-focus'){const medaka=new URLSearchParams(location.search).get('unit')==='メダカの飼育・ひれ・成長';if(medaka)info={...info,code:'メダカ'};const microscope=new URLSearchParams(location.search).get('unit')==='顕微鏡の使い方';hero.querySelector('h1').textContent=medaka?'メダカの飼育・ひれ・成長':microscope?'顕微鏡の使い方':'理科の復習';hero.querySelector('p').textContent=medaka?'卵からの成長、ひれの位置、水の条件を思い出そう。':microscope?'レンズの名前、操作の順、像の動きを確かめよう。':'水溶液、顕微鏡、メダカを確かめよう。';}
  document.documentElement.dataset.subject=({社会:'social',理科:'science',算数:'math',国語:'japanese'}[info.subject]||'all');
  const eyebrow=hero.querySelector('.eyebrow');eyebrow.textContent=info.subject+' · '+info.code;
  const oldStats=main.querySelector('.stats');oldStats?.remove();

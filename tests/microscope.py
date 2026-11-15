@@ -51,7 +51,7 @@ try:
   context.route('**/*',route)
   # URL unit boundaries must describe the same scope as the actual app fallback.
   # Each case starts with empty synthetic storage, so saved selections cannot mask it.
-  unit_cases=[('?unit=顕微鏡の使い方','顕微鏡の使い方',20),('', 'all',67),('?unit=', 'all',67),('?unit=synthetic-unknown-unit','all',67)]
+  unit_cases=[('?unit=顕微鏡の使い方','顕微鏡の使い方',20),('', 'all',len(all_qs)),('?unit=', 'all',len(all_qs)),('?unit=synthetic-unknown-unit','all',len(all_qs))]
   for query,expected_unit,expected_total in unit_cases:
    boundary=browser.new_context(viewport={'width':768,'height':1024},has_touch=True)
    boundary.add_init_script(path=str(ROOT/'tests/seed_random.js'));boundary.route('**/*',route)
@@ -62,7 +62,7 @@ try:
    entry=probe.evaluate('target=>YuikaDesign.summary(target)',target)
    assert entry['total']==expected_total and entry['normalCount']==5,(query,entry)
    probe.goto(base+target)
-   expect(probe.locator('.unit-hero .tag').filter(has_text='解説つき')).to_have_text('解説つき・理科全67問')
+   expect(probe.locator('.unit-hero .tag').filter(has_text='解説つき')).to_have_text(f'解説つき・理科全{len(all_qs)}問')
    assert probe.locator('#unit').input_value()==expected_unit,(query,probe.locator('#unit').input_value())
    available=probe.evaluate("QUESTIONS.filter(q=>scienceUnit==='all'||q.unit===scienceUnit).map(q=>q.id)")
    assert len(available)==entry['total'],(query,entry,len(available))
@@ -77,7 +77,7 @@ try:
   assert summary['total']==20 and summary['normalCount']==5
   page.get_by_role('button',name='顕微鏡の使い方',exact=False).tap()
   expect(page.locator('.unit-hero h1')).to_have_text('顕微鏡の使い方')
-  expect(page.locator('.unit-hero .tag').filter(has_text='解説つき')).to_have_text('解説つき・理科全67問')
+  expect(page.locator('.unit-hero .tag').filter(has_text='解説つき')).to_have_text(f'解説つき・理科全{len(all_qs)}問')
   assert page.locator('html').get_attribute('data-subject')=='science'
   assert page.locator('#unit').input_value()=='顕微鏡の使い方'
   assert page.evaluate('scienceDaily().length===5&&scienceDaily().every(q=>q.unitId==="rika-microscope")')
