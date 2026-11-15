@@ -36,6 +36,7 @@ try:
   page.clock.install(time=datetime(2026,11,15,3,tzinfo=timezone.utc))
   page.goto(base+'yuika-review-v2.html?unit=メダカの飼育・ひれ・成長')
   expect(page.locator('.unit-hero h1')).to_have_text('メダカの飼育・ひれ・成長')
+  expect(page.locator('.unit-hero .eyebrow')).to_have_text('理科 · メダカ')
   assert page.evaluate("scienceUnit==='メダカの飼育・ひれ・成長'&&scienceDaily().length===5&&scienceDaily().every(q=>q.unitId==='rika-medaka')")
   def prepare(q):
    page.evaluate("id=>{session={id:uid(),mode:'unit',questions:[byId.get(id)],index:0,results:[],hint:false,selected:null,answered:false,done:false};view='quiz';render();}",q['id'])
