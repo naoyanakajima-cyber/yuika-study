@@ -25,6 +25,11 @@
 回答は保存せず、次の問題・終了・ページ離脱で消去します。児童の到達度測定ではありません。
 [試し解き契約](docs/product/content-try-spec.md)と `tests/content_trial.py` を参照してください。
 
+「画像・読める図形の例」は三角形を描いた合成教材です。原本を見て転記の［確認待ち］を3へ直し、
+「確かめた読み取り」に3を入力して問題案を明示確認すると、保存しない試し解きへ進めます。
+確認待ちは照合操作用の合成案で、OCR結果ではありません。読み取りの意味を自動判定しません。
+[図形画像の試行仕様](docs/product/content-image-trial-spec.md)と `tests/content_image_trial.py` を参照してください。
+
 クラウド内で `source scripts/cloud/activate.sh` の後に
 `python scripts/cloud/serve.py --port 8000` を実行し、`http://127.0.0.1:8000/content-review.html`を開きます。
 このプレビューは通知APIを遮断します。検証は `python tests/content_review.py`。

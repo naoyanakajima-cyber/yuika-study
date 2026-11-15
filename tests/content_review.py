@@ -29,6 +29,7 @@ class Probe(Handler):
 
 TEXT = json.loads((FIXTURES / 'synthetic-content.json').read_text())
 IMAGE = json.loads((FIXTURES / 'synthetic-image-content.json').read_text())
+TRIANGLE = json.loads((FIXTURES / 'synthetic-triangle-content.json').read_text())
 with ThreadingHTTPServer(('127.0.0.1', 0), partial(Probe, directory=str(ROOT))) as server:
     thread = Thread(target=server.serve_forever, daemon=True)
     thread.start()
@@ -64,9 +65,11 @@ with ThreadingHTTPServer(('127.0.0.1', 0), partial(Probe, directory=str(ROOT))) 
                 response = p.goto(base + '/content-review.html')
                 assert "connect-src 'none'" in response.headers['content-security-policy']
                 expect(p.locator('h1')).to_have_text('教材の確認室')
-                assert p.evaluate('SAMPLES') == [TEXT, IMAGE]
-                assert p.evaluate('ASSETS.text') == (FIXTURES / 'synthetic-source.txt').read_text()
-                assert p.evaluate('ASSETS.image') == (FIXTURES / 'synthetic-source.svg').read_text()
+                assert p.evaluate('SAMPLES') == [TEXT, IMAGE, TRIANGLE]
+                for sample in [TEXT, IMAGE, TRIANGLE]:
+                    asset = p.evaluate('(p)=>sourceAsset(p)', sample)
+                    assert {k: asset[k] for k in ('kind', 'sourceId', 'locator')} == {k: sample['source'][k] for k in ('kind', 'sourceId', 'locator')}
+                    assert asset['content'] == (FIXTURES / sample['source']['locator']).read_text()
                 expect(p.locator('#work')).to_be_hidden()
                 p.locator('#sample-text').click()
                 expect(p.locator('#source-preview')).to_contain_text('水を冷やすと氷になります')
