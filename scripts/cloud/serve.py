@@ -24,6 +24,7 @@ class PreviewHandler(SimpleHTTPRequestHandler):
             'assets/design.css', 'assets/design.js', 'assets/progress.js',
             'index.html', 'heian-review.html', 'onin-review.html',
             'edo-review.html', 'kamakura-review.html', 'yuika-review-v2.html', 'mock-focus-review.html',
+            'content-review.html',
         )}:
             self.send_error(404)
             return
