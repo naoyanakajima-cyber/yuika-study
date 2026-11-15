@@ -66,7 +66,8 @@ window.YuikaDesign.summary=function(file){
  const store=window.YuikaParent.storage,raw=validators[file](store.getItem(meta.key));
  const events=raw.events.map(e=>({...e,at:e.at||e.answeredAt,hint:e.hint??e.hintUsed,variant:e.variant||'normal'}));
  const requestedUnit=url.searchParams.get('unit');
- const QUESTIONS=meta.questions.filter(q=>(file!=='mock-focus-review.html'||!subject||q.subject===subject)&&(!meta.science||!requestedUnit||q.unit===requestedUnit)),Q=new Map(QUESTIONS.map(q=>[q.id,q]));
+ const validRequestedUnit=meta.science&&meta.questions.some(q=>q.unit===requestedUnit);
+ const QUESTIONS=meta.questions.filter(q=>(file!=='mock-focus-review.html'||!subject||q.subject===subject)&&(!validRequestedUnit||q.unit===requestedUnit)),Q=new Map(QUESTIONS.map(q=>[q.id,q]));
  if(!meta.science)for(const q of QUESTIONS)Q.set(q.id+'-review-v1',{...q,originId:q.id});
  const now=Date.now(),today=new Date(now+9*3600000).toISOString().slice(0,10);
  const data={events},blocked=false,dirty=false;
