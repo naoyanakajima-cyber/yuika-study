@@ -79,13 +79,13 @@ try:
     const conflict=structuredClone(a);conflict.events[0].sessionId='conflicting-session';
     let rejected=false;try{merge(a,conflict);}catch{rejected=true;}assert(rejected,'duplicate collision');
     // Simulate an editorial revision without changing production teaching content.
-    const current=QUESTIONS.find(q=>q.type===(science?'number':'text'))||QUESTIONS.find(q=>q.type==='choice');
+    const current=QUESTIONS.find(q=>q.type===(science?'number':'text'))||QUESTIONS.find(q=>q.type==='choice')||QUESTIONS.find(q=>q.type==='recall');
     assert(current,'editorial fixture requires a gradable question');
     const old=structuredClone(current);
     const legacy=validateEvent(mk(old,'normal',true));
     const priorWrong=validateEvent(mk(old,'normal',false));
     current.prompt+='（合成訂正）';current.explanation+='（合成訂正）';
-    if(current.aliases)current.aliases.push('合成の誤答');
+    if(current.aliases)current.aliases.push(priorWrong.response);
     const rs=QUESTION_REVISIONS[current.id],revision=rs.at(-1).revision+1;
     rs.push({revision,kind:'editorial',question:structuredClone(current)});
     assert(validateEvent(legacy).question===old.prompt,'old correction history');

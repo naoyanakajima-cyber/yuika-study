@@ -223,7 +223,7 @@ function LineIcon({name}){return <span aria-hidden="true" dangerouslySetInnerHTM
 function subjectStyle(subject){const [color,ink,pale]=window.YuikaDesign.subjects[subject];return {'--unit-color':color,'--unit-text':ink,'--chip-bg':pale,'--chip-ink':ink};}
 function startHomeDaily(){
  let unit="onin-review.html";
- try{const saved=window.YuikaParent.storage.getItem("yuika-prototype-v1:last-daily-unit");if(/^(onin-review|kamakura-review|heian-review|yuika-review-v2|mock-focus-review)\.html(?:\?subject=(social|science|math|japanese))?$/.test(saved))unit=saved;}catch(e){}
+ try{const saved=window.YuikaParent.storage.getItem("yuika-prototype-v1:last-daily-unit");if(/^(edo-review|onin-review|kamakura-review|heian-review|yuika-review-v2|mock-focus-review)\.html(?:\?subject=(social|science|math|japanese))?$/.test(saved))unit=saved;}catch(e){}
  window.YuikaParent.navigate(unit+(unit.includes("?")?"&":"?")+"daily=1");
 }
 
@@ -346,6 +346,7 @@ const UNITS = [
       ]},
     ],
   },
+  {subject:"社会",subjectIcon:"",subjectColor:T.gold,id:"shakai-edo",name:"江戸幕府の成立・幕藩体制・鎖国",textbook:"22問（オリジナル）",externalPage:"edo-review.html",externalNote:"入力から再挑戦 / 年代順 / 弱点分析 / 再確認 / 今日の5問",quizQuestions:[],flashDecks:[]},
   {subject:"理科",subjectIcon:"",subjectColor:T.green,id:"rika-medaka",name:"メダカの飼育・ひれ・成長",textbook:"17問（オリジナル）",externalPage:"yuika-review-v2.html?unit=メダカの飼育・ひれ・成長",externalNote:"入力から再挑戦 / 自作ひれ図 / 弱点分析 / 再確認 / 今日の5問",quizQuestions:[],flashDecks:[]},
   {subject:"理科",subjectIcon:"",subjectColor:T.green,id:"rika-microscope",name:"顕微鏡の使い方",textbook:"20問（オリジナル）",externalPage:"yuika-review-v2.html?unit=顕微鏡の使い方",externalNote:"根拠・解説 / 弱点分析 / 再確認 / 今日の5問",quizQuestions:[],flashDecks:[]},
   {subject:"社会",subjectIcon:"",subjectColor:T.green,id:"mock-focus-social",name:"模試の弱点対策 社会",textbook:"重点分野 · 21問（オリジナル）",externalPage:"mock-focus-review.html?subject=social",externalNote:"根拠・解説 / 弱点分析 / 再確認 / 今日の5問",quizQuestions:[],flashDecks:[]},

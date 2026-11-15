@@ -7,6 +7,7 @@ from scripts.focus.subjects import embed
 embed()
 ROOT=Path(__file__).resolve().parents[2]
 UNITS={
+ 'edo-review.html':('social','社会','江戸時代'),
  'onin-review.html':('social','社会','540-27'),
  'kamakura-review.html':('social','社会','540-25'),
  'heian-review.html':('social','社会','540-24'),
@@ -17,7 +18,7 @@ for file,(theme,subject,code) in UNITS.items():
  p=ROOT/file;s=p.read_text()
  s=re.sub(r' data-subject="[^"]*"','',s,count=1).replace('<html lang="ja">',f'<html lang="ja" data-subject="{theme}">',1)
  s=re.sub(r'// DESIGN_C_START\n.*?// DESIGN_C_END\n','',s,flags=re.S)
- science=theme=='science'
+ science=file in ('yuika-review-v2.html','edo-review.html')
  focus=file=='mock-focus-review.html'
  hook=f'''// DESIGN_C_START
 const designHome=home;
