@@ -36,8 +36,14 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": null,
-  "updated_at": "2026-11-15T01:26:27.033964+00:00",
+  "lease": {
+    "run_id": "cycle-20261115T020510Z",
+    "acquired_at": "2026-11-15T02:05:10.729958+00:00",
+    "expires_at": "2026-11-15T02:45:10.729958+00:00",
+    "ticket": "portfolio-triage",
+    "owner": "root/coordinator"
+  },
+  "updated_at": "2026-11-15T02:05:10.729958+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -10784,6 +10790,27 @@
       "notification": "NO_UPDATE",
       "product_push": "normal fast-forward c81fb6b to b416d3c on existing PR12 branch",
       "operational_completion": "Final commit includes evidence/spec/status and lease release; remote readback follows push"
+    },
+    {
+      "id": "cycle-20261115T020510Z",
+      "started_at": "2026-11-15T02:05:10.729958+00:00",
+      "observed_operations_commit": "73b605d268be6fdb05d9ecd89dd6811070001059",
+      "ticket": "portfolio-triage",
+      "result": "lease_acquired_readiness_check",
+      "cloud_verified": true,
+      "ceo_decisions_ingested": 0,
+      "subagents": [],
+      "new_prs": [],
+      "ceo_wait_product_prs": [
+        10,
+        11,
+        12
+      ],
+      "additional_existing_product_drafts": [
+        22
+      ],
+      "external_private_data_calls": 0,
+      "production_actions": false
     }
   ],
   "operational_notes": [
