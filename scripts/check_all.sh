@@ -47,6 +47,7 @@ run tests/focus_practice.py python tests/focus_practice.py
 run tests/parent_mode.py python tests/parent_mode.py
 run tests/design_c.py python tests/design_c.py
 run tests/responsive_subjects.py python tests/responsive_subjects.py
+run tests/theme_review.py python tests/theme_review.py
 printf '\n%-40s %6s %8s\n' 'Suite' 'Exit' 'Seconds'
 for i in "${!names[@]}"; do
   printf '%-40s %6s %8s\n' "${names[$i]}" "${codes[$i]}" "${times[$i]}"
