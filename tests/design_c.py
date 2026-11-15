@@ -43,10 +43,10 @@ with ThreadingHTTPServer(('127.0.0.1',0),partial(Quiet,directory=str(ROOT))) as 
    text=p.locator('body').inner_text()
    assert 'hidden-parent@' not in text and 'hidden-recipient@' not in text
    assert 'Claude' not in text
-   assert len(p.locator('.unit-card').all())==17
+   assert len(p.locator('.unit-card').all())==20
    assert p.locator('.unit-grid').evaluate("e=>getComputedStyle(e).gridTemplateColumns.split(' ').length")==2
    p.get_by_role('button',name='理科',exact=True).click()
-   assert p.locator('.unit-card').count()==8 # seven science units and the science focus view
+   assert p.locator('.unit-card').count()==10 # nine science units and the science focus view
    p.get_by_role('button',name='国語',exact=True).click()
    assert p.locator('.unit-card').count()==1
    p.get_by_role('button',name='すべて',exact=True).click()
@@ -54,14 +54,14 @@ with ThreadingHTTPServer(('127.0.0.1',0),partial(Quiet,directory=str(ROOT))) as 
    names=p.locator('.unit-card .unit-name').all_text_contents()
    if width==768:
     for name in names:
-     if any(s in name for s in ('弱点対策','鎌倉幕府','応仁の乱','貴族の世の中')):continue
+     if any(s in name for s in ('弱点対策','鎌倉幕府','応仁の乱','貴族の世の中','顕微鏡の使い方','メダカの飼育・ひれ・成長','江戸幕府の成立・幕藩体制・鎖国')):continue
      p.get_by_role('button',name=name,exact=False).click()
      expect(p.locator('.unit-hero h1')).to_have_text(name)
      expect(p.get_by_role('button',name='復習クイズ',exact=False)).to_be_visible()
      expect(p.get_by_role('button',name='暗記カード',exact=False)).to_be_visible()
      p.locator('.unit-header button').first.click()
    assert p.evaluate('JSON.stringify(Object.fromEntries(Object.entries(localStorage).sort()))')==before
-   for entry,subject in [('onin-review.html','social'),('kamakura-review.html','social'),('heian-review.html','social'),('yuika-review-v2.html','science'),('mock-focus-review.html','all')]:
+   for entry,subject in [('edo-review.html','social'),('onin-review.html','social'),('kamakura-review.html','social'),('heian-review.html','social'),('yuika-review-v2.html','science'),('mock-focus-review.html','all')]:
     p.goto(base+entry)
     expect(p.locator('.unit-hero')).to_be_visible()
     assert p.locator('html').get_attribute('data-subject')==subject
@@ -75,11 +75,11 @@ with ThreadingHTTPServer(('127.0.0.1',0),partial(Quiet,directory=str(ROOT))) as 
     if width==768:
      p.add_script_tag(url=base+'assets/progress.js')
      p.evaluate('''() => {
-      const science=typeof byId!=='undefined',qs=QUESTIONS.filter(q=>q.type==='text'||q.type==='choice').slice(0,2);
+      const science=typeof byId!=='undefined',qs=QUESTIONS.filter(q=>q.type==='text'||q.type==='choice'||q.type==='recall').slice(0,2);
       const mk=(q,days,correct)=>{
        const at=new Date(Date.now()-days*86400000).toISOString();
-       const common={id:crypto.randomUUID(),sessionId:'synthetic-design',questionId:q.id,unit:q.unit,question:q.prompt,response:correct?q.answer:(q.type==='choice'?q.options.find(o=>o!==q.answer):'合成誤答'),expected:science?q.answer:expectedOf(q,'normal'),explanation:q.explanation,correct,mode:'normal'};
-       return validateEvent(science?{...common,inputRaw:common.response,type:q.type,datasetVersion:VERSION,answeredAt:at,timezoneOffset:0,localDay:localDay(at,0),hintUsed:false}:{...common,...(typeof UNIT_ID==='undefined'?{reflection:''}:{unitId:UNIT_ID}),version:VERSION,course:q.course,variant:'normal',hint:false,at,offset:0,day:day(at,0)});
+       const common={id:crypto.randomUUID(),sessionId:'synthetic-design',questionId:q.id,unit:q.unit,question:q.prompt,response:correct?q.answer:(['choice','recall'].includes(q.type)?q.options.find(o=>o!==q.answer):'合成誤答'),expected:science?q.answer:expectedOf(q,'normal'),explanation:q.explanation,correct,mode:'normal'};
+       return validateEvent(science?{...common,inputRaw:common.response,type:q.type,datasetVersion:VERSION,answeredAt:at,timezoneOffset:0,localDay:localDay(at,0),hintUsed:q.type==='recall'&&!correct,...(q.type==='recall'?{recallOutcome:correct?'unaided':'incorrect',firstResponse:common.response}:{})}:{...common,...(typeof UNIT_ID==='undefined'?{reflection:''}:{unitId:UNIT_ID}),version:VERSION,course:q.course,variant:'normal',hint:false,at,offset:0,day:day(at,0)});
       };
       const events=[mk(qs[0],4,false),mk(qs[0],3,false),mk(qs[0],2,true),mk(qs[1],4,false),mk(qs[1],3,false)];
       (science?state:data).events=events;
@@ -140,4 +140,4 @@ with ThreadingHTTPServer(('127.0.0.1',0),partial(Quiet,directory=str(ROOT))) as 
    assert not errors,errors
    c.close()
   browser.close()
-print('design_c: all 17 home units, five standalone units, three widths, controls, no writes, colors and recipient privacy PASS')
+print('design_c: all 20 home units, five standalone units, three widths, controls, no writes, colors and recipient privacy PASS')

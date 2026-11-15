@@ -70,6 +70,28 @@ try:
    p.goto(base+'index.html'+suffix);expect(p.locator('.daily-panel h2')).to_have_text('今日の復習');p.get_by_role('button',name='今日の復習をはじめる',exact=True).click()
    p.wait_for_url('**/yuika-review-v2.html?*');assert p.evaluate("session.mode==='daily'&&session.questions.length===8")
    assert p.evaluate('window.YuikaParent.suppress()')==bool(suffix)
+  # New recall records remain weak despite final assisted correctness. The visible
+  # daily count and actual start must agree for both generated science-style apps.
+  for file,qid in [('yuika-review-v2.html','medaka-07'),('edo-review.html','edo-01')]:
+   recall_context=browser.new_context(viewport={'width':768,'height':1024})
+   recall_context.add_init_script(path=str(ROOT/'tests/seed_random.js'))
+   recall_context.route('https://**/*',lambda r:r.abort())
+   recall_page=recall_context.new_page();recall_page.goto(base+file)
+   recall_page.evaluate("""id=>{
+    const q=byId.get(id),at=new Date().toISOString();
+    state.events=[validateEvent({questionVersion:1,id:'synthetic-assisted',sessionId:'synthetic-daily',questionId:q.id,datasetVersion:VERSION,unit:q.unit,type:q.type,question:q.prompt,response:q.answer,inputRaw:q.answer,expected:q.answer,correct:true,answeredAt:at,timezoneOffset:0,localDay:at.slice(0,10),hintUsed:true,mode:'normal',explanation:q.explanation,recallOutcome:'assisted',firstResponse:'合成の誤答'})];
+    persist();scienceUnit=q.unit;count=10;rememberScience();render();
+   }""",qid)
+   raw=recall_page.evaluate('YuikaParent.storage.getItem(KEY)')
+   expect(recall_page.locator('#daily-five')).to_have_text('今日の復習をはじめる（今回は10問）')
+   assert recall_page.evaluate('id=>scienceWeak().some(r=>r.originId===id)',qid)
+   assert recall_page.evaluate('state.events[0].correct && data.events[0].correct===false')
+   assert recall_page.evaluate('YuikaParent.storage.getItem(KEY)')==raw
+   recall_page.locator('#daily-five').click()
+   assert recall_page.evaluate('session.questions.length')==10
+   assert recall_page.evaluate('session.questions[0].id')==qid
+   assert recall_page.evaluate('YuikaParent.storage.getItem(KEY)')==raw
+   recall_context.close()
   assert not errors,errors
   c.close();browser.close()
  print('science_daily_count: four real UI counts, no extra draws, stale confirmation, blocked/dirty/zero boundaries, direct daily and normal/parent top route PASS')

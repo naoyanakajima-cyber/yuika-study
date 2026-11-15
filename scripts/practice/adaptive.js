@@ -91,6 +91,7 @@ function retention(events=data.events,now=Date.now()){
   const q=Q.get(e.questionId);if(!q)continue;
   const originId=q.originId||q.id,key=originId+':'+e.variant;
   let s=states.get(key);
+  if(!s&&q.type==='recall'&&!e.correct){s={originId,variant:e.variant,status:'weak',stage:0,due:null,anchor:null};states.set(key,s);}
   if(!s){
    // A new weakness requires errors on two Japan days. Success cannot add an
    // error day; examine the existing rule only when an error can change it.

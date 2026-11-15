@@ -53,11 +53,11 @@ try:
     const mk=(q,v,correct,revision)=>{
      let response;
      if(q.type==='structure')response={steps:q.items.map((_,i)=>i),fills:q.blanks.map(b=>b.answer)};
-     else response=correct?(science?q.answer:expectedOf(q,v)):q.type==='number'?q.answer+1:q.type==='choice'?q.options.find(x=>x!==q.answer):'合成の誤答';
+     else response=correct?(science?q.answer:expectedOf(q,v)):q.type==='number'?q.answer+1:['choice','recall'].includes(q.type)?q.options.find(x=>x!==q.answer):'合成の誤答';
      if(q.type==='structure'&&!correct)response.steps.reverse();
      const at='2026-10-01T15:00:00.000Z',base={id:crypto.randomUUID(),sessionId:'synthetic-history',questionId:q.id,unit:q.unit,response,correct,mode:'normal'};
      if(revision!==undefined)base.questionVersion=revision;
-     return science?{...base,datasetVersion:VERSION,type:q.type,question:q.prompt,inputRaw:String(response),expected:q.answer,explanation:q.explanation,answeredAt:at,timezoneOffset:0,localDay:at.slice(0,10),hintUsed:false}:
+     return science?{...base,datasetVersion:VERSION,type:q.type,question:q.prompt,inputRaw:String(response),expected:q.answer,explanation:q.explanation,answeredAt:at,timezoneOffset:0,localDay:at.slice(0,10),hintUsed:q.type==='recall'&&!correct,...(q.type==='recall'?{recallOutcome:correct?'unaided':'incorrect',firstResponse:response}:{})}:
       {...base,version:VERSION,...(typeof UNIT_ID==='undefined'?{}:{unitId:UNIT_ID}),course:q.course,question:promptOf(q,v),expected:expectedOf(q,v),explanation:q.explanation,variant:v,hint:false,...(typeof UNIT_ID==='undefined'?{reflection:''}:{}),at,offset:0,day:at.slice(0,10)};
     };
     for(const rs of Object.values(QUESTION_REVISIONS))for(const r of rs){
@@ -79,13 +79,13 @@ try:
     const conflict=structuredClone(a);conflict.events[0].sessionId='conflicting-session';
     let rejected=false;try{merge(a,conflict);}catch{rejected=true;}assert(rejected,'duplicate collision');
     // Simulate an editorial revision without changing production teaching content.
-    const current=QUESTIONS.find(q=>q.type===(science?'number':'text'))||QUESTIONS.find(q=>q.type==='choice');
+    const current=QUESTIONS.find(q=>q.type===(science?'number':'text'))||QUESTIONS.find(q=>q.type==='choice')||QUESTIONS.find(q=>q.type==='recall');
     assert(current,'editorial fixture requires a gradable question');
     const old=structuredClone(current);
     const legacy=validateEvent(mk(old,'normal',true));
     const priorWrong=validateEvent(mk(old,'normal',false));
     current.prompt+='（合成訂正）';current.explanation+='（合成訂正）';
-    if(current.aliases)current.aliases.push('合成の誤答');
+    if(current.aliases)current.aliases.push(priorWrong.response);
     const rs=QUESTION_REVISIONS[current.id],revision=rs.at(-1).revision+1;
     rs.push({revision,kind:'editorial',question:structuredClone(current)});
     assert(validateEvent(legacy).question===old.prompt,'old correction history');

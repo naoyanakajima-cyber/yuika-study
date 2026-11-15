@@ -98,12 +98,14 @@ try:
   page.goto(base+'/yuika-review-v2.html')
   page.evaluate('''() => {
    const assert=(x,m)=>{if(!x)throw Error(m);};
-   assert(QUESTIONS.length===47,'47 originals');
+   assert(QUESTIONS.filter(q=>q.id.startsWith('ys2-')).length===47,'47 originals preserved');
+   assert(QUESTIONS.filter(q=>q.id.startsWith('microscope-')).length===20,'20 microscope questions preserved');
+   assert(QUESTIONS.filter(q=>q.id.startsWith('medaka-')).length===17&&QUESTIONS.length===84,'17 medaka questions added');
    window.mk=(q,at,correct=false,hintUsed=false)=>{
     const response=correct?q.answer:q.type==='number'?q.answer+1:q.options.find(o=>o!==q.answer);
     return validateEvent({id:uid(),sessionId:'synthetic-science',questionId:q.id,datasetVersion:VERSION,
      unit:q.unit,type:q.type,question:q.prompt,response,inputRaw:String(response),expected:q.answer,
-     correct,answeredAt:at,timezoneOffset:0,localDay:at.slice(0,10),hintUsed,mode:'normal',explanation:q.explanation});
+     correct,answeredAt:at,timezoneOffset:0,localDay:at.slice(0,10),hintUsed:q.type==='recall'?(!correct||hintUsed):hintUsed,mode:'normal',explanation:q.explanation,...(q.type==='recall'?{recallOutcome:correct?(hintUsed?'assisted':'unaided'):'incorrect',firstResponse:correct&&!hintUsed?q.answer:q.options.find(o=>o!==q.answer)}:{})});
    };
    for(const q of QUESTIONS){
     const a=mk(q,'2026-09-01T14:59:00.000Z'),b=mk(q,'2026-09-01T15:00:00.000Z');
@@ -114,16 +116,24 @@ try:
     assert(typeof data.events[0].response===(q.type==='number'?'number':'string'),'typed response');
     const c=mk(q,'2026-09-02T14:59:00.000Z',true);
     state.events.push(c);assert(retention()[0].due==='2026-09-03','JST waiting');
+    if(q.type==='recall'){
+     state.events.push(mk(q,'2026-09-02T15:00:00.000Z',true,true));
+     assert(retention()[0].status==='weak','assisted remains weak until unaided');
+     state.events.push(mk(q,'2026-09-02T15:01:00.000Z',true));
+     assert(retention()[0].due==='2026-09-04','unaided restarts spaced review');
+     state.events.push(mk(q,'2026-09-03T15:00:00.000Z',true),mk(q,'2026-09-05T15:00:00.000Z',true),mk(q,'2026-09-09T15:00:00.000Z',true));
+    }else{
     state.events.push(mk(q,'2026-09-02T14:59:59.000Z',true),mk(q,'2026-09-02T15:00:00.000Z',true,true));
     assert(retention()[0].stage===0,'early and hinted do not advance');
     state.events.push(mk(q,'2026-09-02T15:00:00.000Z',true));assert(retention()[0].due==='2026-09-05','day one');
     state.events.push(mk(q,'2026-09-04T15:00:00.000Z',true),mk(q,'2026-09-08T15:00:00.000Z',true));
+    }
     assert(retention()[0].status==='retained','day three seven');
     state.events.push(mk(q,'2026-11-09T00:00:00.000Z'));assert(retention()[0].status==='weak','failure returns weak');
     assert(scienceDaily()[0].id===q.id,'weak prioritized');
     assert(new Set(scienceDaily().map(q=>q.id)).size===5,'no duplicate origins');
     assert(merge(state,state).events.length===state.events.length,'dedup');
-    state.events=[a,mk(q,'2026-09-01T14:59:59.000Z')];assert(!retention().length,'same JST day');
+    state.events=[a,mk(q,'2026-09-01T14:59:59.000Z')];assert(q.type==='recall'?retention()[0].status==='weak':!retention().length,'same JST day: recall keeps first error, old types require two days');
     assert(grade(q,q.answer)&&!grade(q,q.type==='number'?q.answer+0.1:'unregistered'),'original grade');
    }
    assert(numeric('１．８')===1.8&&numeric('1.8g')===null&&numeric('-1')===null,'original numeric/unit parsing');
