@@ -94,9 +94,9 @@ fixtureUnit.flashDecks = [{name:'合成テスト', cards:[{q:'合成：中国を
         expect(page.get_by_text('答えの確認方法：以前の方法（版の記録なし）',exact=True)).to_be_visible()
         # The learning entry resumes the last social unit with one tap.
         page.goto(base+'/index.html')
-        page.get_by_role('button',name='今日の5問をはじめる',exact=True).wait_for()
+        page.get_by_role('button',name='今日の復習をはじめる',exact=True).wait_for()
         page.evaluate("localStorage.setItem('yuika-prototype-v1:last-daily-unit','heian-review.html')")
-        page.get_by_role('button',name='今日の5問をはじめる',exact=True).click()
+        page.get_by_role('button',name='今日の復習をはじめる',exact=True).click()
         page.wait_for_url('**/heian-review.html?daily=1')
         assert page.evaluate("run.mode==='daily'&&run.qs.length===5")
         assert not errors, errors

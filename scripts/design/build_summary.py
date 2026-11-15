@@ -34,7 +34,7 @@ def validator(text, science):
  if unit: constants.append('const UNIT_ID='+json.dumps(unit[1])+';')
  constants.append(declaration('QUESTION_REVISIONS',text))
  if science: constants += ['const byId=true;',declaration('recallNormalize',text)]
- constants.append("MODES.adaptive='弱点に合わせた追加練習';MODES.daily='今日の5問';")
+ constants.append("MODES.adaptive='弱点に合わせた追加練習';MODES.daily='今日の復習';")
  names=(['numeric','requireThat','validDate','legacyData','validateEvent','validateState'] if science else
         ['grade','check','validDate','validateEvent','validate'])
  functions=[function(name,text) for name in names]+[function('historicalQuestion',text)]

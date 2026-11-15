@@ -29,10 +29,12 @@ function unitHome(main,info){
  const methods=node('section','other-methods');methods.append(node('h2','','ほかのやり方'));
  function row(control,label){if(!control)return;const r=control;r.classList.add('method-row');const count=r.querySelector('b')?.cloneNode(true);if(label)r.innerHTML='<span class="method-heading">'+icon()+label+'</span>'+icon('arrow');if(count)r.append(count);methods.append(r);}
  const daily=main.querySelector('#daily-five');row(daily);
+ const dailyStatus=main.querySelector('#daily-status');if(daily&&dailyStatus)daily.after(dailyStatus);
  row(main.querySelector('#science-adaptive'),'にがての練習');
  for(const b of main.querySelectorAll('[data-mode]')){const labels={wrong:'まちがえた問題の復習',unseen:'まだ答えていない問題',spaced:'日をあけて思い出す',hint:'ヒントなしで確認',adaptive:'にがての練習'};row(b,labels[b.dataset.mode]);}
  const variant=main.querySelector('#variant');if(variant)for(const opt of variant.options){if(opt.value==='normal')continue;const b=node('button','',opt.value==='kanji'?'漢字・正式名の確認':'読みの確認');b.type='button';b.onclick=()=>{variant.value=opt.value;variant.dispatchEvent(new Event('change'));document.getElementById('start').focus();};row(b);}
  stats.after(practice);practice.after(methods);main.prepend(hero,stats,practice,methods);
+ const recommendation=main.querySelector('.recommendation-entry');if(recommendation)stats.after(recommendation);
  // Keep original diagrams/tables and all detailed learning controls available.
  const adaptive=main.querySelector('#adaptive');if(adaptive){const details=node('details','source-notes');details.open=true;details.append(node('summary','','にがての練習のくわしい設定'));adaptive.replaceWith(details);details.append(adaptive);}
  for(const el of Array.from(main.children)){
