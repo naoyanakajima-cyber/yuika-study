@@ -36,14 +36,8 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": {
-    "run_id": "cycle-20261115T020510Z",
-    "acquired_at": "2026-11-15T02:05:10.729958+00:00",
-    "expires_at": "2026-11-15T02:45:10.729958+00:00",
-    "ticket": "portfolio-triage",
-    "owner": "root/coordinator"
-  },
-  "updated_at": "2026-11-15T02:05:10.729958+00:00",
+  "lease": null,
+  "updated_at": "2026-11-15T02:08:37.955878+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -244,7 +238,7 @@
         "既存ID・保存キー・旧履歴を保護する",
         "768x1024で開始・回答・採点・保存・再読込を合成データで確認する"
       ],
-      "next_action": "対象の日次実問数/名称修正は既存PR10へ保存・独立QA済み。本人の具体的な試用フィードバックは未確認。新差分や再現不具合がなければ同じQAを反復せず、CONTENT-TRY-SPECの保存しない合成試し解きについて既存PR11内の実装範囲をPdM/PrMで確認する。採用/公開承認は推測しない。",
+      "next_action": "既存PR10 73fe2eeの理由付き復習・日次実問数表示を合成試用候補として朝夕CEOチェックへ提示。推奨は開始前のおすすめ理由と表示問数、実際の出題が納得できるかを確認し、REV-MVPを添えて元チャットへ具体的フィードバック。教材の保存しない試し解きはPR11 ee51e68で独立QA済みのため再着手しない。新差分・具体的再現がなければ同じQAを反復せず終了。D03方向性採用とmerge/公開承認は分離し、返答を実読した担当の台帳反映まで伝達済みとしない。",
       "evidence": [
         {
           "kind": "test",
@@ -646,7 +640,7 @@
         "未確認出力と確認済み案を区別し、既存教材/記録に接続しない",
         "768x1024で編集・確認・取消・出力/再入力、外部要求/通知POST 0を検証"
       ],
-      "next_action": "確認済み合成教材を保存せず試し解きするPR11の試用判断へ提示。次の独立作業は既存THEME-MVP PR12と現在mainの互換性を読み取り照合し、必要差分のみPdM/PrMで範囲確認。新規製品PRなし、D02実接続/保存先・merge/公開は未承認。",
+      "next_action": "既存PR11 ee51e68の合成教材確認・保存しない試し解きを朝夕CEOチェックへ提示。推奨は確認→短答/選択→採点→終了と、開始不可時の修正先案内が分かるかを確認し、CONTENT-MVPを添えて元チャットへ具体的フィードバック。テーマのmain互換性照合・修正はPR12 b416d3cで独立QA済みのため再着手しない。新差分・具体的再現がなければ同じQA/環境調査を反復せず終了。D02実接続/保存先・merge/公開は未承認。",
       "evidence": [
         {
           "kind": "test",
@@ -10796,10 +10790,13 @@
       "started_at": "2026-11-15T02:05:10.729958+00:00",
       "observed_operations_commit": "73b605d268be6fdb05d9ecd89dd6811070001059",
       "ticket": "portfolio-triage",
-      "result": "lease_acquired_readiness_check",
+      "result": "completed_no_independent_product_work_next_actions_reconciled",
       "cloud_verified": true,
       "ceo_decisions_ingested": 0,
-      "subagents": [],
+      "subagents": [
+        "pdm_theme_compatibility",
+        "qa_theme_compatibility"
+      ],
       "new_prs": [],
       "ceo_wait_product_prs": [
         10,
@@ -10810,7 +10807,29 @@
         22
       ],
       "external_private_data_calls": 0,
-      "production_actions": false
+      "production_actions": false,
+      "observed_main_commit": "86514eda054a5a2e09204df3a0668e40624c16de",
+      "engineer": null,
+      "product_tests_run": false,
+      "product_code_changed": false,
+      "new_blockers": [],
+      "evidence": "ops/evidence/2026-11-15-readiness-0205",
+      "report": "ops/runs/2026-11-15-readiness-0205.md",
+      "next_action": "朝夕CEOチェックでPR10/11/12の合成試用と具体的フィードバックを案内。新差分・再現不具合・実読された正本返答がなければ再実装/再試験せず終了。",
+      "operations_only_changes": [
+        "REV-MVP.next_action",
+        "CONTENT-MVP.next_action"
+      ],
+      "previous_product_validation": "Prior saved evidence retained; no tests rerun this cycle",
+      "completed_at": "2026-11-15T02:08:37.955878+00:00",
+      "lease_released_at": "2026-11-15T02:08:37.955878+00:00",
+      "review": {
+        "reviewer": "qa_theme_compatibility",
+        "result": "documentation_and_ledger_review_passed",
+        "product_tests_run": false,
+        "path": "ops/evidence/2026-11-15-readiness-0205/QA.md"
+      },
+      "notification": "NO_UPDATE"
     }
   ],
   "operational_notes": [
