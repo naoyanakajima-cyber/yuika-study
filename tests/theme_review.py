@@ -92,6 +92,33 @@ def contrast(a, b):
     x,y=sorted([luminance(a),luminance(b)])
     return (y+.05)/(x+.05)
 
+
+def diagram_contrast(page):
+    svg = page.locator('svg[role="img"][aria-label^="鎌倉幕府のしくみの模式図"]')
+    expect(svg).to_have_count(1)
+    labels = svg.locator('text').evaluate_all("""es=>es.map(e=>({
+      label:e.textContent,fill:getComputedStyle(e).fill,fontSize:getComputedStyle(e).fontSize,
+      rawFill:e.getAttribute('fill'),previousTag:e.previousElementSibling?.tagName,
+      background:e.previousElementSibling?.getAttribute('fill'),
+      backgroundFill:e.previousElementSibling?getComputedStyle(e.previousElementSibling).fill:null}))""")
+    targets = [x for x in labels if x['label'] in ['将軍','執権（北条氏）']]
+    assert [x['label'] for x in targets] == ['将軍','執権（北条氏）']
+    for x in targets:
+        assert x['previousTag']=='rect' and x['background']=='#b57c65',x
+        assert x['rawFill']=='white' and x['fill']=='rgb(255, 255, 255)' and x['fontSize']=='13px',x
+        assert contrast(x['fill'],x['backgroundFill'])>=4.5,x
+    rects=svg.locator('rect').evaluate_all("es=>es.map(e=>({raw:e.getAttribute('fill'),actual:getComputedStyle(e).fill}))")
+    assert sum(x['raw']=='#b57c65' for x in rects)==2
+    for x in rects:
+        raw='#8f4f3c' if x['raw']=='#b57c65' else x['raw']
+        assert x['actual']=='rgb('+', '.join(str(int(raw[i:i+2],16)) for i in (1,3,5))+')',x
+    for x in labels:
+        if x in targets: continue
+        raw='#ffffff' if x['rawFill']=='white' else x['rawFill']
+        assert x['fill']=='rgb('+', '.join(str(int(raw[i:i+2],16)) for i in (1,3,5))+')',x
+    return svg.inner_html(), min(contrast(x['fill'],x['backgroundFill']) for x in targets)
+
+
 try:
     with sync_playwright() as pw:
         browser = pw.chromium.launch(executable_path=os.environ.get('PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH'))
@@ -112,6 +139,18 @@ try:
         assert page.evaluate('themeWrites') == 0
         assert page.evaluate('QUESTIONS') == questions
         assert page.evaluate("QUESTIONS.map(q=>[grade(q,q.answer,'normal'),grade(q,'synthetic wrong','normal')])") == expected_grade
+        # The two inherited low-contrast hierarchy boxes are readable in both
+        # themes and print. Label text, geometry/DOM and all other fills stay fixed.
+        diagram_dom=None
+        for value in ['standard','kamakura']:
+            theme(page,value)
+            for media in ['screen','print']:
+                page.emulate_media(media=media)
+                dom,ratio=diagram_contrast(page)
+                if diagram_dom is None: diagram_dom=dom
+                assert dom==diagram_dom, 'diagram content or geometry changed'
+                print('diagram contrast',value,media,round(ratio,3))
+            page.emulate_media(media='screen')
         # T8/T9: actual browser colors and controls, including keyboard operation.
         for selector in ['.theme-description', '.theme-choice', '.hero p', '.stats .stat span', '.card h2']:
             colors = page.locator(selector).first.evaluate("e=>{let b=e;while(b&&getComputedStyle(b).backgroundColor==='rgba(0, 0, 0, 0)')b=b.parentElement;return [getComputedStyle(e).color,getComputedStyle(b).backgroundColor];}")
