@@ -1,0 +1,167 @@
+{
+  "observed_at": "2026-11-15 06:07:05 UTC",
+  "operations_source": "e5f20f3db3bc49b7076fe6dfe41f58c1425cca98",
+  "main": "86514eda054a5a2e09204df3a0668e40624c16de",
+  "open_prs": [
+    {
+      "number": 27,
+      "head": "58c3fd4ba10ecfaa249cc3c808c3e8e5fcaf5359",
+      "base": "main",
+      "state": "open",
+      "draft": true
+    },
+    {
+      "number": 22,
+      "head": "bd4f48de0404614eb84275969bfccff0a368e866",
+      "base": "codex/review-17-19-quality",
+      "state": "open",
+      "draft": true
+    },
+    {
+      "number": 13,
+      "head": "139c8b8b56bcd979068b61984120d9f312efe182",
+      "base": "codex/cloud-handoff-hardening-20261108",
+      "state": "open",
+      "draft": true
+    },
+    {
+      "number": 12,
+      "head": "b416d3c08a0d3952e5f0153fdc691d6fa0e492b7",
+      "base": "main",
+      "state": "open",
+      "draft": true
+    },
+    {
+      "number": 11,
+      "head": "ee51e68d7e1eeb21bd0e959ec58166a869947d0a",
+      "base": "main",
+      "state": "open",
+      "draft": true
+    },
+    {
+      "number": 10,
+      "head": "73fe2ee9d776b3e3360614752fb722ff4aee4f85",
+      "base": "main",
+      "state": "open",
+      "draft": true
+    },
+    {
+      "number": 9,
+      "head": "e5f20f3db3bc49b7076fe6dfe41f58c1425cca98",
+      "base": "main",
+      "state": "open",
+      "draft": true
+    },
+    {
+      "number": 4,
+      "head": "ff211ee8e144e955fa5837e8b8ff5cabf51f60a4",
+      "base": "main",
+      "state": "open",
+      "draft": true
+    }
+  ],
+  "pr27": {
+    "number": 27,
+    "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/27",
+    "title": "理科「顕微鏡の使い方」20問を追加（開発タスク17）",
+    "head": "58c3fd4ba10ecfaa249cc3c808c3e8e5fcaf5359",
+    "base": "main",
+    "base_sha": "86514eda054a5a2e09204df3a0668e40624c16de",
+    "state": "open",
+    "draft": true,
+    "merged": false,
+    "created_at": "2026-11-15T05:45:13Z",
+    "author_reported_validation": "23 suites, three passes; not independently verified in cycle30 yet; Chromium only",
+    "files": [
+      {
+        "filename": "README.md",
+        "additions": 8,
+        "deletions": 0,
+        "status": "modified"
+      },
+      {
+        "filename": "assets/design.js",
+        "additions": 1,
+        "deletions": 1,
+        "status": "modified"
+      },
+      {
+        "filename": "assets/progress.js",
+        "additions": 5,
+        "deletions": 3,
+        "status": "modified"
+      },
+      {
+        "filename": "index.html",
+        "additions": 1,
+        "deletions": 0,
+        "status": "modified"
+      },
+      {
+        "filename": "scripts/check_all.sh",
+        "additions": 1,
+        "deletions": 0,
+        "status": "modified"
+      },
+      {
+        "filename": "scripts/design/build_summary.py",
+        "additions": 3,
+        "deletions": 1,
+        "status": "modified"
+      },
+      {
+        "filename": "scripts/design/embed.py",
+        "additions": 1,
+        "deletions": 1,
+        "status": "modified"
+      },
+      {
+        "filename": "scripts/history/revisions.json",
+        "additions": 580,
+        "deletions": 0,
+        "status": "modified"
+      },
+      {
+        "filename": "tests/design_c.py",
+        "additions": 4,
+        "deletions": 4,
+        "status": "modified"
+      },
+      {
+        "filename": "tests/microscope.py",
+        "additions": 95,
+        "deletions": 0,
+        "status": "added"
+      },
+      {
+        "filename": "tests/responsive_subjects.py",
+        "additions": 3,
+        "deletions": 3,
+        "status": "modified"
+      },
+      {
+        "filename": "tests/science_adaptive.py",
+        "additions": 2,
+        "deletions": 1,
+        "status": "modified"
+      },
+      {
+        "filename": "yuika-review-v2.html",
+        "additions": 446,
+        "deletions": 4,
+        "status": "modified"
+      }
+    ],
+    "checks": [
+      {
+        "name": "Workers Builds: yuika-study",
+        "status": "completed",
+        "conclusion": "failure",
+        "head_sha": "58c3fd4ba10ecfaa249cc3c808c3e8e5fcaf5359",
+        "completed_at": "2026-11-15T05:38:37Z",
+        "html_url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/132714281557"
+      }
+    ]
+  },
+  "ceo_decisions_ingested": 0
+}

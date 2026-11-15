@@ -1,0 +1,33 @@
+[
+  {
+    "pr": 10,
+    "head": "73fe2ee9d776b3e3360614752fb722ff4aee4f85",
+    "overlapping_files": [
+      "README.md",
+      "assets/design.js",
+      "assets/progress.js",
+      "index.html",
+      "scripts/check_all.sh",
+      "scripts/design/build_summary.py",
+      "tests/responsive_subjects.py",
+      "tests/science_adaptive.py",
+      "yuika-review-v2.html"
+    ]
+  },
+  {
+    "pr": 11,
+    "head": "ee51e68d7e1eeb21bd0e959ec58166a869947d0a",
+    "overlapping_files": [
+      "README.md",
+      "scripts/check_all.sh"
+    ]
+  },
+  {
+    "pr": 12,
+    "head": "b416d3c08a0d3952e5f0153fdc691d6fa0e492b7",
+    "overlapping_files": [
+      "README.md",
+      "scripts/check_all.sh"
+    ]
+  }
+]

@@ -36,13 +36,8 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": {
-    "run_id": "cycle-20261115T060304Z",
-    "owner": "coordinator",
-    "acquired_at": "2026-11-15T06:05:54.287849+00:00",
-    "expires_at": "2026-11-15T06:35:54.287849+00:00"
-  },
-  "updated_at": "2026-11-15T06:05:54.287849+00:00",
+  "lease": null,
+  "updated_at": "2026-11-15T06:23:16.946362+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -11118,12 +11113,16 @@
       "observed_operations_commit": "e5f20f3db3bc49b7076fe6dfe41f58c1425cca98",
       "observed_main_commit": "86514eda054a5a2e09204df3a0668e40624c16de",
       "ticket": "PR27-RECONCILE",
-      "result": "in_progress",
+      "result": "completed_existing_draft_pr27_entry_consistency_fix",
       "cloud_verified": true,
       "ceo_decisions_ingested": 0,
-      "subagents": [],
-      "product_code_changed": false,
-      "product_tests_run": false,
+      "subagents": [
+        "pdm_theme_compatibility",
+        "engineer_theme_compatibility",
+        "qa_theme_compatibility"
+      ],
+      "product_code_changed": true,
+      "product_tests_run": true,
       "new_prs": [],
       "ceo_wait_product_prs": [
         10,
@@ -11133,7 +11132,236 @@
       "additional_existing_product_drafts": [
         22,
         27
-      ]
+      ],
+      "updated_prs": [
+        27
+      ],
+      "report": "ops/runs/2026-11-15-science-entry-consistency.md",
+      "candidate_commit": "69f77d671b66484b501f7a0f5c292bfa96a22273",
+      "review": {
+        "pdm": "pdm_theme_compatibility",
+        "prm": "root",
+        "engineer": "engineer_theme_compatibility",
+        "reviewer": "qa_theme_compatibility",
+        "baseline_head": "58c3fd4ba10ecfaa249cc3c808c3e8e5fcaf5359",
+        "baseline_suite_count": 23,
+        "baseline_exit_code": 0,
+        "final_head": "69f77d671b66484b501f7a0f5c292bfa96a22273",
+        "final_suite_count": 23,
+        "final_exit_code": 0,
+        "entry_probe_cases": 4,
+        "result": "passed_scoped_independent_review",
+        "ledger_review": {
+          "reviewer": "qa_theme_compatibility",
+          "result": "no_material_inconsistency",
+          "scope": "source e5f20f3 comparison, 31 evidence digests, preserved 139 runs/12 tickets/decisions; saved PR metadata only, no independent live GitHub reread",
+          "product_tests_rerun": false
+        }
+      },
+      "observations": {
+        "observed_at": "2026-11-15 06:07:05 UTC",
+        "operations_source": "e5f20f3db3bc49b7076fe6dfe41f58c1425cca98",
+        "main": "86514eda054a5a2e09204df3a0668e40624c16de",
+        "open_prs": [
+          {
+            "number": 27,
+            "head": "58c3fd4ba10ecfaa249cc3c808c3e8e5fcaf5359",
+            "base": "main",
+            "state": "open",
+            "draft": true
+          },
+          {
+            "number": 22,
+            "head": "bd4f48de0404614eb84275969bfccff0a368e866",
+            "base": "codex/review-17-19-quality",
+            "state": "open",
+            "draft": true
+          },
+          {
+            "number": 13,
+            "head": "139c8b8b56bcd979068b61984120d9f312efe182",
+            "base": "codex/cloud-handoff-hardening-20261108",
+            "state": "open",
+            "draft": true
+          },
+          {
+            "number": 12,
+            "head": "b416d3c08a0d3952e5f0153fdc691d6fa0e492b7",
+            "base": "main",
+            "state": "open",
+            "draft": true
+          },
+          {
+            "number": 11,
+            "head": "ee51e68d7e1eeb21bd0e959ec58166a869947d0a",
+            "base": "main",
+            "state": "open",
+            "draft": true
+          },
+          {
+            "number": 10,
+            "head": "73fe2ee9d776b3e3360614752fb722ff4aee4f85",
+            "base": "main",
+            "state": "open",
+            "draft": true
+          },
+          {
+            "number": 9,
+            "head": "e5f20f3db3bc49b7076fe6dfe41f58c1425cca98",
+            "base": "main",
+            "state": "open",
+            "draft": true
+          },
+          {
+            "number": 4,
+            "head": "ff211ee8e144e955fa5837e8b8ff5cabf51f60a4",
+            "base": "main",
+            "state": "open",
+            "draft": true
+          }
+        ],
+        "pr27": {
+          "number": 27,
+          "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/27",
+          "title": "理科「顕微鏡の使い方」20問を追加（開発タスク17）",
+          "head": "58c3fd4ba10ecfaa249cc3c808c3e8e5fcaf5359",
+          "base": "main",
+          "base_sha": "86514eda054a5a2e09204df3a0668e40624c16de",
+          "state": "open",
+          "draft": true,
+          "merged": false,
+          "created_at": "2026-11-15T05:45:13Z",
+          "author_reported_validation": "23 suites, three passes; not independently verified in cycle30 yet; Chromium only",
+          "files": [
+            {
+              "filename": "README.md",
+              "additions": 8,
+              "deletions": 0,
+              "status": "modified"
+            },
+            {
+              "filename": "assets/design.js",
+              "additions": 1,
+              "deletions": 1,
+              "status": "modified"
+            },
+            {
+              "filename": "assets/progress.js",
+              "additions": 5,
+              "deletions": 3,
+              "status": "modified"
+            },
+            {
+              "filename": "index.html",
+              "additions": 1,
+              "deletions": 0,
+              "status": "modified"
+            },
+            {
+              "filename": "scripts/check_all.sh",
+              "additions": 1,
+              "deletions": 0,
+              "status": "modified"
+            },
+            {
+              "filename": "scripts/design/build_summary.py",
+              "additions": 3,
+              "deletions": 1,
+              "status": "modified"
+            },
+            {
+              "filename": "scripts/design/embed.py",
+              "additions": 1,
+              "deletions": 1,
+              "status": "modified"
+            },
+            {
+              "filename": "scripts/history/revisions.json",
+              "additions": 580,
+              "deletions": 0,
+              "status": "modified"
+            },
+            {
+              "filename": "tests/design_c.py",
+              "additions": 4,
+              "deletions": 4,
+              "status": "modified"
+            },
+            {
+              "filename": "tests/microscope.py",
+              "additions": 95,
+              "deletions": 0,
+              "status": "added"
+            },
+            {
+              "filename": "tests/responsive_subjects.py",
+              "additions": 3,
+              "deletions": 3,
+              "status": "modified"
+            },
+            {
+              "filename": "tests/science_adaptive.py",
+              "additions": 2,
+              "deletions": 1,
+              "status": "modified"
+            },
+            {
+              "filename": "yuika-review-v2.html",
+              "additions": 446,
+              "deletions": 4,
+              "status": "modified"
+            }
+          ],
+          "checks": [
+            {
+              "name": "Workers Builds: yuika-study",
+              "status": "completed",
+              "conclusion": "failure",
+              "head_sha": "58c3fd4ba10ecfaa249cc3c808c3e8e5fcaf5359",
+              "completed_at": "2026-11-15T05:38:37Z",
+              "html_url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/132714281557"
+            }
+          ]
+        },
+        "ceo_decisions_ingested": 0
+      },
+      "final_pr_readback": {
+        "observed_at": "2026-11-15 06:20:22 UTC",
+        "pr": {
+          "number": 27,
+          "head": "69f77d671b66484b501f7a0f5c292bfa96a22273",
+          "base": "main",
+          "base_sha": "86514eda054a5a2e09204df3a0668e40624c16de",
+          "state": "open",
+          "draft": true,
+          "merged": false,
+          "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/27",
+          "updated_at": "2026-11-15T06:20:18Z",
+          "body_updated": true
+        },
+        "checks": [
+          {
+            "name": "Workers Builds: yuika-study",
+            "status": "completed",
+            "conclusion": "failure",
+            "head_sha": "69f77d671b66484b501f7a0f5c292bfa96a22273",
+            "completed_at": "2026-11-15T06:20:07Z",
+            "html_url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/132723386624"
+          }
+        ]
+      },
+      "external_private_data_calls": 0,
+      "production_actions": false,
+      "new_blockers": [],
+      "new_findings": [
+        "SCIENCE-UNIT-ENTRY-01"
+      ],
+      "environment_preparation": "Manual independent checkout and existing verified venv reuse. Preparation assert failure and supplemental probe activation failure were diagnosed; supplemental probe second attempt passed. No automatic snapshot handoff claim.",
+      "next_action": "朝夕CEOチェックへ既存候補の合成試用と今回の入口修正を提示。具体的フィードバック/新差分/実読され台帳反映されたCEO判断を待つ。PR10との将来統合時に同一候補を検証。新規製品PR枠を増やさない。",
+      "notification": "NO_UPDATE",
+      "authority_note": "No new CEO decision ingested; no real data, main merge, publication/manual deployment, real messages, billing, Secrets/permissions/sharing or automation changes.",
+      "completed_at": "2026-11-15T06:23:16.946362+00:00",
+      "lease_released_at": "2026-11-15T06:23:16.946362+00:00"
     }
   ],
   "operational_notes": [
@@ -11343,6 +11571,19 @@
         "after": "表示8問/実出題8問",
         "report": "ops/runs/2026-11-14-daily-science-count.md"
       }
+    },
+    {
+      "id": "SCIENCE-UNIT-ENTRY-01",
+      "status": "fixed_in_existing_draft_only",
+      "observed_at": "2026-11-15T06:21:50.916701+00:00",
+      "scope": "PR27 science unit summary fallback and stale total badge",
+      "finding": "未知unitの要約0/実5と旧47問tagを合成確認。実在unitだけ絞込み、全理科67問を明示。",
+      "baseline_head": "58c3fd4ba10ecfaa249cc3c808c3e8e5fcaf5359",
+      "head": "69f77d671b66484b501f7a0f5c292bfa96a22273",
+      "product_pr": 27,
+      "report": "ops/runs/2026-11-15-science-entry-consistency.md",
+      "verification": "独立必須23suite初回成功264秒、4入口probe成功。baseline全23suite成功だけでは境界不具合を検出しなかった。",
+      "next_action": "具体的な合成試用のフィードバックまたは新差分に対応。PR10の既存件数修正と重複実装しない。採用/公開未実施。"
     }
   ],
   "unreconciled_prs": [
@@ -11647,6 +11888,42 @@
         "result": "passed_static_ancestry_tree_and_evidence_review",
         "report": "ops/evidence/2026-11-12-pr26-merge/QA.md"
       }
+    },
+    {
+      "pr": 27,
+      "head": "69f77d671b66484b501f7a0f5c292bfa96a22273",
+      "observed_original_head": "58c3fd4ba10ecfaa249cc3c808c3e8e5fcaf5359",
+      "base_ref": "main",
+      "base_sha": "86514eda054a5a2e09204df3a0668e40624c16de",
+      "kind": "product",
+      "state": "open_draft",
+      "adopted": false,
+      "observed_at": "2026-11-15T06:21:50.916701+00:00",
+      "reconciliation_status": "external_draft_reconciled_scoped_entry_fix_independently_verified",
+      "comparison_report": "ops/runs/2026-11-15-science-entry-consistency.md",
+      "latest_report": "ops/runs/2026-11-15-science-entry-consistency.md",
+      "authorization_note": "正本CEO返答の新規実読なし。別経路の既存draftへ許可範囲の最小修正を保存した。新規製品PR/採用枠は追加せず、本運用の待ち10/11/12と外部候補22/27を併記。",
+      "independent_qa": {
+        "reviewer": "qa_theme_compatibility",
+        "commit": "69f77d671b66484b501f7a0f5c292bfa96a22273",
+        "suite_count": 23,
+        "passed": 23,
+        "exit_code": 0,
+        "seconds": 264,
+        "entry_probe_cases": 4,
+        "report": "ops/evidence/2026-11-15-science-entry-consistency/QA.md"
+      },
+      "external_checks": [
+        {
+          "name": "Workers Builds: yuika-study",
+          "status": "completed",
+          "conclusion": "failure",
+          "head_sha": "69f77d671b66484b501f7a0f5c292bfa96a22273",
+          "completed_at": "2026-11-15T06:20:07Z",
+          "html_url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/132723386624"
+        }
+      ],
+      "next_action": "合成試用と採用優先順位の判断を待つ。PR10と理科/ホーム集計が交差するため、統合判断時は両方を含む候補で検証。新CEO返答の台帳反映前に採用済みとしない。"
     }
   ]
 }

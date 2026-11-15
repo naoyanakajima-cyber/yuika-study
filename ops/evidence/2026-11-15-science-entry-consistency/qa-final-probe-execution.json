@@ -1,0 +1,25 @@
+{
+  "head": "69f77d671b66484b501f7a0f5c292bfa96a22273",
+  "attempt1": {
+    "exit": 1,
+    "phase": "browser launch before product navigation",
+    "cause": "Direct .venv/bin/python invocation omitted scripts/cloud/activate.sh; default Playwright browser path absent",
+    "evidence": "final-entry-attempt1.log"
+  },
+  "attempt2": {
+    "exit": 0,
+    "command": "source scripts/cloud/activate.sh && python /tmp/yuika-cycle30-qa/final-entry-probe.py",
+    "completed_at": "2026-11-15T06:15:25.024529+00:00",
+    "evidence": "final-entry-attempt2.log"
+  },
+  "cases": 4,
+  "browser_contexts": "fresh synthetic Chromium 768x1024",
+  "actual_post_requests": 0,
+  "external_get_attempts_aborted": 8,
+  "visual_inspection": [
+    "final-valid-home.png",
+    "final-unknown-home.png"
+  ],
+  "automatic_snapshot_handoff_claimed": false,
+  "main_comparison": "main4cases from original baseline probe; no repeated main probe on final"
+}
