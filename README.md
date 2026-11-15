@@ -250,3 +250,13 @@ Safari/WebKit・iPad実機の確認は含みません。
 回答は最終確定時に最初の答えと最終回答を一つの記録として保存します。選択肢が出たあとで中断した回答は未確定のため保存しません。図の当たり判定は最低50px（図の最小表示幅320px）で、キーボードでも選択できます。Safari/WebKit・実機iPadでの確認は別途必要です。
 
 検証は `bash scripts/check_all.sh`（`tests/medaka.py`を含む）。再生成は `python scripts/medaka/embed.py` → `python scripts/history/embed.py` → `python scripts/practice/embed.py` → `python scripts/practice/embed_science.py` → `python scripts/prototype/embed.py` → `python scripts/design/build_summary.py` → `python scripts/design/embed.py` → `python scripts/parent/embed.py` の順です。
+
+## 社会「江戸幕府の成立・幕藩体制・鎖国」
+
+`edo-review.html`。学習帳の社会一覧から開けます。年表10問・しくみ6問・外交6問の計22問です。文章はオリジナルで、肖像画・建物写真や教材の転載はありません。
+
+#28の2段階回答を再利用し、まず文字入力、まちがえたときだけ選択肢で再回答します。年代順は6つの記号を入力します。自力正解・選択肢正解・不正解と最初の回答を分けて保存し、選択肢正解は自力正解になるまで弱点・再確認に残ります。今日の5問とホームの件数も同じ復習判定を使います。1・3・7日の再確認間隔は既存の仮案です。
+
+保存キーは `yuika-prototype-v1:yuika-social-edo-v1`、問題IDは `edo-01〜22`、各問に概念ID・版番号・根拠/解説があります。既存単元のキー・問題・履歴は変更しません。このページには通知を接続していません。
+
+再生成は `python scripts/edo/build.py` → `python scripts/history/embed.py` → `python scripts/design/build_summary.py` → `python scripts/design/embed.py` → `python scripts/parent/embed.py`。専用テストは `python tests/edo.py`、全体テストは `bash scripts/check_all.sh` です。

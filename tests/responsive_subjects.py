@@ -38,11 +38,11 @@ with ThreadingHTTPServer(('127.0.0.1',0),partial(Quiet,directory=str(ROOT))) as 
       assert result['scroll']<=result['client'] and result['scroll']<=round(result['available']),(label,width,parent,gutter,result)
      if parent:expect(p.locator('#parent-check-banner')).to_be_visible()
     visit('index.html');p.locator('.unit-card').first.wait_for();fits('home')
-    all_names=p.locator('.unit-card .unit-name').all_text_contents();assert len(all_names)==19
+    all_names=p.locator('.unit-card .unit-name').all_text_contents();assert len(all_names)==20
     assert not any('社会・理科・算数・国語' in name for name in all_names)
     # Every embedded unit, its question and flash screen.
     for name in all_names:
-     if name.startswith('模試の弱点対策') or any(word in name for word in ('応仁の乱','鎌倉幕府の成立','貴族の世の中','顕微鏡の使い方','メダカの飼育・ひれ・成長')) or '溶解度' in name:continue
+     if name.startswith('模試の弱点対策') or any(word in name for word in ('応仁の乱','鎌倉幕府の成立','貴族の世の中','顕微鏡の使い方','メダカの飼育・ひれ・成長','江戸幕府の成立・幕藩体制・鎖国')) or '溶解度' in name:continue
      p.get_by_role('button',name=name,exact=False).click();fits(name)
      p.get_by_role('button',name='復習クイズ',exact=False).click();fits(name+' quiz')
      p.get_by_role('button',name='← 戻る',exact=True).click()
@@ -62,7 +62,7 @@ with ThreadingHTTPServer(('127.0.0.1',0),partial(Quiet,directory=str(ROOT))) as 
      fits(label+' focus');p.locator('#start').click();fits(label+' question')
      assert p.evaluate('run.qs.every(q=>q.subject===focusLabel)')
      visit('index.html');p.locator('.unit-card').first.wait_for()
-    for file in ('onin-review.html','kamakura-review.html','heian-review.html','yuika-review-v2.html','yuika-review-v2.html?unit=メダカの飼育・ひれ・成長','mock-focus-review.html'):
+    for file in ('edo-review.html','onin-review.html','kamakura-review.html','heian-review.html','yuika-review-v2.html','yuika-review-v2.html?unit=メダカの飼育・ひれ・成長','mock-focus-review.html'):
      visit(file);expect(p.locator('.unit-hero')).to_be_visible();fits(file)
      p.locator('#start').click();fits(file+' question')
      p.locator('.unit-footer a').click();fits(file+' parent notes')
@@ -141,4 +141,4 @@ with ThreadingHTTPServer(('127.0.0.1',0),partial(Quiet,directory=str(ROOT))) as 
    assert invalid_summary==mixed_summary and invalid_summary['total']==46
    assert p.evaluate('YuikaParent.storage.getItem(KEY)')==mixed_raw
   c.close();browser.close()
-print('responsive_subjects: all 19 units + questions/flash, 4 widths, parent banner, scrollbar gutters, subject boundaries and unchanged mixed histories PASS')
+print('responsive_subjects: all 20 units + questions/flash, 4 widths, parent banner, scrollbar gutters, subject boundaries and unchanged mixed histories PASS')
