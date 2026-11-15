@@ -43,7 +43,7 @@
     "acquired_at": "2026-11-15T11:03:26.112400+00:00",
     "expires_at": "2026-11-15T11:37:26.112400+00:00"
   },
-  "updated_at": "2026-11-15T11:03:26.112400+00:00",
+  "updated_at": "2026-11-15T11:05:03.669198+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -1418,7 +1418,15 @@
           "resolved_by": "b416d3c08a0d3952e5f0153fdc691d6fa0e492b7",
           "resolution": "Prior export expectation verified; 23 suites passed on c81; newly identified C6 contrast issue fixed and independently verified on b416d3c."
         }
-      ]
+      ],
+      "current_main_followup": {
+        "state": "in_progress",
+        "source_main": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
+        "starting_pr_head": "b416d3c08a0d3952e5f0153fdc691d6fa0e492b7",
+        "specification": "docs/product/theme-current-main-spec.md",
+        "engineer": "engineer_theme_compatibility",
+        "report": "ops/runs/2026-11-15-theme-current-main.md"
+      }
     },
     {
       "id": "CONTENT-CHAT-SPEC",
@@ -11997,10 +12005,13 @@
       "observed_main_commit": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
       "ticket": "THEME-MVP",
       "result": "in_progress",
-      "phase": "pdm_scope_review",
+      "phase": "implementation",
       "cloud_verified": true,
       "ceo_decisions_ingested": 0,
-      "subagents": [],
+      "subagents": [
+        "pdm_theme_compatibility",
+        "engineer_theme_compatibility"
+      ],
       "new_prs": [],
       "product_code_changed": false,
       "product_tests_run": false,
