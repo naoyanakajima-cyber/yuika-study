@@ -36,14 +36,8 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": {
-    "run_id": "cycle-20261115T080614Z",
-    "owner": "coordinator",
-    "ticket": "PR27-MAIN-RECONCILE",
-    "acquired_at": "2026-11-15T08:06:44.193955+00:00",
-    "expires_at": "2026-11-15T08:41:44.193955+00:00"
-  },
-  "updated_at": "2026-11-15T08:18:00.066735+00:00",
+  "lease": null,
+  "updated_at": "2026-11-15T08:29:45.865542+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -244,7 +238,7 @@
         "既存ID・保存キー・旧履歴を保護する",
         "768x1024で開始・回答・採点・保存・再読込を合成データで確認する"
       ],
-      "next_action": "既存PR10の73fe2eeを保持した独立候補でmain60d1a94との互換性追従を進める。recallの自力/選択肢判定、問題/旧履歴/親境界を維持し理科後に江戸も再生成。候補の全必須suiteと代表実UIを独立QAしてから既存draftへ保存。未完時は候補commitと残件を保存。採用/公開は別判断。",
+      "next_action": "既存draft PR10の6d01386を朝夕CEOチェックへ提示。器具8問の表示/出題一致と、選択肢正解の苦手復習維持を合成試用で確認し、REV-MVPを添えて元チャットへ具体的フィードバック。新差分なしの反復QAはしない。独立してCONTENT-MVPの現main互換性を次回照合。公開未承認。",
       "evidence": [
         {
           "kind": "test",
@@ -382,28 +376,35 @@
           "required_suites_passed": 26,
           "independent_ui_unique_cases": 7,
           "independent_selection_cases": 16
+        },
+        {
+          "kind": "current_main_compatibility",
+          "path": "ops/runs/2026-11-15-review-main-compatibility.md",
+          "commit": "6d01386dba0bb3cdafa7e8f431a6a17bc81e913f",
+          "required_suites_passed": 29,
+          "seconds": 349,
+          "independent_ui_unique_cases": 7,
+          "external_check": "Workers Builds: yuika-study failure; separate from local QA"
         }
       ],
       "review": {
-        "pdm": "pdm_daily_residual",
+        "pdm": "pdm_theme_compatibility",
         "prm": "root/coordinator",
-        "author": "engineer_daily_residual",
-        "reviewer": "qa_daily_residual",
-        "commit": "73fe2ee9d776b3e3360614752fb722ff4aee4f85",
-        "result": "passed_science_daily_count_and_home_label",
-        "completed_at": "2026-11-14T21:13:54.013743+00:00",
-        "required_suites": 26,
+        "author": "engineer_theme_compatibility",
+        "reviewer": "qa_theme_compatibility",
+        "commit": "6d01386dba0bb3cdafa7e8f431a6a17bc81e913f",
+        "result": "passed_current_main_recall_and_daily_count_compatibility",
+        "completed_at": "2026-11-15T08:26:18.119691+00:00",
+        "required_suites": 29,
         "exit_code": 0,
-        "seconds": 310,
+        "seconds": 349,
         "independent_ui_unique_cases": 7,
-        "independent_boundary_cases": 5,
-        "independent_selection_cases": 16,
-        "report": "ops/evidence/2026-11-14-daily-science-count/QA.md"
+        "report": "ops/evidence/2026-11-15-review-main-compatibility/QA-candidate.md"
       },
       "base_ref": "main",
-      "base_sha": "86514eda054a5a2e09204df3a0668e40624c16de",
+      "base_sha": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
       "specification": "docs/product/review-spec.md",
-      "commit": "73fe2ee9d776b3e3360614752fb722ff4aee4f85",
+      "commit": "6d01386dba0bb3cdafa7e8f431a6a17bc81e913f",
       "direction_adopted": true,
       "direction_decision": "D03",
       "release": {
@@ -441,8 +442,8 @@
         "blocker": "このセッションに共有Chrome操作ツールなし。共有クラウドでCEOが直接操作する引き渡しは未完了。",
         "unblock": "正規の共有クラウドブラウザー操作機能を利用できるタスクで合成専用loopback試用を開く。",
         "blocks_discoverability_improvement": false,
-        "latest_synthetic_qa_commit": "ba829a1176ff1ead7d312526890afe8792178c99",
-        "latest_cloud_artifacts": "/workspace/work/rev-entry-qa-20261110/"
+        "latest_synthetic_qa_commit": "6d01386dba0bb3cdafa7e8f431a6a17bc81e913f",
+        "latest_cloud_artifacts": "ops/evidence/2026-11-15-review-main-compatibility/candidate-qa"
       },
       "review_history": [
         {
@@ -493,9 +494,25 @@
           "independent_ui_unique_cases": 8,
           "independent_selection_cases": 18,
           "report": "ops/evidence/2026-11-14-daily-count-fix/QA.md"
+        },
+        {
+          "pdm": "pdm_daily_residual",
+          "prm": "root/coordinator",
+          "author": "engineer_daily_residual",
+          "reviewer": "qa_daily_residual",
+          "commit": "73fe2ee9d776b3e3360614752fb722ff4aee4f85",
+          "result": "passed_science_daily_count_and_home_label",
+          "completed_at": "2026-11-14T21:13:54.013743+00:00",
+          "required_suites": 26,
+          "exit_code": 0,
+          "seconds": 310,
+          "independent_ui_unique_cases": 7,
+          "independent_boundary_cases": 5,
+          "independent_selection_cases": 16,
+          "report": "ops/evidence/2026-11-14-daily-science-count/QA.md"
         }
       ],
-      "ceo_wait_reason": "理由付きおすすめと5学習画面の日次実問数・トップ名称を整合したdraft試作品確認待ち。D03方向性採用済み、mainマージ・公開は未承認。",
+      "ceo_wait_reason": "理由付きおすすめと6学習画面の日次実問数、新mainのrecall/旧履歴保持を整合したdraft試作品確認待ち。D03方向性採用済み、mainマージ・公開は未承認。",
       "independent_followup": {
         "id": "daily_science_count",
         "state": "independent_qa_passed",
@@ -565,7 +582,7 @@
         }
       ],
       "compatibility_followup": {
-        "state": "in_progress",
+        "state": "independent_qa_passed",
         "source_main": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
         "starting_pr_head": "73fe2ee9d776b3e3360614752fb722ff4aee4f85",
         "work_branch": "codex/review-main-compat-20261115",
@@ -573,7 +590,10 @@
         "engineer": "engineer_theme_compatibility",
         "reviewer": "qa_theme_compatibility",
         "report": "ops/runs/2026-11-15-review-main-compatibility.md",
-        "scope": "現mainの新教材/recall履歴を保持し既存PR10の理由付き復習/実問数表示を同期。未検証候補を既存PRへ反映しない。"
+        "scope": "現在mainの新教材/recall履歴を保持し既存PR10の理由付き復習/実問数表示を同期。固定候補の独立QA後に通常push。",
+        "commit": "6d01386dba0bb3cdafa7e8f431a6a17bc81e913f",
+        "delivered": true,
+        "updated_pr": 10
       }
     },
     {
@@ -657,7 +677,7 @@
         "未確認出力と確認済み案を区別し、既存教材/記録に接続しない",
         "768x1024で編集・確認・取消・出力/再入力、外部要求/通知POST 0を検証"
       ],
-      "next_action": "既存PR11 ee51e68の合成教材確認・保存しない試し解きを朝夕CEOチェックへ提示。推奨は確認→短答/選択→採点→終了と、開始不可時の修正先案内が分かるかを確認し、CONTENT-MVPを添えて元チャットへ具体的フィードバック。テーマのmain互換性照合・修正はPR12 b416d3cで独立QA済みのため再着手しない。新差分・具体的再現がなければ同じQA/環境調査を反復せず終了。D02実接続/保存先・merge/公開は未承認。",
+      "next_action": "次cycleは既存PR11 ee51e68と最新mainを固定比較し、main60d1a94以降の新ページ/親モード/履歴形式を教材案の確認・保存しない試し解きが損なわないかPdM→PrMで限定する。既存PR内の独立候補1件だけを実装・QAし、新規製品PRを増やさない。私的教材接続/保存先D02と公開は未承認。",
       "evidence": [
         {
           "kind": "test",
@@ -1062,7 +1082,7 @@
         "切替前後の問題・採点・既存履歴が同一",
         "768x1024で可読性と主要操作を確認する"
       ],
-      "next_action": "既存PR12 b416d3cを合成試用候補として朝夕CEOチェックへ提示。推奨は標準/鎌倉の見やすさ・途中切替・標準復帰を本人が確認し、THEME-MVPを添えて元チャットへ具体的フィードバック。実際の返答が台帳へ記録されるまで採用/merge/公開承認としない。製品3枠10/11/12はCEO待ち。新たな差分・具体的再現がなければ同じQAや環境調査を反復せず終了。",
+      "next_action": "既存PR12 b416d3cの標準/鎌倉テーマ試用はCEO判断待ち。後続で今回更新main60d1a94との限定互換性を照合し、共有runtimeのrecall判定と新必須suiteを失わない。既存23suite成功は旧基点の証拠として保持し、現在mainとの統合成功とはしない。全画面テーマ拡張・公開は未承認。",
       "evidence": [
         {
           "kind": "test",
@@ -11497,7 +11517,7 @@
       "observed_operations_commit": "b35eef2afd401915b483bab27ea20c34fbbce781",
       "observed_main_commit": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
       "ticket": "REV-MVP",
-      "result": "in_progress",
+      "result": "completed_existing_draft_pr10_main_compatibility",
       "cloud_verified": true,
       "ceo_decisions_ingested": 0,
       "subagents": [
@@ -11505,7 +11525,7 @@
         "engineer_theme_compatibility",
         "qa_theme_compatibility"
       ],
-      "product_code_changed": false,
+      "product_code_changed": true,
       "product_tests_run": true,
       "new_prs": [],
       "ceo_wait_product_prs": [
@@ -11516,7 +11536,7 @@
       "additional_existing_product_drafts": [
         22
       ],
-      "phase": "candidate_implementation_after_main_reconciliation",
+      "phase": "saved_and_lease_released",
       "report": "ops/runs/2026-11-15-review-main-compatibility.md",
       "observations": {
         "observed_at": "2026-11-15 08:07:58 UTC",
@@ -11670,7 +11690,56 @@
         "seconds": 308,
         "probe_contexts": 4
       },
-      "next_action": "既存PR10の73fe2eeを保持した独立候補でmain60d1a94との互換性追従を進める。recallの自力/選択肢判定、問題/旧履歴/親境界を維持し理科後に江戸も再生成。候補の全必須suiteと代表実UIを独立QAしてから既存draftへ保存。未完時は候補commitと残件を保存。採用/公開は別判断。"
+      "next_action": "次cycleは既存PR11 ee51e68と最新mainを固定比較し、main60d1a94以降の新ページ/親モード/履歴形式を教材案の確認・保存しない試し解きが損なわないかPdM→PrMで限定する。既存PR内の独立候補1件だけを実装・QAし、新規製品PRを増やさない。私的教材接続/保存先D02と公開は未承認。",
+      "updated_prs": [
+        10
+      ],
+      "completed_at": "2026-11-15T08:29:45.865542+00:00",
+      "candidate_commit": "6d01386dba0bb3cdafa7e8f431a6a17bc81e913f",
+      "candidate_review": {
+        "pdm": "pdm_theme_compatibility",
+        "prm": "root/coordinator",
+        "author": "engineer_theme_compatibility",
+        "reviewer": "qa_theme_compatibility",
+        "commit": "6d01386dba0bb3cdafa7e8f431a6a17bc81e913f",
+        "result": "passed_current_main_recall_and_daily_count_compatibility",
+        "completed_at": "2026-11-15T08:26:18.119691+00:00",
+        "required_suites": 29,
+        "exit_code": 0,
+        "seconds": 349,
+        "independent_ui_unique_cases": 7,
+        "report": "ops/evidence/2026-11-15-review-main-compatibility/QA-candidate.md"
+      },
+      "delivery": {
+        "observed_at": "2026-11-15 08:28:28 UTC",
+        "pr": {
+          "number": 10,
+          "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/10",
+          "head_sha": "6d01386dba0bb3cdafa7e8f431a6a17bc81e913f",
+          "state": "open",
+          "draft": true,
+          "merged": false
+        },
+        "checks": [
+          {
+            "name": "Workers Builds: yuika-study",
+            "status": "completed",
+            "conclusion": "failure",
+            "head_sha": "6d01386dba0bb3cdafa7e8f431a6a17bc81e913f",
+            "completed_at": "2026-11-15T08:27:48Z",
+            "html_url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/132752305706"
+          }
+        ],
+        "combined_status": {
+          "state": "pending",
+          "total_count": 0
+        },
+        "manual_rerun": false,
+        "live_page_verified": false,
+        "reason": "check output supplied no actionable failure detail"
+      },
+      "external_check_failure_observed": true,
+      "live_site_verified": false
     }
   ],
   "operational_notes": [
@@ -11698,10 +11767,20 @@
       "report": "ops/runs/2026-11-10-approval-check-0403.md",
       "next_action": "No redeploy or configuration changes. Obtain relevant build log through an authorized read-only connection or supplied evidence before further diagnosis. Preserve existing cloud test evidence separately.",
       "latest_observation": {
-        "observed_at": "2026-11-14T18:20:00.423005+00:00",
-        "head": "f1e84a7b998dfbcd71c6692974015bdd08e1877e",
-        "finding": "Workers Builds: yuika-study completed failure at2026-11-14T17:24:11Z。前回ローカル24suite成功とは別。原因ログ未取得・公開未確認・再デプロイなし。",
-        "source": "https://github.com/naoyanakajima-cyber/yuika-study/runs/132526156264"
+        "at": "2026-11-15 08:28:28 UTC",
+        "commit": "6d01386dba0bb3cdafa7e8f431a6a17bc81e913f",
+        "pr": 10,
+        "check": {
+          "name": "Workers Builds: yuika-study",
+          "status": "completed",
+          "conclusion": "failure",
+          "head_sha": "6d01386dba0bb3cdafa7e8f431a6a17bc81e913f",
+          "completed_at": "2026-11-15T08:27:48Z",
+          "html_url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/132752305706"
+        },
+        "cause": "取得したcheck情報に原因詳細なし。過去の別HEADの失敗と同一原因とは断定しない。",
+        "local_required_suites": "29/29 passed,349s",
+        "action": "再実行/設定変更/手動deployなし。朝夕チェックへ集約。"
       }
     },
     {

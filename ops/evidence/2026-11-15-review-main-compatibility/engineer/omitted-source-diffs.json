@@ -1,0 +1,24 @@
+[
+  {
+    "file": "candidate-main.diff",
+    "sha256": "50c6d502ee40c98df93dd5fd9e532949b7538318562aa416d8557310234b6f47",
+    "regenerate": [
+      "git",
+      "diff",
+      "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
+      "6d01386dba0bb3cdafa7e8f431a6a17bc81e913f"
+    ],
+    "reason": "Duplicate source diff omitted from public evidence; patch blank context lines trigger staged whitespace checking. Source commits and other evidence retained unchanged."
+  },
+  {
+    "file": "candidate-pr10.diff",
+    "sha256": "2906be03d6e9430c30b43b4385bc321231cd254b6b39075dd10dd1d964309b10",
+    "regenerate": [
+      "git",
+      "diff",
+      "73fe2ee9d776b3e3360614752fb722ff4aee4f85",
+      "6d01386dba0bb3cdafa7e8f431a6a17bc81e913f"
+    ],
+    "reason": "Duplicate source diff omitted from public evidence; patch blank context lines trigger staged whitespace checking. Source commits and other evidence retained unchanged."
+  }
+]

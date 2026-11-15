@@ -1,0 +1,6 @@
+{
+  "head": "6d01386dba0bb3cdafa7e8f431a6a17bc81e913f",
+  "status": "",
+  "at": "2026-11-15T08:20:29.379851+00:00",
+  "preparation": "existing manually reused verified venv; matching requirements; standard scripts/cloud/activate.sh; not automatic handoff"
+}
