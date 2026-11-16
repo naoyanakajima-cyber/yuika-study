@@ -36,8 +36,15 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": null,
-  "updated_at": "2026-11-16T16:10:27.988165+00:00",
+  "lease": {
+    "run_id": "cycle-20261116T170501Z",
+    "owner": "coordinator",
+    "ticket": "THEME-MVP",
+    "scope": "no_change_reconciliation",
+    "acquired_at": "2026-11-16T17:05:44.634494+00:00",
+    "expires_at": "2026-11-16T17:35:44.634494+00:00"
+  },
+  "updated_at": "2026-11-16T17:05:44.634494+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
