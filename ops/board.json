@@ -36,8 +36,13 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": null,
-  "updated_at": "2026-11-18T20:07:17.222670+00:00",
+  "lease": {
+    "run_id": "cycle-20261118T210639Z",
+    "acquired_at": "2026-11-18T21:06:39.367588+00:00",
+    "expires_at": "2026-11-18T21:41:39.367588+00:00",
+    "ticket": "state-reconciliation"
+  },
+  "updated_at": "2026-11-18T21:06:39.367588+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -14493,6 +14498,15 @@
         "operations_pr9_head": "9cb863b01ac849a7d8456d9fbe8139a14baed8da"
       },
       "note": "指定4文書を同一最新commitで取得。全12チケットと全open PRを照合。main・製品HEAD・チェックに変更なしを新規API読取で確認し、重複証拠は既存run参照で記録。既存の仕様・独立QA証拠を保持し今回の実施とは扱わない。新しい製品作業や反復QAを開始せず終了。旧PR4–8・運用PRは上限から除外。外部PR22は別管理。前回保存から今回までの未観測の定時実行成否は推測しない。"
+    },
+    {
+      "id": "cycle-20261118T210639Z",
+      "started_at": "2026-11-18T21:06:39.367588+00:00",
+      "observed_operations_commit": "060b34868f6e9e34a87d9ad98202d29f2177678b",
+      "observed_main_commit": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
+      "scope": "no_change_reconciliation",
+      "phase": "reconciling",
+      "cloud_verified": true
     }
   ],
   "operational_notes": [
