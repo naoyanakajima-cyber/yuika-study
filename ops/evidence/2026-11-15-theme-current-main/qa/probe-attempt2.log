@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/tmp/yuika-cycle35-qa/theme-probe.py", line 82, in <module>
+    p.locator('#theme-kamakura').focus();focus=p.locator('#theme-kamakura').evaluate('e=>({color:getComputedStyle(e).outlineColor,bg:getComputedStyle(document.body).backgroundColor,offset:parseFloat(getComputedStyle(e).outlineOffset)})');focus['contrast']=contrast(focus['color'],focus['bg']);assert focus['contrast']>=3 and focus['offset']>=3
+                                                                                                                                                                                                                                                                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

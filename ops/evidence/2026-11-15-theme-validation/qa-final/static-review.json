@@ -1,0 +1,23 @@
+{
+  "at": "2026-11-15T01:15:03.227448+00:00",
+  "head": "b416d3c08a0d3952e5f0153fdc691d6fa0e492b7",
+  "status": "",
+  "c81_changed_files": [
+    "README.md",
+    "docs/product/theme-spec.md",
+    "kamakura-review.html",
+    "tests/theme_review.py"
+  ],
+  "html_only_two_css_lines_added": true,
+  "new_test_only_additions": true,
+  "main_embedded_script_count": 4,
+  "main_embedded_scripts_preserved": true,
+  "diagram_tree_and_DOM_source_unchanged": true,
+  "prior_same_c81_static_boundary_preserved_by_two_line_only_change": true,
+  "file_hashes": {
+    "README.md": "277947b59cb1baef82ae6959d67f669e4bb5bac25f4f07fff694a2a82a885424",
+    "docs/product/theme-spec.md": "39491c64bf6f0d2dbbee108eac48ba65b4fb2d10fd24ccb9324ed2759eab25a4",
+    "kamakura-review.html": "43909d52149330fcae9224f25136a57834802cc63c8ce7ef1e06a36572c1ae31",
+    "tests/theme_review.py": "f22b7bbdb01e2cf394dedb99ac038a0b3da7cdbc3d736dbb65f376a2f019c58e"
+  }
+}

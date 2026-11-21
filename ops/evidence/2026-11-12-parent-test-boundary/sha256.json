@@ -1,0 +1,15 @@
+{
+  "ops/evidence/2026-11-12-parent-test-boundary/parent-mode-fixture.patch": "c7136c24ce4f8be54ab30bf0fc3c2a68c68704c89b609209d08a624bc8117dc0",
+  "ops/evidence/2026-11-12-parent-test-boundary/PdM.md": "b9907cf37b7c3a3a320548b8b1f12cf202e22250d3e7390f0583f0d1ce6dab95",
+  "ops/evidence/2026-11-12-parent-test-boundary/QA-diagnosis.md": "bcc257e83c89db0052e823b2b34816eb3cf609cb9e2231b99359afb93a3d199f",
+  "ops/evidence/2026-11-12-parent-test-boundary/candidate-check-all.log": "e285b74f1e36290c123d4629ba745f4af8d45955f82c546456fd78d2880a45df",
+  "ops/evidence/2026-11-12-parent-test-boundary/boundary-attempt2.log": "2b79af9b16234ef88b1b7fa9fcfaf86d70ba45572cd4ca431939ae3a02eeab16",
+  "ops/evidence/2026-11-12-parent-test-boundary/observation.json": "c5de7f073dad3515064c6804b6dc33a4fba75ff34eaff95c911c8aa4af900c7c",
+  "ops/evidence/2026-11-12-parent-test-boundary/QA-candidate.md": "2cf9b16d9d449f167c1a6f2243d0a439c588a5b4f9f41767a479e262c6bbcb4a",
+  "ops/evidence/2026-11-12-parent-test-boundary/boundary-results.json": "c0ac440701e0c3af7936758de997a2c09c89284bd8db9258c726454d0823bf15",
+  "ops/evidence/2026-11-12-parent-test-boundary/boundary.log": "41464f79398655c926a30725c0b4b99e1aa31ec06e9b82ec8425ad83e9ca4603",
+  "ops/evidence/2026-11-12-parent-test-boundary/Engineer.md": "a62cd3150fc65c0fc5ea0dcbb0466b9dd0f025cdc75444441818f3a27e19b1db",
+  "ops/evidence/2026-11-12-parent-test-boundary/boundary_probe.py": "08caf04c6601f30ef6af96b15b9e7a2e5b03d74e14fdce97105e590a0ae6c0ef",
+  "ops/evidence/2026-11-12-parent-test-boundary/candidate-test-results.json": "38c460e1210aabe428037b45921038ada0da84cc07ab263acdb3a990f21c5ab9",
+  "ops/evidence/2026-11-12-parent-test-boundary/engineer-parent-mode.log": "670849ab7ec498a6198437a7606c6a21d375562750323e10fc42c3f1210db5dc"
+}

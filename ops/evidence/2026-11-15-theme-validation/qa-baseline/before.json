@@ -1,0 +1,7 @@
+{
+  "head": "c81fb6b3a7e9c5c6c5d42431afe1d13a73c780d3",
+  "status": "",
+  "at": "2026-11-15T01:05:55.806551+00:00",
+  "executor": "qa_theme_compatibility",
+  "dependency_preparation": "verified existing venv manually reused; automatic handoff not claimed"
+}

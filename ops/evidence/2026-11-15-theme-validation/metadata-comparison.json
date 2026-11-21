@@ -1,0 +1,72 @@
+{
+  "observed_at": "2026-11-15T01:25:12.291684+00:00",
+  "baseline": "6bd73af6ea92623f51d99d20b977857fa9369cd5",
+  "old_run_count": 134,
+  "new_run_count": 135,
+  "old_runs_preserved": true,
+  "other_11_tickets_preserved": true,
+  "changed_top_keys": [
+    "lease",
+    "updated_at",
+    "tickets",
+    "runs"
+  ],
+  "preserved_authorization_policy_decisions": true,
+  "old_review_history_preserved": true,
+  "old_evidence_prefix_preserved": true,
+  "manifests": {
+    "SHA256SUMS": {
+      "count": 46,
+      "mismatch": []
+    },
+    "engineer-fix/SHA256SUMS": {
+      "count": 4,
+      "mismatch": []
+    },
+    "qa-final/SHA256SUMS": {
+      "count": 13,
+      "mismatch": []
+    },
+    "qa-baseline/SHA256SUMS": {
+      "count": 15,
+      "mismatch": []
+    }
+  },
+  "QA_copies_identical": true,
+  "baseline_QA_copies_identical": true,
+  "pr_comparisons": {
+    "9": {
+      "differences": []
+    },
+    "12": {
+      "differences": []
+    }
+  },
+  "external_checks_final_snapshot": [
+    {
+      "name": "Workers Builds: yuika-study",
+      "head_sha": "b416d3c08a0d3952e5f0153fdc691d6fa0e492b7",
+      "status": "completed",
+      "conclusion": "failure",
+      "completed_at": "2026-11-15T01:21:45Z",
+      "html_url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/132655374833"
+    }
+  ],
+  "external_check_in_board": [
+    {
+      "head": "b416d3c08a0d3952e5f0153fdc691d6fa0e492b7",
+      "name": "Workers Builds: yuika-study",
+      "conclusion": "failure",
+      "completed_at": "2026-11-15T01:21:45Z",
+      "url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/132655374833",
+      "action": "observed only; no rerun/deploy"
+    }
+  ],
+  "final_review_at": "2026-11-15T01:25:48.831087+00:00",
+  "resolved_findings": {
+    "old_scoped_time_labeled_prior_with_c81_commit": true,
+    "scope_review_includes_C2_two_box_exception": "Initially resume fixed candidate C1-C8/T1-T11 validation; after independent C6 finding, PdM/PrM explicitly accepted a C2 exception limited to the two diagram box backgrounds in both themes, retaining C6 contrast threshold and all other boundaries."
+  },
+  "old_runs_preserved_after_corrections": true,
+  "post_review_coordinator_actions": "Final operations commit/push, completed_at, remote lease release, PR9 final HEAD not covered"
+}

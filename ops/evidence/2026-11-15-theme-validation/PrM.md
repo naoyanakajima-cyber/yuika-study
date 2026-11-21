@@ -1,0 +1,9 @@
+# cycle25 PrM範囲確認
+
+root/coordinator。既存C1〜C8/T1〜T11を維持するPdM提案を受入。対象は保存済みc81fb6b3a7e9c5c6c5d42431afe1d13a73c780d3の必須23suiteと未完の独立QA。新仕様・新機能・新PRなし。保存済み期待値をEngineerが読み取り照合し、実装者と別のqa_theme_compatibilityが固定clean候補を検証する。現時点で製品受入成功を主張しない。
+
+運用leaseを通常push後に3名を実際に起動。新CEO返答0。旧停止中自律更新は変更しない。実回答/教材写真/メール/Driveの取得なし。本番merge/公開/実通知/課金/Secrets・権限・共有変更なし。
+
+独立checkout /workspace/yuika-theme-validation-20261115、requirements-dev.txt一致を確認した既存venvを手動再利用。自動snapshot引継ぎ成功とは扱わない。
+
+追加範囲確認：独立QAで見つかった模式図2枠の低contrastについてPdM補足を採択。C6を維持しC2へこの2枠だけ限定例外を明記。現HEAD検証終了後、別checkoutで両テーマの背景色のみCSS修正し、回帰検査と新HEAD独立QAを行う。新規PRなし。

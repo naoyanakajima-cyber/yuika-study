@@ -1,0 +1,59 @@
+[
+  {
+    "case": "read_denied_normal",
+    "result": "pass",
+    "answered": 5,
+    "child_raw_preserved": true,
+    "pageerrors": 0,
+    "external_requests": 0
+  },
+  {
+    "case": "read_denied_parent",
+    "result": "pass",
+    "answered": 5,
+    "child_raw_preserved": true,
+    "pageerrors": 0,
+    "external_requests": 0
+  },
+  {
+    "case": "write_denied_parent",
+    "result": "pass",
+    "answered": 5,
+    "child_raw_preserved": true,
+    "pageerrors": 0,
+    "external_requests": 0
+  },
+  {
+    "case": "recovered_reload_read_normal",
+    "result": "pass",
+    "parent_retained": true
+  },
+  {
+    "case": "recovered_reload_read_parent",
+    "result": "pass",
+    "parent_retained": true
+  },
+  {
+    "case": "recovered_reload_write_parent",
+    "result": "pass",
+    "parent_retained": true
+  },
+  {
+    "case": "rollback_succeeds",
+    "result": "pass",
+    "backup_original_bytes": true,
+    "false_success": false
+  },
+  {
+    "case": "rollback_fails",
+    "result": "pass",
+    "backup_original_bytes": true,
+    "false_success": false
+  },
+  {
+    "case": "rollback_concurrent",
+    "result": "pass",
+    "backup_original_bytes": true,
+    "false_success": false
+  }
+]

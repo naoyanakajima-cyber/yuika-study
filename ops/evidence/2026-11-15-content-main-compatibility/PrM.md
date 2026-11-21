@@ -1,0 +1,9 @@
+# PrM scope acceptance
+
+2026-11-15 cycle33。lease214df00を通常push後にPdMを実起動、7条件を確認して既存CONTENT-MVPの限定互換候補1件を採択。実装者engineer_content_trial_deliveryと別QAを使用する。独立checkoutは/workspace/yuika-content-main-compat-20261115、旧PR11 ee51e68とmain60d1a94を固定。生成元の意味変更は不要、競合接点と既存両系列の保持を優先する。全29見込suiteと限定合成probeを候補で実施し、通過前に既存PRへpushしない。製品枠10/11/12維持。新CEO返答実読0、main merge/公開/実通知/実資料/設定変更なし。終了期限09:37:32UTC。
+
+初回fetchはremote.origin.fetchがmain限定のため古いremote-tracking refを表示した。ls-remoteとGitHub ref APIで実remote c1fa98c一致を確認し、明示refspecでtrackingを更新、実最新commitの4正本文書/boardを読み直してからlease取得。正本branchが巻き戻った事実はなく、古いローカル参照から台帳を更新していない。
+
+QA準備時の補足：未知経路拒否はserveの404、未知学習HTMLは親preflightの保護必須境界として検証する。embedが未知HTMLへ既存保護を埋め込む仕様は維持し、未知HTML自体を拒否する新仕様は追加しない。改変contentの固定hash拒否と書込前検査は維持。
+
+次回改善案として、読める合成画像の照合→明示確認→試し解き成功経路のPdM提案を保存する。画像/assetの信頼済み対応と固定hash再レビューが必要なため、本cycleの互換性候補へ追加しない。次回PrMで最新状態と受入範囲を採択してから実装する。CEOの新承認や実画像利用承認を含まない。

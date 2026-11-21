@@ -1,0 +1,480 @@
+[
+  {
+    "entry": "onin-review.html",
+    "config": {
+      "count": 10,
+      "course": "all",
+      "unit": "all",
+      "variant": "normal"
+    },
+    "summary": {
+      "correct": 1,
+      "total": 30,
+      "due": 1,
+      "dueCount": 1,
+      "weakCount": 3,
+      "normalCount": 6,
+      "unavailable": false
+    },
+    "actual": {
+      "dueCount": 1,
+      "weakCount": 3,
+      "normalCount": 6
+    },
+    "total": 10,
+    "button": "今日の5問をはじめる（今回は10問）",
+    "started": 10
+  },
+  {
+    "entry": "onin-review.html",
+    "config": {
+      "count": 10,
+      "course": "d1",
+      "unit": "応仁の乱",
+      "variant": "normal"
+    },
+    "summary": {
+      "correct": 1,
+      "total": 30,
+      "due": 1,
+      "dueCount": 1,
+      "weakCount": 1,
+      "normalCount": 0,
+      "unavailable": false
+    },
+    "actual": {
+      "dueCount": 1,
+      "weakCount": 1,
+      "normalCount": 0
+    },
+    "total": 2,
+    "button": "今日の5問をはじめる（今回は10問）",
+    "started": 2
+  },
+  {
+    "entry": "onin-review.html",
+    "config": {
+      "count": 15,
+      "course": "all",
+      "unit": "all",
+      "variant": "kanji"
+    },
+    "summary": {
+      "correct": 1,
+      "total": 30,
+      "due": 0,
+      "dueCount": 0,
+      "weakCount": 0,
+      "normalCount": 15,
+      "unavailable": false
+    },
+    "actual": {
+      "dueCount": 0,
+      "weakCount": 0,
+      "normalCount": 15
+    },
+    "total": 15,
+    "button": "今日の5問をはじめる（今回は15問）",
+    "started": 15
+  },
+  {
+    "entry": "onin-review.html",
+    "config": {
+      "count": 5,
+      "course": "all",
+      "unit": "all",
+      "variant": "yomi"
+    },
+    "summary": {
+      "correct": 1,
+      "total": 30,
+      "due": 0,
+      "dueCount": 0,
+      "weakCount": 0,
+      "normalCount": 5,
+      "unavailable": false
+    },
+    "actual": {
+      "dueCount": 0,
+      "weakCount": 0,
+      "normalCount": 5
+    },
+    "total": 5,
+    "button": "今日の5問をはじめる（今回は5問）",
+    "started": 5
+  },
+  {
+    "entry": "kamakura-review.html",
+    "config": {
+      "count": 10,
+      "course": "all",
+      "unit": "all",
+      "variant": "normal"
+    },
+    "summary": {
+      "correct": 1,
+      "total": 38,
+      "due": 1,
+      "dueCount": 1,
+      "weakCount": 3,
+      "normalCount": 6,
+      "unavailable": false
+    },
+    "actual": {
+      "dueCount": 1,
+      "weakCount": 3,
+      "normalCount": 6
+    },
+    "total": 10,
+    "button": "今日の5問をはじめる（今回は10問）",
+    "started": 10
+  },
+  {
+    "entry": "kamakura-review.html",
+    "config": {
+      "count": 10,
+      "course": "d1",
+      "unit": "平氏",
+      "variant": "normal"
+    },
+    "summary": {
+      "correct": 1,
+      "total": 38,
+      "due": 1,
+      "dueCount": 1,
+      "weakCount": 1,
+      "normalCount": 1,
+      "unavailable": false
+    },
+    "actual": {
+      "dueCount": 1,
+      "weakCount": 1,
+      "normalCount": 1
+    },
+    "total": 3,
+    "button": "今日の5問をはじめる（今回は10問）",
+    "started": 3
+  },
+  {
+    "entry": "kamakura-review.html",
+    "config": {
+      "count": 15,
+      "course": "all",
+      "unit": "all",
+      "variant": "kanji"
+    },
+    "summary": {
+      "correct": 1,
+      "total": 38,
+      "due": 0,
+      "dueCount": 0,
+      "weakCount": 0,
+      "normalCount": 15,
+      "unavailable": false
+    },
+    "actual": {
+      "dueCount": 0,
+      "weakCount": 0,
+      "normalCount": 15
+    },
+    "total": 15,
+    "button": "今日の5問をはじめる（今回は15問）",
+    "started": 15
+  },
+  {
+    "entry": "kamakura-review.html",
+    "config": {
+      "count": 5,
+      "course": "all",
+      "unit": "all",
+      "variant": "yomi"
+    },
+    "summary": {
+      "correct": 1,
+      "total": 38,
+      "due": 0,
+      "dueCount": 0,
+      "weakCount": 0,
+      "normalCount": 5,
+      "unavailable": false
+    },
+    "actual": {
+      "dueCount": 0,
+      "weakCount": 0,
+      "normalCount": 5
+    },
+    "total": 5,
+    "button": "今日の5問をはじめる（今回は5問）",
+    "started": 5
+  },
+  {
+    "entry": "heian-review.html",
+    "config": {
+      "count": 10,
+      "course": "all",
+      "unit": "all",
+      "variant": "normal"
+    },
+    "summary": {
+      "correct": 1,
+      "total": 75,
+      "due": 1,
+      "dueCount": 1,
+      "weakCount": 3,
+      "normalCount": 6,
+      "unavailable": false
+    },
+    "actual": {
+      "dueCount": 1,
+      "weakCount": 3,
+      "normalCount": 6
+    },
+    "total": 10,
+    "button": "今日の5問をはじめる（今回は10問）",
+    "started": 10
+  },
+  {
+    "entry": "heian-review.html",
+    "config": {
+      "count": 10,
+      "course": "memory",
+      "unit": "藤原氏と政治",
+      "variant": "normal"
+    },
+    "summary": {
+      "correct": 1,
+      "total": 75,
+      "due": 1,
+      "dueCount": 1,
+      "weakCount": 3,
+      "normalCount": 6,
+      "unavailable": false
+    },
+    "actual": {
+      "dueCount": 1,
+      "weakCount": 3,
+      "normalCount": 6
+    },
+    "total": 10,
+    "button": "今日の5問をはじめる（今回は10問）",
+    "started": 10
+  },
+  {
+    "entry": "heian-review.html",
+    "config": {
+      "count": 15,
+      "course": "all",
+      "unit": "all",
+      "variant": "kanji"
+    },
+    "summary": {
+      "correct": 1,
+      "total": 75,
+      "due": 0,
+      "dueCount": 0,
+      "weakCount": 0,
+      "normalCount": 15,
+      "unavailable": false
+    },
+    "actual": {
+      "dueCount": 0,
+      "weakCount": 0,
+      "normalCount": 15
+    },
+    "total": 15,
+    "button": "今日の5問をはじめる（今回は15問）",
+    "started": 15
+  },
+  {
+    "entry": "heian-review.html",
+    "config": {
+      "count": 5,
+      "course": "all",
+      "unit": "all",
+      "variant": "yomi"
+    },
+    "summary": {
+      "correct": 1,
+      "total": 75,
+      "due": 1,
+      "dueCount": 1,
+      "weakCount": 3,
+      "normalCount": 1,
+      "unavailable": false
+    },
+    "actual": {
+      "dueCount": 1,
+      "weakCount": 3,
+      "normalCount": 1
+    },
+    "total": 5,
+    "button": "今日の5問をはじめる（今回は5問）",
+    "started": 5
+  },
+  {
+    "entry": "yuika-review-v2.html",
+    "config": {
+      "count": 10,
+      "course": "all",
+      "unit": "all",
+      "variant": "normal"
+    },
+    "summary": {
+      "correct": 1,
+      "total": 47,
+      "due": 1,
+      "dueCount": 1,
+      "weakCount": 3,
+      "normalCount": 6,
+      "unavailable": false
+    },
+    "actual": {
+      "dueCount": 1,
+      "weakCount": 3,
+      "normalCount": 6
+    },
+    "total": 10,
+    "button": "今日の5問をはじめる（今回は10問）",
+    "started": 10
+  },
+  {
+    "entry": "yuika-review-v2.html",
+    "config": {
+      "count": 10,
+      "course": null,
+      "unit": "水溶液と溶解",
+      "variant": "normal"
+    },
+    "summary": {
+      "correct": 1,
+      "total": 47,
+      "due": 1,
+      "dueCount": 1,
+      "weakCount": 3,
+      "normalCount": 5,
+      "unavailable": false
+    },
+    "actual": {
+      "dueCount": 1,
+      "weakCount": 3,
+      "normalCount": 5
+    },
+    "total": 9,
+    "button": "今日の5問をはじめる（今回は10問）",
+    "started": 9
+  },
+  {
+    "entry": "mock-focus-review.html",
+    "config": {
+      "count": 10,
+      "course": "all",
+      "unit": "all",
+      "variant": "normal"
+    },
+    "summary": {
+      "correct": 1,
+      "total": 46,
+      "due": 1,
+      "dueCount": 1,
+      "weakCount": 3,
+      "normalCount": 6,
+      "unavailable": false
+    },
+    "actual": {
+      "dueCount": 1,
+      "weakCount": 3,
+      "normalCount": 6
+    },
+    "total": 10,
+    "button": "今日の5問をはじめる（今回は10問）",
+    "started": 10
+  },
+  {
+    "entry": "mock-focus-review.html",
+    "config": {
+      "count": 10,
+      "course": "d1",
+      "unit": "S1 自動車工業",
+      "variant": "normal"
+    },
+    "summary": {
+      "correct": 1,
+      "total": 46,
+      "due": 1,
+      "dueCount": 1,
+      "weakCount": 0,
+      "normalCount": 0,
+      "unavailable": false
+    },
+    "actual": {
+      "dueCount": 1,
+      "weakCount": 0,
+      "normalCount": 0
+    },
+    "total": 1,
+    "button": "今日の5問をはじめる（今回は10問）",
+    "started": 1
+  },
+  {
+    "entry": "mock-focus-review.html",
+    "config": {
+      "count": 15,
+      "course": "all",
+      "unit": "all",
+      "variant": "kanji"
+    },
+    "summary": {
+      "correct": 1,
+      "total": 46,
+      "due": 1,
+      "dueCount": 1,
+      "weakCount": 3,
+      "normalCount": 11,
+      "unavailable": false
+    },
+    "actual": {
+      "dueCount": 1,
+      "weakCount": 3,
+      "normalCount": 11
+    },
+    "total": 15,
+    "button": "今日の5問をはじめる（今回は15問）",
+    "started": 15
+  },
+  {
+    "entry": "mock-focus-review.html",
+    "config": {
+      "count": 5,
+      "course": "all",
+      "unit": "all",
+      "variant": "yomi"
+    },
+    "summary": {
+      "correct": 1,
+      "total": 46,
+      "due": 1,
+      "dueCount": 1,
+      "weakCount": 3,
+      "normalCount": 1,
+      "unavailable": false
+    },
+    "actual": {
+      "dueCount": 1,
+      "weakCount": 3,
+      "normalCount": 1
+    },
+    "total": 5,
+    "button": "今日の5問をはじめる（今回は5問）",
+    "started": 5
+  },
+  {
+    "case": "corrupt_home_actual_text",
+    "panel": "今日の5問\n\n単元で記録を確認しよう\n\n前回の単元から（問数は単元の設定）\n\nはじめる ",
+    "card": "社会\n応仁の乱（室町時代）\n記録を単元で確認"
+  },
+  {
+    "case": "corrupt_destination",
+    "disabled": true,
+    "notice": "ホーム\nれんしゅう\nきろく\n保存済みの記録を読み取れないため、弱点の判定を休止しています。「記録の保存」で元データを保管してください。\n社会 · 540-27\n応仁の乱\n\nだれが、なぜ、どう動いたか。 つながりで覚えよう。\n\n室町時代30問・ヒントと解説\n0／30\nできた数\n0\n今日の再確認\n0\nにがて\nれんしゅう\n5問\n10問\n15問\nコース\nぜんぶから\n用語確認（難度1）\n理由・比較（難度2）\nつながり（難度3）\n分野\nぜんぶ\n応仁の乱\n一揆\n村の自治\n農業\n商業\n文化\n将軍\n確認方法\n通常練習（読みもOK）\n漢字・正式名の確認（入力問題）\n読みの確認（漢字の用語）\nチャレンジをはじめる "
+  }
+]

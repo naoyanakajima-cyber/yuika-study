@@ -1,0 +1,21 @@
+{
+  "checked_at": "2026-11-12T05:22:13.756134+00:00",
+  "operations_base": "d081b58bec5fcf571613be38641c37b6a56df594",
+  "pr25_base": "81002855830dda7d2cac669f8297a0d81756872d",
+  "pr25_candidate": "042c55dd04a285277dc3dfa9dd296f161283e809",
+  "pr25_state": "open_draft",
+  "main": "6ec616d5f24f552306219e3177db4f4041f84428",
+  "combined_statuses_at_baseline": [],
+  "linked_product_wait": [
+    10,
+    11,
+    12
+  ],
+  "additional_open_product_drafts": [
+    22,
+    25
+  ],
+  "no_new_ceo_authorization": true,
+  "manual_setup": true,
+  "attachment_verified": false
+}

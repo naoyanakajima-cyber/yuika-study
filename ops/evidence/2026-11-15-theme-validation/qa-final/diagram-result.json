@@ -1,0 +1,601 @@
+{
+  "head": "b416d3c08a0d3952e5f0153fdc691d6fa0e492b7",
+  "completed_at": "2026-11-15T01:18:42.499149+00:00",
+  "states": [
+    {
+      "theme": "standard",
+      "media": "screen",
+      "nodes": [
+        {
+          "label": "将軍",
+          "fill": "rgb(255, 255, 255)",
+          "backgroundFill": "rgb(143, 79, 60)",
+          "fontSize": "13px",
+          "rawBackground": "#b57c65",
+          "bbox": {
+            "x": 211.9921875,
+            "y": 13,
+            "width": 26.015625,
+            "height": 19
+          },
+          "contrast": 6.265720821251096
+        },
+        {
+          "label": "執権（北条氏）",
+          "fill": "rgb(255, 255, 255)",
+          "backgroundFill": "rgb(143, 79, 60)",
+          "fontSize": "13px",
+          "rawBackground": "#b57c65",
+          "bbox": {
+            "x": 179.4921875,
+            "y": 61,
+            "width": 91.015625,
+            "height": 19
+          },
+          "contrast": 6.265720821251096
+        },
+        {
+          "label": "鎌倉",
+          "fill": "rgb(255, 255, 255)",
+          "backgroundFill": "rgb(100, 115, 110)",
+          "fontSize": "13px",
+          "rawBackground": "#64736e",
+          "bbox": {
+            "x": 46.9921875,
+            "y": 117,
+            "width": 26.015625,
+            "height": 19
+          },
+          "contrast": 4.977109637969801
+        },
+        {
+          "label": "地方",
+          "fill": "rgb(255, 255, 255)",
+          "backgroundFill": "rgb(100, 115, 110)",
+          "fontSize": "13px",
+          "rawBackground": "#64736e",
+          "bbox": {
+            "x": 271.9921875,
+            "y": 117,
+            "width": 26.015625,
+            "height": 19
+          },
+          "contrast": 4.977109637969801
+        },
+        {
+          "label": "侍所",
+          "fill": "rgb(255, 255, 255)",
+          "backgroundFill": "rgb(56, 100, 85)",
+          "fontSize": "13px",
+          "rawBackground": "#386455",
+          "bbox": {
+            "x": 67.9921875,
+            "y": 165,
+            "width": 26.015625,
+            "height": 19
+          },
+          "contrast": 6.726038143521916
+        },
+        {
+          "label": "政所",
+          "fill": "rgb(255, 255, 255)",
+          "backgroundFill": "rgb(56, 100, 85)",
+          "fontSize": "13px",
+          "rawBackground": "#386455",
+          "bbox": {
+            "x": 67.9921875,
+            "y": 207,
+            "width": 26.015625,
+            "height": 19
+          },
+          "contrast": 6.726038143521916
+        },
+        {
+          "label": "問注所",
+          "fill": "rgb(255, 255, 255)",
+          "backgroundFill": "rgb(56, 100, 85)",
+          "fontSize": "13px",
+          "rawBackground": "#386455",
+          "bbox": {
+            "x": 61.4921875,
+            "y": 249,
+            "width": 39.015625,
+            "height": 19
+          },
+          "contrast": 6.726038143521916
+        },
+        {
+          "label": "守護",
+          "fill": "rgb(255, 255, 255)",
+          "backgroundFill": "rgb(56, 100, 85)",
+          "fontSize": "13px",
+          "rawBackground": "#386455",
+          "bbox": {
+            "x": 282.9921875,
+            "y": 165,
+            "width": 26.015625,
+            "height": 19
+          },
+          "contrast": 6.726038143521916
+        },
+        {
+          "label": "地頭",
+          "fill": "rgb(255, 255, 255)",
+          "backgroundFill": "rgb(56, 100, 85)",
+          "fontSize": "13px",
+          "rawBackground": "#386455",
+          "bbox": {
+            "x": 282.9921875,
+            "y": 207,
+            "width": 26.015625,
+            "height": 19
+          },
+          "contrast": 6.726038143521916
+        },
+        {
+          "label": "六波羅探題",
+          "fill": "rgb(255, 255, 255)",
+          "backgroundFill": "rgb(56, 100, 85)",
+          "fontSize": "13px",
+          "rawBackground": "#386455",
+          "bbox": {
+            "x": 263.4921875,
+            "y": 249,
+            "width": 65.015625,
+            "height": 19
+          },
+          "contrast": 6.726038143521916
+        }
+      ]
+    },
+    {
+      "theme": "standard",
+      "media": "print",
+      "nodes": [
+        {
+          "label": "将軍",
+          "fill": "rgb(255, 255, 255)",
+          "backgroundFill": "rgb(143, 79, 60)",
+          "fontSize": "13px",
+          "rawBackground": "#b57c65",
+          "bbox": {
+            "x": 211.9921875,
+            "y": 13,
+            "width": 26.015625,
+            "height": 19
+          },
+          "contrast": 6.265720821251096
+        },
+        {
+          "label": "執権（北条氏）",
+          "fill": "rgb(255, 255, 255)",
+          "backgroundFill": "rgb(143, 79, 60)",
+          "fontSize": "13px",
+          "rawBackground": "#b57c65",
+          "bbox": {
+            "x": 179.4921875,
+            "y": 61,
+            "width": 91.015625,
+            "height": 19
+          },
+          "contrast": 6.265720821251096
+        },
+        {
+          "label": "鎌倉",
+          "fill": "rgb(255, 255, 255)",
+          "backgroundFill": "rgb(100, 115, 110)",
+          "fontSize": "13px",
+          "rawBackground": "#64736e",
+          "bbox": {
+            "x": 46.9921875,
+            "y": 117,
+            "width": 26.015625,
+            "height": 19
+          },
+          "contrast": 4.977109637969801
+        },
+        {
+          "label": "地方",
+          "fill": "rgb(255, 255, 255)",
+          "backgroundFill": "rgb(100, 115, 110)",
+          "fontSize": "13px",
+          "rawBackground": "#64736e",
+          "bbox": {
+            "x": 271.9921875,
+            "y": 117,
+            "width": 26.015625,
+            "height": 19
+          },
+          "contrast": 4.977109637969801
+        },
+        {
+          "label": "侍所",
+          "fill": "rgb(255, 255, 255)",
+          "backgroundFill": "rgb(56, 100, 85)",
+          "fontSize": "13px",
+          "rawBackground": "#386455",
+          "bbox": {
+            "x": 67.9921875,
+            "y": 165,
+            "width": 26.015625,
+            "height": 19
+          },
+          "contrast": 6.726038143521916
+        },
+        {
+          "label": "政所",
+          "fill": "rgb(255, 255, 255)",
+          "backgroundFill": "rgb(56, 100, 85)",
+          "fontSize": "13px",
+          "rawBackground": "#386455",
+          "bbox": {
+            "x": 67.9921875,
+            "y": 207,
+            "width": 26.015625,
+            "height": 19
+          },
+          "contrast": 6.726038143521916
+        },
+        {
+          "label": "問注所",
+          "fill": "rgb(255, 255, 255)",
+          "backgroundFill": "rgb(56, 100, 85)",
+          "fontSize": "13px",
+          "rawBackground": "#386455",
+          "bbox": {
+            "x": 61.4921875,
+            "y": 249,
+            "width": 39.015625,
+            "height": 19
+          },
+          "contrast": 6.726038143521916
+        },
+        {
+          "label": "守護",
+          "fill": "rgb(255, 255, 255)",
+          "backgroundFill": "rgb(56, 100, 85)",
+          "fontSize": "13px",
+          "rawBackground": "#386455",
+          "bbox": {
+            "x": 282.9921875,
+            "y": 165,
+            "width": 26.015625,
+            "height": 19
+          },
+          "contrast": 6.726038143521916
+        },
+        {
+          "label": "地頭",
+          "fill": "rgb(255, 255, 255)",
+          "backgroundFill": "rgb(56, 100, 85)",
+          "fontSize": "13px",
+          "rawBackground": "#386455",
+          "bbox": {
+            "x": 282.9921875,
+            "y": 207,
+            "width": 26.015625,
+            "height": 19
+          },
+          "contrast": 6.726038143521916
+        },
+        {
+          "label": "六波羅探題",
+          "fill": "rgb(255, 255, 255)",
+          "backgroundFill": "rgb(56, 100, 85)",
+          "fontSize": "13px",
+          "rawBackground": "#386455",
+          "bbox": {
+            "x": 263.4921875,
+            "y": 249,
+            "width": 65.015625,
+            "height": 19
+          },
+          "contrast": 6.726038143521916
+        }
+      ]
+    },
+    {
+      "theme": "kamakura",
+      "media": "screen",
+      "nodes": [
+        {
+          "label": "将軍",
+          "fill": "rgb(255, 255, 255)",
+          "backgroundFill": "rgb(143, 79, 60)",
+          "fontSize": "13px",
+          "rawBackground": "#b57c65",
+          "bbox": {
+            "x": 211.9921875,
+            "y": 13,
+            "width": 26.015625,
+            "height": 19
+          },
+          "contrast": 6.265720821251096
+        },
+        {
+          "label": "執権（北条氏）",
+          "fill": "rgb(255, 255, 255)",
+          "backgroundFill": "rgb(143, 79, 60)",
+          "fontSize": "13px",
+          "rawBackground": "#b57c65",
+          "bbox": {
+            "x": 179.4921875,
+            "y": 61,
+            "width": 91.015625,
+            "height": 19
+          },
+          "contrast": 6.265720821251096
+        },
+        {
+          "label": "鎌倉",
+          "fill": "rgb(255, 255, 255)",
+          "backgroundFill": "rgb(100, 115, 110)",
+          "fontSize": "13px",
+          "rawBackground": "#64736e",
+          "bbox": {
+            "x": 46.9921875,
+            "y": 117,
+            "width": 26.015625,
+            "height": 19
+          },
+          "contrast": 4.977109637969801
+        },
+        {
+          "label": "地方",
+          "fill": "rgb(255, 255, 255)",
+          "backgroundFill": "rgb(100, 115, 110)",
+          "fontSize": "13px",
+          "rawBackground": "#64736e",
+          "bbox": {
+            "x": 271.9921875,
+            "y": 117,
+            "width": 26.015625,
+            "height": 19
+          },
+          "contrast": 4.977109637969801
+        },
+        {
+          "label": "侍所",
+          "fill": "rgb(255, 255, 255)",
+          "backgroundFill": "rgb(56, 100, 85)",
+          "fontSize": "13px",
+          "rawBackground": "#386455",
+          "bbox": {
+            "x": 67.9921875,
+            "y": 165,
+            "width": 26.015625,
+            "height": 19
+          },
+          "contrast": 6.726038143521916
+        },
+        {
+          "label": "政所",
+          "fill": "rgb(255, 255, 255)",
+          "backgroundFill": "rgb(56, 100, 85)",
+          "fontSize": "13px",
+          "rawBackground": "#386455",
+          "bbox": {
+            "x": 67.9921875,
+            "y": 207,
+            "width": 26.015625,
+            "height": 19
+          },
+          "contrast": 6.726038143521916
+        },
+        {
+          "label": "問注所",
+          "fill": "rgb(255, 255, 255)",
+          "backgroundFill": "rgb(56, 100, 85)",
+          "fontSize": "13px",
+          "rawBackground": "#386455",
+          "bbox": {
+            "x": 61.4921875,
+            "y": 249,
+            "width": 39.015625,
+            "height": 19
+          },
+          "contrast": 6.726038143521916
+        },
+        {
+          "label": "守護",
+          "fill": "rgb(255, 255, 255)",
+          "backgroundFill": "rgb(56, 100, 85)",
+          "fontSize": "13px",
+          "rawBackground": "#386455",
+          "bbox": {
+            "x": 282.9921875,
+            "y": 165,
+            "width": 26.015625,
+            "height": 19
+          },
+          "contrast": 6.726038143521916
+        },
+        {
+          "label": "地頭",
+          "fill": "rgb(255, 255, 255)",
+          "backgroundFill": "rgb(56, 100, 85)",
+          "fontSize": "13px",
+          "rawBackground": "#386455",
+          "bbox": {
+            "x": 282.9921875,
+            "y": 207,
+            "width": 26.015625,
+            "height": 19
+          },
+          "contrast": 6.726038143521916
+        },
+        {
+          "label": "六波羅探題",
+          "fill": "rgb(255, 255, 255)",
+          "backgroundFill": "rgb(56, 100, 85)",
+          "fontSize": "13px",
+          "rawBackground": "#386455",
+          "bbox": {
+            "x": 263.4921875,
+            "y": 249,
+            "width": 65.015625,
+            "height": 19
+          },
+          "contrast": 6.726038143521916
+        }
+      ]
+    },
+    {
+      "theme": "kamakura",
+      "media": "print",
+      "nodes": [
+        {
+          "label": "将軍",
+          "fill": "rgb(255, 255, 255)",
+          "backgroundFill": "rgb(143, 79, 60)",
+          "fontSize": "13px",
+          "rawBackground": "#b57c65",
+          "bbox": {
+            "x": 211.9921875,
+            "y": 13,
+            "width": 26.015625,
+            "height": 19
+          },
+          "contrast": 6.265720821251096
+        },
+        {
+          "label": "執権（北条氏）",
+          "fill": "rgb(255, 255, 255)",
+          "backgroundFill": "rgb(143, 79, 60)",
+          "fontSize": "13px",
+          "rawBackground": "#b57c65",
+          "bbox": {
+            "x": 179.4921875,
+            "y": 61,
+            "width": 91.015625,
+            "height": 19
+          },
+          "contrast": 6.265720821251096
+        },
+        {
+          "label": "鎌倉",
+          "fill": "rgb(255, 255, 255)",
+          "backgroundFill": "rgb(100, 115, 110)",
+          "fontSize": "13px",
+          "rawBackground": "#64736e",
+          "bbox": {
+            "x": 46.9921875,
+            "y": 117,
+            "width": 26.015625,
+            "height": 19
+          },
+          "contrast": 4.977109637969801
+        },
+        {
+          "label": "地方",
+          "fill": "rgb(255, 255, 255)",
+          "backgroundFill": "rgb(100, 115, 110)",
+          "fontSize": "13px",
+          "rawBackground": "#64736e",
+          "bbox": {
+            "x": 271.9921875,
+            "y": 117,
+            "width": 26.015625,
+            "height": 19
+          },
+          "contrast": 4.977109637969801
+        },
+        {
+          "label": "侍所",
+          "fill": "rgb(255, 255, 255)",
+          "backgroundFill": "rgb(56, 100, 85)",
+          "fontSize": "13px",
+          "rawBackground": "#386455",
+          "bbox": {
+            "x": 67.9921875,
+            "y": 165,
+            "width": 26.015625,
+            "height": 19
+          },
+          "contrast": 6.726038143521916
+        },
+        {
+          "label": "政所",
+          "fill": "rgb(255, 255, 255)",
+          "backgroundFill": "rgb(56, 100, 85)",
+          "fontSize": "13px",
+          "rawBackground": "#386455",
+          "bbox": {
+            "x": 67.9921875,
+            "y": 207,
+            "width": 26.015625,
+            "height": 19
+          },
+          "contrast": 6.726038143521916
+        },
+        {
+          "label": "問注所",
+          "fill": "rgb(255, 255, 255)",
+          "backgroundFill": "rgb(56, 100, 85)",
+          "fontSize": "13px",
+          "rawBackground": "#386455",
+          "bbox": {
+            "x": 61.4921875,
+            "y": 249,
+            "width": 39.015625,
+            "height": 19
+          },
+          "contrast": 6.726038143521916
+        },
+        {
+          "label": "守護",
+          "fill": "rgb(255, 255, 255)",
+          "backgroundFill": "rgb(56, 100, 85)",
+          "fontSize": "13px",
+          "rawBackground": "#386455",
+          "bbox": {
+            "x": 282.9921875,
+            "y": 165,
+            "width": 26.015625,
+            "height": 19
+          },
+          "contrast": 6.726038143521916
+        },
+        {
+          "label": "地頭",
+          "fill": "rgb(255, 255, 255)",
+          "backgroundFill": "rgb(56, 100, 85)",
+          "fontSize": "13px",
+          "rawBackground": "#386455",
+          "bbox": {
+            "x": 282.9921875,
+            "y": 207,
+            "width": 26.015625,
+            "height": 19
+          },
+          "contrast": 6.726038143521916
+        },
+        {
+          "label": "六波羅探題",
+          "fill": "rgb(255, 255, 255)",
+          "backgroundFill": "rgb(56, 100, 85)",
+          "fontSize": "13px",
+          "rawBackground": "#386455",
+          "bbox": {
+            "x": 263.4921875,
+            "y": 249,
+            "width": 65.015625,
+            "height": 19
+          },
+          "contrast": 6.726038143521916
+        }
+      ]
+    }
+  ],
+  "target_minimum_contrast": 6.265720821251096,
+  "all_white_node_minimum_contrast": 4.977109637969801,
+  "diagram_dom_and_geometry_unchanged": true,
+  "all_other_box_fills_preserved": true,
+  "standard_restore": true,
+  "post_arrivals": [],
+  "page_errors": [],
+  "blocked_external": [
+    "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"
+  ],
+  "limitation": "Chromium 768x1024 CSS px; not print-printer/real iPad/native zoom certification"
+}

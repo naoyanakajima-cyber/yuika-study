@@ -1,0 +1,32 @@
+{
+  "head": "62f34de238e9d1d62c796aac3a4b43418043d17f",
+  "scenarios": [
+    "editing preserves revision/confirm/unsaved",
+    "confirmation preserved",
+    "export preserves saved state/schema",
+    "sample replacement preserved",
+    "proposal cancellation preserved",
+    "A resolves while B pending",
+    "old error cannot replace B notice/input",
+    "B then A reverse completion",
+    "B then stale A error",
+    "latest error never revives A",
+    "latest shape never revives A",
+    "latest json never revives A",
+    "latest oversize never revives A",
+    "discard refusal preserves all proposal state",
+    "empty file selection invalidates pending A",
+    "empty start normal import and same filename repeat",
+    "explicit read cancellation preserves current proposal"
+  ],
+  "nonlocal_or_other_requests": [],
+  "page_errors": [],
+  "storage_or_history_writes": [],
+  "posts": 0,
+  "viewport": [
+    768,
+    1024
+  ],
+  "synthetic_only": true,
+  "file_text": "controlled deferred promises via actual file input; not OS timing"
+}

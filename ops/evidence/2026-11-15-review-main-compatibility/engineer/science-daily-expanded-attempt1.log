@@ -1,0 +1,2 @@
+science selection oracle: 28 priority/order/draw/count cases PASS
+science_daily_count: four real UI counts, no extra draws, stale confirmation, blocked/dirty/zero boundaries, direct daily and normal/parent top route PASS

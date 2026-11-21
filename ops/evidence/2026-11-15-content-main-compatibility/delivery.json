@@ -1,0 +1,29 @@
+{
+  "observed_at": "2026-11-15 09:17:02 UTC",
+  "pr": {
+    "number": 11,
+    "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/11",
+    "head_sha": "d75a5469fbf1e8c5011a6307308546e5ec669ceb",
+    "state": "open",
+    "draft": true,
+    "merged": false
+  },
+  "checks": [
+    {
+      "name": "Workers Builds: yuika-study",
+      "status": "completed",
+      "conclusion": "failure",
+      "head_sha": "d75a5469fbf1e8c5011a6307308546e5ec669ceb",
+      "completed_at": "2026-11-15T09:16:20Z",
+      "html_url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/132763996602"
+    }
+  ],
+  "combined_status": {
+    "state": "pending",
+    "total_count": 0
+  },
+  "manual_rerun": false,
+  "live_page_verified": false,
+  "reason": "check output supplied no failure diagnostic details",
+  "post_push_readback": "Initial expected-state assertion failed immediately after successful push; fields were not retained. Second read and ls-remote matched expected HEAD/open/draft/unmerged. No repeated push or force used."
+}

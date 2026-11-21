@@ -1,0 +1,42 @@
+{
+  "head": "55435567d44f05dc35f3ea6d73c4ba9cac2dc496",
+  "ui_unique_cases": [
+    "A",
+    "B",
+    "C",
+    "D",
+    "E",
+    "K",
+    "F",
+    "P"
+  ],
+  "ui_attempts": 3,
+  "ui_harness_failures": [
+    {
+      "attempt": 1,
+      "cause": "exact text omitted final full stop",
+      "repaired_once": true
+    },
+    {
+      "attempt": 2,
+      "cause": "focus page has no variant selector",
+      "repaired_once": true
+    }
+  ],
+  "rng_attempts": 2,
+  "rng_harness_failure": "synthetic ISO timestamp missing milliseconds rejected by validator; fixture corrected once",
+  "actual_app_rng_comparisons": 18,
+  "boundary_cases": [
+    "validated_storage_event_future_stops",
+    "clock_focus_refresh",
+    "active_quiz_not_repainted"
+  ],
+  "ui_server_posts": 0,
+  "ui_page_errors": [],
+  "ui_blocked_requests": 12,
+  "rng_blocked_requests": 1,
+  "rng_page_errors": [],
+  "product_failures": 0,
+  "rng_blocked_requests_all_attempts": 2,
+  "rng_page_errors_all_attempts": []
+}

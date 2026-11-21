@@ -1,0 +1,29 @@
+[
+  {
+    "case": "session_access_denied_normal",
+    "boundary_defined": false,
+    "banner_count": 0,
+    "pageerrors": [
+      "synthetic session access denied"
+    ],
+    "external_requests": []
+  },
+  {
+    "case": "session_access_denied_parent",
+    "boundary_defined": false,
+    "banner_count": 0,
+    "pageerrors": [
+      "synthetic session access denied"
+    ],
+    "external_requests": []
+  },
+  {
+    "case": "second_key_write_failure",
+    "changed_keys": [
+      "yuika-social-540-24-v1"
+    ],
+    "first_remaining_events": 0,
+    "second_remaining_events": 1,
+    "status": "synthetic second-key failure"
+  }
+]

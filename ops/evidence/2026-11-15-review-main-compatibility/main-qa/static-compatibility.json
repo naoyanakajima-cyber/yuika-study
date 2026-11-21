@@ -1,0 +1,146 @@
+{
+  "baseline": "69f77d671b66484b501f7a0f5c292bfa96a22273",
+  "head": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
+  "checked_at": "2026-11-15T08:11:18.357026+00:00",
+  "apps": [
+    {
+      "file": "yuika-review-v2.html",
+      "old_count": 67,
+      "new_count": 84,
+      "old_parsed_objects_all_equal": true,
+      "removed_ids": [],
+      "added_ids": [
+        "medaka-01",
+        "medaka-02",
+        "medaka-03",
+        "medaka-04",
+        "medaka-05",
+        "medaka-06",
+        "medaka-07",
+        "medaka-08",
+        "medaka-09",
+        "medaka-10",
+        "medaka-11",
+        "medaka-12",
+        "medaka-13",
+        "medaka-14",
+        "medaka-15",
+        "medaka-16",
+        "medaka-17"
+      ],
+      "key_assignments": [
+        [
+          "LEGACY_KEY",
+          "'yuika-science-review-v2'"
+        ],
+        [
+          "KEY",
+          "'yuika-prototype-v1:'+LEGACY_KEY"
+        ],
+        [
+          "OLD_KEY",
+          "'yuika-science-v1'"
+        ],
+        [
+          "SCIENCE_PREF_KEY",
+          "KEY+'-preferences-v1'"
+        ]
+      ],
+      "keys_equal": true
+    },
+    {
+      "file": "onin-review.html",
+      "old_count": 30,
+      "new_count": 30,
+      "old_parsed_objects_all_equal": true,
+      "removed_ids": [],
+      "added_ids": [],
+      "key_assignments": [
+        [
+          "LEGACY_KEY",
+          "'yuika-social-540-27-v1'"
+        ],
+        [
+          "KEY",
+          "'yuika-prototype-v1:'+LEGACY_KEY"
+        ],
+        [
+          "PREF_KEY",
+          "KEY+'-preferences-v1'"
+        ]
+      ],
+      "keys_equal": true
+    },
+    {
+      "file": "kamakura-review.html",
+      "old_count": 38,
+      "new_count": 38,
+      "old_parsed_objects_all_equal": true,
+      "removed_ids": [],
+      "added_ids": [],
+      "key_assignments": [
+        [
+          "LEGACY_KEY",
+          "'yuika-social-540-25-v1'"
+        ],
+        [
+          "KEY",
+          "'yuika-prototype-v1:'+LEGACY_KEY"
+        ],
+        [
+          "PREF_KEY",
+          "KEY+'-preferences-v1'"
+        ]
+      ],
+      "keys_equal": true
+    },
+    {
+      "file": "heian-review.html",
+      "old_count": 75,
+      "new_count": 75,
+      "old_parsed_objects_all_equal": true,
+      "removed_ids": [],
+      "added_ids": [],
+      "key_assignments": [
+        [
+          "LEGACY_KEY",
+          "'yuika-social-540-24-v1'"
+        ],
+        [
+          "KEY",
+          "'yuika-prototype-v1:'+LEGACY_KEY"
+        ],
+        [
+          "PREF_KEY",
+          "KEY+'-preferences-v1'"
+        ]
+      ],
+      "keys_equal": true
+    },
+    {
+      "file": "mock-focus-review.html",
+      "old_count": 46,
+      "new_count": 46,
+      "old_parsed_objects_all_equal": true,
+      "removed_ids": [],
+      "added_ids": [],
+      "key_assignments": [
+        [
+          "LEGACY_KEY",
+          "'study-mock-focus-v1'"
+        ],
+        [
+          "KEY",
+          "'yuika-prototype-v1:'+LEGACY_KEY"
+        ],
+        [
+          "PREF_KEY",
+          "KEY+'-preferences-v1'"
+        ]
+      ],
+      "keys_equal": true
+    }
+  ],
+  "scope": "Parsed previous questions/IDs and literal KEY assignments; not complete scientific content audit or every persistence-key expression",
+  "key_scan_note": "Initial declaration-only regex returned no matches for comma-separated KEY declarations; revised static extractor requires nonempty matches and compares all KEY/LEGACY_KEY/OLD_KEY/PREF_KEY/SCIENCE_PREF_KEY assignments."
+}

@@ -1,0 +1,32 @@
+{
+  "pr": 24,
+  "head": "fc3ffa93dcecc2b64a21a4ac77dc03eec3aec3ca",
+  "merged": true,
+  "state": "closed",
+  "merged_at": "2026-11-12T03:43:16Z",
+  "observed_main": "6ec616d5f24f552306219e3177db4f4041f84428",
+  "prior_independent_qa_head": "314aa13216b8bce5fee65959b9fa51d925575234",
+  "pages_workflow_url": "https://github.com/naoyanakajima-cyber/yuika-study/actions/runs/43150073755",
+  "jobs": [
+    {
+      "name": "build",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "report-build-status",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "name": "deploy",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "limitations": [
+    "Workflow jobs status read independently; commit linkage/public URL rendering not independently verified in this cycle.",
+    "PR body reports owner approval; actual CEO reply not read here, so no new authority ingested.",
+    "Author reports 3x20 suites on fc3ffa9; not executed by this cycle."
+  ]
+}

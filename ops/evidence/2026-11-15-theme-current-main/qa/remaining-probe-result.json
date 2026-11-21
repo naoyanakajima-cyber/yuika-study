@@ -1,0 +1,43 @@
+{
+  "head": "9fc4bbf3e6c72e09327b6610338f12937fc7aba5",
+  "completed_at": "2026-11-15T11:12:37.485477+00:00",
+  "cases": [
+    {
+      "mode": "parent",
+      "run": "b1ba25a8-7fb4-4299-9905-9e069c16c888",
+      "events": 5,
+      "question_types": [
+        "text",
+        "choice",
+        "text",
+        "choice",
+        "text"
+      ],
+      "same_run_stages": "input/selection,hint,graded,result",
+      "theme_notification_calls": 0,
+      "child_disk_unchanged": true
+    },
+    {
+      "mode": "theme-write-fault",
+      "warning_separate_from_learning": true,
+      "one_answer_saved_during_fault": true,
+      "recovery_saved_standard": true
+    },
+    {
+      "mode": "session-denied",
+      "temporary_theme_in_memory": true,
+      "child_disk_unchanged": true,
+      "reload_resets_temporary_theme": true
+    }
+  ],
+  "diagram_contrasts": [],
+  "posts": [],
+  "errors": [],
+  "external_gets_aborted": 4,
+  "limitations": [
+    "representative same-run sequence; not all possible histories",
+    "normal/parent five-question runs, existing theme suite covers15 and allT boundaries",
+    "Chromium tablet CSS viewport only; no real iPad/Safari",
+    "no live publication/actual user preference or learning effectiveness validation"
+  ]
+}

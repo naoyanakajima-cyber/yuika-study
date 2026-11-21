@@ -1,0 +1,28 @@
+{
+  "head": "9fc4bbf3e6c72e09327b6610338f12937fc7aba5",
+  "parents": [
+    "b416d3c08a0d3952e5f0153fdc691d6fa0e492b7",
+    "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec"
+  ],
+  "main": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
+  "pr12": "b416d3c08a0d3952e5f0153fdc691d6fa0e492b7",
+  "branch": "codex/theme-current-main-20261115",
+  "checkout": "/workspace/yuika-theme-current-main-20261115",
+  "clean": true,
+  "completed_at": "2026-11-15T11:07:44.060847+00:00",
+  "main_diff_files": [
+    "README.md",
+    "docs/product/theme-spec.md",
+    "kamakura-review.html",
+    "scripts/check_all.sh",
+    "tests/theme_review.py"
+  ],
+  "focused_test": "python tests/theme_review.py",
+  "focused_exit_code": 0,
+  "focused_attempts": 1,
+  "mandatory_suites_registered": 26,
+  "full_suite_run_by_engineer": false,
+  "manual_venv_reuse": true,
+  "snapshot_automatic_handoff_verified": false,
+  "push": false
+}

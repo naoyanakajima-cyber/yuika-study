@@ -1,0 +1,230 @@
+HEAD: 314aa13216b8bce5fee65959b9fa51d925575234
+Working tree (empty = clean):
+Browser RNG seed: 20261110
+
+RUN tests/onin_review.py
+onin-review: all checks passed
+
+RUN tests/kamakura_review.py
+kamakura-review: all checks passed
+
+RUN tests/cloud_preview.py
+cloud-preview: startup, private path protection, and API blocking passed
+
+RUN notifications/test/worker.test.mjs
+✔ strict schema, no inferred correct answers, bounded content (19.597934ms)
+✔ one provider request, fixed destination, no secret leakage, same ID stays deduplicated beyond 24h (38.026394ms)
+✔ uncertain acceptance retries with SAME provider key; stops after 23h to prevent duplicates (5.547258ms)
+✔ provider rejection and invalid success response are never called sent (2.806239ms)
+✔ destination cannot be supplied by browser; origin, authentication, config, size are enforced (9.220513ms)
+✔ concurrent delivery is serialized by Durable Object and rate limit bounds sends (6.231387ms)
+✔ both parents receive one unchanged message for social, science and legacy reports (5.710279ms)
+✔ invalid recipient lists fail closed without sending or storing delivery state (3.154475ms)
+✔ two-recipient rejection or network failure preserves pending state and retry payload (3.793069ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 170.900953
+
+RUN notifications/test/browser.py
+PASS no send before pairing; pair UI; send once per challenge, not per answer; details/hints; result rerender/reload dedup
+PASS science completion; queued on provider failure; same payload and ID retried on next visit
+PASS stop setting, no historical bulk send, accepted queue removes answer content
+PASS existing quiz sends summary once, preserves unknown answer/hint fields as unknown
+PASS flash-card completion after retry, first-round 2/4 score, no duplicate final wrong, no JS errors
+PASS actual browser payloads satisfy worker schema
+
+RUN tests/cloud_bootstrap.py
+test_dirty_target_is_preserved_without_running_setup (__main__.BootstrapTests.test_dirty_target_is_preserved_without_running_setup) ... ok
+test_existing_unrelated_directory_is_preserved (__main__.BootstrapTests.test_existing_unrelated_directory_is_preserved) ... ok
+test_failed_retry_invalidates_previous_install_success (__main__.BootstrapTests.test_failed_retry_invalidates_previous_install_success) ... ok
+test_invalid_sha_stops_before_creating_target (__main__.BootstrapTests.test_invalid_sha_stops_before_creating_target) ... ok
+test_main_without_setup_and_original_dirty_changes_are_preserved (__main__.BootstrapTests.test_main_without_setup_and_original_dirty_changes_are_preserved) ... ok
+test_missing_commit_logs_fetch_failure_without_target (__main__.BootstrapTests.test_missing_commit_logs_fetch_failure_without_target) ... ok
+test_reinstall_preserves_clean_topic_branch_and_commits (__main__.BootstrapTests.test_reinstall_preserves_clean_topic_branch_and_commits) ... ok
+test_setup_failure_has_no_success_receipt_and_can_resume (__main__.BootstrapTests.test_setup_failure_has_no_success_receipt_and_can_resume) ... ok
+test_setup_log_directory_failure_invalidates_previous_receipts (__main__.BootstrapTests.test_setup_log_directory_failure_invalidates_previous_receipts) ... ok
+test_setup_runtime_failure_invalidates_previous_receipts (__main__.BootstrapTests.test_setup_runtime_failure_invalidates_previous_receipts) ... ok
+test_symlink_target_is_preserved (__main__.BootstrapTests.test_symlink_target_is_preserved) ... ok
+test_untracked_target_files_are_preserved (__main__.BootstrapTests.test_untracked_target_files_are_preserved) ... ok
+test_wrong_revision_does_not_reset_existing_target (__main__.BootstrapTests.test_wrong_revision_does_not_reset_existing_target) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 3.027s
+
+OK
+
+RUN tests/adaptive_practice.py
+127.0.0.1 - - [12/Nov/2026 01:15:04] "GET /onin-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:15:05] "GET /onin-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:15:05] "GET /kamakura-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:15:06] "GET /kamakura-review.html HTTP/1.1" 200 -
+adaptive_practice: all checks passed (2 apps, synthetic records, CSP preview)
+
+RUN tests/adaptive_daily.py
+127.0.0.1 - - [12/Nov/2026 01:15:07] "GET /onin-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:15:08] "GET /onin-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:15:08] "GET /onin-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:15:08] "GET /kamakura-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:15:09] "GET /kamakura-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:15:09] "GET /kamakura-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:15:10] "GET /heian-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:15:10] "GET /heian-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:15:10] "GET /heian-review.html HTTP/1.1" 200 -
+adaptive_daily: all checks passed (3 apps, levels, explanations, hint/recovery, summaries, caps, corrupt storage, persistence)
+
+RUN tests/adaptive_quality.py
+127.0.0.1 - - [12/Nov/2026 01:15:12] "GET /onin-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:15:13] "GET /kamakura-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:15:14] "GET /heian-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:15:15] "GET /onin-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:15:16] "GET /kamakura-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:15:17] "GET /heian-review.html HTTP/1.1" 200 -
+adaptive_quality: all checks passed (3 apps x 2 timezones; JST, boundaries, hints, canonical history, storage, focus, XSS)
+
+RUN tests/flash_grading.py
+flash-grading: exact answers, registered alts, normalization, UI retry, version and historical preservation PASS
+
+RUN tests/spaced_daily.py
+127.0.0.1 - - [12/Nov/2026 01:15:45] "GET /onin-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:15:47] "GET /onin-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:15:49] "GET /onin-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:15:49] "GET /onin-review.html?daily=1 HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:15:51] "GET /onin-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:15:52] "GET /kamakura-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:15:53] "GET /kamakura-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:15:54] "GET /kamakura-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:15:55] "GET /kamakura-review.html?daily=1 HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:15:56] "GET /kamakura-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:15:58] "GET /heian-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:15:59] "GET /heian-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:16:01] "GET /heian-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:16:01] "GET /heian-review.html?daily=1 HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:16:02] "GET /heian-review.html HTTP/1.1" 200 -
+spaced_daily: all checks passed (3 apps, state transitions, JST, migration, daily priority, preference reopen)
+
+RUN tests/history_compat.py
+127.0.0.1 - - [12/Nov/2026 01:16:10] "GET /onin-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:16:19] "GET /kamakura-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:16:31] "GET /heian-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:16:32] "GET /yuika-review-v2.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:16:33] "GET /mock-focus-review.html HTTP/1.1" 200 -
+onin-review.html 608 synthetic old/versioned histories passed
+kamakura-review.html 608 synthetic old/versioned histories passed
+heian-review.html 1000 synthetic old/versioned histories passed
+yuika-review-v2.html 188 synthetic old/versioned histories passed
+mock-focus-review.html 368 synthetic old/versioned histories passed
+history_compat: archive immutability, editorial policy, old grades, merge/load/save/import PASS
+
+RUN tests/science_adaptive.py
+127.0.0.1 - - [12/Nov/2026 01:16:35] "GET /yuika-review-v2.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:16:36] "GET /yuika-review-v2.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:16:37] "GET /yuika-review-v2.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:16:37] "GET /yuika-review-v2.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:16:38] "GET /yuika-review-v2.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:16:38] "GET /yuika-review-v2.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:16:39] "GET /yuika-review-v2.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:16:39] "GET /yuika-review-v2.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:16:41] "GET /index.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:16:43] "GET /yuika-review-v2.html?daily=1 HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:16:44] "GET /yuika-review-v2.html HTTP/1.1" 200 -
+science_adaptive: 47 original questions, grades, JST replay, priority, UI, persistence/import, access recovery UI, legacy exclusion PASS
+
+RUN tests/registered_answers.py
+127.0.0.1 - - [12/Nov/2026 01:16:45] "GET /onin-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:16:46] "GET /kamakura-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:16:47] "GET /heian-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:16:47] "GET /yuika-review-v2.html HTTP/1.1" 200 -
+onin-review.html {'canonical': 76, 'spellings': 124} all registered answers passed
+kamakura-review.html {'canonical': 76, 'spellings': 88} all registered answers passed
+heian-review.html {'canonical': 125, 'spellings': 172} all registered answers passed
+yuika-review-v2.html {'canonical': 47, 'spellings': 0} all registered answers passed
+registered_answers: all current questions, supported variants and registered spellings PASS
+
+RUN tests/history_review_regression.py
+127.0.0.1 - - [12/Nov/2026 01:16:49] "GET /yuika-review-v2.html HTTP/1.1" 200 -
+history_review_regression: retired IDs, historical text/version, repeated load/save, numeric units PASS
+
+RUN tests/state_review_regression.py
+retention projection: 200 histories equivalent; 20,000 records avoid growing rescans
+127.0.0.1 - - [12/Nov/2026 01:16:53] "GET /onin-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:16:54] "GET /kamakura-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:16:55] "GET /heian-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:16:55] "GET /yuika-review-v2.html HTTP/1.1" 200 -
+state_review_regression: all checks passed (4 apps, JST refresh, clock safety, blocked starts, replay equivalence and cost)
+
+RUN tests/prototype_storage.py
+127.0.0.1 - - [12/Nov/2026 01:16:59] "GET /onin-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:16:59] "GET /onin-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:16:59] "GET /onin-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:17:00] "GET /onin-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:17:00] "GET /onin-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:17:01] "GET /onin-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:17:01] "GET /onin-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:17:01] "GET /kamakura-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:17:02] "GET /kamakura-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:17:02] "GET /kamakura-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:17:03] "GET /kamakura-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:17:03] "GET /kamakura-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:17:03] "GET /kamakura-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:17:03] "GET /kamakura-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:17:04] "GET /heian-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:17:04] "GET /heian-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:17:04] "GET /heian-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:17:05] "GET /heian-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:17:05] "GET /heian-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:17:05] "GET /heian-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:17:05] "GET /heian-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:17:06] "GET /yuika-review-v2.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:17:06] "GET /yuika-review-v2.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:17:06] "GET /yuika-review-v2.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:17:07] "GET /yuika-review-v2.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:17:07] "GET /yuika-review-v2.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:17:07] "GET /yuika-review-v2.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 01:17:07] "GET /yuika-review-v2.html HTTP/1.1" 200 -
+prototype_storage: four apps, original bytes/prefs intact, envelope/unknown fields, actual downloads/import, quota and broken stores PASS
+
+RUN tests/focus_data.py
+focus_data: 46 originals, unique answers/IDs/prompts, basis, private-data guards PASS
+
+RUN tests/focus_practice.py
+focus_practice: all 46 UI questions, diagrams/tables, versioned JSON, retention, daily entry PASS
+
+RUN tests/parent_mode.py
+PASS parent isolation/reload/exit/notification guards: onin-review.html
+PASS parent isolation/reload/exit/notification guards: kamakura-review.html
+PASS parent isolation/reload/exit/notification guards: heian-review.html
+PASS parent isolation/reload/exit/notification guards: yuika-review-v2.html
+PASS parent isolation/reload/exit/notification guards: mock-focus-review.html
+PASS parent isolation/reload/exit/notification guards: index.html
+PASS inclusive deletion, count, cancel, preserve older/undated, stale confirmation
+PASS tab close clears mode and sandbox for subsequent tab
+PASS initial session read/write denial uses isolated temporary mode
+PASS cleanup rollback and incomplete-recovery original export
+
+Suite                                      Exit  Seconds
+tests/onin_review.py                          0        7
+tests/kamakura_review.py                      0        7
+tests/cloud_preview.py                        0        2
+notifications/test/worker.test.mjs            0        1
+notifications/test/browser.py                 0       12
+tests/cloud_bootstrap.py                      0        3
+tests/adaptive_practice.py                    0        4
+tests/adaptive_daily.py                       0        5
+tests/adaptive_quality.py                     0        6
+tests/flash_grading.py                        0       26
+tests/spaced_daily.py                         0       23
+tests/history_compat.py                       0       28
+tests/science_adaptive.py                     0       10
+tests/registered_answers.py                   0        4
+tests/history_review_regression.py            0        2
+tests/state_review_regression.py              0        7
+tests/prototype_storage.py                    0       11
+tests/focus_data.py                           0        0
+tests/focus_practice.py                       0       15
+tests/parent_mode.py                          0       36
+Total: 209s; result=0

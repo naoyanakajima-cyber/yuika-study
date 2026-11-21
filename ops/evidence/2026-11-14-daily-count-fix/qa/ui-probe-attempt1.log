@@ -1,0 +1,138 @@
+{"started_at": "2026-11-14T20:15:41.270958+00:00", "head": "55435567d44f05dc35f3ea6d73c4ba9cac2dc496", "before_status": "", "viewport": {"width": 768, "height": 1024}, "cases": [{"case": "A", "app": "onin-review.html", "initial": {"prefs": {"count": 5, "course": "all", "unit": "all", "variant": "normal"}, "screen": "home", "events": 0, "history": null, "localHistory": null, "parent": false, "run": null, "notice": ""}, "before": {"prefs": {"count": 5, "course": "all", "unit": "all", "variant": "normal"}, "screen": "home", "events": 0, "history": null, "localHistory": null, "parent": false, "run": null, "notice": "", "button": "今日の復習をはじめる（今回は5問）", "disabled": false}, "after_start": {"prefs": {"count": 5, "course": "all", "unit": "all", "variant": "normal"}, "screen": "quiz", "events": 0, "history": null, "localHistory": null, "parent": false, "run": {"count": 5, "index": 0, "results": 0, "ids": ["54027-23", "54027-03", "54027-26", "54027-16", "54027-27"]}, "notice": ""}}, {"case": "B", "app": "onin-review.html", "initial": {"prefs": {"count": 5, "course": "all", "unit": "all", "variant": "normal"}, "screen": "home", "events": 0, "history": null, "localHistory": null, "parent": false, "run": null, "notice": ""}, "before": {"prefs": {"count": 10, "course": "all", "unit": "all", "variant": "normal"}, "screen": "home", "events": 0, "history": null, "localHistory": null, "parent": false, "run": null, "notice": "", "button": "今日の復習をはじめる（今回は10問）", "disabled": false}, "after_start": {"prefs": {"count": 10, "course": "all", "unit": "all", "variant": "normal"}, "screen": "quiz", "events": 0, "history": null, "localHistory": null, "parent": false, "run": {"count": 10, "index": 0, "results": 0, "ids": ["54027-03", "54027-12", "54027-29", "54027-24", "54027-30", "54027-06", "54027-09", "54027-07", "54027-08", "54027-28"]}, "notice": ""}}, {"case": "C", "app": "onin-review.html", "initial": {"prefs": {"count": 5, "course": "all", "unit": "all", "variant": "normal"}, "screen": "home", "events": 0, "history": null, "localHistory": null, "parent": false, "run": null, "notice": ""}, "before": {"prefs": {"count": 5, "course": "all", "unit": "応仁の乱", "variant": "kanji"}, "screen": "home", "events": 0, "history": null, "localHistory": null, "parent": false, "run": null, "notice": "", "button": "今日の復習をはじめる（今回は4問）", "disabled": false}, "after_start": {"prefs": {"count": 5, "course": "all", "unit": "応仁の乱", "variant": "kanji"}, "screen": "quiz", "events": 0, "history": null, "localHistory": null, "parent": false, "run": {"count": 4, "index": 0, "results": 0, "ids": ["54027-02", "54027-06", "54027-05", "54027-04"]}, "notice": ""}, "after_answer": {"prefs": {"count": 5, "course": "all", "unit": "応仁の乱", "variant": "kanji"}, "screen": "quiz", "events": 1, "history": "{\"schemaVersion\":1,\"datasetVersion\":\"onin-540-27-v1\",\"events\":[{\"questionVersion\":1,\"id\":\"a2cd169f-8a5d-48c2-969f-b58fe380d58e\",\"sessionId\":\"74e93e11-fb89-4cc0-b4f2-5a08b6afc016\",\"questionId\":\"54027-02\",\"unitId\":\"sapix-540-27\",\"version\":\"onin-540-27-v1\",\"unit\":\"応仁の乱\",\"course\":\"d1\",\"question\":\"応仁の乱のころの室町幕府8代将軍は？\",\"response\":\"足利義政\",\"expected\":\"足利義政\",\"explanation\":\"8代将軍・足利義政のころ、将軍家の後継ぎ争いや有力な守護大名どうしの対立が重なり、応仁の乱が起こりました。\",\"correct\":true,\"variant\":\"kanji\",\"mode\":\"daily\",\"hint\":false,\"at\":\"2026-11-14T20:15:46.615Z\",\"offset\":0,\"day\":\"2026-11-14\"}]}", "localHistory": "{\"schemaVersion\":1,\"datasetVersion\":\"onin-540-27-v1\",\"events\":[{\"questionVersion\":1,\"id\":\"a2cd169f-8a5d-48c2-969f-b58fe380d58e\",\"sessionId\":\"74e93e11-fb89-4cc0-b4f2-5a08b6afc016\",\"questionId\":\"54027-02\",\"unitId\":\"sapix-540-27\",\"version\":\"onin-540-27-v1\",\"unit\":\"応仁の乱\",\"course\":\"d1\",\"question\":\"応仁の乱のころの室町幕府8代将軍は？\",\"response\":\"足利義政\",\"expected\":\"足利義政\",\"explanation\":\"8代将軍・足利義政のころ、将軍家の後継ぎ争いや有力な守護大名どうしの対立が重なり、応仁の乱が起こりました。\",\"correct\":true,\"variant\":\"kanji\",\"mode\":\"daily\",\"hint\":false,\"at\":\"2026-11-14T20:15:46.615Z\",\"offset\":0,\"day\":\"2026-11-14\"}]}", "parent": false, "run": {"count": 4, "index": 0, "results": 1, "ids": ["54027-02", "54027-06", "54027-05", "54027-04"]}, "notice": ""}, "after_reload": {"prefs": {"count": 5, "course": "all", "unit": "応仁の乱", "variant": "kanji"}, "screen": "home", "events": 1, "history": "{\"schemaVersion\":1,\"datasetVersion\":\"onin-540-27-v1\",\"events\":[{\"questionVersion\":1,\"id\":\"a2cd169f-8a5d-48c2-969f-b58fe380d58e\",\"sessionId\":\"74e93e11-fb89-4cc0-b4f2-5a08b6afc016\",\"questionId\":\"54027-02\",\"unitId\":\"sapix-540-27\",\"version\":\"onin-540-27-v1\",\"unit\":\"応仁の乱\",\"course\":\"d1\",\"question\":\"応仁の乱のころの室町幕府8代将軍は？\",\"response\":\"足利義政\",\"expected\":\"足利義政\",\"explanation\":\"8代将軍・足利義政のころ、将軍家の後継ぎ争いや有力な守護大名どうしの対立が重なり、応仁の乱が起こりました。\",\"correct\":true,\"variant\":\"kanji\",\"mode\":\"daily\",\"hint\":false,\"at\":\"2026-11-14T20:15:46.615Z\",\"offset\":0,\"day\":\"2026-11-14\"}]}", "localHistory": "{\"schemaVersion\":1,\"datasetVersion\":\"onin-540-27-v1\",\"events\":[{\"questionVersion\":1,\"id\":\"a2cd169f-8a5d-48c2-969f-b58fe380d58e\",\"sessionId\":\"74e93e11-fb89-4cc0-b4f2-5a08b6afc016\",\"questionId\":\"54027-02\",\"unitId\":\"sapix-540-27\",\"version\":\"onin-540-27-v1\",\"unit\":\"応仁の乱\",\"course\":\"d1\",\"question\":\"応仁の乱のころの室町幕府8代将軍は？\",\"response\":\"足利義政\",\"expected\":\"足利義政\",\"explanation\":\"8代将軍・足利義政のころ、将軍家の後継ぎ争いや有力な守護大名どうしの対立が重なり、応仁の乱が起こりました。\",\"correct\":true,\"variant\":\"kanji\",\"mode\":\"daily\",\"hint\":false,\"at\":\"2026-11-14T20:15:46.615Z\",\"offset\":0,\"day\":\"2026-11-14\"}]}", "parent": false, "run": null, "notice": ""}}], "blocked_requests": [{"method": "GET", "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"}, {"method": "GET", "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"}, {"method": "GET", "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"}, {"method": "GET", "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"}, {"method": "GET", "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"}], "server_posts": 0, "page_errors": [], "failure": "Traceback (most recent call last):\n  File \"/tmp/yuika-daily-fix-qa/ui-probe.py\", line 42, in <module>\n    expect(p.get_by_text('この条件では候補がありません。コース・分野・確認方法を見直してください',exact=True)).to_be_visible()\n  File \"/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/sync_api/_generated.py\", line 23332, in to_be_visible\n    self._sync(\n  File \"/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/_impl/_sync_base.py\", line 115, in _sync\n    return task.result()\n           ^^^^^^^^^^^^^\n  File \"/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/_impl/_assertions.py\", line 852, in to_be_visible\n    await self._expect_impl(\n  File \"/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/_impl/_assertions.py\", line 128, in _expect_impl\n    _record_soft_or_raise(\n  File \"/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/_impl/_assertions.py\", line 60, in _record_soft_or_raise\n    raise error\nAssertionError: Locator expected to be visible\nActual value: None\nError: element(s) not found \nCall log:\n  - Expect \"to_be_visible\" with timeout 5000ms\n  - waiting for get_by_text(\"この条件では候補がありません。コース・分野・確認方法を見直してください\", exact=True)\n\nAria snapshot:\n- banner:\n  - link \"ホーム\":\n    - /url: index.html\n  - navigation \"メイン\":\n    - button \"れんしゅう\"\n    - button \"きろく\"\n- main:\n  - text: 社会 · 540-27\n  - heading \"応仁の乱\" [level=1]\n  - paragraph: だれが、なぜ、どう動いたか。 つながりで覚えよう。\n  - text: 室町時代 30問・ヒントと解説\n  - strong: 0／30\n  - text: できた数\n  - strong: \"0\"\n  - text: 今日の再確認\n  - strong: \"0\"\n  - text: にがて\n  - complementary \"おすすめ復習\":\n    - heading \"おすすめ復習\" [level=2]\n    - paragraph: 今の条件でおすすめする復習はありません。通常練習や未回答の問題も選べます。\n    - button \"通常練習の条件を確認する →\"\n  - heading \"れんしゅう\" [level=2]\n  - button \"5問\" [pressed]\n  - button \"10問\"\n  - button \"15問\"\n  - text: コース\n  - combobox \"コース\":\n    - option \"ぜんぶから\"\n    - option \"用語確認（難度1）\"\n    - option \"理由・比較（難度2）\" [selected]\n    - option \"つながり（難度3）\"\n  - text: 分野\n  - combobox \"分野\":\n    - option \"ぜんぶ\"\n    - option \"応仁の乱\"\n    - option \"一揆\"\n    - option \"村の自治\"\n    - option \"農業\"\n    - option \"商業\"\n    - option \"文化\"\n    - option \"将軍\" [selected]\n  - text: 確認方法\n  - combobox \"確認方法\":\n    - option \"通常練習（読みもOK）\" [selected]\n    - option \"漢字・正式名の確認（入力問題）\"\n    - option \"読みの確認（漢字の用語）\"\n  - button \"チャレンジをはじめる →\" [disabled]\n  - heading \"ほかのやり方\" [level=2]\n  - button \"今日の復習をはじめる（今回は0問）\" [disabled]\n  - status: この条件では候補がありません。コース・分野・確認方法を見直してください。\n  - button \"まだ答えていない問題 0 問\" [disabled]\n  - button \"まちがえた問題の復習 0 問\" [disabled]\n  - button \"日をあけて思い出す 0 問\" [disabled]\n  - button \"ヒントなしで確認 0 問\" [disabled]\n  - button \"にがての練習\" [disabled]\n  - button \"漢字・正式名の確認\"\n  - button \"読みの確認\"\n  - group: 学習のくわしい説明\n  - region \"おすすめ復習\":\n    - heading \"おすすめ復習\" [level=2]\n    - paragraph: 前の誤答・時間をおいた確認・ヒントを見た正解を、選んだ条件から少しずつ取り上げます。\n    - paragraph: 候補 0問 · 今回は 0問\n    - button \"おすすめ復習をはじめる →\" [disabled]\n    - paragraph: この条件で今おすすめする復習はありません。通常練習や未回答の問題も選べます。\n    - paragraph: おすすめ復習の回答は、記録では通常練習に含まれます。\n  - heading \"足利将軍の系図（主な人物）\" [level=2]\n  - img \"足利将軍の系図の模式図。尊氏→義詮→義満。義満の子が4代義持と6代義教で兄弟。義持の子が5代義量、義教の子が7代義勝と8代義政。\": 初代 尊氏 2代 義詮 3代 義満 4代 義持 6代 義教 5代 義量 7代 義勝 8代 義政\n  - paragraph: 線は親子。 4代義持と6代義教は、どちらも義満の子＝兄弟。 7代義勝と8代義政も兄弟。 模式図です。『逃げ上手の若君』に出てくるのは尊氏・義詮のころ。漫画の場面と史実は分けて考えよう。\n  - heading \"金閣と銀閣をくらべよう\" [level=2]\n  - table:\n    - rowgroup:\n      - row \"金閣 銀閣\":\n        - columnheader\n        - columnheader \"金閣\"\n        - columnheader \"銀閣\"\n      - row \"建てた将軍 3代 足利義満 8代 足利義政\":\n        - cell \"建てた将軍\"\n        - cell \"3代 足利義満\"\n        - cell \"8代 足利義政\"\n      - row \"文化 北山文化 東山文化\":\n        - cell \"文化\"\n        - cell \"北山文化\"\n        - cell \"東山文化\"\n      - row \"寺の名前 鹿苑寺 慈照寺\":\n        - cell \"寺の名前\"\n        - cell \"鹿苑寺\"\n        - cell \"慈照寺\"\n      - row \"もとは 義満の山荘 義政の山荘\":\n        - cell \"もとは\"\n        - cell \"義満の山荘\"\n        - cell \"義政の山荘\"\n      - row \"特ちょう 金箔をはった、はなやかな建物 落ち着いた簡素な美しさ。同じ寺の東求堂に書院造\":\n        - cell \"特ちょう\"\n        - cell \"金箔をはった、はなやかな建物\"\n        - cell \"落ち着いた簡素な美しさ。同じ寺の東求堂に書院造\"\n  - paragraph: 銀閣という名前ですが、銀箔をはった跡は調査で見つかっていません。写真は使わず、文字の表にしています。\n  - group: 教材の扱い・保護者の方へ\n  - group:\n    - text: にがての練習のくわしい設定\n    - heading \"弱点に合わせた追加練習\" [level=2]\n    - paragraph: 最近30日で、まちがえた日が2日以上ある問題を練習します。日本時間で日付を分け、最後に答えた5日分を使います。同じ日にヒントを見て正解した場合も、その日のまちがいを数えます。ヒントなしで正解すると候補（こうほ）から外れます。再確認待ちに進み、期限が来たら今日の復習で確かめます。まちがえたら弱点に戻ります。読みと漢字は別々に数えます。記録が少ないので、苦手とは決めつけません。\n    - text: 追加問題のむずかしさ\n    - combobox \"追加問題のむずかしさ\":\n      - option \"すべて\" [selected]\n      - option \"基本\"\n      - option \"標準\"\n      - option \"発展\"\n    - paragraph: もとの問題と同じむずかしさです。平安は暗記＝基本、ペア・流れ＝標準、理由＝発展です。１回は選んだ問題数まで、候補は最大10問です。\n    - paragraph: まだ回答記録がありません。まず通常練習をしてみよう。\n- contentinfo:\n  - text: 540-27\n  - link \"保護者のノート\":\n    - /url: \"#parent\"\n- status: 自動メールは未接続です。接続後のチャレンジから通知します。\n- group: 保護者：チャレンジ結果の自動メール\n", "ended_at": "2026-11-14T20:15:53.820949+00:00", "after_status": ""}
+Traceback (most recent call last):
+  File "/tmp/yuika-daily-fix-qa/ui-probe.py", line 42, in <module>
+    expect(p.get_by_text('この条件では候補がありません。コース・分野・確認方法を見直してください',exact=True)).to_be_visible()
+  File "/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/sync_api/_generated.py", line 23332, in to_be_visible
+    self._sync(
+  File "/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/_impl/_sync_base.py", line 115, in _sync
+    return task.result()
+           ^^^^^^^^^^^^^
+  File "/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/_impl/_assertions.py", line 852, in to_be_visible
+    await self._expect_impl(
+  File "/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/_impl/_assertions.py", line 128, in _expect_impl
+    _record_soft_or_raise(
+  File "/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/_impl/_assertions.py", line 60, in _record_soft_or_raise
+    raise error
+AssertionError: Locator expected to be visible
+Actual value: None
+Error: element(s) not found 
+Call log:
+  - Expect "to_be_visible" with timeout 5000ms
+  - waiting for get_by_text("この条件では候補がありません。コース・分野・確認方法を見直してください", exact=True)
+
+Aria snapshot:
+- banner:
+  - link "ホーム":
+    - /url: index.html
+  - navigation "メイン":
+    - button "れんしゅう"
+    - button "きろく"
+- main:
+  - text: 社会 · 540-27
+  - heading "応仁の乱" [level=1]
+  - paragraph: だれが、なぜ、どう動いたか。 つながりで覚えよう。
+  - text: 室町時代 30問・ヒントと解説
+  - strong: 0／30
+  - text: できた数
+  - strong: "0"
+  - text: 今日の再確認
+  - strong: "0"
+  - text: にがて
+  - complementary "おすすめ復習":
+    - heading "おすすめ復習" [level=2]
+    - paragraph: 今の条件でおすすめする復習はありません。通常練習や未回答の問題も選べます。
+    - button "通常練習の条件を確認する →"
+  - heading "れんしゅう" [level=2]
+  - button "5問" [pressed]
+  - button "10問"
+  - button "15問"
+  - text: コース
+  - combobox "コース":
+    - option "ぜんぶから"
+    - option "用語確認（難度1）"
+    - option "理由・比較（難度2）" [selected]
+    - option "つながり（難度3）"
+  - text: 分野
+  - combobox "分野":
+    - option "ぜんぶ"
+    - option "応仁の乱"
+    - option "一揆"
+    - option "村の自治"
+    - option "農業"
+    - option "商業"
+    - option "文化"
+    - option "将軍" [selected]
+  - text: 確認方法
+  - combobox "確認方法":
+    - option "通常練習（読みもOK）" [selected]
+    - option "漢字・正式名の確認（入力問題）"
+    - option "読みの確認（漢字の用語）"
+  - button "チャレンジをはじめる →" [disabled]
+  - heading "ほかのやり方" [level=2]
+  - button "今日の復習をはじめる（今回は0問）" [disabled]
+  - status: この条件では候補がありません。コース・分野・確認方法を見直してください。
+  - button "まだ答えていない問題 0 問" [disabled]
+  - button "まちがえた問題の復習 0 問" [disabled]
+  - button "日をあけて思い出す 0 問" [disabled]
+  - button "ヒントなしで確認 0 問" [disabled]
+  - button "にがての練習" [disabled]
+  - button "漢字・正式名の確認"
+  - button "読みの確認"
+  - group: 学習のくわしい説明
+  - region "おすすめ復習":
+    - heading "おすすめ復習" [level=2]
+    - paragraph: 前の誤答・時間をおいた確認・ヒントを見た正解を、選んだ条件から少しずつ取り上げます。
+    - paragraph: 候補 0問 · 今回は 0問
+    - button "おすすめ復習をはじめる →" [disabled]
+    - paragraph: この条件で今おすすめする復習はありません。通常練習や未回答の問題も選べます。
+    - paragraph: おすすめ復習の回答は、記録では通常練習に含まれます。
+  - heading "足利将軍の系図（主な人物）" [level=2]
+  - img "足利将軍の系図の模式図。尊氏→義詮→義満。義満の子が4代義持と6代義教で兄弟。義持の子が5代義量、義教の子が7代義勝と8代義政。": 初代 尊氏 2代 義詮 3代 義満 4代 義持 6代 義教 5代 義量 7代 義勝 8代 義政
+  - paragraph: 線は親子。 4代義持と6代義教は、どちらも義満の子＝兄弟。 7代義勝と8代義政も兄弟。 模式図です。『逃げ上手の若君』に出てくるのは尊氏・義詮のころ。漫画の場面と史実は分けて考えよう。
+  - heading "金閣と銀閣をくらべよう" [level=2]
+  - table:
+    - rowgroup:
+      - row "金閣 銀閣":
+        - columnheader
+        - columnheader "金閣"
+        - columnheader "銀閣"
+      - row "建てた将軍 3代 足利義満 8代 足利義政":
+        - cell "建てた将軍"
+        - cell "3代 足利義満"
+        - cell "8代 足利義政"
+      - row "文化 北山文化 東山文化":
+        - cell "文化"
+        - cell "北山文化"
+        - cell "東山文化"
+      - row "寺の名前 鹿苑寺 慈照寺":
+        - cell "寺の名前"
+        - cell "鹿苑寺"
+        - cell "慈照寺"
+      - row "もとは 義満の山荘 義政の山荘":
+        - cell "もとは"
+        - cell "義満の山荘"
+        - cell "義政の山荘"
+      - row "特ちょう 金箔をはった、はなやかな建物 落ち着いた簡素な美しさ。同じ寺の東求堂に書院造":
+        - cell "特ちょう"
+        - cell "金箔をはった、はなやかな建物"
+        - cell "落ち着いた簡素な美しさ。同じ寺の東求堂に書院造"
+  - paragraph: 銀閣という名前ですが、銀箔をはった跡は調査で見つかっていません。写真は使わず、文字の表にしています。
+  - group: 教材の扱い・保護者の方へ
+  - group:
+    - text: にがての練習のくわしい設定
+    - heading "弱点に合わせた追加練習" [level=2]
+    - paragraph: 最近30日で、まちがえた日が2日以上ある問題を練習します。日本時間で日付を分け、最後に答えた5日分を使います。同じ日にヒントを見て正解した場合も、その日のまちがいを数えます。ヒントなしで正解すると候補（こうほ）から外れます。再確認待ちに進み、期限が来たら今日の復習で確かめます。まちがえたら弱点に戻ります。読みと漢字は別々に数えます。記録が少ないので、苦手とは決めつけません。
+    - text: 追加問題のむずかしさ
+    - combobox "追加問題のむずかしさ":
+      - option "すべて" [selected]
+      - option "基本"
+      - option "標準"
+      - option "発展"
+    - paragraph: もとの問題と同じむずかしさです。平安は暗記＝基本、ペア・流れ＝標準、理由＝発展です。１回は選んだ問題数まで、候補は最大10問です。
+    - paragraph: まだ回答記録がありません。まず通常練習をしてみよう。
+- contentinfo:
+  - text: 540-27
+  - link "保護者のノート":
+    - /url: "#parent"
+- status: 自動メールは未接続です。接続後のチャレンジから通知します。
+- group: 保護者：チャレンジ結果の自動メール

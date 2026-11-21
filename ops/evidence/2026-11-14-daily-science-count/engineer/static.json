@@ -1,0 +1,9 @@
+{
+  "onin-review.html": true,
+  "kamakura-review.html": true,
+  "heian-review.html": true,
+  "mock-focus-review.html": true,
+  "scripts/practice/adaptive.js": true,
+  "assets/design.js": true,
+  "science_outside_adaptive": true
+}

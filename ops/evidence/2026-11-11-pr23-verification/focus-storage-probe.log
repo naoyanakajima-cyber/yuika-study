@@ -1,0 +1,8 @@
+127.0.0.1 - - [11/Nov/2026 14:04:55] "GET /mock-focus-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [11/Nov/2026 14:04:56] "GET /mock-focus-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [11/Nov/2026 14:04:57] "GET /mock-focus-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [11/Nov/2026 14:04:58] "GET /mock-focus-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [11/Nov/2026 14:04:58] "GET /mock-focus-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [11/Nov/2026 14:04:58] "GET /mock-focus-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [11/Nov/2026 14:04:59] "GET /mock-focus-review.html HTTP/1.1" 200 -
+independent focus storage probe: new focus app, original bytes/prefs intact, envelope/unknown fields, actual downloads/import, quota and broken stores PASS

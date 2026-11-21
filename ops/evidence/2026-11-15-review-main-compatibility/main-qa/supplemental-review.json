@@ -1,0 +1,81 @@
+{
+  "head": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
+  "probe_summary_analysis": [
+    {
+      "question": "medaka-07",
+      "parent": false,
+      "summary": {
+        "correct": 1,
+        "total": 84,
+        "due": 0,
+        "dueCount": 0,
+        "weakCount": 1,
+        "normalCount": 4,
+        "unavailable": false
+      },
+      "summary_matches_assisted_weak_and_old_correct": true
+    },
+    {
+      "question": "medaka-07",
+      "parent": true,
+      "summary": {
+        "correct": 0,
+        "total": 84,
+        "due": 0,
+        "dueCount": 0,
+        "weakCount": 1,
+        "normalCount": 4,
+        "unavailable": false
+      },
+      "summary_matches_assisted_weak_and_old_correct": true
+    },
+    {
+      "question": "edo-01",
+      "parent": false,
+      "summary": {
+        "correct": 0,
+        "total": 22,
+        "due": 0,
+        "dueCount": 0,
+        "weakCount": 1,
+        "normalCount": 4,
+        "unavailable": false
+      },
+      "summary_matches_assisted_weak_and_old_correct": true
+    },
+    {
+      "question": "edo-01",
+      "parent": true,
+      "summary": {
+        "correct": 0,
+        "total": 22,
+        "due": 0,
+        "dueCount": 0,
+        "weakCount": 1,
+        "normalCount": 4,
+        "unavailable": false
+      },
+      "summary_matches_assisted_weak_and_old_correct": true
+    }
+  ],
+  "visual_inspected": [
+    "medaka-07-parentFalse-assisted.png",
+    "edo-01-parentTrue-assisted.png"
+  ],
+  "document_review": {
+    "path": "docs/product/daily-count-spec.md",
+    "sha256": "c011e7da24abbb3219e0c275b277e2f037770f2f6899544439fc8f1a2bbb8de7",
+    "section": "2026-11-15：外部main更新後の互換性追従（未実装）",
+    "conclusion": "no material issue",
+    "reasons": [
+      "explicitly unimplemented/current-main success not combined-branch acceptance",
+      "existing PR10 count/recommendation changes preserved; no new PR/main push/force",
+      "recall stored correctness vs read-only projection, validators, old questions/IDs/keys, unknown-unit fallback retained",
+      "both test families preserved; independent exact candidate QA required",
+      "PR11/12 later scoped work; no theme expansion or material feature completion inference"
+    ],
+    "same_cycle_revised_condition": "After main QA pass and >=18 minutes, one existing-PR10 candidate may proceed; exact candidate QA required; unfinished checkpoint otherwise; Edo generated after science",
+    "rechecked_at": "2026-11-15T08:16:22.366731+00:00"
+  },
+  "at": "2026-11-15T08:13:18.217823+00:00"
+}

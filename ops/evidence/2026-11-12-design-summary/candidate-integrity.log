@@ -1,0 +1,562 @@
+[
+  {
+    "entry": "onin-review.html",
+    "case": "questionId:unknown-synthetic",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "onin-review.html",
+    "case": "correct:yes",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "onin-review.html",
+    "case": "correct:True",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "onin-review.html",
+    "case": "hint:yes",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "onin-review.html",
+    "case": "expected:not-the-answer",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "onin-review.html",
+    "case": "question:wrong-prompt",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "onin-review.html",
+    "case": "at:not-time",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "onin-review.html",
+    "case": "response:None",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "onin-review.html",
+    "case": "conflicting_duplicate",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "onin-review.html",
+    "case": "identical_duplicate_valid",
+    "blocked": false,
+    "summary": {
+      "correct": 1,
+      "total": 30,
+      "due": 1,
+      "dueCount": 1,
+      "weakCount": 3,
+      "normalCount": 1,
+      "unavailable": false
+    },
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "onin-review.html",
+    "case": "null_event",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "onin-review.html",
+    "case": "valid",
+    "blocked": false,
+    "summary": {
+      "correct": 1,
+      "total": 30,
+      "due": 1,
+      "dueCount": 1,
+      "weakCount": 3,
+      "normalCount": 1,
+      "unavailable": false
+    },
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "kamakura-review.html",
+    "case": "questionId:unknown-synthetic",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "kamakura-review.html",
+    "case": "correct:yes",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "kamakura-review.html",
+    "case": "correct:True",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "kamakura-review.html",
+    "case": "hint:yes",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "kamakura-review.html",
+    "case": "expected:not-the-answer",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "kamakura-review.html",
+    "case": "question:wrong-prompt",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "kamakura-review.html",
+    "case": "at:not-time",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "kamakura-review.html",
+    "case": "response:None",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "kamakura-review.html",
+    "case": "conflicting_duplicate",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "kamakura-review.html",
+    "case": "identical_duplicate_valid",
+    "blocked": false,
+    "summary": {
+      "correct": 1,
+      "total": 38,
+      "due": 1,
+      "dueCount": 1,
+      "weakCount": 3,
+      "normalCount": 1,
+      "unavailable": false
+    },
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "kamakura-review.html",
+    "case": "null_event",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "kamakura-review.html",
+    "case": "valid",
+    "blocked": false,
+    "summary": {
+      "correct": 1,
+      "total": 38,
+      "due": 1,
+      "dueCount": 1,
+      "weakCount": 3,
+      "normalCount": 1,
+      "unavailable": false
+    },
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "heian-review.html",
+    "case": "questionId:unknown-synthetic",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "heian-review.html",
+    "case": "correct:yes",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "heian-review.html",
+    "case": "correct:True",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "heian-review.html",
+    "case": "hint:yes",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "heian-review.html",
+    "case": "expected:not-the-answer",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "heian-review.html",
+    "case": "question:wrong-prompt",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "heian-review.html",
+    "case": "at:not-time",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "heian-review.html",
+    "case": "response:None",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "heian-review.html",
+    "case": "conflicting_duplicate",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "heian-review.html",
+    "case": "identical_duplicate_valid",
+    "blocked": false,
+    "summary": {
+      "correct": 1,
+      "total": 75,
+      "due": 1,
+      "dueCount": 1,
+      "weakCount": 3,
+      "normalCount": 1,
+      "unavailable": false
+    },
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "heian-review.html",
+    "case": "null_event",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "heian-review.html",
+    "case": "valid",
+    "blocked": false,
+    "summary": {
+      "correct": 1,
+      "total": 75,
+      "due": 1,
+      "dueCount": 1,
+      "weakCount": 3,
+      "normalCount": 1,
+      "unavailable": false
+    },
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "yuika-review-v2.html",
+    "case": "questionId:unknown-synthetic",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "yuika-review-v2.html",
+    "case": "correct:yes",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "yuika-review-v2.html",
+    "case": "correct:True",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "yuika-review-v2.html",
+    "case": "hintUsed:yes",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "yuika-review-v2.html",
+    "case": "expected:not-the-answer",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "yuika-review-v2.html",
+    "case": "question:wrong-prompt",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "yuika-review-v2.html",
+    "case": "answeredAt:not-time",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "yuika-review-v2.html",
+    "case": "response:None",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "yuika-review-v2.html",
+    "case": "conflicting_duplicate",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "yuika-review-v2.html",
+    "case": "identical_duplicate_valid",
+    "blocked": false,
+    "summary": {
+      "correct": 1,
+      "total": 47,
+      "due": 1,
+      "dueCount": 1,
+      "weakCount": 3,
+      "normalCount": 1,
+      "unavailable": false
+    },
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "yuika-review-v2.html",
+    "case": "null_event",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "yuika-review-v2.html",
+    "case": "valid",
+    "blocked": false,
+    "summary": {
+      "correct": 1,
+      "total": 47,
+      "due": 1,
+      "dueCount": 1,
+      "weakCount": 3,
+      "normalCount": 1,
+      "unavailable": false
+    },
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "mock-focus-review.html",
+    "case": "questionId:unknown-synthetic",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "mock-focus-review.html",
+    "case": "correct:yes",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "mock-focus-review.html",
+    "case": "correct:True",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "mock-focus-review.html",
+    "case": "hint:yes",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "mock-focus-review.html",
+    "case": "expected:not-the-answer",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "mock-focus-review.html",
+    "case": "question:wrong-prompt",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "mock-focus-review.html",
+    "case": "at:not-time",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "mock-focus-review.html",
+    "case": "response:None",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "mock-focus-review.html",
+    "case": "conflicting_duplicate",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "mock-focus-review.html",
+    "case": "identical_duplicate_valid",
+    "blocked": false,
+    "summary": {
+      "correct": 1,
+      "total": 46,
+      "due": 1,
+      "dueCount": 1,
+      "weakCount": 3,
+      "normalCount": 1,
+      "unavailable": false
+    },
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "mock-focus-review.html",
+    "case": "null_event",
+    "blocked": true,
+    "summary": null,
+    "unchanged": true,
+    "parity": true
+  },
+  {
+    "entry": "mock-focus-review.html",
+    "case": "valid",
+    "blocked": false,
+    "summary": {
+      "correct": 1,
+      "total": 46,
+      "due": 1,
+      "dueCount": 1,
+      "weakCount": 3,
+      "normalCount": 1,
+      "unavailable": false
+    },
+    "unchanged": true,
+    "parity": true
+  }
+]

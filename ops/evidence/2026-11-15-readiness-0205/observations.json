@@ -1,0 +1,86 @@
+{
+  "observed_at": "2026-11-15 02:05:53 UTC",
+  "source_commit": "73b605d268be6fdb05d9ecd89dd6811070001059",
+  "cloud": {
+    "provider": "cloud",
+    "observed_phase": "running",
+    "connectivity": "connected",
+    "observations_current": true
+  },
+  "main": "86514eda054a5a2e09204df3a0668e40624c16de",
+  "prs": [
+    {
+      "number": 22,
+      "title": "iPad相当WebKit自動テストとタップ領域の修正（#20上積み・OS依存待ち）",
+      "state": "open",
+      "draft": true,
+      "head": "bd4f48de0404614eb84275969bfccff0a368e866",
+      "base": "codex/review-17-19-quality",
+      "base_sha": "79d546891940b6f5e3030940f7c52c2ff7b3d36b"
+    },
+    {
+      "number": 13,
+      "title": "AGENTS.mdに自律実行ルールを追加",
+      "state": "open",
+      "draft": true,
+      "head": "139c8b8b56bcd979068b61984120d9f312efe182",
+      "base": "codex/cloud-handoff-hardening-20261108",
+      "base_sha": "4329daaeec15641289d7edbcb7f3237d0da1e0e3"
+    },
+    {
+      "number": 12,
+      "title": "標準/鎌倉テーマを保護者モードに対応し、模式図の文字を読みやすくする",
+      "state": "open",
+      "draft": true,
+      "head": "b416d3c08a0d3952e5f0153fdc691d6fa0e492b7",
+      "base": "main",
+      "base_sha": "86514eda054a5a2e09204df3a0668e40624c16de"
+    },
+    {
+      "number": 11,
+      "title": "合成教材の確認・編集と保存しない試し解きを追加",
+      "state": "open",
+      "draft": true,
+      "head": "ee51e68d7e1eeb21bd0e959ec58166a869947d0a",
+      "base": "main",
+      "base_sha": "86514eda054a5a2e09204df3a0668e40624c16de"
+    },
+    {
+      "number": 10,
+      "title": "理由が見えるおすすめ復習と日次の実問数表示を追加",
+      "state": "open",
+      "draft": true,
+      "head": "73fe2ee9d776b3e3360614752fb722ff4aee4f85",
+      "base": "main",
+      "base_sha": "86514eda054a5a2e09204df3a0668e40624c16de"
+    },
+    {
+      "number": 9,
+      "title": "CEOの朝夕判断で進める半自律開発チームの運用と初期バックログを定義",
+      "state": "open",
+      "draft": true,
+      "head": "73b605d268be6fdb05d9ecd89dd6811070001059",
+      "base": "main",
+      "base_sha": "d526d65fbae116f834d14ad994a27bc50ca23b62"
+    },
+    {
+      "number": 4,
+      "title": "応仁の乱：徳政・一揆と村の自治の用語を区別しやすくする",
+      "state": "open",
+      "draft": true,
+      "head": "ff211ee8e144e955fa5837e8b8ff5cabf51f60a4",
+      "base": "main",
+      "base_sha": "d526d65fbae116f834d14ad994a27bc50ca23b62"
+    }
+  ],
+  "theme_external_checks": [
+    {
+      "name": "Workers Builds: yuika-study",
+      "head_sha": "b416d3c08a0d3952e5f0153fdc691d6fa0e492b7",
+      "status": "completed",
+      "conclusion": "failure",
+      "completed_at": "2026-11-15T01:21:45Z",
+      "html_url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/132655374833"
+    }
+  ]
+}

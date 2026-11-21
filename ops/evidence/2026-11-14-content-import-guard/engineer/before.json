@@ -1,0 +1,110 @@
+{
+  "base": "f1e84a7",
+  "reproduced": "deferred File.text completion overwrites actual DOM edit after discard accepted",
+  "before": {
+    "proposal": {
+      "format": "yuika-content-proposal",
+      "schemaVersion": 1,
+      "packageId": "draft-synthetic-text-package",
+      "revision": 2,
+      "source": {
+        "kind": "text",
+        "sourceId": "synthetic-text-source",
+        "label": "合成教材テキスト（実資料ではありません）",
+        "locator": "synthetic-source.txt"
+      },
+      "transcription": {
+        "text": "水を冷やすと氷になります。\n太陽は東からのぼります。\n",
+        "uncertainties": []
+      },
+      "unit": {
+        "id": "draft-synthetic-material",
+        "title": "合成教材：水と方角"
+      },
+      "questions": [
+        {
+          "id": "draft-synthetic-water-001",
+          "questionVersion": 1,
+          "type": "text",
+          "prompt": "合成編集を保持してください",
+          "answer": "氷",
+          "aliases": [],
+          "readings": [
+            "こおり"
+          ],
+          "options": [],
+          "explanation": "水は冷やすと氷になることがあります。元の合成文に対応する説明案です。",
+          "hint": "冷凍庫で水を冷やしたときを思い出そう。",
+          "sourceRefs": [
+            {
+              "sourceId": "synthetic-text-source",
+              "locator": "lines:1-1"
+            }
+          ],
+          "generatedFields": [
+            "prompt",
+            "explanation",
+            "hint",
+            "readings"
+          ],
+          "status": "draft",
+          "confirmedRevision": null
+        }
+      ]
+    },
+    "unsaved": true
+  },
+  "after": {
+    "proposal": {
+      "format": "yuika-content-proposal",
+      "schemaVersion": 1,
+      "packageId": "draft-synthetic-text-package",
+      "revision": 1,
+      "source": {
+        "kind": "text",
+        "sourceId": "synthetic-text-source",
+        "label": "合成教材テキスト（実資料ではありません）",
+        "locator": "synthetic-source.txt"
+      },
+      "transcription": {
+        "text": "水を冷やすと氷になります。\n太陽は東からのぼります。\n",
+        "uncertainties": []
+      },
+      "unit": {
+        "id": "draft-synthetic-material",
+        "title": "合成教材：水と方角"
+      },
+      "questions": [
+        {
+          "id": "draft-synthetic-water-001",
+          "questionVersion": 1,
+          "type": "text",
+          "prompt": "水を冷やすと何になりますか？",
+          "answer": "氷",
+          "aliases": [],
+          "readings": [
+            "こおり"
+          ],
+          "options": [],
+          "explanation": "水は冷やすと氷になることがあります。元の合成文に対応する説明案です。",
+          "hint": "冷凍庫で水を冷やしたときを思い出そう。",
+          "sourceRefs": [
+            {
+              "sourceId": "synthetic-text-source",
+              "locator": "lines:1-1"
+            }
+          ],
+          "generatedFields": [
+            "prompt",
+            "explanation",
+            "hint",
+            "readings"
+          ],
+          "status": "draft",
+          "confirmedRevision": null
+        }
+      ]
+    },
+    "unsaved": true
+  }
+}

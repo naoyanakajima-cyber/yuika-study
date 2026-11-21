@@ -1,0 +1,18 @@
+{
+  "head": "69f77d671b66484b501f7a0f5c292bfa96a22273",
+  "baseline": "58c3fd4ba10ecfaa249cc3c808c3e8e5fcaf5359",
+  "files": [
+    "assets/progress.js",
+    "scripts/design/build_summary.py",
+    "tests/microscope.py",
+    "yuika-review-v2.html"
+  ],
+  "diff_stat": " assets/progress.js              |  3 ++-\n scripts/design/build_summary.py |  3 ++-\n tests/microscope.py             | 22 ++++++++++++++++++++++\n yuika-review-v2.html            |  2 +-\n 4 files changed, 27 insertions(+), 3 deletions(-)\n",
+  "html_exact_single_badge_substitution": true,
+  "question_objects_ids_grading_persistence_notification_html_unchanged": true,
+  "generator_and_generated_guard_identical": true,
+  "guard": "const validRequestedUnit=meta.science&&meta.questions.some(q=>q.unit===requestedUnit);",
+  "tests_add_four_fresh_context_boundaries_and_actual_start": true,
+  "checked_at": "2026-11-15T06:15:21.485947+00:00",
+  "scope": "final relative to original PR27; not a full scientific fact audit of original PR27 additions"
+}

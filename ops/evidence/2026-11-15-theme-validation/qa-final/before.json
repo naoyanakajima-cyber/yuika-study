@@ -1,0 +1,8 @@
+{
+  "head": "b416d3c08a0d3952e5f0153fdc691d6fa0e492b7",
+  "status": "",
+  "at": "2026-11-15T01:14:07.450947+00:00",
+  "executor": "qa_theme_compatibility",
+  "reason_for_new_full_run": "new fixed product CSS and regression test change after observed C6 contrast defect; not retrying unchanged passing candidate",
+  "dependency_preparation": "verified existing venv manually reused; automatic handoff not claimed"
+}

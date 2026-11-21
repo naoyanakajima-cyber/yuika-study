@@ -1,0 +1,14 @@
+{
+  "main": "86514eda054a5a2e09204df3a0668e40624c16de",
+  "sha256": {
+    "scripts/practice/adaptive.js": "aa82eca8636be227d3bcaf1f0004004d74b55ec8ec325e4cfd8300e74811eac9",
+    "scripts/practice/embed.py": "afef4b5060ecf0b75a9bc660872c1c761bf5def4b6d65f81bb4ebdedb9404284",
+    "scripts/prototype/runtime.js": "ef151513bbca3b425389fc9d17a7a0037e74e63ebd7c5a2e4c8af79070464770",
+    "scripts/parent/runtime.js": "345c190adf1c7c92d11f153c422d7783d1a7799557d83d43dd3f6e04e5df9957",
+    "assets/design.css": "a1c239291637b2721052453b457ad106637a93dfe1412162b615ab7a4d9f967d",
+    "heian-review.html": "b484052d4e0a9bc81c96dae69f03c452e736093fe4d9b73b539d87ccda369775",
+    "mock-focus-review.html": "fe3a1040a54bbcd486fd2f3efb6ede501716d6d542d3e12dff2f070ec3e628dc",
+    "yuika-review-v2.html": "72b7cef43c02d22d4ae0c17fddc6aefdeb0ec9908ab974e49c727d0800a25314",
+    "index.html": "7cda10be2e54fada58627c407a6bd269bff9745cb7239aed61883306b282611f"
+  }
+}

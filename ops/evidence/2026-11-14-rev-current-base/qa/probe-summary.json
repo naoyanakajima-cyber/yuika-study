@@ -1,0 +1,105 @@
+{
+  "head": "132f9f59ebd23b6dab33e7d1e23bf4d077b8070d",
+  "cases": [
+    {
+      "app": "onin-review.html",
+      "scenario": "normal",
+      "started": 1,
+      "saved_events": 2,
+      "reload": true,
+      "legacy_and_other_preserved": true,
+      "parent_all_local_unchanged": false
+    },
+    {
+      "app": "onin-review.html",
+      "scenario": "parent",
+      "started": 1,
+      "saved_events": 2,
+      "reload": true,
+      "legacy_and_other_preserved": true,
+      "parent_all_local_unchanged": true
+    },
+    {
+      "app": "onin-review.html",
+      "scenario": "blocked",
+      "disabled": true,
+      "direct_start_preserved": true,
+      "status": "記録や時刻を確認するまで、おすすめ復習を休止しています。"
+    },
+    {
+      "app": "onin-review.html",
+      "scenario": "future",
+      "disabled": true,
+      "direct_start_preserved": true,
+      "status": "記録や時刻を確認するまで、おすすめ復習を休止しています。"
+    },
+    {
+      "app": "onin-review.html",
+      "scenario": "quota",
+      "dirty": true,
+      "disabled": true,
+      "saved_raw_preserved": true
+    },
+    {
+      "app": "kamakura-review.html",
+      "scenario": "normal",
+      "started": 1,
+      "saved_events": 2,
+      "reload": true,
+      "legacy_and_other_preserved": true,
+      "parent_all_local_unchanged": false
+    },
+    {
+      "app": "kamakura-review.html",
+      "scenario": "parent",
+      "started": 1,
+      "saved_events": 2,
+      "reload": true,
+      "legacy_and_other_preserved": true,
+      "parent_all_local_unchanged": true
+    },
+    {
+      "app": "kamakura-review.html",
+      "scenario": "blocked",
+      "disabled": true,
+      "direct_start_preserved": true,
+      "status": "記録や時刻を確認するまで、おすすめ復習を休止しています。"
+    },
+    {
+      "app": "kamakura-review.html",
+      "scenario": "future",
+      "disabled": true,
+      "direct_start_preserved": true,
+      "status": "記録や時刻を確認するまで、おすすめ復習を休止しています。"
+    },
+    {
+      "app": "kamakura-review.html",
+      "scenario": "quota",
+      "dirty": true,
+      "disabled": true,
+      "saved_raw_preserved": true
+    }
+  ],
+  "complete_cases": 10,
+  "probe_invocations": 3,
+  "harness_failures": [
+    {
+      "attempt": 1,
+      "cause": "parent exit reload: app data not initialized when parent boundary available",
+      "fix": "wait for app data as well as inactive parent boundary"
+    },
+    {
+      "attempt": 2,
+      "cause": "setter function returned to Playwright evaluate was invoked as function",
+      "fix": "explicit arrow block returning undefined; continue only remaining six cases"
+    }
+  ],
+  "product_failures": 0,
+  "page_errors": 0,
+  "server_posts": 0,
+  "blocked_external_requests_all_attempts": 24,
+  "network": "Only public Google Fonts CSS GET attempts, all blocked; no POST reached server",
+  "completed_at": "2026-11-14T19:17:01.780738+00:00",
+  "head_after": "132f9f59ebd23b6dab33e7d1e23bf4d077b8070d",
+  "dirty_after": ""
+}

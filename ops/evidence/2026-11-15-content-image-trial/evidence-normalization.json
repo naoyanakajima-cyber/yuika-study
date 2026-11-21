@@ -1,0 +1,7 @@
+{
+  "path": "qa/attempt1/probe.log",
+  "source_sha256": "44ae862d14676be514aa3aa548c68b34f49412c498b61e984355e45a5d511d28",
+  "saved_sha256": "e2aff0fcc544804608eca7ad18fafc319d520d76dca43b740bc5b4ad97826818",
+  "change": "Removed one trailing space in Playwright Actual value line to satisfy git diff --check. No lines, assertions, or failure details removed. Original cloud /tmp source remains unchanged.",
+  "at": "2026-11-15T10:19:40.779160+00:00"
+}

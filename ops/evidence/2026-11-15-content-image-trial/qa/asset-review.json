@@ -1,0 +1,24 @@
+{
+  "head": "1678519f916471ba6e38044855de240bd6c4a807",
+  "exact_sample_fixture_match": true,
+  "trusted_assets": [
+    [
+      "text",
+      "synthetic-text-source",
+      "synthetic-source.txt"
+    ],
+    [
+      "image",
+      "synthetic-image-source",
+      "synthetic-source.svg"
+    ],
+    [
+      "image",
+      "synthetic-triangle-source",
+      "synthetic-triangle-source.svg"
+    ]
+  ],
+  "asset_literal_bytes_match_fixture": true,
+  "unique_asset_triples": true,
+  "review": "sourceAsset only exact literal ASSETS.find; image innerHTML receives selected asset.content only, not proposal text/URL; unknown tuple does not render; note uses textContent helper; main learning code unchanged."
+}

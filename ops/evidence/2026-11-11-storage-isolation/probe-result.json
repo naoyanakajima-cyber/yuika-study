@@ -1,0 +1,57 @@
+{
+  "head": "408805b06092b9eec5971426a8a1c2cb45194620",
+  "results": [
+    {
+      "page": "onin-review.html",
+      "key": "yuika-prototype-v1:yuika-social-540-27-v1",
+      "legacy_unchanged": true,
+      "no_automatic_copy": true,
+      "old_reader_roundtrip": true,
+      "export_import": true,
+      "unknown_field_and_version_rejected": true,
+      "old_and_rejected_raw_downloads": true,
+      "cross_tab_valid_merge_and_invalid_protection": true,
+      "legacy_and_trial_corruption_distinguished": true
+    },
+    {
+      "page": "kamakura-review.html",
+      "key": "yuika-prototype-v1:yuika-social-540-25-v1",
+      "legacy_unchanged": true,
+      "no_automatic_copy": true,
+      "old_reader_roundtrip": true,
+      "export_import": true,
+      "unknown_field_and_version_rejected": true,
+      "old_and_rejected_raw_downloads": true,
+      "cross_tab_valid_merge_and_invalid_protection": true,
+      "legacy_and_trial_corruption_distinguished": true
+    },
+    {
+      "page": "heian-review.html",
+      "key": "yuika-prototype-v1:yuika-social-540-24-v1",
+      "legacy_unchanged": true,
+      "no_automatic_copy": true,
+      "old_reader_roundtrip": true,
+      "export_import": true,
+      "unknown_field_and_version_rejected": true,
+      "old_and_rejected_raw_downloads": true,
+      "cross_tab_valid_merge_and_invalid_protection": true,
+      "legacy_and_trial_corruption_distinguished": true
+    },
+    {
+      "page": "yuika-review-v2.html",
+      "key": "yuika-prototype-v1:yuika-science-review-v2",
+      "legacy_unchanged": true,
+      "no_automatic_copy": true,
+      "old_reader_roundtrip": true,
+      "export_import": true,
+      "unknown_field_and_version_rejected": true,
+      "old_and_rejected_raw_downloads": true,
+      "cross_tab_valid_merge_and_invalid_protection": true,
+      "legacy_and_trial_corruption_distinguished": true
+    }
+  ],
+  "POST_attempts": 0,
+  "POST_server_arrivals": 0,
+  "external_requests": 0,
+  "page_errors": []
+}

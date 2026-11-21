@@ -1,0 +1,25 @@
+{
+  "main": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
+  "old_pr11": "ee51e68d7e1eeb21bd0e959ec58166a869947d0a",
+  "main_exact_files": 84,
+  "old_content_exact_files": [
+    "content-review.html",
+    "docs/product/content-import-guard-spec.md",
+    "docs/product/content-spec.md",
+    "docs/product/content-try-spec.md",
+    "docs/product/fixtures/synthetic-content.json",
+    "docs/product/fixtures/synthetic-image-content.json",
+    "docs/product/fixtures/synthetic-source.svg",
+    "docs/product/fixtures/synthetic-source.txt",
+    "tests/content_guidance.py",
+    "tests/content_import_guard.py",
+    "tests/content_review.py",
+    "tests/content_trial.py"
+  ],
+  "suite_union": 29,
+  "generator_replay_exact_html": 8,
+  "unknown_unprotected_html_rejected": true,
+  "unknown_html_protected_by_generator": true,
+  "changed_content_rejected_before_writes": true,
+  "content_sha256": "fea62d048857059b8016f3a36061795bacb18acf160d1bdc0c9997d277abd001"
+}

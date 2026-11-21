@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/tmp/yuika-cycle33-qa-d6b5m8yl/scripts/parent/embed.py", line 10, in <module>
+    assert hashlib.sha256(content.read_bytes()).hexdigest()=='fea62d048857059b8016f3a36061795bacb18acf160d1bdc0c9997d277abd001'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

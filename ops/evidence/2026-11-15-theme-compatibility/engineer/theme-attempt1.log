@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/workspace/yuika-theme-compatibility-20261115/tests/theme_review.py", line 168, in <module>
+    assert KEY not in exported and exported['events'] == json.loads(saved)['events']
+                                   ~~~~~~~~^^^^^^^^^^
+KeyError: 'events'

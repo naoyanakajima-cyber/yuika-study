@@ -1,0 +1,45 @@
+{
+  "observed_at": "2026-11-14T23:34:08.861Z",
+  "prs": [
+    {
+      "number": 9,
+      "title": "CEOの朝夕判断で進める半自律開発チームの運用と初期バックログを定義",
+      "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/9",
+      "body": "回答記録による苦手復習、画像・テキストからの教材追加、好みに合わせたUIを進める運用正本・仕様・合成検証証拠です。このbranchはmainへマージする前から運用に使い、自律範囲は要件整理・実装・テスト・draft PRまでです。\n\n教材の確認室に「確認済みの案を保存せず試し解き」を追加しました。保護者役が合成問題を出題順に解き、許容表記・選択肢・ヒント・解説を教材導入前に点検できます。回答は次問・終了・離脱で消去し、既存の案・確認状態・学習記録を変えません。開始不可の理由から修正欄へ移動できます。\n\n- [教材確認PR11](https://github.com/naoyanakajima-cyber/yuika-study/pull/11)：`ee51e68d7e1eeb21bd0e959ec58166a869947d0a`。独立26suite、65ケース、修正導線と保存/防御検査が成功。初回候補の導線不足を独立実UIで発見し、修正・再検証済み。\n- [苦手復習PR10](https://github.com/naoyanakajima-cyber/yuika-study/pull/10)：73fe2eeの既存独立26suite証拠を保持。理由付きおすすめと実際の開始問数を示す「今日の復習」。\n- [テーマPR12](https://github.com/naoyanakajima-cyber/yuika-study/pull/12)：57171adの既存QAを保持。鎌倉限定の状態を保つ切替。\n\n[今回の仕様・分担・検証証拠](https://github.com/naoyanakajima-cyber/yuika-study/blob/codex/agent-team-operations/ops/runs/2026-11-14-content-trial-delivery.md)。PdM→PrM→Engineer→独立QAを実施。Chromium768×1024の合成操作と実reloadを確認し、合成persistedイベントを実BFCacheヒットや実機Safari/iPadの確認とは扱いません。本人試用・学習効果は未確認。初回probeのハーネス修正と採点後画像blank/描画後再確認を保存し、実測範囲を明記しています。依存は手動再利用です。\n\n次は教材試し解きの合成試用結果をCEOチェックへ提示し、依存しない作業として既存テーマPR12と現在mainの互換性を読み取り照合します。製品待ちは #10/#11/#12 と追加既存draft #22。旧 #4〜#8・運用 #9/#13 は別枠、新規製品PRなし。D01/D03〜D05を維持、新CEO判断取り込み0、D02実資料保管・実接続は未決です。\n\n合成データのみ。本番マージ・公開・手動デプロイ・実通知・課金・Secrets/権限/共有変更なし。外部Workers Buildsはクラウド内QAと別に記録します。停止中の旧自律更新は再開せず、通常報告は朝夕CEOチェックへ集約します。\n\nPR11現在HEAD（ee51e68）の外部検証：Workers Builds: yuika-study は2026-11-14 23:30:31 UTCにfailure（[結果](https://github.com/naoyanakajima-cyber/yuika-study/runs/132627134545)）。原因未調査で、クラウド内の独立QA成功（26/26・256秒）とは別です。手動再実行・デプロイは行っていません。",
+      "head": "codex/agent-team-operations",
+      "head_sha": "5aa81ffbbfa02ab62fa3301dffb0d5b18b3dd3cf",
+      "base": "main",
+      "base_sha": "d526d65fbae116f834d14ad994a27bc50ca23b62",
+      "state": "open",
+      "draft": true,
+      "merged": false,
+      "mergeable": true,
+      "updated_at": "2026-11-14T23:34:07Z"
+    },
+    {
+      "number": 11,
+      "title": "合成教材の確認・編集と保存しない試し解きを追加",
+      "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/11",
+      "body": "合成教材を学習に使う前に、原本・転記・問題案を見比べて編集・個別確認し、確認済みの案を保存せず試し解きできる「教材の確認室」を追加します。問題文・許容表記・選択肢・ヒント・解説を保護者役で点検する試作です。実児童の理解度を測る機能ではありません。\n\n全問を現在の版で明示確認した案だけを出題します。短答はNFKC＋前後空白除去後の完全一致、選択問題は選んだ項目と登録正答の一致で判定します。採点前は正答・解説を表示せず、ヒントは明示操作で開きます。開始できない場合は原因を表示し、確認・修正する欄へ移動できます。\n\n- 回答はメモリ内だけで、次問・終了・ページ離脱時に消去します。案のJSON・確認状態・未保存状態は変えません。回答履歴や累計点を保存せず、既存の学習記録にも接続しません。\n- 試し解き中は編集画面をhidden/inertにし、編集・案切替・JSON入出力を実行時にも遮断。案の不整合・表示の再構築で終了し、古いセッション/問題/状態の操作を無効にします。\n- 既存の原本比較、未解決箇所の確認拒否、編集/再入力時の確認失効、JSON出力、次の作業への案内、非同期取込による編集上書き防止も保持しています。\n- CSP・既存6学習HTML・親runtime・案JSON形式は維持。メモリ内の確認室を許容する固定SHA256を独立再レビューしました。OCR/自動生成/実教材入力/学習アプリへの教材導入は含みません。\n\n最終検証対象：`ee51e68d7e1eeb21bd0e959ec58166a869947d0a`。PdM→PrM→Engineer→実装者と別のQAで実施。固定clean HEADの必須 `bash scripts/check_all.sh` 26/26成功・終了0、独立65ケースと修正導線・隔離防御検査が成功しました。初回8e2111bも26suite成功でしたが、独立の実UI検査で開始不可時の修正導線不足を発見し差戻し、最小修正後に最終候補を再検証しています。\n\n768×1024 Chromiumで確認・短答/選択・採点・次問・終了、アクセシビリティツリーの除外、キーボード/フォーカス、JSONへの回答非混入、実reloadと離脱取消を確認。合成pagehide/persisted pageshowも検証しましたが、実BFCacheヒット・Safari/WebKit・実iPad・本人試用・学習効果は未検証です。独立probeの監視範囲で保存書込み/非許可要求/POSTは0。全suiteには公開JS読取りとmock通知を含みます。\n\n[仕様・分担・全検証証拠](https://github.com/naoyanakajima-cyber/yuika-study/blob/codex/agent-team-operations/ops/runs/2026-11-14-content-trial-delivery.md)。初回probeにはハーネスの返値を修正した2回目成功があり、製品不具合と区別して保存。最終probeは初回成功です。採点後画像の初回blankと、同HEAD新contextでの描画後確認も記録し、全環境の描画保証とは扱いません。依存は既存venvの手動再利用で、自動snapshot引継ぎ成功ではありません。\n\nD04方向性採用を維持し、合成試用判断待ちのdraft・未マージです。新CEO返答なし、D02実入力/非公開保存先は未決。本番マージ・公開・手動デプロイ・実通知・課金・Secrets/権限/共有変更は行っていません。外部Workers Buildsはクラウド内QAと別に記録します。\n\n現在HEADの外部検証：Workers Builds: yuika-study は2026-11-14 23:30:31 UTCにfailure（[結果](https://github.com/naoyanakajima-cyber/yuika-study/runs/132627134545)）。原因未調査で、クラウド内の独立QA成功（26/26・256秒）とは別です。手動再実行・デプロイは行っていません。",
+      "head": "codex/content-review-mvp",
+      "head_sha": "ee51e68d7e1eeb21bd0e959ec58166a869947d0a",
+      "base": "main",
+      "base_sha": "86514eda054a5a2e09204df3a0668e40624c16de",
+      "state": "open",
+      "draft": true,
+      "merged": false,
+      "mergeable": true,
+      "updated_at": "2026-11-14T23:33:39Z"
+    }
+  ],
+  "external_checks": [
+    {
+      "name": "Workers Builds: yuika-study",
+      "head": "ee51e68d7e1eeb21bd0e959ec58166a869947d0a",
+      "status": "completed",
+      "conclusion": "failure",
+      "completed_at": "2026-11-14T23:30:31Z",
+      "url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/132627134545"
+    }
+  ]
+}

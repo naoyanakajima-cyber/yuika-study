@@ -1,0 +1,19 @@
+{
+  "observation_window": "cycle-20261114T201009Z after push and PR update",
+  "head": "55435567d44f05dc35f3ea6d73c4ba9cac2dc496",
+  "base": "main",
+  "base_sha": "86514eda054a5a2e09204df3a0668e40624c16de",
+  "state": "open",
+  "draft": true,
+  "merged": false,
+  "checks": [
+    {
+      "name": "Workers Builds: yuika-study",
+      "status": "completed",
+      "conclusion": "failure",
+      "completed_at": "2026-11-14T20:23:30Z",
+      "html_url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/132576630806"
+    }
+  ],
+  "recorded_at": "2026-11-14T20:25:08.753900+00:00"
+}

@@ -1,0 +1,54 @@
+{
+  "observation_window": "cycle20 before implementation",
+  "prs": [
+    {
+      "number": 22,
+      "head_sha": "bd4f48de0404614eb84275969bfccff0a368e866",
+      "base": "codex/review-17-19-quality",
+      "state": "open",
+      "draft": true
+    },
+    {
+      "number": 13,
+      "head_sha": "139c8b8b56bcd979068b61984120d9f312efe182",
+      "base": "codex/cloud-handoff-hardening-20261108",
+      "state": "open",
+      "draft": true
+    },
+    {
+      "number": 12,
+      "head_sha": "57171ad9cab02fec6a080ecbe317fe11d3f51dcf",
+      "base": "codex/cloud-automatic-bootstrap",
+      "state": "open",
+      "draft": true
+    },
+    {
+      "number": 11,
+      "head_sha": "f1e84a7b998dfbcd71c6692974015bdd08e1877e",
+      "base": "main",
+      "state": "open",
+      "draft": true
+    },
+    {
+      "number": 10,
+      "head_sha": "132f9f59ebd23b6dab33e7d1e23bf4d077b8070d",
+      "base": "main",
+      "state": "open",
+      "draft": true
+    },
+    {
+      "number": 9,
+      "head_sha": "bbe1494f3823744c1b491087019b82e5cd56b429",
+      "base": "main",
+      "state": "open",
+      "draft": true
+    },
+    {
+      "number": 4,
+      "head_sha": "ff211ee8e144e955fa5837e8b8ff5cabf51f60a4",
+      "base": "main",
+      "state": "open",
+      "draft": true
+    }
+  ]
+}

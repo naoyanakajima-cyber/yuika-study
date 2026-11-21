@@ -1,0 +1,22 @@
+{
+  "observed_at": "2026-11-12T06:18:49.546450+00:00",
+  "candidate": "df791c07c0071921e22ae667e5230f8fd99ed782",
+  "candidate_branch": "codex/parent-test-boundary-20261112",
+  "pr25_head": "042c55dd04a285277dc3dfa9dd296f161283e809",
+  "pr25_state": "merged",
+  "merged_at": "2026-11-12T06:14:55Z",
+  "main": "25cad059f73cdca4cd805825c84e6619074b37c4",
+  "base_and_main_tree": "998f7dad2de007ce8bc70293388f88f3114b14d4",
+  "candidate_in_main": false,
+  "product_wait": [
+    10,
+    11,
+    12
+  ],
+  "additional_product_open": [
+    22
+  ],
+  "unsubmitted_test_fix_count": 1,
+  "new_prs": [],
+  "no_new_ceo_authorization": true
+}

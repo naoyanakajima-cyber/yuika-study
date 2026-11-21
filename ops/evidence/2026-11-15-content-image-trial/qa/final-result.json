@@ -1,0 +1,192 @@
+{
+  "head": "1678519f916471ba6e38044855de240bd6c4a807",
+  "clean": true,
+  "verified_at": "2026-11-15T10:16:40.297838+00:00",
+  "reviewer": "qa_content_trial_delivery",
+  "engineer": "engineer_content_trial_delivery",
+  "decision": "PASS for existing draft PR11 / CEO review only",
+  "blocking": [],
+  "mandatory": {
+    "suites": 30,
+    "exit": 0,
+    "seconds": 332,
+    "attempt": 1,
+    "log_created_at": "2026-11-15 10:10:00.603127602 +0000",
+    "log_last_written_at": "2026-11-15 10:15:32.316726157 +0000",
+    "timing_note": "Log birth and final mtime observed; shell-reported total332s.",
+    "results": [
+      {
+        "suite": "tests/onin_review.py",
+        "exit": 0,
+        "seconds": 5
+      },
+      {
+        "suite": "tests/kamakura_review.py",
+        "exit": 0,
+        "seconds": 4
+      },
+      {
+        "suite": "tests/cloud_preview.py",
+        "exit": 0,
+        "seconds": 2
+      },
+      {
+        "suite": "notifications/test/worker.test.mjs",
+        "exit": 0,
+        "seconds": 1
+      },
+      {
+        "suite": "notifications/test/browser.py",
+        "exit": 0,
+        "seconds": 11
+      },
+      {
+        "suite": "tests/cloud_bootstrap.py",
+        "exit": 0,
+        "seconds": 2
+      },
+      {
+        "suite": "tests/adaptive_practice.py",
+        "exit": 0,
+        "seconds": 2
+      },
+      {
+        "suite": "tests/adaptive_daily.py",
+        "exit": 0,
+        "seconds": 4
+      },
+      {
+        "suite": "tests/adaptive_quality.py",
+        "exit": 0,
+        "seconds": 4
+      },
+      {
+        "suite": "tests/flash_grading.py",
+        "exit": 0,
+        "seconds": 9
+      },
+      {
+        "suite": "tests/spaced_daily.py",
+        "exit": 0,
+        "seconds": 5
+      },
+      {
+        "suite": "tests/history_compat.py",
+        "exit": 0,
+        "seconds": 3
+      },
+      {
+        "suite": "tests/edo.py",
+        "exit": 0,
+        "seconds": 17
+      },
+      {
+        "suite": "tests/medaka.py",
+        "exit": 0,
+        "seconds": 18
+      },
+      {
+        "suite": "tests/microscope.py",
+        "exit": 0,
+        "seconds": 23
+      },
+      {
+        "suite": "tests/science_adaptive.py",
+        "exit": 0,
+        "seconds": 8
+      },
+      {
+        "suite": "tests/registered_answers.py",
+        "exit": 0,
+        "seconds": 3
+      },
+      {
+        "suite": "tests/history_review_regression.py",
+        "exit": 0,
+        "seconds": 3
+      },
+      {
+        "suite": "tests/state_review_regression.py",
+        "exit": 0,
+        "seconds": 4
+      },
+      {
+        "suite": "tests/prototype_storage.py",
+        "exit": 0,
+        "seconds": 8
+      },
+      {
+        "suite": "tests/focus_data.py",
+        "exit": 0,
+        "seconds": 0
+      },
+      {
+        "suite": "tests/focus_practice.py",
+        "exit": 0,
+        "seconds": 13
+      },
+      {
+        "suite": "tests/parent_mode.py",
+        "exit": 0,
+        "seconds": 21
+      },
+      {
+        "suite": "tests/design_c.py",
+        "exit": 0,
+        "seconds": 20
+      },
+      {
+        "suite": "tests/responsive_subjects.py",
+        "exit": 0,
+        "seconds": 125
+      },
+      {
+        "suite": "tests/content_review.py",
+        "exit": 0,
+        "seconds": 4
+      },
+      {
+        "suite": "tests/content_guidance.py",
+        "exit": 0,
+        "seconds": 2
+      },
+      {
+        "suite": "tests/content_import_guard.py",
+        "exit": 0,
+        "seconds": 4
+      },
+      {
+        "suite": "tests/content_trial.py",
+        "exit": 0,
+        "seconds": 4
+      },
+      {
+        "suite": "tests/content_image_trial.py",
+        "exit": 0,
+        "seconds": 3
+      }
+    ]
+  },
+  "independent_probe": {
+    "cases": 15,
+    "attempt": 2,
+    "first_attempt": "Harness expected trial-repair to focus resolution; existing trial-repair targets issues, next-step targets resolution. Initial script/log preserved; no product change."
+  },
+  "static_and_guard_attempt": 1,
+  "main_and_prior_unchanged_files": 97,
+  "changed_paths": 10,
+  "asset_literal_binding_review": "PASS: three unique kind/sourceId/locator tuples, each literal content equals repository fixture; only selected literal SVG rendered",
+  "content_sha256": "b978ea0ebd725cbe0b0b45275ad19d7be4ee78e64fb5c7e40947fe05475560f4",
+  "synthetic_only": true,
+  "visuals": [
+    "source-and-transcription-768.png",
+    "trial-match-768x1024.png"
+  ],
+  "limitations": [
+    "Chromium viewport768x1024, not physical iPad/Safari/WebKit",
+    "No actual OCR/real private materials/learner evaluation",
+    "Actual BFCache hit not measured",
+    "Manual venv reuse, not verified automatic snapshot handoff",
+    "Old65 independent fullprobe not rerun; current required suites and changed-junction15case probe executed"
+  ]
+}

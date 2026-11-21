@@ -1,0 +1,40 @@
+{
+  "head": "73fe2ee9d776b3e3360614752fb722ff4aee4f85",
+  "result": "PASS",
+  "commands": [
+    {
+      "script": "scripts/practice/embed_science.py",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "script": "scripts/design/build_summary.py",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "script": "scripts/design/embed.py",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "script": "scripts/parent/embed.py",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "unchanged_hashes": {
+    "yuika-review-v2.html": "10ce99d7f061a614c517814fd1e1721f4dd30cb05384828cea1f302643351a77",
+    "onin-review.html": "b55a50a057098f4d397bbba50c779e2a9d9ac973a88a85e6e950bc91e7c31b2c",
+    "mock-focus-review.html": "09bd8eea735256c1120bd084130310d8dcf10ce8cce99da0b734c68f8aca5e15",
+    "kamakura-review.html": "657bc082b0c6f30d325127812413425d765d0885ce053e7821bf245d13b6359b",
+    "index.html": "f433e288c1be0c125e3c88d7385d009f8ebc79756c5f72fd6524bf9fec2540e3",
+    "heian-review.html": "53d82a8c8f0ba9d87c8e8927eb7b333a30411945f84a1b743e2decbc534a6a30",
+    "assets/progress.js": "435c00db0a52c41dff9dddc578c8659aeb443c7e6cc8b3d6fb71150a0f1b79b2"
+  },
+  "scope": "isolated archive, no repository writes"
+}

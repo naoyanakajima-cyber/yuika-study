@@ -1,0 +1,45 @@
+{
+  "observed_at": "2026-11-15T02:08:05.125898+00:00",
+  "source": "73b605d268be6fdb05d9ecd89dd6811070001059",
+  "old_runs_count": 135,
+  "new_runs_count": 136,
+  "old_runs_unchanged": true,
+  "other_ten_tickets_unchanged": true,
+  "target_ticket_changed_fields": {
+    "REV-MVP": [
+      "next_action"
+    ],
+    "CONTENT-MVP": [
+      "next_action"
+    ]
+  },
+  "preserved_top_keys": [
+    "schema_version",
+    "timezone",
+    "mission",
+    "operations_branch",
+    "implementation_base_commit",
+    "policy",
+    "authorization",
+    "scheduling",
+    "existing_work",
+    "decisions",
+    "operational_notes",
+    "decision_intake",
+    "operational_findings",
+    "unreconciled_prs"
+  ],
+  "new_run_product_tests": false,
+  "new_run_product_code_changes": false,
+  "engineer": null,
+  "ceo_wait_prs": [
+    10,
+    11,
+    12
+  ],
+  "new_ceo_decisions": 0,
+  "local_evidence_PR_heads_match_tickets": true,
+  "existing_external_failure_matches_previous_run": true,
+  "review_scope": "local read-only document/ledger review; no independent remote/cloud re-fetch, no product tests",
+  "coordinator_pending": "Record this actual QA role/result, final save time, commit/push, lease release and remote readback"
+}

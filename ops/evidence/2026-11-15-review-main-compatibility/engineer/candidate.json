@@ -1,0 +1,46 @@
+{
+  "head": "6d01386dba0bb3cdafa7e8f431a6a17bc81e913f",
+  "parents": [
+    "73fe2ee9d776b3e3360614752fb722ff4aee4f85",
+    "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec"
+  ],
+  "branch": "codex/review-main-compat-20261115",
+  "clean": true,
+  "completed_at": "2026-11-15T08:20:16.422670+00:00",
+  "main": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
+  "previous_pr10": "73fe2ee9d776b3e3360614752fb722ff4aee4f85",
+  "changes_from_main": [
+    "README.md",
+    "assets/design.js",
+    "assets/progress.js",
+    "edo-review.html",
+    "heian-review.html",
+    "index.html",
+    "kamakura-review.html",
+    "mock-focus-review.html",
+    "onin-review.html",
+    "scripts/check_all.sh",
+    "scripts/design/build_summary.py",
+    "scripts/practice/adaptive.js",
+    "scripts/practice/science.js",
+    "tests/daily_count.py",
+    "tests/flash_grading.py",
+    "tests/focus_practice.py",
+    "tests/recommended_review.py",
+    "tests/responsive_subjects.py",
+    "tests/review_entry.py",
+    "tests/science_adaptive.py",
+    "tests/science_daily_count.py",
+    "yuika-review-v2.html"
+  ],
+  "focused": {
+    "science_daily_count_original": "pass first attempt",
+    "recommended_review": "pass first attempt",
+    "medaka": "pass first attempt",
+    "edo": "pass first attempt",
+    "science_daily_count_added_assisted_regression": "pass first attempt after test addition"
+  },
+  "full_suite_by_engineer": false,
+  "manual_venv_reuse": true,
+  "push": false
+}

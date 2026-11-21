@@ -1,0 +1,85 @@
+{
+  "head": "73fe2ee9d776b3e3360614752fb722ff4aee4f85",
+  "base": "55435567d44f05dc35f3ea6d73c4ba9cac2dc496",
+  "result": "PASS",
+  "changed_files": [
+    "README.md",
+    "assets/progress.js",
+    "index.html",
+    "scripts/check_all.sh",
+    "scripts/design/build_summary.py",
+    "scripts/practice/science.js",
+    "tests/flash_grading.py",
+    "tests/focus_practice.py",
+    "tests/responsive_subjects.py",
+    "tests/science_adaptive.py",
+    "tests/science_daily_count.py",
+    "yuika-review-v2.html"
+  ],
+  "checks": [
+    {
+      "path": "index.html",
+      "preserved_except_exact_name_replacement": true
+    },
+    {
+      "path": "scripts/design/build_summary.py",
+      "preserved_except_exact_name_replacement": true
+    },
+    {
+      "path": "assets/progress.js",
+      "preserved_except_exact_name_replacement": true
+    },
+    {
+      "path": "tests/flash_grading.py",
+      "preserved_except_exact_name_replacement": true
+    },
+    {
+      "path": "tests/focus_practice.py",
+      "preserved_except_exact_name_replacement": true
+    },
+    {
+      "path": "tests/responsive_subjects.py",
+      "preserved_except_exact_name_replacement": true
+    },
+    {
+      "path": "tests/science_adaptive.py",
+      "preserved_except_exact_name_replacement": true
+    },
+    {
+      "path": "yuika-review-v2.html",
+      "preserved_outside_science_adaptive": true
+    },
+    {
+      "path": "onin-review.html",
+      "byte_equal_base": true
+    },
+    {
+      "path": "kamakura-review.html",
+      "byte_equal_base": true
+    },
+    {
+      "path": "heian-review.html",
+      "byte_equal_base": true
+    },
+    {
+      "path": "mock-focus-review.html",
+      "byte_equal_base": true
+    },
+    {
+      "path": "scripts/practice/adaptive.js",
+      "byte_equal_base": true
+    },
+    {
+      "path": "assets/design.js",
+      "byte_equal_base": true
+    },
+    {
+      "path": "assets/design.css",
+      "byte_equal_base": true
+    },
+    {
+      "path": "scripts/parent/embed.py",
+      "byte_equal_base": true
+    }
+  ]
+}

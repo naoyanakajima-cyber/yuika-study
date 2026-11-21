@@ -1,0 +1,16 @@
+{
+  "recorded_at": "2026-11-15T06:10:27.322761+00:00",
+  "head_checked_before_command": "58c3fd4ba10ecfaa249cc3c808c3e8e5fcaf5359",
+  "runner_start_head_and_clean": [
+    "HEAD: 58c3fd4ba10ecfaa249cc3c808c3e8e5fcaf5359",
+    "Working tree (empty = clean):",
+    "Browser RNG seed: 20261110"
+  ],
+  "log_creation_at": "2026-11-15 06:08:10.560864746 +0000",
+  "manual_reuse_preparation_first_attempt": "Created ignored .venv directory and bin symlink. Assertion that source also had lib failed; original reused checkout intentionally has bin-only link. Shell continued to runner; no suite restart.",
+  "effective_venv": "/workspace/yuika-pr25-review-20261112/.venv",
+  "dependency_verification": "requirements-dev.txt equals reused PR26 file; effective interpreter and Playwright import inspected; pip check exit0 no broken requirements",
+  "requirements_sha256": "20ea9bab131542ae52b5100fdfd3778a37b588942bc31567442f92ba0b3bd385",
+  "automatic_handoff_claimed": false,
+  "product_changed": false
+}

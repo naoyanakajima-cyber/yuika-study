@@ -1,0 +1,211 @@
+{
+  "head": "9fc4bbf3e6c72e09327b6610338f12937fc7aba5",
+  "clean": true,
+  "verified_at": "2026-11-15T11:14:32.198806+00:00",
+  "decision": "pass_scoped_current_main_compatibility",
+  "blocking": [],
+  "mandatory": {
+    "suites": 26,
+    "exit": 0,
+    "seconds": 319,
+    "attempt": 1,
+    "results": [
+      {
+        "suite": "tests/onin_review.py",
+        "exit": 0,
+        "seconds": 4
+      },
+      {
+        "suite": "tests/kamakura_review.py",
+        "exit": 0,
+        "seconds": 4
+      },
+      {
+        "suite": "tests/cloud_preview.py",
+        "exit": 0,
+        "seconds": 1
+      },
+      {
+        "suite": "notifications/test/worker.test.mjs",
+        "exit": 0,
+        "seconds": 1
+      },
+      {
+        "suite": "notifications/test/browser.py",
+        "exit": 0,
+        "seconds": 10
+      },
+      {
+        "suite": "tests/cloud_bootstrap.py",
+        "exit": 0,
+        "seconds": 2
+      },
+      {
+        "suite": "tests/adaptive_practice.py",
+        "exit": 0,
+        "seconds": 3
+      },
+      {
+        "suite": "tests/adaptive_daily.py",
+        "exit": 0,
+        "seconds": 4
+      },
+      {
+        "suite": "tests/adaptive_quality.py",
+        "exit": 0,
+        "seconds": 4
+      },
+      {
+        "suite": "tests/flash_grading.py",
+        "exit": 0,
+        "seconds": 8
+      },
+      {
+        "suite": "tests/spaced_daily.py",
+        "exit": 0,
+        "seconds": 5
+      },
+      {
+        "suite": "tests/history_compat.py",
+        "exit": 0,
+        "seconds": 4
+      },
+      {
+        "suite": "tests/edo.py",
+        "exit": 0,
+        "seconds": 16
+      },
+      {
+        "suite": "tests/medaka.py",
+        "exit": 0,
+        "seconds": 17
+      },
+      {
+        "suite": "tests/microscope.py",
+        "exit": 0,
+        "seconds": 24
+      },
+      {
+        "suite": "tests/science_adaptive.py",
+        "exit": 0,
+        "seconds": 7
+      },
+      {
+        "suite": "tests/registered_answers.py",
+        "exit": 0,
+        "seconds": 3
+      },
+      {
+        "suite": "tests/history_review_regression.py",
+        "exit": 0,
+        "seconds": 3
+      },
+      {
+        "suite": "tests/state_review_regression.py",
+        "exit": 0,
+        "seconds": 4
+      },
+      {
+        "suite": "tests/prototype_storage.py",
+        "exit": 0,
+        "seconds": 8
+      },
+      {
+        "suite": "tests/focus_data.py",
+        "exit": 0,
+        "seconds": 0
+      },
+      {
+        "suite": "tests/focus_practice.py",
+        "exit": 0,
+        "seconds": 12
+      },
+      {
+        "suite": "tests/parent_mode.py",
+        "exit": 0,
+        "seconds": 21
+      },
+      {
+        "suite": "tests/design_c.py",
+        "exit": 0,
+        "seconds": 21
+      },
+      {
+        "suite": "tests/responsive_subjects.py",
+        "exit": 0,
+        "seconds": 120
+      },
+      {
+        "suite": "tests/theme_review.py",
+        "exit": 0,
+        "seconds": 13
+      }
+    ]
+  },
+  "independent_probe": {
+    "completed_modes": 4,
+    "normal_run_questions": 5,
+    "parent_run_questions": 5,
+    "fault_learning_events": 1,
+    "diagram_labels": 2,
+    "diagram_theme_media_combinations": 4,
+    "label_measurements": 8,
+    "diagram_contrast": 6.265720821251096,
+    "keyboard_focus_contrast": 5.509170074497065,
+    "images": [
+      "kamakura-diagram-print.png",
+      "kamakura-diagram-screen.png",
+      "kamakura-home.png",
+      "standard-diagram-print.png",
+      "standard-diagram-screen.png",
+      "standard-home.png"
+    ],
+    "images_visually_reviewed": [
+      "kamakura-diagram-print.png",
+      "kamakura-diagram-screen.png",
+      "kamakura-home.png",
+      "standard-diagram-print.png",
+      "standard-diagram-screen.png",
+      "standard-home.png"
+    ],
+    "attempts": [
+      {
+        "probe": "full bounded probe",
+        "attempt": 1,
+        "exit": 1,
+        "cause": "harness spy initializer returns function and invokes it; proved on blank page",
+        "reached": "normal five-question sequence before result spy assertion",
+        "not_reached": "diagram images, parent, fault, temporary memory"
+      },
+      {
+        "probe": "full bounded probe",
+        "attempt": 2,
+        "exit": 1,
+        "cause": "harness attempted keyboard focus measurement after mouse modality",
+        "reached": "normal same-run stages/result zero enqueue, four diagram/theme/media checks, six screenshots, controls >=44 and gap>=8",
+        "not_reached": "keyboard focus, final overflow, parent, fault, temporary memory, final aggregate JSON"
+      },
+      {
+        "probe": "actual keyboard diagnostic and missing numeric serialization",
+        "attempt": 1,
+        "exit": 0,
+        "cause": "distinct focus cause diagnosed; actual Tab+Space >=3 contrast/3px offset confirmed"
+      },
+      {
+        "probe": "previously unexecuted parent/fault/temporary modes",
+        "attempt": 1,
+        "exit": 0
+      }
+    ],
+    "scope": "No full probe third attempt. Initial spy diagnosis blank-page count 1 vs explicit block 0; focus diagnosis mouse false vs keyboard true. Assertions were not weakened and product was unchanged. Remaining modes POST attempts0/pageerrors0, four existing external font GETs blocked. Theme suite independently reports no unexpected external requests/POST arrivals and 15 blocked font GETs.",
+    "limits": [
+      "Chromium CSS viewport 768x1024; no real iPad/Safari/zoom validation",
+      "Visual review of six saved home/diagram images only; no fresh manual visual review of every quiz/feedback/result/parent/records screen",
+      "Scoped two diagram labels, not all diagrams or all contrast combinations",
+      "No real personal answers/materials, preference study, learning-effect measurement or live publication",
+      "Generator parity executed by Engineer; independent QA verifies retained diff/script equality rather than repeating generator execution",
+      "Full mandatory suites include mocked notification services and existing public asset GET behavior; do not describe entire check_all as zero network",
+      "C8 remote PR/ledger persistence and lease release remain coordinator responsibilities"
+    ]
+  }
+}

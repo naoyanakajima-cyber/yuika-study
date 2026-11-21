@@ -1,0 +1,64 @@
+{
+  "observed_at": "2026-11-15 10:06:23 UTC",
+  "cloud": {
+    "provider": "cloud",
+    "phase": "running",
+    "connectivity": "connected",
+    "observations_current": true,
+    "failure": null
+  },
+  "operations_source": "07859fe627c8a42da28ed0837a932198cdc7d75b",
+  "main": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
+  "open_prs": [
+    {
+      "number": 22,
+      "head": "bd4f48de0404614eb84275969bfccff0a368e866",
+      "base": "codex/review-17-19-quality",
+      "draft": true,
+      "state": "open"
+    },
+    {
+      "number": 13,
+      "head": "139c8b8b56bcd979068b61984120d9f312efe182",
+      "base": "codex/cloud-handoff-hardening-20261108",
+      "draft": true,
+      "state": "open"
+    },
+    {
+      "number": 12,
+      "head": "b416d3c08a0d3952e5f0153fdc691d6fa0e492b7",
+      "base": "main",
+      "draft": true,
+      "state": "open"
+    },
+    {
+      "number": 11,
+      "head": "d75a5469fbf1e8c5011a6307308546e5ec669ceb",
+      "base": "main",
+      "draft": true,
+      "state": "open"
+    },
+    {
+      "number": 10,
+      "head": "6d01386dba0bb3cdafa7e8f431a6a17bc81e913f",
+      "base": "main",
+      "draft": true,
+      "state": "open"
+    },
+    {
+      "number": 9,
+      "head": "07859fe627c8a42da28ed0837a932198cdc7d75b",
+      "base": "main",
+      "draft": true,
+      "state": "open"
+    },
+    {
+      "number": 4,
+      "head": "ff211ee8e144e955fa5837e8b8ff5cabf51f60a4",
+      "base": "main",
+      "draft": true,
+      "state": "open"
+    }
+  ],
+  "new_ceo_decisions_read": 0
+}

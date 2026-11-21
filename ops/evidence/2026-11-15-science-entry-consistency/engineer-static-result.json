@@ -1,0 +1,14 @@
+{
+  "base": "58c3fd4ba10ecfaa249cc3c808c3e8e5fcaf5359",
+  "changed_files": [
+    "assets/progress.js",
+    "scripts/design/build_summary.py",
+    "tests/microscope.py",
+    "yuika-review-v2.html"
+  ],
+  "html_only_tag_replacement": true,
+  "question_archive_shared_assets_algorithms_parent_runtime_unchanged": true,
+  "progress_sha256": "1a438d890ef179d64f1e98973e9f984c584165098a3aef2cdee039495dfac54d",
+  "generator_second_pass_identical": true,
+  "requirements_match_reused_venv_checkout": true
+}

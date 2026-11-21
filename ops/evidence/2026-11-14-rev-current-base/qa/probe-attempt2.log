@@ -1,0 +1,83 @@
+{
+  "head": "132f9f59ebd23b6dab33e7d1e23bf4d077b8070d",
+  "end_head": "132f9f59ebd23b6dab33e7d1e23bf4d077b8070d",
+  "cases": [
+    {
+      "app": "onin-review.html",
+      "scenario": "normal",
+      "started": 1,
+      "saved_events": 2,
+      "reload": true,
+      "legacy_and_other_preserved": true,
+      "parent_all_local_unchanged": false
+    },
+    {
+      "app": "onin-review.html",
+      "scenario": "parent",
+      "started": 1,
+      "saved_events": 2,
+      "reload": true,
+      "legacy_and_other_preserved": true,
+      "parent_all_local_unchanged": true
+    },
+    {
+      "app": "onin-review.html",
+      "scenario": "blocked",
+      "disabled": true,
+      "direct_start_preserved": true,
+      "status": "記録や時刻を確認するまで、おすすめ復習を休止しています。"
+    },
+    {
+      "app": "onin-review.html",
+      "scenario": "future",
+      "disabled": true,
+      "direct_start_preserved": true,
+      "status": "記録や時刻を確認するまで、おすすめ復習を休止しています。"
+    }
+  ],
+  "server_posts": 0,
+  "blocked_requests": [
+    {
+      "method": "GET",
+      "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"
+    },
+    {
+      "method": "GET",
+      "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"
+    },
+    {
+      "method": "GET",
+      "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"
+    },
+    {
+      "method": "GET",
+      "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"
+    },
+    {
+      "method": "GET",
+      "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"
+    },
+    {
+      "method": "GET",
+      "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"
+    },
+    {
+      "method": "GET",
+      "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"
+    },
+    {
+      "method": "GET",
+      "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"
+    },
+    {
+      "method": "GET",
+      "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"
+    }
+  ],
+  "page_errors": [],
+  "failure": {
+    "type": "Error",
+    "message": "Page.evaluate: TypeError: Illegal invocation\n    at Storage.setItem (eval at evaluate (:311:30), <anonymous>:1:151)\n    at UtilityScript.evaluate (<anonymous>:318:18)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)",
+    "traceback": "Traceback (most recent call last):\n  File \"/tmp/yuika-rev-current-qa/probe.py\", line 51, in <module>\n    p.evaluate(\"window.qaOriginalSet=Storage.prototype.setItem;Storage.prototype.setItem=function(k,v){if(k===KEY)throw Error('synthetic quota');return qaOriginalSet.call(this,k,v)}\")\n  File \"/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/sync_api/_generated.py\", line 9385, in evaluate\n    self._sync(\n  File \"/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/_impl/_sync_base.py\", line 115, in _sync\n    return task.result()\n           ^^^^^^^^^^^^^\n  File \"/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/_impl/_page.py\", line 472, in evaluate\n    return await self._main_frame.evaluate(expression, arg)\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/_impl/_frame.py\", line 345, in evaluate\n    await self._channel.send(\n  File \"/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/_impl/_connection.py\", line 76, in send\n    return await self._connection.wrap_api_call(\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/workspace/yuika-pr25-review-20261112/.venv/lib/python3.12/site-packages/playwright/_impl/_connection.py\", line 632, in wrap_api_call\n    raise rewrite_error(error, f\"{parsed_st['apiName']}: {error}\") from None\nplaywright._impl._errors.Error: Page.evaluate: TypeError: Illegal invocation\n    at Storage.setItem (eval at evaluate (:311:30), <anonymous>:1:151)\n    at UtilityScript.evaluate (<anonymous>:318:18)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)\n"
+  }
+}

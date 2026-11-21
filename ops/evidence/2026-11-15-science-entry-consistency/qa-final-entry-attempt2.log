@@ -1,0 +1,4 @@
+final valid summary {'correct': 0, 'total': 20, 'due': 0, 'dueCount': 0, 'weakCount': 0, 'normalCount': 5, 'unavailable': False} unit 顕微鏡の使い方 stats ['0／67\nできた数', '0\n今日の再確認', '0\nにがて'] daily 5
+final missing summary {'correct': 0, 'total': 67, 'due': 0, 'dueCount': 0, 'weakCount': 0, 'normalCount': 5, 'unavailable': False} unit all stats ['0／67\nできた数', '0\n今日の再確認', '0\nにがて'] daily 5
+final empty summary {'correct': 0, 'total': 67, 'due': 0, 'dueCount': 0, 'weakCount': 0, 'normalCount': 5, 'unavailable': False} unit all stats ['0／67\nできた数', '0\n今日の再確認', '0\nにがて'] daily 5
+final unknown summary {'correct': 0, 'total': 67, 'due': 0, 'dueCount': 0, 'weakCount': 0, 'normalCount': 5, 'unavailable': False} unit all stats ['0／67\nできた数', '0\n今日の再確認', '0\nにがて'] daily 5
