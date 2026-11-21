@@ -36,8 +36,13 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": null,
-  "updated_at": "2026-11-21T10:10:26.074968+00:00",
+  "lease": {
+    "run_id": "cycle-20261121T110348Z",
+    "acquired_at": "2026-11-21T11:03:48.950423+00:00",
+    "expires_at": "2026-11-21T11:38:48.950423+00:00",
+    "ticket": "state-reconciliation"
+  },
+  "updated_at": "2026-11-21T11:03:48.950423+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -16780,6 +16785,15 @@
         "result": "unconfirmed_no_response",
         "note": "既存運用PRのattach呼出しに42秒以上応答がなく待機を終了。新規PRなし。GitHubへの保存とは別で、タスク添付完了は未確認。前回と同じ制限。"
       }
+    },
+    {
+      "id": "cycle-20261121T110348Z",
+      "started_at": "2026-11-21T11:03:48.950423+00:00",
+      "observed_operations_commit": "16b364e3dd8d9d9659f3e3414a56d38d4392408d",
+      "observed_main_commit": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
+      "scope": "no_change_reconciliation",
+      "phase": "reconciling",
+      "cloud_verified": true
     }
   ],
   "operational_notes": [
