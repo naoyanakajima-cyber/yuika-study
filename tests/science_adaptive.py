@@ -206,7 +206,7 @@ try:
   page.locator('#daily-five').click()
   page.locator('#end').click()
   page.goto(base+'/index.html')
-  page.get_by_role('button',name='今日の5問をはじめる',exact=True).click()
+  page.get_by_role('button',name='今日の復習をはじめる',exact=True).click()
   page.wait_for_url(lambda url:'daily=1' in url and 'unit=' in url)
   assert page.evaluate("scienceUnit==='てこのつり合い'&&session.mode==='daily'&&session.questions.every(q=>q.unitId==='rika-lever')")
   assert not errors,errors
