@@ -1,0 +1,12 @@
+{
+  "head": "00c4ccb3b501223366a5f0a736567231ea9b8043",
+  "observed_at": "2026-11-22T18:20:21Z",
+  "name": "Workers Builds: yuika-study",
+  "id": 137306380677,
+  "status": "completed",
+  "conclusion": "failure",
+  "completed_at": "2026-11-22T18:19:33Z",
+  "cause": "not independently investigated",
+  "local_qa": "28/28 pass; separate from external check",
+  "manual_rerun_or_deployment": false
+}
