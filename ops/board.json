@@ -42,7 +42,7 @@
     "expires_at": "2026-11-22T13:38:13.901218+00:00",
     "ticket": "REV-MVP"
   },
-  "updated_at": "2026-11-22T13:03:13.901218+00:00",
+  "updated_at": "2026-11-22T13:04:53.798481+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -599,6 +599,18 @@
         "commit": "6d01386dba0bb3cdafa7e8f431a6a17bc81e913f",
         "delivered": true,
         "updated_pr": 10
+      },
+      "current_followup": {
+        "state": "in_progress",
+        "run_id": "cycle-20261122T130313Z",
+        "base_ref": "main",
+        "base_sha": "58f8b53b4da69806d15a126fc525b65893a0bf35",
+        "existing_pr_head": "6d01386dba0bb3cdafa7e8f431a6a17bc81e913f",
+        "work_branch": "codex/rev-lever-compat-20261122",
+        "pdm": "pdm_pr30_scope",
+        "prm": "root",
+        "engineer": "engineer_rev_lever_compat",
+        "scope": "新mainてこ単元と既存日次/補助正解履歴互換性"
       }
     },
     {
@@ -17886,8 +17898,19 @@
       "observed_operations_commit": "04b5b74c98408340033b10a5c98f8eb4857b3ba8",
       "observed_main_commit": "58f8b53b4da69806d15a126fc525b65893a0bf35",
       "scope": "rev_main_lever_compatibility",
-      "phase": "requirements",
-      "cloud_verified": true
+      "phase": "implementation",
+      "cloud_verified": true,
+      "pdm": "pdm_pr30_scope",
+      "engineer": "engineer_rev_lever_compat",
+      "ceo_decisions_ingested": 0,
+      "specification": "ops/runs/2026-11-22-pr30-impact.md",
+      "scope_acceptance": [
+        "既存ID/保存キー/旧履歴/補助付き正解の復習投影保持",
+        "開始時の日次表示/予定/実問数一致。てこ初回段階/挑戦解放/誤答後補助追加を保持し、追加後表示は実問題列を反映",
+        "てこ復習/集計/日次再開の単元分離",
+        "生成元/生成物整合と双方のsuite保持",
+        "候補HEAD固定・別QAによる全suiteと通知遮断の768x1024合成確認"
+      ]
     }
   ],
   "operational_notes": [
@@ -18596,12 +18619,12 @@
       "pr": 30,
       "head": "d0a35c42b6028c1006bf49636c7045fb5203aeb6",
       "kind": "external_product",
-      "state": "open_draft",
+      "state": "merged",
       "adopted": false,
       "comparison_report": "ops/runs/2026-11-22-pr30-impact.md",
-      "reconciliation_status": "compared_not_adopted",
-      "observed_at": "2026-11-22T12:09:36.067452+00:00",
-      "included_in_observed_main": false,
+      "reconciliation_status": "external_merge_observed_no_chat_authorization",
+      "observed_at": "2026-11-22T13:04:53.798481+00:00",
+      "included_in_observed_main": true,
       "independent_review": {
         "author": "root/coordinator",
         "pdm": "pdm_pr30_scope",
@@ -18619,7 +18642,8 @@
         "completed_at": "2026-11-22T11:11:50Z",
         "cause": "unknown"
       },
-      "next_action": "新main/PR差分または実読・台帳反映済みの採用整理があれば、既存PR10の理科日次・履歴・集計と全PRのcheck_allスイート保持を再確認。現在は統合/製品試験なし。"
+      "next_action": "新main/PR差分または実読・台帳反映済みの採用整理があれば、既存PR10の理科日次・履歴・集計と全PRのcheck_allスイート保持を再確認。現在は統合/製品試験なし。",
+      "merge_commit": "58f8b53b4da69806d15a126fc525b65893a0bf35"
     }
   ]
 }
