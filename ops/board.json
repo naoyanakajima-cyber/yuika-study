@@ -36,8 +36,13 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": null,
-  "updated_at": "2026-11-22T15:16:57.850818+00:00",
+  "lease": {
+    "run_id": "cycle-20261122T160732Z",
+    "acquired_at": "2026-11-22T16:07:32.382935+00:00",
+    "expires_at": "2026-11-22T16:40:32.382935+00:00",
+    "ticket": "REV-MVP"
+  },
+  "updated_at": "2026-11-22T16:07:32.382935+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -18440,6 +18445,16 @@
         "additional_tests_run": false
       },
       "pr_metadata_updated": true
+    },
+    {
+      "id": "cycle-20261122T160732Z",
+      "started_at": "2026-11-22T16:07:32.382935+00:00",
+      "observed_operations_commit": "a27f063e062723fe3b4df27360ef3d7b7c4e9f88",
+      "observed_main_commit": "58f8b53b4da69806d15a126fc525b65893a0bf35",
+      "scope": "science_generator_lever_preservation",
+      "phase": "requirements",
+      "cloud_verified": true,
+      "ceo_decisions_ingested": 0
     }
   ],
   "operational_notes": [
