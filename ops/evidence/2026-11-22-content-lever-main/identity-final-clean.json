@@ -1,0 +1,6 @@
+{
+  "head": "ee228ca0a1865d0a56f4302cd9342a4f66738561",
+  "checked_at": "2026-11-22T14:16:06.258211+00:00",
+  "status": "",
+  "action": "Removed only manually created .venv symlink after tests; existing target venv preserved"
+}

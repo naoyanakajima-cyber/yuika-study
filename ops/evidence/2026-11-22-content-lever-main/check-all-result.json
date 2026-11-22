@@ -1,0 +1,167 @@
+{
+  "started_at": "2026-11-22T14:09:49.075811+00:00",
+  "ended_at": "2026-11-22T14:15:15.733001+00:00",
+  "seconds": 326.657,
+  "exit": 0,
+  "head": "ee228ca0a1865d0a56f4302cd9342a4f66738561",
+  "attempt": 1,
+  "suite_count": 31,
+  "script_seconds": 326,
+  "suites": [
+    {
+      "suite": "tests/onin_review.py",
+      "exit": 0,
+      "seconds": 4
+    },
+    {
+      "suite": "tests/kamakura_review.py",
+      "exit": 0,
+      "seconds": 3
+    },
+    {
+      "suite": "tests/cloud_preview.py",
+      "exit": 0,
+      "seconds": 2
+    },
+    {
+      "suite": "notifications/test/worker.test.mjs",
+      "exit": 0,
+      "seconds": 1
+    },
+    {
+      "suite": "notifications/test/browser.py",
+      "exit": 0,
+      "seconds": 11
+    },
+    {
+      "suite": "tests/cloud_bootstrap.py",
+      "exit": 0,
+      "seconds": 1
+    },
+    {
+      "suite": "tests/adaptive_practice.py",
+      "exit": 0,
+      "seconds": 3
+    },
+    {
+      "suite": "tests/adaptive_daily.py",
+      "exit": 0,
+      "seconds": 4
+    },
+    {
+      "suite": "tests/adaptive_quality.py",
+      "exit": 0,
+      "seconds": 4
+    },
+    {
+      "suite": "tests/flash_grading.py",
+      "exit": 0,
+      "seconds": 8
+    },
+    {
+      "suite": "tests/spaced_daily.py",
+      "exit": 0,
+      "seconds": 5
+    },
+    {
+      "suite": "tests/history_compat.py",
+      "exit": 0,
+      "seconds": 4
+    },
+    {
+      "suite": "tests/edo.py",
+      "exit": 0,
+      "seconds": 16
+    },
+    {
+      "suite": "tests/medaka.py",
+      "exit": 0,
+      "seconds": 17
+    },
+    {
+      "suite": "tests/lever.py",
+      "exit": 0,
+      "seconds": 4
+    },
+    {
+      "suite": "tests/microscope.py",
+      "exit": 0,
+      "seconds": 22
+    },
+    {
+      "suite": "tests/science_adaptive.py",
+      "exit": 0,
+      "seconds": 10
+    },
+    {
+      "suite": "tests/registered_answers.py",
+      "exit": 0,
+      "seconds": 4
+    },
+    {
+      "suite": "tests/history_review_regression.py",
+      "exit": 0,
+      "seconds": 3
+    },
+    {
+      "suite": "tests/state_review_regression.py",
+      "exit": 0,
+      "seconds": 4
+    },
+    {
+      "suite": "tests/prototype_storage.py",
+      "exit": 0,
+      "seconds": 7
+    },
+    {
+      "suite": "tests/focus_data.py",
+      "exit": 0,
+      "seconds": 0
+    },
+    {
+      "suite": "tests/focus_practice.py",
+      "exit": 0,
+      "seconds": 13
+    },
+    {
+      "suite": "tests/parent_mode.py",
+      "exit": 0,
+      "seconds": 21
+    },
+    {
+      "suite": "tests/design_c.py",
+      "exit": 0,
+      "seconds": 21
+    },
+    {
+      "suite": "tests/responsive_subjects.py",
+      "exit": 0,
+      "seconds": 118
+    },
+    {
+      "suite": "tests/content_review.py",
+      "exit": 0,
+      "seconds": 4
+    },
+    {
+      "suite": "tests/content_guidance.py",
+      "exit": 0,
+      "seconds": 3
+    },
+    {
+      "suite": "tests/content_import_guard.py",
+      "exit": 0,
+      "seconds": 3
+    },
+    {
+      "suite": "tests/content_trial.py",
+      "exit": 0,
+      "seconds": 4
+    },
+    {
+      "suite": "tests/content_image_trial.py",
+      "exit": 0,
+      "seconds": 2
+    }
+  ]
+}

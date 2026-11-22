@@ -1,0 +1,11 @@
+{
+  "head": "ee228ca0a1865d0a56f4302cd9342a4f66738561",
+  "parents": [
+    "1678519f916471ba6e38044855de240bd6c4a807",
+    "58f8b53b4da69806d15a126fc525b65893a0bf35"
+  ],
+  "tracked_status": "",
+  "status": "?? .venv\n",
+  "venv": "Manual reuse by symlink /workspace/yuika-study/.venv; automatic setup not established",
+  "requirements_sha256": "20ea9bab131542ae52b5100fdfd3778a37b588942bc31567442f92ba0b3bd385"
+}
