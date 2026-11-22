@@ -20,13 +20,20 @@ for file,(theme,subject,code) in UNITS.items():
  s=re.sub(r'// DESIGN_C_START\n.*?// DESIGN_C_END\n','',s,flags=re.S)
  science=file in ('yuika-review-v2.html','edo-review.html')
  focus=file=='mock-focus-review.html'
+ lever=file=='yuika-review-v2.html'
+ stats_setup=" const leverSelected=scienceUnit===LEVER_UNIT;\n" if lever else ""
+ shown_code=f"leverSelected?LEVER_UNIT:{code!r}" if lever else repr(code)
+ shown_total="leverSelected?QUESTIONS.filter(isLever).length:QUESTIONS.length" if lever else ("focusQuestions.length" if focus else "QUESTIONS.length")
+ restrict="&&(!leverSelected||isLever(Q.get(e.questionId)))" if lever else ("&&inFocus(Q.get(e.questionId))" if focus else "")
+ weak="leverSelected?scienceWeak().length:practiceWeaknesses().length" if lever else "practiceWeaknesses().length"
+ lever_title=" if(leverSelected){\n  main.querySelector('.unit-hero h1').textContent=LEVER_UNIT;\n  main.querySelector('.unit-hero p').textContent='図を見て、棒がどちらに回るか考えよう。';\n }\n" if lever else ""
  hook=f'''// DESIGN_C_START
 const designHome=home;
 home=function(){{
  designHome();
  const latest=new Map();for(const e of [...data.events].sort((a,b)=>a.at.localeCompare(b.at)))if(Q.has(e.questionId)&&(e.variant||'normal')==='normal')latest.set(Q.get(e.questionId).originId||e.questionId,e);
- window.YuikaDesign.unitHome(main,{{subject:{"focusLabel||'4教科まとめ'" if focus else repr(subject)},code:'{code}',total:{'focusQuestions' if focus else 'QUESTIONS'}.length,correct:[...latest.values()].filter(e=>e.correct{"&&inFocus(Q.get(e.questionId))" if focus else ''}).length,due:{'scienceDue()' if science else 'dueReviews()'}.length,weak:practiceWeaknesses().length}});
-}};
+{stats_setup} window.YuikaDesign.unitHome(main,{{subject:{"focusLabel||'4教科まとめ'" if focus else repr(subject)},code:{shown_code},total:{shown_total},correct:[...latest.values()].filter(e=>e.correct{restrict}).length,due:{'scienceDue()' if science else 'dueReviews()'}.length,weak:{weak}}});
+{lever_title}}};
 // DESIGN_C_END
 '''
  s=s.replace('load();render();',hook+'load();render();')

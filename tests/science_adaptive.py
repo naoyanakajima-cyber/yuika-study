@@ -100,14 +100,15 @@ try:
    const assert=(x,m)=>{if(!x)throw Error(m);};
    assert(QUESTIONS.filter(q=>q.id.startsWith('ys2-')).length===47,'47 originals preserved');
    assert(QUESTIONS.filter(q=>q.id.startsWith('microscope-')).length===20,'20 microscope questions preserved');
-   assert(QUESTIONS.filter(q=>q.id.startsWith('medaka-')).length===17&&QUESTIONS.length===84,'17 medaka questions added');
+   const prior=QUESTIONS.filter(q=>q.unitId!=='rika-lever');
+   assert(prior.filter(q=>q.id.startsWith('medaka-')).length===17&&prior.length===84,'17 medaka questions preserved');
    window.mk=(q,at,correct=false,hintUsed=false)=>{
     const response=correct?q.answer:q.type==='number'?q.answer+1:q.options.find(o=>o!==q.answer);
     return validateEvent({id:uid(),sessionId:'synthetic-science',questionId:q.id,datasetVersion:VERSION,
      unit:q.unit,type:q.type,question:q.prompt,response,inputRaw:String(response),expected:q.answer,
      correct,answeredAt:at,timezoneOffset:0,localDay:at.slice(0,10),hintUsed:q.type==='recall'?(!correct||hintUsed):hintUsed,mode:'normal',explanation:q.explanation,...(q.type==='recall'?{recallOutcome:correct?(hintUsed?'assisted':'unaided'):'incorrect',firstResponse:correct&&!hintUsed?q.answer:q.options.find(o=>o!==q.answer)}:{})});
    };
-   for(const q of QUESTIONS){
+   for(const q of prior){
     const a=mk(q,'2026-09-01T14:59:00.000Z'),b=mk(q,'2026-09-01T15:00:00.000Z');
     state.events=[a,b];const snapshot=JSON.stringify(state);
     assert(weaknesses().length===0,'30-day extraction expires');
@@ -198,6 +199,16 @@ try:
   assert page.evaluate("session.mode==='daily'&&session.questions.length===Math.min(count,candidates('normal',scienceUnit).length)")
   page.close();page=context.new_page();page.goto(base+'/yuika-review-v2.html')
   assert page.evaluate('({count,scienceUnit})')==prefs
+  # The unit-specific index return must keep the science filter on lever.
+  page.route('https://**/*',lambda r:r.abort())
+  page.route('https://unpkg.com/**',lambda r:r.fulfill(body=assets[r.request.url],content_type='application/javascript'))
+  page.goto(base+'/yuika-review-v2.html?unit=てこのつり合い')
+  page.locator('#daily-five').click()
+  page.locator('#end').click()
+  page.goto(base+'/index.html')
+  page.get_by_role('button',name='今日の5問をはじめる',exact=True).click()
+  page.wait_for_url(lambda url:'daily=1' in url and 'unit=' in url)
+  assert page.evaluate("scienceUnit==='てこのつり合い'&&session.mode==='daily'&&session.questions.every(q=>q.unitId==='rika-lever')")
   assert not errors,errors
   context.close();browser.close()
 finally: server.shutdown()

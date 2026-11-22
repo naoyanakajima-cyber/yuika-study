@@ -46,7 +46,7 @@ try:
    byId.delete(q.id);QUESTIONS.splice(QUESTIONS.indexOf(q),1);
    assert(validateState(state).events.length===2,'retired history rejected');
    home();
-   assert(candidates('unseen').length===QUESTIONS.length,'retired IDs reduce remaining questions');
+   assert(candidates('unseen').length===QUESTIONS.filter(q=>q.step!==4).length,'retired IDs and locked challenges excluded');
    assert(main.querySelector('.stats .stat strong').textContent==='0／'+QUESTIONS.length,'retired IDs counted in completed display');
    analysis();
    assert(main.querySelectorAll('.stats .stat strong')[1].textContent.trim().startsWith('0'),'retired IDs counted as current questions');

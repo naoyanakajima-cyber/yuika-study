@@ -57,7 +57,7 @@ test('both parents receive one unchanged message for social, science and legacy 
    calls++;const body=JSON.parse(init.body);
    assert.deepEqual(body.to,['parent@example.test','mother@example.test']);
    assert.equal(body.from,env.REPORT_FROM);
-   assert.equal(body.subject,`[ゆいか学習] ${subject} 0/1問`);
+   assert.equal(body.subject,`[ゆいか学習] ゆいか学習帳 ${subject} 0/1問`);
    assert.equal(body.text,mailText(p));
    assert.equal(init.headers.Authorization,'Bearer '+env.RESEND_API_KEY);
    return accept();
