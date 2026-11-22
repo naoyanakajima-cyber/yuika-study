@@ -58,3 +58,5 @@ CONTENT-MVP/PR11、次いでTHEME-MVP/PR12の新main58f8b53への互換性確認
 統括はホーム再開後の合成画面を目視し、既存PR HEADと観測mainが最終候補の祖先であること、diff --check成功を照合した。
 
 独立QAは最終report/PR本文の全30行とJSON一致、コピーした証拠11ファイルのbyte一致を静的確認した。実行時は未追跡venvリンクがあったため、前後tracked差分なしと終了後cleanを区別して記載した。
+
+保存時の外部check: 最終804f9fの[Workers Builds](https://github.com/naoyanakajima-cyber/yuika-study/runs/137222632914)は2026-11-22 13:22:52 UTCにfailure。取得情報に原因詳細なし。ローカル30suite成功とは別で、再実行・設定変更・手動deployなし。過去HEADとの同一原因は未確定。
