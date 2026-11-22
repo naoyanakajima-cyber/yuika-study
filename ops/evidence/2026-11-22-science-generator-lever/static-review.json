@@ -1,0 +1,68 @@
+{
+  "head": "f60f6b2bc7c8f0b21d0789b599edf5a13269f5e5",
+  "baseline": "804f9f648c8634ea26d4ca7fc26cf6b473029475",
+  "changed_paths": [
+    "docs/history-compatibility.md",
+    "heian-review.html",
+    "kamakura-review.html",
+    "mock-focus-review.html",
+    "onin-review.html",
+    "scripts/check_all.sh",
+    "scripts/practice/science.js",
+    "scripts/prototype/runtime.js",
+    "tests/generator_preservation.py",
+    "tests/lever.py"
+  ],
+  "science_html_byte_identical": true,
+  "science_html_sha256": "959f6de44c42f35b6ed3ecb39aed313d5e4129c4223df55bcd75bb6651d711af",
+  "adapter_matches_existing_embedded_prefix": true,
+  "prototype_matches_existing_science_block": true,
+  "other_html": {
+    "onin-review.html": {
+      "exact_one_science_allowlist_line_only": true
+    },
+    "kamakura-review.html": {
+      "exact_one_science_allowlist_line_only": true
+    },
+    "heian-review.html": {
+      "exact_one_science_allowlist_line_only": true
+    },
+    "mock-focus-review.html": {
+      "exact_one_science_allowlist_line_only": true
+    }
+  },
+  "required_suites": [
+    "tests/onin_review.py",
+    "tests/kamakura_review.py",
+    "tests/cloud_preview.py",
+    "notifications/test/worker.test.mjs",
+    "notifications/test/browser.py",
+    "tests/cloud_bootstrap.py",
+    "tests/generator_preservation.py",
+    "tests/adaptive_practice.py",
+    "tests/adaptive_daily.py",
+    "tests/adaptive_quality.py",
+    "tests/flash_grading.py",
+    "tests/spaced_daily.py",
+    "tests/history_compat.py",
+    "tests/edo.py",
+    "tests/medaka.py",
+    "tests/lever.py",
+    "tests/microscope.py",
+    "tests/science_adaptive.py",
+    "tests/registered_answers.py",
+    "tests/history_review_regression.py",
+    "tests/state_review_regression.py",
+    "tests/prototype_storage.py",
+    "tests/focus_data.py",
+    "tests/focus_practice.py",
+    "tests/parent_mode.py",
+    "tests/design_c.py",
+    "tests/responsive_subjects.py",
+    "tests/recommended_review.py",
+    "tests/review_entry.py",
+    "tests/daily_count.py",
+    "tests/science_daily_count.py"
+  ],
+  "static_findings": []
+}

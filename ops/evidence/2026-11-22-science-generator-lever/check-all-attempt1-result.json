@@ -1,0 +1,170 @@
+{
+  "execution_head": "f60f6b2bc7c8f0b21d0789b599edf5a13269f5e5",
+  "delivery_at_time": "15265078a71bb6540b8db90c89eaf351d7f8913d",
+  "attempt": 1,
+  "exit_code": 1,
+  "seconds": 308,
+  "suites_total": 31,
+  "suites_passed": 30,
+  "suites": [
+    {
+      "suite": "tests/onin_review.py",
+      "exit_code": 0,
+      "seconds": 3
+    },
+    {
+      "suite": "tests/kamakura_review.py",
+      "exit_code": 0,
+      "seconds": 4
+    },
+    {
+      "suite": "tests/cloud_preview.py",
+      "exit_code": 0,
+      "seconds": 2
+    },
+    {
+      "suite": "notifications/test/worker.test.mjs",
+      "exit_code": 0,
+      "seconds": 0
+    },
+    {
+      "suite": "notifications/test/browser.py",
+      "exit_code": 0,
+      "seconds": 11
+    },
+    {
+      "suite": "tests/cloud_bootstrap.py",
+      "exit_code": 0,
+      "seconds": 2
+    },
+    {
+      "suite": "tests/generator_preservation.py",
+      "exit_code": 0,
+      "seconds": 1
+    },
+    {
+      "suite": "tests/adaptive_practice.py",
+      "exit_code": 0,
+      "seconds": 2
+    },
+    {
+      "suite": "tests/adaptive_daily.py",
+      "exit_code": 0,
+      "seconds": 4
+    },
+    {
+      "suite": "tests/adaptive_quality.py",
+      "exit_code": 0,
+      "seconds": 4
+    },
+    {
+      "suite": "tests/flash_grading.py",
+      "exit_code": 0,
+      "seconds": 7
+    },
+    {
+      "suite": "tests/spaced_daily.py",
+      "exit_code": 0,
+      "seconds": 5
+    },
+    {
+      "suite": "tests/history_compat.py",
+      "exit_code": 0,
+      "seconds": 3
+    },
+    {
+      "suite": "tests/edo.py",
+      "exit_code": 0,
+      "seconds": 16
+    },
+    {
+      "suite": "tests/medaka.py",
+      "exit_code": 0,
+      "seconds": 17
+    },
+    {
+      "suite": "tests/lever.py",
+      "exit_code": 0,
+      "seconds": 4
+    },
+    {
+      "suite": "tests/microscope.py",
+      "exit_code": 0,
+      "seconds": 22
+    },
+    {
+      "suite": "tests/science_adaptive.py",
+      "exit_code": 0,
+      "seconds": 9
+    },
+    {
+      "suite": "tests/registered_answers.py",
+      "exit_code": 0,
+      "seconds": 2
+    },
+    {
+      "suite": "tests/history_review_regression.py",
+      "exit_code": 0,
+      "seconds": 3
+    },
+    {
+      "suite": "tests/state_review_regression.py",
+      "exit_code": 0,
+      "seconds": 3
+    },
+    {
+      "suite": "tests/prototype_storage.py",
+      "exit_code": 0,
+      "seconds": 7
+    },
+    {
+      "suite": "tests/focus_data.py",
+      "exit_code": 0,
+      "seconds": 0
+    },
+    {
+      "suite": "tests/focus_practice.py",
+      "exit_code": 0,
+      "seconds": 12
+    },
+    {
+      "suite": "tests/parent_mode.py",
+      "exit_code": 0,
+      "seconds": 19
+    },
+    {
+      "suite": "tests/design_c.py",
+      "exit_code": 0,
+      "seconds": 18
+    },
+    {
+      "suite": "tests/responsive_subjects.py",
+      "exit_code": 0,
+      "seconds": 113
+    },
+    {
+      "suite": "tests/recommended_review.py",
+      "exit_code": 0,
+      "seconds": 7
+    },
+    {
+      "suite": "tests/review_entry.py",
+      "exit_code": 0,
+      "seconds": 3
+    },
+    {
+      "suite": "tests/daily_count.py",
+      "exit_code": 0,
+      "seconds": 5
+    },
+    {
+      "suite": "tests/science_daily_count.py",
+      "exit_code": 1,
+      "seconds": 0
+    }
+  ],
+  "completed_at": "2026-11-22T16:18:23.721466+00:00",
+  "head_after": "f60f6b2bc7c8f0b21d0789b599edf5a13269f5e5",
+  "status_after": "",
+  "failure_cause": "science_daily_count legacy nonlever Node selection oracle does not define LEVER_UNIT referenced after science.js source sync; existing product HTML already has dependencies, scoped UI passed; test fixture update pending"
+}

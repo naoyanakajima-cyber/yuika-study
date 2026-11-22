@@ -1,0 +1,16 @@
+{
+  "head": "d26d10dea80b93cef7a47dbd814f76e3f69d3934",
+  "status": "",
+  "started_at": "2026-11-22T16:19:26.044345+00:00",
+  "changes_from_first_run": [
+    "docs/history-compatibility.md",
+    "tests/science_daily_count.py"
+  ],
+  "all_product_bytes_unchanged": true,
+  "all_other_tracked_bytes_unchanged": true,
+  "suite_count": 31,
+  "test_fix": "Adds explicit nonlever LEVER_UNIT/locked-challenge fixture only; all existing 28 selection/order/random/count assertions and UI cases unchanged",
+  "probe_execution_head": "f60f6b2bc7c8f0b21d0789b599edf5a13269f5e5",
+  "probe_product_equivalence_verified": true,
+  "environment": "Cloud existing venv manually reused via ignored .venv/bin; not auto handoff proof"
+}

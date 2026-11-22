@@ -1,0 +1,26 @@
+{
+  "execution_head": "f60f6b2bc7c8f0b21d0789b599edf5a13269f5e5",
+  "delivery_head": "15265078a71bb6540b8db90c89eaf351d7f8913d",
+  "only_difference": [
+    "docs/history-compatibility.md"
+  ],
+  "all_other_tracked_file_count": 96,
+  "all_other_tracked_bytes_identical": true,
+  "all_product_and_test_bytes_identical": true,
+  "reason": "Documentation-only correction to actual lever test reload/export/import order; no product/test edits",
+  "delivery_generator_regression": {
+    "exit_code": 0,
+    "attempt": 1,
+    "first_and_second_pass_preserved": true,
+    "source_checkout_clean": true
+  },
+  "independent_baseline_detection": {
+    "head": "804f9f648c8634ea26d4ca7fc26cf6b473029475",
+    "test_transplanted_from": "f60f6b2bc7c8f0b21d0789b599edf5a13269f5e5",
+    "identical_test": true,
+    "exit_code": 1,
+    "attempt": 1,
+    "expected_failure": "Generator pass 1 changed tracked files: ['yuika-review-v2.html']",
+    "baseline_tracked_files_unchanged": true
+  }
+}
