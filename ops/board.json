@@ -42,7 +42,7 @@
     "expires_at": "2026-11-22T18:41:23.203418+00:00",
     "ticket": "THEME-MVP"
   },
-  "updated_at": "2026-11-22T18:09:23.203418+00:00",
+  "updated_at": "2026-11-22T18:10:51.122863+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -1918,14 +1918,29 @@
       ],
       "generator_followup": {
         "id": "SCIENCE-GENERATOR-LEVER-01",
-        "state": "needs_branch_specific_preservation_check",
+        "state": "in_progress",
         "same_pr": 12,
         "observed_pr_head": "e89aa335936508c6e4984c523ec65da97f510cbd",
         "reference_fix_pr": 10,
         "reference_fix_commit": "d26d10dea80b93cef7a47dbd814f76e3f69d3934",
         "not_delivered_to_this_pr": true,
         "source_report": "ops/runs/2026-11-22-science-generator-lever.md",
-        "next_action": "PR10/11の生成保持は各draft内で独立QA済み。次は既存PR12 e89aa335の最新HEADで同原因を照合し、テーマとbranch固有の学習処理を保持する最小同期範囲をPdM→PrMで確認する。main/PR12修正済みとは扱わず、新規PRは増やさない。"
+        "next_action": "PR10/11の生成保持は各draft内で独立QA済み。次は既存PR12 e89aa335の最新HEADで同原因を照合し、テーマとbranch固有の学習処理を保持する最小同期範囲をPdM→PrMで確認する。main/PR12修正済みとは扱わず、新規PRは増やさない。",
+        "run_id": "cycle-20261122T180951Z",
+        "pdm": "pdm_theme_generator",
+        "prm": "root",
+        "engineer": "engineer_theme_generator",
+        "reviewer": "qa_theme_generator",
+        "base_sha": "e89aa335936508c6e4984c523ec65da97f510cbd",
+        "work_branch": "codex/theme-generator-preservation-20261122",
+        "acceptance": [
+          "PR12自身の既存理科埋込を生成元へ同期、scienceHTML/教材/ID/正解/図/保存key/版不変、PR10/11固有機能なし",
+          "他4HTMLはscience条件false許可列1行のみ、鎌倉テーマCSS/UI/JS・模式図/print・仕様testをbyte保持",
+          "隔離copyの実7本生成で初回成果物保持と2回目不変、新回帰が旧PR12欠落を検出",
+          "unit/tag合成回答reloadと実JSON往復、fieldless旧形式受理/不正未知拒否、通常/親記録隔離",
+          "固定候補28suite全実行、既存assert/CSP保持",
+          "768x1024通常/親でテーマ切替前後入力/採点/記録不変、設定復元、図文字/print、通知抑止の限定probe"
+        ]
       }
     },
     {
@@ -18841,9 +18856,21 @@
       "observed_operations_commit": "de44f4aac0a1e1da2b75221383c21b1a1e725847",
       "observed_main_commit": "58f8b53b4da69806d15a126fc525b65893a0bf35",
       "scope": "theme_branch_generator_preservation",
-      "phase": "requirements",
+      "phase": "implementation",
       "cloud_verified": true,
-      "ceo_decisions_ingested": 0
+      "ceo_decisions_ingested": 0,
+      "pdm": "pdm_theme_generator",
+      "prm": "root",
+      "engineer": "engineer_theme_generator",
+      "reviewer": "qa_theme_generator",
+      "scope_acceptance": [
+        "PR12自身の既存理科埋込を生成元へ同期、scienceHTML/教材/ID/正解/図/保存key/版不変、PR10/11固有機能なし",
+        "他4HTMLはscience条件false許可列1行のみ、鎌倉テーマCSS/UI/JS・模式図/print・仕様testをbyte保持",
+        "隔離copyの実7本生成で初回成果物保持と2回目不変、新回帰が旧PR12欠落を検出",
+        "unit/tag合成回答reloadと実JSON往復、fieldless旧形式受理/不正未知拒否、通常/親記録隔離",
+        "固定候補28suite全実行、既存assert/CSP保持",
+        "768x1024通常/親でテーマ切替前後入力/採点/記録不変、設定復元、図文字/print、通知抑止の限定probe"
+      ]
     }
   ],
   "operational_notes": [
