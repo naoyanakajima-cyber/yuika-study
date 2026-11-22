@@ -42,7 +42,7 @@
     "expires_at": "2026-11-22T15:38:10.994755+00:00",
     "ticket": "THEME-MVP"
   },
-  "updated_at": "2026-11-22T15:05:10.994755+00:00",
+  "updated_at": "2026-11-22T15:07:06.450751+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -1628,12 +1628,16 @@
         }
       ],
       "current_main_followup": {
-        "state": "needs_compatibility_review",
-        "observed_main": "58f8b53b4da69806d15a126fc525b65893a0bf35",
-        "starting_pr_head": "9fc4bbf3e6c72e09327b6610338f12937fc7aba5",
-        "trigger": "external PR30 merged; prior QA predates this main",
-        "same_pr": 12,
-        "observed_at": "2026-11-22T13:23:59.392985+00:00"
+        "state": "in_progress",
+        "run_id": "cycle-20261122T150510Z",
+        "base_ref": "main",
+        "base_sha": "58f8b53b4da69806d15a126fc525b65893a0bf35",
+        "existing_pr_head": "9fc4bbf3e6c72e09327b6610338f12937fc7aba5",
+        "work_branch": "codex/theme-lever-compat-20261122",
+        "pdm": "pdm_theme_lever",
+        "prm": "root",
+        "engineer": "engineer_theme_lever",
+        "scope": "鎌倉テーマ・親モード・図可読性を保持する新main互換性"
       },
       "current_main_followup_history": [
         {
@@ -1647,6 +1651,14 @@
           "reviewer": "qa_theme_compatibility",
           "delivered": true,
           "updated_pr": 12
+        },
+        {
+          "state": "needs_compatibility_review",
+          "observed_main": "58f8b53b4da69806d15a126fc525b65893a0bf35",
+          "starting_pr_head": "9fc4bbf3e6c72e09327b6610338f12937fc7aba5",
+          "trigger": "external PR30 merged; prior QA predates this main",
+          "same_pr": 12,
+          "observed_at": "2026-11-22T13:23:59.392985+00:00"
         }
       ]
     },
@@ -18252,9 +18264,21 @@
       "observed_operations_commit": "700b047b5ea4ff7918e97b8f4b60ea1918a5fe6e",
       "observed_main_commit": "58f8b53b4da69806d15a126fc525b65893a0bf35",
       "scope": "theme_lever_main_compatibility",
-      "phase": "requirements",
+      "phase": "implementation",
       "cloud_verified": true,
-      "ceo_decisions_ingested": 0
+      "ceo_decisions_ingested": 0,
+      "pdm": "pdm_theme_lever",
+      "prm": "root",
+      "engineer": "engineer_theme_lever",
+      "reviewer": "qa_theme_lever",
+      "scope_acceptance": [
+        "旧PR12履歴保持・main58f8b53同期のみ、既存theme5path境界",
+        "鎌倉外HTML/assets/通知/履歴/生成元はmain維持、PR10/11差分を含めない",
+        "切替時run/入力/hint/採点/学習DOM/記録保持、親storage隔離/障害復帰保持",
+        "鎌倉2図枠contrastを候補実測、screen/print/keyboard/標準復帰",
+        "てこ代表図の文字目視とmain同一/テーマ値非干渉、全画面テーマ展開なし",
+        "固定候補でmain26+theme1の全27suiteと限定接点独立QA"
+      ]
     }
   ],
   "operational_notes": [
