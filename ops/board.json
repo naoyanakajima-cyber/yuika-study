@@ -42,7 +42,7 @@
     "expires_at": "2026-11-22T17:37:19.865769+00:00",
     "ticket": "CONTENT-MVP"
   },
-  "updated_at": "2026-11-22T17:04:19.865769+00:00",
+  "updated_at": "2026-11-22T17:06:14.042936+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -1384,14 +1384,29 @@
       ],
       "generator_followup": {
         "id": "SCIENCE-GENERATOR-LEVER-01",
-        "state": "needs_branch_specific_scope_review",
+        "state": "in_progress",
         "same_pr": 11,
         "observed_pr_head": "ee228ca0a1865d0a56f4302cd9342a4f66738561",
         "reference_fix_pr": 10,
         "reference_fix_commit": "d26d10dea80b93cef7a47dbd814f76e3f69d3934",
         "not_delivered_to_this_pr": true,
         "source_report": "ops/runs/2026-11-22-science-generator-lever.md",
-        "next_action": "既存PR11 ee228caの最新差分で同じ生成元欠落を照合し、存在する場合だけbranch固有の教材確認/試し解きと理科埋込動作を保持する最小同期範囲をPdM→PrMで確認する。その後PR12を照合。PR10source全転載や新規PR追加はしない。"
+        "next_action": "既存PR11 ee228caの最新差分で同じ生成元欠落を照合し、存在する場合だけbranch固有の教材確認/試し解きと理科埋込動作を保持する最小同期範囲をPdM→PrMで確認する。その後PR12を照合。PR10source全転載や新規PR追加はしない。",
+        "run_id": "cycle-20261122T170419Z",
+        "pdm": "pdm_content_generator",
+        "prm": "root",
+        "engineer": "engineer_content_generator",
+        "reviewer": "qa_content_generator",
+        "base_sha": "ee228ca0a1865d0a56f4302cd9342a4f66738561",
+        "work_branch": "codex/content-generator-preservation-20261122",
+        "acceptance": [
+          "PR11自身の既存理科埋込を生成元へ同期、理科HTML/教材/ID/図/保存key/版不変、PR10独自機能持込なし",
+          "他4HTMLはscience条件false許可列1行のみ同期、contentHTML/6fixture/schema/C1-C11/G-S/画像7条件と固定hash保持",
+          "隔離copyの実7本生成でfirst成果物保持/second不変、旧PR11の欠落を検出",
+          "固定候補全32suite（既存31+generator）独立実行、assert/CSP/hash境界維持",
+          "768x1024合成教材編集→確認→非保存trial→終了/JSON再入力の確認失効、学習storage/通知抑止維持",
+          "理科unit/tag合成回答→reload/JSON往復、fieldless旧形式受理、不正/未知拒否を通常/親で限定確認"
+        ]
       }
     },
     {
@@ -18663,9 +18678,21 @@
       "observed_operations_commit": "3d4c954ecc8de309478eb3a17eb13ded7d217a92",
       "observed_main_commit": "58f8b53b4da69806d15a126fc525b65893a0bf35",
       "scope": "content_branch_generator_preservation",
-      "phase": "requirements",
+      "phase": "implementation",
       "cloud_verified": true,
-      "ceo_decisions_ingested": 0
+      "ceo_decisions_ingested": 0,
+      "pdm": "pdm_content_generator",
+      "prm": "root",
+      "engineer": "engineer_content_generator",
+      "reviewer": "qa_content_generator",
+      "scope_acceptance": [
+        "PR11自身の既存理科埋込を生成元へ同期、理科HTML/教材/ID/図/保存key/版不変、PR10独自機能持込なし",
+        "他4HTMLはscience条件false許可列1行のみ同期、contentHTML/6fixture/schema/C1-C11/G-S/画像7条件と固定hash保持",
+        "隔離copyの実7本生成でfirst成果物保持/second不変、旧PR11の欠落を検出",
+        "固定候補全32suite（既存31+generator）独立実行、assert/CSP/hash境界維持",
+        "768x1024合成教材編集→確認→非保存trial→終了/JSON再入力の確認失効、学習storage/通知抑止維持",
+        "理科unit/tag合成回答→reload/JSON往復、fieldless旧形式受理、不正/未知拒否を通常/親で限定確認"
+      ]
     }
   ],
   "operational_notes": [
