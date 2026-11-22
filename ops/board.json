@@ -36,8 +36,13 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": null,
-  "updated_at": "2026-11-22T12:09:36.067452+00:00",
+  "lease": {
+    "run_id": "cycle-20261122T130313Z",
+    "acquired_at": "2026-11-22T13:03:13.901218+00:00",
+    "expires_at": "2026-11-22T13:38:13.901218+00:00",
+    "ticket": "REV-MVP"
+  },
+  "updated_at": "2026-11-22T13:03:13.901218+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -17874,6 +17879,15 @@
         "result": "unconfirmed_no_response",
         "note": "attach呼出しに42秒以上応答なし。待機終了。GitHub保存とは別でタスク添付完了は未確認。新規PRなし。"
       }
+    },
+    {
+      "id": "cycle-20261122T130313Z",
+      "started_at": "2026-11-22T13:03:13.901218+00:00",
+      "observed_operations_commit": "04b5b74c98408340033b10a5c98f8eb4857b3ba8",
+      "observed_main_commit": "58f8b53b4da69806d15a126fc525b65893a0bf35",
+      "scope": "rev_main_lever_compatibility",
+      "phase": "requirements",
+      "cloud_verified": true
     }
   ],
   "operational_notes": [
