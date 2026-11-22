@@ -5832,6 +5832,1688 @@
           "pitfall": "くみ置きした水は、塩素がぬけたことと水温を確かめてから使います。井戸水や汚れていない川・池の水も使えます。"
         }
       }
+    ],
+    "lever-01": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 20: initial original lever questions",
+        "question": {
+          "id": "lever-01",
+          "unitId": "rika-lever",
+          "conceptId": "lever-balance",
+          "level": 1,
+          "type": "choice",
+          "area": "pivot",
+          "subject": "理科",
+          "course": "d1",
+          "source": "オリジナル問題・自作模式図",
+          "step": 0,
+          "beam": {
+            "pivot": 5,
+            "weights": [
+              {
+                "position": 2,
+                "weight": 40
+              },
+              {
+                "position": 8,
+                "weight": 40
+              }
+            ],
+            "unknown": {
+              "kind": "pivot"
+            }
+          },
+          "prompt": "棒を支えていて、棒が回る中心になるところ（支点）はどこ？",
+          "answer": "三角の台が棒にふれるところ",
+          "options": [
+            "左のおもりがついたところ",
+            "三角の台が棒にふれるところ",
+            "右のおもりがついたところ"
+          ],
+          "aliases": [],
+          "hint": "棒と三角の台がふれ合うところを探してみよう。",
+          "steps": [
+            "図の三角の台は、下から棒を支えている。",
+            "棒が回るときも、台にふれるところが中心になる。",
+            "図では、左と右のおもりの間に支点がある。",
+            "左のおもりも右のおもりも、同じ支点を中心に棒を回そうとする。",
+            "棒が回る中心を支点という。"
+          ],
+          "explanation": "図の三角の台は、下から棒を支えている。 棒が回るときも、台にふれるところが中心になる。 図では、左と右のおもりの間に支点がある。 左のおもりも右のおもりも、同じ支点を中心に棒を回そうとする。 棒が回る中心を支点という。",
+          "pitfall": "おもりの位置と、棒を支える位置を見分けよう。",
+          "basis": "棒が回る中心を支点という。",
+          "optionTags": {
+            "左のおもりがついたところ": "左のおもりの位置",
+            "右のおもりがついたところ": "右のおもりの位置"
+          },
+          "unit": "てこのつり合い"
+        }
+      }
+    ],
+    "lever-02": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 20: initial original lever questions",
+        "question": {
+          "id": "lever-02",
+          "unitId": "rika-lever",
+          "conceptId": "lever-rotation",
+          "level": 1,
+          "type": "choice",
+          "area": "rotation",
+          "subject": "理科",
+          "course": "d1",
+          "source": "オリジナル問題・自作模式図",
+          "step": 0,
+          "beam": {
+            "pivot": 5,
+            "weights": [
+              {
+                "position": 1,
+                "weight": 20
+              },
+              {
+                "position": 7,
+                "weight": 20
+              }
+            ],
+            "unknown": {
+              "kind": "side"
+            }
+          },
+          "prompt": "同じ重さのおもりを図の位置につけた。棒のどちらが下がる？",
+          "answer": "左が下がる",
+          "options": [
+            "左が下がる",
+            "つり合う",
+            "右が下がる"
+          ],
+          "aliases": [],
+          "hint": "三角の台から、どちらのおもりが遠いか見てみよう。",
+          "steps": [
+            "三角の台が支点。",
+            "左のおもりは左を、右のおもりは右を下げようとする。",
+            "重さは両方20g。左の方が支点から遠い。",
+            "重さが同じときは、支点からの距離をくらべればよい。",
+            "同じ重さなら、支点から遠い方が下がる。"
+          ],
+          "explanation": "三角の台が支点。 左のおもりは左を、右のおもりは右を下げようとする。 重さは両方20g。左の方が支点から遠い。 重さが同じときは、支点からの距離をくらべればよい。 同じ重さなら、支点から遠い方が下がる。",
+          "pitfall": "重さが同じでも、つける位置によって回しやすさは変わる。",
+          "basis": "同じ重さなら、支点から遠い方が下がる。",
+          "optionTags": {
+            "右が下がる": "近い方が下がる",
+            "つり合う": "同じ重さならつり合う"
+          },
+          "unit": "てこのつり合い"
+        }
+      }
+    ],
+    "lever-03": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 20: initial original lever questions",
+        "question": {
+          "id": "lever-03",
+          "unitId": "rika-lever",
+          "conceptId": "lever-rotation",
+          "level": 1,
+          "type": "choice",
+          "area": "rotation",
+          "subject": "理科",
+          "course": "d1",
+          "source": "オリジナル問題・自作模式図",
+          "step": 0,
+          "beam": {
+            "pivot": 5,
+            "weights": [
+              {
+                "position": 2,
+                "weight": 15
+              },
+              {
+                "position": 8,
+                "weight": 35
+              }
+            ],
+            "unknown": {
+              "kind": "side"
+            }
+          },
+          "prompt": "支点から同じ距離におもりをつけた。棒のどちらが下がる？",
+          "answer": "右が下がる",
+          "options": [
+            "左が下がる",
+            "つり合う",
+            "右が下がる"
+          ],
+          "aliases": [],
+          "hint": "支点からの距離は同じ。おもりの重さをくらべてみよう。",
+          "steps": [
+            "支点から左のおもりまでと、右のおもりまでは同じ距離。",
+            "おもりは、それぞれ自分の側を下げようとする。",
+            "左は15g。右は35g。",
+            "同じ距離なら、重さをくらべればよい。",
+            "支点から同じ距離なら、重い方が下がる。"
+          ],
+          "explanation": "支点から左のおもりまでと、右のおもりまでは同じ距離。 おもりは、それぞれ自分の側を下げようとする。 左は15g。右は35g。 同じ距離なら、重さをくらべればよい。 支点から同じ距離なら、重い方が下がる。",
+          "pitfall": "支点からの距離が同じときは、重さを見よう。",
+          "basis": "支点から同じ距離なら、重い方が下がる。",
+          "optionTags": {
+            "左が下がる": "軽い方が下がる",
+            "つり合う": "同じ距離ならつり合う"
+          },
+          "unit": "てこのつり合い"
+        }
+      }
+    ],
+    "lever-04": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 20: initial original lever questions",
+        "question": {
+          "id": "lever-04",
+          "unitId": "rika-lever",
+          "conceptId": "lever-balance",
+          "level": 1,
+          "type": "choice",
+          "area": "balance",
+          "subject": "理科",
+          "course": "d1",
+          "source": "オリジナル問題・自作模式図",
+          "step": 0,
+          "beam": {
+            "pivot": 5,
+            "weights": [
+              {
+                "position": 1,
+                "weight": 20
+              },
+              {
+                "position": 7,
+                "weight": 20
+              }
+            ],
+            "unknown": {
+              "kind": "diagram"
+            },
+            "alternatives": [
+              {
+                "pivot": 5,
+                "weights": [
+                  {
+                    "position": 1,
+                    "weight": 20
+                  },
+                  {
+                    "position": 7,
+                    "weight": 20
+                  }
+                ]
+              },
+              {
+                "pivot": 5,
+                "weights": [
+                  {
+                    "position": 2,
+                    "weight": 10
+                  },
+                  {
+                    "position": 8,
+                    "weight": 30
+                  }
+                ]
+              },
+              {
+                "pivot": 5,
+                "weights": [
+                  {
+                    "position": 2,
+                    "weight": 20
+                  },
+                  {
+                    "position": 8,
+                    "weight": 20
+                  }
+                ]
+              }
+            ]
+          },
+          "prompt": "棒が水平につり合うのはどの図？",
+          "answer": "図C",
+          "options": [
+            "図A",
+            "図B",
+            "図C"
+          ],
+          "aliases": [],
+          "hint": "まず左右のおもりの重さを見よう。次に支点からの距離をくらべよう。",
+          "steps": [
+            "三つの図で三角の台が支点。",
+            "図Aは左へ、図Bは右へかたむく。",
+            "図Cは左右とも20gで、支点からの距離も同じ。",
+            "両側が同じように棒を回そうとすると、水平につり合う。",
+            "重さも支点からの距離も左右で同じなら、つり合う。"
+          ],
+          "explanation": "三つの図で三角の台が支点。 図Aは左へ、図Bは右へかたむく。 図Cは左右とも20gで、支点からの距離も同じ。 両側が同じように棒を回そうとすると、水平につり合う。 重さも支点からの距離も左右で同じなら、つり合う。",
+          "pitfall": "重さと支点からの距離を両方確かめよう。",
+          "basis": "重さも支点からの距離も左右で同じなら、つり合う。",
+          "optionTags": {
+            "図A": "重さだけで判断",
+            "図B": "距離だけで判断"
+          },
+          "unit": "てこのつり合い"
+        }
+      }
+    ],
+    "lever-05": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 20: initial original lever questions",
+        "question": {
+          "id": "lever-05",
+          "unitId": "rika-lever",
+          "conceptId": "lever-rotation",
+          "level": 1,
+          "type": "choice",
+          "area": "rotation",
+          "subject": "理科",
+          "course": "d1",
+          "source": "オリジナル問題・自作模式図",
+          "step": 0,
+          "beam": {
+            "pivot": 5,
+            "weights": [
+              {
+                "position": 8,
+                "weight": 35
+              }
+            ],
+            "unknown": {
+              "kind": "rotation"
+            }
+          },
+          "prompt": "おもりをつけると、棒はどちら向きに回る？",
+          "answer": "時計回り",
+          "options": [
+            "時計回り",
+            "反時計回り"
+          ],
+          "aliases": [],
+          "hint": "棒の右が下がるところを想像しよう。時計の針と同じ向きかな？",
+          "steps": [
+            "三角の台が棒の回る中心。",
+            "おもりがある右が下がる。",
+            "支点に時計を重ねて考える。棒といっしょに回る針が12時を向いていたら、1時の方へ動く。",
+            "時計の針と同じ向きなので、時計回り。",
+            "右が下がる回り方は、時計回り。"
+          ],
+          "explanation": "三角の台が棒の回る中心。 おもりがある右が下がる。 支点に時計を重ねて考える。棒といっしょに回る針が12時を向いていたら、1時の方へ動く。 時計の針と同じ向きなので、時計回り。 右が下がる回り方は、時計回り。",
+          "pitfall": "支点を中心に、どちらの端が下がるかを見よう。",
+          "basis": "右が下がる回り方は、時計回り。",
+          "optionTags": {
+            "反時計回り": "回る向きの取り違え"
+          },
+          "unit": "てこのつり合い"
+        }
+      }
+    ],
+    "lever-06": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 20: initial original lever questions",
+        "question": {
+          "id": "lever-06",
+          "unitId": "rika-lever",
+          "conceptId": "lever-rotation",
+          "level": 1,
+          "type": "choice",
+          "area": "rotation",
+          "subject": "理科",
+          "course": "d1",
+          "source": "オリジナル問題・自作模式図",
+          "step": 0,
+          "beam": {
+            "pivot": 5,
+            "weights": [
+              {
+                "position": 2,
+                "weight": 25
+              }
+            ],
+            "unknown": {
+              "kind": "rotation"
+            }
+          },
+          "prompt": "おもりをつけると、棒はどちら向きに回る？",
+          "answer": "反時計回り",
+          "options": [
+            "時計回り",
+            "反時計回り"
+          ],
+          "aliases": [],
+          "hint": "棒の左が下がるところを想像しよう。時計の針と同じ向きかな？",
+          "steps": [
+            "三角の台が棒の回る中心。",
+            "おもりがある左が下がる。",
+            "支点に時計を重ねて考える。棒といっしょに回る針が12時を向いていたら、11時の方へ動く。",
+            "時計の針と反対の向きなので、反時計回り。",
+            "左が下がる回り方は、反時計回り。"
+          ],
+          "explanation": "三角の台が棒の回る中心。 おもりがある左が下がる。 支点に時計を重ねて考える。棒といっしょに回る針が12時を向いていたら、11時の方へ動く。 時計の針と反対の向きなので、反時計回り。 左が下がる回り方は、反時計回り。",
+          "pitfall": "支点を中心に、どちらの端が下がるかを見よう。",
+          "basis": "左が下がる回り方は、反時計回り。",
+          "optionTags": {
+            "時計回り": "回る向きの取り違え"
+          },
+          "unit": "てこのつり合い"
+        }
+      }
+    ],
+    "lever-07": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 20: initial original lever questions",
+        "question": {
+          "id": "lever-07",
+          "unitId": "rika-lever",
+          "conceptId": "lever-rotation",
+          "level": 1,
+          "type": "choice",
+          "area": "rotation",
+          "subject": "理科",
+          "course": "d1",
+          "source": "オリジナル問題・自作模式図",
+          "step": 1,
+          "beam": {
+            "pivot": 5,
+            "weights": [
+              {
+                "position": 1,
+                "weight": 3
+              },
+              {
+                "position": 6,
+                "weight": 8
+              }
+            ],
+            "unknown": {
+              "kind": "side"
+            }
+          },
+          "prompt": "図のようにおもりをつけた。棒はどうなる？",
+          "answer": "左が下がる",
+          "options": [
+            "左が下がる",
+            "つり合う",
+            "右が下がる"
+          ],
+          "aliases": [],
+          "hint": "支点から1cmの右の回す力は8。左は重さ×距離で求めよう。",
+          "steps": [
+            "三角の台から、それぞれのおもりまでの距離を見る。",
+            "左のおもりは左を、右のおもりは右を下げようとする。",
+            "右は8gで1cm。左は3gで4cm。",
+            "回す力＝重さ×距離。右は距離が1cmなので回す力は8。左の回す力は3×4＝12。左の回す力が大きいので、左が下がる。",
+            "左右の回す力をくらべると、大きい方が下がる。"
+          ],
+          "explanation": "三角の台から、それぞれのおもりまでの距離を見る。 左のおもりは左を、右のおもりは右を下げようとする。 右は8gで1cm。左は3gで4cm。 回す力＝重さ×距離。右は距離が1cmなので回す力は8。左の回す力は3×4＝12。左の回す力が大きいので、左が下がる。 左右の回す力をくらべると、大きい方が下がる。",
+          "pitfall": "回す力は、重さ×支点からの距離で求められる。",
+          "basis": "左右の回す力をくらべると、大きい方が下がる。",
+          "optionTags": {
+            "右が下がる": "重さだけで判断",
+            "つり合う": "つり合うを選択"
+          },
+          "unit": "てこのつり合い"
+        }
+      }
+    ],
+    "lever-08": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 20: initial original lever questions",
+        "question": {
+          "id": "lever-08",
+          "unitId": "rika-lever",
+          "conceptId": "lever-rotation",
+          "level": 1,
+          "type": "choice",
+          "area": "rotation",
+          "subject": "理科",
+          "course": "d1",
+          "source": "オリジナル問題・自作模式図",
+          "step": 1,
+          "beam": {
+            "pivot": 5,
+            "weights": [
+              {
+                "position": 2,
+                "weight": 2
+              },
+              {
+                "position": 6,
+                "weight": 9
+              }
+            ],
+            "unknown": {
+              "kind": "side"
+            }
+          },
+          "prompt": "図のようにおもりをつけた。棒はどうなる？",
+          "answer": "右が下がる",
+          "options": [
+            "左が下がる",
+            "つり合う",
+            "右が下がる"
+          ],
+          "aliases": [],
+          "hint": "支点から1cmの右の回す力は9。左は重さ×距離で求めよう。",
+          "steps": [
+            "三角の台から、それぞれのおもりまでの距離を見る。",
+            "左のおもりは左を、右のおもりは右を下げようとする。",
+            "右は9gで1cm。左は2gで3cm。",
+            "回す力＝重さ×距離。右は距離が1cmなので回す力は9。左の回す力は2×3＝6。右の回す力が大きいので、右が下がる。",
+            "左右の回す力をくらべると、大きい方が下がる。"
+          ],
+          "explanation": "三角の台から、それぞれのおもりまでの距離を見る。 左のおもりは左を、右のおもりは右を下げようとする。 右は9gで1cm。左は2gで3cm。 回す力＝重さ×距離。右は距離が1cmなので回す力は9。左の回す力は2×3＝6。右の回す力が大きいので、右が下がる。 左右の回す力をくらべると、大きい方が下がる。",
+          "pitfall": "回す力は、重さ×支点からの距離で求められる。",
+          "basis": "左右の回す力をくらべると、大きい方が下がる。",
+          "optionTags": {
+            "左が下がる": "距離だけで判断",
+            "つり合う": "つり合うを選択"
+          },
+          "unit": "てこのつり合い"
+        }
+      }
+    ],
+    "lever-09": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 20: initial original lever questions",
+        "question": {
+          "id": "lever-09",
+          "unitId": "rika-lever",
+          "conceptId": "lever-balance",
+          "level": 1,
+          "type": "choice",
+          "area": "balance",
+          "subject": "理科",
+          "course": "d1",
+          "source": "オリジナル問題・自作模式図",
+          "step": 1,
+          "beam": {
+            "pivot": 5,
+            "weights": [
+              {
+                "position": 3,
+                "weight": 4
+              },
+              {
+                "position": 6,
+                "weight": 8
+              }
+            ],
+            "unknown": {
+              "kind": "side"
+            }
+          },
+          "prompt": "図のようにおもりをつけた。棒はどうなる？",
+          "answer": "つり合う",
+          "options": [
+            "左が下がる",
+            "つり合う",
+            "右が下がる"
+          ],
+          "aliases": [],
+          "hint": "支点から1cmの右の回す力は8。左は重さ×距離で求めよう。",
+          "steps": [
+            "三角の台から、それぞれのおもりまでの距離を見る。",
+            "左のおもりは左を、右のおもりは右を下げようとする。",
+            "右は8gで1cm。左は4gで2cm。",
+            "回す力＝重さ×距離。右は距離が1cmなので回す力は8。左の回す力は4×2＝8。同じ大きさなので、つり合う。",
+            "左右の回す力が同じなら、棒はつり合う。"
+          ],
+          "explanation": "三角の台から、それぞれのおもりまでの距離を見る。 左のおもりは左を、右のおもりは右を下げようとする。 右は8gで1cm。左は4gで2cm。 回す力＝重さ×距離。右は距離が1cmなので回す力は8。左の回す力は4×2＝8。同じ大きさなので、つり合う。 左右の回す力が同じなら、棒はつり合う。",
+          "pitfall": "回す力は、重さ×支点からの距離で求められる。",
+          "basis": "左右の回す力が同じなら、棒はつり合う。",
+          "optionTags": {
+            "左が下がる": "距離だけで判断",
+            "右が下がる": "重さだけで判断"
+          },
+          "unit": "てこのつり合い"
+        }
+      }
+    ],
+    "lever-10": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 20: initial original lever questions",
+        "question": {
+          "id": "lever-10",
+          "unitId": "rika-lever",
+          "conceptId": "lever-rotation",
+          "level": 1,
+          "type": "choice",
+          "area": "rotation",
+          "subject": "理科",
+          "course": "d1",
+          "source": "オリジナル問題・自作模式図",
+          "step": 1,
+          "beam": {
+            "pivot": 5,
+            "weights": [
+              {
+                "position": 4,
+                "weight": 10
+              },
+              {
+                "position": 8,
+                "weight": 3
+              }
+            ],
+            "unknown": {
+              "kind": "side"
+            }
+          },
+          "prompt": "図のようにおもりをつけた。棒はどうなる？",
+          "answer": "左が下がる",
+          "options": [
+            "左が下がる",
+            "つり合う",
+            "右が下がる"
+          ],
+          "aliases": [],
+          "hint": "支点から1cmの左の回す力は10。右は重さ×距離で求めよう。",
+          "steps": [
+            "三角の台から、それぞれのおもりまでの距離を見る。",
+            "左のおもりは左を、右のおもりは右を下げようとする。",
+            "左は10gで1cm。右は3gで3cm。",
+            "回す力＝重さ×距離。左は距離が1cmなので回す力は10。右の回す力は3×3＝9。左の回す力が大きいので、左が下がる。",
+            "左右の回す力をくらべると、大きい方が下がる。"
+          ],
+          "explanation": "三角の台から、それぞれのおもりまでの距離を見る。 左のおもりは左を、右のおもりは右を下げようとする。 左は10gで1cm。右は3gで3cm。 回す力＝重さ×距離。左は距離が1cmなので回す力は10。右の回す力は3×3＝9。左の回す力が大きいので、左が下がる。 左右の回す力をくらべると、大きい方が下がる。",
+          "pitfall": "回す力は、重さ×支点からの距離で求められる。",
+          "basis": "左右の回す力をくらべると、大きい方が下がる。",
+          "optionTags": {
+            "右が下がる": "距離だけで判断",
+            "つり合う": "つり合うを選択"
+          },
+          "unit": "てこのつり合い"
+        }
+      }
+    ],
+    "lever-11": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 20: initial original lever questions",
+        "question": {
+          "id": "lever-11",
+          "unitId": "rika-lever",
+          "conceptId": "lever-rotation",
+          "level": 1,
+          "type": "choice",
+          "area": "rotation",
+          "subject": "理科",
+          "course": "d1",
+          "source": "オリジナル問題・自作模式図",
+          "step": 1,
+          "beam": {
+            "pivot": 5,
+            "weights": [
+              {
+                "position": 3,
+                "weight": 3
+              },
+              {
+                "position": 6,
+                "weight": 7
+              }
+            ],
+            "unknown": {
+              "kind": "side"
+            }
+          },
+          "prompt": "図のようにおもりをつけた。棒はどうなる？",
+          "answer": "右が下がる",
+          "options": [
+            "左が下がる",
+            "つり合う",
+            "右が下がる"
+          ],
+          "aliases": [],
+          "hint": "支点から1cmの右の回す力は7。左は重さ×距離で求めよう。",
+          "steps": [
+            "三角の台から、それぞれのおもりまでの距離を見る。",
+            "左のおもりは左を、右のおもりは右を下げようとする。",
+            "右は7gで1cm。左は3gで2cm。",
+            "回す力＝重さ×距離。右は距離が1cmなので回す力は7。左の回す力は3×2＝6。右の回す力が大きいので、右が下がる。",
+            "左右の回す力をくらべると、大きい方が下がる。"
+          ],
+          "explanation": "三角の台から、それぞれのおもりまでの距離を見る。 左のおもりは左を、右のおもりは右を下げようとする。 右は7gで1cm。左は3gで2cm。 回す力＝重さ×距離。右は距離が1cmなので回す力は7。左の回す力は3×2＝6。右の回す力が大きいので、右が下がる。 左右の回す力をくらべると、大きい方が下がる。",
+          "pitfall": "回す力は、重さ×支点からの距離で求められる。",
+          "basis": "左右の回す力をくらべると、大きい方が下がる。",
+          "optionTags": {
+            "左が下がる": "距離だけで判断",
+            "つり合う": "つり合うを選択"
+          },
+          "unit": "てこのつり合い"
+        }
+      }
+    ],
+    "lever-12": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 20: initial original lever questions",
+        "question": {
+          "id": "lever-12",
+          "unitId": "rika-lever",
+          "conceptId": "lever-balance",
+          "level": 1,
+          "type": "choice",
+          "area": "balance",
+          "subject": "理科",
+          "course": "d1",
+          "source": "オリジナル問題・自作模式図",
+          "step": 1,
+          "beam": {
+            "pivot": 5,
+            "weights": [
+              {
+                "position": 4,
+                "weight": 12
+              },
+              {
+                "position": 8,
+                "weight": 4
+              }
+            ],
+            "unknown": {
+              "kind": "side"
+            }
+          },
+          "prompt": "図のようにおもりをつけた。棒はどうなる？",
+          "answer": "つり合う",
+          "options": [
+            "左が下がる",
+            "つり合う",
+            "右が下がる"
+          ],
+          "aliases": [],
+          "hint": "支点から1cmの左の回す力は12。右は重さ×距離で求めよう。",
+          "steps": [
+            "三角の台から、それぞれのおもりまでの距離を見る。",
+            "左のおもりは左を、右のおもりは右を下げようとする。",
+            "左は12gで1cm。右は4gで3cm。",
+            "回す力＝重さ×距離。左は距離が1cmなので回す力は12。右の回す力は4×3＝12。同じ大きさなので、つり合う。",
+            "左右の回す力が同じなら、棒はつり合う。"
+          ],
+          "explanation": "三角の台から、それぞれのおもりまでの距離を見る。 左のおもりは左を、右のおもりは右を下げようとする。 左は12gで1cm。右は4gで3cm。 回す力＝重さ×距離。左は距離が1cmなので回す力は12。右の回す力は4×3＝12。同じ大きさなので、つり合う。 左右の回す力が同じなら、棒はつり合う。",
+          "pitfall": "回す力は、重さ×支点からの距離で求められる。",
+          "basis": "左右の回す力が同じなら、棒はつり合う。",
+          "optionTags": {
+            "左が下がる": "重さだけで判断",
+            "右が下がる": "距離だけで判断"
+          },
+          "unit": "てこのつり合い"
+        }
+      }
+    ],
+    "lever-13": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 20: initial original lever questions",
+        "question": {
+          "id": "lever-13",
+          "unitId": "rika-lever",
+          "conceptId": "lever-rotation",
+          "level": 1,
+          "type": "choice",
+          "area": "rotation",
+          "subject": "理科",
+          "course": "d1",
+          "source": "オリジナル問題・自作模式図",
+          "step": 1,
+          "beam": {
+            "pivot": 5,
+            "weights": [
+              {
+                "position": 1,
+                "weight": 4
+              },
+              {
+                "position": 6,
+                "weight": 9
+              }
+            ],
+            "unknown": {
+              "kind": "side"
+            }
+          },
+          "prompt": "図のようにおもりをつけた。棒はどうなる？",
+          "answer": "左が下がる",
+          "options": [
+            "左が下がる",
+            "つり合う",
+            "右が下がる"
+          ],
+          "aliases": [],
+          "hint": "支点から1cmの右の回す力は9。左は重さ×距離で求めよう。",
+          "steps": [
+            "三角の台から、それぞれのおもりまでの距離を見る。",
+            "左のおもりは左を、右のおもりは右を下げようとする。",
+            "右は9gで1cm。左は4gで4cm。",
+            "回す力＝重さ×距離。右は距離が1cmなので回す力は9。左の回す力は4×4＝16。左の回す力が大きいので、左が下がる。",
+            "左右の回す力をくらべると、大きい方が下がる。"
+          ],
+          "explanation": "三角の台から、それぞれのおもりまでの距離を見る。 左のおもりは左を、右のおもりは右を下げようとする。 右は9gで1cm。左は4gで4cm。 回す力＝重さ×距離。右は距離が1cmなので回す力は9。左の回す力は4×4＝16。左の回す力が大きいので、左が下がる。 左右の回す力をくらべると、大きい方が下がる。",
+          "pitfall": "回す力は、重さ×支点からの距離で求められる。",
+          "basis": "左右の回す力をくらべると、大きい方が下がる。",
+          "optionTags": {
+            "右が下がる": "重さと距離を足す",
+            "つり合う": "つり合うを選択"
+          },
+          "unit": "てこのつり合い"
+        }
+      }
+    ],
+    "lever-14": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 20: initial original lever questions",
+        "question": {
+          "id": "lever-14",
+          "unitId": "rika-lever",
+          "conceptId": "lever-rotation",
+          "level": 1,
+          "type": "choice",
+          "area": "rotation",
+          "subject": "理科",
+          "course": "d1",
+          "source": "オリジナル問題・自作模式図",
+          "step": 1,
+          "beam": {
+            "pivot": 5,
+            "weights": [
+              {
+                "position": 4,
+                "weight": 10
+              },
+              {
+                "position": 9,
+                "weight": 2
+              }
+            ],
+            "unknown": {
+              "kind": "side"
+            }
+          },
+          "prompt": "図のようにおもりをつけた。棒はどうなる？",
+          "answer": "左が下がる",
+          "options": [
+            "左が下がる",
+            "つり合う",
+            "右が下がる"
+          ],
+          "aliases": [],
+          "hint": "支点から1cmの左の回す力は10。右は重さ×距離で求めよう。",
+          "steps": [
+            "三角の台から、それぞれのおもりまでの距離を見る。",
+            "左のおもりは左を、右のおもりは右を下げようとする。",
+            "左は10gで1cm。右は2gで4cm。",
+            "回す力＝重さ×距離。左は距離が1cmなので回す力は10。右の回す力は2×4＝8。左の回す力が大きいので、左が下がる。",
+            "左右の回す力をくらべると、大きい方が下がる。"
+          ],
+          "explanation": "三角の台から、それぞれのおもりまでの距離を見る。 左のおもりは左を、右のおもりは右を下げようとする。 左は10gで1cm。右は2gで4cm。 回す力＝重さ×距離。左は距離が1cmなので回す力は10。右の回す力は2×4＝8。左の回す力が大きいので、左が下がる。 左右の回す力をくらべると、大きい方が下がる。",
+          "pitfall": "回す力は、重さ×支点からの距離で求められる。",
+          "basis": "左右の回す力をくらべると、大きい方が下がる。",
+          "optionTags": {
+            "右が下がる": "距離だけで判断",
+            "つり合う": "つり合うを選択"
+          },
+          "unit": "てこのつり合い"
+        }
+      }
+    ],
+    "lever-15": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 20: initial original lever questions",
+        "question": {
+          "id": "lever-15",
+          "unitId": "rika-lever",
+          "conceptId": "lever-balance",
+          "level": 1,
+          "type": "number",
+          "area": "balance",
+          "subject": "理科",
+          "course": "d1",
+          "source": "オリジナル問題・自作模式図",
+          "step": 2,
+          "beam": {
+            "pivot": 5,
+            "weights": [
+              {
+                "position": 2,
+                "weight": 12
+              },
+              {
+                "position": 7,
+                "weight": null
+              }
+            ],
+            "unknown": {
+              "kind": "weight",
+              "index": 1
+            }
+          },
+          "prompt": "棒を水平につり合わせるには、右のおもりを何gにすればよい？",
+          "answer": 18,
+          "options": [],
+          "aliases": [],
+          "hint": "左は12gで、支点から3cm。まず、こちらの回す力を求めよう。",
+          "steps": [
+            "図の「？」を見つける。",
+            "左と右のおもりは反対向きに棒を回そうとする。",
+            "左の回す力は12×3＝36。つり合うには右も36。",
+            "重さ×2＝36。重さの2倍が36だから、36÷2＝18g。",
+            "つり合う重さは、必要な回す力÷支点からの距離。"
+          ],
+          "explanation": "図の「？」を見つける。 左と右のおもりは反対向きに棒を回そうとする。 左の回す力は12×3＝36。つり合うには右も36。 重さ×2＝36。重さの2倍が36だから、36÷2＝18g。 つり合う重さは、必要な回す力÷支点からの距離。",
+          "pitfall": "つり合っているときは、左右の回す力が同じ。",
+          "basis": "つり合う重さは、必要な回す力÷支点からの距離。",
+          "numericTags": {
+            "36": "距離で割らずに回す力を答える",
+            "14": "重さと距離を足す"
+          },
+          "answerUnit": "g",
+          "unit": "てこのつり合い"
+        }
+      }
+    ],
+    "lever-16": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 20: initial original lever questions",
+        "question": {
+          "id": "lever-16",
+          "unitId": "rika-lever",
+          "conceptId": "lever-balance",
+          "level": 1,
+          "type": "number",
+          "area": "balance",
+          "subject": "理科",
+          "course": "d1",
+          "source": "オリジナル問題・自作模式図",
+          "step": 2,
+          "beam": {
+            "pivot": 5,
+            "weights": [
+              {
+                "position": 2,
+                "weight": 10
+              },
+              {
+                "position": null,
+                "weight": 15,
+                "side": "right"
+              }
+            ],
+            "unknown": {
+              "kind": "distance",
+              "index": 1
+            }
+          },
+          "prompt": "棒を水平につり合わせるには、右のおもりを支点から何cmの位置につければよい？",
+          "answer": 2,
+          "options": [],
+          "aliases": [],
+          "hint": "左は10gで、支点から3cm。まず、こちらの回す力を求めよう。",
+          "steps": [
+            "図の「？」を見つける。",
+            "左と右のおもりは反対向きに棒を回そうとする。",
+            "左の回す力は10×3＝30。つり合うには右も30。",
+            "15×距離＝30。15の何倍で30になるかを求めるので、30÷15＝2cm。",
+            "つり合う位置までの距離は、必要な回す力÷重さ。"
+          ],
+          "explanation": "図の「？」を見つける。 左と右のおもりは反対向きに棒を回そうとする。 左の回す力は10×3＝30。つり合うには右も30。 15×距離＝30。15の何倍で30になるかを求めるので、30÷15＝2cm。 つり合う位置までの距離は、必要な回す力÷重さ。",
+          "pitfall": "つり合っているときは、左右の回す力が同じ。",
+          "basis": "つり合う位置までの距離は、必要な回す力÷重さ。",
+          "numericTags": {
+            "25": "重さ同士を足す",
+            "30": "重さで割らずに回す力を答える"
+          },
+          "answerUnit": "cm",
+          "unit": "てこのつり合い"
+        }
+      }
+    ],
+    "lever-17": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 20: initial original lever questions",
+        "question": {
+          "id": "lever-17",
+          "unitId": "rika-lever",
+          "conceptId": "lever-balance",
+          "level": 1,
+          "type": "number",
+          "area": "balance",
+          "subject": "理科",
+          "course": "d1",
+          "source": "オリジナル問題・自作模式図",
+          "step": 2,
+          "beam": {
+            "pivot": 5,
+            "weights": [
+              {
+                "position": 1,
+                "weight": null
+              },
+              {
+                "position": 7,
+                "weight": 14
+              }
+            ],
+            "unknown": {
+              "kind": "weight",
+              "index": 0
+            }
+          },
+          "prompt": "棒を水平につり合わせるには、左のおもりを何gにすればよい？",
+          "answer": 7,
+          "options": [],
+          "aliases": [],
+          "hint": "右は14gで、支点から2cm。まず、こちらの回す力を求めよう。",
+          "steps": [
+            "図の「？」を見つける。",
+            "右と左のおもりは反対向きに棒を回そうとする。",
+            "右の回す力は14×2＝28。つり合うには左も28。",
+            "重さ×4＝28。重さの4倍が28だから、28÷4＝7g。",
+            "つり合う重さは、必要な回す力÷支点からの距離。"
+          ],
+          "explanation": "図の「？」を見つける。 右と左のおもりは反対向きに棒を回そうとする。 右の回す力は14×2＝28。つり合うには左も28。 重さ×4＝28。重さの4倍が28だから、28÷4＝7g。 つり合う重さは、必要な回す力÷支点からの距離。",
+          "pitfall": "つり合っているときは、左右の回す力が同じ。",
+          "basis": "つり合う重さは、必要な回す力÷支点からの距離。",
+          "numericTags": {
+            "28": "距離で割らずに回す力を答える",
+            "16": "重さと距離を足す"
+          },
+          "answerUnit": "g",
+          "unit": "てこのつり合い"
+        }
+      }
+    ],
+    "lever-18": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 20: initial original lever questions",
+        "question": {
+          "id": "lever-18",
+          "unitId": "rika-lever",
+          "conceptId": "lever-balance",
+          "level": 1,
+          "type": "number",
+          "area": "balance",
+          "subject": "理科",
+          "course": "d1",
+          "source": "オリジナル問題・自作模式図",
+          "step": 2,
+          "beam": {
+            "pivot": 5,
+            "weights": [
+              {
+                "position": null,
+                "weight": 12,
+                "side": "left"
+              },
+              {
+                "position": 8,
+                "weight": 16
+              }
+            ],
+            "unknown": {
+              "kind": "distance",
+              "index": 0
+            }
+          },
+          "prompt": "棒を水平につり合わせるには、左のおもりを支点から何cmの位置につければよい？",
+          "answer": 4,
+          "options": [],
+          "aliases": [],
+          "hint": "右は16gで、支点から3cm。まず、こちらの回す力を求めよう。",
+          "steps": [
+            "図の「？」を見つける。",
+            "右と左のおもりは反対向きに棒を回そうとする。",
+            "右の回す力は16×3＝48。つり合うには左も48。",
+            "12×距離＝48。12の何倍で48になるかを求めるので、48÷12＝4cm。",
+            "つり合う位置までの距離は、必要な回す力÷重さ。"
+          ],
+          "explanation": "図の「？」を見つける。 右と左のおもりは反対向きに棒を回そうとする。 右の回す力は16×3＝48。つり合うには左も48。 12×距離＝48。12の何倍で48になるかを求めるので、48÷12＝4cm。 つり合う位置までの距離は、必要な回す力÷重さ。",
+          "pitfall": "つり合っているときは、左右の回す力が同じ。",
+          "basis": "つり合う位置までの距離は、必要な回す力÷重さ。",
+          "numericTags": {
+            "28": "重さ同士を足す",
+            "48": "重さで割らずに回す力を答える"
+          },
+          "answerUnit": "cm",
+          "unit": "てこのつり合い"
+        }
+      }
+    ],
+    "lever-19": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 20: initial original lever questions",
+        "question": {
+          "id": "lever-19",
+          "unitId": "rika-lever",
+          "conceptId": "lever-balance",
+          "level": 1,
+          "type": "number",
+          "area": "balance",
+          "subject": "理科",
+          "course": "d1",
+          "source": "オリジナル問題・自作模式図",
+          "step": 2,
+          "beam": {
+            "pivot": 6,
+            "weights": [
+              {
+                "position": 4,
+                "weight": 24
+              },
+              {
+                "position": 9,
+                "weight": null
+              }
+            ],
+            "unknown": {
+              "kind": "weight",
+              "index": 1
+            }
+          },
+          "prompt": "棒を水平につり合わせるには、右のおもりを何gにすればよい？",
+          "answer": 16,
+          "options": [],
+          "aliases": [],
+          "hint": "左は24gで、支点から2cm。まず、こちらの回す力を求めよう。",
+          "steps": [
+            "図の「？」を見つける。",
+            "左と右のおもりは反対向きに棒を回そうとする。",
+            "左の回す力は24×2＝48。つり合うには右も48。",
+            "重さ×3＝48。重さの3倍が48だから、48÷3＝16g。",
+            "つり合う重さは、必要な回す力÷支点からの距離。"
+          ],
+          "explanation": "図の「？」を見つける。 左と右のおもりは反対向きに棒を回そうとする。 左の回す力は24×2＝48。つり合うには右も48。 重さ×3＝48。重さの3倍が48だから、48÷3＝16g。 つり合う重さは、必要な回す力÷支点からの距離。",
+          "pitfall": "つり合っているときは、左右の回す力が同じ。",
+          "basis": "つり合う重さは、必要な回す力÷支点からの距離。",
+          "numericTags": {
+            "27": "重さと距離を足す",
+            "48": "距離で割らずに回す力を答える"
+          },
+          "answerUnit": "g",
+          "unit": "てこのつり合い"
+        }
+      }
+    ],
+    "lever-20": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 20: initial original lever questions",
+        "question": {
+          "id": "lever-20",
+          "unitId": "rika-lever",
+          "conceptId": "lever-balance",
+          "level": 1,
+          "type": "number",
+          "area": "balance",
+          "subject": "理科",
+          "course": "d1",
+          "source": "オリジナル問題・自作模式図",
+          "step": 2,
+          "beam": {
+            "pivot": 5,
+            "weights": [
+              {
+                "position": 3,
+                "weight": 21
+              },
+              {
+                "position": null,
+                "weight": 14,
+                "side": "right"
+              }
+            ],
+            "unknown": {
+              "kind": "distance",
+              "index": 1
+            }
+          },
+          "prompt": "棒を水平につり合わせるには、右のおもりを支点から何cmの位置につければよい？",
+          "answer": 3,
+          "options": [],
+          "aliases": [],
+          "hint": "左は21gで、支点から2cm。まず、こちらの回す力を求めよう。",
+          "steps": [
+            "図の「？」を見つける。",
+            "左と右のおもりは反対向きに棒を回そうとする。",
+            "左の回す力は21×2＝42。つり合うには右も42。",
+            "14×距離＝42。14の何倍で42になるかを求めるので、42÷14＝3cm。",
+            "つり合う位置までの距離は、必要な回す力÷重さ。"
+          ],
+          "explanation": "図の「？」を見つける。 左と右のおもりは反対向きに棒を回そうとする。 左の回す力は21×2＝42。つり合うには右も42。 14×距離＝42。14の何倍で42になるかを求めるので、42÷14＝3cm。 つり合う位置までの距離は、必要な回す力÷重さ。",
+          "pitfall": "つり合っているときは、左右の回す力が同じ。",
+          "basis": "つり合う位置までの距離は、必要な回す力÷重さ。",
+          "numericTags": {
+            "35": "重さ同士を足す",
+            "42": "重さで割らずに回す力を答える"
+          },
+          "answerUnit": "cm",
+          "unit": "てこのつり合い"
+        }
+      }
+    ],
+    "lever-21": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 20: initial original lever questions",
+        "question": {
+          "id": "lever-21",
+          "unitId": "rika-lever",
+          "conceptId": "lever-balance",
+          "level": 1,
+          "type": "number",
+          "area": "balance",
+          "subject": "理科",
+          "course": "d1",
+          "source": "オリジナル問題・自作模式図",
+          "step": 2,
+          "beam": {
+            "pivot": 6,
+            "weights": [
+              {
+                "position": 3,
+                "weight": null
+              },
+              {
+                "position": 8,
+                "weight": 27
+              }
+            ],
+            "unknown": {
+              "kind": "weight",
+              "index": 0
+            }
+          },
+          "prompt": "棒を水平につり合わせるには、左のおもりを何gにすればよい？",
+          "answer": 18,
+          "options": [],
+          "aliases": [],
+          "hint": "右は27gで、支点から2cm。まず、こちらの回す力を求めよう。",
+          "steps": [
+            "図の「？」を見つける。",
+            "右と左のおもりは反対向きに棒を回そうとする。",
+            "右の回す力は27×2＝54。つり合うには左も54。",
+            "重さ×3＝54。重さの3倍が54だから、54÷3＝18g。",
+            "つり合う重さは、必要な回す力÷支点からの距離。"
+          ],
+          "explanation": "図の「？」を見つける。 右と左のおもりは反対向きに棒を回そうとする。 右の回す力は27×2＝54。つり合うには左も54。 重さ×3＝54。重さの3倍が54だから、54÷3＝18g。 つり合う重さは、必要な回す力÷支点からの距離。",
+          "pitfall": "つり合っているときは、左右の回す力が同じ。",
+          "basis": "つり合う重さは、必要な回す力÷支点からの距離。",
+          "numericTags": {
+            "54": "距離で割らずに回す力を答える",
+            "30": "重さと距離を足す"
+          },
+          "answerUnit": "g",
+          "unit": "てこのつり合い"
+        }
+      }
+    ],
+    "lever-22": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 20: initial original lever questions",
+        "question": {
+          "id": "lever-22",
+          "unitId": "rika-lever",
+          "conceptId": "lever-balance",
+          "level": 1,
+          "type": "number",
+          "area": "balance",
+          "subject": "理科",
+          "course": "d1",
+          "source": "オリジナル問題・自作模式図",
+          "step": 2,
+          "beam": {
+            "pivot": 6,
+            "weights": [
+              {
+                "position": null,
+                "weight": 18,
+                "side": "left"
+              },
+              {
+                "position": 10,
+                "weight": 9
+              }
+            ],
+            "unknown": {
+              "kind": "distance",
+              "index": 0
+            }
+          },
+          "prompt": "棒を水平につり合わせるには、左のおもりを支点から何cmの位置につければよい？",
+          "answer": 2,
+          "options": [],
+          "aliases": [],
+          "hint": "右は9gで、支点から4cm。まず、こちらの回す力を求めよう。",
+          "steps": [
+            "図の「？」を見つける。",
+            "右と左のおもりは反対向きに棒を回そうとする。",
+            "右の回す力は9×4＝36。つり合うには左も36。",
+            "18×距離＝36。18の何倍で36になるかを求めるので、36÷18＝2cm。",
+            "つり合う位置までの距離は、必要な回す力÷重さ。"
+          ],
+          "explanation": "図の「？」を見つける。 右と左のおもりは反対向きに棒を回そうとする。 右の回す力は9×4＝36。つり合うには左も36。 18×距離＝36。18の何倍で36になるかを求めるので、36÷18＝2cm。 つり合う位置までの距離は、必要な回す力÷重さ。",
+          "pitfall": "つり合っているときは、左右の回す力が同じ。",
+          "basis": "つり合う位置までの距離は、必要な回す力÷重さ。",
+          "numericTags": {
+            "27": "重さ同士を足す",
+            "36": "重さで割らずに回す力を答える"
+          },
+          "answerUnit": "cm",
+          "unit": "てこのつり合い"
+        }
+      }
+    ],
+    "lever-23": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 20: initial original lever questions",
+        "question": {
+          "id": "lever-23",
+          "unitId": "rika-lever",
+          "conceptId": "lever-balance",
+          "level": 1,
+          "type": "choice",
+          "area": "balance",
+          "subject": "理科",
+          "course": "d1",
+          "source": "オリジナル問題・自作模式図",
+          "step": 3,
+          "beam": {
+            "pivot": 6,
+            "weights": [
+              {
+                "position": 2,
+                "weight": 20
+              },
+              {
+                "position": 4,
+                "weight": 10
+              }
+            ],
+            "unknown": {
+              "kind": "turningForce",
+              "side": "left"
+            }
+          },
+          "prompt": "左におもりを2個つけた。左を下げようとする回す力の合計はいくつ？",
+          "answer": "100",
+          "options": [
+            "30",
+            "80",
+            "100"
+          ],
+          "aliases": [],
+          "hint": "おもり1個ずつについて、重さ×支点からの距離を求めよう。",
+          "steps": [
+            "図の左側におもりが2個ある。",
+            "2個とも左を下げようとする。",
+            "20gのおもりは支点から4cm、10gのおもりは2cm。",
+            "20×4＝80。10×2＝20。合わせて80＋20＝100。",
+            "同じ向きに回そうとするおもりが2個なら、1個ずつの回す力を足す。"
+          ],
+          "explanation": "図の左側におもりが2個ある。 2個とも左を下げようとする。 20gのおもりは支点から4cm、10gのおもりは2cm。 20×4＝80。10×2＝20。合わせて80＋20＝100。 同じ向きに回そうとするおもりが2個なら、1個ずつの回す力を足す。",
+          "pitfall": "重さだけを足すと、つける位置のちがいが計算に入らない。",
+          "basis": "同じ向きに回そうとするおもりが2個なら、1個ずつの回す力を足す。",
+          "optionTags": {
+            "30": "重さ同士を足す",
+            "80": "おもり1個分の回す力"
+          },
+          "unit": "てこのつり合い"
+        }
+      }
+    ],
+    "lever-24": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 20: initial original lever questions",
+        "question": {
+          "id": "lever-24",
+          "unitId": "rika-lever",
+          "conceptId": "lever-balance",
+          "level": 1,
+          "type": "choice",
+          "area": "balance",
+          "subject": "理科",
+          "course": "d1",
+          "source": "オリジナル問題・自作模式図",
+          "step": 3,
+          "beam": {
+            "pivot": 4,
+            "weights": [
+              {
+                "position": 5,
+                "weight": 25
+              },
+              {
+                "position": 7,
+                "weight": 15
+              }
+            ],
+            "unknown": {
+              "kind": "turningForce",
+              "side": "right"
+            }
+          },
+          "prompt": "右におもりを2個つけた。右を下げようとする回す力の合計はいくつ？",
+          "answer": "70",
+          "options": [
+            "70",
+            "40",
+            "45"
+          ],
+          "aliases": [],
+          "hint": "支点に近い方の回す力を求めてから、遠い方も求めよう。",
+          "steps": [
+            "図の右側におもりが2個ある。",
+            "2個とも右を下げようとする。",
+            "25gのおもりは支点から1cm、15gのおもりは3cm。",
+            "25×1＝25。15×3＝45。合わせて25＋45＝70。",
+            "遠いおもりは、軽くても大きな回す力をつくることがある。"
+          ],
+          "explanation": "図の右側におもりが2個ある。 2個とも右を下げようとする。 25gのおもりは支点から1cm、15gのおもりは3cm。 25×1＝25。15×3＝45。合わせて25＋45＝70。 遠いおもりは、軽くても大きな回す力をつくることがある。",
+          "pitfall": "それぞれのおもりまでの距離で、回す力を求めよう。",
+          "basis": "遠いおもりは、軽くても大きな回す力をつくることがある。",
+          "optionTags": {
+            "40": "重さ同士を足す",
+            "45": "おもり1個分の回す力"
+          },
+          "unit": "てこのつり合い"
+        }
+      }
+    ],
+    "lever-25": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 20: initial original lever questions",
+        "question": {
+          "id": "lever-25",
+          "unitId": "rika-lever",
+          "conceptId": "lever-balance",
+          "level": 1,
+          "type": "number",
+          "area": "balance",
+          "subject": "理科",
+          "course": "d1",
+          "source": "オリジナル問題・自作模式図",
+          "step": 3,
+          "beam": {
+            "pivot": 5,
+            "weights": [
+              {
+                "position": 1,
+                "weight": 8
+              },
+              {
+                "position": 3,
+                "weight": 12
+              },
+              {
+                "position": 9,
+                "weight": null
+              }
+            ],
+            "unknown": {
+              "kind": "weight",
+              "index": 2
+            }
+          },
+          "prompt": "左におもりが2個ある。棒が水平につり合うように、右のおもりを何gにすればよい？",
+          "answer": 14,
+          "options": [],
+          "aliases": [],
+          "hint": "左のおもり1個ずつの回す力を出して、2個分を足そう。",
+          "steps": [
+            "左におもりが2個、右に1個ある。",
+            "左の2個は左を下げようとし、右のおもりは右を下げようとする。",
+            "左の回す力は8×4＝32と12×2＝24。合わせて56。",
+            "右は支点から4cm。重さの4倍が56だから、56÷4＝14g。",
+            "重さを足す代わりに、同じ向きに回そうとする力を足す。"
+          ],
+          "explanation": "左におもりが2個、右に1個ある。 左の2個は左を下げようとし、右のおもりは右を下げようとする。 左の回す力は8×4＝32と12×2＝24。合わせて56。 右は支点から4cm。重さの4倍が56だから、56÷4＝14g。 重さを足す代わりに、同じ向きに回そうとする力を足す。",
+          "pitfall": "左のおもりは位置がちがうので、重さだけを足しても右の重さは決まらない。",
+          "basis": "重さを足す代わりに、同じ向きに回そうとする力を足す。",
+          "numericTags": {
+            "20": "重さ同士を足す",
+            "56": "距離で割らずに回す力を答える"
+          },
+          "answerUnit": "g",
+          "unit": "てこのつり合い"
+        }
+      }
+    ],
+    "lever-26": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 20: initial original lever questions",
+        "question": {
+          "id": "lever-26",
+          "unitId": "rika-lever",
+          "conceptId": "lever-balance",
+          "level": 1,
+          "type": "number",
+          "area": "support",
+          "subject": "理科",
+          "course": "d1",
+          "source": "オリジナル問題・自作模式図",
+          "step": 3,
+          "beam": {
+            "pivot": 5,
+            "weights": [
+              {
+                "position": 1,
+                "weight": 18
+              },
+              {
+                "position": 8,
+                "weight": 24
+              }
+            ],
+            "unknown": {
+              "kind": "support"
+            }
+          },
+          "prompt": "棒は水平につり合っている。棒の重さを考えないとき、支点は全部で何g分の重さを支えている？",
+          "answer": 42,
+          "options": [],
+          "aliases": [],
+          "hint": "下向きに引くおもりは2個。上向きに支えているのは三角の台だけ。",
+          "steps": [
+            "三角の台だけが棒を下から支えている。",
+            "左右のおもりは反対向きに棒を回そうとする。18×4と24×3は同じなので、水平につり合う。",
+            "おもりは左が18g、右が24g。2個とも棒を下に引く。",
+            "支点が支えるのは18＋24＝42g分。",
+            "支点だけで支えているとき、支点が支える力は下向きの重さの合計に等しい。"
+          ],
+          "explanation": "三角の台だけが棒を下から支えている。 左右のおもりは反対向きに棒を回そうとする。18×4と24×3は同じなので、水平につり合う。 おもりは左が18g、右が24g。2個とも棒を下に引く。 支点が支えるのは18＋24＝42g分。 支点だけで支えているとき、支点が支える力は下向きの重さの合計に等しい。",
+          "pitfall": "上下の力をくらべるときは、支点からの距離をかけずに重さを足す。",
+          "basis": "支点だけで支えているとき、支点が支える力は下向きの重さの合計に等しい。",
+          "numericTags": {
+            "6": "おもりの重さを引く",
+            "72": "回す力を答える"
+          },
+          "answerUnit": "g",
+          "unit": "てこのつり合い"
+        }
+      }
+    ],
+    "lever-27": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 20: initial original lever questions",
+        "question": {
+          "id": "lever-27",
+          "unitId": "rika-lever",
+          "conceptId": "lever-balance",
+          "level": 1,
+          "type": "choice",
+          "area": "support",
+          "subject": "理科",
+          "course": "d1",
+          "source": "オリジナル問題・自作模式図",
+          "step": 4,
+          "beam": {
+            "pivot": 0,
+            "weights": [
+              {
+                "position": 4,
+                "weight": 30
+              },
+              {
+                "position": 9,
+                "weight": 16
+              }
+            ],
+            "unknown": {
+              "kind": "scaleAndSupport"
+            },
+            "scale": {
+              "position": 12,
+              "direction": "up",
+              "weight": null
+            }
+          },
+          "prompt": "棒の左端を台で支え、右端をばねばかりで上に引くと、棒が水平になった。棒の重さは考えない。ばねばかりの値と、台が支える力は、それぞれ何g分？ この順に答えよう。",
+          "answer": "22g、24g",
+          "options": [
+            "22g、46g",
+            "46g、0g",
+            "22g、24g"
+          ],
+          "aliases": [],
+          "hint": "まず台の位置を支点にして、下へ回そうとする力と上へ回そうとする力をくらべよう。",
+          "steps": [
+            "左端の台を支点にする。右にはおもり2個と、上へ引くばねばかりがある。",
+            "おもりは右を下げようとし、ばねばかりは右を上げようとする。",
+            "おもりは30gが4cm、16gが9cm。ばねばかりは12cmの位置。",
+            "回す力は30×4＋16×9＝264。ばねばかりは264÷12＝22g。下向きは30＋16＝46g分。台は46−22＝24g分を支える。",
+            "回す力でばねばかりの値を出し、上向きの力の合計と下向きの力の合計が等しくなるように台の力を求める。"
+          ],
+          "explanation": "左端の台を支点にする。右にはおもり2個と、上へ引くばねばかりがある。 おもりは右を下げようとし、ばねばかりは右を上げようとする。 おもりは30gが4cm、16gが9cm。ばねばかりは12cmの位置。 回す力は30×4＋16×9＝264。ばねばかりは264÷12＝22g。下向きは30＋16＝46g分。台は46−22＝24g分を支える。 回す力でばねばかりの値を出し、上向きの力の合計と下向きの力の合計が等しくなるように台の力を求める。",
+          "pitfall": "下向きの重さを、ばねばかりと台の両方で支えている。",
+          "basis": "回す力でばねばかりの値を出し、上向きの力の合計と下向きの力の合計が等しくなるように台の力を求める。",
+          "optionTags": {
+            "22g、46g": "上向きのばねばかりの力を引かない",
+            "46g、0g": "台が支える力を0とする"
+          },
+          "unit": "てこのつり合い"
+        }
+      }
+    ],
+    "lever-28": [
+      {
+        "revision": 1,
+        "kind": "initial",
+        "reason": "Task 20: initial original lever questions",
+        "question": {
+          "id": "lever-28",
+          "unitId": "rika-lever",
+          "conceptId": "lever-balance",
+          "level": 1,
+          "type": "choice",
+          "area": "support",
+          "subject": "理科",
+          "course": "d1",
+          "source": "オリジナル問題・自作模式図",
+          "step": 4,
+          "beam": {
+            "pivot": 7,
+            "weights": [
+              {
+                "position": 1,
+                "weight": 15
+              },
+              {
+                "position": null,
+                "weight": null,
+                "side": "right"
+              }
+            ],
+            "unknown": {
+              "kind": "weightAndDistance",
+              "index": 1
+            },
+            "scale": {
+              "position": 7,
+              "direction": "up",
+              "weight": 45
+            }
+          },
+          "prompt": "ばねばかり1本で棒をつるすと、棒は水平になり、ばねばかりは45gを示した。棒の重さは考えない。右のおもりの重さと、ばねばかりの位置から右のおもりまでの距離は？ この順に答えよう。",
+          "answer": "30g、3cm",
+          "options": [
+            "60g、1.5cm",
+            "30g、6cm",
+            "30g、3cm"
+          ],
+          "aliases": [],
+          "hint": "ばねばかりはおもり2個分を支えている。まず右のおもりの重さを求めよう。",
+          "steps": [
+            "ばねばかり1本が上に引き、おもり2個が下に引く。",
+            "ばねばかりの位置を支点として見ると、左右のおもりは反対向きに棒を回そうとする。",
+            "上向きは45g分で、左のおもりは15g。そのおもりは支点から6cm。",
+            "右のおもりは45−15＝30g。左の回す力は15×6＝90。右は30×距離＝90なので、90÷30＝3cm。",
+            "上向きと下向きの力で重さを求め、左右の回す力で距離を求める。"
+          ],
+          "explanation": "ばねばかり1本が上に引き、おもり2個が下に引く。 ばねばかりの位置を支点として見ると、左右のおもりは反対向きに棒を回そうとする。 上向きは45g分で、左のおもりは15g。そのおもりは支点から6cm。 右のおもりは45−15＝30g。左の回す力は15×6＝90。右は30×距離＝90なので、90÷30＝3cm。 上向きと下向きの力で重さを求め、左右の回す力で距離を求める。",
+          "pitfall": "重さを決める計算と、つける位置を決める計算を、順に行う。",
+          "basis": "上向きと下向きの力で重さを求め、左右の回す力で距離を求める。",
+          "optionTags": {
+            "60g、1.5cm": "ばねばかりの値に左の重さを足す",
+            "30g、6cm": "距離だけを左右でそろえる"
+          },
+          "unit": "てこのつり合い"
+        }
+      }
     ]
   },
   "mock-focus-review.html": {

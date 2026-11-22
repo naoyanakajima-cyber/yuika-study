@@ -37,6 +37,9 @@ def validator(text, science):
  constants.append("MODES.adaptive='弱点に合わせた追加練習';MODES.daily='今日の5問';")
  names=(['numeric','requireThat','validDate','legacyData','validateEvent','validateState'] if science else
         ['grade','check','validDate','validateEvent','validate'])
+ if 'function solveBeam(' in text:
+  constants.append("MODES.challenge='挑戦';")
+  names += ['answerUnit','leverAnswerTag','solveBeam']
  functions=[function(name,text) for name in names]+[function('historicalQuestion',text)]
  load='validateState' if science else 'validate'
  empty='emptyState' if science else 'empty'
