@@ -153,6 +153,39 @@ try:
         page.add_script_tag(url=base + 'assets/progress.js')
         summary = page.evaluate('target => YuikaDesign.summary(target)', PAGE + '?unit=' + UNIT_NAME)
         assert summary['total'] == 28, summary
+        summary = page.evaluate("""target => {
+            const make = (id, days, correct) => {
+                const q = byId.get(id), at = new Date(Date.now() - days * 86400000).toISOString();
+                const response = correct ? q.answer : q.options.find(o => o !== q.answer);
+                return validateEvent({
+                    id:uid(), sessionId:'synthetic-lever-review', questionId:id, datasetVersion:VERSION,
+                    unit:q.unit, type:q.type, question:q.prompt, explanation:q.explanation,
+                    response, inputRaw:response, expected:q.answer, correct, answeredAt:at,
+                    timezoneOffset:0, localDay:at.slice(0,10), hintUsed:false, mode:'unit',
+                });
+            };
+            const original = state, saved = YuikaParent.storage.getItem(KEY);
+            try {
+                state = emptyState();
+                state.events = [
+                    make('lever-07', 4, false), make('lever-07', 3, false), make('lever-07', 2, true),
+                    make('lever-08', 3, false), make('lever-08', 2, false),
+                ];
+                if (scienceDue()[0]?.originId !== 'lever-07' || scienceWeak()[0]?.originId !== 'lever-08') {
+                    throw Error('Missing lever recheck or weakness');
+                }
+                if (scienceDaily().slice(0,2).map(q => q.id).join(',') !== 'lever-07,lever-08') {
+                    throw Error('Lever daily does not prioritize rechecks and weaknesses');
+                }
+                YuikaParent.storage.setItem(KEY, JSON.stringify(state));
+                return YuikaDesign.summary(target);
+            } finally {
+                state = original;
+                if (saved === null) YuikaParent.storage.removeItem(KEY);
+                else YuikaParent.storage.setItem(KEY, saved);
+            }
+        }""", PAGE + '?unit=' + UNIT_NAME)
+        assert (summary['dueCount'], summary['weakCount'], summary['normalCount']) == (1, 1, 3), summary
         page.locator('#start').click()
         assert page.evaluate("""() => {
             const qs = session.questions;
@@ -314,4 +347,4 @@ finally:
     server.shutdown()
     server.server_close()
 
-print('lever: 28 calculations/revisions, staged quiz and single fallback, challenge gate, tags/units/reports, parent isolation PASS')
+print('lever: 28 calculations/revisions, recheck/daily, staged quiz and single fallback, challenge gate, tags/units/reports, parent isolation PASS')

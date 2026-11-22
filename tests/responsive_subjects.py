@@ -141,4 +141,4 @@ with ThreadingHTTPServer(('127.0.0.1',0),partial(Quiet,directory=str(ROOT))) as 
    assert invalid_summary==mixed_summary and invalid_summary['total']==46
    assert p.evaluate('YuikaParent.storage.getItem(KEY)')==mixed_raw
   c.close();browser.close()
-print('responsive_subjects: all 20 units + questions/flash, 4 widths, parent banner, scrollbar gutters, subject boundaries and unchanged mixed histories PASS')
+print('responsive_subjects: all 21 units + questions/flash, 4 widths, parent banner, scrollbar gutters, subject boundaries and unchanged mixed histories PASS')
