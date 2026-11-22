@@ -36,13 +36,8 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": {
-    "run_id": "cycle-20261122T160732Z",
-    "acquired_at": "2026-11-22T16:07:32.382935+00:00",
-    "expires_at": "2026-11-22T16:40:32.382935+00:00",
-    "ticket": "REV-MVP"
-  },
-  "updated_at": "2026-11-22T16:09:41.243431+00:00",
+  "lease": null,
+  "updated_at": "2026-11-22T16:28:04.626394+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -243,7 +238,7 @@
         "既存ID・保存キー・旧履歴を保護する",
         "768x1024で開始・回答・採点・保存・再読込を合成データで確認する"
       ],
-      "next_action": "SCIENCE-GENERATOR-LEVER-01: 既存PR10の最新差分を照合し、てこ進行/復習/再開とanswerUnit/answerTagを生成元へ保持する最小範囲をPdM→PrMで確定。生成1回目の機能保持/2回目差分なし・旧記録互換・共通runtime非退行を独立QAし同PRへ保存。",
+      "next_action": "PR10 d26d10は生成時のてこ復習/再開/単位タグ保持を独立31suite・合成JSON往復で検証済み。D03方向性の試用判断待ち。本番権限なし。既存PR11 ee228caの最新差分で同じ生成元欠落を照合し、存在する場合だけbranch固有の教材確認/試し解きと理科埋込動作を保持する最小同期範囲をPdM→PrMで確認する。その後PR12を照合。PR10source全転載や新規PR追加はしない。",
       "evidence": [
         {
           "kind": "test",
@@ -417,38 +412,67 @@
           "contexts": 10,
           "executor": "qa_pr30_impact",
           "path": "ops/evidence/2026-11-22-review-lever-main/summary.json"
+        },
+        {
+          "kind": "test",
+          "command": "bash scripts/check_all.sh",
+          "commit": "d26d10dea80b93cef7a47dbd814f76e3f69d3934",
+          "executor": "qa_science_generator",
+          "exit_code": 0,
+          "suites_passed": 31,
+          "suites_total": 31,
+          "attempt": 2,
+          "seconds": 322,
+          "path": "ops/evidence/2026-11-22-science-generator-lever/final-result.json"
+        },
+        {
+          "kind": "independent_probe",
+          "commit": "f60f6b2bc7c8f0b21d0789b599edf5a13269f5e5",
+          "validated_delivery_commit": "d26d10dea80b93cef7a47dbd814f76e3f69d3934",
+          "product_equivalent": true,
+          "cases": 2,
+          "executor": "qa_science_generator",
+          "path": "ops/evidence/2026-11-22-science-generator-lever/probe-result.json"
+        },
+        {
+          "kind": "report",
+          "path": "ops/runs/2026-11-22-science-generator-lever.md",
+          "commit": "f8c2ec9cdb10f062329fdc35d4b2ad5d973fa249"
         }
       ],
       "review": {
-        "pdm": "pdm_pr30_scope",
+        "pdm": "pdm_science_generator",
         "prm": "root/coordinator",
-        "author": "engineer_rev_lever_compat",
-        "reviewer": "qa_pr30_impact",
-        "commit": "804f9f648c8634ea26d4ca7fc26cf6b473029475",
-        "result": "passed_current_main_lever_compatibility",
-        "completed_at": "2026-11-22T13:20:34.223585+00:00",
-        "required_suites": 30,
+        "author": "engineer_science_generator",
+        "reviewer": "qa_science_generator",
+        "commit": "d26d10dea80b93cef7a47dbd814f76e3f69d3934",
+        "result": "passed_generator_preservation_and_record_compatibility",
+        "completed_at": "2026-11-22T16:25:12.039229+00:00",
+        "required_suites": 31,
         "exit_code": 0,
-        "seconds": 323,
+        "seconds": 322,
         "attempt": 2,
         "first_attempt": {
-          "commit": "566e4674e9d54482d3043d4be6ff10dcd780d303",
-          "suites_passed": 29,
-          "suites_total": 30,
+          "head": "f60f6b2bc7c8f0b21d0789b599edf5a13269f5e5",
+          "suites_passed": 30,
+          "suites_total": 31,
+          "seconds": 308,
           "exit_code": 1,
-          "seconds": 361,
-          "cause": "science_adaptive old button label locator Timeout; one test line fixed"
+          "cause": "Legacy nonlever selection oracle lacked LEVER_UNIT; fixture only repaired, assertions preserved"
         },
-        "independent_ui_cases": 13,
-        "fresh_contexts": 10,
-        "probe_execution_commit": "566e4674e9d54482d3043d4be6ff10dcd780d303",
+        "independent_ui_cases": 2,
+        "independent_ui_attempt": 1,
+        "probe_execution_commit": "f60f6b2bc7c8f0b21d0789b599edf5a13269f5e5",
         "probe_product_equivalence_verified": true,
-        "report": "ops/evidence/2026-11-22-review-lever-main/QA.md"
+        "baseline_regression_independently_detected": true,
+        "generator_first_and_second_pass_preserved": true,
+        "science_html_unchanged": true,
+        "report": "ops/evidence/2026-11-22-science-generator-lever/QA.md"
       },
       "base_ref": "main",
       "base_sha": "58f8b53b4da69806d15a126fc525b65893a0bf35",
       "specification": "docs/product/review-spec.md",
-      "commit": "804f9f648c8634ea26d4ca7fc26cf6b473029475",
+      "commit": "d26d10dea80b93cef7a47dbd814f76e3f69d3934",
       "direction_adopted": true,
       "direction_decision": "D03",
       "release": {
@@ -486,8 +510,8 @@
         "blocker": "このセッションに共有Chrome操作ツールなし。共有クラウドでCEOが直接操作する引き渡しは未完了。",
         "unblock": "正規の共有クラウドブラウザー操作機能を利用できるタスクで合成専用loopback試用を開く。",
         "blocks_discoverability_improvement": false,
-        "latest_synthetic_qa_commit": "804f9f648c8634ea26d4ca7fc26cf6b473029475",
-        "latest_cloud_artifacts": "ops/evidence/2026-11-22-review-lever-main"
+        "latest_synthetic_qa_commit": "d26d10dea80b93cef7a47dbd814f76e3f69d3934",
+        "latest_cloud_artifacts": "ops/evidence/2026-11-22-science-generator-lever"
       },
       "review_history": [
         {
@@ -568,9 +592,35 @@
           "seconds": 349,
           "independent_ui_unique_cases": 7,
           "report": "ops/evidence/2026-11-15-review-main-compatibility/QA-candidate.md"
+        },
+        {
+          "pdm": "pdm_pr30_scope",
+          "prm": "root/coordinator",
+          "author": "engineer_rev_lever_compat",
+          "reviewer": "qa_pr30_impact",
+          "commit": "804f9f648c8634ea26d4ca7fc26cf6b473029475",
+          "result": "passed_current_main_lever_compatibility",
+          "completed_at": "2026-11-22T13:20:34.223585+00:00",
+          "required_suites": 30,
+          "exit_code": 0,
+          "seconds": 323,
+          "attempt": 2,
+          "first_attempt": {
+            "commit": "566e4674e9d54482d3043d4be6ff10dcd780d303",
+            "suites_passed": 29,
+            "suites_total": 30,
+            "exit_code": 1,
+            "seconds": 361,
+            "cause": "science_adaptive old button label locator Timeout; one test line fixed"
+          },
+          "independent_ui_cases": 13,
+          "fresh_contexts": 10,
+          "probe_execution_commit": "566e4674e9d54482d3043d4be6ff10dcd780d303",
+          "probe_product_equivalence_verified": true,
+          "report": "ops/evidence/2026-11-22-review-lever-main/QA.md"
         }
       ],
-      "ceo_wait_reason": "理由付き復習、日次実問数、てこ段階/挑戦/補助追加との互換性を独立QA済みのdraft試作品確認待ち。D03方向性維持、本番merge/公開未承認。",
+      "ceo_wait_reason": "理由付き復習、日次実問数、てこ段階/挑戦/補助追加と再生成時の記録互換性を独立QA済みのdraft試作品確認待ち。D03方向性維持、本番merge/公開未承認。",
       "independent_followup": {
         "id": "daily_science_count",
         "state": "independent_qa_passed",
@@ -682,7 +732,7 @@
       ],
       "generator_followup": {
         "id": "SCIENCE-GENERATOR-LEVER-01",
-        "state": "in_progress",
+        "state": "independent_qa_passed",
         "same_pr": 10,
         "pdm": "pdm_science_generator",
         "prm": "root",
@@ -695,8 +745,8 @@
           "actual generator sequence preserves output; second run no diff",
           "PR10 recommended review/daily-count features retained; common runtime parent isolation and notification suppression preserved"
         ],
-        "implemented": false,
-        "next_action": "SCIENCE-GENERATOR-LEVER-01: 既存PR10の最新差分を照合し、てこ進行/復習/再開とanswerUnit/answerTagを生成元へ保持する最小範囲をPdM→PrMで確定。生成1回目の機能保持/2回目差分なし・旧記録互換・共通runtime非退行を独立QAし同PRへ保存。",
+        "implemented": true,
+        "next_action": "既存PR11 ee228caの最新差分で同じ生成元欠落を照合し、存在する場合だけbranch固有の教材確認/試し解きと理科埋込動作を保持する最小同期範囲をPdM→PrMで確認する。その後PR12を照合。PR10source全転載や新規PR追加はしない。",
         "run_id": "cycle-20261122T160732Z",
         "engineer": "engineer_science_generator",
         "reviewer": "qa_science_generator",
@@ -709,7 +759,13 @@
           "実7本生成列を隔離コピーで検証、最初の成果物保持と2回目差分なし、旧HEAD検出",
           "共通prototype他4ページとPR10理由付き復習/count/親隔離/通知遮断維持",
           "固定候補の全必須suiteと768x1024合成通常/親の独立QA"
-        ]
+        ],
+        "commit": "d26d10dea80b93cef7a47dbd814f76e3f69d3934",
+        "report": "ops/runs/2026-11-22-science-generator-lever.md",
+        "completed_at": "2026-11-22T16:27:18.139935+00:00",
+        "delivered": true,
+        "updated_pr": 10,
+        "review_result": "passed_generator_preservation_and_record_compatibility"
       }
     },
     {
@@ -793,7 +849,7 @@
         "未確認出力と確認済み案を区別し、既存教材/記録に接続しない",
         "768x1024で編集・確認・取消・出力/再入力、外部要求/通知POST 0を検証"
       ],
-      "next_action": "PR11 ee228caは新main58f8b53との互換性を独立31suite/限定UI確認済み。合成教材確認→保存しない試し解きの具体的試用フィードバック待ち。3製品PRのmain追従は完了。次cycleはREV-MVP理科生成元不整合を優先、承認は正本実読・台帳反映まで推測しない。",
+      "next_action": "次は既存PR11 ee228caの最新差分で同じ生成元欠落を照合し、存在する場合だけbranch固有の教材確認/試し解きと理科埋込動作を保持する最小同期範囲をPdM→PrMで確認する。その後PR12を照合。PR10source全転載や新規PR追加はしない。",
       "evidence": [
         {
           "kind": "test",
@@ -1320,7 +1376,18 @@
           "same_pr": 11,
           "observed_at": "2026-11-22T13:23:59.392985+00:00"
         }
-      ]
+      ],
+      "generator_followup": {
+        "id": "SCIENCE-GENERATOR-LEVER-01",
+        "state": "needs_branch_specific_scope_review",
+        "same_pr": 11,
+        "observed_pr_head": "ee228ca0a1865d0a56f4302cd9342a4f66738561",
+        "reference_fix_pr": 10,
+        "reference_fix_commit": "d26d10dea80b93cef7a47dbd814f76e3f69d3934",
+        "not_delivered_to_this_pr": true,
+        "source_report": "ops/runs/2026-11-22-science-generator-lever.md",
+        "next_action": "既存PR11 ee228caの最新差分で同じ生成元欠落を照合し、存在する場合だけbranch固有の教材確認/試し解きと理科埋込動作を保持する最小同期範囲をPdM→PrMで確認する。その後PR12を照合。PR10source全転載や新規PR追加はしない。"
+      }
     },
     {
       "id": "THEME-SPEC",
@@ -1395,7 +1462,7 @@
         "切替前後の問題・採点・既存履歴が同一",
         "768x1024で可読性と主要操作を確認する"
       ],
-      "next_action": "新main58f8b53互換性はe89aa335で独立27suite/限定UI確認済み。D05方向性の合成試用フィードバック待ち。本番権限なし。次cycleはREV-MVPのSCIENCE-GENERATOR-LEVER-01を既存PR10内で範囲確定する。",
+      "next_action": "PR12の現テーマ試作は合成試用判断待ち。PR11の生成修正後、同欠落を最新HEADで照合しテーマ固有埋込を保持する最小範囲を確認する。PR10の修正を適用済みとは扱わない。",
       "evidence": [
         {
           "kind": "test",
@@ -1753,7 +1820,18 @@
           "same_pr": 12,
           "observed_at": "2026-11-22T13:23:59.392985+00:00"
         }
-      ]
+      ],
+      "generator_followup": {
+        "id": "SCIENCE-GENERATOR-LEVER-01",
+        "state": "needs_branch_specific_scope_review",
+        "same_pr": 12,
+        "observed_pr_head": "e89aa335936508c6e4984c523ec65da97f510cbd",
+        "reference_fix_pr": 10,
+        "reference_fix_commit": "d26d10dea80b93cef7a47dbd814f76e3f69d3934",
+        "not_delivered_to_this_pr": true,
+        "source_report": "ops/runs/2026-11-22-science-generator-lever.md",
+        "next_action": "既存PR11 ee228caの最新差分で同じ生成元欠落を照合し、存在する場合だけbranch固有の教材確認/試し解きと理科埋込動作を保持する最小同期範囲をPdM→PrMで確認する。その後PR12を照合。PR10source全転載や新規PR追加はしない。"
+      }
     },
     {
       "id": "CONTENT-CHAT-SPEC",
@@ -18465,7 +18543,7 @@
       "observed_operations_commit": "a27f063e062723fe3b4df27360ef3d7b7c4e9f88",
       "observed_main_commit": "58f8b53b4da69806d15a126fc525b65893a0bf35",
       "scope": "science_generator_lever_preservation",
-      "phase": "implementation",
+      "phase": "completed",
       "cloud_verified": true,
       "ceo_decisions_ingested": 0,
       "pdm": "pdm_science_generator",
@@ -18479,7 +18557,100 @@
         "実7本生成列を隔離コピーで検証、最初の成果物保持と2回目差分なし、旧HEAD検出",
         "共通prototype他4ページとPR10理由付き復習/count/親隔離/通知遮断維持",
         "固定候補の全必須suiteと768x1024合成通常/親の独立QA"
-      ]
+      ],
+      "completed_at": "2026-11-22T16:28:04.626394+00:00",
+      "result": "existing_pr10_generator_preservation_saved",
+      "product_code_changed": true,
+      "new_product_feature": false,
+      "product_tests_run": true,
+      "subagents": [
+        "pdm_science_generator",
+        "engineer_science_generator",
+        "qa_science_generator"
+      ],
+      "independent_review_performed": true,
+      "review": {
+        "pdm": "pdm_science_generator",
+        "prm": "root/coordinator",
+        "author": "engineer_science_generator",
+        "reviewer": "qa_science_generator",
+        "commit": "d26d10dea80b93cef7a47dbd814f76e3f69d3934",
+        "result": "passed_generator_preservation_and_record_compatibility",
+        "completed_at": "2026-11-22T16:25:12.039229+00:00",
+        "required_suites": 31,
+        "exit_code": 0,
+        "seconds": 322,
+        "attempt": 2,
+        "first_attempt": {
+          "head": "f60f6b2bc7c8f0b21d0789b599edf5a13269f5e5",
+          "suites_passed": 30,
+          "suites_total": 31,
+          "seconds": 308,
+          "exit_code": 1,
+          "cause": "Legacy nonlever selection oracle lacked LEVER_UNIT; fixture only repaired, assertions preserved"
+        },
+        "independent_ui_cases": 2,
+        "independent_ui_attempt": 1,
+        "probe_execution_commit": "f60f6b2bc7c8f0b21d0789b599edf5a13269f5e5",
+        "probe_product_equivalence_verified": true,
+        "baseline_regression_independently_detected": true,
+        "generator_first_and_second_pass_preserved": true,
+        "science_html_unchanged": true,
+        "report": "ops/evidence/2026-11-22-science-generator-lever/QA.md"
+      },
+      "new_prs": [],
+      "updated_product_prs": [
+        10
+      ],
+      "ceo_wait_product_prs": [
+        10,
+        11,
+        12
+      ],
+      "report": "ops/runs/2026-11-22-science-generator-lever.md",
+      "document_commit": "f8c2ec9cdb10f062329fdc35d4b2ad5d973fa249",
+      "product_commit": "d26d10dea80b93cef7a47dbd814f76e3f69d3934",
+      "notification": "NO_UPDATE",
+      "new_obstacles": false,
+      "resolved_in_draft_finding_ids": [
+        "SCIENCE-GENERATOR-LEVER-01"
+      ],
+      "lease_released": true,
+      "next_action": "既存PR11 ee228caの最新差分で同じ生成元欠落を照合し、存在する場合だけbranch固有の教材確認/試し解きと理科埋込動作を保持する最小同期範囲をPdM→PrMで確認する。その後PR12を照合。PR10source全転載や新規PR追加はしない。",
+      "environment_preparation": "Managed cloud ready; manual worktrees and existing validated venv reused, not automatic snapshot handoff proof.",
+      "artifact_attachment": {
+        "prs": [
+          9,
+          10
+        ],
+        "attempts_each": 1,
+        "result": "unconfirmed_no_response",
+        "note": "Attach calls did not return; waits terminated. No new PR."
+      },
+      "observed_product_heads": {
+        "10": "d26d10dea80b93cef7a47dbd814f76e3f69d3934",
+        "11": "ee228ca0a1865d0a56f4302cd9342a4f66738561",
+        "12": "e89aa335936508c6e4984c523ec65da97f510cbd"
+      },
+      "external_check": {
+        "observed_at": "2026-11-22T16:27:18.139935+00:00",
+        "head": "d26d10dea80b93cef7a47dbd814f76e3f69d3934",
+        "name": "Workers Builds: yuika-study",
+        "status": "completed",
+        "conclusion": "failure",
+        "completed_at": "2026-11-22T16:26:13Z",
+        "html_url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/137273907811",
+        "action": "No rerun/settings changes/manual deploy; separate from local31/31.",
+        "combined_status": "pending",
+        "combined_status_count": 0,
+        "cause": "取得check情報に診断詳細なし。過去HEADと同一原因とは断定しない。"
+      },
+      "pr_metadata_updated": true,
+      "documentation_review": {
+        "reviewer": "qa_science_generator",
+        "result": "report_pr_body_board_fact_consistency_passed",
+        "additional_tests_run": false
+      }
     }
   ],
   "operational_notes": [
@@ -18817,7 +18988,7 @@
     },
     {
       "id": "SCIENCE-GENERATOR-LEVER-01",
-      "status": "open",
+      "status": "fixed_in_draft_only",
       "observed_at": "2026-11-22T15:16:21.564674+00:00",
       "ticket": "REV-MVP",
       "same_pr": 10,
@@ -18831,7 +19002,23 @@
       "full_generator_idempotence_verified": false,
       "report": "ops/runs/2026-11-22-theme-lever-main.md",
       "evidence": "ops/evidence/2026-11-22-theme-lever-main/engineer.json",
-      "next_action": "SCIENCE-GENERATOR-LEVER-01: 既存PR10の最新差分を照合し、てこ進行/復習/再開とanswerUnit/answerTagを生成元へ保持する最小範囲をPdM→PrMで確定。生成1回目の機能保持/2回目差分なし・旧記録互換・共通runtime非退行を独立QAし同PRへ保存。"
+      "next_action": "既存PR11 ee228caの最新差分で同じ生成元欠落を照合し、存在する場合だけbranch固有の教材確認/試し解きと理科埋込動作を保持する最小同期範囲をPdM→PrMで確認する。その後PR12を照合。PR10source全転載や新規PR追加はしない。",
+      "draft_resolution": {
+        "pr": 10,
+        "head": "d26d10dea80b93cef7a47dbd814f76e3f69d3934",
+        "scope": "generator source preserves existing science lever behavior and record fields; regenerated other four HTML science-only allowlist line",
+        "reviewer": "qa_science_generator",
+        "required_suites": 31,
+        "attempt": 2,
+        "report": "ops/runs/2026-11-22-science-generator-lever.md",
+        "main_changed": false,
+        "published": false
+      },
+      "unresolved_targets": [
+        "main",
+        "PR11",
+        "PR12"
+      ]
     }
   ],
   "unreconciled_prs": [
