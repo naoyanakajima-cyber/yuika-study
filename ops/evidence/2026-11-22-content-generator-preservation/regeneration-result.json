@@ -1,0 +1,80 @@
+{
+  "head": "3920f1642692c88a8d6870480bc3f98f71558d24",
+  "base": "ee228ca0a1865d0a56f4302cd9342a4f66738561",
+  "passes": [
+    {
+      "attempt": 1,
+      "matches_original_all_tracked_bytes": true,
+      "results": [
+        {
+          "generator": "scripts/practice/embed.py",
+          "exit": 0
+        },
+        {
+          "generator": "scripts/practice/embed_science.py",
+          "exit": 0
+        },
+        {
+          "generator": "scripts/history/embed.py",
+          "exit": 0
+        },
+        {
+          "generator": "scripts/prototype/embed.py",
+          "exit": 0
+        },
+        {
+          "generator": "scripts/design/build_summary.py",
+          "exit": 0
+        },
+        {
+          "generator": "scripts/design/embed.py",
+          "exit": 0
+        },
+        {
+          "generator": "scripts/parent/embed.py",
+          "exit": 0
+        }
+      ]
+    },
+    {
+      "attempt": 2,
+      "matches_original_all_tracked_bytes": true,
+      "results": [
+        {
+          "generator": "scripts/practice/embed.py",
+          "exit": 0
+        },
+        {
+          "generator": "scripts/practice/embed_science.py",
+          "exit": 0
+        },
+        {
+          "generator": "scripts/history/embed.py",
+          "exit": 0
+        },
+        {
+          "generator": "scripts/prototype/embed.py",
+          "exit": 0
+        },
+        {
+          "generator": "scripts/design/build_summary.py",
+          "exit": 0
+        },
+        {
+          "generator": "scripts/design/embed.py",
+          "exit": 0
+        },
+        {
+          "generator": "scripts/parent/embed.py",
+          "exit": 0
+        }
+      ]
+    }
+  ],
+  "old_pr11_negative": {
+    "base": "ee228ca0a1865d0a56f4302cd9342a4f66738561",
+    "exit": 1,
+    "expected_first_pass_failure": true
+  },
+  "source_tracked_checkout_clean": true
+}
