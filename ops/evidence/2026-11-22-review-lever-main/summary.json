@@ -1,0 +1,401 @@
+{
+  "verdict": "PASS — compatibility QA accepted; no remaining blocking findings",
+  "reviewer": "qa_pr30_impact (independent of engineer_rev_lever_compat)",
+  "generated_at": "2026-11-22T13:21:20.589950+00:00",
+  "scope": "PR10 + lever-main integration compatibility; not an independent complete physics/content audit of all new lever questions",
+  "final_head": "804f9f648c8634ea26d4ca7fc26cf6b473029475",
+  "full_suite_attempts": [
+    {
+      "head": "566e4674e9d54482d3043d4be6ff10dcd780d303",
+      "started_at": "2026-11-22T13:08:59.742156+00:00",
+      "finished_at": "2026-11-22T13:15:00.152014+00:00",
+      "elapsed_seconds": 360.41,
+      "exit_code": 1,
+      "dependency_setup": "manual existing validated venv symlink /workspace/yuika-study/.venv; not automatic snapshot handoff",
+      "suites": [
+        {
+          "suite": "tests/onin_review.py",
+          "exit_code": 0,
+          "seconds": 4
+        },
+        {
+          "suite": "tests/kamakura_review.py",
+          "exit_code": 0,
+          "seconds": 3
+        },
+        {
+          "suite": "tests/cloud_preview.py",
+          "exit_code": 0,
+          "seconds": 3
+        },
+        {
+          "suite": "notifications/test/worker.test.mjs",
+          "exit_code": 0,
+          "seconds": 1
+        },
+        {
+          "suite": "notifications/test/browser.py",
+          "exit_code": 0,
+          "seconds": 14
+        },
+        {
+          "suite": "tests/cloud_bootstrap.py",
+          "exit_code": 0,
+          "seconds": 2
+        },
+        {
+          "suite": "tests/adaptive_practice.py",
+          "exit_code": 0,
+          "seconds": 2
+        },
+        {
+          "suite": "tests/adaptive_daily.py",
+          "exit_code": 0,
+          "seconds": 4
+        },
+        {
+          "suite": "tests/adaptive_quality.py",
+          "exit_code": 0,
+          "seconds": 4
+        },
+        {
+          "suite": "tests/flash_grading.py",
+          "exit_code": 0,
+          "seconds": 8
+        },
+        {
+          "suite": "tests/spaced_daily.py",
+          "exit_code": 0,
+          "seconds": 5
+        },
+        {
+          "suite": "tests/history_compat.py",
+          "exit_code": 0,
+          "seconds": 4
+        },
+        {
+          "suite": "tests/edo.py",
+          "exit_code": 0,
+          "seconds": 16
+        },
+        {
+          "suite": "tests/medaka.py",
+          "exit_code": 0,
+          "seconds": 17
+        },
+        {
+          "suite": "tests/lever.py",
+          "exit_code": 0,
+          "seconds": 4
+        },
+        {
+          "suite": "tests/microscope.py",
+          "exit_code": 0,
+          "seconds": 23
+        },
+        {
+          "suite": "tests/science_adaptive.py",
+          "exit_code": 1,
+          "seconds": 38
+        },
+        {
+          "suite": "tests/registered_answers.py",
+          "exit_code": 0,
+          "seconds": 3
+        },
+        {
+          "suite": "tests/history_review_regression.py",
+          "exit_code": 0,
+          "seconds": 3
+        },
+        {
+          "suite": "tests/state_review_regression.py",
+          "exit_code": 0,
+          "seconds": 4
+        },
+        {
+          "suite": "tests/prototype_storage.py",
+          "exit_code": 0,
+          "seconds": 7
+        },
+        {
+          "suite": "tests/focus_data.py",
+          "exit_code": 0,
+          "seconds": 0
+        },
+        {
+          "suite": "tests/focus_practice.py",
+          "exit_code": 0,
+          "seconds": 12
+        },
+        {
+          "suite": "tests/parent_mode.py",
+          "exit_code": 0,
+          "seconds": 20
+        },
+        {
+          "suite": "tests/design_c.py",
+          "exit_code": 0,
+          "seconds": 20
+        },
+        {
+          "suite": "tests/responsive_subjects.py",
+          "exit_code": 0,
+          "seconds": 117
+        },
+        {
+          "suite": "tests/recommended_review.py",
+          "exit_code": 0,
+          "seconds": 6
+        },
+        {
+          "suite": "tests/review_entry.py",
+          "exit_code": 0,
+          "seconds": 3
+        },
+        {
+          "suite": "tests/daily_count.py",
+          "exit_code": 0,
+          "seconds": 6
+        },
+        {
+          "suite": "tests/science_daily_count.py",
+          "exit_code": 0,
+          "seconds": 8
+        }
+      ],
+      "shell_total_seconds": 361,
+      "failure": "tests/science_adaptive.py:209 retained old exact accessible button name 今日の5問をはじめる; Locator.click timed out after 30000ms; other 29 suites exit 0."
+    },
+    {
+      "head": "804f9f648c8634ea26d4ca7fc26cf6b473029475",
+      "started_at": "2026-11-22T13:15:11.607048+00:00",
+      "finished_at": "2026-11-22T13:20:34.223585+00:00",
+      "elapsed_seconds": 322.62,
+      "exit_code": 0,
+      "dependency_setup": "manual existing validated venv symlink /workspace/yuika-study/.venv; not automatic snapshot handoff",
+      "suites": [
+        {
+          "suite": "tests/onin_review.py",
+          "exit_code": 0,
+          "seconds": 4
+        },
+        {
+          "suite": "tests/kamakura_review.py",
+          "exit_code": 0,
+          "seconds": 3
+        },
+        {
+          "suite": "tests/cloud_preview.py",
+          "exit_code": 0,
+          "seconds": 2
+        },
+        {
+          "suite": "notifications/test/worker.test.mjs",
+          "exit_code": 0,
+          "seconds": 0
+        },
+        {
+          "suite": "notifications/test/browser.py",
+          "exit_code": 0,
+          "seconds": 11
+        },
+        {
+          "suite": "tests/cloud_bootstrap.py",
+          "exit_code": 0,
+          "seconds": 2
+        },
+        {
+          "suite": "tests/adaptive_practice.py",
+          "exit_code": 0,
+          "seconds": 2
+        },
+        {
+          "suite": "tests/adaptive_daily.py",
+          "exit_code": 0,
+          "seconds": 4
+        },
+        {
+          "suite": "tests/adaptive_quality.py",
+          "exit_code": 0,
+          "seconds": 4
+        },
+        {
+          "suite": "tests/flash_grading.py",
+          "exit_code": 0,
+          "seconds": 8
+        },
+        {
+          "suite": "tests/spaced_daily.py",
+          "exit_code": 0,
+          "seconds": 5
+        },
+        {
+          "suite": "tests/history_compat.py",
+          "exit_code": 0,
+          "seconds": 4
+        },
+        {
+          "suite": "tests/edo.py",
+          "exit_code": 0,
+          "seconds": 15
+        },
+        {
+          "suite": "tests/medaka.py",
+          "exit_code": 0,
+          "seconds": 17
+        },
+        {
+          "suite": "tests/lever.py",
+          "exit_code": 0,
+          "seconds": 4
+        },
+        {
+          "suite": "tests/microscope.py",
+          "exit_code": 0,
+          "seconds": 22
+        },
+        {
+          "suite": "tests/science_adaptive.py",
+          "exit_code": 0,
+          "seconds": 9
+        },
+        {
+          "suite": "tests/registered_answers.py",
+          "exit_code": 0,
+          "seconds": 2
+        },
+        {
+          "suite": "tests/history_review_regression.py",
+          "exit_code": 0,
+          "seconds": 3
+        },
+        {
+          "suite": "tests/state_review_regression.py",
+          "exit_code": 0,
+          "seconds": 4
+        },
+        {
+          "suite": "tests/prototype_storage.py",
+          "exit_code": 0,
+          "seconds": 7
+        },
+        {
+          "suite": "tests/focus_data.py",
+          "exit_code": 0,
+          "seconds": 0
+        },
+        {
+          "suite": "tests/focus_practice.py",
+          "exit_code": 0,
+          "seconds": 11
+        },
+        {
+          "suite": "tests/parent_mode.py",
+          "exit_code": 0,
+          "seconds": 20
+        },
+        {
+          "suite": "tests/design_c.py",
+          "exit_code": 0,
+          "seconds": 20
+        },
+        {
+          "suite": "tests/responsive_subjects.py",
+          "exit_code": 0,
+          "seconds": 117
+        },
+        {
+          "suite": "tests/recommended_review.py",
+          "exit_code": 0,
+          "seconds": 6
+        },
+        {
+          "suite": "tests/review_entry.py",
+          "exit_code": 0,
+          "seconds": 4
+        },
+        {
+          "suite": "tests/daily_count.py",
+          "exit_code": 0,
+          "seconds": 5
+        },
+        {
+          "suite": "tests/science_daily_count.py",
+          "exit_code": 0,
+          "seconds": 8
+        }
+      ],
+      "shell_total_seconds": 323
+    }
+  ],
+  "probe_execution_head": "566e4674e9d54482d3043d4be6ff10dcd780d303",
+  "probe_cases": 13,
+  "fresh_browser_contexts": 10,
+  "probe_results": {
+    "recall_cases": 4,
+    "unit_entry_cases": 3,
+    "lever_cases": 6,
+    "posts_observed": 0,
+    "pageerrors": 0,
+    "lever_elapsed_seconds": 10.12,
+    "recall_elapsed_seconds": null
+  },
+  "product_equivalence": {
+    "probe_execution_head": "566e4674e9d54482d3043d4be6ff10dcd780d303",
+    "final_suite_head": "804f9f648c8634ea26d4ca7fc26cf6b473029475",
+    "changed_paths": [
+      "tests/science_adaptive.py"
+    ],
+    "same_product_code": true,
+    "blobs": {
+      "yuika-review-v2.html": {
+        "566e4674e9d54482d3043d4be6ff10dcd780d303": "c8a10b864e2aa49dea43e613c9a375ee15823608",
+        "804f9f648c8634ea26d4ca7fc26cf6b473029475": "c8a10b864e2aa49dea43e613c9a375ee15823608"
+      },
+      "edo-review.html": {
+        "566e4674e9d54482d3043d4be6ff10dcd780d303": "cb2bd9717ab8970921d173b7d1ee3bc1cd8a28cf",
+        "804f9f648c8634ea26d4ca7fc26cf6b473029475": "cb2bd9717ab8970921d173b7d1ee3bc1cd8a28cf"
+      },
+      "index.html": {
+        "566e4674e9d54482d3043d4be6ff10dcd780d303": "aa62846a8dc3d3b1214f6d73e698feca6eb59d5b",
+        "804f9f648c8634ea26d4ca7fc26cf6b473029475": "aa62846a8dc3d3b1214f6d73e698feca6eb59d5b"
+      },
+      "assets/progress.js": {
+        "566e4674e9d54482d3043d4be6ff10dcd780d303": "ae14d435e91c3f6fa59f4aa9a7eff83874050230",
+        "804f9f648c8634ea26d4ca7fc26cf6b473029475": "ae14d435e91c3f6fa59f4aa9a7eff83874050230"
+      },
+      "assets/design.js": {
+        "566e4674e9d54482d3043d4be6ff10dcd780d303": "b074f39ca6fc9c6e15cb61d4f67c2b1d1a2b80f2",
+        "804f9f648c8634ea26d4ca7fc26cf6b473029475": "b074f39ca6fc9c6e15cb61d4f67c2b1d1a2b80f2"
+      },
+      "scripts/design/build_summary.py": {
+        "566e4674e9d54482d3043d4be6ff10dcd780d303": "6eca545a3253a5e4ac15267814a084bbcbbacb07",
+        "804f9f648c8634ea26d4ca7fc26cf6b473029475": "6eca545a3253a5e4ac15267814a084bbcbbacb07"
+      },
+      "scripts/check_all.sh": {
+        "566e4674e9d54482d3043d4be6ff10dcd780d303": "ac937a129d537c403cccc50b65b332b7151d21be",
+        "804f9f648c8634ea26d4ca7fc26cf6b473029475": "ac937a129d537c403cccc50b65b332b7151d21be"
+      },
+      "scripts/history/revisions.json": {
+        "566e4674e9d54482d3043d4be6ff10dcd780d303": "701a8739e0c942b51c9ce0e1692d3bf01f5aa9fc",
+        "804f9f648c8634ea26d4ca7fc26cf6b473029475": "701a8739e0c942b51c9ce0e1692d3bf01f5aa9fc"
+      }
+    },
+    "statement": "Independent browser probes were executed only at 566e467. Reused for 804f9f because the sole diff is one test button label; no claim that probes were rerun on 804f9f."
+  },
+  "clean_worktrees_after_manual_venv_unlink": {
+    "/workspace/qa-rev-lever-final-checkout": "",
+    "/workspace/qa-rev-lever-checkout": ""
+  },
+  "limitations": [
+    "Chromium 768x1024 touch emulation, not iPad/Safari or actual learner trial",
+    "synthetic local browser storage only; no private answers/images",
+    "no real notification, publishing, deploy, merge, push, or child-agent action performed by QA",
+    "targeted sessions for assisted recall, stage3 unlock and remedial insertion; not full natural learning progression",
+    "public library bytes fetched by curl then fulfilled locally; browser external font requests aborted; no claim of zero attempted external GETs",
+    "probes ran at 566e467, not repeated at 804f9f; sole difference is test locator and relevant product blobs are identical",
+    "manual reuse of verified existing cloud venv, not automatic snapshot handoff",
+    "prior QA results not counted as current QA; recall probe duration not separately recorded"
+  ]
+}

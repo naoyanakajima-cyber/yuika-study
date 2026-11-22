@@ -1,0 +1,43 @@
+{
+  "probe_execution_head": "566e4674e9d54482d3043d4be6ff10dcd780d303",
+  "final_suite_head": "804f9f648c8634ea26d4ca7fc26cf6b473029475",
+  "changed_paths": [
+    "tests/science_adaptive.py"
+  ],
+  "same_product_code": true,
+  "blobs": {
+    "yuika-review-v2.html": {
+      "566e4674e9d54482d3043d4be6ff10dcd780d303": "c8a10b864e2aa49dea43e613c9a375ee15823608",
+      "804f9f648c8634ea26d4ca7fc26cf6b473029475": "c8a10b864e2aa49dea43e613c9a375ee15823608"
+    },
+    "edo-review.html": {
+      "566e4674e9d54482d3043d4be6ff10dcd780d303": "cb2bd9717ab8970921d173b7d1ee3bc1cd8a28cf",
+      "804f9f648c8634ea26d4ca7fc26cf6b473029475": "cb2bd9717ab8970921d173b7d1ee3bc1cd8a28cf"
+    },
+    "index.html": {
+      "566e4674e9d54482d3043d4be6ff10dcd780d303": "aa62846a8dc3d3b1214f6d73e698feca6eb59d5b",
+      "804f9f648c8634ea26d4ca7fc26cf6b473029475": "aa62846a8dc3d3b1214f6d73e698feca6eb59d5b"
+    },
+    "assets/progress.js": {
+      "566e4674e9d54482d3043d4be6ff10dcd780d303": "ae14d435e91c3f6fa59f4aa9a7eff83874050230",
+      "804f9f648c8634ea26d4ca7fc26cf6b473029475": "ae14d435e91c3f6fa59f4aa9a7eff83874050230"
+    },
+    "assets/design.js": {
+      "566e4674e9d54482d3043d4be6ff10dcd780d303": "b074f39ca6fc9c6e15cb61d4f67c2b1d1a2b80f2",
+      "804f9f648c8634ea26d4ca7fc26cf6b473029475": "b074f39ca6fc9c6e15cb61d4f67c2b1d1a2b80f2"
+    },
+    "scripts/design/build_summary.py": {
+      "566e4674e9d54482d3043d4be6ff10dcd780d303": "6eca545a3253a5e4ac15267814a084bbcbbacb07",
+      "804f9f648c8634ea26d4ca7fc26cf6b473029475": "6eca545a3253a5e4ac15267814a084bbcbbacb07"
+    },
+    "scripts/check_all.sh": {
+      "566e4674e9d54482d3043d4be6ff10dcd780d303": "ac937a129d537c403cccc50b65b332b7151d21be",
+      "804f9f648c8634ea26d4ca7fc26cf6b473029475": "ac937a129d537c403cccc50b65b332b7151d21be"
+    },
+    "scripts/history/revisions.json": {
+      "566e4674e9d54482d3043d4be6ff10dcd780d303": "701a8739e0c942b51c9ce0e1692d3bf01f5aa9fc",
+      "804f9f648c8634ea26d4ca7fc26cf6b473029475": "701a8739e0c942b51c9ce0e1692d3bf01f5aa9fc"
+    }
+  },
+  "statement": "Independent browser probes were executed only at 566e467. Reused for 804f9f because the sole diff is one test button label; no claim that probes were rerun on 804f9f."
+}
