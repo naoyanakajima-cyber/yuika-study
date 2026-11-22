@@ -36,13 +36,8 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": {
-    "run_id": "cycle-20261122T150510Z",
-    "acquired_at": "2026-11-22T15:05:10.994755+00:00",
-    "expires_at": "2026-11-22T15:38:10.994755+00:00",
-    "ticket": "THEME-MVP"
-  },
-  "updated_at": "2026-11-22T15:07:06.450751+00:00",
+  "lease": null,
+  "updated_at": "2026-11-22T15:16:57.850818+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -243,7 +238,7 @@
         "既存ID・保存キー・旧履歴を保護する",
         "768x1024で開始・回答・採点・保存・再読込を合成データで確認する"
       ],
-      "next_action": "PR10 804f9fは新main58f8b53への互換性QA済み、理由付き復習/実問数/てこ補助追加の合成試用判断待ち。CONTENT-MVP PR11も同main互換性確認済み。次はTHEME-MVP PR12。新返答/再現不具合/新差分なしにQA反復せず、新承認は正本実読・台帳反映まで推測しない。",
+      "next_action": "SCIENCE-GENERATOR-LEVER-01: 既存PR10の最新差分を照合し、てこ進行/復習/再開とanswerUnit/answerTagを生成元へ保持する最小範囲をPdM→PrMで確定。生成1回目の機能保持/2回目差分なし・旧記録互換・共通runtime非退行を独立QAし同PRへ保存。",
       "evidence": [
         {
           "kind": "test",
@@ -679,7 +674,25 @@
           "changed_at": "2026-11-22T13:23:59.392985+00:00",
           "reason": "Preserve existing PR10 history while integrating external lever main in topic branch only."
         }
-      ]
+      ],
+      "generator_followup": {
+        "id": "SCIENCE-GENERATOR-LEVER-01",
+        "state": "needs_prm_scope_confirmation",
+        "same_pr": 10,
+        "pdm": "pdm_theme_lever",
+        "prm": "root",
+        "source_report": "ops/runs/2026-11-22-theme-lever-main.md",
+        "finding_commit": "e89aa335936508c6e4984c523ec65da97f510cbd",
+        "existing_pr_head": "804f9f648c8634ea26d4ca7fc26cf6b473029475",
+        "scope_proposed": [
+          "lever progression/review/resume retained by generators",
+          "answerUnit/answerTag validation plus fieldless old record roundtrip",
+          "actual generator sequence preserves output; second run no diff",
+          "PR10 recommended review/daily-count features retained; common runtime parent isolation and notification suppression preserved"
+        ],
+        "implemented": false,
+        "next_action": "SCIENCE-GENERATOR-LEVER-01: 既存PR10の最新差分を照合し、てこ進行/復習/再開とanswerUnit/answerTagを生成元へ保持する最小範囲をPdM→PrMで確定。生成1回目の機能保持/2回目差分なし・旧記録互換・共通runtime非退行を独立QAし同PRへ保存。"
+      }
     },
     {
       "id": "CONTENT-SPEC",
@@ -762,7 +775,7 @@
         "未確認出力と確認済み案を区別し、既存教材/記録に接続しない",
         "768x1024で編集・確認・取消・出力/再入力、外部要求/通知POST 0を検証"
       ],
-      "next_action": "新main58f8b53に互換追従した既存PR11 ee228caを朝夕CEOチェックへ提示。合成text/画像照合→明示確認→非保存試し解きの具体的フィードバック待ち。次はTHEME-MVP/PR12の同main互換性確認。新CEO返答実読0、D02実入力/保存先は別判断。本番merge/公開なし。",
+      "next_action": "PR11 ee228caは新main58f8b53との互換性を独立31suite/限定UI確認済み。合成教材確認→保存しない試し解きの具体的試用フィードバック待ち。3製品PRのmain追従は完了。次cycleはREV-MVP理科生成元不整合を優先、承認は正本実読・台帳反映まで推測しない。",
       "evidence": [
         {
           "kind": "test",
@@ -1364,7 +1377,7 @@
         "切替前後の問題・採点・既存履歴が同一",
         "768x1024で可読性と主要操作を確認する"
       ],
-      "next_action": "次回は既存draft PR12の履歴を保持して新main58f8b53との互換性をPdM→PrM→実装→独立QAで確認。CONTENT-MVPの追従はee228caで完了。過去26suiteは旧HEAD証拠で新main互換性完了とは扱わない。合成のみ、低優先を維持、新規製品PR/本番merge/公開なし。",
+      "next_action": "新main58f8b53互換性はe89aa335で独立27suite/限定UI確認済み。D05方向性の合成試用フィードバック待ち。本番権限なし。次cycleはREV-MVPのSCIENCE-GENERATOR-LEVER-01を既存PR10内で範囲確定する。",
       "evidence": [
         {
           "kind": "test",
@@ -1481,37 +1494,62 @@
           "kind": "report",
           "commit": "9fc4bbf3e6c72e09327b6610338f12937fc7aba5",
           "path": "ops/runs/2026-11-15-theme-current-main.md"
+        },
+        {
+          "kind": "test",
+          "command": "bash scripts/check_all.sh",
+          "commit": "e89aa335936508c6e4984c523ec65da97f510cbd",
+          "executor": "qa_theme_lever",
+          "exit_code": 0,
+          "suites_passed": 27,
+          "suites_total": 27,
+          "attempt": 1,
+          "seconds": 323,
+          "path": "ops/evidence/2026-11-22-theme-lever-main/final-result.json"
+        },
+        {
+          "kind": "independent_probe",
+          "commit": "e89aa335936508c6e4984c523ec65da97f510cbd",
+          "executor": "qa_theme_lever",
+          "modes": [
+            "normal",
+            "parent"
+          ],
+          "attempt": 1,
+          "path": "ops/evidence/2026-11-22-theme-lever-main/probe-result.json"
+        },
+        {
+          "kind": "report",
+          "path": "ops/runs/2026-11-22-theme-lever-main.md",
+          "commit": "d61f610ed20323073dab72b6aa6a0d96634ed3fa"
         }
       ],
       "review": {
-        "pdm": "pdm_theme_compatibility",
+        "pdm": "pdm_theme_lever",
         "prm": "root/coordinator",
-        "author": "engineer_theme_compatibility",
-        "reviewer": "qa_theme_compatibility",
-        "result": "passed_current_main_compatibility",
-        "commit": "9fc4bbf3e6c72e09327b6610338f12937fc7aba5",
-        "completed_at": "2026-11-15T11:14:32.198806+00:00",
-        "required_suites": 26,
+        "author": "engineer_theme_lever",
+        "reviewer": "qa_theme_lever",
+        "commit": "e89aa335936508c6e4984c523ec65da97f510cbd",
+        "result": "passed_current_main_lever_compatibility",
+        "completed_at": "2026-11-22T15:14:10.996901+00:00",
+        "required_suites": 27,
         "exit_code": 0,
-        "seconds": 319,
+        "seconds": 323,
         "attempt": 1,
-        "report": "ops/evidence/2026-11-15-theme-current-main/QA.md",
-        "scoped_qa": {
-          "harness_failures_preserved": 2,
-          "full_probe_third_attempt": false,
-          "completed_modes": 4,
-          "remaining_modes_first_execution": 3,
-          "actual_keyboard_diagnostic_attempt": 1,
-          "synthetic_images_visually_reviewed": 6,
-          "manual_all_screen_visual_review": false,
-          "diagram_contrast": 6.265720821251096,
-          "keyboard_focus_contrast": 5.509170074497065
-        }
+        "independent_ui_modes": [
+          "normal",
+          "parent"
+        ],
+        "independent_ui_attempt": 1,
+        "main_diff_files": 5,
+        "diagram_contrast": 6.265720821251096,
+        "report": "ops/evidence/2026-11-22-theme-lever-main/QA.md",
+        "note": "Manual venv runtime link only; tracked clean throughout, final status empty. Separate seven-generator mismatch not fixed; Engineer executed, QA static main equality only."
       },
       "base_ref": "main",
-      "base_sha": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
+      "base_sha": "58f8b53b4da69806d15a126fc525b65893a0bf35",
       "specification": "docs/product/theme-spec.md",
-      "commit": "9fc4bbf3e6c72e09327b6610338f12937fc7aba5",
+      "commit": "e89aa335936508c6e4984c523ec65da97f510cbd",
       "direction_adopted": true,
       "direction_decision": "D05",
       "release": {
@@ -1540,18 +1578,18 @@
         "completed_at": "2026-11-10T00:08:14.222274+00:00",
         "excluded_scope": "parent/recordsは未完run遷移確認が不足していたため今回の成功範囲から除外。証拠を訂正し再実行なし。"
       },
-      "ceo_wait_reason": "現main教材/recall契約を保持する標準/鎌倉テーマ候補の合成試用判断待ち。D05方向性維持、本人嗜好/実機未確認、本番権限なし。",
+      "ceo_wait_reason": "標準/鎌倉テーマと親隔離、てこmain教材との互換性を独立QA済みのdraft試作品確認待ち。本人嗜好・実機未確認、本番merge/公開未承認。",
       "ceo_trial": {
         "synthetic_focused_qa": "passed_current_synthetic_acceptance_scope",
         "ceo_hands_on": "not_verified",
         "real_ipad_safari": "not_tested",
         "native_browser_zoom": "not_tested",
-        "latest_synthetic_qa_commit": "9fc4bbf3e6c72e09327b6610338f12937fc7aba5",
-        "latest_cloud_artifacts": "ops/evidence/2026-11-15-theme-current-main",
+        "latest_synthetic_qa_commit": "e89aa335936508c6e4984c523ec65da97f510cbd",
+        "latest_cloud_artifacts": "ops/evidence/2026-11-22-theme-lever-main",
         "shared_browser_handoff": "not_completed",
-        "current_candidate_commit": "9fc4bbf3e6c72e09327b6610338f12937fc7aba5",
-        "current_candidate_validation": "26 required suites plus independent scoped QA passed; real device/user preference unverified",
-        "current_candidate_artifacts": "ops/evidence/2026-11-15-theme-current-main"
+        "current_candidate_commit": "e89aa335936508c6e4984c523ec65da97f510cbd",
+        "current_candidate_validation": "27 required suites first pass and new scoped normal/parent probe passed; generator mismatch separate, real device/user preference unverified",
+        "current_candidate_artifacts": "ops/evidence/2026-11-22-theme-lever-main"
       },
       "independent_followup": {
         "id": "theme-main-compatibility",
@@ -1601,6 +1639,31 @@
           "commit": "b416d3c08a0d3952e5f0153fdc691d6fa0e492b7",
           "completed_at": "2026-11-15T01:20:08+00:00",
           "notes": "新固定clean候補で全23suite初回成功267秒。対象2図ラベルのcontrast6.2657、両テーマ/画面print独立検証。C2限定例外採択、実機/本人嗜好/学習効果未確認。"
+        },
+        {
+          "pdm": "pdm_theme_compatibility",
+          "prm": "root/coordinator",
+          "author": "engineer_theme_compatibility",
+          "reviewer": "qa_theme_compatibility",
+          "result": "passed_current_main_compatibility",
+          "commit": "9fc4bbf3e6c72e09327b6610338f12937fc7aba5",
+          "completed_at": "2026-11-15T11:14:32.198806+00:00",
+          "required_suites": 26,
+          "exit_code": 0,
+          "seconds": 319,
+          "attempt": 1,
+          "report": "ops/evidence/2026-11-15-theme-current-main/QA.md",
+          "scoped_qa": {
+            "harness_failures_preserved": 2,
+            "full_probe_third_attempt": false,
+            "completed_modes": 4,
+            "remaining_modes_first_execution": 3,
+            "actual_keyboard_diagnostic_attempt": 1,
+            "synthetic_images_visually_reviewed": 6,
+            "manual_all_screen_visual_review": false,
+            "diagram_contrast": 6.265720821251096,
+            "keyboard_focus_contrast": 5.509170074497065
+          }
         }
       ],
       "base_history": [
@@ -1615,6 +1678,12 @@
           "commit": "b416d3c08a0d3952e5f0153fdc691d6fa0e492b7",
           "changed_at": "2026-11-15T11:16:21.268571+00:00",
           "reason": "Preserve existing theme history while following current main; no production merge."
+        },
+        {
+          "base_ref": "main",
+          "base_sha": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
+          "commit": "9fc4bbf3e6c72e09327b6610338f12937fc7aba5",
+          "changed_at": "2026-11-22T15:16:21.564674+00:00"
         }
       ],
       "validation_history": [
@@ -1628,7 +1697,7 @@
         }
       ],
       "current_main_followup": {
-        "state": "in_progress",
+        "state": "independent_qa_passed",
         "run_id": "cycle-20261122T150510Z",
         "base_ref": "main",
         "base_sha": "58f8b53b4da69806d15a126fc525b65893a0bf35",
@@ -1637,7 +1706,13 @@
         "pdm": "pdm_theme_lever",
         "prm": "root",
         "engineer": "engineer_theme_lever",
-        "scope": "鎌倉テーマ・親モード・図可読性を保持する新main互換性"
+        "scope": "鎌倉テーマ・親モード・図可読性を保持する新main互換性",
+        "reviewer": "qa_theme_lever",
+        "commit": "e89aa335936508c6e4984c523ec65da97f510cbd",
+        "report": "ops/runs/2026-11-22-theme-lever-main.md",
+        "completed_at": "2026-11-22T15:16:21.564674+00:00",
+        "delivered": true,
+        "updated_pr": 12
       },
       "current_main_followup_history": [
         {
@@ -18264,7 +18339,7 @@
       "observed_operations_commit": "700b047b5ea4ff7918e97b8f4b60ea1918a5fe6e",
       "observed_main_commit": "58f8b53b4da69806d15a126fc525b65893a0bf35",
       "scope": "theme_lever_main_compatibility",
-      "phase": "implementation",
+      "phase": "completed",
       "cloud_verified": true,
       "ceo_decisions_ingested": 0,
       "pdm": "pdm_theme_lever",
@@ -18278,7 +18353,93 @@
         "鎌倉2図枠contrastを候補実測、screen/print/keyboard/標準復帰",
         "てこ代表図の文字目視とmain同一/テーマ値非干渉、全画面テーマ展開なし",
         "固定候補でmain26+theme1の全27suiteと限定接点独立QA"
-      ]
+      ],
+      "completed_at": "2026-11-22T15:16:57.850818+00:00",
+      "result": "existing_pr12_lever_main_compatibility_saved_generator_followup_identified",
+      "product_code_changed": true,
+      "new_product_feature": false,
+      "product_tests_run": true,
+      "subagents": [
+        "pdm_theme_lever",
+        "engineer_theme_lever",
+        "qa_theme_lever"
+      ],
+      "independent_review_performed": true,
+      "review": {
+        "pdm": "pdm_theme_lever",
+        "prm": "root/coordinator",
+        "author": "engineer_theme_lever",
+        "reviewer": "qa_theme_lever",
+        "commit": "e89aa335936508c6e4984c523ec65da97f510cbd",
+        "result": "passed_current_main_lever_compatibility",
+        "completed_at": "2026-11-22T15:14:10.996901+00:00",
+        "required_suites": 27,
+        "exit_code": 0,
+        "seconds": 323,
+        "attempt": 1,
+        "independent_ui_modes": [
+          "normal",
+          "parent"
+        ],
+        "independent_ui_attempt": 1,
+        "main_diff_files": 5,
+        "diagram_contrast": 6.265720821251096,
+        "report": "ops/evidence/2026-11-22-theme-lever-main/QA.md",
+        "note": "Manual venv runtime link only; tracked clean throughout, final status empty. Separate seven-generator mismatch not fixed; Engineer executed, QA static main equality only."
+      },
+      "new_prs": [],
+      "updated_product_prs": [
+        12
+      ],
+      "ceo_wait_product_prs": [
+        10,
+        11,
+        12
+      ],
+      "report": "ops/runs/2026-11-22-theme-lever-main.md",
+      "document_commit": "d61f610ed20323073dab72b6aa6a0d96634ed3fa",
+      "product_commit": "e89aa335936508c6e4984c523ec65da97f510cbd",
+      "notification": "NO_UPDATE",
+      "new_obstacles": true,
+      "new_finding_ids": [
+        "SCIENCE-GENERATOR-LEVER-01"
+      ],
+      "lease_released": true,
+      "next_action": "SCIENCE-GENERATOR-LEVER-01: 既存PR10の最新差分を照合し、てこ進行/復習/再開とanswerUnit/answerTagを生成元へ保持する最小範囲をPdM→PrMで確定。生成1回目の機能保持/2回目差分なし・旧記録互換・共通runtime非退行を独立QAし同PRへ保存。",
+      "environment_preparation": "Managed cloud ready; manual worktree and validated existing venv reuse, not automatic snapshot handoff proof.",
+      "artifact_attachment": {
+        "prs": [
+          9,
+          12
+        ],
+        "attempts_each": 1,
+        "result": "unconfirmed_no_response",
+        "note": "Attach calls did not return; waits terminated. No new PR."
+      },
+      "observed_product_heads": {
+        "10": "804f9f648c8634ea26d4ca7fc26cf6b473029475",
+        "11": "ee228ca0a1865d0a56f4302cd9342a4f66738561",
+        "12": "e89aa335936508c6e4984c523ec65da97f510cbd"
+      },
+      "external_check": {
+        "observed_at": "2026-11-22T15:16:21.564674+00:00",
+        "head": "e89aa335936508c6e4984c523ec65da97f510cbd",
+        "name": "Workers Builds: yuika-study",
+        "status": "completed",
+        "conclusion": "failure",
+        "completed_at": "2026-11-22T15:15:10Z",
+        "html_url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/137253667882",
+        "action": "No rerun/settings changes/manual deploy; separate from local27/27.",
+        "combined_status": "pending",
+        "combined_status_count": 0,
+        "cause": "取得check情報に診断詳細なし。過去HEADと同一原因とは断定しない。"
+      },
+      "documentation_review": {
+        "reviewer": "qa_theme_lever",
+        "result": "report_pr_body_and_board_fact_consistency_passed",
+        "additional_tests_run": false
+      },
+      "pr_metadata_updated": true
     }
   ],
   "operational_notes": [
@@ -18613,6 +18774,24 @@
       "next_action": "PR27修正は外部mainに包含。旧固定件数や未知unit問題を再実装せず、既存PR10の同期で保持を検証する。",
       "observed_main": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
       "resolution_report": "ops/runs/2026-11-15-review-main-compatibility.md"
+    },
+    {
+      "id": "SCIENCE-GENERATOR-LEVER-01",
+      "status": "open",
+      "observed_at": "2026-11-22T15:16:21.564674+00:00",
+      "ticket": "REV-MVP",
+      "same_pr": 10,
+      "head": "e89aa335936508c6e4984c523ec65da97f510cbd",
+      "observed_main": "58f8b53b4da69806d15a126fc525b65893a0bf35",
+      "finding": "Engineerが7本の生成列を実行すると理科HTMLだけ7追加/29削除、てこ再開/解放filter/日次進行/challenge/session/answerUnit・answerTagが欠落または巻戻る。生成結果は候補へ不採用、main成果物保持。",
+      "executor": "engineer_theme_lever",
+      "independent_static_reviewer": "qa_theme_lever",
+      "verification": "候補のsource/targetはmain byte一致。QAは静的照合のみ。main単独再生成と個別script因果切分けは未実施。",
+      "product_candidate_blocked": false,
+      "full_generator_idempotence_verified": false,
+      "report": "ops/runs/2026-11-22-theme-lever-main.md",
+      "evidence": "ops/evidence/2026-11-22-theme-lever-main/engineer.json",
+      "next_action": "SCIENCE-GENERATOR-LEVER-01: 既存PR10の最新差分を照合し、てこ進行/復習/再開とanswerUnit/answerTagを生成元へ保持する最小範囲をPdM→PrMで確定。生成1回目の機能保持/2回目差分なし・旧記録互換・共通runtime非退行を独立QAし同PRへ保存。"
     }
   ],
   "unreconciled_prs": [
