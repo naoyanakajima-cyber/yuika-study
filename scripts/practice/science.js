@@ -11,7 +11,7 @@ MODES.daily='今日の復習';MODES.adaptive='弱点の復習';
 let scienceUnit='all';
 const SCIENCE_PREF_KEY=KEY+'-preferences-v1';
 function rememberScience(){
- try{window.YuikaParent.storage.setItem(SCIENCE_PREF_KEY,JSON.stringify({count,unit:scienceUnit}));window.YuikaParent.storage.setItem('yuika-prototype-v1:last-daily-unit','yuika-review-v2.html');}
+ try{window.YuikaParent.storage.setItem(SCIENCE_PREF_KEY,JSON.stringify({count,unit:scienceUnit}));window.YuikaParent.storage.setItem('yuika-prototype-v1:last-daily-unit',scienceUnit===LEVER_UNIT?'yuika-review-v2.html?unit='+LEVER_UNIT:'yuika-review-v2.html');}
  catch{message('学習設定を保存できません。次回は初期設定になります。');}
 }
 try{const p=JSON.parse(window.YuikaParent.storage.getItem(SCIENCE_PREF_KEY)||'null');if(p){if([5,10].includes(p.count))count=p.count;if(p.unit==='all'||UNITS.includes(p.unit))scienceUnit=p.unit;}}catch{message('学習設定を読み取れません。初期設定で始めます。');}
@@ -19,17 +19,17 @@ const requestedScienceUnit=new URLSearchParams(location.search).get('unit');
 if(UNITS.includes(requestedScienceUnit))scienceUnit=requestedScienceUnit;
 function scienceWeak(events=data.events,now=Date.now()){
  if(practiceUnavailable(events,now))return [];
- return practiceWeaknesses(events,now).filter(r=>scienceUnit==='all'||r.unit===scienceUnit).slice(0,10);
+ return practiceWeaknesses(events,now).filter(r=>(scienceUnit==='all'||r.unit===scienceUnit)&&(Q.get(r.originId).step!==4||leverUnlocked())).slice(0,10);
 }
 function scienceDue(events=data.events,now=Date.now()){
  if(practiceUnavailable(events,now))return [];
  const today=japanDay(new Date(now).toISOString());
- return retention(events,now).filter(s=>s.status==='waiting'&&s.due<=today&&(scienceUnit==='all'||Q.get(s.originId).unit===scienceUnit))
+ return retention(events,now).filter(s=>s.status==='waiting'&&s.due<=today&&(Q.get(s.originId).step!==4||leverUnlocked())&&(scienceUnit==='all'||Q.get(s.originId).unit===scienceUnit))
  .sort((a,b)=>a.due.localeCompare(b.due)||a.originId.localeCompare(b.originId));
 }
 function scienceDailySources(events=data.events,now=Date.now()){
  if(practiceUnavailable(events,now))return {due:[],weak:[],normal:[]};
- return {due:scienceDue(events,now).map(s=>Q.get(s.originId)),weak:scienceWeak(events,now).map(s=>Q.get(s.originId)),normal:candidates('normal',scienceUnit)};
+ return {due:scienceDue(events,now).map(s=>Q.get(s.originId)),weak:scienceWeak(events,now).map(s=>Q.get(s.originId)),normal:candidates('daily',scienceUnit)};
 }
 function scienceDailyCount(events=data.events,now=Date.now()){
  const {due,weak,normal}=scienceDailySources(events,now);
@@ -40,9 +40,20 @@ function scienceDaily(events=data.events,now=Date.now()){
  const source=scienceDailySources(events,now),qs=[],seen=new Set();
  const push=q=>{if(!seen.has(q.id)){seen.add(q.id);qs.push(q);}};
  source.due.forEach(push);source.weak.forEach(push);
+ const priorityCount=qs.length;
  const normal=[...source.normal];
  for(let i=normal.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[normal[i],normal[j]]=[normal[j],normal[i]];}
- normal.forEach(push);return qs.slice(0,count);
+ if(scienceUnit===LEVER_UNIT){
+  const planned=leverPracticeQuestions();
+  if(!state.events.some(e=>isLever(Q.get(e.questionId))))return planned;
+  planned.forEach(push);
+ }else normal.filter(q=>q.step!==4).forEach(push);
+ if(leverUnlocked()&&(scienceUnit==='all'||scienceUnit===LEVER_UNIT)&&!qs.slice(0,count).some(q=>q.step===4)){
+  const practiced=new Set(state.events.filter(e=>e.correct&&!e.hintUsed).map(e=>e.questionId));
+  const challenge=normal.filter(q=>q.step===4&&!practiced.has(q.id)).sort((a,b)=>a.id.localeCompare(b.id))[0];
+  if(challenge&&priorityCount<count)qs.splice(count-1,0,challenge);
+ }
+ return qs.slice(0,count);
 }
 const SCIENCE_DAILY_EMPTY='この条件では候補がありません。単元を見直してください。';
 function scienceDailyStatus(events=data.events,now=Date.now()){
@@ -50,6 +61,13 @@ function scienceDailyStatus(events=data.events,now=Date.now()){
 }
 const scienceStart=start;
 start=function(mode,unit='all'){
+ if(mode==='challenge'){
+  if(leverUnlocked())beginLever(mode,QUESTIONS.filter(q=>isLever(q)&&q.step===4));
+  return;
+ }
+ if(mode==='unit'&&unit===LEVER_UNIT){
+  scienceUnit=unit;rememberScience();beginLever(mode,leverPracticeQuestions());return;
+ }
  if(mode!=='daily'&&mode!=='adaptive'){scienceUnit=unit;rememberScience();scienceStart(mode,unit);return;}
  const now=Date.now(),events=data.events;
  if(practiceUnavailable(events,now)){if(mode==='daily'&&view==='home')render();message(scienceDailyStatus(events,now));return;}
@@ -62,7 +80,7 @@ start=function(mode,unit='all'){
  }
  const qs=mode==='daily'?scienceDaily(events,now):scienceWeak(events,now).slice(0,count).map(s=>Q.get(s.originId));
  if(!qs.length){message('今はこの練習の候補がありません。');return;}
- rememberScience();session={id:uid(),mode,questions:qs,index:0,results:[],hint:false,selected:null,answered:false,done:false};view='quiz';render();main.focus();window.scrollTo(0,0);
+ rememberScience();session={id:uid(),mode,questions:qs,index:0,results:[],hint:false,selected:null,answered:false,done:false,leverPractice:scienceUnit===LEVER_UNIT};view='quiz';render();main.focus();window.scrollTo(0,0);
 };
 function scienceSummary(){
  if(practiceClockIssue())return '<section class="card" id="science-summary"><p>'+esc(PRACTICE_CLOCK_NOTICE)+'</p></section>';
@@ -78,6 +96,10 @@ home=function(){
  main.insertAdjacentHTML('afterbegin',`<section class="card"><button id="daily-five" class="primary" data-daily-count="${actual}" aria-describedby="daily-status" ${unavailable||!actual?'disabled':''}>${unavailable?'今日の復習はお休み中':`今日の復習をはじめる（今回は${actual}問）`}</button><p id="daily-status" role="status">${esc(unavailable?scienceDailyStatus(events,now):!actual?SCIENCE_DAILY_EMPTY:'期限の来た再確認 → 弱点の復習 → 通常問題。理科全'+QUESTIONS.length+'問から選びます。下の単元と問題数を適用します。像（ぞう）はレンズを通して見える姿、視野（しや）はのぞいたときに見える範囲です。')}</p><p>今日の再確認：${scienceDue(events,now).length}問 ／ 弱点の復習：${rows.length}問</p><button id="science-adaptive" ${rows.length?'':'disabled'}>弱点の復習をはじめる</button>${rows.map(r=>`<details><summary>${esc(r.unit)}：${esc(Q.get(r.originId).prompt)}</summary><p>${Q.get(r.originId).type==='recall'?'選択肢を使ったか、答えがちがったため、自力で答える再確認の対象です。':`${r.wrong}/${r.total}日でまちがい・ヒントを見た日${r.hintCount}日。`}最後の回答：${esc(new Date(r.lastAt).toLocaleString('ja-JP',{timeZone:'Asia/Tokyo'}))}（日本時間）。原因は未確定です。</p></details>`).join('')}</section>`+scienceSummary());
  document.getElementById('daily-five').onclick=()=>start('daily');
  document.getElementById('science-adaptive').onclick=()=>start('adaptive');
+ if(scienceUnit===LEVER_UNIT&&leverUnlocked()){
+  document.getElementById('start').insertAdjacentHTML('afterend','<button id="lever-challenge">挑戦（2問）</button>');
+  document.getElementById('lever-challenge').onclick=()=>start('challenge',LEVER_UNIT);
+ }
  document.getElementById('unit').onchange=e=>{scienceUnit=e.target.value;rememberScience();home();document.getElementById('unit').focus();};
  main.querySelectorAll('[data-count]').forEach(b=>b.onclick=()=>{count=Number(b.dataset.count);rememberScience();home();});
 };

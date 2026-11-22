@@ -28,6 +28,7 @@ run tests/cloud_preview.py python tests/cloud_preview.py
 run notifications/test/worker.test.mjs node --test notifications/test/worker.test.mjs
 run notifications/test/browser.py python notifications/test/browser.py
 run tests/cloud_bootstrap.py python tests/cloud_bootstrap.py
+run tests/generator_preservation.py python tests/generator_preservation.py
 run tests/adaptive_practice.py python tests/adaptive_practice.py
 run tests/adaptive_daily.py python tests/adaptive_daily.py
 run tests/adaptive_quality.py python tests/adaptive_quality.py

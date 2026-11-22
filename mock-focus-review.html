@@ -1868,7 +1868,7 @@ function prototypeFields(value,allowed){
 const prototypeEventValidator=validateEvent;
 validateEvent=function(e){
  const fields=prototypeScience?
-  [...(e.type==='recall'?['recallOutcome','firstResponse']:[]),'questionVersion','id','sessionId','questionId','datasetVersion','unit','type','question','response','inputRaw','expected','correct','answeredAt','timezoneOffset','localDay','hintUsed','mode','explanation']:
+  [...(e.type==='recall'?['recallOutcome','firstResponse']:[]),'questionVersion','id','sessionId','questionId','datasetVersion','unit','type','question','response','inputRaw','expected','correct','answeredAt','timezoneOffset','localDay','hintUsed','mode','explanation','answerUnit','answerTag']:
   ['questionVersion','id','sessionId','questionId','version','unit','course','question','response','expected','explanation','correct','variant','mode','hint','at','offset','day',...(prototypeHeian?['reflection']:['unitId'])];
  prototypeFields(e,fields);
  if(prototypeHeian&&e.response&&typeof e.response==='object')prototypeFields(e.response,['steps','fills']);
