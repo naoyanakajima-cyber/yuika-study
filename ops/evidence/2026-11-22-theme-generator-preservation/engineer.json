@@ -1,0 +1,42 @@
+{
+  "base": "e89aa335936508c6e4984c523ec65da97f510cbd",
+  "completed_at": "2026-11-22T18:12:13.888379+00:00",
+  "changed_paths": [
+    "docs/history-compatibility.md",
+    "heian-review.html",
+    "kamakura-review.html",
+    "mock-focus-review.html",
+    "onin-review.html",
+    "scripts/check_all.sh",
+    "scripts/practice/science.js",
+    "scripts/prototype/runtime.js",
+    "tests/generator_preservation.py",
+    "tests/lever.py"
+  ],
+  "science_html_unchanged": true,
+  "science_html_sha256": "54addcfe1f2491adcfb501a2525c476e2ded2d5d5c80062c0c124395cfa866f3",
+  "other_four_html_exact_science_allowlist_row_only": true,
+  "other_baseline_paths_unchanged": 85,
+  "theme_css_ui_js_diagram_preserved": "kamakura HTML only one science allowlist row changed; theme spec/test byte-identical",
+  "source_from_own_pr12_embedded": true,
+  "pr10_unique_scienceDailySources_absent": true,
+  "generator_preservation_first_attempt": {
+    "exit": 0,
+    "passes": 2,
+    "real_generators_each_pass": 7,
+    "source_checkout_unchanged": true
+  },
+  "lever_focused_first_attempt": {
+    "exit": 0,
+    "scope": "existing lever tests plus unit/tag real answer reload then actual JSON download/file-input import and invalid-field rejection"
+  },
+  "old_base_negative": {
+    "exit": 1,
+    "expected_failure": "Generator pass 1 changed tracked files: ['yuika-review-v2.html']",
+    "log": "/tmp/cycle192-old-negative.log"
+  },
+  "full_suite": "delegated to independent QA; not executed by engineer",
+  "setup": "manual reuse existing verified venv/bin; no automatic snapshot handoff claim",
+  "candidate_commit": "00c4ccb3b501223366a5f0a736567231ea9b8043",
+  "final_checkout_clean": true
+}

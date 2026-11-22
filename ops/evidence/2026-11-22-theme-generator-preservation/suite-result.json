@@ -1,0 +1,157 @@
+{
+  "head": "00c4ccb3b501223366a5f0a736567231ea9b8043",
+  "base": "e89aa335936508c6e4984c523ec65da97f510cbd",
+  "command": "bash scripts/check_all.sh",
+  "attempt": 1,
+  "suite_count": 28,
+  "suite_results": [
+    {
+      "suite": "tests/onin_review.py",
+      "exit": 0,
+      "seconds": 4
+    },
+    {
+      "suite": "tests/kamakura_review.py",
+      "exit": 0,
+      "seconds": 4
+    },
+    {
+      "suite": "tests/cloud_preview.py",
+      "exit": 0,
+      "seconds": 1
+    },
+    {
+      "suite": "notifications/test/worker.test.mjs",
+      "exit": 0,
+      "seconds": 1
+    },
+    {
+      "suite": "notifications/test/browser.py",
+      "exit": 0,
+      "seconds": 12
+    },
+    {
+      "suite": "tests/cloud_bootstrap.py",
+      "exit": 0,
+      "seconds": 2
+    },
+    {
+      "suite": "tests/generator_preservation.py",
+      "exit": 0,
+      "seconds": 1
+    },
+    {
+      "suite": "tests/adaptive_practice.py",
+      "exit": 0,
+      "seconds": 3
+    },
+    {
+      "suite": "tests/adaptive_daily.py",
+      "exit": 0,
+      "seconds": 4
+    },
+    {
+      "suite": "tests/adaptive_quality.py",
+      "exit": 0,
+      "seconds": 5
+    },
+    {
+      "suite": "tests/flash_grading.py",
+      "exit": 0,
+      "seconds": 7
+    },
+    {
+      "suite": "tests/spaced_daily.py",
+      "exit": 0,
+      "seconds": 5
+    },
+    {
+      "suite": "tests/history_compat.py",
+      "exit": 0,
+      "seconds": 4
+    },
+    {
+      "suite": "tests/edo.py",
+      "exit": 0,
+      "seconds": 16
+    },
+    {
+      "suite": "tests/medaka.py",
+      "exit": 0,
+      "seconds": 17
+    },
+    {
+      "suite": "tests/lever.py",
+      "exit": 0,
+      "seconds": 5
+    },
+    {
+      "suite": "tests/microscope.py",
+      "exit": 0,
+      "seconds": 23
+    },
+    {
+      "suite": "tests/science_adaptive.py",
+      "exit": 0,
+      "seconds": 9
+    },
+    {
+      "suite": "tests/registered_answers.py",
+      "exit": 0,
+      "seconds": 3
+    },
+    {
+      "suite": "tests/history_review_regression.py",
+      "exit": 0,
+      "seconds": 3
+    },
+    {
+      "suite": "tests/state_review_regression.py",
+      "exit": 0,
+      "seconds": 4
+    },
+    {
+      "suite": "tests/prototype_storage.py",
+      "exit": 0,
+      "seconds": 7
+    },
+    {
+      "suite": "tests/focus_data.py",
+      "exit": 0,
+      "seconds": 0
+    },
+    {
+      "suite": "tests/focus_practice.py",
+      "exit": 0,
+      "seconds": 13
+    },
+    {
+      "suite": "tests/parent_mode.py",
+      "exit": 0,
+      "seconds": 21
+    },
+    {
+      "suite": "tests/design_c.py",
+      "exit": 0,
+      "seconds": 20
+    },
+    {
+      "suite": "tests/responsive_subjects.py",
+      "exit": 0,
+      "seconds": 120
+    },
+    {
+      "suite": "tests/theme_review.py",
+      "exit": 0,
+      "seconds": 12
+    }
+  ],
+  "total_seconds": 326,
+  "exit": 0,
+  "result": 0,
+  "before_status": "",
+  "after_status": "",
+  "completed_recorded_at": "2026-11-22T18:18:26.769440+00:00",
+  "setup": "Independent detached cloud checkout; manual existing verified .venv/bin reuse; no automatic snapshot handoff claim",
+  "blocking_findings": []
+}
