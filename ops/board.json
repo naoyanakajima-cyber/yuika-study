@@ -42,7 +42,7 @@
     "expires_at": "2026-11-22T14:39:40.027237+00:00",
     "ticket": "CONTENT-MVP"
   },
-  "updated_at": "2026-11-22T14:06:40.027237+00:00",
+  "updated_at": "2026-11-22T14:08:10.592389+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -1211,13 +1211,27 @@
         "updated_pr": 11
       },
       "current_main_followup": {
-        "state": "needs_compatibility_review",
-        "observed_main": "58f8b53b4da69806d15a126fc525b65893a0bf35",
-        "starting_pr_head": "1678519f916471ba6e38044855de240bd6c4a807",
-        "trigger": "external PR30 merged; prior QA predates this main",
-        "same_pr": 11,
-        "observed_at": "2026-11-22T13:23:59.392985+00:00"
-      }
+        "state": "in_progress",
+        "run_id": "cycle-20261122T140640Z",
+        "base_ref": "main",
+        "base_sha": "58f8b53b4da69806d15a126fc525b65893a0bf35",
+        "existing_pr_head": "1678519f916471ba6e38044855de240bd6c4a807",
+        "work_branch": "codex/content-lever-compat-20261122",
+        "pdm": "pdm_content_lever",
+        "prm": "root",
+        "engineer": "engineer_content_lever",
+        "scope": "合成教材確認・試し解きを保持する新main互換性"
+      },
+      "current_main_followup_history": [
+        {
+          "state": "needs_compatibility_review",
+          "observed_main": "58f8b53b4da69806d15a126fc525b65893a0bf35",
+          "starting_pr_head": "1678519f916471ba6e38044855de240bd6c4a807",
+          "trigger": "external PR30 merged; prior QA predates this main",
+          "same_pr": 11,
+          "observed_at": "2026-11-22T13:23:59.392985+00:00"
+        }
+      ]
     },
     {
       "id": "THEME-SPEC",
@@ -18085,9 +18099,20 @@
       "observed_operations_commit": "d1d3152ce0a0db18a0e73ddf9cf8ee68b3790b85",
       "observed_main_commit": "58f8b53b4da69806d15a126fc525b65893a0bf35",
       "scope": "content_lever_main_compatibility",
-      "phase": "requirements",
+      "phase": "implementation",
       "cloud_verified": true,
-      "ceo_decisions_ingested": 0
+      "ceo_decisions_ingested": 0,
+      "pdm": "pdm_content_lever",
+      "prm": "root",
+      "engineer": "engineer_content_lever",
+      "reviewer": "qa_content_lever",
+      "scope_acceptance": [
+        "既存PR11履歴保持・新main58f8b53との互換追従のみ",
+        "C1-C11/G-S/画像7条件、contentHTML・6fixture・schema・固定hashを保持",
+        "新main教材/ID/採点/保存key/recall/親runtimeを巻き戻さない",
+        "main26＋content5の全31suite、assert/CSP/生成拒否契約保持",
+        "768x1024合成text/画像の確認→非保存trial→終了/JSON再入力、記録不変・通知遮断を独立QA"
+      ]
     }
   ],
   "operational_notes": [
