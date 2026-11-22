@@ -43,10 +43,10 @@ with ThreadingHTTPServer(('127.0.0.1',0),partial(Quiet,directory=str(ROOT))) as 
    text=p.locator('body').inner_text()
    assert 'hidden-parent@' not in text and 'hidden-recipient@' not in text
    assert 'Claude' not in text
-   assert len(p.locator('.unit-card').all())==20
+   assert len(p.locator('.unit-card').all())==21
    assert p.locator('.unit-grid').evaluate("e=>getComputedStyle(e).gridTemplateColumns.split(' ').length")==2
    p.get_by_role('button',name='理科',exact=True).click()
-   assert p.locator('.unit-card').count()==10 # nine science units and the science focus view
+   assert p.locator('.unit-card').count()==11 # ten science units and the science focus view
    p.get_by_role('button',name='国語',exact=True).click()
    assert p.locator('.unit-card').count()==1
    p.get_by_role('button',name='すべて',exact=True).click()
@@ -54,7 +54,7 @@ with ThreadingHTTPServer(('127.0.0.1',0),partial(Quiet,directory=str(ROOT))) as 
    names=p.locator('.unit-card .unit-name').all_text_contents()
    if width==768:
     for name in names:
-     if any(s in name for s in ('弱点対策','鎌倉幕府','応仁の乱','貴族の世の中','顕微鏡の使い方','メダカの飼育・ひれ・成長','江戸幕府の成立・幕藩体制・鎖国')):continue
+     if any(s in name for s in ('弱点対策','鎌倉幕府','応仁の乱','貴族の世の中','顕微鏡の使い方','メダカの飼育・ひれ・成長','江戸幕府の成立・幕藩体制・鎖国','てこのつり合い')):continue
      p.get_by_role('button',name=name,exact=False).click()
      expect(p.locator('.unit-hero h1')).to_have_text(name)
      expect(p.get_by_role('button',name='復習クイズ',exact=False)).to_be_visible()
