@@ -16,6 +16,10 @@ old=old[old.index('function scienceDaily(){'):old.index('const scienceStart=star
 new=(ROOT/'scripts/practice/science.js').read_text()
 new=new[new.index('function scienceDailySources('):new.index('const SCIENCE_DAILY_EMPTY=')]
 setup=r'''
+// This historical oracle covers ordinary science questions only. Its fixtures
+// have no lever steps/history, so challenge unlock is false. Lever progression
+// and challenge selection are exercised against the real app in lever.py.
+const LEVER_UNIT='てこのつり合い',leverUnlocked=()=>false;
 const Q=new Map(Array.from({length:20},(_,i)=>['q'+i,{id:'q'+i}]));
 const questions=[...Q.values()],data={events:[]};let count=5,scienceUnit='all',blocked=false,sets,seed=0,draws=0;
 const practiceUnavailable=()=>blocked,scienceDue=()=>sets.due.map(q=>({originId:q.id})),scienceWeak=()=>sets.weak.map(q=>({originId:q.id})),candidates=()=>sets.normal;
