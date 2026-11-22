@@ -1,0 +1,33 @@
+{
+  "reviewer": "qa_theme_lever",
+  "viewport": [
+    768,
+    1024
+  ],
+  "images_viewed": [
+    "normal-standard-home.png",
+    "normal-kamakura-home.png",
+    "parent-kamakura-home.png",
+    "normal-kamakura-hint.png",
+    "parent-kamakura-hint.png",
+    "normal-lever-01-figure.png",
+    "normal-lever-27-figure.png",
+    "normal-lever-28-figure.png",
+    "parent-lever-27-kamakura-key.png",
+    "parent-standard-home.png",
+    "kamakura-diagram-kamakura-screen.png",
+    "kamakura-diagram-standard-print.png"
+  ],
+  "count": 12,
+  "findings": [
+    "通常/親の標準・鎌倉配色と選択状態、標準復帰を識別可能。",
+    "通常/親の入力済み回答・ヒントが読み取れ、親バナーを保持。",
+    "lever-01の基本おもり、lever-27の支点/30g/16g/4cm/9cm/12cm/ばねばかり、lever-28の15g/?g/6cm/?cm/45g/ばねばかりに欠け/重なりを認めない。",
+    "模式図の将軍/執権を含むラベルと線の意味が確認できる。"
+  ],
+  "limits": [
+    "Chromium CSS viewportのみ。実機iPad/Safari/native zoom未検証。",
+    "全28問の独自校閲、全画面アクセシビリティ保証ではない。",
+    "親ページ下方の操作はスクロールを要する。新sticky操作は対象外。"
+  ]
+}
