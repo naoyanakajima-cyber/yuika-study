@@ -36,8 +36,13 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": null,
-  "updated_at": "2026-11-22T14:19:11.783118+00:00",
+  "lease": {
+    "run_id": "cycle-20261122T150510Z",
+    "acquired_at": "2026-11-22T15:05:10.994755+00:00",
+    "expires_at": "2026-11-22T15:38:10.994755+00:00",
+    "ticket": "THEME-MVP"
+  },
+  "updated_at": "2026-11-22T15:05:10.994755+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -18240,6 +18245,16 @@
         "combined_status_count": 0,
         "cause": "取得check情報に診断詳細なし。過去HEADと同一原因とは断定しない。"
       }
+    },
+    {
+      "id": "cycle-20261122T150510Z",
+      "started_at": "2026-11-22T15:05:10.994755+00:00",
+      "observed_operations_commit": "700b047b5ea4ff7918e97b8f4b60ea1918a5fe6e",
+      "observed_main_commit": "58f8b53b4da69806d15a126fc525b65893a0bf35",
+      "scope": "theme_lever_main_compatibility",
+      "phase": "requirements",
+      "cloud_verified": true,
+      "ceo_decisions_ingested": 0
     }
   ],
   "operational_notes": [
