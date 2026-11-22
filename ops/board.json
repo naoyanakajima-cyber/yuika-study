@@ -42,7 +42,7 @@
     "expires_at": "2026-11-22T16:40:32.382935+00:00",
     "ticket": "REV-MVP"
   },
-  "updated_at": "2026-11-22T16:07:32.382935+00:00",
+  "updated_at": "2026-11-22T16:09:41.243431+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -682,9 +682,9 @@
       ],
       "generator_followup": {
         "id": "SCIENCE-GENERATOR-LEVER-01",
-        "state": "needs_prm_scope_confirmation",
+        "state": "in_progress",
         "same_pr": 10,
-        "pdm": "pdm_theme_lever",
+        "pdm": "pdm_science_generator",
         "prm": "root",
         "source_report": "ops/runs/2026-11-22-theme-lever-main.md",
         "finding_commit": "e89aa335936508c6e4984c523ec65da97f510cbd",
@@ -696,7 +696,20 @@
           "PR10 recommended review/daily-count features retained; common runtime parent isolation and notification suppression preserved"
         ],
         "implemented": false,
-        "next_action": "SCIENCE-GENERATOR-LEVER-01: 既存PR10の最新差分を照合し、てこ進行/復習/再開とanswerUnit/answerTagを生成元へ保持する最小範囲をPdM→PrMで確定。生成1回目の機能保持/2回目差分なし・旧記録互換・共通runtime非退行を独立QAし同PRへ保存。"
+        "next_action": "SCIENCE-GENERATOR-LEVER-01: 既存PR10の最新差分を照合し、てこ進行/復習/再開とanswerUnit/answerTagを生成元へ保持する最小範囲をPdM→PrMで確定。生成1回目の機能保持/2回目差分なし・旧記録互換・共通runtime非退行を独立QAし同PRへ保存。",
+        "run_id": "cycle-20261122T160732Z",
+        "engineer": "engineer_science_generator",
+        "reviewer": "qa_science_generator",
+        "base_sha": "804f9f648c8634ea26d4ca7fc26cf6b473029475",
+        "work_branch": "codex/science-generator-lever-20261122",
+        "acceptance": [
+          "既存PR10埋込理科のてこ動作を生成元へ反映、教材/ID/正解/図/保存key/版/アルゴリズムを変更しない",
+          "生成後のunit付き再開・段階順・誤答補助・期限→弱点優先・挑戦解放・日次実問数を保持",
+          "answerUnit/answerTag保存・reload・JSON往復、項目なし旧記録受理、不正値/未知項目拒否",
+          "実7本生成列を隔離コピーで検証、最初の成果物保持と2回目差分なし、旧HEAD検出",
+          "共通prototype他4ページとPR10理由付き復習/count/親隔離/通知遮断維持",
+          "固定候補の全必須suiteと768x1024合成通常/親の独立QA"
+        ]
       }
     },
     {
@@ -18452,9 +18465,21 @@
       "observed_operations_commit": "a27f063e062723fe3b4df27360ef3d7b7c4e9f88",
       "observed_main_commit": "58f8b53b4da69806d15a126fc525b65893a0bf35",
       "scope": "science_generator_lever_preservation",
-      "phase": "requirements",
+      "phase": "implementation",
       "cloud_verified": true,
-      "ceo_decisions_ingested": 0
+      "ceo_decisions_ingested": 0,
+      "pdm": "pdm_science_generator",
+      "prm": "root",
+      "engineer": "engineer_science_generator",
+      "reviewer": "qa_science_generator",
+      "scope_acceptance": [
+        "既存PR10埋込理科のてこ動作を生成元へ反映、教材/ID/正解/図/保存key/版/アルゴリズムを変更しない",
+        "生成後のunit付き再開・段階順・誤答補助・期限→弱点優先・挑戦解放・日次実問数を保持",
+        "answerUnit/answerTag保存・reload・JSON往復、項目なし旧記録受理、不正値/未知項目拒否",
+        "実7本生成列を隔離コピーで検証、最初の成果物保持と2回目差分なし、旧HEAD検出",
+        "共通prototype他4ページとPR10理由付き復習/count/親隔離/通知遮断維持",
+        "固定候補の全必須suiteと768x1024合成通常/親の独立QA"
+      ]
     }
   ],
   "operational_notes": [
