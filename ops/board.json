@@ -36,13 +36,8 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": {
-    "run_id": "cycle-20261122T140640Z",
-    "acquired_at": "2026-11-22T14:06:40.027237+00:00",
-    "expires_at": "2026-11-22T14:39:40.027237+00:00",
-    "ticket": "CONTENT-MVP"
-  },
-  "updated_at": "2026-11-22T14:08:10.592389+00:00",
+  "lease": null,
+  "updated_at": "2026-11-22T14:19:11.783118+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -243,7 +238,7 @@
         "既存ID・保存キー・旧履歴を保護する",
         "768x1024で開始・回答・採点・保存・再読込を合成データで確認する"
       ],
-      "next_action": "PR10の804f9fを朝夕CEOチェックへ提示。理由付き復習・実問数表示・てこ補助追加時の表示追従の合成試用判断待ち。次はCONTENT-MVP/PR11、次いでTHEME-MVP/PR12を新main58f8b53との互換性確認へ。新CEO返答は正本実読・台帳反映まで伝達済みとしない。本番merge/公開未承認。",
+      "next_action": "PR10 804f9fは新main58f8b53への互換性QA済み、理由付き復習/実問数/てこ補助追加の合成試用判断待ち。CONTENT-MVP PR11も同main互換性確認済み。次はTHEME-MVP PR12。新返答/再現不具合/新差分なしにQA反復せず、新承認は正本実読・台帳反映まで推測しない。",
       "evidence": [
         {
           "kind": "test",
@@ -762,7 +757,7 @@
         "未確認出力と確認済み案を区別し、既存教材/記録に接続しない",
         "768x1024で編集・確認・取消・出力/再入力、外部要求/通知POST 0を検証"
       ],
-      "next_action": "既存draft PR11の履歴を保持し、新main58f8b53への互換性をPdM→PrM→実装→独立QAで確認する。CONTENT-MVPを先行、THEME-MVPはその後。2026-11-15のQAは過去HEADの証拠で、新main互換性完了とは扱わない。合成データのみ、新規製品PR/本番merge/公開なし。",
+      "next_action": "新main58f8b53に互換追従した既存PR11 ee228caを朝夕CEOチェックへ提示。合成text/画像照合→明示確認→非保存試し解きの具体的フィードバック待ち。次はTHEME-MVP/PR12の同main互換性確認。新CEO返答実読0、D02実入力/保存先は別判断。本番merge/公開なし。",
       "evidence": [
         {
           "kind": "test",
@@ -966,30 +961,57 @@
           "kind": "report",
           "commit": "1678519f916471ba6e38044855de240bd6c4a807",
           "path": "ops/runs/2026-11-15-content-image-trial.md"
+        },
+        {
+          "kind": "test",
+          "command": "bash scripts/check_all.sh",
+          "commit": "ee228ca0a1865d0a56f4302cd9342a4f66738561",
+          "executor": "qa_content_lever",
+          "exit_code": 0,
+          "suites_passed": 31,
+          "suites_total": 31,
+          "attempt": 1,
+          "seconds": 326,
+          "path": "ops/evidence/2026-11-22-content-lever-main/check-all-result.json"
+        },
+        {
+          "kind": "independent_probe",
+          "commit": "ee228ca0a1865d0a56f4302cd9342a4f66738561",
+          "executor": "qa_content_lever",
+          "cases": 5,
+          "attempt": 1,
+          "exit_code": 0,
+          "path": "ops/evidence/2026-11-22-content-lever-main/probe-result.json"
+        },
+        {
+          "kind": "report",
+          "path": "ops/runs/2026-11-22-content-lever-main.md",
+          "commit": "5c1e78430c5bfb5494e6bfe7f73441adc6d8b385"
         }
       ],
       "review": {
-        "pdm": "pdm_content_trial_delivery",
+        "pdm": "pdm_content_lever",
         "prm": "root/coordinator",
-        "author": "engineer_content_trial_delivery",
-        "reviewer": "qa_content_trial_delivery",
-        "commit": "1678519f916471ba6e38044855de240bd6c4a807",
-        "result": "passed_synthetic_image_trial",
-        "completed_at": "2026-11-15T10:16:40.297838+00:00",
-        "required_suites": 30,
+        "author": "engineer_content_lever",
+        "reviewer": "qa_content_lever",
+        "commit": "ee228ca0a1865d0a56f4302cd9342a4f66738561",
+        "result": "passed_current_main_lever_compatibility",
+        "completed_at": "2026-11-22T14:15:15.733001+00:00",
+        "required_suites": 31,
         "exit_code": 0,
-        "seconds": 332,
+        "seconds": 326,
         "attempt": 1,
-        "independent_ui_cases": 15,
-        "independent_ui_attempt": 2,
-        "first_ui_attempt": "Harness wrong focus expectation; preserved failed log/script, no product change.",
-        "prior_unchanged_files": 97,
-        "report": "ops/evidence/2026-11-15-content-image-trial/QA.md"
+        "independent_ui_cases": 5,
+        "independent_ui_attempt": 1,
+        "main_unchanged_paths": 85,
+        "content_unchanged_paths": 16,
+        "report": "ops/evidence/2026-11-22-content-lever-main/QA.md",
+        "note": "Manual venv symlink only untracked during checks; tracked diff0. Link removed and completely clean afterwards. Existing 65/15 probes not counted as this run."
       },
       "base_ref": "main",
-      "base_sha": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
+      "base_sha": "58f8b53b4da69806d15a126fc525b65893a0bf35",
       "specification": "docs/product/content-spec.md",
-      "commit": "1678519f916471ba6e38044855de240bd6c4a807",
+      "commit": "ee228ca0a1865d0a56f4302cd9342a4f66738561",
       "direction_adopted": true,
       "direction_decision": "D04",
       "release": {
@@ -1087,6 +1109,24 @@
           "main_unchanged_files": 84,
           "prior_content_unchanged_paths": 12,
           "report": "ops/evidence/2026-11-15-content-main-compatibility/QA.md"
+        },
+        {
+          "pdm": "pdm_content_trial_delivery",
+          "prm": "root/coordinator",
+          "author": "engineer_content_trial_delivery",
+          "reviewer": "qa_content_trial_delivery",
+          "commit": "1678519f916471ba6e38044855de240bd6c4a807",
+          "result": "passed_synthetic_image_trial",
+          "completed_at": "2026-11-15T10:16:40.297838+00:00",
+          "required_suites": 30,
+          "exit_code": 0,
+          "seconds": 332,
+          "attempt": 1,
+          "independent_ui_cases": 15,
+          "independent_ui_attempt": 2,
+          "first_ui_attempt": "Harness wrong focus expectation; preserved failed log/script, no product change.",
+          "prior_unchanged_files": 97,
+          "report": "ops/evidence/2026-11-15-content-image-trial/QA.md"
         }
       ],
       "ceo_wait_reason": "読める合成画像の原本照合・編集・明示確認・保存しない試し解きの試用判断待ち。D04方向性を維持し、本人試用と公開承認は未確認。",
@@ -1094,8 +1134,8 @@
         "synthetic_qa": "passed",
         "ceo_hands_on": "not_verified",
         "real_ipad_safari": "not_tested",
-        "latest_synthetic_qa_commit": "1678519f916471ba6e38044855de240bd6c4a807",
-        "latest_cloud_artifacts": "ops/evidence/2026-11-15-content-image-trial",
+        "latest_synthetic_qa_commit": "ee228ca0a1865d0a56f4302cd9342a4f66738561",
+        "latest_cloud_artifacts": "ops/evidence/2026-11-22-content-lever-main",
         "shared_browser_handoff": "not_completed"
       },
       "chat_handoff_trial": {
@@ -1137,6 +1177,13 @@
           "head": "ee51e68d7e1eeb21bd0e959ec58166a869947d0a",
           "changed_at": "2026-11-15T09:19:00.010826+00:00",
           "reason": "Preserve existing PR11 history while following current main without changing content trial or learning behavior."
+        },
+        {
+          "base_ref": "main",
+          "base_sha": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
+          "head": "1678519f916471ba6e38044855de240bd6c4a807",
+          "changed_at": "2026-11-22T14:18:20.980570+00:00",
+          "reason": "Preserve existing PR11 history and existing CONTENT while integrating lever main in topic branch only."
         }
       ],
       "independent_followup_history": [
@@ -1211,7 +1258,7 @@
         "updated_pr": 11
       },
       "current_main_followup": {
-        "state": "in_progress",
+        "state": "independent_qa_passed",
         "run_id": "cycle-20261122T140640Z",
         "base_ref": "main",
         "base_sha": "58f8b53b4da69806d15a126fc525b65893a0bf35",
@@ -1220,7 +1267,13 @@
         "pdm": "pdm_content_lever",
         "prm": "root",
         "engineer": "engineer_content_lever",
-        "scope": "合成教材確認・試し解きを保持する新main互換性"
+        "scope": "合成教材確認・試し解きを保持する新main互換性",
+        "reviewer": "qa_content_lever",
+        "commit": "ee228ca0a1865d0a56f4302cd9342a4f66738561",
+        "report": "ops/runs/2026-11-22-content-lever-main.md",
+        "delivered": true,
+        "updated_pr": 11,
+        "completed_at": "2026-11-22T14:18:20.980570+00:00"
       },
       "current_main_followup_history": [
         {
@@ -1306,7 +1359,7 @@
         "切替前後の問題・採点・既存履歴が同一",
         "768x1024で可読性と主要操作を確認する"
       ],
-      "next_action": "既存draft PR12の履歴を保持し、新main58f8b53への互換性をPdM→PrM→実装→独立QAで確認する。CONTENT-MVPを先行、THEME-MVPはその後。2026-11-15のQAは過去HEADの証拠で、新main互換性完了とは扱わない。合成データのみ、新規製品PR/本番merge/公開なし。",
+      "next_action": "次回は既存draft PR12の履歴を保持して新main58f8b53との互換性をPdM→PrM→実装→独立QAで確認。CONTENT-MVPの追従はee228caで完了。過去26suiteは旧HEAD証拠で新main互換性完了とは扱わない。合成のみ、低優先を維持、新規製品PR/本番merge/公開なし。",
       "evidence": [
         {
           "kind": "test",
@@ -18099,7 +18152,7 @@
       "observed_operations_commit": "d1d3152ce0a0db18a0e73ddf9cf8ee68b3790b85",
       "observed_main_commit": "58f8b53b4da69806d15a126fc525b65893a0bf35",
       "scope": "content_lever_main_compatibility",
-      "phase": "implementation",
+      "phase": "completed",
       "cloud_verified": true,
       "ceo_decisions_ingested": 0,
       "pdm": "pdm_content_lever",
@@ -18112,7 +18165,81 @@
         "新main教材/ID/採点/保存key/recall/親runtimeを巻き戻さない",
         "main26＋content5の全31suite、assert/CSP/生成拒否契約保持",
         "768x1024合成text/画像の確認→非保存trial→終了/JSON再入力、記録不変・通知遮断を独立QA"
-      ]
+      ],
+      "completed_at": "2026-11-22T14:19:11.783118+00:00",
+      "result": "existing_pr11_lever_main_compatibility_saved",
+      "product_code_changed": true,
+      "new_product_feature": false,
+      "product_tests_run": true,
+      "subagents": [
+        "pdm_content_lever",
+        "engineer_content_lever",
+        "qa_content_lever"
+      ],
+      "independent_review_performed": true,
+      "review": {
+        "pdm": "pdm_content_lever",
+        "prm": "root/coordinator",
+        "author": "engineer_content_lever",
+        "reviewer": "qa_content_lever",
+        "commit": "ee228ca0a1865d0a56f4302cd9342a4f66738561",
+        "result": "passed_current_main_lever_compatibility",
+        "completed_at": "2026-11-22T14:15:15.733001+00:00",
+        "required_suites": 31,
+        "exit_code": 0,
+        "seconds": 326,
+        "attempt": 1,
+        "independent_ui_cases": 5,
+        "independent_ui_attempt": 1,
+        "main_unchanged_paths": 85,
+        "content_unchanged_paths": 16,
+        "report": "ops/evidence/2026-11-22-content-lever-main/QA.md",
+        "note": "Manual venv symlink only untracked during checks; tracked diff0. Link removed and completely clean afterwards. Existing 65/15 probes not counted as this run."
+      },
+      "new_prs": [],
+      "updated_product_prs": [
+        11
+      ],
+      "ceo_wait_product_prs": [
+        10,
+        11,
+        12
+      ],
+      "report": "ops/runs/2026-11-22-content-lever-main.md",
+      "document_commit": "5c1e78430c5bfb5494e6bfe7f73441adc6d8b385",
+      "product_commit": "ee228ca0a1865d0a56f4302cd9342a4f66738561",
+      "notification": "NO_UPDATE",
+      "new_obstacles": false,
+      "lease_released": true,
+      "next_action": "THEME-MVP PR12の新main58f8b53互換性。PR10/11は合成試用判断待ち。",
+      "environment_preparation": "Cloud startup ready; manual worktree and validated existing venv reuse, not automatic snapshot handoff proof.",
+      "artifact_attachment": {
+        "prs": [
+          9,
+          11
+        ],
+        "attempts_each": 1,
+        "result": "unconfirmed_no_response",
+        "note": "Attach calls did not return; waits terminated. No new PR."
+      },
+      "observed_product_heads": {
+        "10": "804f9f648c8634ea26d4ca7fc26cf6b473029475",
+        "11": "ee228ca0a1865d0a56f4302cd9342a4f66738561",
+        "12": "9fc4bbf3e6c72e09327b6610338f12937fc7aba5"
+      },
+      "external_check": {
+        "observed_at": "2026-11-22T14:19:11.783118+00:00",
+        "head": "ee228ca0a1865d0a56f4302cd9342a4f66738561",
+        "name": "Workers Builds: yuika-study",
+        "status": "completed",
+        "conclusion": "failure",
+        "html_url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/137237492145",
+        "action": "No rerun/settings changes/manual deploy; separate from local31/31.",
+        "completed_at": "2026-11-22T14:17:38Z",
+        "combined_status": "pending",
+        "combined_status_count": 0,
+        "cause": "取得check情報に診断詳細なし。過去HEADと同一原因とは断定しない。"
+      }
     }
   ],
   "operational_notes": [
@@ -18140,23 +18267,23 @@
       "report": "ops/runs/2026-11-10-approval-check-0403.md",
       "next_action": "No redeploy or configuration changes. Obtain relevant build log through an authorized read-only connection or supplied evidence before further diagnosis. Preserve existing cloud test evidence separately.",
       "latest_observation": {
-        "at": "2026-11-22T13:24:42.838090+00:00",
-        "commit": "804f9f648c8634ea26d4ca7fc26cf6b473029475",
-        "pr": 10,
+        "at": "2026-11-22T14:19:11.783118+00:00",
+        "commit": "ee228ca0a1865d0a56f4302cd9342a4f66738561",
+        "pr": 11,
         "check": {
-          "observed_at": "2026-11-22T13:24:42.838090+00:00",
-          "head": "804f9f648c8634ea26d4ca7fc26cf6b473029475",
+          "observed_at": "2026-11-22T14:19:11.783118+00:00",
+          "head": "ee228ca0a1865d0a56f4302cd9342a4f66738561",
           "name": "Workers Builds: yuika-study",
           "status": "completed",
           "conclusion": "failure",
-          "html_url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/137222632914",
+          "html_url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/137237492145",
+          "action": "No rerun/settings changes/manual deploy; separate from local31/31.",
+          "completed_at": "2026-11-22T14:17:38Z",
           "combined_status": "pending",
           "combined_status_count": 0,
-          "action": "No rerun/settings changes/manual deploy; separate from 30/30 local QA.",
-          "completed_at": "2026-11-22T13:22:52Z",
           "cause": "取得check情報に診断詳細なし。過去HEADと同一原因とは断定しない。"
         },
-        "local_required_suites": "30/30 passed,323s",
+        "local_required_suites": "31/31 passed,326s",
         "action": "再実行/設定変更/手動deployなし。朝夕チェックへ集約。"
       },
       "observation_history": [
@@ -18232,6 +18359,26 @@
             "cause": "取得check情報に診断詳細なし。過去HEADと同一原因とは断定しない。"
           },
           "local_required_suites": "30/30 passed,323s",
+          "action": "再実行/設定変更/手動deployなし。朝夕チェックへ集約。"
+        },
+        {
+          "at": "2026-11-22T14:19:11.783118+00:00",
+          "commit": "ee228ca0a1865d0a56f4302cd9342a4f66738561",
+          "pr": 11,
+          "check": {
+            "observed_at": "2026-11-22T14:19:11.783118+00:00",
+            "head": "ee228ca0a1865d0a56f4302cd9342a4f66738561",
+            "name": "Workers Builds: yuika-study",
+            "status": "completed",
+            "conclusion": "failure",
+            "html_url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/137237492145",
+            "action": "No rerun/settings changes/manual deploy; separate from local31/31.",
+            "completed_at": "2026-11-22T14:17:38Z",
+            "combined_status": "pending",
+            "combined_status_count": 0,
+            "cause": "取得check情報に診断詳細なし。過去HEADと同一原因とは断定しない。"
+          },
+          "local_required_suites": "31/31 passed,326s",
           "action": "再実行/設定変更/手動deployなし。朝夕チェックへ集約。"
         }
       ]

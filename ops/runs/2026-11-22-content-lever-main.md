@@ -50,3 +50,5 @@ QAは合成画面3枚を目視し、統括も三角形原本と採点結果2枚�
 14:16:06 UTCにQA checkoutの手動venvリンクを解除し、HEAD一致・status完全空を確認した。
 
 独立QAは最終report/PR本文の全31行と結果JSONの一致、コピー12資料とSHA256SUMSの一致を確認した。拒否対象と今回の互換追従範囲を明確にする文言2箇所を統括が反映。
+
+保存時の外部check: 最終ee228caの[Workers Builds](https://github.com/naoyanakajima-cyber/yuika-study/runs/137237492145)は2026-11-22 14:17:38 UTCにfailure。取得情報に原因詳細なし。クラウド内31suite成功とは区別し、過去HEADと同一原因とは断定しない。combined statusはpending・登録0。再実行/設定変更/手動deployなし。
