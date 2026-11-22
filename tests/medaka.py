@@ -11,7 +11,8 @@ ROOT=Path(__file__).resolve().parents[1];sys.path.insert(0,str(ROOT))
 from scripts.cloud.serve import PreviewHandler
 from scripts.history.embed import questions
 qs=questions((ROOT/'yuika-review-v2.html').read_text());new=[q for q in qs if q['id'].startswith('medaka-')]
-assert len(qs)==84 and len({q['id'] for q in qs})==84
+assert len([q for q in qs if q.get('unitId')!='rika-lever'])==84
+assert len({q['id'] for q in qs})==len(qs)
 assert Counter(q['area'] for q in new)=={'growth':5,'fins':8,'water':4}
 archive=json.loads((ROOT/'scripts/history/revisions.json').read_text())['yuika-review-v2.html']
 for q in new:

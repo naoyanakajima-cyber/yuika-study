@@ -74,7 +74,7 @@ export async function deliver(p,env,storage,send=fetch,now=Date.now()) {
  const record={digest,status:'pending',firstAttempt:old?.firstAttempt??now,lastAttempt:now};
  await storage.put(key,record); // Durable before contacting the provider.
  let response;
- try{response=await send('https://api.resend.com/emails',{method:'POST',signal:AbortSignal.timeout(12_000),headers:{Authorization:`Bearer ${env.RESEND_API_KEY}`,'Content-Type':'application/json','Idempotency-Key':'yuika-'+await hash(p.id)},body:JSON.stringify({from:env.REPORT_FROM,to,subject:`[ゆいか学習] ${p.subject} ${p.correct}/${p.total}問`,text:mailText(p)})});}
+ try{response=await send('https://api.resend.com/emails',{method:'POST',signal:AbortSignal.timeout(12_000),headers:{Authorization:`Bearer ${env.RESEND_API_KEY}`,'Content-Type':'application/json','Idempotency-Key':'yuika-'+await hash(p.id)},body:JSON.stringify({from:env.REPORT_FROM,to,subject:`[ゆいか学習] ゆいか学習帳 ${p.subject} ${p.correct}/${p.total}問`,text:mailText(p)})});}
  catch{return reply({error:'provider_unavailable'},502);}
  if(!response.ok)return reply({error:response.status===429?'provider_busy':'provider_rejected'},502);
  let result;try{result=await response.json();}catch{return reply({error:'provider_unknown'},502);}

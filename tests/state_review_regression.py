@@ -97,7 +97,7 @@ try:
     };
     const es=[makeClockEvent('2026-11-06T00:00:00.000Z'),makeClockEvent('2026-11-07T00:00:00.000Z'),makeClockEvent('2026-11-09T00:00:00.000Z',true)];
     if(isScience)state.events=es;else data.events=es;
-    if(isScience){const oldCount=count;count=1000;const qs=scienceDaily();assert(qs.length===QUESTIONS.length,'science candidate shortage uses available');assert(new Set(qs.map(q=>q.id)).size===qs.length,'science shortage dedup');count=oldCount;}
+    if(isScience){const oldCount=count;count=1000;const qs=scienceDaily();assert(qs.length===QUESTIONS.filter(q=>q.step!==4).length,'science candidate shortage uses available unlocked questions');assert(new Set(qs.map(q=>q.id)).size===qs.length,'science shortage dedup');count=oldCount;}
     else{const qs=dailyQuestions({...prefs,count:1000});assert(qs.length===candidates('normal').length,'social candidate shortage uses available');assert(new Set(qs.map(q=>q.originId||q.id)).size===qs.length,'social shortage dedup');}
     home();
     assert(document.querySelector('#daily-five').textContent.includes('5問'),'default five');
