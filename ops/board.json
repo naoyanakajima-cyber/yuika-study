@@ -36,13 +36,8 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": {
-    "run_id": "cycle-20261124T090607Z",
-    "acquired_at": "2026-11-24T09:06:07.319340+00:00",
-    "expires_at": "2026-11-24T09:41:07.319340+00:00",
-    "ticket": "PR31-RECONCILIATION"
-  },
-  "updated_at": "2026-11-24T09:06:07.319340+00:00",
+  "lease": null,
+  "updated_at": "2026-11-24T09:14:54.911957+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -243,7 +238,7 @@
         "既存ID・保存キー・旧履歴を保護する",
         "768x1024で開始・回答・採点・保存・再読込を合成データで確認する"
       ],
-      "next_action": "PR10/11/12の生成保持は各draft内で独立QA済み。3製品の合成試用判断待ちを維持し、mainは未修正。具体的な新差分・再現不具合・CEO試用所見があれば既存PRで範囲確認し、なければ実装や同じQAを反復せず終了する。本番merge/公開は未承認、新規PRは増やさない。",
+      "next_action": "PR31の新main差分をPdM/PrM・独立Reviewerで静的照合済み。次回は最新HEAD/lease確認後、既存PR10の最小互換同期を独立checkoutで実施し、合成設定・通知mock/外部遮断・生成保持・日次実問数/通知試験期待値の適合を独立QA。PR11/12は順次照合。既存QAは各旧固定HEADに限りPR31互換は未検証。製品3件の合成試用判断待ちを維持し新規PRは増やさない。merge/公開/実通知は未承認。",
       "evidence": [
         {
           "kind": "test",
@@ -443,6 +438,14 @@
           "kind": "report",
           "path": "ops/runs/2026-11-22-science-generator-lever.md",
           "commit": "f8c2ec9cdb10f062329fdc35d4b2ad5d973fa249"
+        },
+        {
+          "kind": "static_main_impact_reconciliation",
+          "path": "ops/runs/2026-11-24-pr31-impact.md",
+          "commit": "0908431ba18b94a3ef6a778d6597c9457f1b7b03",
+          "main": "101c64ef9be86cb7c3502d3eeec498f16e93e7fd",
+          "reviewer": "qa_pr31_impact",
+          "product_tests_run": false
         }
       ],
       "review": {
@@ -854,7 +857,7 @@
         "未確認出力と確認済み案を区別し、既存教材/記録に接続しない",
         "768x1024で編集・確認・取消・出力/再入力、外部要求/通知POST 0を検証"
       ],
-      "next_action": "PR10/11/12の生成保持は各draft内で独立QA済み。3製品の合成試用判断待ちを維持し、mainは未修正。具体的な新差分・再現不具合・CEO試用所見があれば既存PRで範囲確認し、なければ実装や同じQAを反復せず終了する。本番merge/公開は未承認、新規PRは増やさない。",
+      "next_action": "PR31の新main差分をPdM/PrM・独立Reviewerで静的照合済み。次回は最新HEAD/lease確認後、既存PR10の最小互換同期を独立checkoutで実施し、合成設定・通知mock/外部遮断・生成保持・日次実問数/通知試験期待値の適合を独立QA。PR11/12は順次照合。既存QAは各旧固定HEADに限りPR31互換は未検証。製品3件の合成試用判断待ちを維持し新規PRは増やさない。merge/公開/実通知は未承認。",
       "evidence": [
         {
           "kind": "test",
@@ -1130,6 +1133,14 @@
           "commit": "3920f1642692c88a8d6870480bc3f98f71558d24",
           "result": "failure",
           "cause": "not independently investigated; separate from local QA"
+        },
+        {
+          "kind": "static_main_impact_reconciliation",
+          "path": "ops/runs/2026-11-24-pr31-impact.md",
+          "commit": "0908431ba18b94a3ef6a778d6597c9457f1b7b03",
+          "main": "101c64ef9be86cb7c3502d3eeec498f16e93e7fd",
+          "reviewer": "qa_pr31_impact",
+          "product_tests_run": false
         }
       ],
       "review": {
@@ -1557,7 +1568,7 @@
         "切替前後の問題・採点・既存履歴が同一",
         "768x1024で可読性と主要操作を確認する"
       ],
-      "next_action": "PR10/11/12の生成保持は各draft内で独立QA済み。3製品の合成試用判断待ちを維持し、mainは未修正。具体的な新差分・再現不具合・CEO試用所見があれば既存PRで範囲確認し、なければ実装や同じQAを反復せず終了する。本番merge/公開は未承認、新規PRは増やさない。",
+      "next_action": "PR31の新main差分をPdM/PrM・独立Reviewerで静的照合済み。次回は最新HEAD/lease確認後、既存PR10の最小互換同期を独立checkoutで実施し、合成設定・通知mock/外部遮断・生成保持・日次実問数/通知試験期待値の適合を独立QA。PR11/12は順次照合。既存QAは各旧固定HEADに限りPR31互換は未検証。製品3件の合成試用判断待ちを維持し新規PRは増やさない。merge/公開/実通知は未承認。",
       "evidence": [
         {
           "kind": "test",
@@ -1748,6 +1759,14 @@
           "commit": "00c4ccb3b501223366a5f0a736567231ea9b8043",
           "result": "failure",
           "cause": "not independently investigated; separate from local QA"
+        },
+        {
+          "kind": "static_main_impact_reconciliation",
+          "path": "ops/runs/2026-11-24-pr31-impact.md",
+          "commit": "0908431ba18b94a3ef6a778d6597c9457f1b7b03",
+          "main": "101c64ef9be86cb7c3502d3eeec498f16e93e7fd",
+          "reviewer": "qa_pr31_impact",
+          "product_tests_run": false
         }
       ],
       "review": {
@@ -23232,9 +23251,105 @@
       "observed_operations_commit": "c6aa6ceec3fd03e8321466f9f99941c70ba7c705",
       "observed_main_commit": "101c64ef9be86cb7c3502d3eeec498f16e93e7fd",
       "scope": "PR31 external merge impact reconciliation",
-      "phase": "requirements",
+      "phase": "completed",
       "cloud_verified": true,
-      "ceo_decisions_ingested": 0
+      "ceo_decisions_ingested": 0,
+      "result": "pr31_impact_documented_independently_reviewed",
+      "completed_at": "2026-11-24T09:14:54.911957+00:00",
+      "pdm": "pdm_pr31_scope",
+      "prm": "root/coordinator",
+      "engineer": null,
+      "reviewer": "qa_pr31_impact",
+      "subagents_started": 2,
+      "delegation_reason": "New external main delta; PdM scope and independent static documentation review. No product implementation.",
+      "tests_executed": 0,
+      "product_changes": 0,
+      "new_prs": [],
+      "product_prs_updated": [],
+      "operations_pr_updated": 9,
+      "product_waiting_prs": [
+        10,
+        11,
+        12
+      ],
+      "open_pr_observations": [
+        {
+          "pr": 22,
+          "head": "bd4f48de0404614eb84275969bfccff0a368e866",
+          "state": "open",
+          "draft": true,
+          "updated_at": "2026-11-11T12:48:18Z"
+        },
+        {
+          "pr": 13,
+          "head": "139c8b8b56bcd979068b61984120d9f312efe182",
+          "state": "open",
+          "draft": true,
+          "updated_at": "2026-11-10T12:58:57Z"
+        },
+        {
+          "pr": 12,
+          "head": "00c4ccb3b501223366a5f0a736567231ea9b8043",
+          "state": "open",
+          "draft": true,
+          "updated_at": "2026-11-22T18:26:50Z"
+        },
+        {
+          "pr": 11,
+          "head": "3920f1642692c88a8d6870480bc3f98f71558d24",
+          "state": "open",
+          "draft": true,
+          "updated_at": "2026-11-22T17:23:22Z"
+        },
+        {
+          "pr": 10,
+          "head": "d26d10dea80b93cef7a47dbd814f76e3f69d3934",
+          "state": "open",
+          "draft": true,
+          "updated_at": "2026-11-22T16:32:39Z"
+        },
+        {
+          "pr": 9,
+          "head": "c6aa6ceec3fd03e8321466f9f99941c70ba7c705",
+          "state": "open",
+          "draft": true,
+          "updated_at": "2026-11-24T08:10:10Z"
+        },
+        {
+          "pr": 4,
+          "head": "ff211ee8e144e955fa5837e8b8ff5cabf51f60a4",
+          "state": "open",
+          "draft": true,
+          "updated_at": "2026-11-05T07:01:00Z"
+        }
+      ],
+      "new_ceo_replies_read": 0,
+      "documentation_commit": "0908431ba18b94a3ef6a778d6597c9457f1b7b03",
+      "report": "ops/runs/2026-11-24-pr31-impact.md",
+      "independent_review": {
+        "pdm": "pdm_pr31_scope",
+        "prm": "root/coordinator",
+        "author": "root/coordinator",
+        "reviewer": "qa_pr31_impact",
+        "result": "accepted_static_documentation_only",
+        "commit": "0908431ba18b94a3ef6a778d6597c9457f1b7b03",
+        "report": "ops/evidence/2026-11-24-pr31-impact-QA.md",
+        "document_sha256": "25eef6b57e479814dfeda1531c90f1aa5fcc6cc0db948326b02a8a4fd05fe663",
+        "app_tests_run": false,
+        "browser_tests_run": false
+      },
+      "next_action": "PR31の新main差分をPdM/PrM・独立Reviewerで静的照合済み。次回は最新HEAD/lease確認後、既存PR10の最小互換同期を独立checkoutで実施し、合成設定・通知mock/外部遮断・生成保持・日次実問数/通知試験期待値の適合を独立QA。PR11/12は順次照合。既存QAは各旧固定HEADに限りPR31互換は未検証。製品3件の合成試用判断待ちを維持し新規PRは増やさない。merge/公開/実通知は未承認。",
+      "new_obstacles": [],
+      "manual_operations_worktree": true,
+      "automatic_snapshot_handoff_verified": false,
+      "attachment": {
+        "pr": 9,
+        "attempts": 1,
+        "result": "tool_did_not_return_before_wait_terminated; success_unverified"
+      },
+      "notification": "NO_UPDATE",
+      "lease_released_at": "2026-11-24T09:14:54.911957+00:00",
+      "verification_scope": "Fixed Git source/stat/merge-base/tree/overlap and current main/open PR metadata. Product/browser/generator tests not run; prior product tests and PR31 author claims are historical evidence only."
     }
   ],
   "operational_notes": [
@@ -23586,7 +23701,7 @@
       "full_generator_idempotence_verified": false,
       "report": "ops/runs/2026-11-22-theme-lever-main.md",
       "evidence": "ops/evidence/2026-11-22-theme-lever-main/engineer.json",
-      "next_action": "PR10/11/12の生成保持は各draft内で独立QA済み。3製品の合成試用判断待ちを維持し、mainは未修正。具体的な新差分・再現不具合・CEO試用所見があれば既存PRで範囲確認し、なければ実装や同じQAを反復せず終了する。本番merge/公開は未承認、新規PRは増やさない。",
+      "next_action": "PR31の新main差分をPdM/PrM・独立Reviewerで静的照合済み。次回は最新HEAD/lease確認後、既存PR10の最小互換同期を独立checkoutで実施し、合成設定・通知mock/外部遮断・生成保持・日次実問数/通知試験期待値の適合を独立QA。PR11/12は順次照合。既存QAは各旧固定HEADに限りPR31互換は未検証。製品3件の合成試用判断待ちを維持し新規PRは増やさない。merge/公開/実通知は未承認。",
       "draft_resolution": {
         "pr": 12,
         "head": "00c4ccb3b501223366a5f0a736567231ea9b8043",
@@ -23637,6 +23752,21 @@
         }
       ],
       "resolved_draft_prs": [
+        10,
+        11,
+        12
+      ]
+    },
+    {
+      "id": "PR31-BASE-SYNC-01",
+      "status": "pending_existing_draft_compatibility",
+      "observed_at": "2026-11-24T09:14:54.911957+00:00",
+      "observed_main": "101c64ef9be86cb7c3502d3eeec498f16e93e7fd",
+      "finding": "外部PR31により通知対象・途中終了処理・生成順序が変化。既存PR10/11/12との交差9/7/6ファイル。競合/実行不具合は未確定。",
+      "report": "ops/runs/2026-11-24-pr31-impact.md",
+      "reviewer": "qa_pr31_impact",
+      "next_action": "PR31の新main差分をPdM/PrM・独立Reviewerで静的照合済み。次回は最新HEAD/lease確認後、既存PR10の最小互換同期を独立checkoutで実施し、合成設定・通知mock/外部遮断・生成保持・日次実問数/通知試験期待値の適合を独立QA。PR11/12は順次照合。既存QAは各旧固定HEADに限りPR31互換は未検証。製品3件の合成試用判断待ちを維持し新規PRは増やさない。merge/公開/実通知は未承認。",
+      "pending_prs": [
         10,
         11,
         12
@@ -24077,6 +24207,32 @@
       },
       "next_action": "新main/PR差分または実読・台帳反映済みの採用整理があれば、既存PR10の理科日次・履歴・集計と全PRのcheck_allスイート保持を再確認。現在は統合/製品試験なし。",
       "merge_commit": "58f8b53b4da69806d15a126fc525b65893a0bf35"
+    },
+    {
+      "pr": 31,
+      "head": "4d571c530aae75f297cfa7cb54e121e4f40afb7f",
+      "kind": "external_product",
+      "state": "merged",
+      "adopted": false,
+      "observed_at": "2026-11-24T09:14:54.911957+00:00",
+      "merged_at": "2026-11-24T09:04:39Z",
+      "merge_commit": "101c64ef9be86cb7c3502d3eeec498f16e93e7fd",
+      "included_in_observed_main": true,
+      "comparison_report": "ops/runs/2026-11-24-pr31-impact.md",
+      "reconciliation_status": "external_merge_observed_static_impact_reviewed_no_chat_authorization",
+      "independent_review": {
+        "pdm": "pdm_pr31_scope",
+        "prm": "root/coordinator",
+        "author": "root/coordinator",
+        "reviewer": "qa_pr31_impact",
+        "result": "accepted_static_documentation_only",
+        "commit": "0908431ba18b94a3ef6a778d6597c9457f1b7b03",
+        "report": "ops/evidence/2026-11-24-pr31-impact-QA.md",
+        "document_sha256": "25eef6b57e479814dfeda1531c90f1aa5fcc6cc0db948326b02a8a4fd05fe663",
+        "app_tests_run": false,
+        "browser_tests_run": false
+      },
+      "next_action": "PR31の新main差分をPdM/PrM・独立Reviewerで静的照合済み。次回は最新HEAD/lease確認後、既存PR10の最小互換同期を独立checkoutで実施し、合成設定・通知mock/外部遮断・生成保持・日次実問数/通知試験期待値の適合を独立QA。PR11/12は順次照合。既存QAは各旧固定HEADに限りPR31互換は未検証。製品3件の合成試用判断待ちを維持し新規PRは増やさない。merge/公開/実通知は未承認。"
     }
   ]
 }
