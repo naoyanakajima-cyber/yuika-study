@@ -1,0 +1,61 @@
+{
+  "candidate": "0cd726f558d24999da80c37b1ecdbd2e6090c7bb",
+  "observed_at": "2026-11-24T10:13:59.539266+00:00",
+  "parents": [
+    "d26d10dea80b93cef7a47dbd814f76e3f69d3934",
+    "101c64ef9be86cb7c3502d3eeec498f16e93e7fd"
+  ],
+  "suite_union": {
+    "prior_pr10": 31,
+    "main": 27,
+    "candidate": 32,
+    "exact_union": true,
+    "duplicates": 0
+  },
+  "unchanged_sources": {
+    "scripts/practice/science.js": true,
+    "scripts/prototype/runtime.js": true,
+    "scripts/history/revisions.json": true,
+    "assets/progress.js": true,
+    "tests/recommended_review.py": true,
+    "tests/daily_count.py": true,
+    "tests/science_daily_count.py": true,
+    "tests/lever.py": true
+  },
+  "question_definitions": {
+    "onin-review.html": {
+      "byte_identical": true,
+      "count": 30
+    },
+    "kamakura-review.html": {
+      "byte_identical": true,
+      "count": 38
+    },
+    "heian-review.html": {
+      "byte_identical": true,
+      "count": 75
+    },
+    "yuika-review-v2.html": {
+      "byte_identical": true,
+      "count": 112
+    },
+    "mock-focus-review.html": {
+      "byte_identical": true,
+      "count": 46
+    },
+    "edo-review.html": {
+      "byte_identical": true,
+      "count": 22
+    }
+  },
+  "report_parent_order": {
+    "index.html": true,
+    "onin-review.html": true,
+    "kamakura-review.html": true,
+    "heian-review.html": true,
+    "yuika-review-v2.html": true,
+    "mock-focus-review.html": true,
+    "edo-review.html": true
+  },
+  "diff_check_exit": 0
+}

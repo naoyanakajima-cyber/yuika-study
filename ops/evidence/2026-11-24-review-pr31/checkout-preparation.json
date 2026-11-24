@@ -1,0 +1,25 @@
+{
+  "candidate": "0cd726f558d24999da80c37b1ecdbd2e6090c7bb",
+  "started_at": "2026-11-24T10:12:58.055416+00:00",
+  "commands": [
+    {
+      "command": [
+        "git",
+        "worktree",
+        "add",
+        "--detach",
+        "/workspace/qa-rev-pr31",
+        "0cd726f558d24999da80c37b1ecdbd2e6090c7bb"
+      ],
+      "cwd": "/workspace/yuika-rev-pr31-compat",
+      "exit_code": 0,
+      "stdout": "HEAD is now at 0cd726f Merge PR31 report handling into PR10 with generator compatibility\n",
+      "stderr": "Preparing worktree (detached HEAD 0cd726f)\n"
+    }
+  ],
+  "manual_ignored_venv_bin_link": "/workspace/yuika-study/.venv/bin",
+  "head": "0cd726f558d24999da80c37b1ecdbd2e6090c7bb",
+  "status": "",
+  "seconds": 0.089,
+  "finished_at": "2026-11-24T10:12:58.144723+00:00"
+}

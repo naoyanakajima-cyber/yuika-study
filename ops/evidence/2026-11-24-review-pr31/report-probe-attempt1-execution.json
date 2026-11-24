@@ -1,0 +1,12 @@
+{
+  "command": "source scripts/cloud/activate.sh && python /workspace/yuika-ops-cycle232/ops/evidence/2026-11-24-review-pr31/report-probe.py /workspace/qa-rev-pr31",
+  "cwd": "/workspace/qa-rev-pr31",
+  "head_before": "0cd726f558d24999da80c37b1ecdbd2e6090c7bb",
+  "status_before": "",
+  "started_at": "2026-11-24T10:13:09.115216+00:00",
+  "exit_code": 0,
+  "seconds": 20.973,
+  "finished_at": "2026-11-24T10:13:30.088443+00:00",
+  "head_after": "0cd726f558d24999da80c37b1ecdbd2e6090c7bb",
+  "status_after": ""
+}

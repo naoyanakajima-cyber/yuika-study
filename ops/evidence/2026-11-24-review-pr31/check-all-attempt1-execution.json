@@ -1,0 +1,12 @@
+{
+  "command": "source scripts/cloud/activate.sh && bash scripts/check_all.sh",
+  "cwd": "/workspace/qa-rev-pr31",
+  "head_before": "0cd726f558d24999da80c37b1ecdbd2e6090c7bb",
+  "status_before": "",
+  "started_at": "2026-11-24T10:13:03.825972+00:00",
+  "exit_code": 0,
+  "seconds": 393.749,
+  "finished_at": "2026-11-24T10:19:37.575412+00:00",
+  "head_after": "0cd726f558d24999da80c37b1ecdbd2e6090c7bb",
+  "status_after": ""
+}
