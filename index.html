@@ -156,7 +156,7 @@ function exportPending(){const pending=jobs().filter(j=>j.report).map(j=>({id:j.
 function endpoint(value){const u=new URL(value);if(u.protocol!=='https:'||!u.hostname.endsWith('.workers.dev')||u.username||u.password||u.port||u.search||u.hash||u.pathname!=='/')throw Error('設定したCloudflare Workerの https://〜.workers.dev のURLを入力してください。');return u.origin;}
 function mount(){
  const wrap=document.createElement('section');wrap.style.cssText='max-width:944px;margin:20px auto;padding:16px;font:13px/1.7 system-ui;color:#394d43';
- wrap.innerHTML='<p id="yuika-mail-status" role="status" aria-live="polite"></p><details><summary style="cursor:pointer">保護者：チャレンジ結果の自動メール</summary><p>接続すると、社会・理科のチャレンジ終了時に、今回の正誤・回答・ヒント等を登録した保護者へ送ります。自由記述は送信しません。以前の単元で記録していない項目は補いません。過去の履歴の一括送信はしません。</p><p>iPadでアプリを閉じている間は再送できません。未送信分は、次に開いたときに再試行します。通知を停止しても学習記録は消しません。</p><form id="yuika-mail-form"><label style="display:block">送信サーバーURL<input id="yuika-mail-url" type="url" required placeholder="https://〜.workers.dev" style="display:block;width:100%;box-sizing:border-box;padding:10px"></label><label style="display:block">この端末の接続キー<input id="yuika-mail-token" type="password" required minlength="32" autocomplete="off" style="display:block;width:100%;box-sizing:border-box;padding:10px"></label><p>メールサービスのAPIキーはここに入れません。接続キーは公開サイトやGitHubに書き込まず、この端末だけに保存します。</p><button type="submit" style="padding:10px;min-height:44px">接続を確認して有効にする</button> <button id="yuika-mail-stop" type="button" style="padding:10px;min-height:44px">自動メールを停止</button> <button id="yuika-mail-retry" type="button" style="padding:10px;min-height:44px">保留分を確認・再試行</button> <button id="yuika-mail-export" type="button" style="padding:10px;min-height:44px">保留通知をJSONで保全</button></form></details>';
+ wrap.innerHTML='<p id="yuika-mail-status" role="status" aria-live="polite"></p><details><summary style="cursor:pointer">保護者：チャレンジ結果の自動メール</summary><p>接続すると、チャレンジ終了時に、今回の正誤・回答・ヒント等を登録した保護者へ送ります。自由記述は送信しません。以前の単元で記録していない項目は補いません。過去の履歴の一括送信はしません。</p><p>iPadでアプリを閉じている間は再送できません。未送信分は、次に開いたときに再試行します。通知を停止しても学習記録は消しません。</p><form id="yuika-mail-form"><label style="display:block">送信サーバーURL<input id="yuika-mail-url" type="url" required placeholder="https://〜.workers.dev" style="display:block;width:100%;box-sizing:border-box;padding:10px"></label><label style="display:block">この端末の接続キー<input id="yuika-mail-token" type="password" required minlength="32" autocomplete="off" style="display:block;width:100%;box-sizing:border-box;padding:10px"></label><p>メールサービスのAPIキーはここに入れません。接続キーは公開サイトやGitHubに書き込まず、この端末だけに保存します。</p><button type="submit" style="padding:10px;min-height:44px">接続を確認して有効にする</button> <button id="yuika-mail-stop" type="button" style="padding:10px;min-height:44px">自動メールを停止</button> <button id="yuika-mail-retry" type="button" style="padding:10px;min-height:44px">保留分を確認・再試行</button> <button id="yuika-mail-export" type="button" style="padding:10px;min-height:44px">保留通知をJSONで保全</button></form></details>';
  document.body.append(wrap);
  const cfg=config();if(cfg?.endpoint)document.getElementById('yuika-mail-url').value=cfg.endpoint;
  document.getElementById('yuika-mail-form').onsubmit=async e=>{e.preventDefault();if(window.YuikaParent.suppress())return;const button=e.submitter;if(button)button.disabled=true;try{
@@ -1027,6 +1027,11 @@ function QuizScreen({ unit, onBack, email, onSessionSaved }) {
     topRef.current?.scrollIntoView({behavior:"smooth"});
   };
 
+  const reportQuiz = partial => {
+    if(!results.length)return;
+    window.YuikaReports.enqueue({version:1,id:'legacy-quiz:'+reportId.current,app:'legacy',subject:unit.subject,unit:unit.name,mode:partial?'復習クイズ（途中終了）':'復習クイズ',completedAt:new Date().toISOString(),total:results.length,correct:cc,detail:'summary',answers:results.map((r,i)=>({question:qs[i].question,response:r.result==='dunno'?'わからない':r.result==='correct'?'正解（入力・選択内容は未記録）':'誤答（入力・選択内容は未記録）',expected:'下の解説を参照',explanation:qs[i].explanation||'',correct:r.result==='correct',hint:null,mode:'通常練習'}))});
+  };
+
   useEffect(() => {
     if (done && !saved) {
       setSaved(true);
@@ -1038,7 +1043,7 @@ function QuizScreen({ unit, onBack, email, onSessionSaved }) {
         title: t.label, retry: 0, totalSec, avgSec,
       }).then(() => { if (onSessionSaved) onSessionSaved(); });
       saveClear(unit.id, "quiz", cc, qs.length);
-      window.YuikaReports.enqueue({version:1,id:'legacy-quiz:'+reportId.current,app:'legacy',subject:unit.subject,unit:unit.name,mode:'復習クイズ',completedAt:new Date().toISOString(),total:qs.length,correct:cc,detail:'summary',answers:results.map((r,i)=>({question:qs[i].question,response:r.result==='dunno'?'わからない':r.result==='correct'?'正解（入力・選択内容は未記録）':'誤答（入力・選択内容は未記録）',expected:'下の解説を参照',explanation:qs[i].explanation||'',correct:r.result==='correct',hint:null,mode:'通常練習'}))});
+      reportQuiz(false);
     }
   }, [done]);
 
@@ -1098,7 +1103,7 @@ function QuizScreen({ unit, onBack, email, onSessionSaved }) {
     <SlashEffect show={showSlash} streak={streak}/>
     <div ref={topRef}/>
     <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:16}}>
-      <button onClick={onBack} style={{background:T.card||T.smoke,border:"none",borderRadius:10,padding:"8px 14px",color:T.textDim,fontSize:14,cursor:"pointer",fontFamily:"'Noto Sans JP',sans-serif"}}>← 戻る</button>
+      <button onClick={()=>{reportQuiz(true);onBack();}} style={{background:T.card||T.smoke,border:"none",borderRadius:10,padding:"8px 14px",color:T.textDim,fontSize:14,cursor:"pointer",fontFamily:"'Noto Sans JP',sans-serif"}}>← 戻る</button>
       <div style={{display:"flex",gap:8,alignItems:"center"}}>
         <span style={{fontSize:12,fontWeight:700}}><span style={{color:T.correct}}>{cc}</span> <span style={{color:T.wrong}}>{wc}</span> <span style={{color:T.dunno}}>{dc}</span></span>
         <span style={{background:T.card||T.smoke,borderRadius:10,padding:"6px 12px",fontSize:14,fontWeight:700,color:T.pink}}>{idx+1}/{qs.length}</span>
@@ -1178,11 +1183,13 @@ function FlashScreen({ unit, onBack, email, onSessionSaved }) {
     setDeckIdx(di); setPhase("play");
   };
 
+  const flashAnswer = (card, knew) => ({question:card.q,response:userInput||"わからない",expected:card.a,explanation:"",correct:knew,hint:null,mode:"暗記カード初回"});
+
   const handleRes = (knew) => {
     const card = cards[ci];
     const sec = Math.round((Date.now()-cardStart)/1000);
     if (retry===0) {
-      firstRoundLog.current.push({question:card.q,response:userInput||"わからない",expected:card.a,explanation:"",correct:knew,hint:null,mode:"暗記カード初回"});
+      firstRoundLog.current.push(flashAnswer(card, knew));
       setCardTimes(p=>[...p,sec]);
       if (!knew) setFirstRoundWrongs(p=>[...p,card]);
     }
@@ -1201,6 +1208,15 @@ function FlashScreen({ unit, onBack, email, onSessionSaved }) {
   const totalSec = cardTimes.reduce((s,t)=>s+t,0);
   const avgSec = cardTimes.length>0?Math.round(totalSec/cardTimes.length):0;
 
+  const reportFlash = partial => {
+    const rows=partial && retry===0 && judged
+      ? [...firstRoundLog.current, flashAnswer(cards[ci], judged==="correct")]
+      : firstRoundLog.current;
+    if(!rows.length)return;
+    const dn=deckIdx===-1 ? "全問" : (unit.flashDecks[deckIdx]?.name || "");
+    window.YuikaReports.enqueue({version:1,id:'legacy-flash:'+reportId.current,app:'legacy',subject:unit.subject,unit:unit.name+'（'+dn+'）',mode:partial?'暗記カード（初回の結果・途中終了）':'暗記カード（初回の結果・復習完了）',completedAt:new Date().toISOString(),total:rows.length,correct:rows.filter(r=>r.correct).length,detail:'summary',answers:rows});
+  };
+
   useEffect(() => {
     if (phase === "done") {
       const dn = deckIdx===-1 ? "全問" : (unit.flashDecks[deckIdx]?.name || "");
@@ -1211,8 +1227,7 @@ function FlashScreen({ unit, onBack, email, onSessionSaved }) {
         total: totalCards, title: "", retry: retry, totalSec, avgSec,
       }).then(() => { if (onSessionSaved) onSessionSaved(); });
       saveClear(unit.id, "flash", firstCorrect, totalCards);
-      const rows=firstRoundLog.current;
-      window.YuikaReports.enqueue({version:1,id:'legacy-flash:'+reportId.current,app:'legacy',subject:unit.subject,unit:unit.name+'（'+dn+'）',mode:'暗記カード（初回の結果・復習完了）',completedAt:new Date().toISOString(),total:totalCards,correct:rows.filter(r=>r.correct).length,detail:'summary',answers:rows});
+      reportFlash(false);
     }
   }, [phase]);
 
@@ -1300,7 +1315,7 @@ function FlashScreen({ unit, onBack, email, onSessionSaved }) {
 
   return (<Wrapper>
     <div style={{display:"flex",alignItems:"center",justifyContent:"space-between",marginBottom:16}}>
-      <button onClick={()=>setPhase("select")} style={{background:T.card||T.smoke,border:"none",borderRadius:10,padding:"8px 14px",color:T.textDim,fontSize:14,cursor:"pointer",fontFamily:"'Noto Sans JP',sans-serif"}}>← 戻る</button>
+      <button onClick={()=>{reportFlash(true);setUserInput("");setJudged(null);setPhase("select");}} style={{background:T.card||T.smoke,border:"none",borderRadius:10,padding:"8px 14px",color:T.textDim,fontSize:14,cursor:"pointer",fontFamily:"'Noto Sans JP',sans-serif"}}>← 戻る</button>
       <span style={{background:T.card||T.smoke,borderRadius:10,padding:"6px 12px",fontSize:14,fontWeight:700,color:T.text}}>{ci+1}/{cards.length}</span>
     </div>
     {retry>0&&<div style={{textAlign:"center",marginBottom:8}}><span style={{background:T.wrong,color:T.white,borderRadius:6,padding:"2px 10px",fontSize:11,fontWeight:700}}>リトライ {retry}</span></div>}
