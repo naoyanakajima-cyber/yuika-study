@@ -41,3 +41,5 @@ PdM `pdm_theme_pr31` が既存仕様で実装可能と確認し、PrM `root/coor
 PR12の互換同期を既存draftへ保存し、3製品の合成試用判断待ちを維持する。具体的な新差分・再現不具合・CEO試用所見があれば既存PRの範囲を確認し、なければ同じ実装やQAを反復しない。mainの生成元未修正、実機Safari/iPad・本人の好み・学習効果・公開動作の未検証は別に残す。
 
 PR12と運用PR9のタスク添付は各1回呼び出したが応答せず待機を中断し、成功未確認。GitHubへの成果保存とは区別する。外部CIの結果はクラウドQAと別に台帳・PR本文へ記録する。
+
+外部 `Workers Builds: yuika-study` は同HEADでfailure、2026-11-24 12:20:11 UTC完了を観測（[check](https://github.com/naoyanakajima-cyber/yuika-study/runs/138439612563)）。原因は今回未調査。クラウド内29/29成功と区別し、再実行・deploy・設定変更は行っていない。

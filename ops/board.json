@@ -36,13 +36,8 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": {
-    "run_id": "cycle-20261124T120549Z",
-    "acquired_at": "2026-11-24T12:05:49.058529+00:00",
-    "expires_at": "2026-11-24T12:40:49.058529+00:00",
-    "ticket": "THEME-MVP"
-  },
-  "updated_at": "2026-11-24T12:11:53.042693+00:00",
+  "lease": null,
+  "updated_at": "2026-11-24T12:21:18.266593+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -243,7 +238,7 @@
         "既存ID・保存キー・旧履歴を保護する",
         "768x1024で開始・回答・採点・保存・再読込を合成データで確認する"
       ],
-      "next_action": "PR10/11のPR31互換同期は各固定HEADで独立QA済み。次回は最新main/PR/lease確認後、PR12自身のテーマ切替・学習状態・図の可読性・生成元を保持するPR31最小互換同期をPdM/PrMで確認。PR10/11固有機能をコピーせず、新規製品PRは増やさない。3製品の合成試用判断待ちと本番merge/公開/実通知の未承認を維持。",
+      "next_action": "PR10/11/12のPR31互換同期は各固定HEADで独立QA済み。3製品の合成試用判断待ちを維持。次回は最新main/PR/台帳と実読できたCEO返答を照合し、新差分・再現不具合・CEO試用所見があれば既存PR内の範囲を確認する。独立して進められる仕事がなければ同じ実装やQAを反復せず終了する。mainの生成元は未修正、本番merge/公開/実通知は未承認、新規製品PRを増やさない。",
       "evidence": [
         {
           "kind": "test",
@@ -914,7 +909,7 @@
         "未確認出力と確認済み案を区別し、既存教材/記録に接続しない",
         "768x1024で編集・確認・取消・出力/再入力、外部要求/通知POST 0を検証"
       ],
-      "next_action": "PR10/11のPR31互換同期は各固定HEADで独立QA済み。次回は最新main/PR/lease確認後、PR12自身のテーマ切替・学習状態・図の可読性・生成元を保持するPR31最小互換同期をPdM/PrMで確認。PR10/11固有機能をコピーせず、新規製品PRは増やさない。3製品の合成試用判断待ちと本番merge/公開/実通知の未承認を維持。",
+      "next_action": "PR10/11/12のPR31互換同期は各固定HEADで独立QA済み。3製品の合成試用判断待ちを維持。次回は最新main/PR/台帳と実読できたCEO返答を照合し、新差分・再現不具合・CEO試用所見があれば既存PR内の範囲を確認する。独立して進められる仕事がなければ同じ実装やQAを反復せず終了する。mainの生成元は未修正、本番merge/公開/実通知は未承認、新規製品PRを増やさない。",
       "evidence": [
         {
           "kind": "test",
@@ -1683,7 +1678,7 @@
         "切替前後の問題・採点・既存履歴が同一",
         "768x1024で可読性と主要操作を確認する"
       ],
-      "next_action": "PR10/11のPR31互換同期は各固定HEADで独立QA済み。次回は最新main/PR/lease確認後、PR12自身のテーマ切替・学習状態・図の可読性・生成元を保持するPR31最小互換同期をPdM/PrMで確認。PR10/11固有機能をコピーせず、新規製品PRは増やさない。3製品の合成試用判断待ちと本番merge/公開/実通知の未承認を維持。",
+      "next_action": "PR10/11/12のPR31互換同期は各固定HEADで独立QA済み。3製品の合成試用判断待ちを維持。次回は最新main/PR/台帳と実読できたCEO返答を照合し、新差分・再現不具合・CEO試用所見があれば既存PR内の範囲を確認する。独立して進められる仕事がなければ同じ実装やQAを反復せず終了する。mainの生成元は未修正、本番merge/公開/実通知は未承認、新規製品PRを増やさない。",
       "evidence": [
         {
           "kind": "test",
@@ -1882,38 +1877,58 @@
           "main": "101c64ef9be86cb7c3502d3eeec498f16e93e7fd",
           "reviewer": "qa_pr31_impact",
           "product_tests_run": false
+        },
+        {
+          "kind": "test",
+          "command": "bash scripts/check_all.sh",
+          "commit": "df7af2a205f44e8c76b50e96728685efcc7e57d8",
+          "executor": "qa_theme_pr31",
+          "exit_code": 0,
+          "suites_passed": 29,
+          "suites_total": 29,
+          "attempt": 1,
+          "seconds": 368.253,
+          "path": "ops/evidence/2026-11-24-theme-pr31/summary.json"
+        },
+        {
+          "kind": "independent_qa",
+          "commit": "df7af2a205f44e8c76b50e96728685efcc7e57d8",
+          "executor": "qa_theme_pr31",
+          "path": "ops/evidence/2026-11-24-theme-pr31/QA.md",
+          "scope": "theme/science records/report lifecycle and 12-step generator preservation"
+        },
+        {
+          "kind": "report",
+          "path": "ops/runs/2026-11-24-theme-pr31-compatibility.md",
+          "commit": "e28d70338cbc38ef8827f2a78c0e7c1f6f69c640"
         }
       ],
       "review": {
-        "pdm": "pdm_theme_generator",
-        "prm": "root",
-        "author": "engineer_theme_generator",
-        "reviewer": "qa_theme_generator",
-        "commit": "00c4ccb3b501223366a5f0a736567231ea9b8043",
-        "result": "passed_generator_preservation_and_theme_record_compatibility",
-        "completed_at": "2026-11-22T18:18:26.769440+00:00",
-        "required_suites": 28,
+        "pdm": "pdm_theme_pr31",
+        "prm": "root/coordinator",
+        "author": "engineer_theme_pr31",
+        "reviewer": "qa_theme_pr31",
+        "commit": "df7af2a205f44e8c76b50e96728685efcc7e57d8",
+        "result": "passed_pr31_theme_compatibility_and_generator_preservation",
+        "completed_at": "2026-11-24T12:18:07.345277+00:00",
+        "required_suites": 29,
         "exit_code": 0,
+        "seconds": 368.253,
         "attempt": 1,
-        "seconds": 326,
-        "checkout_before_after_clean": true,
-        "independent_probes": [
-          "normal_parent_theme_state_and_preferences",
-          "normal_parent_science_unit_tag_roundtrip"
-        ],
-        "generator_first_and_second_pass_preserved": true,
-        "baseline_regression_independently_detected": true,
-        "science_html_unchanged": true,
-        "theme_spec_test_and_all_other_85_paths_unchanged": true,
-        "theme_css_ui_js_diagram_print_preserved": true,
+        "independent_theme_contexts": 2,
+        "independent_science_contexts": 2,
+        "independent_report_contexts": 8,
+        "independent_mock_reports": 8,
+        "generator_contract_probe": "passed_first_attempt",
+        "qa_harness_initial_failures": 0,
         "diagram_contrast": 6.265720821251096,
-        "diagram_contrast_probe_scope": "normal mode, both themes, screen/print",
-        "report": "ops/evidence/2026-11-22-theme-generator-preservation/QA.md"
+        "checkout_before_after_clean": true,
+        "report": "ops/evidence/2026-11-24-theme-pr31/QA.md"
       },
       "base_ref": "main",
-      "base_sha": "58f8b53b4da69806d15a126fc525b65893a0bf35",
+      "base_sha": "101c64ef9be86cb7c3502d3eeec498f16e93e7fd",
       "specification": "docs/product/theme-spec.md",
-      "commit": "00c4ccb3b501223366a5f0a736567231ea9b8043",
+      "commit": "df7af2a205f44e8c76b50e96728685efcc7e57d8",
       "direction_adopted": true,
       "direction_decision": "D05",
       "release": {
@@ -1942,18 +1957,18 @@
         "completed_at": "2026-11-10T00:08:14.222274+00:00",
         "excluded_scope": "parent/recordsは未完run遷移確認が不足していたため今回の成功範囲から除外。証拠を訂正し再実行なし。"
       },
-      "ceo_wait_reason": "標準/鎌倉テーマと親隔離、てこmain教材との互換性を独立QA済みのdraft試作品確認待ち。本人嗜好・実機未確認、本番merge/公開未承認。",
+      "ceo_wait_reason": "標準/鎌倉テーマ・親隔離・図可読性とPR31学習報告の互換同期を独立QA済みのdraft試作品確認待ち。本人嗜好・実機未確認、本番merge/公開未承認。",
       "ceo_trial": {
         "synthetic_focused_qa": "passed_current_synthetic_acceptance_scope",
         "ceo_hands_on": "not_verified",
         "real_ipad_safari": "not_tested",
         "native_browser_zoom": "not_tested",
-        "latest_synthetic_qa_commit": "00c4ccb3b501223366a5f0a736567231ea9b8043",
-        "latest_cloud_artifacts": "ops/evidence/2026-11-22-theme-generator-preservation",
+        "latest_synthetic_qa_commit": "df7af2a205f44e8c76b50e96728685efcc7e57d8",
+        "latest_cloud_artifacts": "ops/evidence/2026-11-24-theme-pr31",
         "shared_browser_handoff": "not_completed",
-        "current_candidate_commit": "00c4ccb3b501223366a5f0a736567231ea9b8043",
-        "current_candidate_validation": "28 required suites first pass; independent generator preservation and normal/parent theme/science probes passed; real device/user preference unverified",
-        "current_candidate_artifacts": "ops/evidence/2026-11-22-theme-generator-preservation"
+        "current_candidate_commit": "df7af2a205f44e8c76b50e96728685efcc7e57d8",
+        "current_candidate_validation": "29 required suites first pass; independent theme/science records/report lifecycle/generator probes passed; real device/user preference unverified",
+        "current_candidate_artifacts": "ops/evidence/2026-11-24-theme-pr31"
       },
       "independent_followup": {
         "id": "theme-main-compatibility",
@@ -2050,6 +2065,32 @@
           "diagram_contrast": 6.265720821251096,
           "report": "ops/evidence/2026-11-22-theme-lever-main/QA.md",
           "note": "Manual venv runtime link only; tracked clean throughout, final status empty. Separate seven-generator mismatch not fixed; Engineer executed, QA static main equality only."
+        },
+        {
+          "pdm": "pdm_theme_generator",
+          "prm": "root",
+          "author": "engineer_theme_generator",
+          "reviewer": "qa_theme_generator",
+          "commit": "00c4ccb3b501223366a5f0a736567231ea9b8043",
+          "result": "passed_generator_preservation_and_theme_record_compatibility",
+          "completed_at": "2026-11-22T18:18:26.769440+00:00",
+          "required_suites": 28,
+          "exit_code": 0,
+          "attempt": 1,
+          "seconds": 326,
+          "checkout_before_after_clean": true,
+          "independent_probes": [
+            "normal_parent_theme_state_and_preferences",
+            "normal_parent_science_unit_tag_roundtrip"
+          ],
+          "generator_first_and_second_pass_preserved": true,
+          "baseline_regression_independently_detected": true,
+          "science_html_unchanged": true,
+          "theme_spec_test_and_all_other_85_paths_unchanged": true,
+          "theme_css_ui_js_diagram_print_preserved": true,
+          "diagram_contrast": 6.265720821251096,
+          "diagram_contrast_probe_scope": "normal mode, both themes, screen/print",
+          "report": "ops/evidence/2026-11-22-theme-generator-preservation/QA.md"
         }
       ],
       "base_history": [
@@ -2070,6 +2111,12 @@
           "base_sha": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
           "commit": "9fc4bbf3e6c72e09327b6610338f12937fc7aba5",
           "changed_at": "2026-11-22T15:16:21.564674+00:00"
+        },
+        {
+          "base_ref": "main",
+          "base_sha": "58f8b53b4da69806d15a126fc525b65893a0bf35",
+          "commit": "00c4ccb3b501223366a5f0a736567231ea9b8043",
+          "changed_at": "2026-11-24T12:21:18.266593+00:00"
         }
       ],
       "validation_history": [
@@ -2151,6 +2198,26 @@
         "delivered": true,
         "updated_pr": 12,
         "report": "ops/runs/2026-11-22-theme-generator-preservation.md"
+      },
+      "external_checks": [
+        {
+          "name": "Workers Builds: yuika-study",
+          "status": "completed",
+          "conclusion": "failure",
+          "head_sha": "df7af2a205f44e8c76b50e96728685efcc7e57d8",
+          "completed_at": "2026-11-24T12:20:11Z",
+          "url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/138439612563"
+        }
+      ],
+      "pr31_followup": {
+        "state": "independent_qa_passed",
+        "run_id": "cycle-20261124T120549Z",
+        "starting_pr_head": "00c4ccb3b501223366a5f0a736567231ea9b8043",
+        "observed_main": "101c64ef9be86cb7c3502d3eeec498f16e93e7fd",
+        "commit": "df7af2a205f44e8c76b50e96728685efcc7e57d8",
+        "report": "ops/runs/2026-11-24-theme-pr31-compatibility.md",
+        "delivered": true,
+        "updated_pr": 12
       }
     },
     {
@@ -23762,7 +23829,7 @@
       "observed_operations_commit": "1f04c8fa1f4c256dd87997fdc3032300ed5deea1",
       "observed_main_commit": "101c64ef9be86cb7c3502d3eeec498f16e93e7fd",
       "scope": "PR12 minimal PR31 compatibility sync",
-      "phase": "independent_qa",
+      "phase": "completed",
       "cloud_verified": true,
       "ceo_decisions_ingested": 0,
       "pdm": "pdm_theme_pr31",
@@ -23776,7 +23843,131 @@
       "implementation_checkout": "independent_cloud_checkout",
       "manual_dependency_reuse": true,
       "automatic_snapshot_handoff_verified": false,
-      "candidate_commit": "df7af2a205f44e8c76b50e96728685efcc7e57d8"
+      "candidate_commit": "df7af2a205f44e8c76b50e96728685efcc7e57d8",
+      "result": "existing_pr12_updated_independent_qa_passed",
+      "completed_at": "2026-11-24T12:21:18.266593+00:00",
+      "product_changes": true,
+      "product_commit": "df7af2a205f44e8c76b50e96728685efcc7e57d8",
+      "documentation_commit": "e28d70338cbc38ef8827f2a78c0e7c1f6f69c640",
+      "report": "ops/runs/2026-11-24-theme-pr31-compatibility.md",
+      "independent_review": {
+        "pdm": "pdm_theme_pr31",
+        "prm": "root/coordinator",
+        "author": "engineer_theme_pr31",
+        "reviewer": "qa_theme_pr31",
+        "commit": "df7af2a205f44e8c76b50e96728685efcc7e57d8",
+        "result": "passed_pr31_theme_compatibility_and_generator_preservation",
+        "completed_at": "2026-11-24T12:18:07.345277+00:00",
+        "required_suites": 29,
+        "exit_code": 0,
+        "seconds": 368.253,
+        "attempt": 1,
+        "independent_theme_contexts": 2,
+        "independent_science_contexts": 2,
+        "independent_report_contexts": 8,
+        "independent_mock_reports": 8,
+        "generator_contract_probe": "passed_first_attempt",
+        "qa_harness_initial_failures": 0,
+        "diagram_contrast": 6.265720821251096,
+        "checkout_before_after_clean": true,
+        "report": "ops/evidence/2026-11-24-theme-pr31/QA.md"
+      },
+      "required_suites_passed": 29,
+      "required_suites_total": 29,
+      "test_attempt": 1,
+      "new_prs": [],
+      "product_prs_updated": [
+        12
+      ],
+      "operations_pr_updated": 9,
+      "product_waiting_prs": [
+        10,
+        11,
+        12
+      ],
+      "open_pr_observations": [
+        {
+          "pr": 22,
+          "head": "bd4f48de0404614eb84275969bfccff0a368e866",
+          "state": "open",
+          "draft": true,
+          "updated_at": "2026-11-11T12:48:18Z"
+        },
+        {
+          "pr": 13,
+          "head": "139c8b8b56bcd979068b61984120d9f312efe182",
+          "state": "open",
+          "draft": true,
+          "updated_at": "2026-11-10T12:58:57Z"
+        },
+        {
+          "pr": 12,
+          "head": "df7af2a205f44e8c76b50e96728685efcc7e57d8",
+          "state": "open",
+          "draft": true,
+          "updated_at": "2026-11-24T12:18:48Z"
+        },
+        {
+          "pr": 11,
+          "head": "feada5947b237310923f0aa1956487ac8af501af",
+          "state": "open",
+          "draft": true,
+          "updated_at": "2026-11-24T11:37:58Z"
+        },
+        {
+          "pr": 10,
+          "head": "0cd726f558d24999da80c37b1ecdbd2e6090c7bb",
+          "state": "open",
+          "draft": true,
+          "updated_at": "2026-11-24T10:39:17Z"
+        },
+        {
+          "pr": 9,
+          "head": "e28d70338cbc38ef8827f2a78c0e7c1f6f69c640",
+          "state": "open",
+          "draft": true,
+          "updated_at": "2026-11-24T12:18:59Z"
+        },
+        {
+          "pr": 4,
+          "head": "ff211ee8e144e955fa5837e8b8ff5cabf51f60a4",
+          "state": "open",
+          "draft": true,
+          "updated_at": "2026-11-05T07:01:00Z"
+        }
+      ],
+      "external_checks": [
+        {
+          "name": "Workers Builds: yuika-study",
+          "status": "completed",
+          "conclusion": "failure",
+          "head_sha": "df7af2a205f44e8c76b50e96728685efcc7e57d8",
+          "completed_at": "2026-11-24T12:20:11Z",
+          "url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/138439612563"
+        }
+      ],
+      "new_ceo_replies_read": 0,
+      "next_action": "PR10/11/12のPR31互換同期は各固定HEADで独立QA済み。3製品の合成試用判断待ちを維持。次回は最新main/PR/台帳と実読できたCEO返答を照合し、新差分・再現不具合・CEO試用所見があれば既存PR内の範囲を確認する。独立して進められる仕事がなければ同じ実装やQAを反復せず終了する。mainの生成元は未修正、本番merge/公開/実通知は未承認、新規製品PRを増やさない。",
+      "new_obstacles": [],
+      "attachments": [
+        {
+          "pr": 12,
+          "attempts": 1,
+          "result": "tool_did_not_return_before_wait_terminated; success_unverified"
+        },
+        {
+          "pr": 9,
+          "attempts": 1,
+          "result": "tool_did_not_return_before_wait_terminated; success_unverified"
+        }
+      ],
+      "notification": "NO_UPDATE",
+      "lease_released_at": "2026-11-24T12:21:18.266593+00:00",
+      "engineer_verification": "Precommit focused checks with individual exit/timing; expanded generator initial failure diagnosed and second attempt passed. Final timed generator rerun after README clarification passed. Fixed-head independent QA authoritative.",
+      "qa_harness_failures": 0,
+      "main_changed": false,
+      "published": false,
+      "known_external_ci_failure": true
     }
   ],
   "operational_notes": [
@@ -24128,7 +24319,7 @@
       "full_generator_idempotence_verified": false,
       "report": "ops/runs/2026-11-22-theme-lever-main.md",
       "evidence": "ops/evidence/2026-11-22-theme-lever-main/engineer.json",
-      "next_action": "PR10/11のPR31互換同期は各固定HEADで独立QA済み。次回は最新main/PR/lease確認後、PR12自身のテーマ切替・学習状態・図の可読性・生成元を保持するPR31最小互換同期をPdM/PrMで確認。PR10/11固有機能をコピーせず、新規製品PRは増やさない。3製品の合成試用判断待ちと本番merge/公開/実通知の未承認を維持。",
+      "next_action": "PR10/11/12のPR31互換同期は各固定HEADで独立QA済み。3製品の合成試用判断待ちを維持。次回は最新main/PR/台帳と実読できたCEO返答を照合し、新差分・再現不具合・CEO試用所見があれば既存PR内の範囲を確認する。独立して進められる仕事がなければ同じ実装やQAを反復せず終了する。mainの生成元は未修正、本番merge/公開/実通知は未承認、新規製品PRを増やさない。",
       "draft_resolution": {
         "pr": 12,
         "head": "00c4ccb3b501223366a5f0a736567231ea9b8043",
@@ -24184,34 +24375,33 @@
         12
       ],
       "latest_observation": {
-        "head": "feada5947b237310923f0aa1956487ac8af501af",
-        "pr": 11,
-        "report": "ops/runs/2026-11-24-content-pr31-compatibility.md",
-        "scope": "PR11 own science and content preserved through PR31 expanded pipeline; main unresolved"
+        "head": "df7af2a205f44e8c76b50e96728685efcc7e57d8",
+        "pr": 12,
+        "report": "ops/runs/2026-11-24-theme-pr31-compatibility.md",
+        "scope": "PR12 own theme/science preserved through expanded PR31 pipeline; main unresolved"
       }
     },
     {
       "id": "PR31-BASE-SYNC-01",
-      "status": "pending_existing_draft_compatibility",
+      "status": "fixed_in_drafts_only",
       "observed_at": "2026-11-24T09:14:54.911957+00:00",
       "observed_main": "101c64ef9be86cb7c3502d3eeec498f16e93e7fd",
       "finding": "外部PR31により通知対象・途中終了処理・生成順序が変化。既存PR10/11/12との交差9/7/6ファイル。競合/実行不具合は未確定。",
       "report": "ops/runs/2026-11-24-pr31-impact.md",
       "reviewer": "qa_pr31_impact",
-      "next_action": "PR10/11のPR31互換同期は各固定HEADで独立QA済み。次回は最新main/PR/lease確認後、PR12自身のテーマ切替・学習状態・図の可読性・生成元を保持するPR31最小互換同期をPdM/PrMで確認。PR10/11固有機能をコピーせず、新規製品PRは増やさない。3製品の合成試用判断待ちと本番merge/公開/実通知の未承認を維持。",
-      "pending_prs": [
-        12
-      ],
+      "next_action": "PR10/11/12のPR31互換同期は各固定HEADで独立QA済み。3製品の合成試用判断待ちを維持。次回は最新main/PR/台帳と実読できたCEO返答を照合し、新差分・再現不具合・CEO試用所見があれば既存PR内の範囲を確認する。独立して進められる仕事がなければ同じ実装やQAを反復せず終了する。mainの生成元は未修正、本番merge/公開/実通知は未承認、新規製品PRを増やさない。",
+      "pending_prs": [],
       "resolved_draft_prs": [
         10,
-        11
+        11,
+        12
       ],
       "draft_resolution": {
-        "pr": 11,
-        "head": "feada5947b237310923f0aa1956487ac8af501af",
-        "reviewer": "qa_content_pr31",
-        "report": "ops/runs/2026-11-24-content-pr31-compatibility.md",
-        "required_suites": 33
+        "pr": 12,
+        "head": "df7af2a205f44e8c76b50e96728685efcc7e57d8",
+        "reviewer": "qa_theme_pr31",
+        "report": "ops/runs/2026-11-24-theme-pr31-compatibility.md",
+        "required_suites": 29
       },
       "draft_resolutions": [
         {
@@ -24220,6 +24410,13 @@
           "reviewer": "qa_rev_pr31",
           "report": "ops/runs/2026-11-24-review-pr31-compatibility.md",
           "required_suites": 32
+        },
+        {
+          "pr": 11,
+          "head": "feada5947b237310923f0aa1956487ac8af501af",
+          "reviewer": "qa_content_pr31",
+          "report": "ops/runs/2026-11-24-content-pr31-compatibility.md",
+          "required_suites": 33
         }
       ]
     }
@@ -24683,7 +24880,7 @@
         "app_tests_run": false,
         "browser_tests_run": false
       },
-      "next_action": "PR10/11のPR31互換同期は各固定HEADで独立QA済み。次回は最新main/PR/lease確認後、PR12自身のテーマ切替・学習状態・図の可読性・生成元を保持するPR31最小互換同期をPdM/PrMで確認。PR10/11固有機能をコピーせず、新規製品PRは増やさない。3製品の合成試用判断待ちと本番merge/公開/実通知の未承認を維持。",
+      "next_action": "PR10/11/12のPR31互換同期は各固定HEADで独立QA済み。3製品の合成試用判断待ちを維持。次回は最新main/PR/台帳と実読できたCEO返答を照合し、新差分・再現不具合・CEO試用所見があれば既存PR内の範囲を確認する。独立して進められる仕事がなければ同じ実装やQAを反復せず終了する。mainの生成元は未修正、本番merge/公開/実通知は未承認、新規製品PRを増やさない。",
       "pr10_compatibility": {
         "head": "0cd726f558d24999da80c37b1ecdbd2e6090c7bb",
         "report": "ops/runs/2026-11-24-review-pr31-compatibility.md",
@@ -24706,9 +24903,7 @@
         },
         "adopted": false
       },
-      "pending_product_prs": [
-        12
-      ],
+      "pending_product_prs": [],
       "pr11_compatibility": {
         "head": "feada5947b237310923f0aa1956487ac8af501af",
         "report": "ops/runs/2026-11-24-content-pr31-compatibility.md",
@@ -24732,6 +24927,33 @@
           "qa_harness_initial_failures": 2,
           "max_attempts_per_cause": 2,
           "report": "ops/evidence/2026-11-24-content-pr31/QA.md"
+        },
+        "adopted": false
+      },
+      "pr12_compatibility": {
+        "head": "df7af2a205f44e8c76b50e96728685efcc7e57d8",
+        "report": "ops/runs/2026-11-24-theme-pr31-compatibility.md",
+        "qa": {
+          "pdm": "pdm_theme_pr31",
+          "prm": "root/coordinator",
+          "author": "engineer_theme_pr31",
+          "reviewer": "qa_theme_pr31",
+          "commit": "df7af2a205f44e8c76b50e96728685efcc7e57d8",
+          "result": "passed_pr31_theme_compatibility_and_generator_preservation",
+          "completed_at": "2026-11-24T12:18:07.345277+00:00",
+          "required_suites": 29,
+          "exit_code": 0,
+          "seconds": 368.253,
+          "attempt": 1,
+          "independent_theme_contexts": 2,
+          "independent_science_contexts": 2,
+          "independent_report_contexts": 8,
+          "independent_mock_reports": 8,
+          "generator_contract_probe": "passed_first_attempt",
+          "qa_harness_initial_failures": 0,
+          "diagram_contrast": 6.265720821251096,
+          "checkout_before_after_clean": true,
+          "report": "ops/evidence/2026-11-24-theme-pr31/QA.md"
         },
         "adopted": false
       }
