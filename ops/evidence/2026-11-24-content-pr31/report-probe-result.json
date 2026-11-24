@@ -1,0 +1,212 @@
+{
+  "candidate": "feada5947b237310923f0aa1956487ac8af501af",
+  "started_at": "2026-11-24T11:12:49.483573+00:00",
+  "contexts": [
+    {
+      "page": "onin-review.html",
+      "parent": false,
+      "empty_end": true,
+      "cancel_retains_answer_session_no_report": true,
+      "partial_answers": 1,
+      "complete_answers": 5,
+      "captured_reports": 2,
+      "job_count": 2,
+      "duplicate_report_and_reload_stable": true,
+      "events_preserved_on_reload": true,
+      "child_localStorage_byte_preserved": null,
+      "dialogs": [
+        {
+          "accepted": true,
+          "message": "回答済みの記録は残ります。残りの問題はいったんおしまいにしますか？"
+        },
+        {
+          "accepted": false,
+          "message": "回答済みの記録は残ります。残りの問題はいったんおしまいにしますか？"
+        },
+        {
+          "accepted": true,
+          "message": "回答済みの記録は残ります。残りの問題はいったんおしまいにしますか？"
+        }
+      ]
+    },
+    {
+      "page": "onin-review.html",
+      "parent": true,
+      "empty_end": true,
+      "cancel_retains_answer_session_no_report": true,
+      "partial_answers": 1,
+      "complete_answers": 5,
+      "captured_reports": 0,
+      "job_count": 0,
+      "duplicate_report_and_reload_stable": true,
+      "events_preserved_on_reload": true,
+      "child_localStorage_byte_preserved": true,
+      "dialogs": [
+        {
+          "accepted": true,
+          "message": "回答済みの記録は残ります。残りの問題はいったんおしまいにしますか？"
+        },
+        {
+          "accepted": false,
+          "message": "回答済みの記録は残ります。残りの問題はいったんおしまいにしますか？"
+        },
+        {
+          "accepted": true,
+          "message": "回答済みの記録は残ります。残りの問題はいったんおしまいにしますか？"
+        }
+      ]
+    },
+    {
+      "page": "yuika-review-v2.html",
+      "parent": false,
+      "empty_end": true,
+      "cancel_retains_answer_session_no_report": true,
+      "partial_answers": 1,
+      "complete_answers": 5,
+      "captured_reports": 2,
+      "job_count": 2,
+      "duplicate_report_and_reload_stable": true,
+      "events_preserved_on_reload": true,
+      "child_localStorage_byte_preserved": null,
+      "dialogs": [
+        {
+          "accepted": false,
+          "message": "ホームへ移ると、残りの問題はいったんおしまいになります。回答済みの記録は残ります。移動しますか？"
+        }
+      ]
+    },
+    {
+      "page": "yuika-review-v2.html",
+      "parent": true,
+      "empty_end": true,
+      "cancel_retains_answer_session_no_report": true,
+      "partial_answers": 1,
+      "complete_answers": 5,
+      "captured_reports": 0,
+      "job_count": 0,
+      "duplicate_report_and_reload_stable": true,
+      "events_preserved_on_reload": true,
+      "child_localStorage_byte_preserved": true,
+      "dialogs": [
+        {
+          "accepted": false,
+          "message": "ホームへ移ると、残りの問題はいったんおしまいになります。回答済みの記録は残ります。移動しますか？"
+        }
+      ]
+    },
+    {
+      "page": "edo-review.html",
+      "parent": false,
+      "empty_end": true,
+      "cancel_retains_answer_session_no_report": true,
+      "partial_answers": 1,
+      "complete_answers": 5,
+      "captured_reports": 2,
+      "job_count": 2,
+      "duplicate_report_and_reload_stable": true,
+      "events_preserved_on_reload": true,
+      "child_localStorage_byte_preserved": null,
+      "dialogs": [
+        {
+          "accepted": true,
+          "message": "ホームへ移ると、残りの問題はいったんおしまいになります。回答済みの記録は残ります。移動しますか？"
+        },
+        {
+          "accepted": false,
+          "message": "ホームへ移ると、残りの問題はいったんおしまいになります。回答済みの記録は残ります。移動しますか？"
+        },
+        {
+          "accepted": true,
+          "message": "ホームへ移ると、残りの問題はいったんおしまいになります。回答済みの記録は残ります。移動しますか？"
+        }
+      ]
+    },
+    {
+      "page": "edo-review.html",
+      "parent": true,
+      "empty_end": true,
+      "cancel_retains_answer_session_no_report": true,
+      "partial_answers": 1,
+      "complete_answers": 5,
+      "captured_reports": 0,
+      "job_count": 0,
+      "duplicate_report_and_reload_stable": true,
+      "events_preserved_on_reload": true,
+      "child_localStorage_byte_preserved": true,
+      "dialogs": [
+        {
+          "accepted": true,
+          "message": "ホームへ移ると、残りの問題はいったんおしまいになります。回答済みの記録は残ります。移動しますか？"
+        },
+        {
+          "accepted": false,
+          "message": "ホームへ移ると、残りの問題はいったんおしまいになります。回答済みの記録は残ります。移動しますか？"
+        },
+        {
+          "accepted": true,
+          "message": "ホームへ移ると、残りの問題はいったんおしまいになります。回答済みの記録は残ります。移動しますか？"
+        }
+      ]
+    },
+    {
+      "page": "mock-focus-review.html",
+      "parent": false,
+      "empty_end": true,
+      "cancel_retains_answer_session_no_report": true,
+      "partial_answers": 1,
+      "complete_answers": 5,
+      "captured_reports": 2,
+      "job_count": 2,
+      "duplicate_report_and_reload_stable": true,
+      "events_preserved_on_reload": true,
+      "child_localStorage_byte_preserved": null,
+      "dialogs": [
+        {
+          "accepted": true,
+          "message": "回答済みの記録は残ります。残りの問題はいったんおしまいにしますか？"
+        },
+        {
+          "accepted": false,
+          "message": "回答済みの記録は残ります。残りの問題はいったんおしまいにしますか？"
+        },
+        {
+          "accepted": true,
+          "message": "回答済みの記録は残ります。残りの問題はいったんおしまいにしますか？"
+        }
+      ]
+    },
+    {
+      "page": "mock-focus-review.html",
+      "parent": true,
+      "empty_end": true,
+      "cancel_retains_answer_session_no_report": true,
+      "partial_answers": 1,
+      "complete_answers": 5,
+      "captured_reports": 0,
+      "job_count": 0,
+      "duplicate_report_and_reload_stable": true,
+      "events_preserved_on_reload": true,
+      "child_localStorage_byte_preserved": true,
+      "dialogs": [
+        {
+          "accepted": true,
+          "message": "回答済みの記録は残ります。残りの問題はいったんおしまいにしますか？"
+        },
+        {
+          "accepted": false,
+          "message": "回答済みの記録は残ります。残りの問題はいったんおしまいにしますか？"
+        },
+        {
+          "accepted": true,
+          "message": "回答済みの記録は残ります。残りの問題はいったんおしまいにしますか？"
+        }
+      ]
+    }
+  ],
+  "external_requests_aborted": 28,
+  "unexpected_posts": [],
+  "page_errors": [],
+  "result": "passed",
+  "finished_at": "2026-11-24T11:13:08.088566+00:00",
+  "seconds": 18.608
+}

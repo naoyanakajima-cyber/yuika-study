@@ -1,0 +1,12 @@
+{
+  "command": "source scripts/cloud/activate.sh && python /workspace/yuika-ops-cycle233/ops/evidence/2026-11-24-content-pr31/static-review.py /workspace/qa-content-pr31 feada5947b237310923f0aa1956487ac8af501af",
+  "cwd": "/workspace/qa-content-pr31",
+  "head_before": "feada5947b237310923f0aa1956487ac8af501af",
+  "status_before": "",
+  "started_at": "2026-11-24T11:10:52.547370+00:00",
+  "exit_code": 0,
+  "seconds": 0.254,
+  "finished_at": "2026-11-24T11:10:52.801245+00:00",
+  "head_after": "feada5947b237310923f0aa1956487ac8af501af",
+  "status_after": ""
+}

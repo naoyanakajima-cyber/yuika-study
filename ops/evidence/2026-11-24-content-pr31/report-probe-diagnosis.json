@@ -1,0 +1,12 @@
+{
+  "recorded_at": "2026-11-24T11:12:49.243906+00:00",
+  "candidate": "feada5947b237310923f0aa1956487ac8af501af",
+  "first_exit": 1,
+  "first_seconds": 13.575,
+  "type": "QA harness assumed social end semantics for lever",
+  "cause": "PR11 own lever end handler deliberately marks done and renders answered result without confirmation; navigation control provides cancellation contract",
+  "source": "yuika-review-v2.html:3360 navigate and :3386 end handler",
+  "change": "Cancel using actual [data-view=home] navigation in all contexts; after lever partial end verify return button then navigate home. Preserve event/session/report/storage/dedup assertions.",
+  "product_changed": false,
+  "next_attempt": 2
+}

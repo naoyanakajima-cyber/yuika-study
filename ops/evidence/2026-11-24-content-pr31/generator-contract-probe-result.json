@@ -1,0 +1,68 @@
+{
+  "candidate": "feada5947b237310923f0aa1956487ac8af501af",
+  "started_at": "2026-11-24T11:11:17.389910+00:00",
+  "commands": [
+    {
+      "command": [
+        "/workspace/yuika-study/.venv/bin/python",
+        "scripts/edo/build.py"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "seconds": 0.173,
+      "output": ""
+    },
+    {
+      "command": [
+        "/workspace/yuika-study/.venv/bin/python",
+        "scripts/history/embed.py"
+      ],
+      "exit_code": 1,
+      "expected_exit": 1,
+      "seconds": 0.069,
+      "output": "Traceback (most recent call last):\n  File \"/workspace/yuika-ops-cycle233/ops/evidence/2026-11-24-content-pr31/isolated-generator-43u3dkhg/scripts/history/embed.py\", line 38, in <module>\n    assert args.record_editorial and args.reason.strip(), f'{name}/{q[\"id\"]}: 版未登録。文章訂正・別表記追加は --record-editorial --reason、意味変更は新ID'\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: edo-review.html/edo-01: 版未登録。文章訂正・別表記追加は --record-editorial --reason、意味変更は新ID\n"
+    },
+    {
+      "command": [
+        "/workspace/yuika-study/.venv/bin/python",
+        "scripts/history/embed.py",
+        "--record-editorial",
+        "--reason",
+        "Independent disposable same-meaning text fixture"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "seconds": 0.061,
+      "output": ""
+    },
+    {
+      "command": [
+        "/workspace/yuika-study/.venv/bin/python",
+        "notifications/embed.py"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "seconds": 0.033,
+      "output": ""
+    },
+    {
+      "command": [
+        "/workspace/yuika-study/.venv/bin/python",
+        "scripts/parent/embed.py"
+      ],
+      "exit_code": 0,
+      "expected_exit": 0,
+      "seconds": 0.05,
+      "output": ""
+    }
+  ],
+  "question_build_source_applied": true,
+  "unregistered_revision_rejected": true,
+  "editorial_revision_appended_prior_versions_retained": true,
+  "shared_notification_source_applied": true,
+  "parent_boundary_before_entire_report_block": true,
+  "source_checkout_unchanged": true,
+  "result": "passed",
+  "seconds": 0.447,
+  "finished_at": "2026-11-24T11:11:17.834433+00:00"
+}

@@ -1,0 +1,12 @@
+{
+  "command": "source scripts/cloud/activate.sh && python /workspace/yuika-ops-cycle233/ops/evidence/2026-11-24-content-pr31/generator-contract-probe.py /workspace/qa-content-pr31",
+  "cwd": "/workspace/qa-content-pr31",
+  "head_before": "feada5947b237310923f0aa1956487ac8af501af",
+  "status_before": "",
+  "started_at": "2026-11-24T11:11:17.324414+00:00",
+  "exit_code": 0,
+  "seconds": 0.516,
+  "finished_at": "2026-11-24T11:11:17.840948+00:00",
+  "head_after": "feada5947b237310923f0aa1956487ac8af501af",
+  "status_after": ""
+}

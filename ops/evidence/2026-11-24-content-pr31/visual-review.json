@@ -1,0 +1,14 @@
+{
+  "candidate": "feada5947b237310923f0aa1956487ac8af501af",
+  "reviewed_at": "2026-11-24T11:13:15.547505+00:00",
+  "reviewed_images": [
+    "content-image-normal-confirmed.png",
+    "content-image-parent-session-trial.png"
+  ],
+  "viewport": {
+    "width": 768,
+    "height": 1024
+  },
+  "observation": "Visible confirmation/trial/export controls and image question trial result readable with no overlapping controls. Confirmed screenshot is scrolled near lower editor; triangle source itself not visible in these two inspected screenshots. Parent-session trial is intentionally banner-free CONTENT, not evidence of a CONTENT parent runtime. Actual study parent banner entry/return asserted in browser probe.",
+  "limitation": "Only these 2 captured images visually inspected so far; not whole-page or all-question visual QA."
+}

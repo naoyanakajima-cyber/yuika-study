@@ -1,0 +1,65 @@
+{
+  "candidate": "feada5947b237310923f0aa1956487ac8af501af",
+  "started_at": "2026-11-24T11:11:54.215711+00:00",
+  "contexts": [
+    {
+      "page": "onin-review.html",
+      "parent": false,
+      "empty_end": true,
+      "cancel_retains_answer_session_no_report": true,
+      "partial_answers": 1,
+      "complete_answers": 5,
+      "captured_reports": 2,
+      "job_count": 2,
+      "duplicate_report_and_reload_stable": true,
+      "events_preserved_on_reload": true,
+      "child_localStorage_byte_preserved": null,
+      "dialogs": [
+        {
+          "accepted": true,
+          "message": "回答済みの記録は残ります。残りの問題はいったんおしまいにしますか？"
+        },
+        {
+          "accepted": false,
+          "message": "回答済みの記録は残ります。残りの問題はいったんおしまいにしますか？"
+        },
+        {
+          "accepted": true,
+          "message": "回答済みの記録は残ります。残りの問題はいったんおしまいにしますか？"
+        }
+      ]
+    },
+    {
+      "page": "onin-review.html",
+      "parent": true,
+      "empty_end": true,
+      "cancel_retains_answer_session_no_report": true,
+      "partial_answers": 1,
+      "complete_answers": 5,
+      "captured_reports": 0,
+      "job_count": 0,
+      "duplicate_report_and_reload_stable": true,
+      "events_preserved_on_reload": true,
+      "child_localStorage_byte_preserved": true,
+      "dialogs": [
+        {
+          "accepted": true,
+          "message": "回答済みの記録は残ります。残りの問題はいったんおしまいにしますか？"
+        },
+        {
+          "accepted": false,
+          "message": "回答済みの記録は残ります。残りの問題はいったんおしまいにしますか？"
+        },
+        {
+          "accepted": true,
+          "message": "回答済みの記録は残ります。残りの問題はいったんおしまいにしますか？"
+        }
+      ]
+    }
+  ],
+  "external_requests_aborted": 8,
+  "unexpected_posts": [],
+  "page_errors": [],
+  "finished_at": "2026-11-24T11:12:07.224948+00:00",
+  "seconds": 13.014
+}

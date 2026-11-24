@@ -1,0 +1,221 @@
+{
+  "reviewer": "qa_content_pr31",
+  "candidate": "feada5947b237310923f0aa1956487ac8af501af",
+  "verdict": "PASS",
+  "reviewed_at": "2026-11-24T11:17:05.701169+00:00",
+  "required_suite": {
+    "command": "source scripts/cloud/activate.sh && bash scripts/check_all.sh",
+    "cwd": "/workspace/qa-content-pr31",
+    "head_before": "feada5947b237310923f0aa1956487ac8af501af",
+    "status_before": "",
+    "started_at": "2026-11-24T11:10:52.571179+00:00",
+    "exit_code": 0,
+    "seconds": 367.568,
+    "finished_at": "2026-11-24T11:17:00.139137+00:00",
+    "head_after": "feada5947b237310923f0aa1956487ac8af501af",
+    "status_after": "",
+    "suite_count": 33,
+    "passed": 33,
+    "suites": [
+      {
+        "suite": "tests/onin_review.py",
+        "exit_code": 0,
+        "seconds": 4
+      },
+      {
+        "suite": "tests/kamakura_review.py",
+        "exit_code": 0,
+        "seconds": 5
+      },
+      {
+        "suite": "tests/cloud_preview.py",
+        "exit_code": 0,
+        "seconds": 2
+      },
+      {
+        "suite": "notifications/test/worker.test.mjs",
+        "exit_code": 0,
+        "seconds": 0
+      },
+      {
+        "suite": "notifications/test/browser.py",
+        "exit_code": 0,
+        "seconds": 11
+      },
+      {
+        "suite": "tests/study_reports.py",
+        "exit_code": 0,
+        "seconds": 30
+      },
+      {
+        "suite": "tests/cloud_bootstrap.py",
+        "exit_code": 0,
+        "seconds": 2
+      },
+      {
+        "suite": "tests/generator_preservation.py",
+        "exit_code": 0,
+        "seconds": 2
+      },
+      {
+        "suite": "tests/adaptive_practice.py",
+        "exit_code": 0,
+        "seconds": 3
+      },
+      {
+        "suite": "tests/adaptive_daily.py",
+        "exit_code": 0,
+        "seconds": 7
+      },
+      {
+        "suite": "tests/adaptive_quality.py",
+        "exit_code": 0,
+        "seconds": 5
+      },
+      {
+        "suite": "tests/flash_grading.py",
+        "exit_code": 0,
+        "seconds": 8
+      },
+      {
+        "suite": "tests/spaced_daily.py",
+        "exit_code": 0,
+        "seconds": 5
+      },
+      {
+        "suite": "tests/history_compat.py",
+        "exit_code": 0,
+        "seconds": 4
+      },
+      {
+        "suite": "tests/edo.py",
+        "exit_code": 0,
+        "seconds": 16
+      },
+      {
+        "suite": "tests/medaka.py",
+        "exit_code": 0,
+        "seconds": 18
+      },
+      {
+        "suite": "tests/lever.py",
+        "exit_code": 0,
+        "seconds": 5
+      },
+      {
+        "suite": "tests/microscope.py",
+        "exit_code": 0,
+        "seconds": 25
+      },
+      {
+        "suite": "tests/science_adaptive.py",
+        "exit_code": 0,
+        "seconds": 10
+      },
+      {
+        "suite": "tests/registered_answers.py",
+        "exit_code": 0,
+        "seconds": 3
+      },
+      {
+        "suite": "tests/history_review_regression.py",
+        "exit_code": 0,
+        "seconds": 3
+      },
+      {
+        "suite": "tests/state_review_regression.py",
+        "exit_code": 0,
+        "seconds": 4
+      },
+      {
+        "suite": "tests/prototype_storage.py",
+        "exit_code": 0,
+        "seconds": 7
+      },
+      {
+        "suite": "tests/focus_data.py",
+        "exit_code": 0,
+        "seconds": 0
+      },
+      {
+        "suite": "tests/focus_practice.py",
+        "exit_code": 0,
+        "seconds": 12
+      },
+      {
+        "suite": "tests/parent_mode.py",
+        "exit_code": 0,
+        "seconds": 20
+      },
+      {
+        "suite": "tests/design_c.py",
+        "exit_code": 0,
+        "seconds": 20
+      },
+      {
+        "suite": "tests/responsive_subjects.py",
+        "exit_code": 0,
+        "seconds": 120
+      },
+      {
+        "suite": "tests/content_review.py",
+        "exit_code": 0,
+        "seconds": 4
+      },
+      {
+        "suite": "tests/content_guidance.py",
+        "exit_code": 0,
+        "seconds": 2
+      },
+      {
+        "suite": "tests/content_import_guard.py",
+        "exit_code": 0,
+        "seconds": 4
+      },
+      {
+        "suite": "tests/content_trial.py",
+        "exit_code": 0,
+        "seconds": 4
+      },
+      {
+        "suite": "tests/content_image_trial.py",
+        "exit_code": 0,
+        "seconds": 3
+      }
+    ]
+  },
+  "content_probe": {
+    "fresh_browser_contexts": 2,
+    "text_image_cases": 4,
+    "seconds": 8.52,
+    "storage_write_calls": 0,
+    "page_errors": [],
+    "requests_blocked": [
+      {
+        "method": "GET",
+        "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"
+      },
+      {
+        "method": "GET",
+        "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"
+      }
+    ],
+    "actual_parent_study_session_verified": true,
+    "content_has_parent_runtime": false
+  },
+  "independent_reports": {
+    "fresh_contexts": 8,
+    "captured_mock_reports": 8,
+    "seconds": 18.608,
+    "unexpected_posts": [],
+    "page_errors": [],
+    "external_requests_aborted": 28
+  },
+  "generator_contract_probe": "passed",
+  "product_mutations_by_qa": false,
+  "product_test_failures": 0,
+  "qa_harness_initial_failures": 2,
+  "qa_harness_retries": 2,
+  "max_attempts_per_cause": 2,
+  "expected_negative_checks": 1
+}
