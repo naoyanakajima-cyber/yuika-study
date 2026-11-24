@@ -36,8 +36,13 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": null,
-  "updated_at": "2026-11-24T10:22:08.064184+00:00",
+  "lease": {
+    "run_id": "cycle-20261124T110543Z",
+    "acquired_at": "2026-11-24T11:05:43.706791+00:00",
+    "expires_at": "2026-11-24T11:40:43.706791+00:00",
+    "ticket": "CONTENT-MVP"
+  },
+  "updated_at": "2026-11-24T11:05:43.706791+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -23544,6 +23549,16 @@
       "notification": "NO_UPDATE",
       "lease_released_at": "2026-11-24T10:22:08.064184+00:00",
       "engineer_verification_limit": "Focused tests before commit on dirty tree; five-test batch individual exits not captured. Independent fixed-head QA authoritative."
+    },
+    {
+      "id": "cycle-20261124T110543Z",
+      "started_at": "2026-11-24T11:05:43.706791+00:00",
+      "observed_operations_commit": "e0837f8245fad32541f1b0e8ecc0d616e13c6d06",
+      "observed_main_commit": "101c64ef9be86cb7c3502d3eeec498f16e93e7fd",
+      "scope": "PR11 minimal PR31 compatibility sync",
+      "phase": "requirements",
+      "cloud_verified": true,
+      "ceo_decisions_ingested": 0
     }
   ],
   "operational_notes": [
