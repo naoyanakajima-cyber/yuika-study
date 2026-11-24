@@ -16,6 +16,11 @@ for p in ROOT.glob('*.html'):
   if text[b:b+1]=='\n':b+=1
   text=text[:a]+text[b:]
  # Keep charset within the first 1024 bytes and CSP before executable code.
- pos=min(text.lower().index('</head>'), text.lower().index('<script'))
+ # Keep the whole notification block after the storage boundary. Otherwise
+ # notification re-embedding removes a parent runtime nested in that block.
+ positions=[text.lower().index('</head>'), text.lower().index('<script')]
+ if '<!-- YUIKA_REPORTS_BEGIN -->' in text:
+  positions.append(text.index('<!-- YUIKA_REPORTS_BEGIN -->'))
+ pos=min(positions)
  text=text[:pos]+block+'\n'+text[pos:]
  p.write_text(text)

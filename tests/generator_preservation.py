@@ -14,8 +14,13 @@ ROOT = Path(__file__).resolve().parents[1]
 GENERATORS = (
     'scripts/practice/embed.py',
     'scripts/practice/embed_science.py',
+    'scripts/edo/build.py',
+    'scripts/focus/embed.py',
+    'notifications/embed.py',
+    'scripts/practice/embed.py',
     'scripts/history/embed.py',
     'scripts/prototype/embed.py',
+    'scripts/focus/subjects.py',
     'scripts/design/build_summary.py',
     'scripts/design/embed.py',
     'scripts/parent/embed.py',
@@ -47,7 +52,7 @@ def main():
             assert not changed, f'Generator pass {attempt} changed tracked files: {changed}'
             previous = actual
     assert snapshot(ROOT, names) == expected, 'Test modified its source checkout'
-    print('generator_preservation: seven generators preserve all tracked files; second pass unchanged PASS')
+    print('generator_preservation: notification/Edo/focus and existing generators preserve all tracked files; second pass unchanged PASS')
 
 
 if __name__ == '__main__':

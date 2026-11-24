@@ -79,7 +79,7 @@ iPadのSafari・ホーム画面からの起動・別端末では保存領域が�
 
 ## チャレンジごとの自動メール
 
-社会・理科の結果通知に対応しています。初期状態では無効です。Cloudflare WorkersとResendの接続設定後、ページ下部から保護者が有効にします。失敗時は保留し、次回起動時などに同じ通知IDで再試行します。送信先・APIキーは公開HTMLには保存しません。
+チャレンジの結果通知に対応しています。初期状態では無効です。Cloudflare WorkersとResendの接続設定後、ページ下部から保護者が有効にします。失敗時は保留し、次回起動時などに同じ通知IDで再試行します。送信先・APIキーは公開HTMLには保存しません。
 
 [接続手順・検証方法](notifications/README.md)
 
@@ -171,7 +171,7 @@ iPadのSafari・ホーム画面からの起動・別端末では保存領域が�
 弱点・再確認は問題IDごとに判定します。別問題の正解でほかの問題を習得済みにしません。
 記録は `yuika-prototype-v1:study-mock-focus-v1` に隔離し、問題版付きのJSON入出力に対応します。
 既存ID・履歴・保存先は維持します。再確認の1・3・7日は既存と同じ**仮案**です。
-この新単元には通知処理を入れていません。問題ページは外部読込みなしで使えます。
+問題ページはオフラインで使えます。自動メールに接続した端末では、回答済みの結果をチャレンジ終了時に通知します。
 学習帳の既存React/Babel読込みは従来どおりです。
 
 編集元は `scripts/focus/questions.json`。氏名などの項目は設けず、重点分野だけを持ちます。
@@ -181,6 +181,7 @@ iPadのSafari・ホーム画面からの起動・別端末では保存領域が�
 ```bash
 source scripts/cloud/activate.sh
 python scripts/focus/embed.py
+python notifications/embed.py
 python scripts/practice/embed.py
 python scripts/history/embed.py
 python scripts/prototype/embed.py
@@ -284,6 +285,8 @@ Safari/WebKit・iPad実機の確認は含みません。
 
 #28の2段階回答を再利用し、まず文字入力、まちがえたときだけ選択肢で再回答します。年代順は6つの記号を入力します。自力正解・選択肢正解・不正解と最初の回答を分けて保存し、選択肢正解は自力正解になるまで弱点・再確認に残ります。今日の5問とホームの件数も同じ復習判定を使います。1・3・7日の再確認間隔は既存の仮案です。
 
-保存キーは `yuika-prototype-v1:yuika-social-edo-v1`、問題IDは `edo-01〜22`、各問に概念ID・版番号・根拠/解説があります。既存単元のキー・問題・履歴は変更しません。このページには通知を接続していません。
+保存キーは `yuika-prototype-v1:yuika-social-edo-v1`、問題IDは `edo-01〜22`、各問に概念ID・版番号・根拠/解説があります。既存単元のキー・問題・履歴は変更しません。自動メールに接続した端末では、回答済みの結果をチャレンジ終了時に通知します。
 
-再生成は `python scripts/edo/build.py` → `python scripts/history/embed.py` → `python scripts/design/build_summary.py` → `python scripts/design/embed.py` → `python scripts/parent/embed.py`。専用テストは `python tests/edo.py`、全体テストは `bash scripts/check_all.sh` です。
+再生成は `python scripts/edo/build.py` → `python notifications/embed.py` → `python scripts/history/embed.py` → `python scripts/design/build_summary.py` → `python scripts/design/embed.py` → `python scripts/parent/embed.py`。専用テストは `python tests/edo.py`、全体テストは `bash scripts/check_all.sh` です。
+
+江戸の生成元は既存の江戸HTMLをテンプレートとして問題定義を更新します。理科専用のてこ処理を混入させないため、理科・prototypeのアダプター変更は江戸への適用可否を確認して明示的に同期します。通知・履歴・共通デザイン・親モード境界は上記の共有生成元から再埋め込みします。

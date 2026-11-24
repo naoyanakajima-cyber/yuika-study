@@ -107,14 +107,13 @@ try:
     assert p.evaluate('window.__opened.length')==0
     p.wait_for_function("()=>JSON.parse(YuikaParent.storage.getItem('yuika_sessions')||'[]').length===1")
     p.reload();assert p.evaluate("JSON.parse(YuikaParent.storage.getItem('yuika_sessions')).length")==1
-   if app!='mock-focus-review.html':
-    p.evaluate('''c=>{YuikaParent.storage.setItem('yuika-mail-config-v1',JSON.stringify(c));YuikaParent.storage.setItem('yuika-mail-job-v1:sandbox-pending',JSON.stringify({id:'sandbox-pending',status:'pending',endpoint:c.endpoint,recipient:c.recipient,nextAttempt:0,report:{id:'sandbox-pending'}}));}''',CONFIG)
-    queue_before=p.evaluate("YuikaParent.storage.getItem('yuika-mail-job-v1:sandbox-pending')")
-    p.evaluate("YuikaReports.enqueue({id:'sandbox-report'})")
-    p.evaluate("window.dispatchEvent(new Event('online'));document.dispatchEvent(new Event('visibilitychange'))")
-    p.locator('#yuika-mail-form').evaluate("f=>f.dispatchEvent(new Event('submit',{cancelable:true}))")
-    assert p.evaluate("YuikaParent.storage.getItem('yuika-mail-job-v1:sandbox-pending')")==queue_before
-    assert p.evaluate("YuikaParent.storage.getItem('yuika-mail-job-v1:sandbox-report')") is None
+   p.evaluate('''c=>{YuikaParent.storage.setItem('yuika-mail-config-v1',JSON.stringify(c));YuikaParent.storage.setItem('yuika-mail-job-v1:sandbox-pending',JSON.stringify({id:'sandbox-pending',status:'pending',endpoint:c.endpoint,recipient:c.recipient,nextAttempt:0,report:{id:'sandbox-pending'}}));}''',CONFIG)
+   queue_before=p.evaluate("YuikaParent.storage.getItem('yuika-mail-job-v1:sandbox-pending')")
+   p.evaluate("YuikaReports.enqueue({id:'sandbox-report'})")
+   p.evaluate("window.dispatchEvent(new Event('online'));document.dispatchEvent(new Event('visibilitychange'))")
+   p.locator('#yuika-mail-form').evaluate("f=>f.dispatchEvent(new Event('submit',{cancelable:true}))")
+   assert p.evaluate("YuikaParent.storage.getItem('yuika-mail-job-v1:sandbox-pending')")==queue_before
+   assert p.evaluate("YuikaParent.storage.getItem('yuika-mail-job-v1:sandbox-report')") is None
    assert not calls,calls
    assert any('通知を送信しません' in m for m in logs)
    assert p.evaluate('JSON.stringify(Object.fromEntries(Object.entries(localStorage).sort()))')==before
@@ -128,7 +127,7 @@ try:
    phase='normal-after-exit'
    assert p.evaluate("Object.keys(sessionStorage).filter(k=>k.startsWith('yuika-parent-check-v1')).length")==0
    assert p.locator('#parent-check-banner').count()==0
-   if app not in ('index.html','mock-focus-review.html'):
+   if app!='index.html':
     p.evaluate("YuikaReports.enqueue({id:'normal-mock-report'})")
     p.wait_for_function("()=>JSON.parse(localStorage.getItem('yuika-mail-job-v1:normal-mock-report')||'null')?.status==='accepted'")
     assert calls
