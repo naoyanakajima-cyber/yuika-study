@@ -36,8 +36,13 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": null,
-  "updated_at": "2026-11-24T09:14:54.911957+00:00",
+  "lease": {
+    "run_id": "cycle-20261124T100555Z",
+    "acquired_at": "2026-11-24T10:05:55.334261+00:00",
+    "expires_at": "2026-11-24T10:40:55.334261+00:00",
+    "ticket": "REV-MVP"
+  },
+  "updated_at": "2026-11-24T10:05:55.334261+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -23350,6 +23355,16 @@
       "notification": "NO_UPDATE",
       "lease_released_at": "2026-11-24T09:14:54.911957+00:00",
       "verification_scope": "Fixed Git source/stat/merge-base/tree/overlap and current main/open PR metadata. Product/browser/generator tests not run; prior product tests and PR31 author claims are historical evidence only."
+    },
+    {
+      "id": "cycle-20261124T100555Z",
+      "started_at": "2026-11-24T10:05:55.334261+00:00",
+      "observed_operations_commit": "4ac34c7a58f2f6c76c33b6728b241574837218d5",
+      "observed_main_commit": "101c64ef9be86cb7c3502d3eeec498f16e93e7fd",
+      "scope": "PR10 minimal PR31 compatibility sync",
+      "phase": "requirements",
+      "cloud_verified": true,
+      "ceo_decisions_ingested": 0
     }
   ],
   "operational_notes": [
