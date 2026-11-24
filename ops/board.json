@@ -42,7 +42,7 @@
     "expires_at": "2026-11-24T11:40:43.706791+00:00",
     "ticket": "CONTENT-MVP"
   },
-  "updated_at": "2026-11-24T11:05:43.706791+00:00",
+  "updated_at": "2026-11-24T11:07:10.641425+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -23556,9 +23556,20 @@
       "observed_operations_commit": "e0837f8245fad32541f1b0e8ecc0d616e13c6d06",
       "observed_main_commit": "101c64ef9be86cb7c3502d3eeec498f16e93e7fd",
       "scope": "PR11 minimal PR31 compatibility sync",
-      "phase": "requirements",
+      "phase": "in_progress",
       "cloud_verified": true,
-      "ceo_decisions_ingested": 0
+      "ceo_decisions_ingested": 0,
+      "pdm": "pdm_content_pr31",
+      "prm": "root/coordinator",
+      "engineer": "engineer_content_pr31",
+      "reviewer": "qa_content_pr31",
+      "subagents_started": 3,
+      "prm_scope_accepted": true,
+      "base_product_head": "3920f1642692c88a8d6870480bc3f98f71558d24",
+      "acceptance": "Preserve PR11 content confirmation/edit invalidation/JSON/text-image nonpersistent trial and own history, integrate PR31 notification lifecycle and generation preservation; no PR10 feature copy",
+      "implementation_checkout": "independent_cloud_checkout",
+      "manual_dependency_reuse": true,
+      "automatic_snapshot_handoff_verified": false
     }
   ],
   "operational_notes": [
