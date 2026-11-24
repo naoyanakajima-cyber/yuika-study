@@ -1,0 +1,485 @@
+{
+  "head": "df7af2a205f44e8c76b50e96728685efcc7e57d8",
+  "cases": [
+    {
+      "mode": "normal",
+      "question_types": [
+        "text",
+        "choice",
+        "text",
+        "choice",
+        "text"
+      ],
+      "events_after_reload": 5,
+      "theme_restored_after_reload": "kamakura",
+      "stages": "input/selection,hint,graded,result",
+      "theme_notification_calls": 0,
+      "child_local_storage_unchanged": null,
+      "lever_comparisons": [
+        {
+          "theme_key": "standard",
+          "diagram_equal_baseline": true
+        },
+        {
+          "theme_key": "kamakura",
+          "diagram_equal_baseline": true
+        },
+        {
+          "theme_key": "standard",
+          "diagram_equal_baseline": true
+        }
+      ],
+      "lever_labels": {
+        "lever-01": [
+          {
+            "text": "40 g",
+            "fill": "rgb(23, 62, 54)",
+            "font": "21px",
+            "weight": "700",
+            "x": 59.11250305175781,
+            "y": 100.5374755859375,
+            "width": 43.62498474121094,
+            "height": 31
+          },
+          {
+            "text": "40 g",
+            "fill": "rgb(23, 62, 54)",
+            "font": "21px",
+            "weight": "700",
+            "x": 561.2625122070312,
+            "y": 100.5374755859375,
+            "width": 43.625,
+            "height": 31
+          }
+        ],
+        "lever-27": [
+          {
+            "text": "支点",
+            "fill": "rgb(23, 62, 54)",
+            "font": "21px",
+            "weight": "700",
+            "x": 59.15667724609375,
+            "y": 110.90972900390625,
+            "width": 43.765716552734375,
+            "height": 31
+          },
+          {
+            "text": "ばねばかり",
+            "fill": "rgb(23, 62, 54)",
+            "font": "21px",
+            "weight": "700",
+            "x": 528.4370727539062,
+            "y": 7.161865234375,
+            "width": 109.26568603515625,
+            "height": 31
+          },
+          {
+            "text": "? g",
+            "fill": "rgb(23, 62, 54)",
+            "font": "21px",
+            "weight": "700",
+            "x": 513.52099609375,
+            "y": 42.4361572265625,
+            "width": 29.12841796875,
+            "height": 31
+          },
+          {
+            "text": "30 g",
+            "fill": "rgb(23, 62, 54)",
+            "font": "21px",
+            "weight": "700",
+            "x": 226.49752807617188,
+            "y": 108.83477783203125,
+            "width": 43.625,
+            "height": 31
+          },
+          {
+            "text": "16 g",
+            "fill": "rgb(23, 62, 54)",
+            "font": "21px",
+            "weight": "700",
+            "x": 435.7224426269531,
+            "y": 108.83477783203125,
+            "width": 43.624969482421875,
+            "height": 31
+          },
+          {
+            "text": "4 cm",
+            "fill": "rgb(23, 62, 54)",
+            "font": "21px",
+            "weight": "700",
+            "x": 139.4950714111328,
+            "y": 187.68316650390625,
+            "width": 50.25001525878906,
+            "height": 31
+          },
+          {
+            "text": "9 cm",
+            "fill": "rgb(23, 62, 54)",
+            "font": "21px",
+            "weight": "700",
+            "x": 244.10751342773438,
+            "y": 222.95745849609375,
+            "width": 50.25,
+            "height": 31
+          },
+          {
+            "text": "12 cm",
+            "fill": "rgb(23, 62, 54)",
+            "font": "21px",
+            "weight": "700",
+            "x": 300.4609375,
+            "y": 258.231689453125,
+            "width": 63.078125,
+            "height": 31
+          }
+        ],
+        "lever-28": [
+          {
+            "text": "ばねばかり",
+            "fill": "rgb(23, 62, 54)",
+            "font": "21px",
+            "weight": "700",
+            "x": 361.0577697753906,
+            "y": 7.16204833984375,
+            "width": 109.26565551757812,
+            "height": 31
+          },
+          {
+            "text": "45 g",
+            "fill": "rgb(23, 62, 54)",
+            "font": "21px",
+            "weight": "700",
+            "x": 338.8912658691406,
+            "y": 42.43658447265625,
+            "width": 43.625,
+            "height": 31
+          },
+          {
+            "text": "15 g",
+            "fill": "rgb(23, 62, 54)",
+            "font": "21px",
+            "weight": "700",
+            "x": 59.115814208984375,
+            "y": 108.83575439453125,
+            "width": 43.625,
+            "height": 31
+          },
+          {
+            "text": "? g",
+            "fill": "rgb(23, 62, 54)",
+            "font": "21px",
+            "weight": "700",
+            "x": 568.5092163085938,
+            "y": 108.83575439453125,
+            "width": 29.1282958984375,
+            "height": 31
+          },
+          {
+            "text": "6 cm",
+            "fill": "rgb(23, 62, 54)",
+            "font": "21px",
+            "weight": "700",
+            "x": 223.1844482421875,
+            "y": 187.6846923828125,
+            "width": 50.25,
+            "height": 31
+          },
+          {
+            "text": "? cm",
+            "fill": "rgb(23, 62, 54)",
+            "font": "21px",
+            "weight": "700",
+            "x": 475.084228515625,
+            "y": 187.6846923828125,
+            "width": 48.59375,
+            "height": 31
+          }
+        ]
+      }
+    },
+    {
+      "mode": "parent",
+      "question_types": [
+        "text",
+        "choice",
+        "text",
+        "choice",
+        "text"
+      ],
+      "events_after_reload": 5,
+      "theme_restored_after_reload": "kamakura",
+      "stages": "input/selection,hint,graded,result",
+      "theme_notification_calls": 0,
+      "child_local_storage_unchanged": true,
+      "lever_comparisons": [
+        {
+          "theme_key": "standard",
+          "diagram_equal_baseline": true
+        },
+        {
+          "theme_key": "kamakura",
+          "diagram_equal_baseline": true
+        },
+        {
+          "theme_key": "standard",
+          "diagram_equal_baseline": true
+        }
+      ],
+      "lever_labels": {
+        "lever-01": [
+          {
+            "text": "40 g",
+            "fill": "rgb(23, 62, 54)",
+            "font": "21px",
+            "weight": "700",
+            "x": 59.11250305175781,
+            "y": 100.5374755859375,
+            "width": 43.62498474121094,
+            "height": 31
+          },
+          {
+            "text": "40 g",
+            "fill": "rgb(23, 62, 54)",
+            "font": "21px",
+            "weight": "700",
+            "x": 561.2625122070312,
+            "y": 100.5374755859375,
+            "width": 43.625,
+            "height": 31
+          }
+        ],
+        "lever-27": [
+          {
+            "text": "支点",
+            "fill": "rgb(23, 62, 54)",
+            "font": "21px",
+            "weight": "700",
+            "x": 59.15667724609375,
+            "y": 110.90972900390625,
+            "width": 43.765716552734375,
+            "height": 31
+          },
+          {
+            "text": "ばねばかり",
+            "fill": "rgb(23, 62, 54)",
+            "font": "21px",
+            "weight": "700",
+            "x": 528.4370727539062,
+            "y": 7.161865234375,
+            "width": 109.26568603515625,
+            "height": 31
+          },
+          {
+            "text": "? g",
+            "fill": "rgb(23, 62, 54)",
+            "font": "21px",
+            "weight": "700",
+            "x": 513.52099609375,
+            "y": 42.4361572265625,
+            "width": 29.12841796875,
+            "height": 31
+          },
+          {
+            "text": "30 g",
+            "fill": "rgb(23, 62, 54)",
+            "font": "21px",
+            "weight": "700",
+            "x": 226.49752807617188,
+            "y": 108.83477783203125,
+            "width": 43.625,
+            "height": 31
+          },
+          {
+            "text": "16 g",
+            "fill": "rgb(23, 62, 54)",
+            "font": "21px",
+            "weight": "700",
+            "x": 435.7224426269531,
+            "y": 108.83477783203125,
+            "width": 43.624969482421875,
+            "height": 31
+          },
+          {
+            "text": "4 cm",
+            "fill": "rgb(23, 62, 54)",
+            "font": "21px",
+            "weight": "700",
+            "x": 139.4950714111328,
+            "y": 187.68316650390625,
+            "width": 50.25001525878906,
+            "height": 31
+          },
+          {
+            "text": "9 cm",
+            "fill": "rgb(23, 62, 54)",
+            "font": "21px",
+            "weight": "700",
+            "x": 244.10751342773438,
+            "y": 222.95745849609375,
+            "width": 50.25,
+            "height": 31
+          },
+          {
+            "text": "12 cm",
+            "fill": "rgb(23, 62, 54)",
+            "font": "21px",
+            "weight": "700",
+            "x": 300.4609375,
+            "y": 258.231689453125,
+            "width": 63.078125,
+            "height": 31
+          }
+        ],
+        "lever-28": [
+          {
+            "text": "ばねばかり",
+            "fill": "rgb(23, 62, 54)",
+            "font": "21px",
+            "weight": "700",
+            "x": 361.0577697753906,
+            "y": 7.16204833984375,
+            "width": 109.26565551757812,
+            "height": 31
+          },
+          {
+            "text": "45 g",
+            "fill": "rgb(23, 62, 54)",
+            "font": "21px",
+            "weight": "700",
+            "x": 338.8912658691406,
+            "y": 42.43658447265625,
+            "width": 43.625,
+            "height": 31
+          },
+          {
+            "text": "15 g",
+            "fill": "rgb(23, 62, 54)",
+            "font": "21px",
+            "weight": "700",
+            "x": 59.115814208984375,
+            "y": 108.83575439453125,
+            "width": 43.625,
+            "height": 31
+          },
+          {
+            "text": "? g",
+            "fill": "rgb(23, 62, 54)",
+            "font": "21px",
+            "weight": "700",
+            "x": 568.5092163085938,
+            "y": 108.83575439453125,
+            "width": 29.1282958984375,
+            "height": 31
+          },
+          {
+            "text": "6 cm",
+            "fill": "rgb(23, 62, 54)",
+            "font": "21px",
+            "weight": "700",
+            "x": 223.1844482421875,
+            "y": 187.6846923828125,
+            "width": 50.25,
+            "height": 31
+          },
+          {
+            "text": "? cm",
+            "fill": "rgb(23, 62, 54)",
+            "font": "21px",
+            "weight": "700",
+            "x": 475.084228515625,
+            "y": 187.6846923828125,
+            "width": 48.59375,
+            "height": 31
+          }
+        ]
+      }
+    }
+  ],
+  "diagram_contrasts": [
+    {
+      "theme": "standard",
+      "media": "screen",
+      "labels": [
+        {
+          "text": "将軍",
+          "fill": "rgb(255, 255, 255)",
+          "bg": "rgb(143, 79, 60)",
+          "size": "13px",
+          "ratio": 6.265720821251096
+        },
+        {
+          "text": "執権（北条氏）",
+          "fill": "rgb(255, 255, 255)",
+          "bg": "rgb(143, 79, 60)",
+          "size": "13px",
+          "ratio": 6.265720821251096
+        }
+      ]
+    },
+    {
+      "theme": "standard",
+      "media": "print",
+      "labels": [
+        {
+          "text": "将軍",
+          "fill": "rgb(255, 255, 255)",
+          "bg": "rgb(143, 79, 60)",
+          "size": "13px",
+          "ratio": 6.265720821251096
+        },
+        {
+          "text": "執権（北条氏）",
+          "fill": "rgb(255, 255, 255)",
+          "bg": "rgb(143, 79, 60)",
+          "size": "13px",
+          "ratio": 6.265720821251096
+        }
+      ]
+    },
+    {
+      "theme": "kamakura",
+      "media": "screen",
+      "labels": [
+        {
+          "text": "将軍",
+          "fill": "rgb(255, 255, 255)",
+          "bg": "rgb(143, 79, 60)",
+          "size": "13px",
+          "ratio": 6.265720821251096
+        },
+        {
+          "text": "執権（北条氏）",
+          "fill": "rgb(255, 255, 255)",
+          "bg": "rgb(143, 79, 60)",
+          "size": "13px",
+          "ratio": 6.265720821251096
+        }
+      ]
+    },
+    {
+      "theme": "kamakura",
+      "media": "print",
+      "labels": [
+        {
+          "text": "将軍",
+          "fill": "rgb(255, 255, 255)",
+          "bg": "rgb(143, 79, 60)",
+          "size": "13px",
+          "ratio": 6.265720821251096
+        },
+        {
+          "text": "執権（北条氏）",
+          "fill": "rgb(255, 255, 255)",
+          "bg": "rgb(143, 79, 60)",
+          "size": "13px",
+          "ratio": 6.265720821251096
+        }
+      ]
+    }
+  ],
+  "post_requests_or_arrivals": [],
+  "page_errors": [],
+  "external_gets_aborted": 16,
+  "completed_at": "2026-11-24T12:12:18.353438+00:00"
+}
