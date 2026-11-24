@@ -1,5 +1,5 @@
 """Build the offline focus unit using the existing social quiz engine.
-Run this before practice/embed.py, history/embed.py and prototype/embed.py.
+Run this before notifications/embed.py, practice/embed.py, history/embed.py and prototype/embed.py.
 The question file is the editable source; generated HTML stays self-contained.
 """
 import json
@@ -8,7 +8,10 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 qs=json.loads((ROOT/'scripts/focus/questions.json').read_text())
 text=(ROOT/'kamakura-review.html').read_text()
-# Notification integration is deliberately absent from this new mixed-subject unit.
+# Recommended review is a Kamakura/Onin entry, not part of the focus engine.
+text=re.sub(r'\n#recommended-title:focus\{[^}]*\}\n\.recommendation-entry h2\{[^}]*\}\n', '', text)
+text=re.sub(r'\$\{s\.recommended\?`<aside.*?</aside>`:\'\'\}', '', text)
+# Re-embed the shared client after generating this standalone page.
 text=re.sub(r'<!-- YUIKA_REPORTS_BEGIN -->.*?<!-- YUIKA_REPORTS_END -->','',text,flags=re.S)
 for section in ('ADAPTIVE','HISTORY','PROTOTYPE','DESIGN_C'):
  text=re.sub(r'// '+section+r'_START\n.*?// '+section+r'_END\n','',text,flags=re.S)
@@ -42,9 +45,10 @@ function home(){
 ''' +text[end:]
 text=text.replace('<h1 class="question">${esc(promptOf(q,v))}</h1>','<h1 class="question">${esc(promptOf(q,v))}</h1>${focusMaterial(q)}')
 text=text.replace('<p>③ 覚え方：${esc(q.pitfall)}</p>','<p>③ 考え方・根拠：${esc(q.basis)}</p>')
-# Remove the inherited completion report; no outbound code is included.
-text=re.sub(r'window.YuikaReports.enqueue\(.*?\);main.innerHTML=', 'main.innerHTML=',text)
-text=text.replace('connect-src https://*.workers.dev','connect-src \'none\'')
+text=text.replace("app:'social',subject:'社会',unit:'540-25 鎌倉幕府の成立',mode:MODES[run.mode]+(run.variant!=='normal'?'・'+VARIANTS[run.variant]+'確認':'')",
+ "app:'legacy',subject:[...new Set(es.map(e=>Q.get(e.questionId).subject))].join('・'),unit:'模試の弱点対策',mode:modeLabel(es[0])")
+text=text.replace("question:e.question,response:e.response,expected:e.expected,explanation:e.explanation,correct:e.correct,hint:e.hint,mode:modeLabel(e)",
+ "question:e.unit+'：'+e.question,response:e.response,expected:e.expected,explanation:e.explanation,correct:e.correct,hint:e.hint,mode:modeLabel(e)")
 text=text.replace('ゆいかの社会','学習ノート').replace('社会ノート','学習ノート').replace('ゆいか','みんな')
 text=text.replace('鎌倉幕府の成立','模試の弱点対策').replace('540-25','重点分野').replace('kamakura','mock-focus')
 text=text.replace('自動メールに接続した場合だけ、チャレンジ結果を送信サーバー経由で保護者へ送ります。','')

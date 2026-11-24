@@ -153,7 +153,7 @@ function exportPending(){const pending=jobs().filter(j=>j.report).map(j=>({id:j.
 function endpoint(value){const u=new URL(value);if(u.protocol!=='https:'||!u.hostname.endsWith('.workers.dev')||u.username||u.password||u.port||u.search||u.hash||u.pathname!=='/')throw Error('設定したCloudflare Workerの https://〜.workers.dev のURLを入力してください。');return u.origin;}
 function mount(){
  const wrap=document.createElement('section');wrap.style.cssText='max-width:944px;margin:20px auto;padding:16px;font:13px/1.7 system-ui;color:#394d43';
- wrap.innerHTML='<p id="yuika-mail-status" role="status" aria-live="polite"></p><details><summary style="cursor:pointer">保護者：チャレンジ結果の自動メール</summary><p>接続すると、社会・理科のチャレンジ終了時に、今回の正誤・回答・ヒント等を登録した保護者へ送ります。自由記述は送信しません。以前の単元で記録していない項目は補いません。過去の履歴の一括送信はしません。</p><p>iPadでアプリを閉じている間は再送できません。未送信分は、次に開いたときに再試行します。通知を停止しても学習記録は消しません。</p><form id="yuika-mail-form"><label style="display:block">送信サーバーURL<input id="yuika-mail-url" type="url" required placeholder="https://〜.workers.dev" style="display:block;width:100%;box-sizing:border-box;padding:10px"></label><label style="display:block">この端末の接続キー<input id="yuika-mail-token" type="password" required minlength="32" autocomplete="off" style="display:block;width:100%;box-sizing:border-box;padding:10px"></label><p>メールサービスのAPIキーはここに入れません。接続キーは公開サイトやGitHubに書き込まず、この端末だけに保存します。</p><button type="submit" style="padding:10px;min-height:44px">接続を確認して有効にする</button> <button id="yuika-mail-stop" type="button" style="padding:10px;min-height:44px">自動メールを停止</button> <button id="yuika-mail-retry" type="button" style="padding:10px;min-height:44px">保留分を確認・再試行</button> <button id="yuika-mail-export" type="button" style="padding:10px;min-height:44px">保留通知をJSONで保全</button></form></details>';
+ wrap.innerHTML='<p id="yuika-mail-status" role="status" aria-live="polite"></p><details><summary style="cursor:pointer">保護者：チャレンジ結果の自動メール</summary><p>接続すると、チャレンジ終了時に、今回の正誤・回答・ヒント等を登録した保護者へ送ります。自由記述は送信しません。以前の単元で記録していない項目は補いません。過去の履歴の一括送信はしません。</p><p>iPadでアプリを閉じている間は再送できません。未送信分は、次に開いたときに再試行します。通知を停止しても学習記録は消しません。</p><form id="yuika-mail-form"><label style="display:block">送信サーバーURL<input id="yuika-mail-url" type="url" required placeholder="https://〜.workers.dev" style="display:block;width:100%;box-sizing:border-box;padding:10px"></label><label style="display:block">この端末の接続キー<input id="yuika-mail-token" type="password" required minlength="32" autocomplete="off" style="display:block;width:100%;box-sizing:border-box;padding:10px"></label><p>メールサービスのAPIキーはここに入れません。接続キーは公開サイトやGitHubに書き込まず、この端末だけに保存します。</p><button type="submit" style="padding:10px;min-height:44px">接続を確認して有効にする</button> <button id="yuika-mail-stop" type="button" style="padding:10px;min-height:44px">自動メールを停止</button> <button id="yuika-mail-retry" type="button" style="padding:10px;min-height:44px">保留分を確認・再試行</button> <button id="yuika-mail-export" type="button" style="padding:10px;min-height:44px">保留通知をJSONで保全</button></form></details>';
  document.body.append(wrap);
  const cfg=config();if(cfg?.endpoint)document.getElementById('yuika-mail-url').value=cfg.endpoint;
  document.getElementById('yuika-mail-form').onsubmit=async e=>{e.preventDefault();if(window.YuikaParent.suppress())return;const button=e.submitter;if(button)button.disabled=true;try{
@@ -3359,6 +3359,7 @@ function analysisData(){
 }
 function navigate(next){
  if(session&&!session.done&&view==='quiz'&&next!=='quiz'&&!confirm('ホームへ移ると、残りの問題はいったんおしまいになります。回答済みの記録は残ります。移動しますか？'))return;
+ if(session&&!session.done&&view==='quiz'&&next!=='quiz')reportSession();
  if(next!=='quiz')session=null;view=next;render();main.focus();window.scrollTo(0,0);
 }
 function navState(){document.querySelectorAll('[data-view]').forEach(b=>b.setAttribute('aria-current',b.dataset.view===view?'page':'false'));}
@@ -3413,9 +3414,15 @@ function answerTagFact(e){
  const label=e.type==='number'?'入力した値に登録されたタグ':'選んだ選択肢のタグ';
  return `<p>${label}：${esc(e.answerTag)}</p>`;
 }
+function reportSession(){
+ const s=session;
+ if(!s.results.length)return;
+ const ok=s.results.filter(e=>e.correct).length;
+ window.YuikaReports.enqueue({version:1,id:'science:'+s.id,app:'science',subject:'理科',unit:[...new Set(s.results.map(e=>e.unit))].join('、'),mode:MODES[s.mode],completedAt:s.results.at(-1).answeredAt,total:s.results.length,correct:ok,detail:'full',answers:s.results.map(e=>({question:e.unit+'：'+e.question,response:e.inputRaw+recordUnit(e),expected:String(e.expected)+recordUnit(e),explanation:e.explanation,correct:e.correct,hint:e.hintUsed,mode:MODES[e.mode]}))});
+}
 function result(){
  const s=session,ok=s.results.filter(e=>e.correct).length;
- window.YuikaReports.enqueue({version:1,id:'science:'+s.id,app:'science',subject:'理科',unit:[...new Set(s.results.map(e=>e.unit))].join('、'),mode:MODES[s.mode],completedAt:s.results.at(-1).answeredAt,total:s.results.length,correct:ok,detail:'full',answers:s.results.map(e=>({question:e.unit+'：'+e.question,response:e.inputRaw+recordUnit(e),expected:String(e.expected)+recordUnit(e),explanation:e.explanation,correct:e.correct,hint:e.hintUsed,mode:MODES[e.mode]}))});
+ reportSession();
  main.innerHTML=`<div class="quiz card"><div class="result"><div class="eyebrow">TODAY’S DISCOVERY</div><h1>おつかれさま、ゆいか！</h1><p>最後まで考えたことが、次につながるよ。</p><strong>${ok}<small> / ${s.results.length}問 正解</small></strong><p class="muted">今回はヒントを${s.results.filter(e=>e.hintUsed).length}問で見ました。</p></div>${s.results.some(e=>isLever(byId.get(e.questionId)))?`<section id="lever-learning"><h2>わかったこと</h2><ul>${[...new Set(s.results.map(e=>historicalQuestion(e)?.steps?.at(-1)).filter(Boolean))].map(text=>`<li>${esc(text)}</li>`).join('')}</ul></section>`:''}${s.results.map(e=>`<div class="listline"><span class="badge">${e.correct?'できた':'また思い出そう'}</span> ${esc(e.question)}</div>`).join('')}<div class="actions"><button class="primary" id="return">ホームへ戻る</button><button id="parent">保護者のノート</button></div></div>`;
  document.getElementById('return').onclick=()=>navigate('home');document.getElementById('parent').onclick=()=>navigate('analysis');
 }
