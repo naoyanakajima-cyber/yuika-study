@@ -27,6 +27,7 @@ run tests/kamakura_review.py python tests/kamakura_review.py
 run tests/cloud_preview.py python tests/cloud_preview.py
 run notifications/test/worker.test.mjs node --test notifications/test/worker.test.mjs
 run notifications/test/browser.py python notifications/test/browser.py
+run tests/study_reports.py python tests/study_reports.py
 run tests/cloud_bootstrap.py python tests/cloud_bootstrap.py
 run tests/adaptive_practice.py python tests/adaptive_practice.py
 run tests/adaptive_daily.py python tests/adaptive_daily.py

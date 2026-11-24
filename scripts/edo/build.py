@@ -1,5 +1,5 @@
 """Reuse task 18's validated two-stage engine with a separate social dataset/key.
-Run this before history, summary, design, and parent embedding.
+Run this before notification, history, summary, design, and parent embedding.
 """
 import json,re,sys
 from pathlib import Path
@@ -18,9 +18,14 @@ s=s.replace('理科','社会').replace('メダカの入力・図問題','この�
 s=s.replace('像（ぞう）はレンズを通して見える姿、視野（しや）はのぞいたときに見える範囲です。','年号・政治のしくみ・外交を確かめよう。')
 s=s.replace('ヒントを見てもだいじょうぶ。解説まで読んでみよう。','まず自分で答え、まちがえたら選択肢で再挑戦しよう。')
 s=re.sub(r'<svg class="art".*?</svg>','',s,flags=re.S)
-# No new notification integration; the existing apps and configuration stay intact.
+# Re-embed the shared client after generating this standalone page.
 s=re.sub(r'<!-- YUIKA_REPORTS_BEGIN -->.*?<!-- YUIKA_REPORTS_END -->','',s,flags=re.S)
-s=re.sub(r'^ window.YuikaReports.enqueue\(.*\n','',s,flags=re.M)
+s=re.sub(r"^ window.YuikaReports.enqueue\(.*\n", lambda m:
+ m[0].replace("id:'science:'","id:'edo:'").replace("app:'science'","app:'social'")
+ .replace("unit:[...new Set(s.results.map(e=>e.unit))].join('、')","unit:s.results[0].unit")
+ .replace("question:e.unit+'：'+e.question","question:e.question")
+ .replace("e.inputRaw+recordUnit(e)","e.inputRaw").replace("String(e.expected)+recordUnit(e)","String(e.expected)"),
+ s,flags=re.M)
 s=re.sub(r'function medakaDiagram\(q\)\{.*?\n\}\n','',s,flags=re.S)
 s=s.replace("q.diagram?medakaDiagram(q):",'')
 s=s.replace("subject:'社会',code:'水溶液／顕微鏡'", "subject:'社会',code:'江戸時代'")

@@ -12,7 +12,7 @@ assert validate(qs)==46
 assert {s:sum(q['subject']==s for q in qs) for s in ('社会','理科','算数','国語')}=={'社会':21,'理科':14,'算数':6,'国語':5}
 html=(ROOT/'mock-focus-review.html').read_text()
 embedded=json.loads(re.search(r'const QUESTIONS=(\[.*?\n\]);',html,re.S)[1]);assert embedded==qs
-assert 'YuikaReports' not in html and "connect-src 'none'" in html
+assert "connect-src https://*.workers.dev;" in html
 archive=json.loads((ROOT/'scripts/history/revisions.json').read_text())['mock-focus-review.html']
 for q in qs: assert archive[q['id']][-1]['question']==q
 # Prove the guard rejects each required failure category, including nested text.
