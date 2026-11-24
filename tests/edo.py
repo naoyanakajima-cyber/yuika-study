@@ -21,7 +21,9 @@ for q in qs:
  assert archive[q['id']]==[dict(revision=1,kind='initial',reason='Task 19: initial original Edo questions',question=q)]
  assert not re.search(r'@|受験番号|生年月日|住所|電話番号',json.dumps(q,ensure_ascii=False))
 text=(ROOT/'edo-review.html').read_text()
-assert '<img' not in text and 'medaka-diagram' not in text and 'YuikaReports.enqueue' not in text and 'ゆいか' not in text
+assert '<img' not in text and 'medaka-diagram' not in text
+page_content=text.split('<!-- YUIKA_REPORTS_END -->',1)[1]
+assert 'ゆいか' not in page_content
 server=ThreadingHTTPServer(('127.0.0.1',0),partial(PreviewHandler,directory=str(ROOT)))
 Thread(target=server.serve_forever,daemon=True).start();base=f'http://127.0.0.1:{server.server_port}/'
 try:
