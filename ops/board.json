@@ -37,12 +37,12 @@
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
   "lease": {
-    "run_id": "cycle-20261126T180605Z",
-    "acquired_at": "2026-11-26T18:06:05.558160+00:00",
-    "expires_at": "2026-11-26T18:41:05.558160+00:00",
-    "ticket": "reconciliation"
+    "run_id": "cycle-20261126T201205Z",
+    "acquired_at": "2026-11-26T20:12:05.570878+00:00",
+    "expires_at": "2026-11-26T20:47:05.570878+00:00",
+    "ticket": "reconciliation-recovery"
   },
-  "updated_at": "2026-11-26T18:06:05.558160+00:00",
+  "updated_at": "2026-11-26T20:12:05.570878+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -29604,6 +29604,16 @@
       "observed_operations_commit": "1a3848698f7fc69fedb3e0a4746ed9e4b938ff1a",
       "observed_main_commit": "101c64ef9be86cb7c3502d3eeec498f16e93e7fd",
       "scope": "post-compatibility reconciliation; no product change identified",
+      "phase": "reconciliation",
+      "cloud_verified": true,
+      "ceo_decisions_ingested": 0
+    },
+    {
+      "id": "cycle-20261126T201205Z",
+      "started_at": "2026-11-26T20:12:05.570878+00:00",
+      "observed_operations_commit": "9c830604b855903fab039c0c063c3f58b2c71831",
+      "observed_main_commit": "101c64ef9be86cb7c3502d3eeec498f16e93e7fd",
+      "scope": "Recover interrupted ledger save and reconcile unchanged product PRs",
       "phase": "reconciliation",
       "cloud_verified": true,
       "ceo_decisions_ingested": 0
