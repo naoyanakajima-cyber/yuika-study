@@ -36,13 +36,8 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": {
-    "run_id": "cycle-20261126T201205Z",
-    "acquired_at": "2026-11-26T20:12:05.570878+00:00",
-    "expires_at": "2026-11-26T20:47:05.570878+00:00",
-    "ticket": "reconciliation-recovery"
-  },
-  "updated_at": "2026-11-26T20:12:05.570878+00:00",
+  "lease": null,
+  "updated_at": "2026-11-26T20:13:10.753999+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -29604,9 +29599,20 @@
       "observed_operations_commit": "1a3848698f7fc69fedb3e0a4746ed9e4b938ff1a",
       "observed_main_commit": "101c64ef9be86cb7c3502d3eeec498f16e93e7fd",
       "scope": "post-compatibility reconciliation; no product change identified",
-      "phase": "reconciliation",
+      "phase": "interrupted",
       "cloud_verified": true,
-      "ceo_decisions_ingested": 0
+      "ceo_decisions_ingested": 0,
+      "result": "cloud_executor_disconnected_before_completion_save",
+      "product_changes": false,
+      "product_tests_run": false,
+      "subagents_started": 0,
+      "new_ceo_replies_read": 0,
+      "new_obstacles": [
+        "Cloud exec transport disconnected during final main read; completion and lease release were not saved. Subsequent GitHub create_blob attempt did not return before runtime replacement; no tree/commit/ref update was issued."
+      ],
+      "reconciled_at": "2026-11-26T20:13:10.753999+00:00",
+      "recovered_by": "cycle-20261126T201205Z",
+      "lease_recovery": "Expired lease superseded by a new normally pushed lease; previous run is not counted as completed."
     },
     {
       "id": "cycle-20261126T201205Z",
@@ -29614,9 +29620,114 @@
       "observed_operations_commit": "9c830604b855903fab039c0c063c3f58b2c71831",
       "observed_main_commit": "101c64ef9be86cb7c3502d3eeec498f16e93e7fd",
       "scope": "Recover interrupted ledger save and reconcile unchanged product PRs",
-      "phase": "reconciliation",
+      "phase": "completed",
       "cloud_verified": true,
-      "ceo_decisions_ingested": 0
+      "ceo_decisions_ingested": 0,
+      "product_changes": false,
+      "product_tests_run": false,
+      "subagents_started": 0,
+      "independent_review_this_run": "not_required_no_product_or_spec_change",
+      "new_ceo_replies_read": 0,
+      "product_waiting_prs": [
+        10,
+        11,
+        12
+      ],
+      "new_prs": [],
+      "product_prs_updated": [],
+      "operations_pr_updated": 9,
+      "previous_verification": {
+        "source_run": "cycle-20261124T120549Z",
+        "rerun": false,
+        "heads_match_existing_independent_qa": true,
+        "pr10_suites": 32,
+        "pr11_suites": 33,
+        "pr12_suites": 29
+      },
+      "known_limitations": [
+        "Workers build failure remains distinct from cloud QA; not retried",
+        "Shared browser trial handoff and real iPad/Safari/user preference unverified",
+        "Main generator source unresolved; fixes remain draft-only",
+        "D02 private data source/storage remains undecided"
+      ],
+      "next_action": "PR10/11/12のPR31互換同期は各固定HEADで独立QA済み。3製品の合成試用判断待ちを維持。次回は最新main/PR/台帳と実読できたCEO返答を照合し、新差分・再現不具合・CEO試用所見があれば既存PR内の範囲を確認する。独立して進められる仕事がなければ同じ実装やQAを反復せず終了する。mainの生成元は未修正、本番merge/公開/実通知は未承認、新規製品PRを増やさない。",
+      "notification": "NO_UPDATE",
+      "main_changed": false,
+      "published": false,
+      "automatic_snapshot_handoff_verified": false,
+      "result": "interrupted_ledger_recovered_no_actionable_product_change",
+      "change_reconciliation": "Fresh main and product PR heads/state/updated_at unchanged. No new CEO reply read. Product approval wait remains 3; no independent actionable implementation identified.",
+      "open_pr_observations": [
+        {
+          "pr": 22,
+          "head": "bd4f48de0404614eb84275969bfccff0a368e866",
+          "state": "open",
+          "draft": true,
+          "updated_at": "2026-11-11T12:48:18Z"
+        },
+        {
+          "pr": 13,
+          "head": "139c8b8b56bcd979068b61984120d9f312efe182",
+          "state": "open",
+          "draft": true,
+          "updated_at": "2026-11-10T12:58:57Z"
+        },
+        {
+          "pr": 12,
+          "head": "df7af2a205f44e8c76b50e96728685efcc7e57d8",
+          "state": "open",
+          "draft": true,
+          "updated_at": "2026-11-24T12:45:12Z"
+        },
+        {
+          "pr": 11,
+          "head": "feada5947b237310923f0aa1956487ac8af501af",
+          "state": "open",
+          "draft": true,
+          "updated_at": "2026-11-24T11:37:58Z"
+        },
+        {
+          "pr": 10,
+          "head": "0cd726f558d24999da80c37b1ecdbd2e6090c7bb",
+          "state": "open",
+          "draft": true,
+          "updated_at": "2026-11-24T10:39:17Z"
+        },
+        {
+          "pr": 9,
+          "head": "9c830604b855903fab039c0c063c3f58b2c71831",
+          "state": "open",
+          "draft": true,
+          "updated_at": "2026-11-26T19:01:16Z"
+        },
+        {
+          "pr": 4,
+          "head": "ff211ee8e144e955fa5837e8b8ff5cabf51f60a4",
+          "state": "open",
+          "draft": true,
+          "updated_at": "2026-11-05T07:01:00Z"
+        }
+      ],
+      "new_obstacles": [
+        "Earlier cloud executor loss prevented ledger completion; the following recovery attempt also lost its runtime while create_blob was pending. Remote remained at the original lease commit. Current cloud executor and normal Git push are available again; cause unresolved."
+      ],
+      "recovery_evidence": {
+        "prior_remote_head": "9c830604b855903fab039c0c063c3f58b2c71831",
+        "interrupted_run": "cycle-20261126T180605Z",
+        "intermediate_attempt": "2026-11-26T19:10 UTC: environment_status reported running but exec reported no usable environment; create_blob result unknown, no ref update issued, no product work or delegation.",
+        "recovery_method": "Fresh cloud checkout, expired lease reconciliation, normal Git push",
+        "local_pc_fallback": false
+      },
+      "environment_preparation": "Existing cloud repository reused in a new worktree. No setup, dependency installation or product tests. Automatic snapshot handoff not verified.",
+      "attachments": [
+        {
+          "pr": 9,
+          "attempts": 1,
+          "result": "tool_did_not_return_before_wait_terminated; success_unverified"
+        }
+      ],
+      "completed_at": "2026-11-26T20:13:10.753999+00:00",
+      "lease_released_at": "2026-11-26T20:13:10.753999+00:00"
     }
   ],
   "operational_notes": [
