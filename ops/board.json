@@ -36,8 +36,13 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": null,
-  "updated_at": "2026-11-26T15:04:59.535397+00:00",
+  "lease": {
+    "run_id": "cycle-20261126T160939Z",
+    "acquired_at": "2026-11-26T16:09:39.913715+00:00",
+    "expires_at": "2026-11-26T16:44:39.913715+00:00",
+    "ticket": "reconciliation"
+  },
+  "updated_at": "2026-11-26T16:09:39.913715+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -29380,6 +29385,16 @@
           "result": "tool_did_not_return_before_wait_terminated; success_unverified"
         }
       ]
+    },
+    {
+      "id": "cycle-20261126T160939Z",
+      "started_at": "2026-11-26T16:09:39.913715+00:00",
+      "observed_operations_commit": "c548c0e7ae62a3e479f07c7746cc1e33a1588d73",
+      "observed_main_commit": "101c64ef9be86cb7c3502d3eeec498f16e93e7fd",
+      "scope": "post-compatibility reconciliation; no product change identified",
+      "phase": "reconciliation",
+      "cloud_verified": true,
+      "ceo_decisions_ingested": 0
     }
   ],
   "operational_notes": [
