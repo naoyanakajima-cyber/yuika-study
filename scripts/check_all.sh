@@ -39,6 +39,7 @@ run tests/history_compat.py python tests/history_compat.py
 run tests/edo.py python tests/edo.py
 run tests/medaka.py python tests/medaka.py
 run tests/lever.py python tests/lever.py
+run tests/math_passage.py python tests/math_passage.py
 run tests/microscope.py python tests/microscope.py
 run tests/science_adaptive.py python tests/science_adaptive.py
 run tests/registered_answers.py python tests/registered_answers.py

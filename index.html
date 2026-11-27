@@ -352,6 +352,7 @@ const UNITS = [
   {subject:"理科",subjectIcon:"",subjectColor:T.green,id:"rika-microscope",name:"顕微鏡の使い方",textbook:"20問（オリジナル）",externalPage:"yuika-review-v2.html?unit=顕微鏡の使い方",externalNote:"根拠・解説 / 弱点分析 / 再確認 / 今日の復習",quizQuestions:[],flashDecks:[]},
   {subject:"社会",subjectIcon:"",subjectColor:T.green,id:"mock-focus-social",name:"模試の弱点対策 社会",textbook:"重点分野 · 21問（オリジナル）",externalPage:"mock-focus-review.html?subject=social",externalNote:"根拠・解説 / 弱点分析 / 再確認 / 今日の復習",quizQuestions:[],flashDecks:[]},
   {subject:"理科",subjectIcon:"",subjectColor:T.green,id:"mock-focus-science",name:"模試の弱点対策 理科",textbook:"重点分野 · 14問（オリジナル）",externalPage:"mock-focus-review.html?subject=science",externalNote:"根拠・解説 / 弱点分析 / 再確認 / 今日の復習",quizQuestions:[],flashDecks:[]},
+  {subject:"算数",subjectIcon:"",subjectColor:T.green,id:"math-passage",name:"通過算・旅人算　進む長さをつかむ",textbook:"24問（オリジナル）",externalPage:"math-passage-review.html",externalNote:"5段階の練習",quizQuestions:[],flashDecks:[]},
   {subject:"算数",subjectIcon:"",subjectColor:T.green,id:"mock-focus-math",name:"模試の弱点対策 算数",textbook:"重点分野 · 6問（オリジナル）",externalPage:"mock-focus-review.html?subject=math",externalNote:"根拠・解説 / 弱点分析 / 再確認 / 今日の復習",quizQuestions:[],flashDecks:[]},
   {subject:"国語",subjectIcon:"",subjectColor:T.green,id:"mock-focus-japanese",name:"模試の弱点対策 国語",textbook:"重点分野 · 5問（オリジナル）",externalPage:"mock-focus-review.html?subject=japanese",externalNote:"根拠・解説 / 弱点分析 / 再確認 / 今日の復習",quizQuestions:[],flashDecks:[]},
   {subject:"社会",subjectIcon:"",subjectColor:T.green,id:"sapix-540-25",name:"鎌倉幕府の成立（平安〜鎌倉時代）",textbook:"540-25 · 38問（用語・しくみ・つながり）",externalPage:"kamakura-review.html",externalNote:"5・10・15問 / 漢字・読み確認 / 復習 / 保護者のノート",quizQuestions:[],flashDecks:[]},
@@ -1429,6 +1430,7 @@ function HomeScreen({ onSelectUnit, onSettings, onHistory }) {
  useEffect(()=>{loadSessions().then(setSessions);},[]);
  const external=window.YuikaDesign.summary;
  function progress(u){
+  if(u.id==='math-passage')return u.textbook;
   if(u.externalPage){const info=external(u.externalPage);return info&&!info.unavailable?`${info.correct}／${info.total}　再確認${info.due}`:'記録を単元で確認';}
   const last=sessions.find(e=>e.unit===u.name&&e.mode==='quiz');return `${last?.correct||0}／${u.quizQuestions.length}　クイズ`;
  }
