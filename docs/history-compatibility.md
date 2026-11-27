@@ -37,10 +37,17 @@ python scripts/practice/embed.py
 python scripts/practice/embed_science.py
 python scripts/history/embed.py
 python scripts/prototype/embed.py
+python scripts/design/build_summary.py
+python scripts/design/embed.py
+python scripts/parent/embed.py
 bash scripts/check_all.sh
 ```
 
 `embed_science.py` は `adaptive.js` から共通の弱点・再確認関数と間隔を取り込み、単独HTMLで動くよう埋め込む。共通ロジック変更時は社会・理科の両方を再生成する。
+
+理科固有の接続は `scripts/practice/science.js` に保存する。てこの段階順・挑戦解放・誤答後の補助・単元付き再開先をHTMLだけへ修正すると、次の生成で消えるため、生成元と成果物を同時に維持する。理科回答の任意項目 `answerUnit` / `answerTag` は `scripts/prototype/runtime.js` の理科専用許可列にも含め、値の妥当性は既存の理科検証へ渡す。項目のない旧記録を補完したり、未知項目を許可したりしない。
+
+`generator_preservation.py` は追跡ファイルを一時コピーし、上記7本の生成列で1回目から成果物が変わらず、2回目も変わらないことを検査する。作業checkoutは書き換えない。教材・生成元を意図的に変更した場合は成果物を生成・確認してからこの検査を通す。`lever.py` は単位・タグを含む合成回答を保存・再読込した後、実JSON書き出し→空の試作へ取込みまで照合し、不正値と未知項目の拒否・保存済み記録不変も確認する。鎌倉テーマのCSS・UI・処理・模式図・印刷と、問題・採点・記録の契約はこの生成元同期で変更しない。
 
 `history_compat.py` は全問題・各版・社会追加練習・確認方法・正誤について、旧版の合成履歴、版指定、文章訂正と別表記追加の模擬更新、旧正誤保持、廃止ID読取り、衝突・不正データ拒否、load/save/JSON再取込みを検証する。`science_adaptive.py` は47問すべてのJST境界、弱点・待機・定着・誤答復帰、ヒント・期限前の非進行、30日経過、数値・選択式の実画面、保存失敗復旧、設定再起動、JSONと学習帳入口を検証する。実回答や実通知は使わない。
 

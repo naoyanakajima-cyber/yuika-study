@@ -232,6 +232,12 @@ sessionStorageの寿命に従って終了します（ブラウザーの「閉じ
 `bash scripts/check_all.sh` に含まれます。ChromiumでのiPad相当サイズの確認であり、
 Safari/WebKit・iPad実機の確認は含みません。
 
+## 鎌倉画面のテーマ試作
+
+鎌倉の復習画面では「標準／鎌倉」の見た目を選べます。問題・採点・記録は変えません。通常の設定は専用キーに保存し、保護者確認モードではセッション内だけで扱います。現mainの共通デザインと保存隔離に対応する未公開draftです。
+
+模式図の「将軍」「執権」の枠は、両テーマ・印刷で白文字を読みやすい濃さにしています。図の内容・問題・記録は変えません。
+
 ## 理科「顕微鏡の使い方」
 
 学習帳の理科一覧から開けます。理科アプリの単元「顕微鏡の使い方」に、オリジナル20問を追加しました。ピント合わせ4問・像とプレパラートの向き4問を重点に、レンズ名2問・取り付け理由1問・操作順3問・低倍率からの観察2問・倍率計算2問・見える範囲と明るさ2問です。
@@ -261,3 +267,7 @@ Safari/WebKit・iPad実機の確認は含みません。
 保存キーは `yuika-prototype-v1:yuika-social-edo-v1`、問題IDは `edo-01〜22`、各問に概念ID・版番号・根拠/解説があります。既存単元のキー・問題・履歴は変更しません。自動メールに接続した端末では、回答済みの結果をチャレンジ終了時に通知します。
 
 再生成は `python scripts/edo/build.py` → `python notifications/embed.py` → `python scripts/history/embed.py` → `python scripts/design/build_summary.py` → `python scripts/design/embed.py` → `python scripts/parent/embed.py`。専用テストは `python tests/edo.py`、全体テストは `bash scripts/check_all.sh` です。
+
+江戸の生成元は既存の `edo-review.html` と `scripts/edo/questions.py` です。理科のてこ専用処理を複製しないため、science/prototypeアダプターの変更は江戸にも明示的に同期します。通知・履歴・共通デザイン・保護者境界は上記の共有生成列で再埋め込みします。
+
+鎌倉のテーマ試作は模試画面へ複製しません。`scripts/focus/embed.py` は鎌倉固有のテーマCSS・操作部・スクリプトを除いて共通エンジンを生成します。生成列全体の保持は `tests/generator_preservation.py` が初回の全追跡ファイル一致と2回目の不変を検証します。

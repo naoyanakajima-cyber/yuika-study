@@ -8,6 +8,15 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 qs=json.loads((ROOT/'scripts/focus/questions.json').read_text())
 text=(ROOT/'kamakura-review.html').read_text()
+# The appearance prototype belongs only to Kamakura, not the shared quiz engine.
+# Strip its complete CSS, controls and runtime before deriving the focus page.
+for pattern in (
+ r'<style>\n/\* Appearance controls are independent of the learning views and records\. \*/.*?</style>',
+ r'<section class="theme-panel" aria-label="見た目">.*?</section>',
+ r'<script>\n/\* Theme preference never calls learning render/save or notification code\. \*/.*?</script>',
+):
+ text,count=re.subn(pattern,'',text,flags=re.S)
+ assert count==1, 'Kamakura appearance block changed; review focus derivation'
 # Re-embed the shared client after generating this standalone page.
 text=re.sub(r'<!-- YUIKA_REPORTS_BEGIN -->.*?<!-- YUIKA_REPORTS_END -->','',text,flags=re.S)
 for section in ('ADAPTIVE','HISTORY','PROTOTYPE','DESIGN_C'):
