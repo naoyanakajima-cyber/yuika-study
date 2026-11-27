@@ -1,0 +1,179 @@
+{
+  "head": "b4deb0df131b1280ab2cc0647851e1d345d06143",
+  "cases": [
+    {
+      "mode": "normal",
+      "question_types": [
+        "text",
+        "choice",
+        "text",
+        "choice",
+        "text"
+      ],
+      "events_after_reload": 5,
+      "theme_restored_after_reload": "kamakura",
+      "stages": "input/selection,hint,graded,result",
+      "theme_notification_calls": 0,
+      "child_local_storage_unchanged": null,
+      "math_comparisons": [
+        {
+          "selected_theme": "standard",
+          "math_appearance_equal_baseline": true,
+          "math_theme_ui_count": 0,
+          "math_theme_writes": 0,
+          "theme_restored_on_return": true,
+          "kamakura_events_after_return": 5,
+          "preview_csp_blocks_connections": true
+        },
+        {
+          "selected_theme": "kamakura",
+          "math_appearance_equal_baseline": true,
+          "math_theme_ui_count": 0,
+          "math_theme_writes": 0,
+          "theme_restored_on_return": true,
+          "kamakura_events_after_return": 5,
+          "preview_csp_blocks_connections": true
+        },
+        {
+          "selected_theme": "standard",
+          "math_appearance_equal_baseline": true,
+          "math_theme_ui_count": 0,
+          "math_theme_writes": 0,
+          "theme_restored_on_return": true,
+          "kamakura_events_after_return": 5,
+          "preview_csp_blocks_connections": true
+        }
+      ]
+    },
+    {
+      "mode": "parent",
+      "question_types": [
+        "text",
+        "choice",
+        "text",
+        "choice",
+        "text"
+      ],
+      "events_after_reload": 5,
+      "theme_restored_after_reload": "kamakura",
+      "stages": "input/selection,hint,graded,result",
+      "theme_notification_calls": 0,
+      "child_local_storage_unchanged": true,
+      "math_comparisons": [
+        {
+          "selected_theme": "standard",
+          "math_appearance_equal_baseline": true,
+          "math_theme_ui_count": 0,
+          "math_theme_writes": 0,
+          "theme_restored_on_return": true,
+          "kamakura_events_after_return": 5,
+          "preview_csp_blocks_connections": true
+        },
+        {
+          "selected_theme": "kamakura",
+          "math_appearance_equal_baseline": true,
+          "math_theme_ui_count": 0,
+          "math_theme_writes": 0,
+          "theme_restored_on_return": true,
+          "kamakura_events_after_return": 5,
+          "preview_csp_blocks_connections": true
+        },
+        {
+          "selected_theme": "standard",
+          "math_appearance_equal_baseline": true,
+          "math_theme_ui_count": 0,
+          "math_theme_writes": 0,
+          "theme_restored_on_return": true,
+          "kamakura_events_after_return": 5,
+          "preview_csp_blocks_connections": true
+        }
+      ]
+    }
+  ],
+  "diagram_contrasts": [
+    {
+      "theme": "standard",
+      "media": "screen",
+      "labels": [
+        {
+          "text": "将軍",
+          "fill": "rgb(255, 255, 255)",
+          "bg": "rgb(143, 79, 60)",
+          "size": "13px",
+          "ratio": 6.265720821251096
+        },
+        {
+          "text": "執権（北条氏）",
+          "fill": "rgb(255, 255, 255)",
+          "bg": "rgb(143, 79, 60)",
+          "size": "13px",
+          "ratio": 6.265720821251096
+        }
+      ]
+    },
+    {
+      "theme": "standard",
+      "media": "print",
+      "labels": [
+        {
+          "text": "将軍",
+          "fill": "rgb(255, 255, 255)",
+          "bg": "rgb(143, 79, 60)",
+          "size": "13px",
+          "ratio": 6.265720821251096
+        },
+        {
+          "text": "執権（北条氏）",
+          "fill": "rgb(255, 255, 255)",
+          "bg": "rgb(143, 79, 60)",
+          "size": "13px",
+          "ratio": 6.265720821251096
+        }
+      ]
+    },
+    {
+      "theme": "kamakura",
+      "media": "screen",
+      "labels": [
+        {
+          "text": "将軍",
+          "fill": "rgb(255, 255, 255)",
+          "bg": "rgb(143, 79, 60)",
+          "size": "13px",
+          "ratio": 6.265720821251096
+        },
+        {
+          "text": "執権（北条氏）",
+          "fill": "rgb(255, 255, 255)",
+          "bg": "rgb(143, 79, 60)",
+          "size": "13px",
+          "ratio": 6.265720821251096
+        }
+      ]
+    },
+    {
+      "theme": "kamakura",
+      "media": "print",
+      "labels": [
+        {
+          "text": "将軍",
+          "fill": "rgb(255, 255, 255)",
+          "bg": "rgb(143, 79, 60)",
+          "size": "13px",
+          "ratio": 6.265720821251096
+        },
+        {
+          "text": "執権（北条氏）",
+          "fill": "rgb(255, 255, 255)",
+          "bg": "rgb(143, 79, 60)",
+          "size": "13px",
+          "ratio": 6.265720821251096
+        }
+      ]
+    }
+  ],
+  "post_requests_or_arrivals": [],
+  "page_errors": [],
+  "external_gets_aborted": 22,
+  "completed_at": "2026-11-27T17:10:43.830086+00:00"
+}

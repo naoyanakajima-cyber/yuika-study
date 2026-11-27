@@ -1,0 +1,1131 @@
+diff --git a/README.md b/README.md
+index f40a4e1..c4ca082 100644
+--- a/README.md
++++ b/README.md
+@@ -232,6 +232,12 @@ sessionStorageの寿命に従って終了します（ブラウザーの「閉じ
+ `bash scripts/check_all.sh` に含まれます。ChromiumでのiPad相当サイズの確認であり、
+ Safari/WebKit・iPad実機の確認は含みません。
+ 
++## 鎌倉画面のテーマ試作
++
++鎌倉の復習画面では「標準／鎌倉」の見た目を選べます。問題・採点・記録は変えません。通常の設定は専用キーに保存し、保護者確認モードではセッション内だけで扱います。現mainの共通デザインと保存隔離に対応する未公開draftです。
++
++模式図の「将軍」「執権」の枠は、両テーマ・印刷で白文字を読みやすい濃さにしています。図の内容・問題・記録は変えません。
++
+ ## 理科「顕微鏡の使い方」
+ 
+ 学習帳の理科一覧から開けます。理科アプリの単元「顕微鏡の使い方」に、オリジナル20問を追加しました。ピント合わせ4問・像とプレパラートの向き4問を重点に、レンズ名2問・取り付け理由1問・操作順3問・低倍率からの観察2問・倍率計算2問・見える範囲と明るさ2問です。
+@@ -261,3 +267,7 @@ Safari/WebKit・iPad実機の確認は含みません。
+ 保存キーは `yuika-prototype-v1:yuika-social-edo-v1`、問題IDは `edo-01〜22`、各問に概念ID・版番号・根拠/解説があります。既存単元のキー・問題・履歴は変更しません。自動メールに接続した端末では、回答済みの結果をチャレンジ終了時に通知します。
+ 
+ 再生成は `python scripts/edo/build.py` → `python notifications/embed.py` → `python scripts/history/embed.py` → `python scripts/design/build_summary.py` → `python scripts/design/embed.py` → `python scripts/parent/embed.py`。専用テストは `python tests/edo.py`、全体テストは `bash scripts/check_all.sh` です。
++
++江戸の生成元は既存の `edo-review.html` と `scripts/edo/questions.py` です。理科のてこ専用処理を複製しないため、science/prototypeアダプターの変更は江戸にも明示的に同期します。通知・履歴・共通デザイン・保護者境界は上記の共有生成列で再埋め込みします。
++
++鎌倉のテーマ試作は模試画面へ複製しません。`scripts/focus/embed.py` は鎌倉固有のテーマCSS・操作部・スクリプトを除いて共通エンジンを生成します。生成列全体の保持は `tests/generator_preservation.py` が初回の全追跡ファイル一致と2回目の不変を検証します。
+diff --git a/docs/history-compatibility.md b/docs/history-compatibility.md
+index 3683eee..3757b35 100644
+--- a/docs/history-compatibility.md
++++ b/docs/history-compatibility.md
+@@ -37,11 +37,18 @@ python scripts/practice/embed.py
+ python scripts/practice/embed_science.py
+ python scripts/history/embed.py
+ python scripts/prototype/embed.py
++python scripts/design/build_summary.py
++python scripts/design/embed.py
++python scripts/parent/embed.py
+ bash scripts/check_all.sh
+ ```
+ 
+ `embed_science.py` は `adaptive.js` から共通の弱点・再確認関数と間隔を取り込み、単独HTMLで動くよう埋め込む。共通ロジック変更時は社会・理科の両方を再生成する。
+ 
++理科固有の接続は `scripts/practice/science.js` に保存する。てこの段階順・挑戦解放・誤答後の補助・単元付き再開先をHTMLだけへ修正すると、次の生成で消えるため、生成元と成果物を同時に維持する。理科回答の任意項目 `answerUnit` / `answerTag` は `scripts/prototype/runtime.js` の理科専用許可列にも含め、値の妥当性は既存の理科検証へ渡す。項目のない旧記録を補完したり、未知項目を許可したりしない。
++
++`generator_preservation.py` は追跡ファイルを一時コピーし、上記7本の生成列で1回目から成果物が変わらず、2回目も変わらないことを検査する。作業checkoutは書き換えない。教材・生成元を意図的に変更した場合は成果物を生成・確認してからこの検査を通す。`lever.py` は単位・タグを含む合成回答を保存・再読込した後、実JSON書き出し→空の試作へ取込みまで照合し、不正値と未知項目の拒否・保存済み記録不変も確認する。鎌倉テーマのCSS・UI・処理・模式図・印刷と、問題・採点・記録の契約はこの生成元同期で変更しない。
++
+ `history_compat.py` は全問題・各版・社会追加練習・確認方法・正誤について、旧版の合成履歴、版指定、文章訂正と別表記追加の模擬更新、旧正誤保持、廃止ID読取り、衝突・不正データ拒否、load/save/JSON再取込みを検証する。`science_adaptive.py` は47問すべてのJST境界、弱点・待機・定着・誤答復帰、ヒント・期限前の非進行、30日経過、数値・選択式の実画面、保存失敗復旧、設定再起動、JSONと学習帳入口を検証する。実回答や実通知は使わない。
+ 
+ `prototype_storage.py` は4ページの旧raw・設定不変、空の試作、JSON実ダウンロード／取込み、未知項目・衝突拒否、入力raw保全、容量不足と再試行、破損した旧／試作保存領域の分離を確認する。
+diff --git a/docs/product/theme-spec.md b/docs/product/theme-spec.md
+new file mode 100644
+index 0000000..7d853f4
+--- /dev/null
++++ b/docs/product/theme-spec.md
+@@ -0,0 +1,168 @@
++# 学習データと独立したテーマ切替仕様
++
++状態：PrM確認・Engineer技術確認・独立QAレビュー完了。THEME-SPECの文書成果であり、機能実装済みではない。
++
++## 目的・対象・最小範囲
++
++好きな時代を感じる見た目を自分で選べることで、毎日の復習画面を開くきっかけを増やす。
++学習者が鎌倉単元の「標準」「鎌倉」を切り替え、読みづらい・気が変わったときはすぐ標準へ戻せる。
++好みの推測や回答成績による自動変更はしない。
++
++THEME-MVPは `kamakura-review.html` のみに適用する。同画面のれんしゅう・出題・結果・
++保護者のノート・記録の保存を対象に、色と控えめな枠装飾だけを変更する。
++鎌倉という希望と教材内容が対応し、独立したCSS変数と学習状態を持つ画面なので最初の範囲にする。
++他の4画面、教材確認室、通知設定の機能・表示文言・送信処理へ拡張しない。
++これは全アプリ共通テーマの完成ではない。
++
++- 操作名称は「見た目」。選択肢は「標準」「鎌倉」、初回は標準。
++- 画面内の説明は「見た目だけを変えます。問題や記録は変わりません。」程度に留める。
++- 鎌倉風は藍、生成り、朱の小さなアクセントと直線的な枠で表現する。問題を武将の台詞に書き換えない。
++- キャラクターの顔・作品ロゴ・私的な写真・外部画像・外部フォント・音・動く背景は追加しない。
++- 特定の作品を公式に再現するものではなく、一般的な時代の雰囲気を扱う。ユーザーの嗜好を公開fixtureへ記録しない。
++
++## コードから確認した境界（初期仕様時点）
++
++読取基点：main `d526d65fbae116f834d14ad994a27bc50ca23b62`。
++製品実装時は最新mainと既存PRを再照合する。現在の検証済み製品基点候補は
++`edad8065c1f2b726e61c5cf405f8d9ff6d807480`（#7）。#10と#11は未マージであり依存にしない。
++
++| 現行要素 | 仕様上の扱い |
++| --- | --- |
++| `:root`のink/muted/paper/white/line/green/pale等の色変数 | テーマ属性で見た目だけ上書き可能 |
++| `header`、`main#main`、`footer` | 操作は再描画されるmainの外に置く |
++| `render()`、`home()`、`quiz()`、`result()` | テーマ切替から呼ばない。main.innerHTMLの作り直しを避ける |
++| `go()` | runを破棄しうるためテーマ操作に使用しない |
++| `result()`の`YuikaReports.enqueue` | テーマ再適用で実行しない。通知は増やさない |
++| `KEY=yuika-social-540-25-v1`、`VERSION=kamakura-540-25-v1` | 変更しない。問題ID・出題・採点・記録schemaも維持 |
++| `yuika-mail-config-v1`、`yuika-mail-job-v1:` | テーマ機能は読み書きしない |
++| 直接指定色のhover、input、table、note、feedback、error、SVG | 変数変更後も可読性を個別確認。教材図の意味やラベルは変えない |
++| `@media print` | テーマ選択にかかわらず白い紙と標準の濃い文字で印刷する |
++
++PR #10はhome/quizの内容を変更する。新しいテーマ操作をそれらのHTML文字列に挿入せず、
++main外の独立したUI・イベント・CSSに分離することで、後の統合時の衝突を小さくする。
++学習・通知処理の大きなリファクタリングや共通モジュール化は今回行わない。
++
++## 操作と状態
++
++1. main外の常設領域（header直後等）に「見た目」グループと2つのbuttonを配置する。
++   各ボタンは `type=button`、選択状態は `aria-pressed` と目に見える「選択中」表示の両方で示す。
++2. 選択時は許可された値だけを受け取り、`document.documentElement.dataset.uiTheme` を更新する。
++   学習DOM・入力値・選択肢・ヒント・出題順・途中回答は作り直さず、スクロール位置を強制変更しない。
++   クリック後のフォーカスは押したテーマボタンに残す。学習画面へ強制移動しない。
++3. 現在選択済みのボタンを押しても学習状態は変わらず、画面再描画はしない。
++   同じ有効値が保存済みなら再保存不要。未知値・未保存・前回保存失敗の場合は明示クリックで保存を試せる。
++4. 未回答中、入力途中、採点後、チャレンジ結果のどこでも切替可能。
++   正誤、問題文、解説、ヒント、記録行は切替前後で同じ。結果画面の再通知は発生させない。
++5. 標準へ戻す操作は鎌倉を選ぶ操作と同じ場所・同じ手数で行える。
++
++## 保存と失敗時の挙動
++
++テーマ専用キーは `yuika-ui-theme-kamakura-v1`。値はJSONではなく文字列の `standard` または
++`kamakura` のみ。単元画面の見た目設定であり、問題データや学習記録、エクスポートJSONへ追加しない。
++別画面はこのキーを利用しない。ログイン、サーバー保存、端末間同期は行わない。
++
++| 条件 | 挙動 |
++| --- | --- |
++| キーなし | 標準表示。初期表示だけでキーを作らない |
++| 値がstandard/kamakura | 保存値を初期適用 |
++| 未知の文字列・旧形式・壊れた値 | 標準表示。起動時に自動削除/上書きしない。利用者の明示選択でこのキーだけ更新可 |
++| getItemが例外 | 標準で起動。学習のload/saveを止めない |
++| setItemが例外 | 選択した見た目はその画面内に反映し、専用statusで「この画面では変更しました。次回の表示には保存できませんでした。」と知らせる |
++| 保存成功 | 次回の同一origin・同一画面起動で復元。過去のテーマ保存エラー表示を解消 |
++| 標準へ戻す | standardをこのキーだけへ保存。学習キーの削除・clearは禁止 |
++
++保存例外のメッセージにはmain外のテーマ専用 `role=status` を使い、既存 `#notice` の
++学習記録の保存失敗・破損警告を上書きしない。テーマの失敗で既存学習状態のblockedフラグを変更しない。
++同じ画面の再読込時に保存値を読み直す。別タブの変更の即時同期はMVP対象外で、
++既存の学習記録用storageイベントを流用しない。
++
++## 見た目・アクセシビリティ
++
++標準の色・問題レイアウトを保ち、テーマ操作領域だけを追加する。鎌倉は
++`html[data-ui-theme="kamakura"]` 以下のCSS変数/限定セレクターで上書きし、標準へ確実に戻せる構成にする。
++対象外ページへ新しいグローバルCSSを読ませない。
++
++| 用途 | 鎌倉の候補色 |
++| --- | --- |
++| paper / white | `#f7f2e8` / `#fffdf7` |
++| ink / muted | `#243d4b` / `#52646b` |
++| primary（green）/ pale | `#24566b` / `#e7eef0` |
++| pink / rose | `#f2e4da` / `#9b493e` |
++| line / gold | `#c1c8c5` / `#d9bd7b` |
++| focus | `#9b493e`（外周リング、背景と十分離して表示） |
++
++これは候補パレット。Engineerの標準sRGB計算では次の比を確認した。実装時にはcomputed styleの実際の組合せでも検証する。
++
++| 組合せ | contrast比 | 用途・制約 |
++| --- | --- | --- |
++| ink / paper・white・pale・pink | 10.21・11.20・9.70・9.16 | 本文 |
++| muted / paper・white・pale・pink | 5.55・6.08・5.27・4.98 | 小さな補足文字 |
++| primary / paper・white・pale・pink | 7.19・7.88・6.83・6.45 | 文字・操作境界 |
++| 白 / primary | 8.02 | 主ボタン文字 |
++| rose / paper・white・pale・pink | 5.51・6.04・5.24・4.94 | エラー文字・外周focus |
++| line / white | 1.67 | 装飾のみ。入力境界や選択状態をこの線だけで示さない |
++| rose / primary | 1.30 | focusと主ボタンを直に接触させない |
++| ink / gold | 6.24 | goldは原則装飾用。文字を載せるならinkのみ |
++
++新テーマの入力境界はprimaryなど背景と3:1以上の色を使う。focusはoutline-offsetを3px以上設け、
++隣接面をpaper/white/pale/pinkに限定して検証する（主ボタン面に直接重ねない）。
++gold上のmuted/primary/roseは通常文字に必要な4.5:1を満たさないため使用しない。
++
++新テーマと新規操作領域では、通常文字4.5:1以上、大きい文字3:1以上、操作状態やfocusの必要な識別部分3:1以上を満たす。
++薄いlineは装飾用で、選択状態や入力欄境界の唯一の手がかりにしない。
++正誤は既存の文言・記号でも区別し、色だけで示さない。SVGの固定色は意味を保ち、
++背景を変えて文字が読めなくなる場合は図の背景を固定した明るい面として保持する。
++
++- 新しいテーマボタンの押下領域は最低44×44 CSS px、間隔8px以上。画面幅に応じて折り返す。
++- キーボードTabとEnter/Spaceで切替でき、focus輪郭を消さない。スクリーンリーダーでグループ名と状態が分かる。
++- 問題文・解説・本文の既存文字サイズ/行間を縮めない。768×1024で主要操作が重ならず横スクロールを増やさない。
++- テーマ独自の点滅・パララックス・自動アニメーション・音は設けない。reduced-motionでも状態が分かる。
++- 印刷時はテーマ選択UIと装飾を隠し、paper/whiteを白、主要文字を標準の濃色へ戻す。
++  印刷のために保存値や画面テーマをJSで書き換えない。
++
++## 受入条件と合成検証計画
++
++以下は次のTHEME-MVPで実行する条件であり、本仕様作成でテスト済みという意味ではない。
++
++| ID | 受入条件・確認方法 |
++| --- | --- |
++| T1 | 新規contextで標準。標準→鎌倉→標準の表示・aria-pressed・選択中ラベルが一致。テーマ以外の画面内容と学習状態は同じ |
++| T2 | 選択後の同一origin再読込で復元。キーなし/未知値/getItem例外は標準、起動だけではテーマキーを書かない |
++| T3 | setItem例外では画面内適用と専用警告。既存学習警告を保持し、標準への復帰も可能。保存が再び成功すれば警告を消す |
++| T4 | テーマ切替直前直後の全localStorageを比較し、変更可能なのはテーマキーだけ。合成の鎌倉/他単元/理科/既存セッションを保持 |
++| T5 | 同一runの入力途中・選択済み・ヒント表示後・採点後・結果で切替。run id/問題ID列/index/results/入力値/採点内容を比較し不変。新規回答イベントを作らない |
++| T6 | テーマ別に同じ合成入力のgrade結果が同一。問題ID/正答/解説/VERSION/保存schemaを維持。通常の回答・採点・記録・再読込が成功 |
++| T7 | 結果表示後にYuikaReports.enqueueをspyへ置換して切替、呼出0。テーマ操作由来のネットワーク要求0、実POST到達0。実通知は模擬/遮断 |
++| T8 | 768×1024でhome/quiz/feedback/result/parent/recordsを両テーマで目視。新規ボタン44px/8px、重なり・追加横overflowなし、キーボード・focus・長い説明を確認 |
++| T9 | 実際の文字/背景とfocus/選択状態のcontrast比を測定。正誤文言が維持され、reduced-motionでも意味が変わらない |
++| T10 | print mediaでテーマUI非表示、白背景・濃い文字。画面復帰後の選択と保存値は維持 |
++| T11 | 別画面への往復で対象外画面の配色・記録が変わらない。既存応仁/鎌倉/cloud_previewテストと新規themeテストが成功 |
++
++検証では通知APIを遮断したプレビューと新規ブラウザーcontextを用い、全履歴は合成する。
++保存API全体を故障させる試験では既存学習側の警告が出ることは別の期待結果とし、
++テーマキーだけ失敗させる試験と分ける。回答順の乱数差をテーマ差と誤認せず、
++切替前後で同じrunを比較する。実機iPad/Safariを実施しなければ未検証と明記する。
++
++## 対象外・後続判断
++
++作品画像の取得、テーマ自動推定、回答によるテーマ解放、課金、テーマ共有、私的データ接続、
++全画面共通化、学習イベント/通知/採点の変更、外部ライブラリ追加は対象外。
++試作はdraft PRとしてCEOへ採用判断を返す。マージ、公開、デプロイは別途判断であり、
++テーマ仕様確認をこれらの承認に読み替えない。D01/D02やPR #10/#11の採用待ちに依存せず着手可能。
++
++## 2026-11-15 現mainとの互換性
++
++既存PR12の履歴を保ち、main `86514eda054a5a2e09204df3a0668e40624c16de` をtopic候補へ取り込む。本番mainの更新ではない。上記の旧基点/旧保存キーを現行学習実装へ戻す指示とは扱わない。既存問題・採点・選定・保存schema、共有Design C・親runtime・CSP・他画面は現mainを維持する。
++
++- 標準は現mainの共通Design C。鎌倉選択時だけ画面内のCSS変数・限定セレクターを変更し、背景・本文・主操作・単元見出しの可読性を確認する。全画面展開・新テーマは含めない。
++- テーマの読書きは `window.YuikaParent.storage` を使う。通常モードは既存テーマキー、保護者確認モードはそのセッション領域、sessionStorage拒否時は既存の一時メモリを使用する。通常localStorageへのfallbackは設けない。終了後は通常設定へ戻る。
++- 親モードのテーマ選択は、子どもの通常テーマ値・元記録・試作記録・他単元・通知設定を変更しない。新しい保存形式・学習移行は追加しない。
++- テーマ切替は同じrun/問題/入力/ヒント/採点/学習DOMを保持し、テーマ以外の保存書込・通知を増やさない。親バナーと終了操作を維持する。
++- 現行UIの保護者入口はfooterのリンク。記録出力は現mainの `yuika-review-prototype` envelope/payload。テストはこれらを期待し、旧UI/旧schemaへ製品を戻さない。
++- 現main必須22suiteにテーマ検証を登録する。通常/親/保存拒否、768×1024の各画面、キーボード/色/印刷/記録保持を合成データで検証し、固定HEADと実結果を独立QAへ渡す。実機Safari/iPad・本人の嗜好・学習効果・公開はこの検証では保証しない。
++
++実装候補の受入結果は運用台帳とPR12へ別途記録する。方向性D05の採用をマージ/公開承認に拡張しない。
++
++### 模式図の2ラベルの可読性補足
++
++現main由来の「将軍」「執権（北条氏）」の白13px文字は背景#b57c65とのcontrastが4.5未満だったため、PrM/PdMの範囲確認に基づき、この2枠の背景だけをCSSで#8f4f3cへ濃くする。標準Design Cを維持する条件の限定例外とし、標準/鎌倉/printに適用する。文字・位置・図のDOM/順序/線・他枠・学習scriptは変更しない。実UIの2ラベルと背景のcomputed fillから4.5以上、白文字13px、他ノードの色・DOM不変を検証する。
+diff --git a/docs/theme-pr31-compatibility.md b/docs/theme-pr31-compatibility.md
+new file mode 100644
+index 0000000..d9d02e0
+--- /dev/null
++++ b/docs/theme-pr31-compatibility.md
+@@ -0,0 +1,46 @@
++# Theme branch and PR31 compatibility
++
++## Scope and candidate parents
++
++This topic merges observed main `101c64ef9be86cb7c3502d3eeec498f16e93e7fd` into PR12 head `00c4ccb3b501223366a5f0a736567231ea9b8043`. The merge had no textual conflicts. It preserves Kamakura appearance switching, in-progress input and hints, grading, history, reload, parent isolation, and diagram contrast while incorporating PR31 study-report lifecycle behavior and Edo/focus notification integration. No PR10 recommendation/count feature or PR11 content-review feature is included.
++
++The required suite union is 29: all 28 original PR12 suites plus main's added `tests/study_reports.py` (main has 27). Set equality was checked against both frozen parent scripts. The complete final-commit `bash scripts/check_all.sh` is assigned to independent QA; the results below are preliminary checks of the uncommitted candidate, not a claim that final-commit QA has passed.
++
++## Generator diagnosis and repair
++
++The original seven-step preservation test omitted Edo, focus and notification generation. Expanding it to the real 12-step sequence initially exited 1 on its first generation: `assets/progress.js`, `edo-review.html`, and `mock-focus-review.html` changed. This was an observed regression, not an expected test success.
++
++Inspection of the isolated generated copy found three causes:
++
++- Edo cloned current science HTML, importing science-only lever code and changing its derived progress projection.
++- Parent embedding placed the storage boundary inside the notification markers, allowing subsequent notification embedding to remove it.
++- On this theme branch, focus generation also cloned Kamakura-only theme CSS, controls and runtime, including an unintended focus theme preference key. This difference did not occur on the content branch and required its own repair.
++
++Edo now refreshes questions from `scripts/edo/questions.py` in its existing standalone engine. Future science/prototype adapter changes need explicit Edo synchronization; shared notification/history/design/parent generators still update their blocks. Parent embedding inserts before the entire reports block. Focus generation removes exactly one of each of the three Kamakura theme blocks before deriving its shared quiz engine; count assertions fail if that source structure changes. It does not strip unrelated recommendation features.
++
++After diagnosis and these repairs, the next preservation run exited 0: the first complete generation preserved every tracked file byte, and a second complete generation was unchanged. A final timed run after README clarification also passed (exit 0, 0.972 seconds). Checks run in isolated tracked-file copies and assert the source checkout is unchanged; no assertions were weakened.
++
++Original PR12 `scripts/practice/science.js`, `scripts/practice/embed_science.py`, `scripts/prototype/runtime.js`, `scripts/prototype/embed.py`, `tests/lever.py`, `tests/theme_review.py`, and shared design assets remain byte-identical to the original topic head. The merged HTML incorporates only PR31 behavior; the generators reproduce it exactly.
++
++## Preliminary verification
++
++Every shell sourced `scripts/cloud/activate.sh`. The existing cloud dependency environment was manually reused via an ignored `.venv/bin` symlink; this does not establish automatic environment handoff. Browser contexts and answer/configuration data are synthetic, notification endpoints and Worker delivery are mocked.
++
++| Focused suite | Exit | Seconds |
++| --- | ---: | ---: |
++| `tests/theme_review.py` | 0 | 12.581 |
++| `tests/study_reports.py` | 0 | 26.171 |
++| `tests/lever.py` | 0 | 4.201 |
++| `tests/prototype_storage.py` | 0 | 7.031 |
++| `tests/focus_data.py` | 0 | 0.046 |
++| `tests/generator_preservation.py` (final timed run) | 0 | 0.972 |
++
++Theme tests covered input/state preservation, reload, stored preference errors, parent isolation, keyboard controls and diagrams in both themes on screen and print. The two hierarchy label contrast ratios were 6.266 in all four theme/media combinations; unexpected external requests and POST arrivals were zero (15 existing font GETs blocked).
++
++Study reports exercised seven app/unit cases with daily planned count, early completion, cancelled navigation, unanswered completion, duplicate completion and parent isolation. Sixteen captured synthetic reports passed the Worker contract and mail stub checks. Cancellation leaves storage and queue unchanged; unanswered completion creates no job; parent checks leave normal localStorage byte-identical. The browser suite fetches existing public React/Babel CDN assets, so it is not completely offline.
++
++Lever tests passed 28 calculations/revisions, daily/recheck behavior, staged quiz and fallback, challenge gating, unit/error tags, reports and parent isolation. Prototype tests passed existing-record preservation, import/export and corrupt/quota behavior. Focus data passed all 46 original questions and privacy guards. `git diff --check` exited 0.
++
++## Limits
++
++Independent final-commit full-suite and manual operation verification are still pending at the time this document is committed. Chromium at iPad-equivalent size is not Safari/WebKit or real-iPad validation. No real records, textbook photos, delivery, personal trial, production publication or learning effectiveness were tested. No push, main merge, deployment, real notification, secret, account setting or sharing change was performed by the engineer.
+diff --git a/docs/theme-pr32-compatibility.md b/docs/theme-pr32-compatibility.md
+new file mode 100644
+index 0000000..bc41f9b
+--- /dev/null
++++ b/docs/theme-pr32-compatibility.md
+@@ -0,0 +1,58 @@
++# Theme branch and PR32 compatibility
++
++## Scope and parents
++
++This topic merges main `58b6d9e0a8e2761e5c446a11ceafa1afb1e832a5`
++into PR12 head `df7af2a205f44e8c76b50e96728685efcc7e57d8`.
++The merge had no textual conflicts and required no product-code repairs.
++It incorporates PR32's 24-question, five-stage math page and home entry while
++preserving the Kamakura-only theme. It adds no theme, PR10 or PR11 feature.
++
++Kamakura HTML, `tests/theme_review.py`, shared Design C assets, the repaired
++Edo/focus/parent generators, and `tests/generator_preservation.py` are
++byte-identical to the PR12 parent. Math HTML, home HTML, notification embedding,
++preview server, design/responsive tests and math tests are byte-identical to
++main. The only combined code is the required-suite registration: exact set
++equality against both frozen parents confirms 30 unique suites, comprising all
++29 PR12 suites plus `tests/math_passage.py` (main has 28).
++
++The existing theme CSS/UI/runtime, state and record behavior, print handling
++and diagram contrast fixes are therefore retained. Existing generator fixes
++remain in place, including exclusion of Kamakura theme blocks from focus.
++
++## Preliminary checks
++
++The existing cloud environment was manually reused by an ignored `.venv/bin`
++link to `/workspace/yuika-study/.venv/bin`, after inspecting the previous
++content checkout's same link. Each execution shell sourced
++`scripts/cloud/activate.sh`. This is not evidence of automatic environment
++setup or saved snapshot application.
++
++- Parent file-byte checks and the exact 30-suite union passed.
++- `python tests/generator_preservation.py` exited 0: all 12 generation steps
++  preserved every tracked file on the first pass, including the new math HTML;
++  the second full pass was unchanged. The isolated test also verified that
++  the source checkout was unchanged.
++- `python tests/math_passage.py` exited 0: all 24 answers were independently
++  recomputed; staged answers, mock reports, early completion and parent
++  notification suppression passed.
++- A focused math check using the real cloud preview handler and fresh
++  Chromium context returned HTTP 200, displayed five stage controls, and
++  observed `connect-src 'none'` blocking a synthetic POST. POST arrivals: zero.
++- `git diff --cached --check` passed before this note was added; the complete
++  staged candidate is checked again before commit.
++
++All answer records and notification configuration used for checks were
++synthetic; endpoints and delivery were mocked or blocked.
++
++## Independent acceptance and limits
++
++Independent QA owns `bash scripts/check_all.sh` on the fixed candidate commit,
++plus theme-to-math-to-theme navigation in normal and parent modes, checking
++theme isolation and preference restoration. Those final-commit results are
++pending when this note is committed and will be recorded separately.
++
++Chromium checks do not establish Safari/WebKit or real-iPad compatibility,
++personal preference or learning effectiveness. No private records, textbook
++photos, real notifications, push, main merge, deployment, Secrets, account
++settings or sharing changes were performed by the engineer.
+diff --git a/heian-review.html b/heian-review.html
+index c3e281e..9ff7d4b 100644
+--- a/heian-review.html
++++ b/heian-review.html
+@@ -1818,7 +1818,7 @@ function prototypeFields(value,allowed){
+ const prototypeEventValidator=validateEvent;
+ validateEvent=function(e){
+  const fields=prototypeScience?
+-  [...(e.type==='recall'?['recallOutcome','firstResponse']:[]),'questionVersion','id','sessionId','questionId','datasetVersion','unit','type','question','response','inputRaw','expected','correct','answeredAt','timezoneOffset','localDay','hintUsed','mode','explanation']:
++  [...(e.type==='recall'?['recallOutcome','firstResponse']:[]),'questionVersion','id','sessionId','questionId','datasetVersion','unit','type','question','response','inputRaw','expected','correct','answeredAt','timezoneOffset','localDay','hintUsed','mode','explanation','answerUnit','answerTag']:
+   ['questionVersion','id','sessionId','questionId','version','unit','course','question','response','expected','explanation','correct','variant','mode','hint','at','offset','day',...(prototypeHeian?['reflection']:['unitId'])];
+  prototypeFields(e,fields);
+  if(prototypeHeian&&e.response&&typeof e.response==='object')prototypeFields(e.response,['steps','fills']);
+diff --git a/kamakura-review.html b/kamakura-review.html
+index e482c7b..032f6cf 100644
+--- a/kamakura-review.html
++++ b/kamakura-review.html
+@@ -5,7 +5,36 @@
+ @media print{header,nav,.actions,button,.footer,#notice,.no-print{display:none!important}body{background:white;font-size:11px}main{padding:0;max-width:none}.card{break-inside:avoid;box-shadow:none;padding:12px}details{display:block}h1{font-size:24px}.tablewrap{overflow:visible}}
+ 
+ textarea{font:inherit;min-height:100px;width:100%;padding:12px;border:1px solid #c7d0c7;border-radius:9px;resize:vertical}#ordered{white-space:pre-line} .brand a{font-size:12px;letter-spacing:0;margin-left:10px} .facts{overflow-wrap:anywhere}
+-</style><link rel="stylesheet" href="assets/design.css"><!-- YUIKA_PARENT_BEGIN -->
++</style><link rel="stylesheet" href="assets/design.css"><style>
++/* Appearance controls are independent of the learning views and records. */
++/* Keep both hierarchy labels readable in either theme and on paper. */
++svg[role="img"][aria-label^="鎌倉幕府のしくみの模式図"] rect[fill="#b57c65"]{fill:#8f4f3c}
++.theme-panel{max-width:1060px;margin:0 auto;padding:14px 28px;color:var(--ink)}
++.theme-options{display:flex;align-items:center;flex-wrap:wrap;gap:8px}
++.theme-options strong{margin-right:8px}.theme-choice{min-width:148px;min-height:46px;border-color:var(--green)!important}
++.theme-choice[aria-pressed=true]{background:var(--green);color:#fff;border-color:var(--green)!important}
++.theme-choice .theme-selected{font-size:12px;visibility:hidden}.theme-choice[aria-pressed=true] .theme-selected{visibility:visible}
++.theme-choice:focus-visible{outline-color:var(--green);outline-offset:3px}
++.theme-description,.theme-status{font-size:13px;margin:8px 0 0;overflow-wrap:anywhere}.theme-status:empty{display:none}
++@media(max-width:650px){.theme-panel{padding:14px 17px}}
++@media screen{
++ html[data-ui-theme=kamakura]{--bg:#f7f2e8;--subject:#24566b;--subject-text:#24566b;--radius:8px;--ink:#243d4b;--muted:#52646b;--paper:#f7f2e8;--white:#fffdf7;--line:#c1c8c5;--green:#24566b;--pale:#e7eef0;--pink:#f2e4da;--rose:#9b493e;--gold:#d9bd7b}
++ html[data-ui-theme=kamakura] header{box-shadow:inset 0 3px var(--gold)}
++ html[data-ui-theme=kamakura] :is(.unit-header,.unit-hero){--hero-ink:#fff}
++ html[data-ui-theme=kamakura] :is(.card,.stat,.note,details){background:var(--white)!important}
++ html[data-ui-theme=kamakura] .theme-choice{border:2px solid var(--green)!important}
++ html[data-ui-theme=kamakura] :is(button,input,select,textarea){border-color:var(--green)!important}
++ html[data-ui-theme=kamakura] button:hover{background:var(--pale)}
++ html[data-ui-theme=kamakura] :is(button.primary,.chips button[aria-pressed=true],.theme-choice[aria-pressed=true]){background:var(--green)!important;color:#fff!important}
++ html[data-ui-theme=kamakura] :focus-visible{outline-color:var(--rose);outline-offset:3px}
++ html[data-ui-theme=kamakura] :is(input,select,textarea,.review){background:var(--white)}
++ html[data-ui-theme=kamakura] :is(th,.note){background:var(--pale)!important}
++ html[data-ui-theme=kamakura] .answerbox.again{background:var(--pink)!important}
++ html[data-ui-theme=kamakura] .error{color:var(--rose)}
++ html[data-ui-theme=kamakura] svg[role=img]{background:#fffefa}
++}
++@media print{.theme-panel{display:none!important}:root{--bg:#fff;--paper:#fff;--white:#fff;--ink:#293e3b;--muted:#64736e}}
++</style><!-- YUIKA_PARENT_BEGIN -->
+ <script>
+ /* Parent-only URL entry. Loaded before every application/notification script. */
+ (()=>{
+@@ -167,7 +196,31 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
+ })();
+ 
+ </script>
+-<!-- YUIKA_REPORTS_END --><header><div class="brand"><span>ゆ</span>社会ノート<a href="index.html" id="socialHome">← 学習帳へ</a></div><nav aria-label="メイン"><button data-view="home">れんしゅう</button><button data-view="parent">保護者のノート</button><button data-view="records">記録の保存</button></nav></header><div id="notice" class="notice" role="status" aria-live="polite"></div><main id="main" tabindex="-1"></main><footer class="footer"><span>540-25 · 鎌倉幕府の成立</span><span>記録はブラウザー内。メール通知は接続後のみ。</span></footer><script>'use strict';
++<!-- YUIKA_REPORTS_END --><header><div class="brand"><span>ゆ</span>社会ノート<a href="index.html" id="socialHome">← 学習帳へ</a></div><nav aria-label="メイン"><button data-view="home">れんしゅう</button><button data-view="parent">保護者のノート</button><button data-view="records">記録の保存</button></nav></header><section class="theme-panel" aria-label="見た目">
++<div class="theme-options" role="group" aria-label="見た目"><strong>見た目</strong>
++<button type="button" id="theme-standard" class="theme-choice" data-theme="standard" aria-pressed="true">標準 <span class="theme-selected">選択中</span></button>
++<button type="button" id="theme-kamakura" class="theme-choice" data-theme="kamakura" aria-pressed="false">鎌倉 <span class="theme-selected">選択中</span></button></div>
++<p class="theme-description">見た目だけを変えます。問題や記録は変わりません。</p>
++<p id="theme-status" class="theme-status" role="status" aria-live="polite"></p></section><div id="notice" class="notice" role="status" aria-live="polite"></div><main id="main" tabindex="-1"></main><footer class="footer"><span>540-25 · 鎌倉幕府の成立</span><span>記録はブラウザー内。メール通知は接続後のみ。</span></footer><script>
++/* Theme preference never calls learning render/save or notification code. */
++(()=>{
++ 'use strict';
++ const storage=window.YuikaParent.storage;
++ const key='yuika-ui-theme-kamakura-v1',buttons=[...document.querySelectorAll('[data-theme]')],status=document.getElementById('theme-status');
++ const valid=value=>value==='standard'||value==='kamakura';
++ const apply=value=>{document.documentElement.dataset.uiTheme=value;buttons.forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.theme===value)));};
++ let saved=null;
++ try{const value=storage.getItem(key);if(valid(value))saved=value;}catch{}
++ apply(saved||'standard');
++ buttons.forEach(button=>button.addEventListener('click',()=>{
++  const value=button.dataset.theme;if(!valid(value))return;
++  apply(value);button.focus({preventScroll:true});
++  if(saved===value)return;
++  try{storage.setItem(key,value);saved=value;status.textContent='';}
++  catch{saved=null;status.textContent='この画面では変更しました。次回の表示には保存できませんでした。';}
++ }));
++})();
++</script><script>'use strict';
+ const QUESTIONS=[
+   {
+     "id": "54025-01",
+@@ -1318,7 +1371,7 @@ function prototypeFields(value,allowed){
+ const prototypeEventValidator=validateEvent;
+ validateEvent=function(e){
+  const fields=prototypeScience?
+-  [...(e.type==='recall'?['recallOutcome','firstResponse']:[]),'questionVersion','id','sessionId','questionId','datasetVersion','unit','type','question','response','inputRaw','expected','correct','answeredAt','timezoneOffset','localDay','hintUsed','mode','explanation']:
++  [...(e.type==='recall'?['recallOutcome','firstResponse']:[]),'questionVersion','id','sessionId','questionId','datasetVersion','unit','type','question','response','inputRaw','expected','correct','answeredAt','timezoneOffset','localDay','hintUsed','mode','explanation','answerUnit','answerTag']:
+   ['questionVersion','id','sessionId','questionId','version','unit','course','question','response','expected','explanation','correct','variant','mode','hint','at','offset','day',...(prototypeHeian?['reflection']:['unitId'])];
+  prototypeFields(e,fields);
+  if(prototypeHeian&&e.response&&typeof e.response==='object')prototypeFields(e.response,['steps','fills']);
+diff --git a/mock-focus-review.html b/mock-focus-review.html
+index 4feb7c0..36450bf 100644
+--- a/mock-focus-review.html
++++ b/mock-focus-review.html
+@@ -1926,7 +1926,7 @@ function prototypeFields(value,allowed){
+ const prototypeEventValidator=validateEvent;
+ validateEvent=function(e){
+  const fields=prototypeScience?
+-  [...(e.type==='recall'?['recallOutcome','firstResponse']:[]),'questionVersion','id','sessionId','questionId','datasetVersion','unit','type','question','response','inputRaw','expected','correct','answeredAt','timezoneOffset','localDay','hintUsed','mode','explanation']:
++  [...(e.type==='recall'?['recallOutcome','firstResponse']:[]),'questionVersion','id','sessionId','questionId','datasetVersion','unit','type','question','response','inputRaw','expected','correct','answeredAt','timezoneOffset','localDay','hintUsed','mode','explanation','answerUnit','answerTag']:
+   ['questionVersion','id','sessionId','questionId','version','unit','course','question','response','expected','explanation','correct','variant','mode','hint','at','offset','day',...(prototypeHeian?['reflection']:['unitId'])];
+  prototypeFields(e,fields);
+  if(prototypeHeian&&e.response&&typeof e.response==='object')prototypeFields(e.response,['steps','fills']);
+diff --git a/onin-review.html b/onin-review.html
+index a6e0d57..b7f3097 100644
+--- a/onin-review.html
++++ b/onin-review.html
+@@ -1156,7 +1156,7 @@ function prototypeFields(value,allowed){
+ const prototypeEventValidator=validateEvent;
+ validateEvent=function(e){
+  const fields=prototypeScience?
+-  [...(e.type==='recall'?['recallOutcome','firstResponse']:[]),'questionVersion','id','sessionId','questionId','datasetVersion','unit','type','question','response','inputRaw','expected','correct','answeredAt','timezoneOffset','localDay','hintUsed','mode','explanation']:
++  [...(e.type==='recall'?['recallOutcome','firstResponse']:[]),'questionVersion','id','sessionId','questionId','datasetVersion','unit','type','question','response','inputRaw','expected','correct','answeredAt','timezoneOffset','localDay','hintUsed','mode','explanation','answerUnit','answerTag']:
+   ['questionVersion','id','sessionId','questionId','version','unit','course','question','response','expected','explanation','correct','variant','mode','hint','at','offset','day',...(prototypeHeian?['reflection']:['unitId'])];
+  prototypeFields(e,fields);
+  if(prototypeHeian&&e.response&&typeof e.response==='object')prototypeFields(e.response,['steps','fills']);
+diff --git a/scripts/check_all.sh b/scripts/check_all.sh
+index b147001..4577d56 100755
+--- a/scripts/check_all.sh
++++ b/scripts/check_all.sh
+@@ -29,6 +29,7 @@ run notifications/test/worker.test.mjs node --test notifications/test/worker.tes
+ run notifications/test/browser.py python notifications/test/browser.py
+ run tests/study_reports.py python tests/study_reports.py
+ run tests/cloud_bootstrap.py python tests/cloud_bootstrap.py
++run tests/generator_preservation.py python tests/generator_preservation.py
+ run tests/adaptive_practice.py python tests/adaptive_practice.py
+ run tests/adaptive_daily.py python tests/adaptive_daily.py
+ run tests/adaptive_quality.py python tests/adaptive_quality.py
+@@ -50,6 +51,7 @@ run tests/focus_practice.py python tests/focus_practice.py
+ run tests/parent_mode.py python tests/parent_mode.py
+ run tests/design_c.py python tests/design_c.py
+ run tests/responsive_subjects.py python tests/responsive_subjects.py
++run tests/theme_review.py python tests/theme_review.py
+ printf '\n%-40s %6s %8s\n' 'Suite' 'Exit' 'Seconds'
+ for i in "${!names[@]}"; do
+   printf '%-40s %6s %8s\n' "${names[$i]}" "${codes[$i]}" "${times[$i]}"
+diff --git a/scripts/edo/build.py b/scripts/edo/build.py
+index b65fd9e..e844a79 100644
+--- a/scripts/edo/build.py
++++ b/scripts/edo/build.py
+@@ -1,35 +1,18 @@
+-"""Reuse task 18's validated two-stage engine with a separate social dataset/key.
++"""Refresh Edo questions while preserving its validated standalone engine.
+ Run this before notification, history, summary, design, and parent embedding.
+ """
+ import json,re,sys
+ from pathlib import Path
+ ROOT=Path(__file__).resolve().parents[2]
+ sys.path.insert(0,str(Path(__file__).parent))
+-from questions import build,UNIT
+-s=(ROOT/'yuika-review-v2.html').read_text()
++from questions import build
++# Keep Edo's standalone engine: science now includes lever-specific behavior.
++# Science/prototype adapter changes require an explicit Edo synchronization;
++# notification/history/design/parent blocks are re-embedded by their generators.
++s=(ROOT/'edo-review.html').read_text()
+ m=re.search(r'const QUESTIONS=(\[.*?\n\]);',s,re.S)
++assert m, 'Edo question block is missing'
+ s=s[:m.start(1)]+json.dumps(build(),ensure_ascii=False,indent=2)+s[m.end(1):]
+-s=re.sub(r'const QUESTION_REVISIONS=.*?;\n', 'const QUESTION_REVISIONS={};\n',s,count=1)
+-s=s.replace("yuika-science-2026-10-v2","shakai-edo-2026-11-v1").replace('yuika-science-review-v2','yuika-social-edo-v1').replace('yuika-science-v1','yuika-social-edo-legacy-unused')
+-s=s.replace('yuika-review-v2.html','edo-review.html')
+-s=s.replace('ゆいかの理科ノート',UNIT).replace('ゆいかの理科学習ノート','社会学習ノート').replace('おつかれさま、ゆいか！','おつかれさま！').replace('YUIKA’S SCIENCE NOTE','社会 · 江戸時代')
+-s=s.replace('ゆいか','学習者')
+-s=s.replace('理科','社会').replace('メダカの入力・図問題','この単元の入力問題').replace('メダカ：', '江戸時代：')
+-s=s.replace('像（ぞう）はレンズを通して見える姿、視野（しや）はのぞいたときに見える範囲です。','年号・政治のしくみ・外交を確かめよう。')
+-s=s.replace('ヒントを見てもだいじょうぶ。解説まで読んでみよう。','まず自分で答え、まちがえたら選択肢で再挑戦しよう。')
+-s=re.sub(r'<svg class="art".*?</svg>','',s,flags=re.S)
+-# Re-embed the shared client after generating this standalone page.
+-s=re.sub(r'<!-- YUIKA_REPORTS_BEGIN -->.*?<!-- YUIKA_REPORTS_END -->','',s,flags=re.S)
+-s=re.sub(r"^ window.YuikaReports.enqueue\(.*\n", lambda m:
+- m[0].replace("id:'science:'","id:'edo:'").replace("app:'science'","app:'social'")
+- .replace("unit:[...new Set(s.results.map(e=>e.unit))].join('、')","unit:s.results[0].unit")
+- .replace("question:e.unit+'：'+e.question","question:e.question")
+- .replace("e.inputRaw+recordUnit(e)","e.inputRaw").replace("String(e.expected)+recordUnit(e)","String(e.expected)"),
+- s,flags=re.M)
+-s=re.sub(r'function medakaDiagram\(q\)\{.*?\n\}\n','',s,flags=re.S)
+-s=s.replace("q.diagram?medakaDiagram(q):",'')
+-s=s.replace("subject:'社会',code:'水溶液／顕微鏡'", "subject:'社会',code:'江戸時代'")
+-s=s.replace('data-subject="science"','data-subject="social"')
+ (ROOT/'edo-review.html').write_text(s)
+ archive=ROOT/'scripts/history/revisions.json';a=json.loads(archive.read_text());records=a.setdefault('edo-review.html',{})
+ for q in build():
+diff --git a/scripts/focus/embed.py b/scripts/focus/embed.py
+index aea77e5..2551251 100644
+--- a/scripts/focus/embed.py
++++ b/scripts/focus/embed.py
+@@ -8,6 +8,15 @@ from pathlib import Path
+ ROOT=Path(__file__).resolve().parents[2]
+ qs=json.loads((ROOT/'scripts/focus/questions.json').read_text())
+ text=(ROOT/'kamakura-review.html').read_text()
++# The appearance prototype belongs only to Kamakura, not the shared quiz engine.
++# Strip its complete CSS, controls and runtime before deriving the focus page.
++for pattern in (
++ r'<style>\n/\* Appearance controls are independent of the learning views and records\. \*/.*?</style>',
++ r'<section class="theme-panel" aria-label="見た目">.*?</section>',
++ r'<script>\n/\* Theme preference never calls learning render/save or notification code\. \*/.*?</script>',
++):
++ text,count=re.subn(pattern,'',text,flags=re.S)
++ assert count==1, 'Kamakura appearance block changed; review focus derivation'
+ # Re-embed the shared client after generating this standalone page.
+ text=re.sub(r'<!-- YUIKA_REPORTS_BEGIN -->.*?<!-- YUIKA_REPORTS_END -->','',text,flags=re.S)
+ for section in ('ADAPTIVE','HISTORY','PROTOTYPE','DESIGN_C'):
+diff --git a/scripts/parent/embed.py b/scripts/parent/embed.py
+index b74326d..9604915 100644
+--- a/scripts/parent/embed.py
++++ b/scripts/parent/embed.py
+@@ -10,6 +10,11 @@ for p in ROOT.glob('*.html'):
+   if text[b:b+1]=='\n':b+=1
+   text=text[:a]+text[b:]
+  # Keep charset within the first 1024 bytes and CSP before executable code.
+- pos=min(text.lower().index('</head>'), text.lower().index('<script'))
++ # Place the boundary before the whole notification block so re-embedding
++ # notifications cannot remove a parent runtime nested inside its markers.
++ positions=[text.lower().index('</head>'), text.lower().index('<script')]
++ if '<!-- YUIKA_REPORTS_BEGIN -->' in text:
++  positions.append(text.index('<!-- YUIKA_REPORTS_BEGIN -->'))
++ pos=min(positions)
+  text=text[:pos]+block+'\n'+text[pos:]
+  p.write_text(text)
+diff --git a/scripts/practice/science.js b/scripts/practice/science.js
+index 0df0d82..a5eb937 100644
+--- a/scripts/practice/science.js
++++ b/scripts/practice/science.js
+@@ -11,7 +11,7 @@ MODES.daily='今日の5問';MODES.adaptive='弱点の復習';
+ let scienceUnit='all';
+ const SCIENCE_PREF_KEY=KEY+'-preferences-v1';
+ function rememberScience(){
+- try{window.YuikaParent.storage.setItem(SCIENCE_PREF_KEY,JSON.stringify({count,unit:scienceUnit}));window.YuikaParent.storage.setItem('yuika-prototype-v1:last-daily-unit','yuika-review-v2.html');}
++ try{window.YuikaParent.storage.setItem(SCIENCE_PREF_KEY,JSON.stringify({count,unit:scienceUnit}));window.YuikaParent.storage.setItem('yuika-prototype-v1:last-daily-unit',scienceUnit===LEVER_UNIT?'yuika-review-v2.html?unit='+LEVER_UNIT:'yuika-review-v2.html');}
+  catch{message('学習設定を保存できません。次回は初期設定になります。');}
+ }
+ try{const p=JSON.parse(window.YuikaParent.storage.getItem(SCIENCE_PREF_KEY)||'null');if(p){if([5,10].includes(p.count))count=p.count;if(p.unit==='all'||UNITS.includes(p.unit))scienceUnit=p.unit;}}catch{message('学習設定を読み取れません。初期設定で始めます。');}
+@@ -19,12 +19,12 @@ const requestedScienceUnit=new URLSearchParams(location.search).get('unit');
+ if(UNITS.includes(requestedScienceUnit))scienceUnit=requestedScienceUnit;
+ function scienceWeak(events=data.events,now=Date.now()){
+  if(practiceUnavailable(events,now))return [];
+- return practiceWeaknesses(events,now).filter(r=>scienceUnit==='all'||r.unit===scienceUnit).slice(0,10);
++ return practiceWeaknesses(events,now).filter(r=>(scienceUnit==='all'||r.unit===scienceUnit)&&(Q.get(r.originId).step!==4||leverUnlocked())).slice(0,10);
+ }
+ function scienceDue(events=data.events,now=Date.now()){
+  if(practiceUnavailable(events,now))return [];
+  const today=japanDay(new Date(now).toISOString());
+- return retention(events,now).filter(s=>s.status==='waiting'&&s.due<=today&&(scienceUnit==='all'||Q.get(s.originId).unit===scienceUnit))
++ return retention(events,now).filter(s=>s.status==='waiting'&&s.due<=today&&(Q.get(s.originId).step!==4||leverUnlocked())&&(scienceUnit==='all'||Q.get(s.originId).unit===scienceUnit))
+  .sort((a,b)=>a.due.localeCompare(b.due)||a.originId.localeCompare(b.originId));
+ }
+ function scienceDaily(){
+@@ -33,17 +33,35 @@ function scienceDaily(){
+  const push=q=>{if(!seen.has(q.id)){seen.add(q.id);qs.push(q);}};
+  scienceDue().forEach(s=>push(Q.get(s.originId)));
+  scienceWeak().forEach(s=>push(Q.get(s.originId)));
+- const normal=[...candidates('normal',scienceUnit)];
++ const priorityCount=qs.length;
++ const normal=[...candidates('daily',scienceUnit)];
+  for(let i=normal.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[normal[i],normal[j]]=[normal[j],normal[i]];}
+- normal.forEach(push);return qs.slice(0,count);
++ if(scienceUnit===LEVER_UNIT){
++  const planned=leverPracticeQuestions();
++  if(!state.events.some(e=>isLever(Q.get(e.questionId))))return planned;
++  planned.forEach(push);
++ }else normal.filter(q=>q.step!==4).forEach(push);
++ if(leverUnlocked()&&(scienceUnit==='all'||scienceUnit===LEVER_UNIT)&&!qs.slice(0,count).some(q=>q.step===4)){
++  const practiced=new Set(state.events.filter(e=>e.correct&&!e.hintUsed).map(e=>e.questionId));
++  const challenge=normal.filter(q=>q.step===4&&!practiced.has(q.id)).sort((a,b)=>a.id.localeCompare(b.id))[0];
++  if(challenge&&priorityCount<count)qs.splice(count-1,0,challenge);
++ }
++ return qs.slice(0,count);
+ }
+ const scienceStart=start;
+ start=function(mode,unit='all'){
++ if(mode==='challenge'){
++  if(leverUnlocked())beginLever(mode,QUESTIONS.filter(q=>isLever(q)&&q.step===4));
++  return;
++ }
++ if(mode==='unit'&&unit===LEVER_UNIT){
++  scienceUnit=unit;rememberScience();beginLever(mode,leverPracticeQuestions());return;
++ }
+  if(mode!=='daily'&&mode!=='adaptive'){scienceUnit=unit;rememberScience();scienceStart(mode,unit);return;}
+  if(practiceUnavailable()){message(practiceClockIssue()?PRACTICE_CLOCK_NOTICE:'記録を保存・読み取りできないため、弱点の復習と今日の5問は休止しています。「記録の引きつぎ」で保管してください。');return;}
+  const qs=mode==='daily'?scienceDaily():scienceWeak().slice(0,count).map(s=>Q.get(s.originId));
+  if(!qs.length){message('今はこの練習の候補がありません。');return;}
+- rememberScience();session={id:uid(),mode,questions:qs,index:0,results:[],hint:false,selected:null,answered:false,done:false};view='quiz';render();main.focus();window.scrollTo(0,0);
++ rememberScience();session={id:uid(),mode,questions:qs,index:0,results:[],hint:false,selected:null,answered:false,done:false,leverPractice:scienceUnit===LEVER_UNIT};view='quiz';render();main.focus();window.scrollTo(0,0);
+ };
+ function scienceSummary(){
+  if(practiceClockIssue())return '<section class="card" id="science-summary"><p>'+esc(PRACTICE_CLOCK_NOTICE)+'</p></section>';
+@@ -59,6 +77,10 @@ home=function(){
+  main.insertAdjacentHTML('afterbegin',`<section class="card"><button id="daily-five" class="primary" ${practiceUnavailable()?'disabled':''}>今日の5問をはじめる（今回は${count}問）</button><p>期限の来た再確認 → 弱点の復習 → 通常問題。理科全${QUESTIONS.length}問から選びます。下の単元と問題数を適用します。像（ぞう）はレンズを通して見える姿、視野（しや）はのぞいたときに見える範囲です。</p><p>今日の再確認：${scienceDue().length}問 ／ 弱点の復習：${rows.length}問</p><button id="science-adaptive" ${rows.length?'':'disabled'}>弱点の復習をはじめる</button>${rows.map(r=>`<details><summary>${esc(r.unit)}：${esc(Q.get(r.originId).prompt)}</summary><p>${Q.get(r.originId).type==='recall'?'選択肢を使ったか、答えがちがったため、自力で答える再確認の対象です。':`${r.wrong}/${r.total}日でまちがい・ヒントを見た日${r.hintCount}日。`}最後の回答：${esc(new Date(r.lastAt).toLocaleString('ja-JP',{timeZone:'Asia/Tokyo'}))}（日本時間）。原因は未確定です。</p></details>`).join('')}</section>`+scienceSummary());
+  document.getElementById('daily-five').onclick=()=>start('daily');
+  document.getElementById('science-adaptive').onclick=()=>start('adaptive');
++ if(scienceUnit===LEVER_UNIT&&leverUnlocked()){
++  document.getElementById('start').insertAdjacentHTML('afterend','<button id="lever-challenge">挑戦（2問）</button>');
++  document.getElementById('lever-challenge').onclick=()=>start('challenge',LEVER_UNIT);
++ }
+  document.getElementById('unit').onchange=e=>{scienceUnit=e.target.value;rememberScience();home();document.getElementById('unit').focus();};
+  main.querySelectorAll('[data-count]').forEach(b=>b.onclick=()=>{count=Number(b.dataset.count);rememberScience();home();});
+ };
+diff --git a/scripts/prototype/runtime.js b/scripts/prototype/runtime.js
+index cd03e75..61780ce 100644
+--- a/scripts/prototype/runtime.js
++++ b/scripts/prototype/runtime.js
+@@ -11,7 +11,7 @@ function prototypeFields(value,allowed){
+ const prototypeEventValidator=validateEvent;
+ validateEvent=function(e){
+  const fields=prototypeScience?
+-  [...(e.type==='recall'?['recallOutcome','firstResponse']:[]),'questionVersion','id','sessionId','questionId','datasetVersion','unit','type','question','response','inputRaw','expected','correct','answeredAt','timezoneOffset','localDay','hintUsed','mode','explanation']:
++  [...(e.type==='recall'?['recallOutcome','firstResponse']:[]),'questionVersion','id','sessionId','questionId','datasetVersion','unit','type','question','response','inputRaw','expected','correct','answeredAt','timezoneOffset','localDay','hintUsed','mode','explanation','answerUnit','answerTag']:
+   ['questionVersion','id','sessionId','questionId','version','unit','course','question','response','expected','explanation','correct','variant','mode','hint','at','offset','day',...(prototypeHeian?['reflection']:['unitId'])];
+  prototypeFields(e,fields);
+  if(prototypeHeian&&e.response&&typeof e.response==='object')prototypeFields(e.response,['steps','fills']);
+diff --git a/tests/generator_preservation.py b/tests/generator_preservation.py
+new file mode 100644
+index 0000000..6e9074f
+--- /dev/null
++++ b/tests/generator_preservation.py
+@@ -0,0 +1,59 @@
++"""Real regeneration must preserve committed app behavior and be repeatable.
++
++Run in a temporary tracked-file copy: this suite must not rewrite the checkout.
++Comparing the first pass matters: idempotence alone permits a stable regression.
++"""
++import hashlib
++from pathlib import Path
++import shutil
++import subprocess
++import sys
++from tempfile import TemporaryDirectory
++
++ROOT = Path(__file__).resolve().parents[1]
++GENERATORS = (
++    'scripts/practice/embed.py',
++    'scripts/practice/embed_science.py',
++    'scripts/edo/build.py',
++    'scripts/focus/embed.py',
++    'notifications/embed.py',
++    'scripts/practice/embed.py',
++    'scripts/history/embed.py',
++    'scripts/prototype/embed.py',
++    'scripts/focus/subjects.py',
++    'scripts/design/build_summary.py',
++    'scripts/design/embed.py',
++    'scripts/parent/embed.py',
++)
++
++
++def snapshot(root, names):
++    return {name: hashlib.sha256((root / name).read_bytes()).hexdigest()
++            for name in names}
++
++
++def main():
++    names = subprocess.check_output(
++        ['git', 'ls-files', '-z'], cwd=ROOT).decode().split('\0')[:-1]
++    expected = snapshot(ROOT, names)
++    with TemporaryDirectory(prefix='yuika-generator-regression-') as directory:
++        isolated = Path(directory)
++        for name in names:
++            target = isolated / name
++            target.parent.mkdir(parents=True, exist_ok=True)
++            shutil.copyfile(ROOT / name, target)
++        previous = expected
++        for attempt in (1, 2):
++            for generator in GENERATORS:
++                subprocess.run([sys.executable, generator], cwd=isolated,
++                               check=True, capture_output=True, text=True)
++            actual = snapshot(isolated, names)
++            changed = [name for name in names if actual[name] != previous[name]]
++            assert not changed, f'Generator pass {attempt} changed tracked files: {changed}'
++            previous = actual
++    assert snapshot(ROOT, names) == expected, 'Test modified its source checkout'
++    print('generator_preservation: notification/Edo/focus and existing generators preserve all tracked files; second pass unchanged PASS')
++
++
++if __name__ == '__main__':
++    main()
+diff --git a/tests/lever.py b/tests/lever.py
+index 0729980..1650581 100644
+--- a/tests/lever.py
++++ b/tests/lever.py
+@@ -294,6 +294,41 @@ try:
+         assert 'cm' in page.locator('#numeric').evaluate("el => el.parentElement.textContent")
+         e = answer(page, q, typical)
+         assert e['answerUnit'] == 'cm' and e['answerTag'] == q['numericTags'][typical]
++        # Preserve real synthetic answers, including optional unit/tag fields,
++        # through reload and an actual downloaded-file roundtrip into empty storage.
++        expected_events = page.evaluate('state.events')
++        page.reload()
++        assert page.evaluate('state.events') == expected_events
++        page.evaluate('records()')
++        with page.expect_download() as download:
++            page.locator('#export').click()
++        exported = Path(download.value.path()).read_bytes()
++        packet = json.loads(exported)
++        assert packet['payload']['events'] == expected_events
++        page.evaluate('YuikaParent.storage.removeItem(KEY)')
++        page.reload()
++        assert page.evaluate('state.events.length') == 0
++        page.evaluate('records()')
++        page.locator('#import').set_input_files({
++            'name': 'synthetic-lever-roundtrip.json',
++            'mimeType': 'application/json', 'buffer': exported,
++        })
++        page.wait_for_function('() => rejectedImportRaw === null && state.events.length > 0')
++        assert page.evaluate('state.events') == expected_events
++        saved = page.evaluate('YuikaParent.storage.getItem(KEY)')
++        for field, value in (('answerUnit', 'invalid-unit'),
++                             ('answerTag', 'invalid-tag'),
++                             ('futureObservation', 'unsupported')):
++            bad = json.loads(exported)
++            bad_event = next(row for row in bad['payload']['events'] if row['id'] == e['id'])
++            bad_event[field] = value
++            raw = json.dumps(bad, ensure_ascii=False)
++            page.evaluate('async raw => { await importFile(new File([raw], "invalid-lever.json")); }', raw)
++            assert page.evaluate('rejectedImportRaw') == raw
++            assert page.evaluate('YuikaParent.storage.getItem(KEY)') == saved
++            assert page.evaluate('state.events') == expected_events
++        page.evaluate('async raw => { await importFile(new File([raw], "valid-lever.json")); }', exported.decode())
++        assert page.evaluate('rejectedImportRaw') is None
+         prepare(page, q['id'])
+         e = answer(page, q, 99999)
+         assert not e['correct'] and not e.get('answerTag')
+diff --git a/tests/study_reports.py b/tests/study_reports.py
+index d480372..6683b5b 100644
+--- a/tests/study_reports.py
++++ b/tests/study_reports.py
+@@ -119,7 +119,8 @@ def main(base, browser):
+         page = ctx.new_page()
+         errors, posts = [], []
+         page.on('pageerror', lambda err: errors.append(str(err)))
+-        page.on('dialog', lambda dialog: dialog.accept())
++        accept_dialog = [True]
++        page.on('dialog', lambda dialog: dialog.accept() if accept_dialog[0] else dialog.dismiss())
+ 
+         def route(r):
+             url = r.request.url
+@@ -157,14 +158,25 @@ def main(base, browser):
+                 page.get_by_role('button', name='今日の5問をはじめる').click()
+                 page.wait_for_url('**/' + name + '*daily=1')
+ 
++            planned = page.evaluate('session.questions.length' if science_engine else 'run.qs.length')
++
+             def before_end():
+                 assert len(posts) == before
+                 assert len(page.evaluate(JOBS)) == before
++                if partial_run:
++                    saved = page.evaluate('JSON.stringify(localStorage)')
++                    accept_dialog[0] = False
++                    page.locator('[data-view="home"]').click()
++                    accept_dialog[0] = True
++                    expect(page.locator('#next')).to_be_visible()
++                    assert page.evaluate('JSON.stringify(localStorage)') == saved
++                    assert len(posts) == len(page.evaluate(JOBS)) == before
+ 
+             total = finish(page, science_engine, partial_run, before_end)
+             expect(page.locator('#yuika-mail-status')).to_contain_text('受け付けました')
+             assert len(posts) == before + 1
+             report = posts[-1]
++            assert total == (1 if partial_run else planned)
+             assert report['total'] == len(report['answers']) == report['correct'] == total, report
+             assert report['unit'] == unit and report['subject'] == subject, report
+             if not partial_run:
+@@ -174,13 +186,23 @@ def main(base, browser):
+             assert len(page.evaluate(JOBS)) == before + 1
+             assert len(posts) == before + 1
+ 
++        # Ending without an answer must not create a job in any engine.
++        page.goto(url)
++        page.locator('#start').click()
++        saved = page.evaluate('JSON.stringify(localStorage)')
++        page.locator('#end').click()
++        assert len(page.evaluate(JOBS)) == len(posts) == 2
++        assert page.evaluate('JSON.stringify(localStorage)') == saved
++
+         # Use the same connected device, and even seed a config inside the sandbox.
++        normal_storage = page.evaluate('JSON.stringify(localStorage)')
+         page.goto(url + ('&' if query else '?') + 'parent-check=1')
+         page.evaluate('c=>YuikaParent.storage.setItem("yuika-mail-config-v1",JSON.stringify(c))', CONFIG)
+         page.locator('#start').click()
+         finish(page, science_engine, True, lambda: None)
+         assert page.evaluate("Object.keys(sessionStorage).every(k=>!k.includes('yuika-mail-job-v1:'))")
+         assert len(page.evaluate(JOBS)) == len(posts) == 2
++        assert page.evaluate('JSON.stringify(localStorage)') == normal_storage
+         page.locator('#parent-exit').click()
+         expect(page.locator('#yuika-mail-status')).to_contain_text('接続済み')
+         assert page.evaluate('k=>JSON.parse(localStorage.getItem(k))', CONFIG_KEY) == CONFIG
+@@ -211,7 +233,7 @@ def main(base, browser):
+         assert not errors, errors
+         reports.extend(posts)
+         ctx.close()
+-        print(f'PASS {name} {query}: daily, early end, dedup, parent isolation', flush=True)
++        print(f'PASS {name} {query}: daily count, early end, cancelled navigation, unanswered end, dedup, parent isolation', flush=True)
+     verify_mail(reports)
+     print(f'PASS {len(reports)} captured reports accepted by Worker contract; subjects verified with mail stub')
+ 
+diff --git a/tests/theme_review.py b/tests/theme_review.py
+new file mode 100644
+index 0000000..fa2f8fc
+--- /dev/null
++++ b/tests/theme_review.py
+@@ -0,0 +1,285 @@
++"""Synthetic theme regression checks; run with python tests/theme_review.py."""
++import importlib.util
++import json
++import os
++import re
++from functools import partial
++from http.server import ThreadingHTTPServer
++from pathlib import Path
++from threading import Thread
++from playwright.sync_api import sync_playwright, expect
++
++ROOT = Path(__file__).resolve().parents[1]
++KEY = 'yuika-ui-theme-kamakura-v1'
++LEARNING = 'yuika-prototype-v1:yuika-social-540-25-v1'
++OTHER = {
++    'yuika-social-540-27-v1': '{"schemaVersion":1,"datasetVersion":"onin-540-27-v1","events":[]}',
++    'yuika-social-540-24-v1': '{"schemaVersion":1,"datasetVersion":"heian-540-24-v1","events":[]}',
++    'yuika-science-v2': '{"synthetic":"preserve"}',
++    'yuika_sessions': '[{"unit":"synthetic"}]',
++}
++spec = importlib.util.spec_from_file_location('preview', ROOT / 'scripts/cloud/serve.py')
++preview = importlib.util.module_from_spec(spec)
++spec.loader.exec_module(preview)
++posts = []
++class Handler(preview.PreviewHandler):
++    def log_message(self, *_):
++        pass
++    def do_POST(self):
++        posts.append(self.path)
++        self.send_error(405)
++
++server = ThreadingHTTPServer(('127.0.0.1', 0), partial(Handler, directory=str(ROOT)))
++Thread(target=server.serve_forever, daemon=True).start()
++BASE = f'http://127.0.0.1:{server.server_port}/'
++external = []
++blocked_fonts = []
++errors = []
++
++def fresh(browser, initial=None, fault=None, parent=False, session_fault=False):
++    context = browser.new_context(viewport={'width': 768, 'height': 1024})
++    def route_request(route):
++        if route.request.url.startswith(BASE): route.continue_()
++        elif route.request.url.startswith(('https://fonts.googleapis.com/', 'https://fonts.gstatic.com/')) and route.request.method == 'GET':
++            blocked_fonts.append(route.request.url);route.abort()
++        else: external.append(route.request.url);route.abort()
++    context.route('**/*', route_request)
++    context.add_init_script(path=str(ROOT/'tests/seed_random.js'))
++    if initial is not None or fault:
++        context.add_init_script(f"""(()=>{{
++          const key={json.dumps(KEY)}, seed={json.dumps(initial or {})};
++          if(!sessionStorage.getItem('theme-test-seeded')){{for(const[k,v]of Object.entries(seed))localStorage.setItem(k,v);sessionStorage.setItem('theme-test-seeded','yes');}}
++          const get=Storage.prototype.getItem,set=Storage.prototype.setItem;
++          window.themeFault={json.dumps(fault)};window.themeWrites=0;
++          Storage.prototype.getItem=function(k){{if(k===key&&window.themeFault==='get')throw new DOMException('synthetic','SecurityError');return get.call(this,k);}};
++          Storage.prototype.setItem=function(k,v){{if(k===key){{window.themeWrites++;if(window.themeFault==='set')throw new DOMException('synthetic','QuotaExceededError');}}return set.call(this,k,v);}};
++        }})();""")
++    if session_fault:
++        context.add_init_script("""(()=>{const get=Storage.prototype.getItem,set=Storage.prototype.setItem;
++          Storage.prototype.getItem=function(k){if(this===sessionStorage)throw new DOMException('synthetic','SecurityError');return get.call(this,k);};
++          Storage.prototype.setItem=function(k,v){if(this===sessionStorage)throw new DOMException('synthetic','SecurityError');return set.call(this,k,v);};})();""")
++    page = context.new_page()
++    page.on('pageerror', lambda error: errors.append(str(error)))
++    page.goto(BASE + 'kamakura-review.html' + ('?parent-check=1' if parent else ''))
++    return context, page
++
++def storage(page):
++    return page.evaluate('Object.fromEntries(Object.entries(localStorage))')
++
++def state(page):
++    return page.evaluate("""()=>({run:JSON.stringify(run),data:JSON.stringify(data),prefs:JSON.stringify(prefs),
++      html:document.getElementById('main').innerHTML,values:[...document.querySelectorAll('#main input,#main select,#main textarea')].map(e=>[e.id,e.value]),
++      notice:document.getElementById('notice').textContent,blocked,dirty})""")
++
++def theme(page, value):
++    before = state(page)
++    records = storage(page)
++    page.locator('#theme-' + value).click()
++    expect(page.locator('html')).to_have_attribute('data-ui-theme', value)
++    expect(page.locator('#theme-' + value)).to_have_attribute('aria-pressed', 'true')
++    assert state(page) == before, 'theme changed learning state/DOM'
++    after = storage(page)
++    assert {k:v for k,v in after.items() if k != KEY} == {k:v for k,v in records.items() if k != KEY}
++    assert after[KEY] == value
++
++
++def contrast(a, b):
++    def luminance(color):
++        rgb = [int(x) / 255 for x in re.findall(r'\d+', color)[:3]]
++        assert len(rgb) == 3, color
++        channels = [x / 12.92 if x <= .04045 else ((x + .055) / 1.055) ** 2.4 for x in rgb]
++        return sum(x*w for x,w in zip(channels, [.2126,.7152,.0722]))
++    x,y=sorted([luminance(a),luminance(b)])
++    return (y+.05)/(x+.05)
++
++
++def diagram_contrast(page):
++    svg = page.locator('svg[role="img"][aria-label^="鎌倉幕府のしくみの模式図"]')
++    expect(svg).to_have_count(1)
++    labels = svg.locator('text').evaluate_all("""es=>es.map(e=>({
++      label:e.textContent,fill:getComputedStyle(e).fill,fontSize:getComputedStyle(e).fontSize,
++      rawFill:e.getAttribute('fill'),previousTag:e.previousElementSibling?.tagName,
++      background:e.previousElementSibling?.getAttribute('fill'),
++      backgroundFill:e.previousElementSibling?getComputedStyle(e.previousElementSibling).fill:null}))""")
++    targets = [x for x in labels if x['label'] in ['将軍','執権（北条氏）']]
++    assert [x['label'] for x in targets] == ['将軍','執権（北条氏）']
++    for x in targets:
++        assert x['previousTag']=='rect' and x['background']=='#b57c65',x
++        assert x['rawFill']=='white' and x['fill']=='rgb(255, 255, 255)' and x['fontSize']=='13px',x
++        assert contrast(x['fill'],x['backgroundFill'])>=4.5,x
++    rects=svg.locator('rect').evaluate_all("es=>es.map(e=>({raw:e.getAttribute('fill'),actual:getComputedStyle(e).fill}))")
++    assert sum(x['raw']=='#b57c65' for x in rects)==2
++    for x in rects:
++        raw='#8f4f3c' if x['raw']=='#b57c65' else x['raw']
++        assert x['actual']=='rgb('+', '.join(str(int(raw[i:i+2],16)) for i in (1,3,5))+')',x
++    for x in labels:
++        if x in targets: continue
++        raw='#ffffff' if x['rawFill']=='white' else x['rawFill']
++        assert x['fill']=='rgb('+', '.join(str(int(raw[i:i+2],16)) for i in (1,3,5))+')',x
++    return svg.inner_html(), min(contrast(x['fill'],x['backgroundFill']) for x in targets)
++
++
++try:
++    with sync_playwright() as pw:
++        browser = pw.chromium.launch(executable_path=os.environ.get('PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH'))
++        context, page = fresh(browser, OTHER)
++        # T1/T2/T4: explicit selection, dedicated key and unchanged synthetic histories.
++        expect(page.locator('html')).to_have_attribute('data-ui-theme', 'standard')
++        assert KEY not in storage(page) and page.evaluate('themeWrites') == 0
++        questions = page.evaluate('QUESTIONS')
++        expected_grade = page.evaluate("QUESTIONS.map(q=>[grade(q,q.answer,'normal'),grade(q,'synthetic wrong','normal')])")
++        theme(page, 'kamakura')
++        theme(page, 'standard')
++        theme(page, 'kamakura')
++        n = page.evaluate('themeWrites')
++        theme(page, 'kamakura')
++        assert page.evaluate('themeWrites') == n, 'same saved selection rewrote storage'
++        page.reload()
++        expect(page.locator('html')).to_have_attribute('data-ui-theme', 'kamakura')
++        assert page.evaluate('themeWrites') == 0
++        assert page.evaluate('QUESTIONS') == questions
++        assert page.evaluate("QUESTIONS.map(q=>[grade(q,q.answer,'normal'),grade(q,'synthetic wrong','normal')])") == expected_grade
++        # The two inherited low-contrast hierarchy boxes are readable in both
++        # themes and print. Label text, geometry/DOM and all other fills stay fixed.
++        diagram_dom=None
++        for value in ['standard','kamakura']:
++            theme(page,value)
++            for media in ['screen','print']:
++                page.emulate_media(media=media)
++                dom,ratio=diagram_contrast(page)
++                if diagram_dom is None: diagram_dom=dom
++                assert dom==diagram_dom, 'diagram content or geometry changed'
++                print('diagram contrast',value,media,round(ratio,3))
++            page.emulate_media(media='screen')
++        # T8/T9: actual browser colors and controls, including keyboard operation.
++        for selector in ['.theme-description', '.theme-choice', '.hero p', '.stats .stat span', '.card h2']:
++            colors = page.locator(selector).first.evaluate("e=>{let b=e;while(b&&getComputedStyle(b).backgroundColor==='rgba(0, 0, 0, 0)')b=b.parentElement;return [getComputedStyle(e).color,getComputedStyle(b).backgroundColor];}")
++            assert contrast(*colors) >= 4.5, (selector, colors)
++        sizes = page.locator('.theme-choice').evaluate_all('es=>es.map(e=>({w:e.getBoundingClientRect().width,h:e.getBoundingClientRect().height}))')
++        assert all(s['w'] >= 44 and s['h'] >= 44 for s in sizes)
++        assert page.locator('.theme-options').evaluate('e=>parseFloat(getComputedStyle(e).gap)') >= 8
++        page.locator('#theme-standard').focus();page.keyboard.press('Enter')
++        expect(page.locator('#theme-standard')).to_have_attribute('aria-pressed','true')
++        page.keyboard.press('Tab');page.keyboard.press('Space')
++        expect(page.locator('#theme-kamakura')).to_have_attribute('aria-pressed','true')
++        focus = page.locator('#theme-kamakura').evaluate('e=>[getComputedStyle(e).outlineColor,getComputedStyle(document.body).backgroundColor,parseFloat(getComputedStyle(e).outlineOffset)]')
++        assert contrast(focus[0],focus[1]) >= 3 and focus[2] >= 3
++        border = page.locator('#course').evaluate('e=>[getComputedStyle(e).borderColor,getComputedStyle(e).backgroundColor]')
++        assert contrast(*border) >= 3
++        page.emulate_media(reduced_motion='reduce')
++        theme(page,'standard');theme(page,'kamakura')
++        # T5/T6: same run and every input stage survive switches; regular grading persists.
++        page.evaluate('Math.random=(()=>{let n=37;return()=>((n=(n*16807)%2147483647)/2147483647);})()')
++        page.locator('[data-count="15"]').click()
++        page.locator('#start').click()
++        seen = set()
++        for i in range(15):
++            q = page.evaluate('run.qs[run.index]');seen.add(q['type'])
++            if q['type'] == 'text': page.locator('#response').fill(q['answer'])
++            else: page.locator('.option', has_text=q['answer']).first.click()
++            theme(page,'standard');theme(page,'kamakura')
++            if i == 0:
++                page.locator('#hint').click()
++                theme(page,'standard');theme(page,'kamakura')
++            page.locator('#check').click()
++            assert page.evaluate('run.answered')
++            theme(page,'standard');theme(page,'kamakura')
++            page.locator('#next').click()
++        assert seen == {'text','choice'}
++        expect(page.locator('.result strong')).to_contain_text('15')
++        saved = storage(page)[LEARNING]
++        assert len(json.loads(saved)['events']) == 15
++        # T7: switching an existing result never enqueues a notification or makes requests.
++        page.evaluate('window.themeEnqueues=0;YuikaReports.enqueue=()=>{themeEnqueues++;};window.themeRequests=0;')
++        requests = []
++        page.on('request', lambda req: requests.append(req.url))
++        theme(page,'standard');theme(page,'kamakura')
++        assert page.evaluate('themeEnqueues') == 0 and requests == []
++        assert storage(page)[LEARNING] == saved
++        for view in ['parent','records','home']:
++            (page.locator('.unit-footer a') if view=='parent' else page.locator(f'[data-view={view}]')).click()
++            theme(page,'standard');theme(page,'kamakura')
++            assert page.evaluate('document.documentElement.scrollWidth <= innerWidth')
++        # Export schema excludes theme setting.
++        page.locator('[data-view=records]').click()
++        with page.expect_download() as event: page.locator('#export').click()
++        exported=json.loads(Path(event.value.path()).read_text())
++        assert exported['format'] == 'yuika-review-prototype' and exported['formatVersion'] == 1
++        assert KEY not in json.dumps(exported) and exported['payload']['events'] == json.loads(saved)['events']
++        page.reload()
++        assert storage(page)[LEARNING] == saved
++        # T10: print is neutral without mutating preference.
++        page.emulate_media(media='print')
++        expect(page.locator('.theme-panel')).to_be_hidden()
++        assert page.locator('body').evaluate('e=>getComputedStyle(e).backgroundColor') == 'rgb(255, 255, 255)'
++        assert page.locator('body').evaluate('e=>getComputedStyle(e).color') == 'rgb(41, 62, 59)'
++        assert storage(page)[KEY] == 'kamakura'
++        page.emulate_media(media='screen')
++        expect(page.locator('.theme-panel')).to_be_visible()
++        # T11: another page does not consume theme setting; return restores only this page.
++        page.goto(BASE+'onin-review.html')
++        assert page.locator('html').get_attribute('data-ui-theme') is None
++        assert storage(page)[KEY] == 'kamakura'
++        page.goto(BASE+'kamakura-review.html')
++        expect(page.locator('html')).to_have_attribute('data-ui-theme','kamakura')
++        for k,v in OTHER.items(): assert storage(page)[k] == v
++        context.close()
++        # T2/T3: unknown data preserved; synthetic read/write faults do not disable learning.
++        for raw in ['unknown','{"theme":"kamakura"}','']:
++            context,page=fresh(browser,{KEY:raw})
++            expect(page.locator('html')).to_have_attribute('data-ui-theme','standard')
++            assert storage(page)[KEY] == raw and page.evaluate('themeWrites') == 0
++            theme(page,'standard');context.close()
++        context,page=fresh(browser,{KEY:'kamakura'},'get')
++        expect(page.locator('html')).to_have_attribute('data-ui-theme','standard')
++        assert not page.evaluate('blocked') and page.evaluate('themeWrites') == 0
++        page.locator('#start').click();expect(page.locator('#check')).to_be_visible();context.close()
++        context,page=fresh(browser,OTHER,'set')
++        page.evaluate("document.getElementById('notice').textContent='合成の学習保存警告'")
++        original=state(page)
++        page.locator('#theme-kamakura').click()
++        expect(page.locator('html')).to_have_attribute('data-ui-theme','kamakura')
++        expect(page.locator('#theme-status')).to_contain_text('保存できませんでした')
++        assert state(page) == original and KEY not in storage(page)
++        page.locator('#theme-standard').click()
++        expect(page.locator('html')).to_have_attribute('data-ui-theme','standard')
++        page.evaluate('themeFault=null')
++        theme(page,'standard');expect(page.locator('#theme-status')).to_be_empty()
++        assert page.locator('#notice').inner_text() == '合成の学習保存警告'
++        context.close()
++        # Parent-check mode uses its session boundary, never the child's preference.
++        normal={**OTHER,KEY:'kamakura','yuika-social-540-25-v1':'synthetic-child-record'}
++        context,page=fresh(browser,normal,parent=True)
++        expect(page.locator('#parent-check-banner')).to_be_visible()
++        expect(page.locator('html')).to_have_attribute('data-ui-theme','standard')
++        baseline=storage(page); original=state(page)
++        page.locator('#theme-kamakura').click()
++        assert state(page)==original and storage(page)==baseline
++        assert page.evaluate("sessionStorage.getItem('yuika-parent-check-v1:'+"+json.dumps(KEY)+")")=='kamakura'
++        page.reload();expect(page.locator('html')).to_have_attribute('data-ui-theme','kamakura')
++        page.locator('#theme-standard').click();assert storage(page)==baseline
++        page.locator('#parent-exit').click()
++        expect(page.locator('#parent-check-banner')).to_have_count(0)
++        expect(page.locator('html')).to_have_attribute('data-ui-theme','kamakura')
++        assert storage(page)==baseline
++        assert page.evaluate("Object.keys(sessionStorage).filter(k=>k.startsWith('yuika-parent-check-v1')).length")==0
++        context.close()
++        # A blocked session store uses the existing in-memory parent boundary.
++        context,page=fresh(browser,normal,session_fault=True)
++        expect(page.locator('#parent-check-banner')).to_be_visible()
++        expect(page.locator('html')).to_have_attribute('data-ui-theme','standard')
++        baseline=storage(page);original=state(page)
++        page.locator('#theme-kamakura').click()
++        expect(page.locator('html')).to_have_attribute('data-ui-theme','kamakura')
++        assert state(page)==original and storage(page)==baseline
++        assert page.evaluate('YuikaParent.storage.getItem('+json.dumps(KEY)+')')=='kamakura'
++        page.reload();expect(page.locator('html')).to_have_attribute('data-ui-theme','standard')
++        assert storage(page)==baseline
++        context.close()
++        assert not external, external
++        assert not posts, posts
++        assert not errors, errors
++        browser.close()
++finally:
++    server.shutdown();server.server_close()
++print('theme-review: all checks passed; unexpected external requests 0, POST arrivals 0; existing public font GETs blocked',len(blocked_fonts))
