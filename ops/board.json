@@ -42,7 +42,7 @@
     "expires_at": "2026-11-27T17:39:31.579355+00:00",
     "ticket": "THEME-MVP"
   },
-  "updated_at": "2026-11-27T17:06:31.579355+00:00",
+  "updated_at": "2026-11-27T17:09:40.158190+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -2320,8 +2320,10 @@
       "pending_compatibility": {
         "source_pr": 32,
         "main": "58b6d9e0a8e2761e5c446a11ceafa1afb1e832a5",
-        "state": "not_started",
-        "report": "ops/runs/2026-11-27-pr32-merge-recovery.md"
+        "state": "independent_qa",
+        "report": "ops/runs/2026-11-27-pr32-merge-recovery.md",
+        "candidate": "b4deb0df131b1280ab2cc0647851e1d345d06143",
+        "run_id": "cycle-20261127T170631Z"
       }
     },
     {
@@ -31949,12 +31951,21 @@
     {
       "id": "cycle-20261127T170631Z",
       "started_at": "2026-11-27T17:06:31.579355+00:00",
-      "phase": "requirements",
+      "phase": "independent_qa",
       "scope": "PR12 compatibility with PR32 main",
       "observed_operations_commit": "f870505e4f32cc30afc7b149acc2ff38029095a0",
       "observed_main_commit": "58b6d9e0a8e2761e5c446a11ceafa1afb1e832a5",
       "cloud_verified": true,
-      "ceo_decisions_ingested": 0
+      "ceo_decisions_ingested": 0,
+      "candidate_commit": "b4deb0df131b1280ab2cc0647851e1d345d06143",
+      "candidate_checkout": "/workspace/yuika-theme-pr32-cycle311",
+      "roles": {
+        "pdm": "pdm_theme_pr32",
+        "prm": "root/coordinator",
+        "engineer": "engineer_theme_pr32",
+        "reviewer": "qa_theme_pr32"
+      },
+      "subagents_started": 3
     }
   ],
   "operational_notes": [
