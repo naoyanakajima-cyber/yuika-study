@@ -36,13 +36,8 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": {
-    "run_id": "cycle-20261127T141145Z",
-    "acquired_at": "2026-11-27T14:11:45.590241+00:00",
-    "expires_at": "2026-11-27T14:46:45.590241+00:00",
-    "ticket": "PR32-IMPACT-RECOVERY"
-  },
-  "updated_at": "2026-11-27T14:11:45.590241+00:00",
+  "lease": null,
+  "updated_at": "2026-11-27T14:14:14.593792+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -243,7 +238,7 @@
         "既存ID・保存キー・旧履歴を保護する",
         "768x1024で開始・回答・採点・保存・再読込を合成データで確認する"
       ],
-      "next_action": "PR10/11/12のPR31互換同期は各固定HEADで独立QA済み。3製品の合成試用判断待ちを維持。次回は最新main/PR/台帳と実読できたCEO返答を照合し、新差分・再現不具合・CEO試用所見があれば既存PR内の範囲を確認する。独立して進められる仕事がなければ同じ実装やQAを反復せず終了する。mainの生成元は未修正、本番merge/公開/実通知は未承認、新規製品PRを増やさない。",
+      "next_action": "PR32外部mergeによりmainは58b6d9e。旧製品HEADの独立QAを新mainとの成功へ流用せず、既存PR10→11→12で1件ずつ互換同期。新教材入口・22カード・preview両ルート・生成保持・既存全スイートとmath_passageを保持し独立QAする。CEO試用待ち3件、新PR追加・本番merge・公開・実通知なし。",
       "evidence": [
         {
           "kind": "test",
@@ -831,7 +826,13 @@
           "completed_at": "2026-11-24T10:21:04Z",
           "url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/138375037865"
         }
-      ]
+      ],
+      "pending_compatibility": {
+        "source_pr": 32,
+        "main": "58b6d9e0a8e2761e5c446a11ceafa1afb1e832a5",
+        "state": "not_started",
+        "report": "ops/runs/2026-11-27-pr32-merge-recovery.md"
+      }
     },
     {
       "id": "CONTENT-SPEC",
@@ -914,7 +915,7 @@
         "未確認出力と確認済み案を区別し、既存教材/記録に接続しない",
         "768x1024で編集・確認・取消・出力/再入力、外部要求/通知POST 0を検証"
       ],
-      "next_action": "PR10/11/12のPR31互換同期は各固定HEADで独立QA済み。3製品の合成試用判断待ちを維持。次回は最新main/PR/台帳と実読できたCEO返答を照合し、新差分・再現不具合・CEO試用所見があれば既存PR内の範囲を確認する。独立して進められる仕事がなければ同じ実装やQAを反復せず終了する。mainの生成元は未修正、本番merge/公開/実通知は未承認、新規製品PRを増やさない。",
+      "next_action": "PR32外部mergeによりmainは58b6d9e。旧製品HEADの独立QAを新mainとの成功へ流用せず、既存PR10→11→12で1件ずつ互換同期。新教材入口・22カード・preview両ルート・生成保持・既存全スイートとmath_passageを保持し独立QAする。CEO試用待ち3件、新PR追加・本番merge・公開・実通知なし。",
       "evidence": [
         {
           "kind": "test",
@@ -1608,7 +1609,13 @@
           "completed_at": "2026-11-24T11:18:40Z",
           "url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/138406565032"
         }
-      ]
+      ],
+      "pending_compatibility": {
+        "source_pr": 32,
+        "main": "58b6d9e0a8e2761e5c446a11ceafa1afb1e832a5",
+        "state": "not_started",
+        "report": "ops/runs/2026-11-27-pr32-merge-recovery.md"
+      }
     },
     {
       "id": "THEME-SPEC",
@@ -1683,7 +1690,7 @@
         "切替前後の問題・採点・既存履歴が同一",
         "768x1024で可読性と主要操作を確認する"
       ],
-      "next_action": "PR10/11/12のPR31互換同期は各固定HEADで独立QA済み。3製品の合成試用判断待ちを維持。次回は最新main/PR/台帳と実読できたCEO返答を照合し、新差分・再現不具合・CEO試用所見があれば既存PR内の範囲を確認する。独立して進められる仕事がなければ同じ実装やQAを反復せず終了する。mainの生成元は未修正、本番merge/公開/実通知は未承認、新規製品PRを増やさない。",
+      "next_action": "PR32外部mergeによりmainは58b6d9e。旧製品HEADの独立QAを新mainとの成功へ流用せず、既存PR10→11→12で1件ずつ互換同期。新教材入口・22カード・preview両ルート・生成保持・既存全スイートとmath_passageを保持し独立QAする。CEO試用待ち3件、新PR追加・本番merge・公開・実通知なし。",
       "evidence": [
         {
           "kind": "test",
@@ -2223,6 +2230,12 @@
         "report": "ops/runs/2026-11-24-theme-pr31-compatibility.md",
         "delivered": true,
         "updated_pr": 12
+      },
+      "pending_compatibility": {
+        "source_pr": 32,
+        "main": "58b6d9e0a8e2761e5c446a11ceafa1afb1e832a5",
+        "state": "not_started",
+        "report": "ops/runs/2026-11-27-pr32-merge-recovery.md"
       }
     },
     {
@@ -31452,9 +31465,114 @@
       "observed_operations_commit": "f0d43b5140344441e50f79f11f151dc71d7b31dc",
       "observed_main_commit": "58b6d9e0a8e2761e5c446a11ceafa1afb1e832a5",
       "scope": "recover reviewed PR32 impact and reconcile external merge",
-      "phase": "reconciliation",
+      "phase": "completed",
       "cloud_verified": true,
-      "ceo_decisions_ingested": 0
+      "ceo_decisions_ingested": 0,
+      "result": "interrupted_review_recovered_external_merge_reconciled",
+      "product_changes": false,
+      "product_tests_run": false,
+      "subagents_started": 0,
+      "subagents_resumed": 2,
+      "roles": {
+        "pdm": "pdm_pr32_scope",
+        "prm": "root/coordinator",
+        "author": "root/coordinator",
+        "reviewer": "qa_pr32_impact",
+        "engineer": null
+      },
+      "independent_review_this_run": {
+        "pdm": "pdm_pr32_scope",
+        "prm": "root/coordinator",
+        "author": "root/coordinator",
+        "reviewer": "qa_pr32_impact",
+        "result": "accepted_static_documentation_only",
+        "commit": "2fae7526174c4951030c9923441f517909491447",
+        "report": "ops/evidence/2026-11-27-pr32-merge-recovery-QA.md",
+        "document_sha256": "159695bcb88d419cad8fba0715ea8bd05fa08ea680d0f5258a194c23df018a81",
+        "app_tests_run": false,
+        "browser_tests_run": false
+      },
+      "new_ceo_replies_read": 0,
+      "product_waiting_prs": [
+        10,
+        11,
+        12
+      ],
+      "new_prs": [],
+      "product_prs_updated": [],
+      "operations_pr_updated": 9,
+      "open_pr_observations": [
+        {
+          "pr": 22,
+          "head": "bd4f48de0404614eb84275969bfccff0a368e866",
+          "state": "open",
+          "draft": true,
+          "updated_at": "2026-11-11T12:48:18Z"
+        },
+        {
+          "pr": 13,
+          "head": "139c8b8b56bcd979068b61984120d9f312efe182",
+          "state": "open",
+          "draft": true,
+          "updated_at": "2026-11-10T12:58:57Z"
+        },
+        {
+          "pr": 12,
+          "head": "df7af2a205f44e8c76b50e96728685efcc7e57d8",
+          "state": "open",
+          "draft": true,
+          "updated_at": "2026-11-24T12:45:12Z"
+        },
+        {
+          "pr": 11,
+          "head": "feada5947b237310923f0aa1956487ac8af501af",
+          "state": "open",
+          "draft": true,
+          "updated_at": "2026-11-24T11:37:58Z"
+        },
+        {
+          "pr": 10,
+          "head": "0cd726f558d24999da80c37b1ecdbd2e6090c7bb",
+          "state": "open",
+          "draft": true,
+          "updated_at": "2026-11-24T10:39:17Z"
+        },
+        {
+          "pr": 9,
+          "head": "f0d43b5140344441e50f79f11f151dc71d7b31dc",
+          "state": "open",
+          "draft": true,
+          "updated_at": "2026-11-27T13:19:25Z"
+        },
+        {
+          "pr": 4,
+          "head": "ff211ee8e144e955fa5837e8b8ff5cabf51f60a4",
+          "state": "open",
+          "draft": true,
+          "updated_at": "2026-11-05T07:01:00Z"
+        }
+      ],
+      "report": "ops/runs/2026-11-27-pr32-merge-recovery.md",
+      "recovered_run": "cycle-20261127T130634Z",
+      "recovered_artifact_commit": "2fae7526174c4951030c9923441f517909491447",
+      "next_action": "PR32外部mergeによりmainは58b6d9e。旧製品HEADの独立QAを新mainとの成功へ流用せず、既存PR10→11→12で1件ずつ互換同期。新教材入口・22カード・preview両ルート・生成保持・既存全スイートとmath_passageを保持し独立QAする。CEO試用待ち3件、新PR追加・本番merge・公開・実通知なし。",
+      "new_obstacles": [
+        "Previous run interrupted after Git authentication errors and connector nonresponse; recovered via normal cloud Git push. Root cause unknown."
+      ],
+      "notification": "NO_UPDATE",
+      "main_changed": true,
+      "main_changed_by_this_run": false,
+      "published": false,
+      "automatic_snapshot_handoff_verified": false,
+      "attachments": [
+        {
+          "pr": 9,
+          "attempts": 1,
+          "result": "tool_did_not_return_before_wait_terminated; success_unverified"
+        }
+      ],
+      "completed_at": "2026-11-27T14:14:14.593792+00:00",
+      "lease_released_at": "2026-11-27T14:14:14.593792+00:00"
     }
   ],
   "operational_notes": [
@@ -32444,6 +32562,44 @@
         },
         "adopted": false
       }
+    },
+    {
+      "pr": 32,
+      "head": "9c34c42dd141499f0022296a830abcafcd73104d",
+      "kind": "external_product",
+      "state": "merged",
+      "adopted": false,
+      "observed_at": "2026-11-27T14:14:14.593792+00:00",
+      "merged_at": "2026-11-27T13:30:18Z",
+      "merge_commit": "58b6d9e0a8e2761e5c446a11ceafa1afb1e832a5",
+      "included_in_observed_main": true,
+      "comparison_report": "ops/runs/2026-11-27-pr32-impact.md",
+      "latest_report": "ops/runs/2026-11-27-pr32-merge-recovery.md",
+      "reconciliation_status": "external_merge_observed_static_impact_reviewed_no_chat_authorization",
+      "independent_review": {
+        "pdm": "pdm_pr32_scope",
+        "prm": "root/coordinator",
+        "author": "root/coordinator",
+        "reviewer": "qa_pr32_impact",
+        "result": "accepted_static_documentation_only",
+        "commit": "2fae7526174c4951030c9923441f517909491447",
+        "report": "ops/evidence/2026-11-27-pr32-merge-recovery-QA.md",
+        "document_sha256": "159695bcb88d419cad8fba0715ea8bd05fa08ea680d0f5258a194c23df018a81",
+        "app_tests_run": false,
+        "browser_tests_run": false
+      },
+      "pending_product_prs": [
+        10,
+        11,
+        12
+      ],
+      "external_check": {
+        "name": "Workers Builds: yuika-study",
+        "conclusion": "failure",
+        "completed_at": "2026-11-27T12:41:08Z",
+        "cause": "unknown"
+      },
+      "next_action": "PR32外部mergeによりmainは58b6d9e。旧製品HEADの独立QAを新mainとの成功へ流用せず、既存PR10→11→12で1件ずつ互換同期。新教材入口・22カード・preview両ルート・生成保持・既存全スイートとmath_passageを保持し独立QAする。CEO試用待ち3件、新PR追加・本番merge・公開・実通知なし。"
     }
   ]
 }
