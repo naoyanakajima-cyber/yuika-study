@@ -42,7 +42,7 @@
     "expires_at": "2026-11-27T15:44:29.020998+00:00",
     "ticket": "REV-MVP"
   },
-  "updated_at": "2026-11-27T15:09:29.020998+00:00",
+  "updated_at": "2026-11-27T15:12:33.335309+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -835,8 +835,10 @@
       "pending_compatibility": {
         "source_pr": 32,
         "main": "58b6d9e0a8e2761e5c446a11ceafa1afb1e832a5",
-        "state": "not_started",
-        "report": "ops/runs/2026-11-27-pr32-merge-recovery.md"
+        "state": "independent_qa",
+        "report": "ops/runs/2026-11-27-pr32-merge-recovery.md",
+        "candidate": "792f438fe648e056ad83a423e55bebe9d53fe43f",
+        "run_id": "cycle-20261127T150929Z"
       }
     },
     {
@@ -31582,12 +31584,21 @@
     {
       "id": "cycle-20261127T150929Z",
       "started_at": "2026-11-27T15:09:29.020998+00:00",
-      "phase": "pdm",
+      "phase": "independent_qa",
       "scope": "PR10 compatibility with PR32 main",
       "observed_operations_commit": "6d41a2728a960006ee1b7bc4901fe93216ad1784",
       "observed_main_commit": "58b6d9e0a8e2761e5c446a11ceafa1afb1e832a5",
       "cloud_verified": true,
-      "ceo_decisions_ingested": 0
+      "ceo_decisions_ingested": 0,
+      "candidate_commit": "792f438fe648e056ad83a423e55bebe9d53fe43f",
+      "candidate_checkout": "/workspace/yuika-rev-pr32-cycle309",
+      "roles": {
+        "pdm": "pdm_rev_pr32",
+        "prm": "root/coordinator",
+        "engineer": "engineer_rev_pr32",
+        "reviewer": "qa_rev_pr32"
+      },
+      "subagents_started": 3
     }
   ],
   "operational_notes": [

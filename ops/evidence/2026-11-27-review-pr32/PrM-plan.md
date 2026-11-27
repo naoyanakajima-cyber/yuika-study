@@ -1,0 +1,9 @@
+# REV-MVP / PR32互換同期の範囲
+
+run cycle-20261127T150929Z。PdM pdm_rev_pr32の既存仕様確認をPrM root/coordinatorが受理。
+既存PR10 0cd726f558d24999da80c37b1ecdbd2e6090c7bbを保持し、main58b6d9e0a8e2761e5c446a11ceafa1afb1e832a5をtopicへ統合する。
+
+目的は理由付き復習・日次実問数と新算数教材を両立させること。既存ID/採点/保存キー/旧履歴/親隔離/通知抑止を維持。ホーム22枚・算数入口・24問5段階・生成後保持を確認する。既存32suiteとmath_passageの厳密和集合33suiteを固定候補で独立QAする。768×1024の通常/親で開始・回答・採点・保存・再読込を確認し、算数報告は合成モックのみ。
+算数をおすすめ復習へ新接続する機能、教材変更、新保存方式、PR11/12同期、実資料・実通知・本番merge・公開は対象外。算数run.answersや通知キューを永続復習履歴とは扱わない。
+
+Engineer engineer_rev_pr32は独立checkoutで実装・焦点確認・localcommitまで。QA qa_rev_pr32は別checkoutで差分と固定HEADを直接検証。子はpushせず親がleaseと最新refs再確認後に既存draft PR10を更新する。旧QA成功は新HEADへ流用しない。既存クラウドvenv再利用は手動準備、自動snapshot引き継ぎ成功とは扱わない。
