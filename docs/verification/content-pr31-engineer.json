@@ -1,0 +1,124 @@
+{
+  "phase": "Engineer pre-commit working tree; independent fixed-revision QA pending",
+  "static": {
+    "base": "3920f1642692c88a8d6870480bc3f98f71558d24",
+    "main": "101c64ef9be86cb7c3502d3eeec498f16e93e7fd",
+    "suite_counts": {
+      "pr11": 32,
+      "main": 27,
+      "union": 33
+    },
+    "unchanged_protected_paths": [
+      "content-review.html",
+      "docs/product/content-image-trial-spec.md",
+      "docs/product/content-import-guard-spec.md",
+      "docs/product/content-spec.md",
+      "docs/product/content-try-spec.md",
+      "docs/product/fixtures/synthetic-content.json",
+      "docs/product/fixtures/synthetic-image-content.json",
+      "docs/product/fixtures/synthetic-source.svg",
+      "docs/product/fixtures/synthetic-source.txt",
+      "docs/product/fixtures/synthetic-triangle-content.json",
+      "docs/product/fixtures/synthetic-triangle-source.svg",
+      "scripts/practice/science.js",
+      "scripts/prototype/runtime.js",
+      "tests/content_guidance.py",
+      "tests/content_image_trial.py",
+      "tests/content_import_guard.py",
+      "tests/content_review.py",
+      "tests/content_trial.py"
+    ],
+    "protected_sha256": {
+      "content-review.html": "b978ea0ebd725cbe0b0b45275ad19d7be4ee78e64fb5c7e40947fe05475560f4",
+      "docs/product/content-image-trial-spec.md": "bc38f1026563047815a0c46ebb2e8257b2f9e50e1ced5e7b715a554a3b5c36db",
+      "docs/product/content-import-guard-spec.md": "2c848f8571c88baa80d4546b9397cef171000d7cb49a990ab3746363e9aa62a3",
+      "docs/product/content-spec.md": "c9ab0a4fc19b784436f86efe14898f5de38812946f2f1829d5b61394a447db5b",
+      "docs/product/content-try-spec.md": "90e36ea9dde10d165cbe1dc4a36a8f2e8e61473bcf11bbdbdfbd339e024ee825",
+      "docs/product/fixtures/synthetic-content.json": "b7888211dd030ff3f4d34f0391731905f6d91b27426fc03837bf3f408e40a569",
+      "docs/product/fixtures/synthetic-image-content.json": "cd4ccacf396ab4bbb588c7837dfcb15128d3a5e4f8466e05fa72d7868b01b0e8",
+      "docs/product/fixtures/synthetic-source.svg": "afda72b176054eb4512a80fffd2ac54f72a3849f5bc07e91a330ce1e117972ad",
+      "docs/product/fixtures/synthetic-source.txt": "82d05d9845a7b244b0890cc605cdf26f85378ef07a5274d034f24fc7c71251ef",
+      "docs/product/fixtures/synthetic-triangle-content.json": "0d1676e162d8ce6d5ab9a25feba0c77fba6ed6701a2f16073113b15ffaebb45c",
+      "docs/product/fixtures/synthetic-triangle-source.svg": "94fb9f4528630b932071e13f7c9fc90d890e832a0d455f319b4461d9a635b888",
+      "scripts/practice/science.js": "ecacc812c8d18a1d496eac2090991b4a3e3d3a3bef5793865a256d359784f536",
+      "scripts/prototype/runtime.js": "a34287aa64cc7b10370d3ff660bdca9748212ad978f7a014aa1a8b1438838410",
+      "tests/content_guidance.py": "37380a5ddc875a64ab77449bd87f97305dac3cfa7b05746c69c3c7428edac2c6",
+      "tests/content_image_trial.py": "f0a7c3ab43e672c249b3c6af249bcff8f52c9ebde1e7c01aba5316e706b7d91e",
+      "tests/content_import_guard.py": "96b9e3f2aee0ab50031162c1424f0575717ccf474555dad18e1663c8ae2bfa8b",
+      "tests/content_review.py": "8fe58eb8be5b6ad5498352557dfbe1f26c8fd23613f33bea4ba6a25c14f2863e",
+      "tests/content_trial.py": "c9c8d96b3805997a092600d8008f2907eddb5c153855fe7f9124c1937097a5f4"
+    }
+  },
+  "generator_initial": {
+    "command": "python tests/generator_preservation.py",
+    "exit": 1,
+    "seconds": 0.582,
+    "stdout": "",
+    "stderr": "Traceback (most recent call last):\n  File \"/workspace/yuika-content-pr31-compat/tests/generator_preservation.py\", line 59, in <module>\n    main()\n  File \"/workspace/yuika-content-pr31-compat/tests/generator_preservation.py\", line 52, in main\n    assert not changed, f'Generator pass {attempt} changed tracked files: {changed}'\n           ^^^^^^^^^^^\nAssertionError: Generator pass 1 changed tracked files: ['assets/progress.js', 'edo-review.html', 'mock-focus-review.html']\n"
+  },
+  "generator_after_repair": {
+    "command": "python tests/generator_preservation.py",
+    "exit": 0,
+    "seconds": 1.02,
+    "stdout": "generator_preservation: notification/Edo/focus and existing generators preserve all tracked files; second pass unchanged PASS\n",
+    "stderr": ""
+  },
+  "focused": [
+    {
+      "command": "python tests/study_reports.py",
+      "exit": 0,
+      "seconds": 28.261,
+      "stdout": "PASS heian-review.html {}: daily count, early end, cancelled navigation, unanswered end, dedup, parent isolation\nPASS onin-review.html {}: daily count, early end, cancelled navigation, unanswered end, dedup, parent isolation\nPASS kamakura-review.html {}: daily count, early end, cancelled navigation, unanswered end, dedup, parent isolation\nPASS edo-review.html {}: daily count, early end, cancelled navigation, unanswered end, dedup, parent isolation\nPASS mock-focus-review.html {'subject': 'math'}: daily count, early end, cancelled navigation, unanswered end, dedup, parent isolation\nPASS yuika-review-v2.html {'unit': 'てこのつり合い'}: daily count, early end, cancelled navigation, unanswered end, dedup, parent isolation\nPASS yuika-review-v2.html {'unit': 'メダカの飼育・ひれ・成長'}: daily count, early end, cancelled navigation, unanswered end, dedup, parent isolation\nPASS 16 captured reports accepted by Worker contract; subjects verified with mail stub\n",
+      "stderr": ""
+    },
+    {
+      "command": "python tests/content_review.py",
+      "exit": 0,
+      "seconds": 3.562,
+      "stdout": "content-review: C1-C11 synthetic workflow passed; external requests 0; POST arrivals 0; storage writes 0\n",
+      "stderr": ""
+    },
+    {
+      "command": "python tests/content_guidance.py",
+      "exit": 0,
+      "seconds": 2.384,
+      "stdout": "content-guidance: progress, repair/review/export navigation, keyboard, invalidation and no external/storage side effects passed\n",
+      "stderr": ""
+    },
+    {
+      "command": "python tests/content_import_guard.py",
+      "exit": 0,
+      "seconds": 2.917,
+      "stdout": "PASS content import generations: edits/confirm/export/switch/cancel, both read orders, stale failures, failed replacement, discard refusal, memory-only\n",
+      "stderr": ""
+    },
+    {
+      "command": "python tests/content_trial.py",
+      "exit": 0,
+      "seconds": 3.379,
+      "stdout": "PASS content trial: G01-G13/UTF16 boundaries, all-confirm gate, text/choice UI, stale operations, isolation, exit/page lifecycle/DOM reconstruction\n",
+      "stderr": ""
+    },
+    {
+      "command": "python tests/content_image_trial.py",
+      "exit": 0,
+      "seconds": 2.846,
+      "stdout": "content-image-trial: manual reconciliation, match/mismatch, memory erasure, JSON roundtrip, exact trusted source binding and negative gates passed\n",
+      "stderr": ""
+    },
+    {
+      "command": "python tests/lever.py",
+      "exit": 0,
+      "seconds": 5.028,
+      "stdout": "lever: 28 calculations/revisions, recheck/daily, staged quiz and single fallback, challenge gate, tags/units/reports, parent isolation PASS\n",
+      "stderr": ""
+    },
+    {
+      "command": "python tests/prototype_storage.py",
+      "exit": 0,
+      "seconds": 8.538,
+      "stdout": "prototype_storage: four apps, original bytes/prefs intact, envelope/unknown fields, actual downloads/import, quota and broken stores PASS\n",
+      "stderr_note": "Only loopback HTTP request logs; omitted from this summary."
+    }
+  ]
+}

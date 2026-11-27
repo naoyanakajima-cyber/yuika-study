@@ -294,6 +294,41 @@ try:
         assert 'cm' in page.locator('#numeric').evaluate("el => el.parentElement.textContent")
         e = answer(page, q, typical)
         assert e['answerUnit'] == 'cm' and e['answerTag'] == q['numericTags'][typical]
+        # Preserve real synthetic answers, including optional unit/tag fields,
+        # through reload and an actual downloaded-file roundtrip into empty storage.
+        expected_events = page.evaluate('state.events')
+        page.reload()
+        assert page.evaluate('state.events') == expected_events
+        page.evaluate('records()')
+        with page.expect_download() as download:
+            page.locator('#export').click()
+        exported = Path(download.value.path()).read_bytes()
+        packet = json.loads(exported)
+        assert packet['payload']['events'] == expected_events
+        page.evaluate('YuikaParent.storage.removeItem(KEY)')
+        page.reload()
+        assert page.evaluate('state.events.length') == 0
+        page.evaluate('records()')
+        page.locator('#import').set_input_files({
+            'name': 'synthetic-lever-roundtrip.json',
+            'mimeType': 'application/json', 'buffer': exported,
+        })
+        page.wait_for_function('() => rejectedImportRaw === null && state.events.length > 0')
+        assert page.evaluate('state.events') == expected_events
+        saved = page.evaluate('YuikaParent.storage.getItem(KEY)')
+        for field, value in (('answerUnit', 'invalid-unit'),
+                             ('answerTag', 'invalid-tag'),
+                             ('futureObservation', 'unsupported')):
+            bad = json.loads(exported)
+            bad_event = next(row for row in bad['payload']['events'] if row['id'] == e['id'])
+            bad_event[field] = value
+            raw = json.dumps(bad, ensure_ascii=False)
+            page.evaluate('async raw => { await importFile(new File([raw], "invalid-lever.json")); }', raw)
+            assert page.evaluate('rejectedImportRaw') == raw
+            assert page.evaluate('YuikaParent.storage.getItem(KEY)') == saved
+            assert page.evaluate('state.events') == expected_events
+        page.evaluate('async raw => { await importFile(new File([raw], "valid-lever.json")); }', exported.decode())
+        assert page.evaluate('rejectedImportRaw') is None
         prepare(page, q['id'])
         e = answer(page, q, 99999)
         assert not e['correct'] and not e.get('answerTag')

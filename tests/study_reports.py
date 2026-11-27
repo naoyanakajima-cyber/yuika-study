@@ -119,7 +119,8 @@ def main(base, browser):
         page = ctx.new_page()
         errors, posts = [], []
         page.on('pageerror', lambda err: errors.append(str(err)))
-        page.on('dialog', lambda dialog: dialog.accept())
+        accept_dialog = [True]
+        page.on('dialog', lambda dialog: dialog.accept() if accept_dialog[0] else dialog.dismiss())
 
         def route(r):
             url = r.request.url
@@ -157,14 +158,25 @@ def main(base, browser):
                 page.get_by_role('button', name='今日の5問をはじめる').click()
                 page.wait_for_url('**/' + name + '*daily=1')
 
+            planned = page.evaluate('session.questions.length' if science_engine else 'run.qs.length')
+
             def before_end():
                 assert len(posts) == before
                 assert len(page.evaluate(JOBS)) == before
+                if partial_run:
+                    saved = page.evaluate('JSON.stringify(localStorage)')
+                    accept_dialog[0] = False
+                    page.locator('[data-view="home"]').click()
+                    accept_dialog[0] = True
+                    expect(page.locator('#next')).to_be_visible()
+                    assert page.evaluate('JSON.stringify(localStorage)') == saved
+                    assert len(posts) == len(page.evaluate(JOBS)) == before
 
             total = finish(page, science_engine, partial_run, before_end)
             expect(page.locator('#yuika-mail-status')).to_contain_text('受け付けました')
             assert len(posts) == before + 1
             report = posts[-1]
+            assert total == (1 if partial_run else planned)
             assert report['total'] == len(report['answers']) == report['correct'] == total, report
             assert report['unit'] == unit and report['subject'] == subject, report
             if not partial_run:
@@ -174,13 +186,23 @@ def main(base, browser):
             assert len(page.evaluate(JOBS)) == before + 1
             assert len(posts) == before + 1
 
+        # Ending without an answer must not create a job in any engine.
+        page.goto(url)
+        page.locator('#start').click()
+        saved = page.evaluate('JSON.stringify(localStorage)')
+        page.locator('#end').click()
+        assert len(page.evaluate(JOBS)) == len(posts) == 2
+        assert page.evaluate('JSON.stringify(localStorage)') == saved
+
         # Use the same connected device, and even seed a config inside the sandbox.
+        normal_storage = page.evaluate('JSON.stringify(localStorage)')
         page.goto(url + ('&' if query else '?') + 'parent-check=1')
         page.evaluate('c=>YuikaParent.storage.setItem("yuika-mail-config-v1",JSON.stringify(c))', CONFIG)
         page.locator('#start').click()
         finish(page, science_engine, True, lambda: None)
         assert page.evaluate("Object.keys(sessionStorage).every(k=>!k.includes('yuika-mail-job-v1:'))")
         assert len(page.evaluate(JOBS)) == len(posts) == 2
+        assert page.evaluate('JSON.stringify(localStorage)') == normal_storage
         page.locator('#parent-exit').click()
         expect(page.locator('#yuika-mail-status')).to_contain_text('接続済み')
         assert page.evaluate('k=>JSON.parse(localStorage.getItem(k))', CONFIG_KEY) == CONFIG
@@ -211,7 +233,7 @@ def main(base, browser):
         assert not errors, errors
         reports.extend(posts)
         ctx.close()
-        print(f'PASS {name} {query}: daily, early end, dedup, parent isolation', flush=True)
+        print(f'PASS {name} {query}: daily count, early end, cancelled navigation, unanswered end, dedup, parent isolation', flush=True)
     verify_mail(reports)
     print(f'PASS {len(reports)} captured reports accepted by Worker contract; subjects verified with mail stub')
 

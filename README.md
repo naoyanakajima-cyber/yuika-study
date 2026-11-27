@@ -9,6 +9,33 @@
 開発用プレビューは `python scripts/cloud/serve.py --port 8000` で起動し、通知APIを遮断します。
 本番の配信・メール送信は開発環境のセットアップに含めません。
 
+## 教材の問題案を確認する試作
+
+`content-review.html`は、同梱の合成テキスト・合成画像から用意した問題案を確認する独立試作です。
+原本・転記・問題案を見比べて修正し、内容を確認してJSONへ書き出せます。
+読み取りの不明箇所や不足項目が残る間は確認できず、編集すると以前の確認は解除されます。
+作業上部の「確認の進み具合」で確認済みの問数と次の操作を確かめ、該当箇所へ移動できます。
+案内は移動のみで、自動確認や自動保存は行いません。
+
+これは実教材のアップロード、OCR、自由な文章からの問題生成、学習アプリへの教材導入ではありません。
+同梱サンプルとテスト用の合成JSONだけを扱い、作業内容はメモリ上に保持します。
+必要な案は再読み込み前にJSONへ書き出してください。再入力では内容を復元し、確認はやり直します。
+既存の学習記録は読み書きしません。
+全問を確認すると「確認済みの案を試し解き」で問題・許容表記・ヒント・解説を点検できます。
+回答は保存せず、次の問題・終了・ページ離脱で消去します。児童の到達度測定ではありません。
+[試し解き契約](docs/product/content-try-spec.md)と `tests/content_trial.py` を参照してください。
+
+「画像・読める図形の例」は三角形を描いた合成教材です。原本を見て転記の［確認待ち］を3へ直し、
+「確かめた読み取り」に3を入力して問題案を明示確認すると、保存しない試し解きへ進めます。
+確認待ちは照合操作用の合成案で、OCR結果ではありません。読み取りの意味を自動判定しません。
+[図形画像の試行仕様](docs/product/content-image-trial-spec.md)と `tests/content_image_trial.py` を参照してください。
+
+クラウド内で `source scripts/cloud/activate.sh` の後に
+`python scripts/cloud/serve.py --port 8000` を実行し、`http://127.0.0.1:8000/content-review.html`を開きます。
+このプレビューは通知APIを遮断します。検証は `python tests/content_review.py`。
+共通形式・対象外・受入条件は[教材追加仕様](docs/product/content-spec.md)を参照してください。
+JSON読み込み中の編集・確認・出力は保持し、古い読み込み結果で置き換えません。読み込みの明示取消もできます。[非同期読み込み保護の仕様](docs/product/content-import-guard-spec.md)と `tests/content_import_guard.py` を参照してください。
+
 ## 天気／日本の地形・気候
 
 学習帳 `index.html` の理科「天気」と社会「日本の地形・気候」から開けます。各単元に基本10問＋標準5問の復習クイズと、基本用語10枚の暗記カードを追加しています。小5・中学受験向けのオリジナル問題で、特定の教材の転載ではありません。
@@ -261,3 +288,5 @@ Safari/WebKit・iPad実機の確認は含みません。
 保存キーは `yuika-prototype-v1:yuika-social-edo-v1`、問題IDは `edo-01〜22`、各問に概念ID・版番号・根拠/解説があります。既存単元のキー・問題・履歴は変更しません。自動メールに接続した端末では、回答済みの結果をチャレンジ終了時に通知します。
 
 再生成は `python scripts/edo/build.py` → `python notifications/embed.py` → `python scripts/history/embed.py` → `python scripts/design/build_summary.py` → `python scripts/design/embed.py` → `python scripts/parent/embed.py`。専用テストは `python tests/edo.py`、全体テストは `bash scripts/check_all.sh` です。
+
+江戸の生成元は既存の江戸HTMLをテンプレートとして問題定義を更新します。理科専用のてこ処理を混入させないため、理科・prototypeのアダプター変更は江戸への適用可否を確認して明示的に同期します。通知・履歴・共通デザイン・親モード境界は上記の共有生成元から再埋め込みします。

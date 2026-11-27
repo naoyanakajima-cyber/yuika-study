@@ -1,14 +1,32 @@
 """Parent sandbox and destructive-cleanup UI: synthetic data, intercepted network."""
-import json, os, sys, subprocess
+import hashlib, json, os, re, sys, subprocess
 from pathlib import Path
 from functools import partial
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 from threading import Thread
 from playwright.sync_api import sync_playwright, expect
 ROOT=Path(__file__).resolve().parents[1]
-# Every standalone entry must carry exactly the reviewed boundary before app code.
+# All learning apps require the boundary; only the reviewed memory-only prototype
+# from PR11 HEAD 3d2ed2f9a62673d2fb086a360ae841096f35b63e is exempt.
+required={'index.html','onin-review.html','kamakura-review.html','heian-review.html',
+          'yuika-review-v2.html','mock-focus-review.html','edo-review.html','content-review.html'}
+assert required <= {entry.name for entry in ROOT.glob('*.html')}
 for entry in ROOT.glob('*.html'):
- text=entry.read_text();body=text.split('<!-- YUIKA_PARENT_BEGIN -->')[1].split('<!-- YUIKA_PARENT_END -->')[0]
+ text=entry.read_text()
+ if entry.name=='content-review.html':
+  assert hashlib.sha256(entry.read_bytes()).hexdigest()=='b978ea0ebd725cbe0b0b45275ad19d7be4ee78e64fb5c7e40947fe05475560f4'
+  assert 'let proposal=null,unsaved=false;' in text
+  for forbidden in ('localStorage','sessionStorage','indexedDB','Storage','cookie',
+                    'YuikaParent','YuikaReports','YUIKA_PARENT_BEGIN','YUIKA_PARENT_END'):
+   assert forbidden not in text,forbidden
+  assert not re.search(r'<script\b[^>]*\bsrc\s*=',text,re.I)
+  for directive in ('default-src','connect-src','form-action','object-src'):
+   assert directive+" 'none'" in text,directive
+  continue
+ assert text.count('<!-- YUIKA_PARENT_BEGIN -->')==1,entry.name
+ assert text.count('<!-- YUIKA_PARENT_END -->')==1,entry.name
+ assert text.index('<!-- YUIKA_PARENT_BEGIN -->')<text.index('<!-- YUIKA_PARENT_END -->'),entry.name
+ body=text.split('<!-- YUIKA_PARENT_BEGIN -->')[1].split('<!-- YUIKA_PARENT_END -->')[0]
  assert (ROOT/'scripts/parent/runtime.js').read_text() in body
  assert text.lower().index('<meta charset')<1024
  assert text.index('<!-- YUIKA_PARENT_BEGIN -->')<text.index('<script')

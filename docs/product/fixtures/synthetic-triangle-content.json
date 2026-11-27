@@ -1,0 +1,57 @@
+{
+  "format": "yuika-content-proposal",
+  "schemaVersion": 1,
+  "packageId": "draft-synthetic-triangle-package",
+  "revision": 1,
+  "source": {
+    "kind": "image",
+    "sourceId": "synthetic-triangle-source",
+    "label": "合成の教材図：三角形（OCRは実行していません）",
+    "locator": "synthetic-triangle-source.svg"
+  },
+  "transcription": {
+    "text": "三角形の辺は［確認待ち］本です。",
+    "uncertainties": [
+      {
+        "id": "synthetic-triangle-uncertainty-001",
+        "quote": "［確認待ち］",
+        "candidates": [
+          "3",
+          "4"
+        ],
+        "resolution": null
+      }
+    ]
+  },
+  "unit": {
+    "id": "draft-synthetic-triangle",
+    "title": "合成教材：三角形の辺"
+  },
+  "questions": [
+    {
+      "id": "draft-synthetic-triangle-sides-001",
+      "questionVersion": 1,
+      "type": "text",
+      "prompt": "この三角形の辺は何本ですか？ 数字で答えてください。",
+      "answer": "3",
+      "aliases": [],
+      "readings": [],
+      "options": [],
+      "explanation": "三角形は3本の辺で囲まれた図形です。",
+      "hint": "まっすぐな線を1本ずつ数えよう。",
+      "sourceRefs": [
+        {
+          "sourceId": "synthetic-triangle-source",
+          "locator": "page:1;region:100,60,400,220"
+        }
+      ],
+      "generatedFields": [
+        "prompt",
+        "explanation",
+        "hint"
+      ],
+      "status": "draft",
+      "confirmedRevision": null
+    }
+  ]
+}
