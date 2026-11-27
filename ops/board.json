@@ -37,12 +37,12 @@
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
   "lease": {
-    "run_id": "cycle-20261127T130634Z",
-    "acquired_at": "2026-11-27T13:06:34.389808+00:00",
-    "expires_at": "2026-11-27T13:41:34.389808+00:00",
-    "ticket": "PR32-IMPACT"
+    "run_id": "cycle-20261127T141145Z",
+    "acquired_at": "2026-11-27T14:11:45.590241+00:00",
+    "expires_at": "2026-11-27T14:46:45.590241+00:00",
+    "ticket": "PR32-IMPACT-RECOVERY"
   },
-  "updated_at": "2026-11-27T13:06:34.389808+00:00",
+  "updated_at": "2026-11-27T14:11:45.590241+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -31436,6 +31436,22 @@
       "observed_operations_commit": "3969fd8128d5fed86783097e35ca3bbcc7f7332c",
       "observed_main_commit": "101c64ef9be86cb7c3502d3eeec498f16e93e7fd",
       "scope": "PR32 static impact reconciliation",
+      "phase": "interrupted",
+      "cloud_verified": true,
+      "ceo_decisions_ingested": 0,
+      "result": "static_review_completed_but_persistence_interrupted",
+      "interruption": "Git authentication failed twice; connector create_blob did not return before execution runtime was replaced. No tree/commit/ref mutation followed. Remote remained lease commit. Local report and independent QA recovered.",
+      "recovered_by": "cycle-20261127T141145Z",
+      "product_changes": false,
+      "product_tests_run": false,
+      "subagents_started": 2
+    },
+    {
+      "id": "cycle-20261127T141145Z",
+      "started_at": "2026-11-27T14:11:45.590241+00:00",
+      "observed_operations_commit": "f0d43b5140344441e50f79f11f151dc71d7b31dc",
+      "observed_main_commit": "58b6d9e0a8e2761e5c446a11ceafa1afb1e832a5",
+      "scope": "recover reviewed PR32 impact and reconcile external merge",
       "phase": "reconciliation",
       "cloud_verified": true,
       "ceo_decisions_ingested": 0
