@@ -36,13 +36,8 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": {
-    "run_id": "cycle-20261127T180155Z",
-    "acquired_at": "2026-11-27T18:01:55.171934+00:00",
-    "expires_at": "2026-11-27T18:31:55.171934+00:00",
-    "ticket": "coordinator-reconciliation"
-  },
-  "updated_at": "2026-11-27T18:01:55.171934+00:00",
+  "lease": null,
+  "updated_at": "2026-11-27T18:02:57.514977+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -504,7 +499,7 @@
       "base_ref": "main",
       "base_sha": "58b6d9e0a8e2761e5c446a11ceafa1afb1e832a5",
       "specification": "docs/product/review-spec.md",
-      "commit": "0cd726f558d24999da80c37b1ecdbd2e6090c7bb",
+      "commit": "792f438fe648e056ad83a423e55bebe9d53fe43f",
       "direction_adopted": true,
       "direction_decision": "D03",
       "release": {
@@ -542,8 +537,8 @@
         "blocker": "このセッションに共有Chrome操作ツールなし。共有クラウドでCEOが直接操作する引き渡しは未完了。",
         "unblock": "正規の共有クラウドブラウザー操作機能を利用できるタスクで合成専用loopback試用を開く。",
         "blocks_discoverability_improvement": false,
-        "latest_synthetic_qa_commit": "0cd726f558d24999da80c37b1ecdbd2e6090c7bb",
-        "latest_cloud_artifacts": "ops/evidence/2026-11-24-review-pr31"
+        "latest_synthetic_qa_commit": "792f438fe648e056ad83a423e55bebe9d53fe43f",
+        "latest_cloud_artifacts": "ops/evidence/2026-11-27-review-pr32"
       },
       "review_history": [
         {
@@ -865,7 +860,8 @@
         "head": "792f438fe648e056ad83a423e55bebe9d53fe43f",
         "delivered": true,
         "completed_at": "2026-11-27T15:20:34.850582+00:00"
-      }
+      },
+      "last_reconciled_at": "2026-11-27T18:02:57.514977+00:00"
     },
     {
       "id": "CONTENT-SPEC",
@@ -1701,7 +1697,8 @@
         "head": "f028aaf3ec973d62ac87839432794ab7644cdb99",
         "delivered": true,
         "completed_at": "2026-11-27T16:24:18.070113+00:00"
-      }
+      },
+      "last_reconciled_at": "2026-11-27T18:02:57.514977+00:00"
     },
     {
       "id": "THEME-SPEC",
@@ -2378,7 +2375,8 @@
         "head": "b4deb0df131b1280ab2cc0647851e1d345d06143",
         "delivered": true,
         "completed_at": "2026-11-27T17:18:51.199741+00:00"
-      }
+      },
+      "last_reconciled_at": "2026-11-27T18:02:57.514977+00:00"
     },
     {
       "id": "CONTENT-CHAT-SPEC",
@@ -32152,12 +32150,161 @@
     {
       "id": "cycle-20261127T180155Z",
       "started_at": "2026-11-27T18:01:55.171934+00:00",
-      "phase": "reconciliation",
+      "phase": "completed",
       "scope": "Verify unchanged product heads and reconcile stale REV-MVP ledger pointers",
       "observed_operations_commit": "0620fb1e81aa50dcd50671ef7ca3c651ce1f0ee9",
       "observed_main_commit": "58b6d9e0a8e2761e5c446a11ceafa1afb1e832a5",
       "cloud_verified": true,
-      "ceo_decisions_ingested": 0
+      "ceo_decisions_ingested": 0,
+      "result": "no_new_product_work; existing_heads_verified; stale_REV_summary_pointers_corrected",
+      "product_changes": false,
+      "product_tests_run": false,
+      "subagents_started": 0,
+      "roles": {
+        "prm": "root/coordinator"
+      },
+      "independent_review_this_run": null,
+      "delegation_reason": "No new requirements, implementation or technical review; coordinator-only state reconciliation.",
+      "new_ceo_replies_read": 0,
+      "product_waiting_prs": [
+        10,
+        11,
+        12
+      ],
+      "new_prs": [],
+      "product_prs_updated": [],
+      "operations_pr_updated": 9,
+      "pr_body_updated": false,
+      "open_pr_observations": [
+        {
+          "pr": 22,
+          "head": "bd4f48de0404614eb84275969bfccff0a368e866",
+          "base": "79d546891940b6f5e3030940f7c52c2ff7b3d36b",
+          "state": "open",
+          "draft": true,
+          "updated_at": "2026-11-11T12:48:18Z"
+        },
+        {
+          "pr": 13,
+          "head": "139c8b8b56bcd979068b61984120d9f312efe182",
+          "base": "4329daaeec15641289d7edbcb7f3237d0da1e0e3",
+          "state": "open",
+          "draft": true,
+          "updated_at": "2026-11-10T12:58:57Z"
+        },
+        {
+          "pr": 12,
+          "head": "b4deb0df131b1280ab2cc0647851e1d345d06143",
+          "base": "58b6d9e0a8e2761e5c446a11ceafa1afb1e832a5",
+          "state": "open",
+          "draft": true,
+          "updated_at": "2026-11-27T17:42:57Z"
+        },
+        {
+          "pr": 11,
+          "head": "f028aaf3ec973d62ac87839432794ab7644cdb99",
+          "base": "58b6d9e0a8e2761e5c446a11ceafa1afb1e832a5",
+          "state": "open",
+          "draft": true,
+          "updated_at": "2026-11-27T17:05:33Z"
+        },
+        {
+          "pr": 10,
+          "head": "792f438fe648e056ad83a423e55bebe9d53fe43f",
+          "base": "58b6d9e0a8e2761e5c446a11ceafa1afb1e832a5",
+          "state": "open",
+          "draft": true,
+          "updated_at": "2026-11-27T15:52:44Z"
+        },
+        {
+          "pr": 9,
+          "head": "0620fb1e81aa50dcd50671ef7ca3c651ce1f0ee9",
+          "base": "d526d65fbae116f834d14ad994a27bc50ca23b62",
+          "state": "open",
+          "draft": true,
+          "updated_at": "2026-11-27T17:59:45Z"
+        },
+        {
+          "pr": 4,
+          "head": "ff211ee8e144e955fa5837e8b8ff5cabf51f60a4",
+          "base": "d526d65fbae116f834d14ad994a27bc50ca23b62",
+          "state": "open",
+          "draft": true,
+          "updated_at": "2026-11-05T07:01:00Z"
+        }
+      ],
+      "external_checks": [
+        {
+          "pr": 12,
+          "checks": [
+            {
+              "name": "Workers Builds: yuika-study",
+              "head_sha": "b4deb0df131b1280ab2cc0647851e1d345d06143",
+              "status": "completed",
+              "conclusion": "failure",
+              "completed_at": "2026-11-27T17:17:53Z",
+              "url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/140647402361"
+            }
+          ]
+        },
+        {
+          "pr": 11,
+          "checks": [
+            {
+              "name": "Workers Builds: yuika-study",
+              "head_sha": "f028aaf3ec973d62ac87839432794ab7644cdb99",
+              "status": "completed",
+              "conclusion": "failure",
+              "completed_at": "2026-11-27T16:21:41Z",
+              "url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/140621072767"
+            }
+          ]
+        },
+        {
+          "pr": 10,
+          "checks": [
+            {
+              "name": "Workers Builds: yuika-study",
+              "head_sha": "792f438fe648e056ad83a423e55bebe9d53fe43f",
+              "status": "completed",
+              "conclusion": "failure",
+              "completed_at": "2026-11-27T15:19:44Z",
+              "url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/140590276283"
+            }
+          ]
+        }
+      ],
+      "ledger_corrections": [
+        {
+          "ticket": "REV-MVP",
+          "old_commit": "0cd726f558d24999da80c37b1ecdbd2e6090c7bb",
+          "new_commit": "792f438fe648e056ad83a423e55bebe9d53fe43f",
+          "old_artifacts": "ops/evidence/2026-11-24-review-pr31",
+          "source": "ops/evidence/2026-11-27-review-pr32/summary.json",
+          "reason": "Existing independent QA and current remote PR10 head agree; stale summary pointers only."
+        }
+      ],
+      "report": "ops/runs/2026-11-27-1801-state-reconciliation.md",
+      "next_action": "PR10(792f438/33suite)・PR11(f028aaf/34suite)・PR12(b4deb0d/30suite)はmain58b6d9eとの互換同期を各draft内で独立QA済み。3件の合成試用判断待ちを維持する。正本CEO返答を実読した担当が台帳へ反映するまで新承認とは扱わない。新差分・再現不具合・CEO試用所見がなければ同じ実装/QAを反復せず終了。新規製品PR・本番merge・公開・実通知なし。",
+      "new_obstacles": [],
+      "known_limitations": [
+        "Workers Builds failures unchanged; no deployment settings changed",
+        "CEO hands-on and real device trials unverified",
+        "Private input/storage decision D02 pending"
+      ],
+      "notification": "NO_UPDATE",
+      "main_changed": false,
+      "published": false,
+      "automatic_snapshot_handoff_verified": false,
+      "attachments": [
+        {
+          "pr": 9,
+          "attempts": 1,
+          "result": "tool yielded without result; pending call terminated; success_unverified"
+        }
+      ],
+      "completed_at": "2026-11-27T18:02:57.514977+00:00",
+      "lease_released_at": "2026-11-27T18:02:57.514977+00:00"
     }
   ],
   "operational_notes": [
