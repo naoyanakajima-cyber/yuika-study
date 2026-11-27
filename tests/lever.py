@@ -148,6 +148,22 @@ try:
             return daily.length === 5 && daily.every(q=>q.unitId==='rika-lever' && q.step===0);
         }""")
         locked(page)
+        # Counting is read-only and agrees with both initial daily batch sizes.
+        for upper in (5, 10):
+            page.locator(f'[data-count="{upper}"]').click()
+            expect(page.locator('#daily-five')).to_have_text(f'今日の復習をはじめる（今回は{upper}問）')
+            assert page.evaluate("""() => {
+                const original = Math.random, saved = YuikaParent.storage.getItem(KEY);
+                let draws = 0;
+                Math.random = () => {draws++; return original();};
+                try { render(); return draws === 0 && YuikaParent.storage.getItem(KEY) === saved; }
+                finally { Math.random = original; }
+            }""")
+            page.locator('#daily-five').click()
+            assert page.evaluate('session.questions.length') == upper
+            assert page.evaluate('session.questions[0].step') == 0
+            page.locator('#end').click()
+        page.locator('[data-count="5"]').click()
 
         # Exercise the normal unit start entry point after a real index projection.
         page.add_script_tag(url=base + 'assets/progress.js')
@@ -239,22 +255,30 @@ try:
         ))
         successor = next(o for o in lever if o['step'] == 1 and o['id'] != q['id'])
         prepare(page, q['id'], successor['id'])
+        page.evaluate("session.mode='daily';session.leverPractice=true;render()")
+        expect(page.locator('#quiz-count')).to_contain_text('1 / 2問')
         wrong = wrong_option(q)
         e = answer(page, q, wrong)
+        assert page.evaluate('session.questions.length') == 3
+        expect(page.locator('#quiz-count')).to_contain_text('1 / 3問')
         assert not e['correct'] and e['response'] == wrong
         assert e['answerTag'] == q['optionTags'][wrong]
         page.locator('#next').click()
         fallback_id = page.evaluate('session.questions[session.index].id')
         fallback = by_id[fallback_id]
         assert fallback['step'] == q['step'] - 1 and fallback['conceptId'] == q['conceptId']
+        expect(page.locator('#quiz-count')).to_contain_text('2 / 3問')
         answer(page, fallback)
         page.locator('#next').click()
         assert page.evaluate('session.questions[session.index].id') == successor['id']
-        page.locator('#end').click()
+        expect(page.locator('#quiz-count')).to_contain_text('3 / 3問')
+        answer(page, successor)
+        page.locator('#next').click()
+        expect(page.locator('.result strong')).to_contain_text('2 / 3問 正解')
         expect(page.locator('main')).to_contain_text('わかったこと')
         expect(page.locator('main')).to_contain_text(fallback['steps'][-1])
         page.locator('#parent').click()
-        fact = page.locator('#history details').filter(has_text=q['prompt']).first
+        fact = page.locator('#history details').filter(has_text='問題 ' + q['id'] + ' ／').first
         expect(fact).to_contain_text(wrong)
         expect(fact).to_contain_text('選んだ選択肢のタグ：' + e['answerTag'])
 
@@ -283,6 +307,10 @@ try:
         page.reload()
         expect(page.locator('#lever-challenge')).to_be_enabled()
         assert page.evaluate('scienceDaily().length===5&&scienceDaily().some(q=>q.step===4)')
+        expect(page.locator('#daily-five')).to_have_text('今日の復習をはじめる（今回は5問）')
+        page.locator('#daily-five').click()
+        assert page.evaluate("session.mode==='daily'&&session.questions.length===5&&session.questions.some(q=>q.step===4)")
+        page.locator('#end').click()
         assert page.evaluate("candidates('unit','てこのつり合い').every(q=>q.step<4)")
         page.locator('#lever-challenge').click()
         assert page.evaluate('session.questions.length===2&&session.questions.every(q=>q.step===4)')
@@ -294,6 +322,41 @@ try:
         assert 'cm' in page.locator('#numeric').evaluate("el => el.parentElement.textContent")
         e = answer(page, q, typical)
         assert e['answerUnit'] == 'cm' and e['answerTag'] == q['numericTags'][typical]
+        # Preserve real synthetic answers, including optional unit/tag fields,
+        # through reload and an actual downloaded-file roundtrip into empty storage.
+        expected_events = page.evaluate('state.events')
+        page.reload()
+        assert page.evaluate('state.events') == expected_events
+        page.evaluate('records()')
+        with page.expect_download() as download:
+            page.locator('#export').click()
+        exported = Path(download.value.path()).read_bytes()
+        packet = json.loads(exported)
+        assert packet['payload']['events'] == expected_events
+        page.evaluate('YuikaParent.storage.removeItem(KEY)')
+        page.reload()
+        assert page.evaluate('state.events.length') == 0
+        page.evaluate('records()')
+        page.locator('#import').set_input_files({
+            'name': 'synthetic-lever-roundtrip.json',
+            'mimeType': 'application/json', 'buffer': exported,
+        })
+        page.wait_for_function('() => rejectedImportRaw === null && state.events.length > 0')
+        assert page.evaluate('state.events') == expected_events
+        saved = page.evaluate('YuikaParent.storage.getItem(KEY)')
+        for field, value in (('answerUnit', 'invalid-unit'),
+                             ('answerTag', 'invalid-tag'),
+                             ('futureObservation', 'unsupported')):
+            bad = json.loads(exported)
+            bad_event = next(row for row in bad['payload']['events'] if row['id'] == e['id'])
+            bad_event[field] = value
+            raw = json.dumps(bad, ensure_ascii=False)
+            page.evaluate('async raw => { await importFile(new File([raw], "invalid-lever.json")); }', raw)
+            assert page.evaluate('rejectedImportRaw') == raw
+            assert page.evaluate('YuikaParent.storage.getItem(KEY)') == saved
+            assert page.evaluate('state.events') == expected_events
+        page.evaluate('async raw => { await importFile(new File([raw], "valid-lever.json")); }', exported.decode())
+        assert page.evaluate('rejectedImportRaw') is None
         prepare(page, q['id'])
         e = answer(page, q, 99999)
         assert not e['correct'] and not e.get('answerTag')

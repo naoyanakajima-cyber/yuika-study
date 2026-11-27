@@ -50,6 +50,20 @@ iPadのSafari・ホーム画面からの起動・別端末では保存領域が�
 
 取り違えやすい組（守護と地頭、御恩と奉公、侍所と問注所、法然と親鸞、栄西と道元、保元の乱と平治の乱、源義経と源義仲、北条政子・義時・泰時）は、片方をまちがえると相手も出やすくなります。鎌倉幕府のしくみ図・年表・新しい仏教の比較表は自作です（外部画像なし）。テキストの重要語句から作った問題で、本人の理解度に合わせたものではありません。テスト：`python3 tests/kamakura_review.py`。
 
+## おすすめ復習（応仁の乱・鎌倉幕府の成立）
+
+両単元の「おすすめ復習」は、選んだコース・分野・確認方法の記録から、最後の誤答、
+正解から24時間以上たった問題、直近にヒントを見て正解した問題を順に混ぜます。
+候補数と今回の出題数を表示し、各問題には「今回選んだ理由」を表示します。
+候補が少ないときはその件数で終わり、未回答の問題では水増ししません。
+単元ホーム上部の案内から、現在の条件の候補数を確認して復習欄へ移動できます。
+案内だけでは開始せず、候補がない場合は通常練習の条件へ進めます。
+
+回答は既存の「通常練習」として記録されます。おすすめ専用の効果測定や、能力・定着度の
+判定は行いません。既存の四つの復習入口、採点、保存形式はそのまま利用できます。
+記録を読み取れない場合はおすすめを無効にし、元の記録を上書きしません。
+テスト：`python tests/recommended_review.py`（合成履歴のみ）。
+
 ## チャレンジごとの自動メール
 
 チャレンジの結果通知に対応しています。初期状態では無効です。Cloudflare WorkersとResendの接続設定後、ページ下部から保護者が有効にします。失敗時は保留し、次回起動時などに同じ通知IDで再試行します。送信先・APIキーは公開HTMLには保存しません。
@@ -158,6 +172,10 @@ python notifications/embed.py
 python scripts/practice/embed.py
 python scripts/history/embed.py
 python scripts/prototype/embed.py
+python scripts/focus/subjects.py
+python scripts/design/build_summary.py
+python scripts/design/embed.py
+python scripts/parent/embed.py
 bash scripts/check_all.sh
 ```
 
@@ -232,6 +250,12 @@ sessionStorageの寿命に従って終了します（ブラウザーの「閉じ
 `bash scripts/check_all.sh` に含まれます。ChromiumでのiPad相当サイズの確認であり、
 Safari/WebKit・iPad実機の確認は含みません。
 
+
+PR10 現行基盤互換性: おすすめ復習は日次練習と別の既存選定です。現mainの試作保存キー・親確認モード・問題版検証を使い、読取不能/未保存/5分超未来の記録では休止します。旧保存先へ書かず、通常回答として現在のJSON形式で保存します。基盤統合時点では日次の件数表示は未修正でした。次段の表示修正は以下を参照してください。
+
+
+日次問数の表示修正（draft）: 応仁・鎌倉・平安・重点復習の「今日の復習」は、設定上限ではなく実際の問数を開始前に表示します。候補0では条件の見直しを案内し開始できません。表示は抽選を行わず、開始時の期限→弱点→通常の選定・重複除去・記録方式を維持します。開始直前に表示件数が変われば更新して再確認を求めます。既存の非null記録更新イベントと時刻更新を使い、外部キー削除や未配送を含む完全な複数タブ同期は追加しません。理科にも同じ開始前の実問数表示・0件停止・開始時再確認を適用し、トップの入口名は「今日の復習」へ整合しました。トップの集計・選定・前回単元への導線は維持し、問数は各単元の設定に従います。
+
 ## 理科「顕微鏡の使い方」
 
 学習帳の理科一覧から開けます。理科アプリの単元「顕微鏡の使い方」に、オリジナル20問を追加しました。ピント合わせ4問・像とプレパラートの向き4問を重点に、レンズ名2問・取り付け理由1問・操作順3問・低倍率からの観察2問・倍率計算2問・見える範囲と明るさ2問です。
@@ -261,3 +285,7 @@ Safari/WebKit・iPad実機の確認は含みません。
 保存キーは `yuika-prototype-v1:yuika-social-edo-v1`、問題IDは `edo-01〜22`、各問に概念ID・版番号・根拠/解説があります。既存単元のキー・問題・履歴は変更しません。自動メールに接続した端末では、回答済みの結果をチャレンジ終了時に通知します。
 
 再生成は `python scripts/edo/build.py` → `python notifications/embed.py` → `python scripts/history/embed.py` → `python scripts/design/build_summary.py` → `python scripts/design/embed.py` → `python scripts/parent/embed.py`。専用テストは `python tests/edo.py`、全体テストは `bash scripts/check_all.sh` です。
+
+PR10 新単元互換性（draft）: 顕微鏡・メダカ・江戸の既存問題と2段階回答、読み取り用の自力正解判定を保持し、日次入口を「今日の復習」と実問数へ統一します。選択肢で正解した回答も復習対象に残ります。江戸は理科の生成後に `python scripts/edo/build.py` を実行し、その後notification→history→summary→design→parentの順で生成します。本人試用・実機Safari/iPad・公開状態は別途確認が必要です。
+
+PR31互換同期では、江戸の問題生成は既存の `edo-review.html` を正本テンプレートにします。理科側のてこ専用進行・記録項目を江戸に混入させないためです。`scripts/edo/questions.py` の `build()` が問題定義を更新し、既存の版履歴は維持します。意味・採点の変更は新ID、文章訂正は既存のhistory生成手順で版を登録してください。その後にnotification・history・summary・design・parentを再埋め込みします。`embed_science.py` は理科のみを対象とし、`prototype/embed.py` は江戸を対象に含めません。江戸内のscience/prototypeアダプターは自動同期されないため、これらに共通で必要な動作修正は江戸側へ明示的に照合・反映してください。通知・江戸・模試の生成列も `tests/generator_preservation.py` で初回の全追跡ファイル保持と2回目の一致を確認します。

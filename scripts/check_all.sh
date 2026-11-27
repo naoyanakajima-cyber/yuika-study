@@ -29,6 +29,7 @@ run notifications/test/worker.test.mjs node --test notifications/test/worker.tes
 run notifications/test/browser.py python notifications/test/browser.py
 run tests/study_reports.py python tests/study_reports.py
 run tests/cloud_bootstrap.py python tests/cloud_bootstrap.py
+run tests/generator_preservation.py python tests/generator_preservation.py
 run tests/adaptive_practice.py python tests/adaptive_practice.py
 run tests/adaptive_daily.py python tests/adaptive_daily.py
 run tests/adaptive_quality.py python tests/adaptive_quality.py
@@ -50,6 +51,10 @@ run tests/focus_practice.py python tests/focus_practice.py
 run tests/parent_mode.py python tests/parent_mode.py
 run tests/design_c.py python tests/design_c.py
 run tests/responsive_subjects.py python tests/responsive_subjects.py
+run tests/recommended_review.py python tests/recommended_review.py
+run tests/review_entry.py python tests/review_entry.py
+run tests/daily_count.py python tests/daily_count.py
+run tests/science_daily_count.py python tests/science_daily_count.py
 printf '\n%-40s %6s %8s\n' 'Suite' 'Exit' 'Seconds'
 for i in "${!names[@]}"; do
   printf '%-40s %6s %8s\n' "${names[$i]}" "${codes[$i]}" "${times[$i]}"

@@ -194,7 +194,7 @@ try:
    assets[url]=subprocess.check_output(['curl','--fail','--silent','--show-error','--location','--max-time','30',url])
   page.route('https://unpkg.com/**',lambda r:r.fulfill(body=assets[r.request.url],content_type='application/javascript'))
   page.goto(base+'/index.html')
-  page.get_by_role('button',name='今日の5問をはじめる',exact=True).click()
+  page.get_by_role('button',name='今日の復習をはじめる',exact=True).click()
   page.wait_for_url('**/yuika-review-v2.html?daily=1')
   assert page.evaluate("session.mode==='daily'&&session.questions.length===Math.min(count,candidates('normal',scienceUnit).length)")
   page.close();page=context.new_page();page.goto(base+'/yuika-review-v2.html')
@@ -206,7 +206,7 @@ try:
   page.locator('#daily-five').click()
   page.locator('#end').click()
   page.goto(base+'/index.html')
-  page.get_by_role('button',name='今日の5問をはじめる',exact=True).click()
+  page.get_by_role('button',name='今日の復習をはじめる',exact=True).click()
   page.wait_for_url(lambda url:'daily=1' in url and 'unit=' in url)
   assert page.evaluate("scienceUnit==='てこのつり合い'&&session.mode==='daily'&&session.questions.every(q=>q.unitId==='rika-lever')")
   assert not errors,errors

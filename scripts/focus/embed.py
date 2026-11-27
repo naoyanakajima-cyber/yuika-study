@@ -8,6 +8,9 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 qs=json.loads((ROOT/'scripts/focus/questions.json').read_text())
 text=(ROOT/'kamakura-review.html').read_text()
+# Recommended review is a Kamakura/Onin entry, not part of the focus engine.
+text=re.sub(r'\n#recommended-title:focus\{[^}]*\}\n\.recommendation-entry h2\{[^}]*\}\n', '', text)
+text=re.sub(r'\$\{s\.recommended\?`<aside.*?</aside>`:\'\'\}', '', text)
 # Re-embed the shared client after generating this standalone page.
 text=re.sub(r'<!-- YUIKA_REPORTS_BEGIN -->.*?<!-- YUIKA_REPORTS_END -->','',text,flags=re.S)
 for section in ('ADAPTIVE','HISTORY','PROTOTYPE','DESIGN_C'):

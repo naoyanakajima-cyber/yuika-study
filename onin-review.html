@@ -5,6 +5,9 @@
 @media print{header,nav,.actions,button,.footer,#notice,.no-print{display:none!important}body{background:white;font-size:11px}main{padding:0;max-width:none}.card{break-inside:avoid;box-shadow:none;padding:12px}details{display:block}h1{font-size:24px}.tablewrap{overflow:visible}}
 
 textarea{font:inherit;min-height:100px;width:100%;padding:12px;border:1px solid #c7d0c7;border-radius:9px;resize:vertical}#ordered{white-space:pre-line} .brand a{font-size:12px;letter-spacing:0;margin-left:10px} .facts{overflow-wrap:anywhere}
+
+#recommended-title:focus{outline:3px solid #c58238;outline-offset:3px}
+.recommendation-entry h2{font-size:18px}
 </style><link rel="stylesheet" href="assets/design.css"><!-- YUIKA_PARENT_BEGIN -->
 <script>
 /* Parent-only URL entry. Loaded before every application/notification script. */
@@ -863,12 +866,39 @@ const NODES=[['尊氏','初代',150,8],['義詮','2代',150,58],['義満','3代'
 const EDGES=[[0,1],[1,2],[2,3],[2,4],[3,5],[4,6],[4,7]];
 function tree(){const c=i=>[NODES[i][2]+35,NODES[i][3]];return `<svg viewBox="0 0 370 250" role="img" aria-label="足利将軍の系図の模式図。尊氏→義詮→義満。義満の子が4代義持と6代義教で兄弟。義持の子が5代義量、義教の子が7代義勝と8代義政。" style="width:370px;max-width:100%"><rect x="1" y="1" width="368" height="248" rx="12" fill="#edf3ec"/>${EDGES.map(([a,b])=>{const [x1,y1]=c(a),[x2,y2]=c(b),m=y1+40;return `<path d="M${x1} ${y1+30}V${m}H${x2}V${y2}" stroke="#7f978c" stroke-width="2" fill="none"/>`;}).join('')}${NODES.map(([n,g,x,y])=>`<rect x="${x}" y="${y}" width="70" height="30" rx="7" fill="${n==='義満'||n==='義政'?'#b57c65':'#386455'}"/><text x="${x+35}" y="${y+20}" fill="white" font-size="13" text-anchor="middle">${g} ${n}</text>`).join('')}</svg>`;}
 function home(){
+ const recommended=recommendedPlan();
  const total=new Set(data.events.map(e=>Q.get(e.questionId)?.originId||e.questionId)).size,n=QUESTIONS.length;
  main.innerHTML=`<section class="hero"><div><div class="eyebrow">SOCIAL STUDIES · 540-27</div><h1>応仁の乱</h1><p>だれが、なぜ、どう動いたか。<br>つながりで覚えよう。</p><span class="tag">室町時代</span><span class="tag">${n}問・ヒントと解説</span></div><div class="art" aria-hidden="true" style="display:grid;place-items:center;font-size:72px"></div>
-</section><div class="stats"><div class="stat"><strong>${data.events.length}</strong><span>この単元の回答</span></div><div class="stat"><strong>${total}<small> / ${n}</small></strong><span>出会った問題</span></div><div class="stat"><strong>${n-total}</strong><span>これからの問題</span></div></div><div class="layout"><section class="card"><h2>今日のチャレンジ</h2><p class="muted">用語確認 → 理由・比較 → つながり。</p><label class="field">コース<select id="course">${Object.entries(COURSES).map(([k,v])=>`<option value="${k}" ${prefs.course===k?'selected':''}>${v}</option>`).join('')}</select></label><label class="field">分野<select id="unit"><option value="all">ぜんぶ</option>${UNITS.map(u=>`<option ${prefs.unit===u?'selected':''}>${u}</option>`).join('')}</select></label><label class="field">確認方法<select id="variant"><option value="normal" ${prefs.variant==='normal'?'selected':''}>通常練習（読みもOK）</option><option value="kanji" ${prefs.variant==='kanji'?'selected':''}>漢字・正式名の確認（入力問題）</option><option value="yomi" ${prefs.variant==='yomi'?'selected':''}>読みの確認（漢字の用語）</option></select></label><p class="muted">iPadの変換入力は、手書きの漢字力の確認とは異なります。</p><div class="chips">${[5,10,15].map(c=>`<button data-count="${c}" aria-pressed="${prefs.count===c}">${c}問</button>`).join('')}</div><button id="start" class="primary wide" style="margin-top:18px" ${candidates('normal').length?'':'disabled'}>チャレンジをはじめる →</button><p class="muted" style="margin-top:10px">候補 ${candidates('normal').length}問。１回の中では同じ問題は出ません。まだ答えていない問題・前回まちがえた問題が出やすく、続けて正解した問題は出にくくなります。</p></section><section class="card green-card"><h2>自分のペースで復習</h2><p class="muted">選んだコース・分野・確認方法から出題します。</p>${[['unseen','まだ答えていない問題','この確認方法で未回答'],['wrong','もう一度やってみよう','最後の回答がちがった問題'],['spaced','日をあけて思い出そう','最後の回答から24時間以上'],['hint','ヒントなしでできるかな','最後はヒントを見て正解']].map(([m,t,s])=>`<button class="review" data-mode="${m}" ${candidates(m).length?'':'disabled'}><span>${t}<small>${s}</small></span><b>${candidates(m).length}<small>問</small></b></button>`).join('')}<div class="note">通常練習・漢字確認・読み確認は別々に記録します。</div></section></div><section class="card"><h2>足利将軍の系図（主な人物）</h2><div class="row">${tree()}<p>線は親子。<br>4代義持と6代義教は、どちらも義満の子＝<b>兄弟</b>。<br>7代義勝と8代義政も兄弟。<br><small>模式図です。『逃げ上手の若君』に出てくるのは尊氏・義詮のころ。漫画の場面と史実は分けて考えよう。</small></p></div></section><section class="card"><h2>金閣と銀閣をくらべよう</h2><div class="tablewrap"><table><tr><th></th><th>金閣</th><th>銀閣</th></tr><tr><td>建てた将軍</td><td>3代 足利義満</td><td>8代 足利義政</td></tr><tr><td>文化</td><td>北山文化</td><td>東山文化</td></tr><tr><td>寺の名前</td><td>鹿苑寺</td><td>慈照寺</td></tr><tr><td>もとは</td><td>義満の山荘</td><td>義政の山荘</td></tr><tr><td>特ちょう</td><td>金箔をはった、はなやかな建物</td><td>落ち着いた簡素な美しさ。同じ寺の東求堂に書院造</td></tr></table></div><p class="muted">銀閣という名前ですが、銀箔をはった跡は調査で見つかっていません。写真は使わず、文字の表にしています。</p></section><details><summary>教材の扱い・保護者の方へ</summary><p>デイリーサピックス540-27の学習内容（応仁の乱・一揆・農業・商業・文化）をもとにした非公式のオリジナル問題です。教材や外部サイトの画像は使用していません。系図・金閣と銀閣・土倉と酒屋の4問（54027-20・28〜30）は「発展・今日の対話」として区別しています。</p><p>応仁の乱の終わり（1477年ごろ）や加賀の一向一揆の自治の期間（約100年）は、目安として扱っています。別の社会単元と理科の記録は、このページから変更しません。</p></details>`;
+</section><aside class="note recommendation-entry" aria-labelledby="recommendation-entry-title"><h2 id="recommendation-entry-title">おすすめ復習</h2><p id="recommendation-entry-status">${practiceUnavailable()?'記録や時刻を確認するまで、おすすめ復習を休止しています。':recommended.length?`今の条件で候補 ${recommended.length}問 · 今回は ${Math.min(prefs.count,recommended.length)}問`:'今の条件でおすすめする復習はありません。通常練習や未回答の問題も選べます。'}</p><button id="recommendation-entry" type="button">${practiceUnavailable()?'記録の状態を確認する':recommended.length?'おすすめ復習を確認する →':'通常練習の条件を確認する →'}</button></aside><div class="stats"><div class="stat"><strong>${data.events.length}</strong><span>この単元の回答</span></div><div class="stat"><strong>${total}<small> / ${n}</small></strong><span>出会った問題</span></div><div class="stat"><strong>${n-total}</strong><span>これからの問題</span></div></div><div class="layout"><section class="card"><h2>今日のチャレンジ</h2><p class="muted">用語確認 → 理由・比較 → つながり。</p><label class="field">コース<select id="course">${Object.entries(COURSES).map(([k,v])=>`<option value="${k}" ${prefs.course===k?'selected':''}>${v}</option>`).join('')}</select></label><label class="field">分野<select id="unit"><option value="all">ぜんぶ</option>${UNITS.map(u=>`<option ${prefs.unit===u?'selected':''}>${u}</option>`).join('')}</select></label><label class="field">確認方法<select id="variant"><option value="normal" ${prefs.variant==='normal'?'selected':''}>通常練習（読みもOK）</option><option value="kanji" ${prefs.variant==='kanji'?'selected':''}>漢字・正式名の確認（入力問題）</option><option value="yomi" ${prefs.variant==='yomi'?'selected':''}>読みの確認（漢字の用語）</option></select></label><p class="muted">iPadの変換入力は、手書きの漢字力の確認とは異なります。</p><div class="chips">${[5,10,15].map(c=>`<button data-count="${c}" aria-pressed="${prefs.count===c}">${c}問</button>`).join('')}</div><button id="start" class="primary wide" style="margin-top:18px" ${candidates('normal').length?'':'disabled'}>チャレンジをはじめる →</button><p class="muted" style="margin-top:10px">候補 ${candidates('normal').length}問。１回の中では同じ問題は出ません。まだ答えていない問題・前回まちがえた問題が出やすく、続けて正解した問題は出にくくなります。</p></section><section class="card green-card"><h2>自分のペースで復習</h2><p class="muted">選んだコース・分野・確認方法から出題します。</p>${[['unseen','まだ答えていない問題','この確認方法で未回答'],['wrong','もう一度やってみよう','最後の回答がちがった問題'],['spaced','日をあけて思い出そう','最後の回答から24時間以上'],['hint','ヒントなしでできるかな','最後はヒントを見て正解']].map(([m,t,s])=>`<button class="review" data-mode="${m}" ${candidates(m).length?'':'disabled'}><span>${t}<small>${s}</small></span><b>${candidates(m).length}<small>問</small></b></button>`).join('')}<div class="note">通常練習・漢字確認・読み確認は別々に記録します。</div></section></div><section class="card" aria-labelledby="recommended-title"><h2 id="recommended-title" tabindex="-1">おすすめ復習</h2><p>前の誤答・時間をおいた確認・ヒントを見た正解を、選んだ条件から少しずつ取り上げます。</p><p id="recommended-count">候補 ${recommended.length}問 · 今回は ${Math.min(prefs.count,recommended.length)}問</p><button id="recommended-start" class="primary" ${recommended.length?'':'disabled'}>おすすめ復習をはじめる →</button>${practiceUnavailable()?`<p class="note">${esc(adaptiveStatus())}</p>`:!recommended.length?'<p class="note">この条件で今おすすめする復習はありません。通常練習や未回答の問題も選べます。</p>':''}<p class="muted">おすすめ復習の回答は、記録では通常練習に含まれます。</p></section><section class="card"><h2>足利将軍の系図（主な人物）</h2><div class="row">${tree()}<p>線は親子。<br>4代義持と6代義教は、どちらも義満の子＝<b>兄弟</b>。<br>7代義勝と8代義政も兄弟。<br><small>模式図です。『逃げ上手の若君』に出てくるのは尊氏・義詮のころ。漫画の場面と史実は分けて考えよう。</small></p></div></section><section class="card"><h2>金閣と銀閣をくらべよう</h2><div class="tablewrap"><table><tr><th></th><th>金閣</th><th>銀閣</th></tr><tr><td>建てた将軍</td><td>3代 足利義満</td><td>8代 足利義政</td></tr><tr><td>文化</td><td>北山文化</td><td>東山文化</td></tr><tr><td>寺の名前</td><td>鹿苑寺</td><td>慈照寺</td></tr><tr><td>もとは</td><td>義満の山荘</td><td>義政の山荘</td></tr><tr><td>特ちょう</td><td>金箔をはった、はなやかな建物</td><td>落ち着いた簡素な美しさ。同じ寺の東求堂に書院造</td></tr></table></div><p class="muted">銀閣という名前ですが、銀箔をはった跡は調査で見つかっていません。写真は使わず、文字の表にしています。</p></section><details><summary>教材の扱い・保護者の方へ</summary><p>デイリーサピックス540-27の学習内容（応仁の乱・一揆・農業・商業・文化）をもとにした非公式のオリジナル問題です。教材や外部サイトの画像は使用していません。系図・金閣と銀閣・土倉と酒屋の4問（54027-20・28〜30）は「発展・今日の対話」として区別しています。</p><p>応仁の乱の終わり（1477年ごろ）や加賀の一向一揆の自治の期間（約100年）は、目安として扱っています。別の社会単元と理科の記録は、このページから変更しません。</p></details>`;
  main.insertAdjacentHTML('beforeend',adaptivePanel());
- for(const id of ['course','unit','variant'])document.getElementById(id).onchange=e=>{prefs[id]=e.target.value;home();};
- main.querySelectorAll('[data-count]').forEach(b=>b.onclick=()=>{prefs.count=Number(b.dataset.count);home();});document.getElementById('start').onclick=()=>start('normal');main.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>start(b.dataset.mode));
+ for(const id of ['course','unit','variant'])document.getElementById(id).onchange=e=>{prefs[id]=e.target.value;home();document.getElementById(id).focus({preventScroll:true});};
+ main.querySelectorAll('[data-count]').forEach(b=>b.onclick=()=>{prefs.count=Number(b.dataset.count);home();main.querySelector(`[data-count="${prefs.count}"]`).focus({preventScroll:true});});document.getElementById('recommendation-entry').onclick=()=>{const target=document.getElementById(practiceUnavailable()||recommended.length?'recommended-title':'course');target.focus({preventScroll:true});target.scrollIntoView({block:'center'});};document.getElementById('start').onclick=()=>start('normal');document.getElementById('recommended-start').onclick=startRecommended;main.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>start(b.dataset.mode));
+}
+// Recommendations are a transient selection plan; saved events remain normal practice.
+function recommendedPlan(p=prefs,now=Date.now()){
+ if(practiceUnavailable(data.events,now))return [];
+ const g=grouped(),buckets=[[],[],[]];
+ for(const q of QUESTIONS){
+  if(p.course!=='all'&&q.course!==p.course||p.unit!=='all'&&q.unit!==p.unit||!fits(q,p.variant))continue;
+  const last=historyOf(g,q,p.variant).at(-1);if(!last)continue;
+  const spaced=now-Date.parse(last.at)>=86400000;
+  const bucket=!last.correct?0:spaced?1:last.hint?2:-1;if(bucket<0)continue;
+  const reasons=[];
+  if(!last.correct)reasons.push('前の回答をもう一度確かめよう');
+  if(spaced)reasons.push('前の回答から24時間以上たったよ');
+  if(last.hint)reasons.push(last.correct?'前はヒントを見て正解したよ':'前の回答はヒントあり');
+  buckets[bucket].push({q,lastAt:last.at,lastId:last.id,reasons});
+ }
+ for(const bucket of buckets)bucket.sort((a,b)=>a.lastAt.localeCompare(b.lastAt)||a.q.id.localeCompare(b.q.id));
+ const plan=[];
+ for(let i=0;buckets.some(bucket=>i<bucket.length);i++)for(const bucket of buckets)if(bucket[i])plan.push(bucket[i]);
+ return plan;
+}
+function startRecommended(){
+ const plan=recommendedPlan().slice(0,prefs.count);
+ if(!plan.length){note(practiceUnavailable()?adaptiveStatus():'この条件で今おすすめする復習はありません。通常練習や未回答の問題も選べます。');return;}
+ rememberPrefs();run={id:uuid(),mode:'normal',recommended:true,plan,variant:prefs.variant,qs:plan.map(item=>item.q),index:0,results:[],done:false};
+ screen='quiz';prepare();render();main.focus();window.scrollTo(0,0);
 }
 function pick(qs,mode,count,g=grouped(),v=prefs.variant){return qs.map(q=>({q,k:-Math.log(Math.max(Math.random(),Number.EPSILON))/(mode==='normal'?weight(q,g,v):1)})).sort((a,b)=>a.k-b.k).slice(0,count).map(x=>x.q);}
 function start(mode){
@@ -878,7 +908,7 @@ function start(mode){
 function prepare(){const q=run.qs[run.index];run.answered=false;run.hint=false;run.selected=null;run.options=q.options?shuffle(q.options):[];}
 function quiz(){
  if(run.done){result();return;}const q=run.qs[run.index],s=run,v=variantOf(q,s.variant);
- main.innerHTML=`<div class="quiz"><div class="row between"><button id="end" class="small">← いったんおしまい</button><span>${s.index+1} / ${s.qs.length}問</span></div><div class="progress"><span style="width:${s.index/s.qs.length*100}%"></span></div><section class="card"><span class="tag">${q.unit}</span><span class="tag">難度${q.level}</span>${v!=='normal'?`<span class="tag">${VARIANTS[v]}の確認</span>`:''}${q.source!=='教材準拠'?`<span class="tag">${q.source}</span>`:''}<h1 class="question">${esc(promptOf(q,v))}</h1>${q.type==='text'?`<label class="field">${v==='yomi'?'ひらがなで入力':v==='kanji'?'正式な表記で入力（漢字の用語は漢字で）':'答えを入力（読みもOK・名前は最後まで）'}<input id="response" type="text" autocomplete="off" maxlength="200" placeholder="ここに答えを入力"></label>`:`<div class="stack">${s.options.map((o,i)=>`<button class="option" data-choice="${i}" aria-pressed="false"><span>${String.fromCharCode(65+i)}</span>${esc(o)}</button>`).join('')}</div>`}
+ main.innerHTML=`<div class="quiz"><div class="row between"><button id="end" class="small">← いったんおしまい</button><span>${s.index+1} / ${s.qs.length}問</span></div><div class="progress"><span style="width:${s.index/s.qs.length*100}%"></span></div><section class="card"><span class="tag">${q.unit}</span><span class="tag">難度${q.level}</span>${v!=='normal'?`<span class="tag">${VARIANTS[v]}の確認</span>`:''}${q.source!=='教材準拠'?`<span class="tag">${q.source}</span>`:''}${s.recommended?`<aside class="note" id="recommended-reasons" aria-label="今回選んだ理由"><b>今回選んだ理由</b><ul>${s.plan[s.index].reasons.map(reason=>`<li>${esc(reason)}</li>`).join('')}</ul></aside>`:''}<h1 class="question">${esc(promptOf(q,v))}</h1>${q.type==='text'?`<label class="field">${v==='yomi'?'ひらがなで入力':v==='kanji'?'正式な表記で入力（漢字の用語は漢字で）':'答えを入力（読みもOK・名前は最後まで）'}<input id="response" type="text" autocomplete="off" maxlength="200" placeholder="ここに答えを入力"></label>`:`<div class="stack">${s.options.map((o,i)=>`<button class="option" data-choice="${i}" aria-pressed="false"><span>${String.fromCharCode(65+i)}</span>${esc(o)}</button>`).join('')}</div>`}
 <div id="error" class="error" role="alert"></div><div class="actions"><button id="check" class="primary">答え合わせ</button><button id="hint">ヒントを見る</button></div><div id="hintbox" hidden class="note"></div><div id="feedback" aria-live="polite"></div></section></div>`;
  document.getElementById('end').onclick=()=>go('home');
  main.querySelectorAll('[data-choice]').forEach(b=>b.onclick=()=>{if(s.answered)return;s.selected=s.options[Number(b.dataset.choice)];main.querySelectorAll('[data-choice]').forEach(x=>x.setAttribute('aria-pressed',x===b));});
@@ -964,7 +994,7 @@ function practiceClockIssue(events=data.events,now=Date.now()){
  return events.some(e=>Date.parse(e.at)>now+5*60000);
 }
 function practiceUnavailable(events=data.events,now=Date.now()){return blocked||dirty||practiceClockIssue(events,now);}
-const PRACTICE_CLOCK_NOTICE='今より5分以上先の回答記録があります。端末の日付と時刻を確認してください。弱点の判定と今日の5問はお休みします。記録の時刻は自動で直しません。';
+const PRACTICE_CLOCK_NOTICE='今より5分以上先の回答記録があります。端末の日付と時刻を確認してください。弱点の判定と今日の復習はお休みします。記録の時刻は自動で直しません。';
 let adaptiveLevel='all';
 function additional(p=prefs,events=data.events,now=Date.now()){
  if(practiceUnavailable(events,now))return [];
@@ -984,7 +1014,7 @@ function adaptiveSummary(){
 }
 function adaptivePanel(){
  const rows=additional();
- return `<section class="card" id="adaptive"><h2>弱点に合わせた追加練習</h2><p>最近30日で、まちがえた日が2日以上ある問題を練習します。日本時間で日付を分け、最後に答えた5日分を使います。同じ日にヒントを見て正解した場合も、その日のまちがいを数えます。ヒントなしで正解すると候補（こうほ）から外れます。再確認待ちに進み、期限が来たら今日の5問で確かめます。まちがえたら弱点に戻ります。読みと漢字は別々に数えます。記録が少ないので、苦手とは決めつけません。</p><label class="field">追加問題のむずかしさ<select id="adaptive-level">${[['all','すべて'],['1','基本'],['2','標準'],['3','発展']].map(([v,t])=>`<option value="${v}" ${adaptiveLevel===v?'selected':''}>${t}</option>`).join('')}</select></label><p>もとの問題と同じむずかしさです。平安は暗記＝基本、ペア・流れ＝標準、理由＝発展です。１回は選んだ問題数まで、候補は最大10問です。</p>${rows.map(r=>`<details><summary>${esc(r.unit)}：${esc(promptOf(r.q,r.variant))}</summary><p>選んだ理由：${r.wrong}/${r.total}日でまちがい・ヒントを見た日${r.hintCount}日。最後の回答：${esc(adaptiveLabel(r.lastAt))}（${r.lastCorrect?'ヒント付き正解':'まちがい'}）。むずかしさ${r.level}。${r.confusion?'同じペアの別の答えと一致しました。原因は未確定です。':''}</p><p>元問題：${esc(r.originId)} ／ 出典：${esc(r.q.source||'既存の平安単元問題')}</p><p>正解：${esc(expectedOf(r.q,r.variant))}</p><p>説明：${esc(r.q.explanation)}</p></details>`).join('')||`<p>${esc(adaptiveStatus())}</p>`}<button data-mode="adaptive" ${rows.length?'':'disabled'}>追加練習をはじめる（候補${rows.length}問・今回${Math.min(rows.length,prefs.count)}問）</button></section>`;
+ return `<section class="card" id="adaptive"><h2>弱点に合わせた追加練習</h2><p>最近30日で、まちがえた日が2日以上ある問題を練習します。日本時間で日付を分け、最後に答えた5日分を使います。同じ日にヒントを見て正解した場合も、その日のまちがいを数えます。ヒントなしで正解すると候補（こうほ）から外れます。再確認待ちに進み、期限が来たら今日の復習で確かめます。まちがえたら弱点に戻ります。読みと漢字は別々に数えます。記録が少ないので、苦手とは決めつけません。</p><label class="field">追加問題のむずかしさ<select id="adaptive-level">${[['all','すべて'],['1','基本'],['2','標準'],['3','発展']].map(([v,t])=>`<option value="${v}" ${adaptiveLevel===v?'selected':''}>${t}</option>`).join('')}</select></label><p>もとの問題と同じむずかしさです。平安は暗記＝基本、ペア・流れ＝標準、理由＝発展です。１回は選んだ問題数まで、候補は最大10問です。</p>${rows.map(r=>`<details><summary>${esc(r.unit)}：${esc(promptOf(r.q,r.variant))}</summary><p>選んだ理由：${r.wrong}/${r.total}日でまちがい・ヒントを見た日${r.hintCount}日。最後の回答：${esc(adaptiveLabel(r.lastAt))}（${r.lastCorrect?'ヒント付き正解':'まちがい'}）。むずかしさ${r.level}。${r.confusion?'同じペアの別の答えと一致しました。原因は未確定です。':''}</p><p>元問題：${esc(r.originId)} ／ 出典：${esc(r.q.source||'既存の平安単元問題')}</p><p>正解：${esc(expectedOf(r.q,r.variant))}</p><p>説明：${esc(r.q.explanation)}</p></details>`).join('')||`<p>${esc(adaptiveStatus())}</p>`}<button data-mode="adaptive" ${rows.length?'':'disabled'}>追加練習をはじめる（候補${rows.length}問・今回${Math.min(rows.length,prefs.count)}問）</button></section>`;
 }
 // Bind after each home render; all content remains inside the standalone app.
 const originalHome=home;
@@ -1001,7 +1031,7 @@ parent=function(){originalParent();main.insertAdjacentHTML('afterbegin',adaptive
 // the current 30-day extraction window. Replaying legacy JSON migrates without
 // rewriting any event, ID, timestamp, key, or historical grade.
 const REVIEW_INTERVAL_DAYS=Object.freeze([1,3,7]); // provisional, editable configuration
-MODES.daily='今日の5問';
+MODES.daily='今日の復習';
 const addJapanDays=(d,n)=>new Date(Date.parse(d+'T00:00:00Z')+n*86400000).toISOString().slice(0,10);
 function retention(events=data.events,now=Date.now()){
  const states=new Map(),histories=new Map(),seen=new Set();
@@ -1057,18 +1087,34 @@ function dueReviews(p=prefs,events=data.events,now=Date.now()){
   .sort((a,b)=>a.due.localeCompare(b.due)||a.originId.localeCompare(b.originId)||a.variant.localeCompare(b.variant))
   .filter(s=>{const q=Q.get(s.originId);return s.variant===p.variant&&fits(q,p.variant)&&(p.unit==='all'||p.unit===q.unit)&&(p.course==='all'||p.course===q.course);});
 }
-function dailyQuestions(p=prefs){
- if(practiceUnavailable())return [];
- const result=[],seen=new Set();
+// Count the same origin union without drawing/shuffling normal questions.
+function dailySources(p=prefs,now=Date.now()){
+ if(practiceUnavailable(data.events,now))return {due:[],weak:[],normal:[]};
+ return {due:dueReviews(p,data.events,now).map(s=>EXTRA.get(s.originId)),
+  weak:additional(p,data.events,now).map(s=>s.q),normal:candidates('normal',p)};
+}
+function dailyCount(p=prefs,now=Date.now()){
+ const {due,weak,normal}=dailySources(p,now);
+ return Math.min(p.count,new Set([...due,...weak,...normal].map(q=>q.originId||q.id)).size);
+}
+function dailyQuestions(p=prefs,now=Date.now()){
+ if(practiceUnavailable(data.events,now))return [];
+ const {due,weak,normal}=dailySources(p,now),result=[],seen=new Set();
  const push=q=>{const id=q.originId||q.id;if(!seen.has(id)){seen.add(id);result.push(q);}};
- dueReviews(p).forEach(s=>push(EXTRA.get(s.originId)));
- additional(p).forEach(s=>push(s.q));
- shuffle(candidates('normal',p)).forEach(push);
+ due.forEach(push);weak.forEach(push);shuffle(normal).forEach(push);
  return result.slice(0,p.count);
 }
+const DAILY_EMPTY='この条件では候補がありません。コース・分野・確認方法を見直してください。';
 function startDaily(){
- if(practiceUnavailable()){note(adaptiveStatus());return;}
- const qs=dailyQuestions();if(!qs.length){note('この条件では候補がありません。');return;}
+ const now=Date.now();
+ if(practiceUnavailable(data.events,now)){if(screen==='home')render();note(adaptiveStatus());return;}
+ const count=dailyCount(prefs,now),button=document.getElementById('daily-five');
+ if(!count){if(screen==='home')render();note(DAILY_EMPTY);return;}
+ // A changed home count needs a fresh confirmation, before any random draw.
+ if(screen==='home'&&button&&Number(button.dataset.dailyCount)!==count){
+  render();note('問題数が変わりました。今回の問数を確認して、もう一度はじめてください。');return;
+ }
+ const qs=dailyQuestions(prefs,now);if(!qs.length){note(DAILY_EMPTY);return;}
  rememberPrefs();run={id:uuid(),mode:'daily',variant:prefs.variant,qs,index:0,results:[],done:false};
  screen='quiz';prepare();render();main.focus();window.scrollTo(0,0);
 }
@@ -1088,7 +1134,8 @@ function rememberPrefs(){
 const retentionHome=home;
 home=function(){
  retentionHome();
- main.insertAdjacentHTML('afterbegin',`<section class="card"><button id="daily-five" class="primary wide" ${practiceUnavailable()?'disabled':''}>今日の5問をはじめる（今回は${prefs.count}問）</button><p>期限の来た再確認 → 弱点の追加練習 → 通常問題。分野・確認方法・問題数は下で変更できます。</p><p>今日の再確認：${dueReviews().length}件</p></section>`);
+ const now=Date.now(),unavailable=practiceUnavailable(data.events,now),count=dailyCount(prefs,now);
+ main.insertAdjacentHTML('afterbegin',`<section class="card"><button id="daily-five" class="primary wide" data-daily-count="${count}" aria-describedby="daily-status" ${unavailable||!count?'disabled':''}>${unavailable?'今日の復習はお休み中':`今日の復習をはじめる（今回は${count}問）`}</button><p id="daily-status" role="status">${esc(unavailable?adaptiveStatus():!count?DAILY_EMPTY:'期限の来た再確認 → 弱点の追加練習 → 通常問題。分野・確認方法・問題数を選べます。')}</p><p>今日の再確認：${dueReviews(prefs,data.events,now).length}件</p></section>`);
  document.getElementById('daily-five').onclick=startDaily;
  main.querySelectorAll('#course,#unit,#variant,[data-count]').forEach(el=>{
   const type=el.tagName==='SELECT'?'onchange':'onclick',previous=el[type];
@@ -1156,7 +1203,7 @@ function prototypeFields(value,allowed){
 const prototypeEventValidator=validateEvent;
 validateEvent=function(e){
  const fields=prototypeScience?
-  [...(e.type==='recall'?['recallOutcome','firstResponse']:[]),'questionVersion','id','sessionId','questionId','datasetVersion','unit','type','question','response','inputRaw','expected','correct','answeredAt','timezoneOffset','localDay','hintUsed','mode','explanation']:
+  [...(e.type==='recall'?['recallOutcome','firstResponse']:[]),'questionVersion','id','sessionId','questionId','datasetVersion','unit','type','question','response','inputRaw','expected','correct','answeredAt','timezoneOffset','localDay','hintUsed','mode','explanation','answerUnit','answerTag']:
   ['questionVersion','id','sessionId','questionId','version','unit','course','question','response','expected','explanation','correct','variant','mode','hint','at','offset','day',...(prototypeHeian?['reflection']:['unitId'])];
  prototypeFields(e,fields);
  if(prototypeHeian&&e.response&&typeof e.response==='object')prototypeFields(e.response,['steps','fills']);
