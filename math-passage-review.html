@@ -1,0 +1,872 @@
+<!doctype html>
+<html lang="ja" data-subject="math">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src https://*.workers.dev; object-src 'none'; base-uri 'none'; form-action 'none'">
+<title>通過算・旅人算　進む長さをつかむ</title>
+<link rel="stylesheet" href="assets/design.css">
+<!-- YUIKA_PARENT_BEGIN -->
+<script>
+/* Parent-only URL entry. Loaded before every application/notification script. */
+(()=>{
+'use strict';
+const FLAG='yuika-parent-check-v1', PREFIX=FLAG+':';
+const url=new URL(location.href);
+let active=false,temporary=false;
+const memory=new Map();
+try{
+ active=sessionStorage.getItem(FLAG)==='1';
+ if(url.searchParams.get('parent-check')==='1'){active=true;sessionStorage.setItem(FLAG,'1');}
+}catch{
+ // The previous mode cannot be established safely. Do not read or write child
+ // storage or send notifications; keep this page usable in an isolated buffer.
+ active=true;temporary=true;
+}
+if(temporary)url.searchParams.set('parent-check','1');
+else url.searchParams.delete('parent-check');
+history.replaceState(null,'',url);
+function targetURL(target){const next=new URL(target,location.href);if(temporary&&next.origin===location.origin)next.searchParams.set('parent-check','1');return next.href;}
+function navigate(target){location.assign(targetURL(target));}
+document.addEventListener('click',event=>{const link=event.target.closest?.('a[href]');if(temporary&&link&&!link.download&&new URL(link.href).origin===location.origin)link.href=targetURL(link.href);},true);
+// No unload cleanup: reload/navigation must retain a working session sandbox.
+const storage={
+ getItem(k){return temporary?(memory.get(k)??null):active?sessionStorage.getItem(PREFIX+k):window.localStorage.getItem(k);},
+ setItem(k,v){if(temporary)memory.set(k,String(v));else if(active)sessionStorage.setItem(PREFIX+k,String(v));else window.localStorage.setItem(k,v);},
+ removeItem(k){if(temporary)memory.delete(k);else if(active)sessionStorage.removeItem(PREFIX+k);else window.localStorage.removeItem(k);},
+ key(i){return temporary?([...memory.keys()][i]??null):active?Object.keys(sessionStorage).filter(k=>k.startsWith(PREFIX)).map(k=>k.slice(PREFIX.length))[i]??null:window.localStorage.key(i);},
+ get length(){return temporary?memory.size:active?Object.keys(sessionStorage).filter(k=>k.startsWith(PREFIX)).length:window.localStorage.length;}
+};
+const temporaryNotice='一時保存が使えないため安全な確認モードで開きました。回答はこの画面だけに保持し、再読込・移動で失われます。子どもの記録と通知には触れません。';
+let status='通知は送信しません（Workerへの送信・保留登録・再送・接続確認を停止）。';
+function suppress(){if(!active)return false;console.info('[保護者確認モード] 通知を送信しません');const el=document.getElementById('parent-notification-status');if(el)el.textContent=temporary?temporaryNotice+' '+status:status;return true;}
+function exit(){try{for(const k of Object.keys(sessionStorage))if(k===FLAG||k.startsWith(PREFIX))sessionStorage.removeItem(k);const next=new URL(location.href);next.searchParams.delete('parent-check');location.replace(next.href);}catch{document.getElementById('parent-notification-status').textContent='確認モードを解除できません。このタブを閉じ、保存領域の利用を許可してから開き直してください。子どもの記録と通知には触れません。';}}
+const keys=['yuika-social-540-24-v1','yuika-social-540-25-v1','yuika-social-540-27-v1','yuika-science-review-v2','study-mock-focus-v1'];
+const recordKeys=[...keys,...keys.map(k=>'yuika-prototype-v1:'+k),'yuika_sessions','yuika_feedback','yuika_cleared'];
+// Only known record collections are editable; configuration and unknown data stay intact.
+function plan(since){
+ const cutoff=new Date(since).getTime();if(!Number.isFinite(cutoff))throw Error('日時を指定してください。');
+ const changes=[];let count=0;
+ const recent=e=>{const at=e?.answeredAt??e?.at??e?.capturedAt??e?.ts;return typeof at==='string'&&Number.isFinite(Date.parse(at))&&Date.parse(at)>=cutoff;};
+ for(const key of recordKeys){const raw=window.localStorage.getItem(key);if(raw===null)continue;let v;try{v=JSON.parse(raw);}catch{throw Error('読み取れない記録があります。先にJSONを保全してください。');}
+ let removed=0;
+ const filter=a=>a.filter(e=>{if(recent(e)){removed++;return false;}return true;});
+ if(Array.isArray(v))v=filter(v);
+ else if(v&&typeof v==='object'){
+  if(key==='yuika_cleared'){for(const [k,e] of Object.entries(v))if(recent(e)){delete v[k];removed++;}}
+  else for(const name of ['events','legacy'])if(Array.isArray(v[name]))v[name]=filter(v[name]);
+ }
+ if(removed){count+=removed;changes.push({key,raw,next:JSON.stringify(v)});}
+ }
+ return {count,changes};
+}
+function remove(plan){
+ // Prevent a stale confirmation from overwriting another tab's answers.
+ for(const c of plan.changes)if(window.localStorage.getItem(c.key)!==c.raw)throw Error('記録が更新されました。件数を確認し直してください。');
+ const written=[];
+ try{for(const c of plan.changes){window.localStorage.setItem(c.key,c.next);written.push(c);}}
+ catch{
+  let restored=true;
+  for(const c of written.reverse())try{
+   // A different tab's newer value must never be overwritten by rollback.
+   if(window.localStorage.getItem(c.key)!==c.next){restored=false;continue;}
+   window.localStorage.setItem(c.key,c.raw);
+   if(window.localStorage.getItem(c.key)!==c.raw)restored=false;
+  }catch{restored=false;}
+  const error=Error(restored?'削除は完了していません。変更済みの記録を元に戻しました。削除前のJSONを保全し、件数を確認し直してください。':'削除途中で保存に失敗し、一部の記録の復元を確認できません。この画面を閉じず「削除前のJSONを保全」で原本を保存してください。');
+  error.recovery=plan;error.incomplete=!restored;throw error;
+ }
+}
+function exportRecovery(plan){
+ const blob=new Blob([JSON.stringify({format:'yuika-parent-cleanup-backup-v1',records:plan.changes.map(c=>({key:c.key,raw:c.raw}))},null,2)],{type:'application/json'});
+ const link=document.createElement('a');link.href=URL.createObjectURL(blob);link.download='yuika-before-cleanup.json';link.click();setTimeout(()=>URL.revokeObjectURL(link.href),1000);
+}
+function mount(){
+ if(!active)return;
+ const banner=document.createElement('section');banner.id='parent-check-banner';banner.style.cssText='position:sticky;top:0;z-index:2147483647;background:#fff1bd;color:#302500;padding:12px;font:16px/1.5 system-ui';
+ banner.innerHTML='<strong>保護者確認モード（記録・通知なし）</strong> <button id="parent-exit" type="button">終了</button><div id="parent-notification-status" role="status"></div><details><summary>保護者：既存の子どもの記録を整理</summary><p>このブラウザー内の全単元・旧版・試作の日時付き記録が対象です。先に各画面からJSONを保管し、他の学習タブを閉じてください。日時のない旧集計は保持します。送信済み通知は取り消せません。</p><label>指定日時以降（この端末の時刻）<input id="parent-since" type="datetime-local"></label><button id="parent-count" type="button">削除件数を確認</button><p id="parent-delete-status" role="status"></p><button id="parent-delete" type="button" disabled>子どもの記録を削除</button> <button id="parent-backup" type="button" hidden>削除前のJSONを保全</button></details>';
+ document.body.prepend(banner);document.getElementById('parent-exit').onclick=exit;
+ let pending=null,recovery=null,incomplete=false;const backup=document.getElementById('parent-backup');backup.onclick=()=>{if(recovery)exportRecovery(recovery);};const result=document.getElementById('parent-delete-status'),button=document.getElementById('parent-delete');
+ document.getElementById('parent-since').oninput=()=>{pending=null;button.disabled=true;result.textContent='日時を変更しました。件数を再確認してください。';};
+ document.getElementById('parent-count').onclick=()=>{if(incomplete){result.textContent='復元未確認の記録があります。先に削除前のJSONを保全し、この画面で追加の削除をしないでください。';return;}try{pending=plan(document.getElementById('parent-since').value);result.textContent=`削除対象：${pending.count}件`;button.disabled=!pending.count;}catch(e){pending=null;button.disabled=true;result.textContent=e.message;}};
+ button.onclick=()=>{if(!pending||!confirm(`${pending.count}件の子どもの記録を削除します。元に戻せません。削除しますか？`))return;try{remove(pending);result.textContent=`${pending.count}件を削除しました。終了すると再集計されます。`;pending=null;button.disabled=true;}catch(e){if(e.recovery){recovery=e.recovery;incomplete=e.incomplete;backup.hidden=false;}result.textContent=e.message;pending=null;button.disabled=true;}};
+ if(temporary){document.getElementById('parent-count').disabled=true;document.getElementById('parent-since').disabled=true;}
+ suppress();
+}
+window.YuikaParent={get active(){return active;},storage,suppress,navigate};
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
+})();
+
+</script>
+<!-- YUIKA_PARENT_END -->
+<script src="assets/design.js"></script>
+<style>
+:root[data-subject="math"] { --subject: var(--math); --subject-text: var(--math); --pale: #EAF0FC; }
+#main { max-width: 760px; margin: auto; padding: 16px; }
+#main:focus { outline: none; }
+#main button, .unit-header button { padding: 8px 16px; }
+.stage-list, .choices { display: grid; gap: 10px; }
+.stage-list button, .choices button { text-align: left; }
+.choices button[aria-pressed="true"] { background: var(--pale); outline: 2px solid var(--subject); }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+#numeric { width: 9em; padding: 8px; }
+</style>
+</head>
+<body>
+<!-- YUIKA_REPORTS_BEGIN -->
+<script>
+/* Shared source, embedded in each HTML to preserve single-file use. */
+(()=>{
+'use strict';
+const CONFIG='yuika-mail-config-v1',PREFIX='yuika-mail-job-v1:';
+const memory=new Map();let busy=false,last='',timer=null;
+const id=()=>crypto.randomUUID?crypto.randomUUID():Array.from(crypto.getRandomValues(new Uint8Array(16)),v=>v.toString(16).padStart(2,'0')).join('');
+function config(){try{return JSON.parse(window.YuikaParent.storage.getItem(CONFIG)||'null');}catch{return null;}}
+function store(job){memory.set(job.report?.id||job.id,job);try{window.YuikaParent.storage.setItem(PREFIX+(job.report?.id||job.id),JSON.stringify(job));return true;}catch{last='通知の保留データを保存できません。この画面を閉じる前に接続を確認してください。学習記録の保存状況も確認してください。';return false;}}
+function jobs(){const all=new Map(memory);try{for(let i=0;i<window.YuikaParent.storage.length;i++){const k=window.YuikaParent.storage.key(i);if(k?.startsWith(PREFIX)){try{const v=JSON.parse(window.YuikaParent.storage.getItem(k));if(v&&typeof v.id==='string'&&!all.has(v.id))all.set(v.id,v);}catch{last='読み取れない通知記録があります。上書きせず保管しています。';}}}}catch{}return [...all.values()];}
+function show(){const el=document.getElementById('yuika-mail-status');if(!el)return;const cfg=config(),pending=jobs().filter(j=>j.status!=='accepted').length;
+ el.textContent=last||(!cfg?.enabled?'自動メールは未接続です。接続後のチャレンジから通知します。':`自動メールは接続済みです。${pending?`保留 ${pending}件。アプリを開いている間に再試行します。`:'通知の保留はありません。'}`);
+}
+function schedule(){clearTimeout(timer);timer=setTimeout(()=>flush(),60_000);}
+async function process(){if(window.YuikaParent.suppress())return;const cfg=config();if(!cfg?.enabled||!navigator.onLine){show();return;}
+ for(const job of jobs().filter(j=>j.status==='pending').slice(0,10)){
+  if(!config()?.enabled)break;
+  if(job.endpoint!==cfg.endpoint||job.recipient!==cfg.recipient){last='以前の送信先向けの保留通知があります。送信先が違うため自動送信していません。';continue;}
+  if(job.nextAttempt>Date.now())continue;
+  try{
+   if(window.YuikaParent.suppress())return;
+   const r=await fetch(cfg.endpoint+'/reports',{method:'POST',credentials:'omit',headers:{'Content-Type':'application/json',Authorization:'Bearer '+cfg.token},body:JSON.stringify(job.report),signal:AbortSignal.timeout(20_000)});
+   const body=await r.json();
+   if(r.ok&&body.accepted===true){store({id:job.id,status:'accepted',acceptedAt:new Date().toISOString(),endpoint:job.endpoint,recipient:job.recipient});last='今回の通知を送信サービスが受け付けました（受信箱への到着確認ではありません）。';}
+   else if(r.status===401||r.status===403){last='通知の接続認証を確認してください。結果は保留しています。';break;}
+   else if(r.status===409||r.status===400||r.status===413){job.status='needs_review';job.error=body.error||'invalid_report';store(job);last='確認が必要な通知があります。二重送信を防ぐため、自動再送を止めています。';}
+   else{job.tries=(job.tries||0)+1;job.nextAttempt=Date.now()+Math.min(3600000,60000*2**Math.min(job.tries,6));store(job);last='メール送信は保留中です。次回の起動時などに再試行します。';}
+  }catch{job.tries=(job.tries||0)+1;job.nextAttempt=Date.now()+Math.min(3600000,60000*2**Math.min(job.tries,6));store(job);last='通信できないため通知を保留しています。学習は続けられます。';}
+ }
+ show();
+}
+async function flush(){if(window.YuikaParent.suppress())return;if(busy)return;busy=true;try{if(navigator.locks)await navigator.locks.request('yuika-mail-send',process);else await process();}finally{busy=false;schedule();}}
+function enqueue(report){
+ if(window.YuikaParent.suppress())return false;
+ const cfg=config();if(!cfg?.enabled){last='自動メールは未接続です。今回の結果は学習記録で確認できます。';show();return false;}
+ if(!report||!report.id||jobs().some(j=>j.id===report.id)){show();return true;}
+ let old;try{old=window.YuikaParent.storage.getItem(PREFIX+report.id);}catch{}
+ if(old!==null&&old!==undefined){last='同じ通知IDの保存データがあるため、上書きしていません。';show();return false;}
+ store({id:report.id,report,endpoint:cfg.endpoint,recipient:cfg.recipient,status:'pending',tries:0,nextAttempt:0});
+ last='チャレンジ結果を通知の保留リストに入れました。';show();void flush();return true;
+}
+function exportPending(){const pending=jobs().filter(j=>j.report).map(j=>({id:j.id,status:j.status,error:j.error||null,report:j.report}));const url=URL.createObjectURL(new Blob([JSON.stringify({version:1,pending},null,2)],{type:'application/json'}));const a=document.createElement('a');a.href=url;a.download='yuika-pending-notifications.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),10000);}
+function endpoint(value){const u=new URL(value);if(u.protocol!=='https:'||!u.hostname.endsWith('.workers.dev')||u.username||u.password||u.port||u.search||u.hash||u.pathname!=='/')throw Error('設定したCloudflare Workerの https://〜.workers.dev のURLを入力してください。');return u.origin;}
+function mount(){
+ const wrap=document.createElement('section');wrap.style.cssText='max-width:944px;margin:20px auto;padding:16px;font:13px/1.7 system-ui;color:#394d43';
+ wrap.innerHTML='<p id="yuika-mail-status" role="status" aria-live="polite"></p><details><summary style="cursor:pointer">保護者：チャレンジ結果の自動メール</summary><p>接続すると、チャレンジ終了時に、今回の正誤・回答・ヒント等を登録した保護者へ送ります。自由記述は送信しません。以前の単元で記録していない項目は補いません。過去の履歴の一括送信はしません。</p><p>iPadでアプリを閉じている間は再送できません。未送信分は、次に開いたときに再試行します。通知を停止しても学習記録は消しません。</p><form id="yuika-mail-form"><label style="display:block">送信サーバーURL<input id="yuika-mail-url" type="url" required placeholder="https://〜.workers.dev" style="display:block;width:100%;box-sizing:border-box;padding:10px"></label><label style="display:block">この端末の接続キー<input id="yuika-mail-token" type="password" required minlength="32" autocomplete="off" style="display:block;width:100%;box-sizing:border-box;padding:10px"></label><p>メールサービスのAPIキーはここに入れません。接続キーは公開サイトやGitHubに書き込まず、この端末だけに保存します。</p><button type="submit" style="padding:10px;min-height:44px">接続を確認して有効にする</button> <button id="yuika-mail-stop" type="button" style="padding:10px;min-height:44px">自動メールを停止</button> <button id="yuika-mail-retry" type="button" style="padding:10px;min-height:44px">保留分を確認・再試行</button> <button id="yuika-mail-export" type="button" style="padding:10px;min-height:44px">保留通知をJSONで保全</button></form></details>';
+ document.body.append(wrap);
+ const cfg=config();if(cfg?.endpoint)document.getElementById('yuika-mail-url').value=cfg.endpoint;
+ document.getElementById('yuika-mail-form').onsubmit=async e=>{e.preventDefault();if(window.YuikaParent.suppress())return;const button=e.submitter;if(button)button.disabled=true;try{
+  const base=endpoint(document.getElementById('yuika-mail-url').value.trim()),token=document.getElementById('yuika-mail-token').value.trim();if(token.length<32)throw Error('接続キーを確認してください。');
+  const r=await fetch(base+'/health',{headers:{Authorization:'Bearer '+token},credentials:'omit',signal:AbortSignal.timeout(15000)}),body=await r.json();
+  if(!r.ok||body.ready!==true||typeof body.recipient!=='string')throw Error('送信サーバーの設定・接続キーを確認してください。');
+  if(!confirm('送信先：'+body.recipient+'\n今後のチャレンジ結果をこの宛先へ自動送信します。接続しますか？'))return;
+  window.YuikaParent.storage.setItem(CONFIG,JSON.stringify({enabled:true,endpoint:base,token,recipient:body.recipient}));document.getElementById('yuika-mail-token').value='';last='自動メールを有効にしました。次のチャレンジから通知します。';show();void flush();
+ }catch(err){last='接続できませんでした。'+err.message;show();}finally{if(button)button.disabled=false;}};
+ document.getElementById('yuika-mail-stop').onclick=()=>{try{const c=config();if(c)window.YuikaParent.storage.setItem(CONFIG,JSON.stringify({...c,enabled:false}));last='今後の自動送信を停止しました。送信処理が始まっている通知は取り消せません。';}catch{last='停止設定を保存できません。通信を切って、この画面を閉じてください。';}show();};
+ document.getElementById('yuika-mail-retry').onclick=()=>{last='';show();void flush();};document.getElementById('yuika-mail-export').onclick=exportPending;
+ show();void flush();
+}
+window.YuikaReports={enqueue,id};
+window.addEventListener('online',()=>void flush());
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)void flush();});
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount);else mount();
+})();
+
+</script>
+<!-- YUIKA_REPORTS_END -->
+<header class="unit-header"><button id="back">学習帳へ</button><span>算数</span></header>
+<main id="main" tabindex="-1"></main>
+<script id="questions" type="application/json">
+[
+  {
+    "id": "passage-01",
+    "step": 0,
+    "type": "choice",
+    "prompt": "長さ117mの列車が、線路わきに立つ人の前を通り過ぎます。先頭が人の前に来てから最後尾が通り終わるまでに、何m進みますか？",
+    "answer": "117m",
+    "hint": "先頭と最後尾が、同じ地点を通るときの位置を考えよう。",
+    "steps": [
+      "先頭が人の前に来た瞬間、最後尾は人の117m手前にいる。",
+      "最後尾が人の前に来るまでに、列車は117m進む。"
+    ],
+    "explanation": "先頭が人の前に来た瞬間、最後尾は人の117m手前にいる。 最後尾が人の前に来るまでに、列車は117m進む。",
+    "pitfall": "人が立つ地点には、ホームのような長さはないよ。",
+    "options": [
+      "0m",
+      "117m",
+      "234m"
+    ],
+    "optionTags": {
+      "234m": "列車の長さを足した",
+      "0m": "人の長さだけを見た"
+    }
+  },
+  {
+    "id": "passage-02",
+    "step": 0,
+    "type": "choice",
+    "prompt": "長さ126mの列車が、長さ243mのホームを通過します。先頭が手前の端に来てから最後尾が反対の端を通るまでに、何m進みますか？",
+    "answer": "369m",
+    "hint": "先頭が出口に来たとき、最後尾はどこにあるかな？",
+    "steps": [
+      "先頭が出口まで進むのに243m。",
+      "そこから最後尾が出口まで進むのに、さらに列車の長さの126m。",
+      "243＋126＝369m。"
+    ],
+    "explanation": "先頭が出口まで進むのに243m。 そこから最後尾が出口まで進むのに、さらに列車の長さの126m。 243＋126＝369m。",
+    "pitfall": "先頭が出口に来ても、最後尾はまだホームの中だよ。",
+    "options": [
+      "117m",
+      "243m",
+      "369m"
+    ],
+    "optionTags": {
+      "243m": "列車の長さを足さなかった",
+      "117m": "和と差の取り違え"
+    }
+  },
+  {
+    "id": "passage-03",
+    "step": 0,
+    "type": "choice",
+    "prompt": "長さ154mの列車が、長さ281mの鉄橋を通過します。先頭が手前の端に来てから最後尾が反対の端を通るまでに、何m進みますか？",
+    "answer": "435m",
+    "hint": "先頭が出口に来たとき、最後尾はどこにあるかな？",
+    "steps": [
+      "先頭が出口まで進むのに281m。",
+      "そこから最後尾が出口まで進むのに、さらに列車の長さの154m。",
+      "281＋154＝435m。"
+    ],
+    "explanation": "先頭が出口まで進むのに281m。 そこから最後尾が出口まで進むのに、さらに列車の長さの154m。 281＋154＝435m。",
+    "pitfall": "先頭が出口に来ても、最後尾はまだ鉄橋の中だよ。",
+    "options": [
+      "127m",
+      "281m",
+      "435m"
+    ],
+    "optionTags": {
+      "281m": "列車の長さを足さなかった",
+      "127m": "和と差の取り違え"
+    }
+  },
+  {
+    "id": "passage-04",
+    "step": 0,
+    "type": "choice",
+    "prompt": "長さ145mの列車が、長さ532mのトンネルを通ります。最後尾が入口に入ってから先頭が出口に来るまで、列車が完全に隠れている間に何m進みますか？",
+    "answer": "387m",
+    "hint": "最後尾が入ったとき、先頭は入口から何m先かな？",
+    "steps": [
+      "最後尾が入った瞬間、先頭は入口から145m先にいる。",
+      "先頭が出口まで進む距離は532－145＝387m。"
+    ],
+    "explanation": "最後尾が入った瞬間、先頭は入口から145m先にいる。 先頭が出口まで進む距離は532－145＝387m。",
+    "pitfall": "完全に隠れる時間は、最後尾が入ってから数えるよ。",
+    "options": [
+      "387m",
+      "532m",
+      "677m"
+    ],
+    "optionTags": {
+      "677m": "和と差の取り違え",
+      "532m": "先頭の出発位置を見落とした"
+    }
+  },
+  {
+    "id": "passage-05",
+    "step": 0,
+    "type": "choice",
+    "prompt": "長さ172mの列車で、中央の座席にいる人が窓から外を見ています。長さ674mのトンネルで、その窓が入口に入ってから出口を出るまでに、列車は何m進みますか？",
+    "answer": "674m",
+    "hint": "その人の窓を1つの点として、入口から出口まで追ってみよう。",
+    "steps": [
+      "その人の窓が入口から出口まで移動する距離を考える。",
+      "窓が進む距離はトンネルの長さと同じ674m。"
+    ],
+    "explanation": "その人の窓が入口から出口まで移動する距離を考える。 窓が進む距離はトンネルの長さと同じ674m。",
+    "pitfall": "景色を見られない時間は、その窓がトンネルの中にいる時間だよ。",
+    "options": [
+      "502m",
+      "674m",
+      "846m"
+    ],
+    "optionTags": {
+      "846m": "列車の長さを足した",
+      "502m": "列車の長さを引いた"
+    }
+  },
+  {
+    "id": "passage-06",
+    "step": 0,
+    "type": "choice",
+    "prompt": "列車Aは長さ103m、列車Bは長さ162mです。反対方向に進む2本の列車の先頭が出会い、すれちがいます。車体が重なり始めてから完全に離れるまで、一方から見てもう一方は何m動きますか？",
+    "answer": "265m",
+    "hint": "重なり始めと終わりで、どちらの端どうしが並ぶかを指でたどろう。",
+    "steps": [
+      "一方の列車が止まっていると考え、もう一方だけを動かす。",
+      "車体が重なり始めてから完全に離れるまでに、2本分の長さを進む。103＋162＝265m。"
+    ],
+    "explanation": "一方の列車が止まっていると考え、もう一方だけを動かす。 車体が重なり始めてから完全に離れるまでに、2本分の長さを進む。103＋162＝265m。",
+    "pitfall": "追い越す側が入れ替わっても、車体が離れるまでに動く長さは2本分だよ。",
+    "options": [
+      "103m",
+      "265m",
+      "59m"
+    ],
+    "optionTags": {
+      "59m": "和と差の取り違え",
+      "103m": "片方の列車の長さだけを使った"
+    }
+  },
+  {
+    "id": "passage-07",
+    "step": 0,
+    "type": "choice",
+    "prompt": "列車Aは長さ157m、列車Bは長さ91mです。同じ方向に進む列車Aが後ろから列車Bを追い越します。車体が重なり始めてから完全に離れるまで、一方から見てもう一方は何m動きますか？",
+    "answer": "248m",
+    "hint": "重なり始めと終わりで、どちらの端どうしが並ぶかを指でたどろう。",
+    "steps": [
+      "一方の列車が止まっていると考え、もう一方だけを動かす。",
+      "車体が重なり始めてから完全に離れるまでに、2本分の長さを進む。157＋91＝248m。"
+    ],
+    "explanation": "一方の列車が止まっていると考え、もう一方だけを動かす。 車体が重なり始めてから完全に離れるまでに、2本分の長さを進む。157＋91＝248m。",
+    "pitfall": "追い越す側が入れ替わっても、車体が離れるまでに動く長さは2本分だよ。",
+    "options": [
+      "157m",
+      "248m",
+      "66m"
+    ],
+    "optionTags": {
+      "66m": "和と差の取り違え",
+      "157m": "片方の列車の長さだけを使った"
+    }
+  },
+  {
+    "id": "passage-08",
+    "step": 0,
+    "type": "choice",
+    "prompt": "列車Aは長さ134m、列車Bは長さ213mです。同じ方向に進む列車Bが後ろから列車Aを追い越します。車体が重なり始めてから完全に離れるまで、一方から見てもう一方は何m動きますか？",
+    "answer": "347m",
+    "hint": "重なり始めと終わりで、どちらの端どうしが並ぶかを指でたどろう。",
+    "steps": [
+      "一方の列車が止まっていると考え、もう一方だけを動かす。",
+      "車体が重なり始めてから完全に離れるまでに、2本分の長さを進む。134＋213＝347m。"
+    ],
+    "explanation": "一方の列車が止まっていると考え、もう一方だけを動かす。 車体が重なり始めてから完全に離れるまでに、2本分の長さを進む。134＋213＝347m。",
+    "pitfall": "追い越す側が入れ替わっても、車体が離れるまでに動く長さは2本分だよ。",
+    "options": [
+      "134m",
+      "347m",
+      "79m"
+    ],
+    "optionTags": {
+      "79m": "和と差の取り違え",
+      "134m": "片方の列車の長さだけを使った"
+    }
+  },
+  {
+    "id": "passage-09",
+    "step": 1,
+    "type": "choice",
+    "prompt": "列車Aは秒速19m、列車Bは秒速23mです。2本は反対方向へ走り、すれちがいます。一方から見たもう一方の速さはどれですか？",
+    "answer": "秒速42m",
+    "hint": "1秒で2本の位置関係が何m変わるか考えよう。",
+    "steps": [
+      "反対方向では、2本が1秒で進んだ分を合わせる。",
+      "23＋19＝42m。"
+    ],
+    "explanation": "反対方向では、2本が1秒で進んだ分を合わせる。 23＋19＝42m。",
+    "pitfall": "合わせるか引くかは、走る向きで決まるよ。",
+    "options": [
+      "秒速19m",
+      "秒速42m",
+      "秒速4m"
+    ],
+    "optionTags": {
+      "秒速4m": "和と差の取り違え",
+      "秒速19m": "片方の速さだけを使った"
+    }
+  },
+  {
+    "id": "passage-10",
+    "step": 1,
+    "type": "choice",
+    "prompt": "列車Aは秒速25m、列車Bは秒速17mです。2本は同じ方向へ走り、列車Aが列車Bを追い越します。一方から見たもう一方の速さはどれですか？",
+    "answer": "秒速8m",
+    "hint": "1秒で2本の位置関係が何m変わるか考えよう。",
+    "steps": [
+      "同じ方向では、速い列車が1秒で余分に進んだ分だけ差が変わる。",
+      "25－17＝8m。"
+    ],
+    "explanation": "同じ方向では、速い列車が1秒で余分に進んだ分だけ差が変わる。 25－17＝8m。",
+    "pitfall": "合わせるか引くかは、走る向きで決まるよ。",
+    "options": [
+      "秒速25m",
+      "秒速42m",
+      "秒速8m"
+    ],
+    "optionTags": {
+      "秒速42m": "和と差の取り違え",
+      "秒速25m": "片方の速さだけを使った"
+    }
+  },
+  {
+    "id": "passage-11",
+    "step": 1,
+    "type": "choice",
+    "prompt": "列車Aは秒速13m、列車Bは秒速29mです。2本は同じ方向へ走り、列車Bが列車Aを追い越します。一方から見たもう一方の速さはどれですか？",
+    "answer": "秒速16m",
+    "hint": "1秒で2本の位置関係が何m変わるか考えよう。",
+    "steps": [
+      "同じ方向では、速い列車が1秒で余分に進んだ分だけ差が変わる。",
+      "29－13＝16m。"
+    ],
+    "explanation": "同じ方向では、速い列車が1秒で余分に進んだ分だけ差が変わる。 29－13＝16m。",
+    "pitfall": "合わせるか引くかは、走る向きで決まるよ。",
+    "options": [
+      "秒速13m",
+      "秒速16m",
+      "秒速42m"
+    ],
+    "optionTags": {
+      "秒速42m": "和と差の取り違え",
+      "秒速13m": "片方の速さだけを使った"
+    }
+  },
+  {
+    "id": "passage-12",
+    "step": 2,
+    "type": "choice",
+    "prompt": "時速46.8kmは秒速何mですか？",
+    "answer": "秒速13m",
+    "hint": "1時間は3600秒。kmをmに直してから割ろう。",
+    "steps": [
+      "1時間で46800m進む。",
+      "1秒で進むのは46800÷3600＝13m。"
+    ],
+    "explanation": "1時間で46800m進む。 1秒で進むのは46800÷3600＝13m。",
+    "pitfall": "距離の単位と時間の単位を両方そろえよう。",
+    "options": [
+      "秒速13m",
+      "秒速46.8m",
+      "秒速46800m"
+    ],
+    "optionTags": {
+      "秒速46.8m": "単位未換算",
+      "秒速46800m": "時間の単位を直さなかった"
+    }
+  },
+  {
+    "id": "passage-13",
+    "step": 2,
+    "type": "choice",
+    "prompt": "時速93.6kmは秒速何mですか？",
+    "answer": "秒速26m",
+    "hint": "1時間は3600秒。kmをmに直してから割ろう。",
+    "steps": [
+      "1時間で93600m進む。",
+      "1秒で進むのは93600÷3600＝26m。"
+    ],
+    "explanation": "1時間で93600m進む。 1秒で進むのは93600÷3600＝26m。",
+    "pitfall": "距離の単位と時間の単位を両方そろえよう。",
+    "options": [
+      "秒速26m",
+      "秒速93.6m",
+      "秒速93600m"
+    ],
+    "optionTags": {
+      "秒速93.6m": "単位未換算",
+      "秒速93600m": "時間の単位を直さなかった"
+    }
+  },
+  {
+    "id": "passage-14",
+    "step": 2,
+    "type": "choice",
+    "prompt": "時速5.1kmは分速何mですか？",
+    "answer": "分速85m",
+    "hint": "1時間は60分。kmをmに直してから割ろう。",
+    "steps": [
+      "1時間で5100m進む。",
+      "1分で進むのは5100÷60＝85m。"
+    ],
+    "explanation": "1時間で5100m進む。 1分で進むのは5100÷60＝85m。",
+    "pitfall": "距離の単位と時間の単位を両方そろえよう。",
+    "options": [
+      "分速5.1m",
+      "分速5100m",
+      "分速85m"
+    ],
+    "optionTags": {
+      "分速5.1m": "単位未換算",
+      "分速5100m": "時間の単位を直さなかった"
+    }
+  },
+  {
+    "id": "passage-15",
+    "step": 2,
+    "type": "choice",
+    "prompt": "時速8.7kmは分速何mですか？",
+    "answer": "分速145m",
+    "hint": "1時間は60分。kmをmに直してから割ろう。",
+    "steps": [
+      "1時間で8700m進む。",
+      "1分で進むのは8700÷60＝145m。"
+    ],
+    "explanation": "1時間で8700m進む。 1分で進むのは8700÷60＝145m。",
+    "pitfall": "距離の単位と時間の単位を両方そろえよう。",
+    "options": [
+      "分速145m",
+      "分速8.7m",
+      "分速8700m"
+    ],
+    "optionTags": {
+      "分速8.7m": "単位未換算",
+      "分速8700m": "時間の単位を直さなかった"
+    }
+  },
+  {
+    "id": "passage-16",
+    "step": 3,
+    "type": "number",
+    "prompt": "長さ136mの列車が秒速16mで、長さ248mのホームを通過します。先頭がホームの手前の端に来てから最後尾が反対の端を出るまで、何秒ですか？",
+    "answer": 24,
+    "hint": "最後尾がホームを出るまでに進む長さを考えよう。",
+    "steps": [
+      "進む長さは136＋248＝384m。",
+      "384÷16＝24秒。"
+    ],
+    "explanation": "進む長さは136＋248＝384m。 384÷16＝24秒。",
+    "pitfall": "先頭が出た時点では通過は終わっていないよ。",
+    "answerUnit": "秒",
+    "wrongValues": {
+      "15.5": "列車の長さを足さなかった",
+      "7": "和と差の取り違え"
+    }
+  },
+  {
+    "id": "passage-17",
+    "step": 3,
+    "type": "number",
+    "prompt": "長さ186mの列車が秒速23mで、長さ667mのトンネルを通ります。窓の一か所から外を見ている人が、トンネルのために景色を見られないのは何秒ですか？",
+    "answer": 29,
+    "hint": "車内の人の窓がトンネルに入ってから出るまでを考えよう。",
+    "steps": [
+      "窓がトンネルの中にいる間に進む長さは667m。",
+      "667÷23＝29秒。"
+    ],
+    "explanation": "窓がトンネルの中にいる間に進む長さは667m。 667÷23＝29秒。",
+    "pitfall": "列車全部が通過する時間とは、数え始めと終わりがちがうよ。",
+    "answerUnit": "秒",
+    "wrongValues": {
+      "37.09": "列車の長さを足した",
+      "20.91": "列車の長さを引いた"
+    }
+  },
+  {
+    "id": "passage-18",
+    "step": 3,
+    "type": "number",
+    "prompt": "長さ138mで秒速18mの列車と、長さ214mで秒速14mの列車が反対方向にすれちがいます。先頭どうしが出会ってから最後尾どうしがすれちがうまで何秒ですか？",
+    "answer": 11,
+    "hint": "2本の長さと2本の速さを、それぞれ合わせよう。",
+    "steps": [
+      "通過に必要な長さは138＋214＝352m。",
+      "反対方向なので1秒で18＋14＝32m分進む。",
+      "352÷32＝11秒。"
+    ],
+    "explanation": "通過に必要な長さは138＋214＝352m。 反対方向なので1秒で18＋14＝32m分進む。 352÷32＝11秒。",
+    "pitfall": "反対方向では2本とも反対側へ通過を進めているよ。",
+    "answerUnit": "秒",
+    "wrongValues": {
+      "88": "和と差の取り違え",
+      "2.375": "和と差の取り違え"
+    }
+  },
+  {
+    "id": "passage-19",
+    "step": 3,
+    "type": "number",
+    "prompt": "長さ171mの列車Aが秒速19mで走っています。後ろから長さ142mの列車Bが秒速26mで追い越します。Bの先頭がAの最後尾に並んでから13秒たったとき、Bの最後尾がAの先頭に並ぶまで、列車Aから見ると、Bはあと何m進む必要がありますか？",
+    "answer": 222,
+    "hint": "始めから終わりまでに必要な長さと、13秒で縮まった長さを考えよう。長さが小数になったら見直そう。この問題の長さは整数mになるよ。",
+    "steps": [
+      "追い越しに必要な長さは171＋142＝313m。",
+      "13秒で差が縮まる長さは(26－19)×13＝91m。",
+      "残りは313－91＝222m。"
+    ],
+    "explanation": "追い越しに必要な長さは171＋142＝313m。 13秒で差が縮まる長さは(26－19)×13＝91m。 残りは313－91＝222m。",
+    "pitfall": "追い越す列車がBでも、必要な長さは2本の和だよ。",
+    "answerUnit": "m",
+    "wrongValues": {
+      "29": "和と差の取り違え",
+      "313": "すでに縮まった分を引かなかった",
+    "0.222": "kmの値をmに直さなかった"
+    }
+  },
+  {
+    "id": "passage-20",
+    "step": 3,
+    "type": "number",
+    "prompt": "長さ127mの列車Aは時速54km、長さ169mの列車Bは時速82.8kmです。同じ方向に走るBがAを追い越します。Bの先頭がAの最後尾に並んでからBの最後尾がAの先頭に並ぶまで何秒ですか？",
+    "answer": 37,
+    "hint": "秒速に直してから差を出そう。動く長さは2本の和だよ。",
+    "steps": [
+      "2本の長さの和は127＋169＝296m。",
+      "Aは秒速15m、Bは秒速23mなので差は秒速8m。",
+      "296÷8＝37秒。"
+    ],
+    "explanation": "2本の長さの和は127＋169＝296m。 Aは秒速15m、Bは秒速23mなので差は秒速8m。 296÷8＝37秒。",
+    "pitfall": "mと秒で答えるとき、速さは秒速mにそろえよう。",
+    "answerUnit": "秒",
+    "wrongValues": {
+      "10.28": "単位未換算",
+      "5.25": "和と差の取り違え"
+    }
+  },
+  {
+    "id": "passage-21",
+    "step": 4,
+    "type": "number",
+    "prompt": "兄と弟が同じ道を同じ方向に進みます。兄は午前8時12分に分速65mで出発し、弟は同じ場所を午前8時18分に分速91mで出発しました。弟が兄に追いつくのは午前8時何分ですか？",
+    "answer": 33,
+    "hint": "弟が出発した時点で、兄は何m先にいるかな？",
+    "steps": [
+      "兄は先に6分進み、65×6＝390m先にいる。",
+      "差は毎分91－65＝26mずつ縮む。",
+      "390÷26＝15分。午前8時18分の15分後は午前8時33分。"
+    ],
+    "explanation": "兄は先に6分進み、65×6＝390m先にいる。 差は毎分91－65＝26mずつ縮む。 390÷26＝15分。午前8時18分の15分後は午前8時33分。",
+    "pitfall": "追いつくまでの15分は、後から出た弟の出発時刻に足すよ。",
+    "answerUnit": "分",
+    "wrongValues": {
+      "27": "先に出た人の時刻に足した",
+      "15": "経過時間を時刻と取り違えた"
+    }
+  },
+  {
+    "id": "passage-22",
+    "step": 4,
+    "type": "number",
+    "prompt": "午前9時07分、歩く人が公園を出発しました。15分後、同じ公園から同じ方向へ自転車が出発しました。歩く人は時速4.8km、自転車は時速12kmです。自転車が追いつくのは午前9時何分ですか？",
+    "answer": 32,
+    "hint": "時速を分速mに直してから、出発時点の差を求めよう。",
+    "steps": [
+      "歩く人は分速80m、自転車は分速200m。",
+      "出発時の差は80×15＝1200m。毎分200－80＝120mずつ縮む。",
+      "1200÷120＝10分。午前9時22分の10分後は午前9時32分。"
+    ],
+    "explanation": "歩く人は分速80m、自転車は分速200m。 出発時の差は80×15＝1200m。毎分200－80＝120mずつ縮む。 1200÷120＝10分。午前9時22分の10分後は午前9時32分。",
+    "pitfall": "mで求めた距離を時速kmの差で割ると、時間の単位が合わないよ。",
+    "answerUnit": "分",
+    "wrongValues": {
+      "17": "先に出た人の時刻に足した",
+      "10": "経過時間を時刻と取り違えた",
+      "188.67": "単位未換算"
+    }
+  },
+  {
+    "id": "passage-23",
+    "step": 4,
+    "type": "number",
+    "prompt": "同じ場所を先に出た人と後から出た人が、同じ方向に走ります。後から出た人が走り始めたとき、先に出た人は144m前にいました。先に出た人は時速14.4km、後から出た人は時速21.6kmです。後から出た人は何秒で追いつきますか？",
+    "answer": 72,
+    "hint": "144mを割る前に、速さを秒速mに直そう。",
+    "steps": [
+      "時速14.4kmは秒速4m、時速21.6kmは秒速6m。",
+      "差は毎秒6－4＝2mずつ縮む。",
+      "144÷2＝72秒。"
+    ],
+    "explanation": "時速14.4kmは秒速4m、時速21.6kmは秒速6m。 差は毎秒6－4＝2mずつ縮む。 144÷2＝72秒。",
+    "pitfall": "距離がmで時間が秒なら、使う速さは秒速mだよ。",
+    "answerUnit": "秒",
+    "wrongValues": {
+      "20": "単位未換算",
+      "14.4": "和と差の取り違え"
+    }
+  },
+  {
+    "id": "passage-24",
+    "step": 4,
+    "type": "number",
+    "prompt": "午前10時14分にランナーAが時速7.2kmで出発し、午前10時22分にランナーBが同じ地点から同じ方向に時速9.6kmで出発しました。BがAに追いつくのは午前10時何分ですか？",
+    "answer": 46,
+    "hint": "Bが出発した時の2人の差を、分速mを使って求めよう。",
+    "steps": [
+      "Aは分速120m、Bは分速160m。",
+      "Bが出発するときAは8分先に出ているので、120×8＝960m先。",
+      "960÷(160－120)＝24分。午前10時22分の24分後は午前10時46分。"
+    ],
+    "explanation": "Aは分速120m、Bは分速160m。 Bが出発するときAは8分先に出ているので、120×8＝960m先。 960÷(160－120)＝24分。午前10時22分の24分後は午前10時46分。",
+    "pitfall": "追いつく時刻を聞かれたら、かかった時間をBの出発時刻に足そう。",
+    "answerUnit": "分",
+    "wrongValues": {
+      "422": "単位未換算",
+      "38": "先に出た人の時刻に足した",
+      "24": "経過時間を時刻と取り違えた"
+    }
+  }
+]
+</script>
+<script>
+'use strict';
+const UNIT = '通過算・旅人算　進む長さをつかむ';
+const STAGES = ['何m進むか', '速さの和か差か', '単位をそろえる', '通過算を通しで解く', '旅人算'];
+const QUESTIONS = JSON.parse(document.getElementById('questions').textContent);
+const main = document.getElementById('main');
+const back = document.getElementById('back');
+const esc = value => String(value).replace(/[&<>"']/g, char => (
+  {'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'}[char]
+));
+let run = null;
+
+function button(id, action) {
+  document.getElementById(id).onclick = action;
+}
+
+function focusMain() {
+  main.focus();
+  window.scrollTo(0, 0);
+}
+
+function home() {
+  run = null;
+  main.innerHTML = `<section class="unit-hero card"><h1>${UNIT}</h1>
+    <p>進む長さ、速さ、単位を順に練習して、通過算と旅人算を解こう。</p></section>
+    <section class="card"><h2>段階を選ぶ</h2><div class="stage-list">
+    ${STAGES.map((label, step) => `<button data-stage="${step}">S${step + 1}　${label}（${QUESTIONS.filter(q => q.step === step).length}問）</button>`).join('')}
+    </div></section>`;
+  main.querySelectorAll('[data-stage]').forEach(control => {
+    control.onclick = () => start(Number(control.dataset.stage));
+  });
+  focusMain();
+}
+
+function start(step) {
+  run = {step, id: window.YuikaReports.id(), questions: QUESTIONS.filter(q => q.step === step), answers: [], finished: false};
+  quiz();
+}
+
+function stageLabel() {
+  return `S${run.step + 1} ${STAGES[run.step]}`;
+}
+
+function quiz() {
+  const q = run.questions[run.answers.length];
+  const numeric = q.type === 'number';
+  let selection = null;
+  let hintUsed = false;
+  const index = run.answers.length;
+  main.innerHTML = `<section class="quiz card">
+    <p class="muted">${stageLabel()} · ${index + 1} / ${run.questions.length}問</p>
+    <h1 class="question">${esc(q.prompt)}</h1>
+    ${numeric ? `<label for="numeric">答え（数字だけ）</label>
+      <div><input id="numeric" inputmode="decimal" autocomplete="off" maxlength="60" aria-describedby="answer-unit"> <b id="answer-unit">${esc(q.answerUnit)}</b></div>`
+      : `<div class="choices">${q.options.map((option, i) => `<button class="option" data-choice="${i}" aria-pressed="false">${esc(option)}</button>`).join('')}</div>`}
+    <div id="error" role="alert"></div>
+    <div class="actions"><button class="primary" id="check">答え合わせ</button><button id="hint">ヒントを見る</button></div>
+    <p id="hintbox" class="note" hidden></p>
+    <div id="feedback" aria-live="polite"></div>
+    <div class="actions"><button id="end">今日はここまで</button></div>
+    </section>`;
+
+  const input = document.getElementById('numeric');
+  const check = document.getElementById('check');
+  const choices = main.querySelectorAll('[data-choice]');
+  choices.forEach(control => {
+    control.onclick = () => {
+      selection = q.options[Number(control.dataset.choice)];
+      choices.forEach(choice => choice.setAttribute('aria-pressed', choice === control));
+    };
+  });
+  button('hint', () => {
+    hintUsed = true;
+    const hint = document.getElementById('hintbox');
+    hint.textContent = q.hint;
+    hint.hidden = false;
+    document.getElementById('hint').disabled = true;
+  });
+  button('check', () => {
+    if (check.disabled) return;
+    // Match the science engine's decimal input convention, including full-width digits.
+    const raw = numeric ? input.value.normalize('NFKC').trim() : selection;
+    const value = numeric && /^(?:\d+(?:\.\d*)?|\.\d+)$/.test(raw) ? Number(raw) : raw;
+    if (numeric ? typeof value !== 'number' || !Number.isFinite(value) : value === null) {
+      document.getElementById('error').textContent = numeric ? '0以上の数字を入力してね。' : '答えをひとつ選んでね。';
+      return;
+    }
+    document.getElementById('error').textContent = '';
+    const correct = value === q.answer;
+    const tag = correct ? '' : numeric ? q.wrongValues[value] ?? '計算・立式を見直す' : q.optionTags[value];
+    const unit = q.answerUnit || '';
+    const decimalHint = numeric && unit === 'm' && !Number.isInteger(value)
+      ? '長さが小数になったら見直そう。' : '';
+    const explanation = [q.explanation, !correct && q.pitfall, tag && `誤答タグ：${tag}`, decimalHint].filter(Boolean).join(' ');
+    run.answers.push({question: q.prompt, response: value + unit, expected: q.answer + unit,
+      explanation, correct, hint: hintUsed, mode: stageLabel()});
+    main.querySelectorAll('[data-choice],#numeric,#hint,#check').forEach(control => control.disabled = true);
+    const complete = run.answers.length === run.questions.length;
+    if (complete) report(false);
+    document.getElementById('feedback').innerHTML = `<div class="note">
+      <h2>${correct ? 'できたね！' : '考え方を確認しよう'}</h2>
+      <p>あなたの答え：<b>${esc(value)}${unit}</b><br>正しい答え：<b>${esc(q.answer)}${unit}</b></p>
+      <ol>${q.steps.map(step => `<li>${esc(step)}</li>`).join('')}</ol>
+      ${correct ? '' : `<p>${esc(q.pitfall)} ${esc(decimalHint)}</p><p>誤答タグ：${esc(tag)}</p>`}
+      </div><button class="primary" id="next">${complete ? '今回のふりかえり' : '次の問題へ'}</button>`;
+    button('next', complete ? result : quiz);
+    document.getElementById('next').focus();
+  });
+  if (input) input.onkeydown = event => {
+    if (event.key === 'Enter' && !event.isComposing) check.click();
+  };
+  button('end', () => {
+    if (run.answers.length) result();
+    else home();
+  });
+  focusMain();
+}
+
+function report(partial) {
+  if (run.finished) return;
+  run.finished = true;
+  if (window.YuikaParent.suppress()) return;
+  const answers = run.answers;
+  window.YuikaReports.enqueue({
+    version: 1, id: 'math-passage:' + run.id, app: 'legacy', subject: '算数', unit: UNIT,
+    mode: stageLabel() + (partial ? '（途中終了）' : ''), completedAt: new Date().toISOString(),
+    total: answers.length, correct: answers.filter(a => a.correct).length, detail: 'full', answers
+  });
+}
+
+function result() {
+  const partial = run.answers.length < run.questions.length;
+  report(partial);
+  main.innerHTML = `<section class="card"><h1>今回のふりかえり</h1>
+    <p>${stageLabel()}${partial ? '（途中終了）' : ''}</p>
+    <p><strong>${run.answers.filter(a => a.correct).length} / ${run.answers.length}問 正解</strong></p>
+    <div class="actions"><button id="return">段階を選ぶ</button>
+    ${!partial && run.step + 1 < STAGES.length ? '<button class="primary" id="next-stage">次の段階へ</button>' : ''}</div></section>`;
+  button('return', home);
+  if (document.getElementById('next-stage')) button('next-stage', () => start(run.step + 1));
+  focusMain();
+}
+
+button('back', () => {
+  if (run && !run.finished && run.answers.length) {
+    result();
+    return;
+  }
+  window.YuikaParent.navigate('index.html');
+});
+back.insertAdjacentHTML('afterbegin', window.YuikaDesign.icon('back'));
+home();
+</script>
+</body>
+</html>
