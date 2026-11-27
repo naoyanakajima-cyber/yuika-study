@@ -36,8 +36,13 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": null,
-  "updated_at": "2026-11-27T17:18:51.199741+00:00",
+  "lease": {
+    "run_id": "cycle-20261127T180155Z",
+    "acquired_at": "2026-11-27T18:01:55.171934+00:00",
+    "expires_at": "2026-11-27T18:31:55.171934+00:00",
+    "ticket": "coordinator-reconciliation"
+  },
+  "updated_at": "2026-11-27T18:01:55.171934+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -32143,6 +32148,16 @@
       "completed_at": "2026-11-27T17:18:51.199741+00:00",
       "lease_released_at": "2026-11-27T17:18:51.199741+00:00",
       "final_remote_verification": "Explicit refspec fetch verified lease owner/expiry and unchanged remote ops/main/delivered product."
+    },
+    {
+      "id": "cycle-20261127T180155Z",
+      "started_at": "2026-11-27T18:01:55.171934+00:00",
+      "phase": "reconciliation",
+      "scope": "Verify unchanged product heads and reconcile stale REV-MVP ledger pointers",
+      "observed_operations_commit": "0620fb1e81aa50dcd50671ef7ca3c651ce1f0ee9",
+      "observed_main_commit": "58b6d9e0a8e2761e5c446a11ceafa1afb1e832a5",
+      "cloud_verified": true,
+      "ceo_decisions_ingested": 0
     }
   ],
   "operational_notes": [
