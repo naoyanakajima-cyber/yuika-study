@@ -22,7 +22,7 @@ class PreviewHandler(SimpleHTTPRequestHandler):
             self.path = '/index.html'
         elif path not in {f'/{name}' for name in (
             'assets/design.css', 'assets/design.js', 'assets/progress.js',
-            'index.html', 'heian-review.html', 'onin-review.html',
+            'index.html', 'math-passage-review.html', 'heian-review.html', 'onin-review.html',
             'edo-review.html', 'kamakura-review.html', 'yuika-review-v2.html', 'mock-focus-review.html',
             'content-review.html',
         )}:
