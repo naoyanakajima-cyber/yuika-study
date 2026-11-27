@@ -1,0 +1,270 @@
+{
+  "reviewer": "qa_content_pr32",
+  "implementer": "engineer_content_pr32",
+  "reviewer_independent": true,
+  "candidate": "f028aaf3ec973d62ac87839432794ab7644cdb99",
+  "result": "PASS",
+  "full_suite": {
+    "command": [
+      "bash",
+      "scripts/check_all.sh"
+    ],
+    "cwd": "/workspace/qa-content-pr32-cycle310",
+    "started_at": "2026-11-27T16:14:35.361454+00:00",
+    "head_before": "f028aaf3ec973d62ac87839432794ab7644cdb99",
+    "status_before": "",
+    "completed_at": "2026-11-27T16:20:23.746914+00:00",
+    "exit_code": 0,
+    "seconds": 348.367,
+    "head_after": "f028aaf3ec973d62ac87839432794ab7644cdb99",
+    "status_after": ""
+  },
+  "suite_count": 34,
+  "passed_count": 34,
+  "attempt": 1,
+  "retries": 0,
+  "suites": [
+    {
+      "name": "tests/onin_review.py",
+      "exit_code": 0,
+      "seconds": 4
+    },
+    {
+      "name": "tests/kamakura_review.py",
+      "exit_code": 0,
+      "seconds": 3
+    },
+    {
+      "name": "tests/cloud_preview.py",
+      "exit_code": 0,
+      "seconds": 3
+    },
+    {
+      "name": "notifications/test/worker.test.mjs",
+      "exit_code": 0,
+      "seconds": 0
+    },
+    {
+      "name": "notifications/test/browser.py",
+      "exit_code": 0,
+      "seconds": 11
+    },
+    {
+      "name": "tests/study_reports.py",
+      "exit_code": 0,
+      "seconds": 26
+    },
+    {
+      "name": "tests/cloud_bootstrap.py",
+      "exit_code": 0,
+      "seconds": 2
+    },
+    {
+      "name": "tests/generator_preservation.py",
+      "exit_code": 0,
+      "seconds": 1
+    },
+    {
+      "name": "tests/adaptive_practice.py",
+      "exit_code": 0,
+      "seconds": 2
+    },
+    {
+      "name": "tests/adaptive_daily.py",
+      "exit_code": 0,
+      "seconds": 4
+    },
+    {
+      "name": "tests/adaptive_quality.py",
+      "exit_code": 0,
+      "seconds": 4
+    },
+    {
+      "name": "tests/flash_grading.py",
+      "exit_code": 0,
+      "seconds": 7
+    },
+    {
+      "name": "tests/spaced_daily.py",
+      "exit_code": 0,
+      "seconds": 5
+    },
+    {
+      "name": "tests/history_compat.py",
+      "exit_code": 0,
+      "seconds": 4
+    },
+    {
+      "name": "tests/edo.py",
+      "exit_code": 0,
+      "seconds": 16
+    },
+    {
+      "name": "tests/medaka.py",
+      "exit_code": 0,
+      "seconds": 16
+    },
+    {
+      "name": "tests/lever.py",
+      "exit_code": 0,
+      "seconds": 5
+    },
+    {
+      "name": "tests/math_passage.py",
+      "exit_code": 0,
+      "seconds": 3
+    },
+    {
+      "name": "tests/microscope.py",
+      "exit_code": 0,
+      "seconds": 22
+    },
+    {
+      "name": "tests/science_adaptive.py",
+      "exit_code": 0,
+      "seconds": 10
+    },
+    {
+      "name": "tests/registered_answers.py",
+      "exit_code": 0,
+      "seconds": 2
+    },
+    {
+      "name": "tests/history_review_regression.py",
+      "exit_code": 0,
+      "seconds": 3
+    },
+    {
+      "name": "tests/state_review_regression.py",
+      "exit_code": 0,
+      "seconds": 4
+    },
+    {
+      "name": "tests/prototype_storage.py",
+      "exit_code": 0,
+      "seconds": 6
+    },
+    {
+      "name": "tests/focus_data.py",
+      "exit_code": 0,
+      "seconds": 1
+    },
+    {
+      "name": "tests/focus_practice.py",
+      "exit_code": 0,
+      "seconds": 11
+    },
+    {
+      "name": "tests/parent_mode.py",
+      "exit_code": 0,
+      "seconds": 20
+    },
+    {
+      "name": "tests/design_c.py",
+      "exit_code": 0,
+      "seconds": 23
+    },
+    {
+      "name": "tests/responsive_subjects.py",
+      "exit_code": 0,
+      "seconds": 115
+    },
+    {
+      "name": "tests/content_review.py",
+      "exit_code": 0,
+      "seconds": 4
+    },
+    {
+      "name": "tests/content_guidance.py",
+      "exit_code": 0,
+      "seconds": 2
+    },
+    {
+      "name": "tests/content_import_guard.py",
+      "exit_code": 0,
+      "seconds": 3
+    },
+    {
+      "name": "tests/content_trial.py",
+      "exit_code": 0,
+      "seconds": 4
+    },
+    {
+      "name": "tests/content_image_trial.py",
+      "exit_code": 0,
+      "seconds": 2
+    }
+  ],
+  "strict_suite_union": {
+    "old_pr11": 33,
+    "main": 28,
+    "candidate": 34
+  },
+  "probes": {
+    "content-probe-attempt1": {
+      "execution": {
+        "command": [
+          "python",
+          "/workspace/yuika-ops-cycle310/ops/evidence/2026-11-27-content-pr32/content-probe.py",
+          "/workspace/qa-content-pr32-cycle310"
+        ],
+        "cwd": "/workspace/qa-content-pr32-cycle310",
+        "started_at": "2026-11-27T16:14:42.212168+00:00",
+        "head_before": "f028aaf3ec973d62ac87839432794ab7644cdb99",
+        "status_before": "",
+        "completed_at": "2026-11-27T16:14:48.586794+00:00",
+        "exit_code": 0,
+        "seconds": 6.363,
+        "head_after": "f028aaf3ec973d62ac87839432794ab7644cdb99",
+        "status_after": ""
+      },
+      "result_file": "content-probe-result.json"
+    },
+    "edit-reconfirm-attempt1": {
+      "execution": {
+        "command": [
+          "python",
+          "/workspace/yuika-ops-cycle310/ops/evidence/2026-11-27-content-pr32/edit-reconfirm-probe.py",
+          "/workspace/qa-content-pr32-cycle310"
+        ],
+        "cwd": "/workspace/qa-content-pr32-cycle310",
+        "started_at": "2026-11-27T16:15:53.484733+00:00",
+        "head_before": "f028aaf3ec973d62ac87839432794ab7644cdb99",
+        "status_before": "",
+        "completed_at": "2026-11-27T16:15:57.648428+00:00",
+        "exit_code": 0,
+        "seconds": 4.153,
+        "head_after": "f028aaf3ec973d62ac87839432794ab7644cdb99",
+        "status_after": ""
+      },
+      "result_file": "edit-reconfirm-result.json"
+    },
+    "preview-probe-attempt1": {
+      "execution": {
+        "command": [
+          "python",
+          "/workspace/yuika-ops-cycle310/ops/evidence/2026-11-27-content-pr32/preview-probe.py",
+          "/workspace/qa-content-pr32-cycle310"
+        ],
+        "cwd": "/workspace/qa-content-pr32-cycle310",
+        "started_at": "2026-11-27T16:14:56.056092+00:00",
+        "head_before": "f028aaf3ec973d62ac87839432794ab7644cdb99",
+        "status_before": "",
+        "completed_at": "2026-11-27T16:14:56.657093+00:00",
+        "exit_code": 0,
+        "seconds": 0.594,
+        "head_after": "f028aaf3ec973d62ac87839432794ab7644cdb99",
+        "status_after": ""
+      },
+      "result_file": "preview-probe-result.json"
+    }
+  },
+  "environment": "Cloud; existing venv manually linked; not automatic snapshot handoff",
+  "written_at": "2026-11-27T16:20:28.025102+00:00",
+  "limits": [
+    "Synthetic fixtures only",
+    "Chromium desktop emulation, not physical iPad/Safari",
+    "Mock notifications only, no real delivery",
+    "No merge/deploy/production data validation"
+  ]
+}

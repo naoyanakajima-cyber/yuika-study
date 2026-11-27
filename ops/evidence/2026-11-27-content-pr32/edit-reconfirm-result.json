@@ -1,0 +1,58 @@
+{
+  "candidate": "f028aaf3ec973d62ac87839432794ab7644cdb99",
+  "started_at": "2026-11-27T16:15:53.630659+00:00",
+  "contexts": [
+    {
+      "parent_study_session": false,
+      "source": "text",
+      "confirmed_edit_invalidates": true,
+      "edited_content_reconfirmed": true,
+      "trial_after_reconfirmation": true,
+      "storage_unchanged": true,
+      "storage_write_calls": 0
+    },
+    {
+      "parent_study_session": false,
+      "source": "image",
+      "confirmed_edit_invalidates": true,
+      "edited_content_reconfirmed": true,
+      "trial_after_reconfirmation": true,
+      "storage_unchanged": true,
+      "storage_write_calls": 0
+    },
+    {
+      "parent_study_session": true,
+      "source": "text",
+      "confirmed_edit_invalidates": true,
+      "edited_content_reconfirmed": true,
+      "trial_after_reconfirmation": true,
+      "storage_unchanged": true,
+      "storage_write_calls": 0
+    },
+    {
+      "parent_study_session": true,
+      "source": "image",
+      "confirmed_edit_invalidates": true,
+      "edited_content_reconfirmed": true,
+      "trial_after_reconfirmation": true,
+      "storage_unchanged": true,
+      "storage_write_calls": 0
+    }
+  ],
+  "requests_blocked": [
+    {
+      "method": "GET",
+      "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"
+    },
+    {
+      "method": "GET",
+      "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"
+    }
+  ],
+  "page_errors": [],
+  "content_parent_runtime": false,
+  "parent_scope": "Actual study-page banner entry/exit; content is memory-only and preserves the existing parent session. A query parameter alone is not parent verification.",
+  "result": "passed",
+  "finished_at": "2026-11-27T16:15:57.225883+00:00",
+  "seconds": 3.598
+}

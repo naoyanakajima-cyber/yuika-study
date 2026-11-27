@@ -1,0 +1,18 @@
+{
+  "candidate": "f028aaf3ec973d62ac87839432794ab7644cdb99",
+  "pages": [
+    {
+      "page": "content-review.html",
+      "status": 200,
+      "byte_identical": true,
+      "csp": "connect-src 'none'; form-action 'none'; object-src 'none'"
+    },
+    {
+      "page": "math-passage-review.html",
+      "status": 200,
+      "byte_identical": true,
+      "csp": "connect-src 'none'; form-action 'none'; object-src 'none'"
+    }
+  ],
+  "result": "passed"
+}
