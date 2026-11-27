@@ -36,8 +36,13 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": null,
-  "updated_at": "2026-11-27T12:02:40.856496+00:00",
+  "lease": {
+    "run_id": "cycle-20261127T130634Z",
+    "acquired_at": "2026-11-27T13:06:34.389808+00:00",
+    "expires_at": "2026-11-27T13:41:34.389808+00:00",
+    "ticket": "PR32-IMPACT"
+  },
+  "updated_at": "2026-11-27T13:06:34.389808+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -31424,6 +31429,16 @@
       ],
       "completed_at": "2026-11-27T12:02:40.856496+00:00",
       "lease_released_at": "2026-11-27T12:02:40.856496+00:00"
+    },
+    {
+      "id": "cycle-20261127T130634Z",
+      "started_at": "2026-11-27T13:06:34.389808+00:00",
+      "observed_operations_commit": "3969fd8128d5fed86783097e35ca3bbcc7f7332c",
+      "observed_main_commit": "101c64ef9be86cb7c3502d3eeec498f16e93e7fd",
+      "scope": "PR32 static impact reconciliation",
+      "phase": "reconciliation",
+      "cloud_verified": true,
+      "ceo_decisions_ingested": 0
     }
   ],
   "operational_notes": [
