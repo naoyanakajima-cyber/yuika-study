@@ -1,0 +1,16 @@
+{
+  "command": [
+    "python",
+    "/workspace/yuika-ops-cycle309/ops/evidence/2026-11-27-review-pr32/ui-probe.py",
+    "/workspace/qa-rev-pr32-cycle309"
+  ],
+  "cwd": "/workspace/qa-rev-pr32-cycle309",
+  "started_at": "2026-11-27T15:13:53.492383+00:00",
+  "head_before": "792f438fe648e056ad83a423e55bebe9d53fe43f",
+  "status_before": "",
+  "completed_at": "2026-11-27T15:13:58.755390+00:00",
+  "exit_code": 0,
+  "seconds": 5.248,
+  "head_after": "792f438fe648e056ad83a423e55bebe9d53fe43f",
+  "status_after": ""
+}

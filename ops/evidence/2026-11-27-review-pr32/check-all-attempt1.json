@@ -1,0 +1,15 @@
+{
+  "command": [
+    "bash",
+    "scripts/check_all.sh"
+  ],
+  "cwd": "/workspace/qa-rev-pr32-cycle309",
+  "started_at": "2026-11-27T15:12:16.805526+00:00",
+  "head_before": "792f438fe648e056ad83a423e55bebe9d53fe43f",
+  "status_before": "",
+  "completed_at": "2026-11-27T15:18:39.754654+00:00",
+  "exit_code": 0,
+  "seconds": 382.929,
+  "head_after": "792f438fe648e056ad83a423e55bebe9d53fe43f",
+  "status_after": ""
+}
