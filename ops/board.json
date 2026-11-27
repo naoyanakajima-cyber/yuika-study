@@ -36,8 +36,13 @@
     "date": "2026-11-09",
     "source": "CEO explicitly selected autonomous requirements, implementation, tests and draft PRs; merge/publication/billing/real notifications remain CEO decisions."
   },
-  "lease": null,
-  "updated_at": "2026-11-27T16:24:18.070113+00:00",
+  "lease": {
+    "run_id": "cycle-20261127T170631Z",
+    "acquired_at": "2026-11-27T17:06:31.579355+00:00",
+    "expires_at": "2026-11-27T17:39:31.579355+00:00",
+    "ticket": "THEME-MVP"
+  },
+  "updated_at": "2026-11-27T17:06:31.579355+00:00",
   "scheduling": {
     "worker": "hourly at :05 Asia/Tokyo",
     "ceo_checks": [
@@ -31940,6 +31945,16 @@
       "completed_at": "2026-11-27T16:24:18.070113+00:00",
       "lease_released_at": "2026-11-27T16:24:18.070113+00:00",
       "final_remote_verification": "Explicit refspec fetch verified lease owner/expiry and unchanged remote ops/main/product. Initial check used stale tracking refs because remote fetch covers main only; no remote conflict."
+    },
+    {
+      "id": "cycle-20261127T170631Z",
+      "started_at": "2026-11-27T17:06:31.579355+00:00",
+      "phase": "requirements",
+      "scope": "PR12 compatibility with PR32 main",
+      "observed_operations_commit": "f870505e4f32cc30afc7b149acc2ff38029095a0",
+      "observed_main_commit": "58b6d9e0a8e2761e5c446a11ceafa1afb1e832a5",
+      "cloud_verified": true,
+      "ceo_decisions_ingested": 0
     }
   ],
   "operational_notes": [
