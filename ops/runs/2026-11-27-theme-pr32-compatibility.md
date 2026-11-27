@@ -17,3 +17,7 @@ Engineerの生成12段階×2、math24問/mock報告、preview/CSP初期確認は
 
 既存クラウドvenvを手動利用。自動snapshot引き継ぎ成功とはしない。合成データ/mockのみ、実機Safari/WebKit/iPad・本人嗜好・学習効果・公開画面は未確認。Workers Buildsは独立QAと別扱い。新CEO返答取り込み0。
 既存draft PR12を更新後、PR10/11/12の合成試用判断待ちを維持する。新差分・再現不具合・CEO試用所見がなければ同じ実装やQAを反復せず終了する。本番merge・公開・実通知なし。
+
+## 保存結果
+
+既存PR12へ検証HEAD b4deb0dを通常pushし、draft維持と本文更新をAPIで再確認。独立証拠は運用commit a9601021f5acdae49e85ebfec938a9e7ac8c14beに保存済み。外部Workers Buildsは同HEADで2026-11-27 17:17:53 UTCにfailure（原因未調査）、独立QA成功とは別記録。PR12/運用PR9のattachは各1回応答待ちを終了し成功未確認。新規PRなし。台帳保存・lease解除で終了。
