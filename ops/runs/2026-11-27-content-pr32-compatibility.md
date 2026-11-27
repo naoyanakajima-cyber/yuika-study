@@ -17,3 +17,7 @@ CONTENT-MVP / 既存draft PR11。PdM pdm_content_pr32 → PrM root/coordinator �
 
 既存クラウドvenvを手動再利用し、自動snapshot引き継ぎ成功とはしない。合成データ・モックAPIのみ。実OCR/実画像/本人回答、実配送、Safari/WebKit/iPad実機、本人試用・学習効果、公開画面は未確認。Workers Buildsは別系統として扱う。
 既存draftPR11を更新しCEOの合成試用判断待ちを維持。次はPR12のmain58b6d9e互換同期。新製品PR、本番merge、公開、実通知は行わない。
+
+## 保存結果
+
+既存PR11へ検証HEAD f028aafを通常pushし、draft維持と本文更新をAPIで再確認。独立証拠は運用commit 56a9099に保存済み。外部Workers Buildsは同HEADで2026-11-27 16:21:41 UTCにfailure（原因未調査）、独立QA成功とは別記録。PR11/運用PR9のattachは各1回応答待ちを終了し、成功未確認。新規PRなし。台帳を更新しleaseを解除して終了。
