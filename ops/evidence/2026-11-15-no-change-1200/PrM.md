@@ -1,0 +1,1 @@
+PrM root/coordinatorがPdMの再開判定を採択。製品main/PR HEAD不変と3件判断待ちを確認し、完了済み互換性作業への古いnext_action2件のみ訂正する。新機能・Engineer・製品テストなし。独立Reviewerには台帳の権限/判断/状態/成果SHA/証拠履歴の保持と、報告の実施範囲の照合を依頼する。

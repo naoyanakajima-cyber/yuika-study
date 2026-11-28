@@ -1,0 +1,11 @@
+{
+  "candidate": "feada5947b237310923f0aa1956487ac8af501af",
+  "started_at": "2026-11-24T11:10:58.852026+00:00",
+  "contexts": [],
+  "requests_blocked": [],
+  "page_errors": [],
+  "content_parent_runtime": false,
+  "parent_scope": "Actual study-page banner entry/exit; content is memory-only and preserves the existing parent session. A query parameter alone is not parent verification.",
+  "finished_at": "2026-11-24T11:11:00.654052+00:00",
+  "seconds": 1.806
+}

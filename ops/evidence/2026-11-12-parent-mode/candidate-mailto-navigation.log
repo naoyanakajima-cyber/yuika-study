@@ -1,0 +1,6 @@
+{"case": "quiz_parent", "mailto_spy_count": 0, "actual_open_or_send": false, "result": "pass"}
+{"case": "flash_parent", "mailto_spy_count": 0, "actual_open_or_send": false, "result": "pass"}
+{"case": "quiz_normal", "mailto_spy_count": 1, "actual_open_or_send": false, "result": "pass"}
+{"case": "flash_normal", "mailto_spy_count": 1, "actual_open_or_send": false, "result": "pass"}
+{"case": "temporary_navigation_anchor", "result": "pass", "parent_retained": true, "child_raw_preserved": true}
+{"case": "temporary_navigation_button", "result": "pass", "parent_retained": true, "child_raw_preserved": true}

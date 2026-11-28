@@ -1,0 +1,195 @@
+{
+  "reviewer": "qa_rev_pr31",
+  "candidate": "0cd726f558d24999da80c37b1ecdbd2e6090c7bb",
+  "verdict": "PASS",
+  "reviewed_at": "2026-11-24T10:19:42.324958+00:00",
+  "required_suite": {
+    "command": "source scripts/cloud/activate.sh && bash scripts/check_all.sh",
+    "cwd": "/workspace/qa-rev-pr31",
+    "head_before": "0cd726f558d24999da80c37b1ecdbd2e6090c7bb",
+    "status_before": "",
+    "started_at": "2026-11-24T10:13:03.825972+00:00",
+    "exit_code": 0,
+    "seconds": 393.749,
+    "finished_at": "2026-11-24T10:19:37.575412+00:00",
+    "head_after": "0cd726f558d24999da80c37b1ecdbd2e6090c7bb",
+    "status_after": "",
+    "suite_count": 32,
+    "passed": 32,
+    "suites": [
+      {
+        "suite": "tests/onin_review.py",
+        "exit_code": 0,
+        "seconds": 5
+      },
+      {
+        "suite": "tests/kamakura_review.py",
+        "exit_code": 0,
+        "seconds": 4
+      },
+      {
+        "suite": "tests/cloud_preview.py",
+        "exit_code": 0,
+        "seconds": 2
+      },
+      {
+        "suite": "notifications/test/worker.test.mjs",
+        "exit_code": 0,
+        "seconds": 1
+      },
+      {
+        "suite": "notifications/test/browser.py",
+        "exit_code": 0,
+        "seconds": 14
+      },
+      {
+        "suite": "tests/study_reports.py",
+        "exit_code": 0,
+        "seconds": 29
+      },
+      {
+        "suite": "tests/cloud_bootstrap.py",
+        "exit_code": 0,
+        "seconds": 2
+      },
+      {
+        "suite": "tests/generator_preservation.py",
+        "exit_code": 0,
+        "seconds": 1
+      },
+      {
+        "suite": "tests/adaptive_practice.py",
+        "exit_code": 0,
+        "seconds": 3
+      },
+      {
+        "suite": "tests/adaptive_daily.py",
+        "exit_code": 0,
+        "seconds": 4
+      },
+      {
+        "suite": "tests/adaptive_quality.py",
+        "exit_code": 0,
+        "seconds": 5
+      },
+      {
+        "suite": "tests/flash_grading.py",
+        "exit_code": 0,
+        "seconds": 9
+      },
+      {
+        "suite": "tests/spaced_daily.py",
+        "exit_code": 0,
+        "seconds": 5
+      },
+      {
+        "suite": "tests/history_compat.py",
+        "exit_code": 0,
+        "seconds": 4
+      },
+      {
+        "suite": "tests/edo.py",
+        "exit_code": 0,
+        "seconds": 17
+      },
+      {
+        "suite": "tests/medaka.py",
+        "exit_code": 0,
+        "seconds": 19
+      },
+      {
+        "suite": "tests/lever.py",
+        "exit_code": 0,
+        "seconds": 5
+      },
+      {
+        "suite": "tests/microscope.py",
+        "exit_code": 0,
+        "seconds": 24
+      },
+      {
+        "suite": "tests/science_adaptive.py",
+        "exit_code": 0,
+        "seconds": 10
+      },
+      {
+        "suite": "tests/registered_answers.py",
+        "exit_code": 0,
+        "seconds": 3
+      },
+      {
+        "suite": "tests/history_review_regression.py",
+        "exit_code": 0,
+        "seconds": 4
+      },
+      {
+        "suite": "tests/state_review_regression.py",
+        "exit_code": 0,
+        "seconds": 4
+      },
+      {
+        "suite": "tests/prototype_storage.py",
+        "exit_code": 0,
+        "seconds": 8
+      },
+      {
+        "suite": "tests/focus_data.py",
+        "exit_code": 0,
+        "seconds": 0
+      },
+      {
+        "suite": "tests/focus_practice.py",
+        "exit_code": 0,
+        "seconds": 13
+      },
+      {
+        "suite": "tests/parent_mode.py",
+        "exit_code": 0,
+        "seconds": 22
+      },
+      {
+        "suite": "tests/design_c.py",
+        "exit_code": 0,
+        "seconds": 23
+      },
+      {
+        "suite": "tests/responsive_subjects.py",
+        "exit_code": 0,
+        "seconds": 130
+      },
+      {
+        "suite": "tests/recommended_review.py",
+        "exit_code": 0,
+        "seconds": 7
+      },
+      {
+        "suite": "tests/review_entry.py",
+        "exit_code": 0,
+        "seconds": 3
+      },
+      {
+        "suite": "tests/daily_count.py",
+        "exit_code": 0,
+        "seconds": 6
+      },
+      {
+        "suite": "tests/science_daily_count.py",
+        "exit_code": 0,
+        "seconds": 8
+      }
+    ]
+  },
+  "independent_browser": {
+    "contexts": 8,
+    "captured_mock_reports": 8,
+    "seconds": 20.471,
+    "unexpected_posts": [],
+    "page_errors": [],
+    "external_requests_aborted": 28
+  },
+  "generator_contract_probe": "passed",
+  "product_mutations_by_qa": false,
+  "test_failures": 0,
+  "unexpected_retries": 0,
+  "expected_negative_checks": 1
+}

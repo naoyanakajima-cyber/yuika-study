@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/workspace/qa-content-generator-evidence/static.py", line 27, in <module>
+    assert "const prototypeScience=location.pathname.endsWith('yuika-review-v2.html');" in new
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

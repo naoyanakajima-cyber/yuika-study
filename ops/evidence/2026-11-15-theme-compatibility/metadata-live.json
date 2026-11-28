@@ -1,0 +1,33 @@
+{
+  "observed_at": "2026-11-15 00:20:59 UTC",
+  "prs": [
+    {
+      "number": 9,
+      "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/9",
+      "title": "CEOの朝夕判断で進める半自律開発チームの運用と初期バックログを定義",
+      "body": "回答記録による苦手復習、教材の確認・追加、好みに合わせたUIを進める運用正本・仕様・合成検証証拠です。自律範囲は要件整理・実装・テスト・draft PRまでです。\n\n今回、[既存テーマPR12](https://github.com/naoyanakajima-cyber/yuika-study/pull/12)を現mainへ同期し、保護者確認モードで通常の設定・記録を変えずに標準/鎌倉を切り替える候補を保存しました。HEAD `c81fb6b3a7e9c5c6c5d42431afe1d13a73c780d3`、base main `86514ed`。本番main更新ではありません。\n\n**この候補の受入は未完了です。** Engineerのtheme試験はexport期待値の移行不整合で2回失敗。修正を保存したが、同原因2試行上限により追加試行・全必須23suiteを実行せず停止しました。独立QAの静的境界検査と限定14検査（親モード6画面・保存隔離/一時メモリ・文字色68組）は成功しましたが、全体成功には置き換えません。独立probeもハーネス修正後の2回目成功です。詳細・初回ログ・未検証範囲は[今回の報告](https://github.com/naoyanakajima-cyber/yuika-study/blob/codex/agent-team-operations/ops/runs/2026-11-15-theme-compatibility.md)へ保存します。\n\n- [苦手復習PR10](https://github.com/naoyanakajima-cyber/yuika-study/pull/10)：73fe2eeの既存独立検証を保持。「今日の復習」の理由と実際の開始問数。\n- [教材確認PR11](https://github.com/naoyanakajima-cyber/yuika-study/pull/11)：ee51e68の既存26suite/65ケースの独立検証を保持。確認済み合成教材を保存せず試し解きする候補。\n- PR12は検証継続が最優先。次回、固定候補の修正済みテーマ検査・全必須23suiteを完了するまで、CEO試用準備完了とは扱いません。\n\n新規製品PRなし。待ち枠は#10/#11/#12を維持（#12は検証継続）、追加既存#22、旧#4〜#8と運用#9/#13は別枠。D01/D03〜D05を維持、新CEO判断取り込み0、D02実資料・保存先/接続は未決。実機Safari/iPad、本人試用、好み・学習効果は未確認です。\n\n合成データのみ。依存は手動再利用、自動snapshot/platform完了成功とは呼びません。本番マージ・公開・手動デプロイ・実通知・課金・Secrets/権限/共有変更なし。旧停止中の自律更新は再開せず、通常報告は朝夕CEOチェックへ集約します。\n\nPR12現在HEAD c81fb6bの外部Workers Buildsは2026-11-15 00:15:40 UTCにfailure（[結果](https://github.com/naoyanakajima-cyber/yuika-study/runs/132638525283)）。原因未調査、手動再実行・デプロイなし。クラウド内の限定QAと区別します。",
+      "head": "codex/agent-team-operations",
+      "head_sha": "1a068a028da46b229fb7e65a7a16957f50784407",
+      "base": "main",
+      "base_sha": "d526d65fbae116f834d14ad994a27bc50ca23b62",
+      "state": "open",
+      "draft": true,
+      "merged": false,
+      "updated_at": "2026-11-15T00:18:18Z"
+    },
+    {
+      "number": 12,
+      "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/12",
+      "title": "鎌倉テーマを現行の保護者モードと共通表示に適合（検証継続中）",
+      "body": "**検証継続中のdraftです。最終受入は未完了です。** 固定候補は `c81fb6b3a7e9c5c6c5d42431afe1d13a73c780d3`。Engineerのテーマ検査がJSON出力の期待値移行で2回失敗し、同原因2試行の上限に達しました。1回目は旧直下events、2回目はformat文字列の誤記です。期待値を現mainの `yuika-review-prototype` / formatVersion 1 / payload.eventsへ修正して保存しましたが、最後の修正は動的未検証です。全必須23suiteとtheme検査後半は未実行で、テスト成功とは扱いません。\n\n独立QA `qa_theme_compatibility` は固定clean HEADの静的境界検査と、exportを含まない限定14検査を実施。mainとの差分は5ファイルで、既存学習script・親runtime・通知・CSP・共有アセット・他5HTMLを保持しました。通常標準の6要素のcomputed style一致、親モード6画面×両テーマ、セッション内の合成回答/設定、終了・一時メモリの消去を確認。文字色68組は最低contrast 5.010、対象画面の横overflow・POST到達・pageerrorは0でした。全画面のpixel一致や全環境の可読性は保証しません。\n\n独立probeは通知spyを返したハーネス誤りを修正した2回目で成功し、初回証拠も保持。これはEngineerのexport期待値失敗とは別原因です。export、theme_review、check_allは独立QAでも実行せず上限を迂回していません。print/44px等はEngineerの限定自己検証で、独立QA全体の成功には算入しません。既存Google Fonts GETは遮断し、外部要求全体0・webfont読込成功とはしていません。\n\n次回は同じ候補の修正済みtheme検査と全必須23suiteを優先し、未知値・read/write例外・回復・他画面往復等の残件を検証します。旧57171adの4suite成功は旧HEADの記録です。依存は既存venvの手動再利用で、自動snapshot引継ぎ成功ではありません。\n\n現在の学習画面と保護者確認モードで、「標準／鎌倉」の見た目を選べるようにします。回答途中でも問題・入力・採点・記録を保ち、同じ操作で標準へ戻せます。鎌倉単元だけが対象です。\n\n旧テーマPRの履歴を保持し、main `86514eda054a5a2e09204df3a0668e40624c16de` をtopicへ取り込みました。テーマ設定は既存のYuikaParent.storage境界を使い、通常は従来の専用キー、保護者確認モードではセッション内、一時保存拒否時は既存メモリ内へ分離します。保護者の合成試用で通常のテーマ設定・学習履歴を書き換えません。\n\n現mainの共通デザインCに合わせ、鎌倉選択時だけ必要な色を適用します。標準の共通デザイン、既存学習処理・問題・採点・選定・保存形式・親runtime・通知・CSP・他画面は維持します。新しいテーマ、全画面への展開、実教材・実回答は含みません。\n\n[受入条件と分担・検証証拠](https://github.com/naoyanakajima-cyber/yuika-study/blob/codex/agent-team-operations/ops/runs/2026-11-15-theme-compatibility.md)。PdM→PrM→Engineer→実装者とは別のQAで、上記の実施範囲を確認しました。\n\nD05の方向性採用は維持し、新CEO返答は取り込んでいません。draft・未マージで、本人試用・好みへの適合・学習効果・実機iPad/Safariは未確認です。本番マージ・公開・手動デプロイ・実通知・課金・Secrets/権限/共有変更は行っていません。外部Workers Buildsの状態は別途観測し、限定QAと区別して記録します。\n\nPR12現在HEAD c81fb6bの外部Workers Buildsは2026-11-15 00:15:40 UTCにfailure（[結果](https://github.com/naoyanakajima-cyber/yuika-study/runs/132638525283)）。原因未調査、手動再実行・デプロイなし。クラウド内の限定QAと区別します。",
+      "head": "codex/kamakura-theme-mvp",
+      "head_sha": "c81fb6b3a7e9c5c6c5d42431afe1d13a73c780d3",
+      "base": "main",
+      "base_sha": "86514eda054a5a2e09204df3a0668e40624c16de",
+      "state": "open",
+      "draft": true,
+      "merged": false,
+      "updated_at": "2026-11-15T00:19:53Z"
+    }
+  ]
+}

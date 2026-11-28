@@ -1,0 +1,33 @@
+{
+  "head": "2f5cb14fd8ab3711752e725536288da47bf0d90e",
+  "parents": "3d2ed2f9a62673d2fb086a360ae841096f35b63e 86514eda054a5a2e09204df3a0668e40624c16de",
+  "allowlist_exact": [
+    "README.md",
+    "content-review.html",
+    "docs/codex-cloud.md",
+    "docs/product/content-spec.md",
+    "docs/product/fixtures/synthetic-content.json",
+    "docs/product/fixtures/synthetic-image-content.json",
+    "docs/product/fixtures/synthetic-source.svg",
+    "docs/product/fixtures/synthetic-source.txt",
+    "scripts/check_all.sh",
+    "scripts/cloud/serve.py",
+    "tests/cloud_preview.py",
+    "tests/content_guidance.py",
+    "tests/content_review.py"
+  ],
+  "original_blobs": {
+    "content-review.html": "5836fb1ffa8b69969e1c66faa42858d7b2b2a3a2",
+    "docs/product/content-spec.md": "f1b2967f22cf1b88de666aadf6e250121474f683",
+    "docs/product/fixtures/synthetic-content.json": "55fd5fa0fbd1da577fd0f86e9c91e8dea7776421",
+    "docs/product/fixtures/synthetic-image-content.json": "7e19fc1020d0fcfe994b0486bfb54a04f7b2968e",
+    "docs/product/fixtures/synthetic-source.svg": "7207833db71814f0be703b6972fc903db3f53a9f",
+    "docs/product/fixtures/synthetic-source.txt": "ff2f1d947333271cce1e896e886df7e49e965f5e",
+    "tests/content_guidance.py": "075852bdacafeb04dfbdda2cd7043a739de5415a",
+    "tests/content_review.py": "ac9857557d9014a80f2d64ca886cf7ae7b32337e"
+  },
+  "outside_allowlist_unchanged": true,
+  "serve_main_plus_one": true,
+  "runner_main_plus_two": true,
+  "diff_check": true
+}

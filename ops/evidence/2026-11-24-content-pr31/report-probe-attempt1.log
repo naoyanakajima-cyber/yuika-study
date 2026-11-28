@@ -1,0 +1,49 @@
+PASS onin-review.html normal
+PASS onin-review.html parent
+Traceback (most recent call last):
+  File "/workspace/yuika-ops-cycle233/ops/evidence/2026-11-24-content-pr31/report-probe.py", line 76, in <module>
+    expect(p.locator('#next')).to_be_visible();assert p.evaluate(sess+'.id')==sid and p.evaluate(events)==[event] and not posts and not p.evaluate(JOBS)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/yuika-study/.venv/lib/python3.12/site-packages/playwright/sync_api/_generated.py", line 23332, in to_be_visible
+    self._sync(
+  File "/workspace/yuika-study/.venv/lib/python3.12/site-packages/playwright/_impl/_sync_base.py", line 115, in _sync
+    return task.result()
+           ^^^^^^^^^^^^^
+  File "/workspace/yuika-study/.venv/lib/python3.12/site-packages/playwright/_impl/_assertions.py", line 852, in to_be_visible
+    await self._expect_impl(
+  File "/workspace/yuika-study/.venv/lib/python3.12/site-packages/playwright/_impl/_assertions.py", line 128, in _expect_impl
+    _record_soft_or_raise(
+  File "/workspace/yuika-study/.venv/lib/python3.12/site-packages/playwright/_impl/_assertions.py", line 60, in _record_soft_or_raise
+    raise error
+AssertionError: Locator expected to be visible
+Actual value: None
+Error: element(s) not found 
+Call log:
+  - Expect "to_be_visible" with timeout 5000ms
+  - waiting for locator("#next")
+
+Aria snapshot:
+- banner:
+  - link "ホーム":
+    - /url: index.html
+  - navigation "メイン":
+    - button "れんしゅう"
+    - button "きろく"
+- main:
+  - text: TODAY’S DISCOVERY
+  - heading "おつかれさま、ゆいか！" [level=1]
+  - paragraph: 最後まで考えたことが、次につながるよ。
+  - strong: 1 / 1問 正解
+  - paragraph: 今回はヒントを0問で見ました。
+  - heading "わかったこと" [level=2]
+  - list:
+    - listitem: 棒が回る中心を支点という。
+  - text: できた 棒を支えていて、棒が回る中心になるところ（支点）はどこ？
+  - button "ホームへ戻る"
+  - button "保護者のノート"
+- contentinfo:
+  - text: てこのつり合い
+  - link "保護者のノート":
+    - /url: "#parent"
+- status: 今回の通知を送信サービスが受け付けました（受信箱への到着確認ではありません）。
+- group: 保護者：チャレンジ結果の自動メール

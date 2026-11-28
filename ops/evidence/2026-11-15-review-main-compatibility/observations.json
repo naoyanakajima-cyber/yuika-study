@@ -1,0 +1,109 @@
+{
+  "observed_at": "2026-11-15 08:07:58 UTC",
+  "cloud": {
+    "provider": "cloud",
+    "observed_phase": "running",
+    "connectivity": "connected",
+    "observations_current": true,
+    "failure": null
+  },
+  "operations_source": "b35eef2afd401915b483bab27ea20c34fbbce781",
+  "previous_main": "86514eda054a5a2e09204df3a0668e40624c16de",
+  "main": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
+  "open_prs": [
+    {
+      "number": 22,
+      "head": "bd4f48de0404614eb84275969bfccff0a368e866",
+      "base": "codex/review-17-19-quality",
+      "state": "open",
+      "draft": true
+    },
+    {
+      "number": 13,
+      "head": "139c8b8b56bcd979068b61984120d9f312efe182",
+      "base": "codex/cloud-handoff-hardening-20261108",
+      "state": "open",
+      "draft": true
+    },
+    {
+      "number": 12,
+      "head": "b416d3c08a0d3952e5f0153fdc691d6fa0e492b7",
+      "base": "main",
+      "state": "open",
+      "draft": true
+    },
+    {
+      "number": 11,
+      "head": "ee51e68d7e1eeb21bd0e959ec58166a869947d0a",
+      "base": "main",
+      "state": "open",
+      "draft": true
+    },
+    {
+      "number": 10,
+      "head": "73fe2ee9d776b3e3360614752fb722ff4aee4f85",
+      "base": "main",
+      "state": "open",
+      "draft": true
+    },
+    {
+      "number": 9,
+      "head": "b35eef2afd401915b483bab27ea20c34fbbce781",
+      "base": "main",
+      "state": "open",
+      "draft": true
+    },
+    {
+      "number": 4,
+      "head": "ff211ee8e144e955fa5837e8b8ff5cabf51f60a4",
+      "base": "main",
+      "state": "open",
+      "draft": true
+    }
+  ],
+  "merged_prs": [
+    {
+      "number": 27,
+      "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/27",
+      "title": "理科「顕微鏡の使い方」20問を追加（開発タスク17）",
+      "head": "69f77d671b66484b501f7a0f5c292bfa96a22273",
+      "base_sha": "86514eda054a5a2e09204df3a0668e40624c16de",
+      "state": "closed",
+      "merged": true,
+      "merged_at": "2026-11-15T07:46:23Z",
+      "merge_commit": "85009493849b4b97ccc6785476fb6e650833e076"
+    },
+    {
+      "number": 28,
+      "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/28",
+      "title": "理科「メダカの飼育・ひれ・成長」17問と2段階想起を追加（開発タスク18）",
+      "head": "a706fb38dfaf00b0782eea0eb6f5a880800d7939",
+      "base_sha": "85009493849b4b97ccc6785476fb6e650833e076",
+      "state": "closed",
+      "merged": true,
+      "merged_at": "2026-11-15T07:50:02Z",
+      "merge_commit": "b34e1de02772712c6b6aae833543a369b6034cc1"
+    },
+    {
+      "number": 29,
+      "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/29",
+      "title": "社会「江戸幕府の成立・幕藩体制・鎖国」22問を追加（開発タスク19）",
+      "head": "5bcd380a394654bb0adab869235995c67c5d6850",
+      "base_sha": "b34e1de02772712c6b6aae833543a369b6034cc1",
+      "state": "closed",
+      "merged": true,
+      "merged_at": "2026-11-15T07:53:55Z",
+      "merge_commit": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec"
+    }
+  ],
+  "pages_run": {
+    "id": 43691987517,
+    "head_sha": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
+    "status": "completed",
+    "conclusion": "success",
+    "html_url": "https://github.com/naoyanakajima-cyber/yuika-study/actions/runs/43691987517",
+    "updated_at": "2026-11-15T07:54:35Z"
+  },
+  "ceo_decisions_ingested": 0,
+  "live_site_verified": false
+}

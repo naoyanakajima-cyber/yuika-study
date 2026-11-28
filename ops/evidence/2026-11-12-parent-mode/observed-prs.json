@@ -1,0 +1,223 @@
+{
+  "observed_at": "2026-11-12T01:06:00Z",
+  "main": "1d444f7e2c1e49912eef18c77e7ed97b3b8092f0",
+  "open": [
+    {
+      "number": 24,
+      "state": "open",
+      "merged": false,
+      "draft": true,
+      "head_sha": "0d6827962b35ed24ccdbdd8f56e8dafca06f240a",
+      "base_sha": "1d444f7e2c1e49912eef18c77e7ed97b3b8092f0",
+      "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/24"
+    },
+    {
+      "number": 22,
+      "state": "open",
+      "merged": false,
+      "draft": true,
+      "head_sha": "bd4f48de0404614eb84275969bfccff0a368e866",
+      "base_sha": "79d546891940b6f5e3030940f7c52c2ff7b3d36b",
+      "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/22"
+    },
+    {
+      "number": 13,
+      "state": "open",
+      "merged": false,
+      "draft": true,
+      "head_sha": "139c8b8b56bcd979068b61984120d9f312efe182",
+      "base_sha": "4329daaeec15641289d7edbcb7f3237d0da1e0e3",
+      "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/13"
+    },
+    {
+      "number": 12,
+      "state": "open",
+      "merged": false,
+      "draft": true,
+      "head_sha": "57171ad9cab02fec6a080ecbe317fe11d3f51dcf",
+      "base_sha": "edad8065c1f2b726e61c5cf405f8d9ff6d807480",
+      "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/12"
+    },
+    {
+      "number": 11,
+      "state": "open",
+      "merged": false,
+      "draft": true,
+      "head_sha": "3d2ed2f9a62673d2fb086a360ae841096f35b63e",
+      "base_sha": "edad8065c1f2b726e61c5cf405f8d9ff6d807480",
+      "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/11"
+    },
+    {
+      "number": 10,
+      "state": "open",
+      "merged": false,
+      "draft": true,
+      "head_sha": "ba829a1176ff1ead7d312526890afe8792178c99",
+      "base_sha": "edad8065c1f2b726e61c5cf405f8d9ff6d807480",
+      "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/10"
+    },
+    {
+      "number": 9,
+      "state": "open",
+      "merged": false,
+      "draft": true,
+      "head_sha": "e826efed6bdc4e75d5fa18660dea260435a5da40",
+      "base_sha": "d526d65fbae116f834d14ad994a27bc50ca23b62",
+      "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/9"
+    },
+    {
+      "number": 4,
+      "state": "open",
+      "merged": false,
+      "draft": true,
+      "head_sha": "ff211ee8e144e955fa5837e8b8ff5cabf51f60a4",
+      "base_sha": "d526d65fbae116f834d14ad994a27bc50ca23b62",
+      "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/4"
+    }
+  ],
+  "closed": [
+    {
+      "number": 23,
+      "state": "closed",
+      "merged": true,
+      "draft": false,
+      "head_sha": "615c3dba3018282876ccce9c4972fd68d6f95f77",
+      "base_sha": "d526d65fbae116f834d14ad994a27bc50ca23b62",
+      "merged_at": "2026-11-12T00:35:33Z",
+      "closed_at": "2026-11-12T00:35:33Z",
+      "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/23"
+    },
+    {
+      "number": 21,
+      "state": "closed",
+      "merged": false,
+      "draft": true,
+      "head_sha": "7608cf89b7d3ab35c541763f0f04c75043f76cba",
+      "base_sha": "79d546891940b6f5e3030940f7c52c2ff7b3d36b",
+      "merged_at": null,
+      "closed_at": "2026-11-12T00:38:36Z",
+      "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/21"
+    },
+    {
+      "number": 20,
+      "state": "closed",
+      "merged": false,
+      "draft": true,
+      "head_sha": "79d546891940b6f5e3030940f7c52c2ff7b3d36b",
+      "base_sha": "e7c727fdc2788969781ad2e34048d7d1d0b488f2",
+      "merged_at": null,
+      "closed_at": "2026-11-12T00:38:21Z",
+      "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/20"
+    },
+    {
+      "number": 19,
+      "state": "closed",
+      "merged": false,
+      "draft": true,
+      "head_sha": "e7c727fdc2788969781ad2e34048d7d1d0b488f2",
+      "base_sha": "4518860a9456746c7bfc3df03679dc30ebe14624",
+      "merged_at": null,
+      "closed_at": "2026-11-12T00:38:07Z",
+      "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/19"
+    },
+    {
+      "number": 18,
+      "state": "closed",
+      "merged": false,
+      "draft": true,
+      "head_sha": "4518860a9456746c7bfc3df03679dc30ebe14624",
+      "base_sha": "eade5c2101dddddca62e91a4959b3960ffda291c",
+      "merged_at": null,
+      "closed_at": "2026-11-12T00:37:52Z",
+      "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/18"
+    },
+    {
+      "number": 17,
+      "state": "closed",
+      "merged": false,
+      "draft": true,
+      "head_sha": "eade5c2101dddddca62e91a4959b3960ffda291c",
+      "base_sha": "820561fd6e3ca3af9764c3c97bf6173415f4ad1b",
+      "merged_at": null,
+      "closed_at": "2026-11-12T00:37:38Z",
+      "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/17"
+    },
+    {
+      "number": 16,
+      "state": "closed",
+      "merged": false,
+      "draft": true,
+      "head_sha": "820561fd6e3ca3af9764c3c97bf6173415f4ad1b",
+      "base_sha": "f98456fef3673d08ef226e5b0d9bddfa236c734f",
+      "merged_at": null,
+      "closed_at": "2026-11-12T00:37:25Z",
+      "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/16"
+    },
+    {
+      "number": 15,
+      "state": "closed",
+      "merged": false,
+      "draft": true,
+      "head_sha": "f98456fef3673d08ef226e5b0d9bddfa236c734f",
+      "base_sha": "ef70a502e36aeac871edb183bbf29b4e193b31b9",
+      "merged_at": null,
+      "closed_at": "2026-11-12T00:37:09Z",
+      "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/15"
+    },
+    {
+      "number": 14,
+      "state": "closed",
+      "merged": false,
+      "draft": true,
+      "head_sha": "ef70a502e36aeac871edb183bbf29b4e193b31b9",
+      "base_sha": "4329daaeec15641289d7edbcb7f3237d0da1e0e3",
+      "merged_at": null,
+      "closed_at": "2026-11-12T00:36:54Z",
+      "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/14"
+    },
+    {
+      "number": 8,
+      "state": "closed",
+      "merged": false,
+      "draft": true,
+      "head_sha": "4329daaeec15641289d7edbcb7f3237d0da1e0e3",
+      "base_sha": "edad8065c1f2b726e61c5cf405f8d9ff6d807480",
+      "merged_at": null,
+      "closed_at": "2026-11-12T00:36:38Z",
+      "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/8"
+    },
+    {
+      "number": 7,
+      "state": "closed",
+      "merged": false,
+      "draft": true,
+      "head_sha": "edad8065c1f2b726e61c5cf405f8d9ff6d807480",
+      "base_sha": "ad819aaf9d6395240841369726d79d1d1ca4bc53",
+      "merged_at": null,
+      "closed_at": "2026-11-12T00:36:22Z",
+      "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/7"
+    },
+    {
+      "number": 6,
+      "state": "closed",
+      "merged": false,
+      "draft": true,
+      "head_sha": "ad819aaf9d6395240841369726d79d1d1ca4bc53",
+      "base_sha": "2f162707b256d97b54536e213db4064d3c156c12",
+      "merged_at": null,
+      "closed_at": "2026-11-12T00:36:09Z",
+      "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/6"
+    },
+    {
+      "number": 5,
+      "state": "closed",
+      "merged": true,
+      "draft": true,
+      "head_sha": "2f162707b256d97b54536e213db4064d3c156c12",
+      "base_sha": "d526d65fbae116f834d14ad994a27bc50ca23b62",
+      "merged_at": "2026-11-12T00:35:35Z",
+      "closed_at": "2026-11-12T00:35:35Z",
+      "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/5"
+    }
+  ]
+}

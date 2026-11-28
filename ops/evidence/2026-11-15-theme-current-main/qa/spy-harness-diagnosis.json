@@ -1,0 +1,7 @@
+{
+  "blank_page_original_expression_count": 1,
+  "explicit_block_count": 0,
+  "explicit_invocation_count": 1,
+  "product_loaded": false,
+  "diagnosis": "evaluate returned arrow function is invoked by Playwright"
+}

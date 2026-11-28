@@ -1,0 +1,40 @@
+{
+  "head": "f60f6b2bc7c8f0b21d0789b599edf5a13269f5e5",
+  "cases": [
+    {
+      "mode": "normal",
+      "question_id": "lever-16",
+      "actual_numeric_answer_unit_tag_saved": true,
+      "reload_preserved": true,
+      "actual_export_and_file_import_preserved": true,
+      "fieldless_record_accepted": true,
+      "invalid_packets_rejected_without_writes": [
+        "invalid_unit",
+        "invalid_tag",
+        "unknown_field"
+      ],
+      "record_count_after_roundtrip": 2,
+      "parent_child_storage_unchanged": null
+    },
+    {
+      "mode": "parent",
+      "question_id": "lever-16",
+      "actual_numeric_answer_unit_tag_saved": true,
+      "reload_preserved": true,
+      "actual_export_and_file_import_preserved": true,
+      "fieldless_record_accepted": true,
+      "invalid_packets_rejected_without_writes": [
+        "invalid_unit",
+        "invalid_tag",
+        "unknown_field"
+      ],
+      "record_count_after_roundtrip": 2,
+      "parent_child_storage_unchanged": true
+    }
+  ],
+  "post_requests": [],
+  "page_errors": [],
+  "external_gets_aborted": 11,
+  "completed_at": "2026-11-22T16:12:39.789767+00:00",
+  "result": "passed"
+}

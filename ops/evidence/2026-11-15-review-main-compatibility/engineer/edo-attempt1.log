@@ -1,0 +1,17 @@
+127.0.0.1 - - [15/Nov/2026 08:17:40] "GET /edo-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [15/Nov/2026 08:17:40] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [15/Nov/2026 08:17:40] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [15/Nov/2026 08:17:56] "GET /edo-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [15/Nov/2026 08:17:56] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [15/Nov/2026 08:17:56] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [15/Nov/2026 08:17:56] "GET /edo-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [15/Nov/2026 08:17:56] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [15/Nov/2026 08:17:56] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [15/Nov/2026 08:17:56] "GET /edo-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [15/Nov/2026 08:17:56] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [15/Nov/2026 08:17:56] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [15/Nov/2026 08:17:56] "GET /assets/progress.js HTTP/1.1" 200 -
+127.0.0.1 - - [15/Nov/2026 08:17:56] "GET /edo-review.html?parent-check=1 HTTP/1.1" 200 -
+127.0.0.1 - - [15/Nov/2026 08:17:56] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [15/Nov/2026 08:17:56] "GET /assets/design.js HTTP/1.1" 200 -
+edo: 22 originals, 85 UI answers, aliases, order, revisions, strict import, recall/weak/due/daily/home, isolated records and parent mode PASS

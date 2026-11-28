@@ -1,0 +1,97 @@
+{
+  "head": "132f9f59ebd23b6dab33e7d1e23bf4d077b8070d",
+  "end_head": "132f9f59ebd23b6dab33e7d1e23bf4d077b8070d",
+  "cases": [
+    {
+      "app": "onin-review.html",
+      "scenario": "quota",
+      "dirty": true,
+      "disabled": true,
+      "saved_raw_preserved": true
+    },
+    {
+      "app": "kamakura-review.html",
+      "scenario": "normal",
+      "started": 1,
+      "saved_events": 2,
+      "reload": true,
+      "legacy_and_other_preserved": true,
+      "parent_all_local_unchanged": false
+    },
+    {
+      "app": "kamakura-review.html",
+      "scenario": "parent",
+      "started": 1,
+      "saved_events": 2,
+      "reload": true,
+      "legacy_and_other_preserved": true,
+      "parent_all_local_unchanged": true
+    },
+    {
+      "app": "kamakura-review.html",
+      "scenario": "blocked",
+      "disabled": true,
+      "direct_start_preserved": true,
+      "status": "記録や時刻を確認するまで、おすすめ復習を休止しています。"
+    },
+    {
+      "app": "kamakura-review.html",
+      "scenario": "future",
+      "disabled": true,
+      "direct_start_preserved": true,
+      "status": "記録や時刻を確認するまで、おすすめ復習を休止しています。"
+    },
+    {
+      "app": "kamakura-review.html",
+      "scenario": "quota",
+      "dirty": true,
+      "disabled": true,
+      "saved_raw_preserved": true
+    }
+  ],
+  "server_posts": 0,
+  "blocked_requests": [
+    {
+      "method": "GET",
+      "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"
+    },
+    {
+      "method": "GET",
+      "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"
+    },
+    {
+      "method": "GET",
+      "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"
+    },
+    {
+      "method": "GET",
+      "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"
+    },
+    {
+      "method": "GET",
+      "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"
+    },
+    {
+      "method": "GET",
+      "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"
+    },
+    {
+      "method": "GET",
+      "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"
+    },
+    {
+      "method": "GET",
+      "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"
+    },
+    {
+      "method": "GET",
+      "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"
+    },
+    {
+      "method": "GET",
+      "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"
+    }
+  ],
+  "page_errors": [],
+  "failure": null
+}

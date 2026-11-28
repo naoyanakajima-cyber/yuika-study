@@ -1,0 +1,27 @@
+{
+  "number": 11,
+  "head": "f1e84a7b998dfbcd71c6692974015bdd08e1877e",
+  "base": "main",
+  "base_sha": "86514eda054a5a2e09204df3a0668e40624c16de",
+  "state": "open",
+  "draft": true,
+  "merged": false,
+  "mergeable": true,
+  "mergeable_state": "unstable",
+  "changed_files": 15,
+  "updated_at": "2026-11-14T17:23:43Z",
+  "body_matches": true,
+  "check_observation": {
+    "combined_state": "pending",
+    "statuses": [],
+    "checks": [
+      {
+        "name": "Workers Builds: yuika-study",
+        "status": "in_progress",
+        "conclusion": null
+      }
+    ],
+    "note": "Existing external check triggered by branch update; no deployment command/config change performed, publication unverified."
+  },
+  "attachment": "attach_artifact called for existing PR11 and PR9; both responses empty, success not confirmed in this invocation; no new PR."
+}

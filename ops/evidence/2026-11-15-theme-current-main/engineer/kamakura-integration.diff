@@ -1,0 +1,21 @@
+diff --git a/kamakura-review.html b/kamakura-review.html
+index daa735f..4ba4616 100644
+--- a/kamakura-review.html
++++ b/kamakura-review.html
+@@ -1218,6 +1218,7 @@ function retention(events=data.events,now=Date.now()){
+   const q=Q.get(e.questionId);if(!q)continue;
+   const originId=q.originId||q.id,key=originId+':'+e.variant;
+   let s=states.get(key);
++  if(!s&&q.type==='recall'&&!e.correct){s={originId,variant:e.variant,status:'weak',stage:0,due:null,anchor:null};states.set(key,s);}
+   if(!s){
+    // A new weakness requires errors on two Japan days. Success cannot add an
+    // error day; examine the existing rule only when an error can change it.
+@@ -1363,7 +1364,7 @@ function prototypeFields(value,allowed){
+ const prototypeEventValidator=validateEvent;
+ validateEvent=function(e){
+  const fields=prototypeScience?
+-  ['questionVersion','id','sessionId','questionId','datasetVersion','unit','type','question','response','inputRaw','expected','correct','answeredAt','timezoneOffset','localDay','hintUsed','mode','explanation']:
++  [...(e.type==='recall'?['recallOutcome','firstResponse']:[]),'questionVersion','id','sessionId','questionId','datasetVersion','unit','type','question','response','inputRaw','expected','correct','answeredAt','timezoneOffset','localDay','hintUsed','mode','explanation']:
+   ['questionVersion','id','sessionId','questionId','version','unit','course','question','response','expected','explanation','correct','variant','mode','hint','at','offset','day',...(prototypeHeian?['reflection']:['unitId'])];
+  prototypeFields(e,fields);
+  if(prototypeHeian&&e.response&&typeof e.response==='object')prototypeFields(e.response,['steps','fills']);

@@ -1,0 +1,78 @@
+{
+  "head": "f60f6b2bc7c8f0b21d0789b599edf5a13269f5e5",
+  "parent": "804f9f648c8634ea26d4ca7fc26cf6b473029475",
+  "worktree": "/workspace/yuika-science-generator-lever",
+  "branch": "codex/science-generator-lever-20261122",
+  "pushed": false,
+  "clean": true,
+  "changes": [
+    "docs/history-compatibility.md",
+    "heian-review.html",
+    "kamakura-review.html",
+    "mock-focus-review.html",
+    "onin-review.html",
+    "scripts/check_all.sh",
+    "scripts/practice/science.js",
+    "scripts/prototype/runtime.js",
+    "tests/generator_preservation.py",
+    "tests/lever.py"
+  ],
+  "science_html_unchanged": true,
+  "science_html_sha256": "959f6de44c42f35b6ed3ecb39aed313d5e4129c4223df55bcd75bb6651d711af",
+  "other_html_changes": {
+    "paths": [
+      "onin-review.html",
+      "kamakura-review.html",
+      "heian-review.html",
+      "mock-focus-review.html"
+    ],
+    "exact_change": "One science-only prototype allowlist line adds answerUnit/answerTag; all other bytes match parent. prototypeScience is false on these four apps."
+  },
+  "checks": [
+    {
+      "command": "python tests/generator_preservation.py",
+      "result": "passed; actual seven generator sequence in temporary tracked-file copy, first and second pass preserved every tracked file; source checkout unchanged",
+      "exit_code": 0,
+      "attempt": 1,
+      "note": "Run once after source sync then once after staging new test/docs, both passed."
+    },
+    {
+      "command": "python /tmp/yuika-generator-before-190/tests/generator_preservation.py",
+      "head": "804f9f648c8634ea26d4ca7fc26cf6b473029475",
+      "result": "expected regression detection: Generator pass 1 changed tracked files: yuika-review-v2.html",
+      "exit_code": 1,
+      "attempt": 1,
+      "note": "New identical test transplanted into detached baseline worktree. Generation only inside its temporary copy; baseline worktree not regenerated."
+    },
+    {
+      "command": "source scripts/cloud/activate.sh && python tests/lever.py",
+      "result": "passed including new real synthetic JSON download/empty-storage import/reload, unit/tag/unknown rejection and unchanged saved bytes, plus existing old fieldless record acceptance/progression/parent/mock guards",
+      "exit_code": 0,
+      "attempt": 1,
+      "execution": "precommit identical product/test bytes; docs later added only"
+    },
+    {
+      "command": "git diff --cached --check",
+      "exit_code": 0
+    },
+    {
+      "command": "exact HTML byte comparison against parent",
+      "result": "science byte-identical; four other HTML exactly one inactive science allowlist line each",
+      "exit_code": 0
+    }
+  ],
+  "runtime": "Existing /workspace/yuika-study/.venv manually reused via ignored .venv/bin link; not automatic snapshot proof",
+  "full_suite": "Not run by Engineer; reserved independent QA at exact candidate",
+  "notifications": "Existing lever mock API only; no real requests",
+  "scope": "Preserve existing embedded behavior in generator sources; no question, key, version, grading or selection design changes",
+  "delivered_head": "d26d10dea80b93cef7a47dbd814f76e3f69d3934",
+  "followup_test_fix": {
+    "cause": "Independent full suite found ReferenceError LEVER_UNIT in standalone Node oracle; regenerated source now references real lever dependencies absent from historical non-lever fixture",
+    "change": "Define LEVER_UNIT and leverUnlocked=false for fixture with ordinary questions and no lever progress; preserve every existing priority/order/draw/count assertion and all browser tests",
+    "scope_cases": 28,
+    "focused_command": "source scripts/cloud/activate.sh && python tests/science_daily_count.py",
+    "focused_exit_code": 0,
+    "focused_attempt": 1,
+    "product_bytes_unchanged_since": "f60f6b2bc7c8f0b21d0789b599edf5a13269f5e5"
+  }
+}

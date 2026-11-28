@@ -1,0 +1,421 @@
+HEAD: acd169882b626ef255ba68cd73c995024c30e515
+Working tree (empty = clean):
+Browser RNG seed: 20261110
+
+RUN tests/onin_review.py
+onin-review: all checks passed
+
+RUN tests/kamakura_review.py
+kamakura-review: all checks passed
+
+RUN tests/cloud_preview.py
+cloud-preview: startup, private path protection, and API blocking passed
+
+RUN notifications/test/worker.test.mjs
+✔ strict schema, no inferred correct answers, bounded content (78.207096ms)
+✔ one provider request, fixed destination, no secret leakage, same ID stays deduplicated beyond 24h (52.552744ms)
+✔ uncertain acceptance retries with SAME provider key; stops after 23h to prevent duplicates (6.076213ms)
+✔ provider rejection and invalid success response are never called sent (3.07038ms)
+✔ destination cannot be supplied by browser; origin, authentication, config, size are enforced (9.789321ms)
+✔ concurrent delivery is serialized by Durable Object and rate limit bounds sends (5.612437ms)
+✔ both parents receive one unchanged message for social, science and legacy reports (7.708393ms)
+✔ invalid recipient lists fail closed without sending or storing delivery state (2.194059ms)
+✔ two-recipient rejection or network failure preserves pending state and retry payload (6.765025ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 506.799454
+
+RUN notifications/test/browser.py
+PASS no send before pairing; pair UI; send once per challenge, not per answer; details/hints; result rerender/reload dedup
+PASS science completion; queued on provider failure; same payload and ID retried on next visit
+PASS stop setting, no historical bulk send, accepted queue removes answer content
+PASS existing quiz sends summary once, preserves unknown answer/hint fields as unknown
+PASS flash-card completion after retry, first-round 2/4 score, no duplicate final wrong, no JS errors
+PASS actual browser payloads satisfy worker schema
+
+RUN tests/cloud_bootstrap.py
+test_dirty_target_is_preserved_without_running_setup (__main__.BootstrapTests.test_dirty_target_is_preserved_without_running_setup) ... ok
+test_existing_unrelated_directory_is_preserved (__main__.BootstrapTests.test_existing_unrelated_directory_is_preserved) ... ok
+test_failed_retry_invalidates_previous_install_success (__main__.BootstrapTests.test_failed_retry_invalidates_previous_install_success) ... ok
+test_invalid_sha_stops_before_creating_target (__main__.BootstrapTests.test_invalid_sha_stops_before_creating_target) ... ok
+test_main_without_setup_and_original_dirty_changes_are_preserved (__main__.BootstrapTests.test_main_without_setup_and_original_dirty_changes_are_preserved) ... ok
+test_missing_commit_logs_fetch_failure_without_target (__main__.BootstrapTests.test_missing_commit_logs_fetch_failure_without_target) ... ok
+test_reinstall_preserves_clean_topic_branch_and_commits (__main__.BootstrapTests.test_reinstall_preserves_clean_topic_branch_and_commits) ... ok
+test_setup_failure_has_no_success_receipt_and_can_resume (__main__.BootstrapTests.test_setup_failure_has_no_success_receipt_and_can_resume) ... ok
+test_setup_log_directory_failure_invalidates_previous_receipts (__main__.BootstrapTests.test_setup_log_directory_failure_invalidates_previous_receipts) ... ok
+test_setup_runtime_failure_invalidates_previous_receipts (__main__.BootstrapTests.test_setup_runtime_failure_invalidates_previous_receipts) ... ok
+test_symlink_target_is_preserved (__main__.BootstrapTests.test_symlink_target_is_preserved) ... ok
+test_untracked_target_files_are_preserved (__main__.BootstrapTests.test_untracked_target_files_are_preserved) ... ok
+test_wrong_revision_does_not_reset_existing_target (__main__.BootstrapTests.test_wrong_revision_does_not_reset_existing_target) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 1.989s
+
+OK
+
+RUN tests/adaptive_practice.py
+127.0.0.1 - - [12/Nov/2026 07:09:08] "GET /onin-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:08] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:08] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:09] "GET /onin-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:09] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:09] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:09] "GET /kamakura-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:09] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:09] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:09] "GET /kamakura-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:09] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:09] "GET /assets/design.js HTTP/1.1" 200 -
+adaptive_practice: all checks passed (2 apps, synthetic records, CSP preview)
+
+RUN tests/adaptive_daily.py
+127.0.0.1 - - [12/Nov/2026 07:09:11] "GET /onin-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:11] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:11] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:11] "GET /onin-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:12] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:12] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:12] "GET /onin-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:12] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:12] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:12] "GET /kamakura-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:12] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:12] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:13] "GET /kamakura-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:13] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:13] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:13] "GET /kamakura-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:13] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:13] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:13] "GET /heian-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:13] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:13] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:14] "GET /heian-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:14] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:14] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:14] "GET /heian-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:14] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:14] "GET /assets/design.js HTTP/1.1" 200 -
+adaptive_daily: all checks passed (3 apps, levels, explanations, hint/recovery, summaries, caps, corrupt storage, persistence)
+
+RUN tests/adaptive_quality.py
+127.0.0.1 - - [12/Nov/2026 07:09:18] "GET /onin-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:19] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:19] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:19] "GET /kamakura-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:19] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:19] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:20] "GET /heian-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:20] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:20] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:20] "GET /onin-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:20] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:21] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:21] "GET /kamakura-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:22] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:22] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:23] "GET /heian-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:23] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:23] "GET /assets/design.js HTTP/1.1" 200 -
+adaptive_quality: all checks passed (3 apps x 2 timezones; JST, boundaries, hints, canonical history, storage, focus, XSS)
+
+RUN tests/flash_grading.py
+flash-grading: exact answers, registered alts, normalization, UI retry, version and historical preservation PASS
+
+RUN tests/spaced_daily.py
+127.0.0.1 - - [12/Nov/2026 07:09:37] "GET /onin-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:37] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:37] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:38] "GET /onin-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:38] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:38] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:38] "GET /onin-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:38] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:38] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:38] "GET /onin-review.html?daily=1 HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:38] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:38] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:38] "GET /onin-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:39] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:39] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:39] "GET /kamakura-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:39] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:39] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:40] "GET /kamakura-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:40] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:40] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:40] "GET /kamakura-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:40] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:40] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:40] "GET /kamakura-review.html?daily=1 HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:40] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:40] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:40] "GET /kamakura-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:40] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:40] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:41] "GET /heian-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:41] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:41] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:42] "GET /heian-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:42] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:42] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:42] "GET /heian-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:42] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:42] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:42] "GET /heian-review.html?daily=1 HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:42] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:42] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:43] "GET /heian-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:43] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:43] "GET /assets/design.js HTTP/1.1" 200 -
+spaced_daily: all checks passed (3 apps, state transitions, JST, migration, daily priority, preference reopen)
+
+RUN tests/history_compat.py
+127.0.0.1 - - [12/Nov/2026 07:09:45] "GET /onin-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:45] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:45] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:46] "GET /kamakura-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:46] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:46] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:47] "GET /heian-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:47] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:47] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:47] "GET /yuika-review-v2.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:47] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:47] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:48] "GET /mock-focus-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:48] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:48] "GET /assets/design.js HTTP/1.1" 200 -
+onin-review.html 608 synthetic old/versioned histories passed
+kamakura-review.html 608 synthetic old/versioned histories passed
+heian-review.html 1000 synthetic old/versioned histories passed
+yuika-review-v2.html 188 synthetic old/versioned histories passed
+mock-focus-review.html 368 synthetic old/versioned histories passed
+history_compat: archive immutability, editorial policy, old grades, merge/load/save/import PASS
+
+RUN tests/science_adaptive.py
+127.0.0.1 - - [12/Nov/2026 07:09:50] "GET /yuika-review-v2.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:51] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:51] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:51] "GET /yuika-review-v2.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:51] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:51] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:52] "GET /yuika-review-v2.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:52] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:52] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:52] "GET /yuika-review-v2.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:52] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:52] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:53] "GET /yuika-review-v2.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:53] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:53] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:53] "GET /yuika-review-v2.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:54] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:54] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:55] "GET /yuika-review-v2.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:55] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:55] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:56] "GET /yuika-review-v2.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:56] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:56] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:58] "GET /index.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:58] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:58] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:09:58] "GET /assets/progress.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:00] "GET /yuika-review-v2.html?daily=1 HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:00] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:00] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:00] "GET /yuika-review-v2.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:00] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:01] "GET /assets/design.js HTTP/1.1" 200 -
+science_adaptive: 47 original questions, grades, JST replay, priority, UI, persistence/import, access recovery UI, legacy exclusion PASS
+
+RUN tests/registered_answers.py
+127.0.0.1 - - [12/Nov/2026 07:10:02] "GET /onin-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:03] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:03] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:03] "GET /kamakura-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:03] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:04] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:04] "GET /heian-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:04] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:04] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:05] "GET /yuika-review-v2.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:05] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:05] "GET /assets/design.js HTTP/1.1" 200 -
+onin-review.html {'canonical': 76, 'spellings': 124} all registered answers passed
+kamakura-review.html {'canonical': 76, 'spellings': 88} all registered answers passed
+heian-review.html {'canonical': 125, 'spellings': 172} all registered answers passed
+yuika-review-v2.html {'canonical': 47, 'spellings': 0} all registered answers passed
+registered_answers: all current questions, supported variants and registered spellings PASS
+
+RUN tests/history_review_regression.py
+127.0.0.1 - - [12/Nov/2026 07:10:07] "GET /yuika-review-v2.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:07] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:07] "GET /assets/design.js HTTP/1.1" 200 -
+history_review_regression: retired IDs, historical text/version, repeated load/save, numeric units PASS
+
+RUN tests/state_review_regression.py
+retention projection: 200 histories equivalent; 20,000 records avoid growing rescans
+127.0.0.1 - - [12/Nov/2026 07:10:12] "GET /onin-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:12] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:12] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:13] "GET /kamakura-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:13] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:13] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:14] "GET /heian-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:14] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:14] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:15] "GET /yuika-review-v2.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:15] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:15] "GET /assets/design.js HTTP/1.1" 200 -
+state_review_regression: all checks passed (4 apps, JST refresh, clock safety, blocked starts, replay equivalence and cost)
+
+RUN tests/prototype_storage.py
+127.0.0.1 - - [12/Nov/2026 07:10:17] "GET /onin-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:17] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:17] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:17] "GET /onin-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:17] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:17] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:17] "GET /onin-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:17] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:18] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:18] "GET /onin-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:18] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:18] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:18] "GET /onin-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:18] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:18] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:18] "GET /onin-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:18] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:18] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:18] "GET /onin-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:18] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:18] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:19] "GET /kamakura-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:19] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:19] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:19] "GET /kamakura-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:19] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:19] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:19] "GET /kamakura-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:19] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:19] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:20] "GET /kamakura-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:20] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:20] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:20] "GET /kamakura-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:20] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:20] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:20] "GET /kamakura-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:20] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:20] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:20] "GET /kamakura-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:20] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:20] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:21] "GET /heian-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:21] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:21] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:21] "GET /heian-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:21] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:21] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:21] "GET /heian-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:21] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:21] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:22] "GET /heian-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:22] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:22] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:22] "GET /heian-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:22] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:22] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:22] "GET /heian-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:22] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:22] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:23] "GET /heian-review.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:23] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:23] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:23] "GET /yuika-review-v2.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:23] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:23] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:24] "GET /yuika-review-v2.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:24] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:24] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:24] "GET /yuika-review-v2.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:24] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:24] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:25] "GET /yuika-review-v2.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:25] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:25] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:25] "GET /yuika-review-v2.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:25] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:25] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:25] "GET /yuika-review-v2.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:25] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:25] "GET /assets/design.js HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:25] "GET /yuika-review-v2.html HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:25] "GET /assets/design.css HTTP/1.1" 200 -
+127.0.0.1 - - [12/Nov/2026 07:10:25] "GET /assets/design.js HTTP/1.1" 200 -
+prototype_storage: four apps, original bytes/prefs intact, envelope/unknown fields, actual downloads/import, quota and broken stores PASS
+
+RUN tests/focus_data.py
+focus_data: 46 originals, unique answers/IDs/prompts, basis, private-data guards PASS
+
+RUN tests/focus_practice.py
+focus_practice: all 46 UI questions, diagrams/tables, versioned JSON, retention, daily entry PASS
+
+RUN tests/parent_mode.py
+PASS parent isolation/reload/exit/notification guards: onin-review.html
+PASS parent isolation/reload/exit/notification guards: kamakura-review.html
+PASS parent isolation/reload/exit/notification guards: heian-review.html
+PASS parent isolation/reload/exit/notification guards: yuika-review-v2.html
+PASS parent isolation/reload/exit/notification guards: mock-focus-review.html
+PASS parent isolation/reload/exit/notification guards: index.html
+PASS inclusive deletion, count, cancel, preserve older/undated, stale confirmation
+PASS tab close clears mode and sandbox for subsequent tab
+PASS initial session read/write denial uses isolated temporary mode
+PASS cleanup rollback and incomplete-recovery original export
+
+RUN tests/design_c.py
+design_c: all 17 home units, five standalone units, three widths, controls, no writes, colors and recipient privacy PASS
+
+RUN tests/responsive_subjects.py
+width 390, parent=False: all pages PASS
+width 390, parent=True: all pages PASS
+width 768, parent=False: all pages PASS
+width 768, parent=True: all pages PASS
+width 1024, parent=False: all pages PASS
+width 1024, parent=True: all pages PASS
+width 1280, parent=False: all pages PASS
+width 1280, parent=True: all pages PASS
+responsive_subjects: all 17 units + questions/flash, 4 widths, parent banner, scrollbar gutters, subject boundaries and unchanged mixed histories PASS
+
+Suite                                      Exit  Seconds
+tests/onin_review.py                          0        6
+tests/kamakura_review.py                      0        5
+tests/cloud_preview.py                        0        4
+notifications/test/worker.test.mjs            0        0
+notifications/test/browser.py                 0       24
+tests/cloud_bootstrap.py                      0        2
+tests/adaptive_practice.py                    0        3
+tests/adaptive_daily.py                       0        4
+tests/adaptive_quality.py                     0       10
+tests/flash_grading.py                        0       12
+tests/spaced_daily.py                         0        7
+tests/history_compat.py                       0        6
+tests/science_adaptive.py                     0       12
+tests/registered_answers.py                   0        5
+tests/history_review_regression.py            0        4
+tests/state_review_regression.py              0        6
+tests/prototype_storage.py                    0       10
+tests/focus_data.py                           0        0
+tests/focus_practice.py                       0       16
+tests/parent_mode.py                          0       23
+tests/design_c.py                             0       24
+tests/responsive_subjects.py                  0      149
+Total: 332s; result=0

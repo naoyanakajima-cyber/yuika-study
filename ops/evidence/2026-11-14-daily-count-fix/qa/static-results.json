@@ -1,0 +1,69 @@
+{
+  "head": "55435567d44f05dc35f3ea6d73c4ba9cac2dc496",
+  "base": "132f9f59ebd23b6dab33e7d1e23bf4d077b8070d",
+  "allowed_changed_paths": [
+    "README.md",
+    "assets/design.js",
+    "heian-review.html",
+    "kamakura-review.html",
+    "mock-focus-review.html",
+    "onin-review.html",
+    "scripts/check_all.sh",
+    "scripts/practice/adaptive.js",
+    "tests/daily_count.py"
+  ],
+  "checks": [
+    {
+      "path": "onin-review.html",
+      "outside_adaptive_unchanged": true,
+      "sha256_outside": "8742c2f25e7f1e7c96dd39081da2f3ae385d47477b7031dfdf4e77ac0976fda0"
+    },
+    {
+      "path": "kamakura-review.html",
+      "outside_adaptive_unchanged": true,
+      "sha256_outside": "0effb743fcf7312a0a5ac6700a26e508708757a9e1b851a7d561d1a24accf744"
+    },
+    {
+      "path": "heian-review.html",
+      "outside_adaptive_unchanged": true,
+      "sha256_outside": "2eed5fb12e30e1e450707bd2b173b73b1d7c6dd02f29f5512df81c52e20ccb52"
+    },
+    {
+      "path": "mock-focus-review.html",
+      "outside_adaptive_unchanged": true,
+      "sha256_outside": "96fd930d93fc5e6cd94ff042d2ec2bd5e4a5f49b1e1199efd15850dbabefa1f3"
+    },
+    {
+      "path": "scripts/practice/science.js",
+      "unchanged": true,
+      "sha256": "5002095e05c03aa4540ce9884df080471ba779f408e65a346384f153b7f3e082"
+    },
+    {
+      "path": "index.html",
+      "unchanged": true,
+      "sha256": "7cda10be2e54fada58627c407a6bd269bff9745cb7239aed61883306b282611f"
+    },
+    {
+      "path": "yuika-review-v2.html",
+      "unchanged": true,
+      "sha256": "72b7cef43c02d22d4ae0c17fddc6aefdeb0ec9908ab974e49c727d0800a25314"
+    },
+    {
+      "path": "assets/progress.js",
+      "unchanged": true,
+      "sha256": "16840a71c14a746472f692c57c55b439537dadc462e76cb295a7f3d0cfbbcb30"
+    },
+    {
+      "path": "scripts/parent/runtime.js",
+      "unchanged": true,
+      "sha256": "345c190adf1c7c92d11f153c422d7783d1a7799557d83d43dd3f6e04e5df9957"
+    },
+    {
+      "path": "scripts/prototype/runtime.js",
+      "unchanged": true,
+      "sha256": "ef151513bbca3b425389fc9d17a7a0037e74e63ebd7c5a2e4c8af79070464770"
+    }
+  ],
+  "all_other_repo_paths_unchanged": true,
+  "diff_check_exit": 0
+}

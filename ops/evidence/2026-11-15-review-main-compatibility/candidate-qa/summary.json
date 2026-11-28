@@ -1,0 +1,158 @@
+{
+  "head": "6d01386dba0bb3cdafa7e8f431a6a17bc81e913f",
+  "exit_code": 0,
+  "suite_count": 29,
+  "seconds": 349,
+  "completed_at": "2026-11-15T08:26:18.119691+00:00",
+  "clean_after": true,
+  "probe_cases": 7,
+  "probe_attempts": 1,
+  "static_result": "passed",
+  "suites": [
+    {
+      "name": "tests/onin_review.py",
+      "exit": 0,
+      "seconds": 4
+    },
+    {
+      "name": "tests/kamakura_review.py",
+      "exit": 0,
+      "seconds": 3
+    },
+    {
+      "name": "tests/cloud_preview.py",
+      "exit": 0,
+      "seconds": 2
+    },
+    {
+      "name": "notifications/test/worker.test.mjs",
+      "exit": 0,
+      "seconds": 0
+    },
+    {
+      "name": "notifications/test/browser.py",
+      "exit": 0,
+      "seconds": 12
+    },
+    {
+      "name": "tests/cloud_bootstrap.py",
+      "exit": 0,
+      "seconds": 2
+    },
+    {
+      "name": "tests/adaptive_practice.py",
+      "exit": 0,
+      "seconds": 2
+    },
+    {
+      "name": "tests/adaptive_daily.py",
+      "exit": 0,
+      "seconds": 4
+    },
+    {
+      "name": "tests/adaptive_quality.py",
+      "exit": 0,
+      "seconds": 4
+    },
+    {
+      "name": "tests/flash_grading.py",
+      "exit": 0,
+      "seconds": 9
+    },
+    {
+      "name": "tests/spaced_daily.py",
+      "exit": 0,
+      "seconds": 7
+    },
+    {
+      "name": "tests/history_compat.py",
+      "exit": 0,
+      "seconds": 5
+    },
+    {
+      "name": "tests/edo.py",
+      "exit": 0,
+      "seconds": 15
+    },
+    {
+      "name": "tests/medaka.py",
+      "exit": 0,
+      "seconds": 18
+    },
+    {
+      "name": "tests/microscope.py",
+      "exit": 0,
+      "seconds": 23
+    },
+    {
+      "name": "tests/science_adaptive.py",
+      "exit": 0,
+      "seconds": 8
+    },
+    {
+      "name": "tests/registered_answers.py",
+      "exit": 0,
+      "seconds": 3
+    },
+    {
+      "name": "tests/history_review_regression.py",
+      "exit": 0,
+      "seconds": 3
+    },
+    {
+      "name": "tests/state_review_regression.py",
+      "exit": 0,
+      "seconds": 6
+    },
+    {
+      "name": "tests/prototype_storage.py",
+      "exit": 0,
+      "seconds": 9
+    },
+    {
+      "name": "tests/focus_data.py",
+      "exit": 0,
+      "seconds": 0
+    },
+    {
+      "name": "tests/focus_practice.py",
+      "exit": 0,
+      "seconds": 13
+    },
+    {
+      "name": "tests/parent_mode.py",
+      "exit": 0,
+      "seconds": 21
+    },
+    {
+      "name": "tests/design_c.py",
+      "exit": 0,
+      "seconds": 23
+    },
+    {
+      "name": "tests/responsive_subjects.py",
+      "exit": 0,
+      "seconds": 129
+    },
+    {
+      "name": "tests/recommended_review.py",
+      "exit": 0,
+      "seconds": 6
+    },
+    {
+      "name": "tests/review_entry.py",
+      "exit": 0,
+      "seconds": 4
+    },
+    {
+      "name": "tests/daily_count.py",
+      "exit": 0,
+      "seconds": 5
+    },
+    {
+      "name": "tests/science_daily_count.py",
+      "exit": 0,
+      "seconds": 9
+    }
+  ]
+}

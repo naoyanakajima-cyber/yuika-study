@@ -1,0 +1,17 @@
+{
+  "omitted_redundant_patches": [
+    {
+      "path": "engineer/candidate-main.diff",
+      "sha256": "2326a9ff85a89456e9823e7485ff88fe906e6f37f8b303aa82f5b0113f224ee5",
+      "bytes": 42137,
+      "reason": "Redundant full git patch omitted from public evidence; exact code is retained in PR12 and referenced commits. Context-only blank lines trigger nested git diff --check; original /tmp patch preserved unchanged."
+    },
+    {
+      "path": "engineer/candidate-pr12.diff",
+      "sha256": "605f359b49a4929e6535e39fa6ba89d0d23ed7fe55435b7fa105a55796a0ded9",
+      "bytes": 849690,
+      "reason": "Redundant full git patch omitted from public evidence; exact code is retained in PR12 and referenced commits. Context-only blank lines trigger nested git diff --check; original /tmp patch preserved unchanged."
+    }
+  ],
+  "no_test_log_or_assertion_removed": true
+}

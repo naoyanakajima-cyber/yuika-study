@@ -1,0 +1,87 @@
+{
+  "run": "cycle-20261124T090607Z",
+  "old_main": "58f8b53b4da69806d15a126fc525b65893a0bf35",
+  "main": "101c64ef9be86cb7c3502d3eeec498f16e93e7fd",
+  "pr31_head": "4d571c530aae75f297cfa7cb54e121e4f40afb7f",
+  "pr31_merged_at": "2026-11-24T09:04:39Z",
+  "tree_equal": true,
+  "changed_files": [
+    "README.md",
+    "edo-review.html",
+    "heian-review.html",
+    "index.html",
+    "kamakura-review.html",
+    "mock-focus-review.html",
+    "notifications/README.md",
+    "notifications/client.js",
+    "notifications/embed.py",
+    "onin-review.html",
+    "scripts/check_all.sh",
+    "scripts/edo/build.py",
+    "scripts/focus/embed.py",
+    "tests/edo.py",
+    "tests/focus_data.py",
+    "tests/parent_mode.py",
+    "tests/study_reports.py",
+    "yuika-review-v2.html"
+  ],
+  "diff_stat": "18 files changed, 480 insertions(+), 48 deletions(-)",
+  "product_comparisons": [
+    {
+      "pr": 10,
+      "head": "d26d10dea80b93cef7a47dbd814f76e3f69d3934",
+      "state": "open",
+      "draft": true,
+      "merge_base": "58f8b53b4da69806d15a126fc525b65893a0bf35",
+      "overlap_files": [
+        "README.md",
+        "edo-review.html",
+        "heian-review.html",
+        "index.html",
+        "kamakura-review.html",
+        "mock-focus-review.html",
+        "onin-review.html",
+        "scripts/check_all.sh",
+        "yuika-review-v2.html"
+      ]
+    },
+    {
+      "pr": 11,
+      "head": "3920f1642692c88a8d6870480bc3f98f71558d24",
+      "state": "open",
+      "draft": true,
+      "merge_base": "58f8b53b4da69806d15a126fc525b65893a0bf35",
+      "overlap_files": [
+        "README.md",
+        "heian-review.html",
+        "kamakura-review.html",
+        "mock-focus-review.html",
+        "onin-review.html",
+        "scripts/check_all.sh",
+        "tests/parent_mode.py"
+      ]
+    },
+    {
+      "pr": 12,
+      "head": "00c4ccb3b501223366a5f0a736567231ea9b8043",
+      "state": "open",
+      "draft": true,
+      "merge_base": "58f8b53b4da69806d15a126fc525b65893a0bf35",
+      "overlap_files": [
+        "README.md",
+        "heian-review.html",
+        "kamakura-review.html",
+        "mock-focus-review.html",
+        "onin-review.html",
+        "scripts/check_all.sh"
+      ]
+    }
+  ],
+  "tests_executed": 0,
+  "application_runtime_verified": false,
+  "ceo_decisions_ingested": 0,
+  "pr31_author_claim": "27 suites passed three times; not executed or independently reproduced in this cycle",
+  "pdm": "pdm_pr31_scope",
+  "prm": "root/coordinator",
+  "prm_scope_accepted": "documentation_only; next implementation existing PR10 compatibility sync; preserve three-product wait cap"
+}

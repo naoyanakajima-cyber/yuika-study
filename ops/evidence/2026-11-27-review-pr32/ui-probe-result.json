@@ -1,0 +1,39 @@
+{
+  "contexts": [
+    {
+      "page": "onin-review.html",
+      "parent": false,
+      "reason_visible": true,
+      "answered_and_reloaded_events": 2,
+      "normal_storage_unchanged": null,
+      "posts": 0,
+      "pageerrors": []
+    },
+    {
+      "page": "onin-review.html",
+      "parent": true,
+      "reason_visible": true,
+      "answered_and_reloaded_events": 2,
+      "normal_storage_unchanged": true,
+      "posts": 0,
+      "pageerrors": []
+    },
+    {
+      "page": "math-passage-review.html",
+      "parent": false,
+      "stage0_answer_and_partial_end": true,
+      "normal_storage_unchanged": true,
+      "posts": 0,
+      "pageerrors": []
+    },
+    {
+      "page": "math-passage-review.html",
+      "parent": true,
+      "stage0_answer_and_partial_end": true,
+      "normal_storage_unchanged": true,
+      "posts": 0,
+      "pageerrors": []
+    }
+  ],
+  "scope": "Synthetic only; external traffic blocked; math notification config disabled; mock delivery validated by math_passage suite."
+}

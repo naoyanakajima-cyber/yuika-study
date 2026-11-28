@@ -1,0 +1,26 @@
+{
+  "main": "86514eda054a5a2e09204df3a0668e40624c16de",
+  "unchanged_files": [
+    "assets/design.css",
+    "assets/design.js",
+    "scripts/parent/runtime.js",
+    "scripts/parent/embed.py",
+    "notifications/client.js",
+    "onin-review.html",
+    "heian-review.html",
+    "index.html",
+    "yuika-review-v2.html",
+    "mock-focus-review.html"
+  ],
+  "learning_tail_identical": true,
+  "parent_reports_csp_identical": true,
+  "theme_no_direct_localStorage": true,
+  "main_delta_files": [
+    "README.md",
+    "docs/product/theme-spec.md",
+    "kamakura-review.html",
+    "scripts/check_all.sh",
+    "tests/theme_review.py"
+  ],
+  "theme_registered_once": true
+}

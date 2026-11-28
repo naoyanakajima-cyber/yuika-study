@@ -1,0 +1,164 @@
+{
+  "head": "ee51e68d7e1eeb21bd0e959ec58166a869947d0a",
+  "verified_at": "2026-11-14T23:29:10.778434+00:00",
+  "clean": true,
+  "reviewer": "qa_content_trial_delivery",
+  "implementer": "engineer_content_trial_delivery",
+  "decision": "PASS for draft PR / CEO review; no merge or deploy approval",
+  "mandatory_suites": {
+    "count": 26,
+    "exit": 0,
+    "seconds": 256,
+    "attempt_on_final_candidate": 1,
+    "rows": [
+      {
+        "suite": "tests/onin_review.py",
+        "exit": 0,
+        "seconds": 5
+      },
+      {
+        "suite": "tests/kamakura_review.py",
+        "exit": 0,
+        "seconds": 5
+      },
+      {
+        "suite": "tests/cloud_preview.py",
+        "exit": 0,
+        "seconds": 3
+      },
+      {
+        "suite": "notifications/test/worker.test.mjs",
+        "exit": 0,
+        "seconds": 0
+      },
+      {
+        "suite": "notifications/test/browser.py",
+        "exit": 0,
+        "seconds": 13
+      },
+      {
+        "suite": "tests/cloud_bootstrap.py",
+        "exit": 0,
+        "seconds": 2
+      },
+      {
+        "suite": "tests/adaptive_practice.py",
+        "exit": 0,
+        "seconds": 3
+      },
+      {
+        "suite": "tests/adaptive_daily.py",
+        "exit": 0,
+        "seconds": 4
+      },
+      {
+        "suite": "tests/adaptive_quality.py",
+        "exit": 0,
+        "seconds": 4
+      },
+      {
+        "suite": "tests/flash_grading.py",
+        "exit": 0,
+        "seconds": 8
+      },
+      {
+        "suite": "tests/spaced_daily.py",
+        "exit": 0,
+        "seconds": 5
+      },
+      {
+        "suite": "tests/history_compat.py",
+        "exit": 0,
+        "seconds": 4
+      },
+      {
+        "suite": "tests/science_adaptive.py",
+        "exit": 0,
+        "seconds": 8
+      },
+      {
+        "suite": "tests/registered_answers.py",
+        "exit": 0,
+        "seconds": 3
+      },
+      {
+        "suite": "tests/history_review_regression.py",
+        "exit": 0,
+        "seconds": 2
+      },
+      {
+        "suite": "tests/state_review_regression.py",
+        "exit": 0,
+        "seconds": 4
+      },
+      {
+        "suite": "tests/prototype_storage.py",
+        "exit": 0,
+        "seconds": 7
+      },
+      {
+        "suite": "tests/focus_data.py",
+        "exit": 0,
+        "seconds": 0
+      },
+      {
+        "suite": "tests/focus_practice.py",
+        "exit": 0,
+        "seconds": 12
+      },
+      {
+        "suite": "tests/parent_mode.py",
+        "exit": 0,
+        "seconds": 20
+      },
+      {
+        "suite": "tests/design_c.py",
+        "exit": 0,
+        "seconds": 19
+      },
+      {
+        "suite": "tests/responsive_subjects.py",
+        "exit": 0,
+        "seconds": 112
+      },
+      {
+        "suite": "tests/content_review.py",
+        "exit": 0,
+        "seconds": 4
+      },
+      {
+        "suite": "tests/content_guidance.py",
+        "exit": 0,
+        "seconds": 2
+      },
+      {
+        "suite": "tests/content_import_guard.py",
+        "exit": 0,
+        "seconds": 4
+      },
+      {
+        "suite": "tests/content_trial.py",
+        "exit": 0,
+        "seconds": 3
+      }
+    ]
+  },
+  "independent_probe": {
+    "cases": 65,
+    "result": "PASS",
+    "attempt_on_final_candidate": 1
+  },
+  "static_boundaries": "PASS",
+  "repair_real_ui": "PASS",
+  "blocking_findings": [],
+  "initial_candidate": "8e2111b4e9c535c4632976a6f384992e839d1329",
+  "initial_candidate_evidence": "attempt1/",
+  "initial_blocking": "Normalized candidate error had no usable field navigation; fixed and independently retested.",
+  "limitations": [
+    "Synthetic text/choice only",
+    "Synthetic persisted pageshow and actual reload tested; actual BFCache hit not measured",
+    "Chromium 768x1024; no physical iPad/Safari/WebKit",
+    "Immediate graded screenshot blank retained; cause unconfirmed. DOM assertions and same-HEAD fresh-context delayed visual check passed.",
+    "No deployment or actual learner evaluation"
+  ]
+}

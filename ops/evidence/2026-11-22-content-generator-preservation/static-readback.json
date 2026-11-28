@@ -1,0 +1,139 @@
+{
+  "head": "3920f1642692c88a8d6870480bc3f98f71558d24",
+  "base": "ee228ca0a1865d0a56f4302cd9342a4f66738561",
+  "content_file_hashes": [
+    {
+      "path": "content-review.html",
+      "base_sha256": "b978ea0ebd725cbe0b0b45275ad19d7be4ee78e64fb5c7e40947fe05475560f4",
+      "head_sha256": "b978ea0ebd725cbe0b0b45275ad19d7be4ee78e64fb5c7e40947fe05475560f4"
+    },
+    {
+      "path": "docs/product/content-image-trial-spec.md",
+      "base_sha256": "bc38f1026563047815a0c46ebb2e8257b2f9e50e1ced5e7b715a554a3b5c36db",
+      "head_sha256": "bc38f1026563047815a0c46ebb2e8257b2f9e50e1ced5e7b715a554a3b5c36db"
+    },
+    {
+      "path": "docs/product/content-import-guard-spec.md",
+      "base_sha256": "2c848f8571c88baa80d4546b9397cef171000d7cb49a990ab3746363e9aa62a3",
+      "head_sha256": "2c848f8571c88baa80d4546b9397cef171000d7cb49a990ab3746363e9aa62a3"
+    },
+    {
+      "path": "docs/product/content-spec.md",
+      "base_sha256": "c9ab0a4fc19b784436f86efe14898f5de38812946f2f1829d5b61394a447db5b",
+      "head_sha256": "c9ab0a4fc19b784436f86efe14898f5de38812946f2f1829d5b61394a447db5b"
+    },
+    {
+      "path": "docs/product/content-try-spec.md",
+      "base_sha256": "90e36ea9dde10d165cbe1dc4a36a8f2e8e61473bcf11bbdbdfbd339e024ee825",
+      "head_sha256": "90e36ea9dde10d165cbe1dc4a36a8f2e8e61473bcf11bbdbdfbd339e024ee825"
+    },
+    {
+      "path": "docs/product/fixtures/synthetic-content.json",
+      "base_sha256": "b7888211dd030ff3f4d34f0391731905f6d91b27426fc03837bf3f408e40a569",
+      "head_sha256": "b7888211dd030ff3f4d34f0391731905f6d91b27426fc03837bf3f408e40a569"
+    },
+    {
+      "path": "docs/product/fixtures/synthetic-image-content.json",
+      "base_sha256": "cd4ccacf396ab4bbb588c7837dfcb15128d3a5e4f8466e05fa72d7868b01b0e8",
+      "head_sha256": "cd4ccacf396ab4bbb588c7837dfcb15128d3a5e4f8466e05fa72d7868b01b0e8"
+    },
+    {
+      "path": "docs/product/fixtures/synthetic-source.svg",
+      "base_sha256": "afda72b176054eb4512a80fffd2ac54f72a3849f5bc07e91a330ce1e117972ad",
+      "head_sha256": "afda72b176054eb4512a80fffd2ac54f72a3849f5bc07e91a330ce1e117972ad"
+    },
+    {
+      "path": "docs/product/fixtures/synthetic-source.txt",
+      "base_sha256": "82d05d9845a7b244b0890cc605cdf26f85378ef07a5274d034f24fc7c71251ef",
+      "head_sha256": "82d05d9845a7b244b0890cc605cdf26f85378ef07a5274d034f24fc7c71251ef"
+    },
+    {
+      "path": "docs/product/fixtures/synthetic-triangle-content.json",
+      "base_sha256": "0d1676e162d8ce6d5ab9a25feba0c77fba6ed6701a2f16073113b15ffaebb45c",
+      "head_sha256": "0d1676e162d8ce6d5ab9a25feba0c77fba6ed6701a2f16073113b15ffaebb45c"
+    },
+    {
+      "path": "docs/product/fixtures/synthetic-triangle-source.svg",
+      "base_sha256": "94fb9f4528630b932071e13f7c9fc90d890e832a0d455f319b4461d9a635b888",
+      "head_sha256": "94fb9f4528630b932071e13f7c9fc90d890e832a0d455f319b4461d9a635b888"
+    },
+    {
+      "path": "tests/content_guidance.py",
+      "base_sha256": "37380a5ddc875a64ab77449bd87f97305dac3cfa7b05746c69c3c7428edac2c6",
+      "head_sha256": "37380a5ddc875a64ab77449bd87f97305dac3cfa7b05746c69c3c7428edac2c6"
+    },
+    {
+      "path": "tests/content_image_trial.py",
+      "base_sha256": "f0a7c3ab43e672c249b3c6af249bcff8f52c9ebde1e7c01aba5316e706b7d91e",
+      "head_sha256": "f0a7c3ab43e672c249b3c6af249bcff8f52c9ebde1e7c01aba5316e706b7d91e"
+    },
+    {
+      "path": "tests/content_import_guard.py",
+      "base_sha256": "96b9e3f2aee0ab50031162c1424f0575717ccf474555dad18e1663c8ae2bfa8b",
+      "head_sha256": "96b9e3f2aee0ab50031162c1424f0575717ccf474555dad18e1663c8ae2bfa8b"
+    },
+    {
+      "path": "tests/content_review.py",
+      "base_sha256": "8fe58eb8be5b6ad5498352557dfbe1f26c8fd23613f33bea4ba6a25c14f2863e",
+      "head_sha256": "8fe58eb8be5b6ad5498352557dfbe1f26c8fd23613f33bea4ba6a25c14f2863e"
+    },
+    {
+      "path": "tests/content_trial.py",
+      "base_sha256": "c9c8d96b3805997a092600d8008f2907eddb5c153855fe7f9124c1937097a5f4",
+      "head_sha256": "c9c8d96b3805997a092600d8008f2907eddb5c153855fe7f9124c1937097a5f4"
+    }
+  ],
+  "science_html_sha256": "54addcfe1f2491adcfb501a2525c476e2ded2d5d5c80062c0c124395cfa866f3",
+  "science_html_base_sha256": "54addcfe1f2491adcfb501a2525c476e2ded2d5d5c80062c0c124395cfa866f3",
+  "science_source_with_separator_sha256": "3e5bdfb83121037bfab4e52af0c3249cb0f0621a7f67d618def50eceda979555",
+  "science_embedded_adapter_sha256": "3e5bdfb83121037bfab4e52af0c3249cb0f0621a7f67d618def50eceda979555",
+  "prototype_source_sha256": "a34287aa64cc7b10370d3ff660bdca9748212ad978f7a014aa1a8b1438838410",
+  "science_embedded_prototype_sha256": "a34287aa64cc7b10370d3ff660bdca9748212ad978f7a014aa1a8b1438838410",
+  "suite_names": [
+    "tests/onin_review.py",
+    "tests/kamakura_review.py",
+    "tests/cloud_preview.py",
+    "notifications/test/worker.test.mjs",
+    "notifications/test/browser.py",
+    "tests/cloud_bootstrap.py",
+    "tests/generator_preservation.py",
+    "tests/adaptive_practice.py",
+    "tests/adaptive_daily.py",
+    "tests/adaptive_quality.py",
+    "tests/flash_grading.py",
+    "tests/spaced_daily.py",
+    "tests/history_compat.py",
+    "tests/edo.py",
+    "tests/medaka.py",
+    "tests/lever.py",
+    "tests/microscope.py",
+    "tests/science_adaptive.py",
+    "tests/registered_answers.py",
+    "tests/history_review_regression.py",
+    "tests/state_review_regression.py",
+    "tests/prototype_storage.py",
+    "tests/focus_data.py",
+    "tests/focus_practice.py",
+    "tests/parent_mode.py",
+    "tests/design_c.py",
+    "tests/responsive_subjects.py",
+    "tests/content_review.py",
+    "tests/content_guidance.py",
+    "tests/content_import_guard.py",
+    "tests/content_trial.py",
+    "tests/content_image_trial.py"
+  ],
+  "static_bundle_attempts": [
+    {
+      "attempt": 1,
+      "stopped": "line 25 wrong expected variable text allowed= on the changed allowlist row",
+      "reached": "clean checkout, all content blob equality, science HTML equality, source/embedded identity, no scienceDailySources, first other HTML exactly one changed line"
+    },
+    {
+      "attempt": 2,
+      "stopped": "line 27 wrong expected pathname-based prototypeScience expression",
+      "reached": "same prior checks; actual other HTML row exactly adds answerUnit/answerTag"
+    }
+  ],
+  "manual_followup": "git diff confirms all four other HTMLs each have exactly one allowed-field row change. Actual runtime.js line3 is typeof byId !== undefined, lines13-14 science-only branch. rg byId in four HTMLs finds only the two typeof checks and no declaration. No third static bundle run. New generators/negative checks are separately executed in regeneration.py."
+}

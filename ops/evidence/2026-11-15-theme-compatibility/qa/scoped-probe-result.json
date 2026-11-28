@@ -1,0 +1,708 @@
+{
+  "head": "c81fb6b3a7e9c5c6c5d42431afe1d13a73c780d3",
+  "checks": [
+    "standard computed appearance matches main",
+    "distinct theme and exact standard restore",
+    "both themes parent-mode-home visible text/overflow/learning invariance",
+    "both themes parent-mode-quiz visible text/overflow/learning invariance",
+    "both themes parent-mode-feedback visible text/overflow/learning invariance",
+    "parent answers persist only to session prototype key",
+    "both themes parent-mode-result visible text/overflow/learning invariance",
+    "both themes parent-mode-note visible text/overflow/learning invariance",
+    "both themes parent-mode-records visible text/overflow/learning invariance",
+    "actual footer parent-note route",
+    "parent reload restores session theme and synthetic records",
+    "exit clears parent session and restores normal theme",
+    "temporary memory theme/answer never touches child storage",
+    "temporary memory reload clears ephemeral theme and answers"
+  ],
+  "count": 14,
+  "colors": [
+    {
+      "view": "parent-mode-home",
+      "theme": "standard",
+      "selector": ".theme-description",
+      "fg": "rgb(35, 39, 51)",
+      "bg": "rgb(245, 246, 250)",
+      "font": "13px",
+      "line": "23.4px",
+      "ratio": 13.796070257990484
+    },
+    {
+      "view": "parent-mode-home",
+      "theme": "standard",
+      "selector": ".theme-choice[aria-pressed=true]",
+      "fg": "rgb(255, 255, 255)",
+      "bg": "rgb(35, 39, 51)",
+      "font": "16px",
+      "line": "27.2px",
+      "ratio": 14.899155591193585
+    },
+    {
+      "view": "parent-mode-home",
+      "theme": "standard",
+      "selector": ".theme-choice[aria-pressed=false]",
+      "fg": "rgb(35, 39, 51)",
+      "bg": "rgb(255, 255, 255)",
+      "font": "16px",
+      "line": "27.2px",
+      "ratio": 14.899155591193585
+    },
+    {
+      "view": "parent-mode-home",
+      "theme": "standard",
+      "selector": "#main h1",
+      "fg": "rgb(35, 39, 51)",
+      "bg": "rgb(224, 123, 57)",
+      "font": "46px",
+      "line": "64.4px",
+      "ratio": 5.0101772139755
+    },
+    {
+      "view": "parent-mode-home",
+      "theme": "standard",
+      "selector": "#main p",
+      "fg": "rgb(35, 39, 51)",
+      "bg": "rgb(224, 123, 57)",
+      "font": "15px",
+      "line": "27px",
+      "ratio": 5.0101772139755
+    },
+    {
+      "view": "parent-mode-home",
+      "theme": "kamakura",
+      "selector": ".theme-description",
+      "fg": "rgb(36, 61, 75)",
+      "bg": "rgb(247, 242, 232)",
+      "font": "13px",
+      "line": "23.4px",
+      "ratio": 10.205959987890198
+    },
+    {
+      "view": "parent-mode-home",
+      "theme": "kamakura",
+      "selector": ".theme-choice[aria-pressed=true]",
+      "fg": "rgb(255, 255, 255)",
+      "bg": "rgb(36, 86, 107)",
+      "font": "16px",
+      "line": "27.2px",
+      "ratio": 8.02005359294393
+    },
+    {
+      "view": "parent-mode-home",
+      "theme": "kamakura",
+      "selector": ".theme-choice[aria-pressed=false]",
+      "fg": "rgb(36, 61, 75)",
+      "bg": "rgb(255, 255, 255)",
+      "font": "16px",
+      "line": "27.2px",
+      "ratio": 11.387601079398317
+    },
+    {
+      "view": "parent-mode-home",
+      "theme": "kamakura",
+      "selector": "#main h1",
+      "fg": "rgb(255, 255, 255)",
+      "bg": "rgb(36, 86, 107)",
+      "font": "46px",
+      "line": "64.4px",
+      "ratio": 8.02005359294393
+    },
+    {
+      "view": "parent-mode-home",
+      "theme": "kamakura",
+      "selector": "#main p",
+      "fg": "rgb(255, 255, 255)",
+      "bg": "rgb(36, 86, 107)",
+      "font": "15px",
+      "line": "27px",
+      "ratio": 8.02005359294393
+    },
+    {
+      "view": "parent-mode-quiz",
+      "theme": "standard",
+      "selector": ".theme-description",
+      "fg": "rgb(35, 39, 51)",
+      "bg": "rgb(245, 246, 250)",
+      "font": "13px",
+      "line": "23.4px",
+      "ratio": 13.796070257990484
+    },
+    {
+      "view": "parent-mode-quiz",
+      "theme": "standard",
+      "selector": ".theme-choice[aria-pressed=true]",
+      "fg": "rgb(255, 255, 255)",
+      "bg": "rgb(35, 39, 51)",
+      "font": "16px",
+      "line": "27.2px",
+      "ratio": 14.899155591193585
+    },
+    {
+      "view": "parent-mode-quiz",
+      "theme": "standard",
+      "selector": ".theme-choice[aria-pressed=false]",
+      "fg": "rgb(35, 39, 51)",
+      "bg": "rgb(255, 255, 255)",
+      "font": "16px",
+      "line": "27.2px",
+      "ratio": 14.899155591193585
+    },
+    {
+      "view": "parent-mode-quiz",
+      "theme": "standard",
+      "selector": "#main h1",
+      "fg": "rgb(35, 39, 51)",
+      "bg": "rgb(255, 255, 255)",
+      "font": "26px",
+      "line": "44.2px",
+      "ratio": 14.899155591193585
+    },
+    {
+      "view": "parent-mode-quiz",
+      "theme": "kamakura",
+      "selector": ".theme-description",
+      "fg": "rgb(36, 61, 75)",
+      "bg": "rgb(247, 242, 232)",
+      "font": "13px",
+      "line": "23.4px",
+      "ratio": 10.205959987890198
+    },
+    {
+      "view": "parent-mode-quiz",
+      "theme": "kamakura",
+      "selector": ".theme-choice[aria-pressed=true]",
+      "fg": "rgb(255, 255, 255)",
+      "bg": "rgb(36, 86, 107)",
+      "font": "16px",
+      "line": "27.2px",
+      "ratio": 8.02005359294393
+    },
+    {
+      "view": "parent-mode-quiz",
+      "theme": "kamakura",
+      "selector": ".theme-choice[aria-pressed=false]",
+      "fg": "rgb(36, 61, 75)",
+      "bg": "rgb(255, 255, 255)",
+      "font": "16px",
+      "line": "27.2px",
+      "ratio": 11.387601079398317
+    },
+    {
+      "view": "parent-mode-quiz",
+      "theme": "kamakura",
+      "selector": "#main h1",
+      "fg": "rgb(36, 61, 75)",
+      "bg": "rgb(255, 253, 247)",
+      "font": "26px",
+      "line": "44.2px",
+      "ratio": 11.195200483372389
+    },
+    {
+      "view": "parent-mode-feedback",
+      "theme": "standard",
+      "selector": ".theme-description",
+      "fg": "rgb(35, 39, 51)",
+      "bg": "rgb(245, 246, 250)",
+      "font": "13px",
+      "line": "23.4px",
+      "ratio": 13.796070257990484
+    },
+    {
+      "view": "parent-mode-feedback",
+      "theme": "standard",
+      "selector": ".theme-choice[aria-pressed=true]",
+      "fg": "rgb(255, 255, 255)",
+      "bg": "rgb(35, 39, 51)",
+      "font": "16px",
+      "line": "27.2px",
+      "ratio": 14.899155591193585
+    },
+    {
+      "view": "parent-mode-feedback",
+      "theme": "standard",
+      "selector": ".theme-choice[aria-pressed=false]",
+      "fg": "rgb(35, 39, 51)",
+      "bg": "rgb(255, 255, 255)",
+      "font": "16px",
+      "line": "27.2px",
+      "ratio": 14.899155591193585
+    },
+    {
+      "view": "parent-mode-feedback",
+      "theme": "standard",
+      "selector": "#main h1",
+      "fg": "rgb(35, 39, 51)",
+      "bg": "rgb(255, 255, 255)",
+      "font": "26px",
+      "line": "44.2px",
+      "ratio": 14.899155591193585
+    },
+    {
+      "view": "parent-mode-feedback",
+      "theme": "standard",
+      "selector": "#main p",
+      "fg": "rgb(35, 39, 51)",
+      "bg": "rgb(255, 240, 221)",
+      "font": "15px",
+      "line": "27px",
+      "ratio": 13.310002346832345
+    },
+    {
+      "view": "parent-mode-feedback",
+      "theme": "standard",
+      "selector": "#main .note",
+      "fg": "rgb(35, 39, 51)",
+      "bg": "rgb(255, 255, 255)",
+      "font": "13px",
+      "line": "22.1px",
+      "ratio": 14.899155591193585
+    },
+    {
+      "view": "parent-mode-feedback",
+      "theme": "kamakura",
+      "selector": ".theme-description",
+      "fg": "rgb(36, 61, 75)",
+      "bg": "rgb(247, 242, 232)",
+      "font": "13px",
+      "line": "23.4px",
+      "ratio": 10.205959987890198
+    },
+    {
+      "view": "parent-mode-feedback",
+      "theme": "kamakura",
+      "selector": ".theme-choice[aria-pressed=true]",
+      "fg": "rgb(255, 255, 255)",
+      "bg": "rgb(36, 86, 107)",
+      "font": "16px",
+      "line": "27.2px",
+      "ratio": 8.02005359294393
+    },
+    {
+      "view": "parent-mode-feedback",
+      "theme": "kamakura",
+      "selector": ".theme-choice[aria-pressed=false]",
+      "fg": "rgb(36, 61, 75)",
+      "bg": "rgb(255, 255, 255)",
+      "font": "16px",
+      "line": "27.2px",
+      "ratio": 11.387601079398317
+    },
+    {
+      "view": "parent-mode-feedback",
+      "theme": "kamakura",
+      "selector": "#main h1",
+      "fg": "rgb(36, 61, 75)",
+      "bg": "rgb(255, 253, 247)",
+      "font": "26px",
+      "line": "44.2px",
+      "ratio": 11.195200483372389
+    },
+    {
+      "view": "parent-mode-feedback",
+      "theme": "kamakura",
+      "selector": "#main p",
+      "fg": "rgb(36, 61, 75)",
+      "bg": "rgb(242, 228, 218)",
+      "font": "15px",
+      "line": "27px",
+      "ratio": 9.156282660307443
+    },
+    {
+      "view": "parent-mode-feedback",
+      "theme": "kamakura",
+      "selector": "#main .note",
+      "fg": "rgb(36, 61, 75)",
+      "bg": "rgb(231, 238, 240)",
+      "font": "13px",
+      "line": "22.1px",
+      "ratio": 9.698902930185428
+    },
+    {
+      "view": "parent-mode-result",
+      "theme": "standard",
+      "selector": ".theme-description",
+      "fg": "rgb(35, 39, 51)",
+      "bg": "rgb(245, 246, 250)",
+      "font": "13px",
+      "line": "23.4px",
+      "ratio": 13.796070257990484
+    },
+    {
+      "view": "parent-mode-result",
+      "theme": "standard",
+      "selector": ".theme-choice[aria-pressed=true]",
+      "fg": "rgb(255, 255, 255)",
+      "bg": "rgb(35, 39, 51)",
+      "font": "16px",
+      "line": "27.2px",
+      "ratio": 14.899155591193585
+    },
+    {
+      "view": "parent-mode-result",
+      "theme": "standard",
+      "selector": ".theme-choice[aria-pressed=false]",
+      "fg": "rgb(35, 39, 51)",
+      "bg": "rgb(255, 255, 255)",
+      "font": "16px",
+      "line": "27.2px",
+      "ratio": 14.899155591193585
+    },
+    {
+      "view": "parent-mode-result",
+      "theme": "standard",
+      "selector": "#main h1",
+      "fg": "rgb(35, 39, 51)",
+      "bg": "rgb(255, 255, 255)",
+      "font": "34.56px",
+      "line": "50.112px",
+      "ratio": 14.899155591193585
+    },
+    {
+      "view": "parent-mode-result",
+      "theme": "standard",
+      "selector": "#main p",
+      "fg": "rgb(35, 39, 51)",
+      "bg": "rgb(255, 255, 255)",
+      "font": "15px",
+      "line": "27px",
+      "ratio": 14.899155591193585
+    },
+    {
+      "view": "parent-mode-result",
+      "theme": "standard",
+      "selector": "#main .muted",
+      "fg": "rgb(91, 98, 116)",
+      "bg": "rgb(255, 255, 255)",
+      "font": "13px",
+      "line": "23.4px",
+      "ratio": 6.097396078213994
+    },
+    {
+      "view": "parent-mode-result",
+      "theme": "kamakura",
+      "selector": ".theme-description",
+      "fg": "rgb(36, 61, 75)",
+      "bg": "rgb(247, 242, 232)",
+      "font": "13px",
+      "line": "23.4px",
+      "ratio": 10.205959987890198
+    },
+    {
+      "view": "parent-mode-result",
+      "theme": "kamakura",
+      "selector": ".theme-choice[aria-pressed=true]",
+      "fg": "rgb(255, 255, 255)",
+      "bg": "rgb(36, 86, 107)",
+      "font": "16px",
+      "line": "27.2px",
+      "ratio": 8.02005359294393
+    },
+    {
+      "view": "parent-mode-result",
+      "theme": "kamakura",
+      "selector": ".theme-choice[aria-pressed=false]",
+      "fg": "rgb(36, 61, 75)",
+      "bg": "rgb(255, 255, 255)",
+      "font": "16px",
+      "line": "27.2px",
+      "ratio": 11.387601079398317
+    },
+    {
+      "view": "parent-mode-result",
+      "theme": "kamakura",
+      "selector": "#main h1",
+      "fg": "rgb(36, 61, 75)",
+      "bg": "rgb(255, 253, 247)",
+      "font": "34.56px",
+      "line": "50.112px",
+      "ratio": 11.195200483372389
+    },
+    {
+      "view": "parent-mode-result",
+      "theme": "kamakura",
+      "selector": "#main p",
+      "fg": "rgb(36, 61, 75)",
+      "bg": "rgb(255, 253, 247)",
+      "font": "15px",
+      "line": "27px",
+      "ratio": 11.195200483372389
+    },
+    {
+      "view": "parent-mode-result",
+      "theme": "kamakura",
+      "selector": "#main .muted",
+      "fg": "rgb(82, 100, 107)",
+      "bg": "rgb(255, 253, 247)",
+      "font": "13px",
+      "line": "23.4px",
+      "ratio": 6.082950794899546
+    },
+    {
+      "view": "parent-mode-note",
+      "theme": "standard",
+      "selector": ".theme-description",
+      "fg": "rgb(35, 39, 51)",
+      "bg": "rgb(245, 246, 250)",
+      "font": "13px",
+      "line": "23.4px",
+      "ratio": 13.796070257990484
+    },
+    {
+      "view": "parent-mode-note",
+      "theme": "standard",
+      "selector": ".theme-choice[aria-pressed=true]",
+      "fg": "rgb(255, 255, 255)",
+      "bg": "rgb(35, 39, 51)",
+      "font": "16px",
+      "line": "27.2px",
+      "ratio": 14.899155591193585
+    },
+    {
+      "view": "parent-mode-note",
+      "theme": "standard",
+      "selector": ".theme-choice[aria-pressed=false]",
+      "fg": "rgb(35, 39, 51)",
+      "bg": "rgb(255, 255, 255)",
+      "font": "16px",
+      "line": "27.2px",
+      "ratio": 14.899155591193585
+    },
+    {
+      "view": "parent-mode-note",
+      "theme": "standard",
+      "selector": "#main h1",
+      "fg": "rgb(35, 39, 51)",
+      "bg": "rgb(245, 246, 250)",
+      "font": "34.56px",
+      "line": "50.112px",
+      "ratio": 13.796070257990484
+    },
+    {
+      "view": "parent-mode-note",
+      "theme": "standard",
+      "selector": "#main p",
+      "fg": "rgb(35, 39, 51)",
+      "bg": "rgb(255, 255, 255)",
+      "font": "13px",
+      "line": "23.4px",
+      "ratio": 14.899155591193585
+    },
+    {
+      "view": "parent-mode-note",
+      "theme": "standard",
+      "selector": "#main .muted",
+      "fg": "rgb(91, 98, 116)",
+      "bg": "rgb(255, 255, 255)",
+      "font": "13px",
+      "line": "23.4px",
+      "ratio": 6.097396078213994
+    },
+    {
+      "view": "parent-mode-note",
+      "theme": "standard",
+      "selector": "#main .note",
+      "fg": "rgb(35, 39, 51)",
+      "bg": "rgb(255, 255, 255)",
+      "font": "13px",
+      "line": "22.1px",
+      "ratio": 14.899155591193585
+    },
+    {
+      "view": "parent-mode-note",
+      "theme": "kamakura",
+      "selector": ".theme-description",
+      "fg": "rgb(36, 61, 75)",
+      "bg": "rgb(247, 242, 232)",
+      "font": "13px",
+      "line": "23.4px",
+      "ratio": 10.205959987890198
+    },
+    {
+      "view": "parent-mode-note",
+      "theme": "kamakura",
+      "selector": ".theme-choice[aria-pressed=true]",
+      "fg": "rgb(255, 255, 255)",
+      "bg": "rgb(36, 86, 107)",
+      "font": "16px",
+      "line": "27.2px",
+      "ratio": 8.02005359294393
+    },
+    {
+      "view": "parent-mode-note",
+      "theme": "kamakura",
+      "selector": ".theme-choice[aria-pressed=false]",
+      "fg": "rgb(36, 61, 75)",
+      "bg": "rgb(255, 255, 255)",
+      "font": "16px",
+      "line": "27.2px",
+      "ratio": 11.387601079398317
+    },
+    {
+      "view": "parent-mode-note",
+      "theme": "kamakura",
+      "selector": "#main h1",
+      "fg": "rgb(36, 61, 75)",
+      "bg": "rgb(247, 242, 232)",
+      "font": "34.56px",
+      "line": "50.112px",
+      "ratio": 10.205959987890198
+    },
+    {
+      "view": "parent-mode-note",
+      "theme": "kamakura",
+      "selector": "#main p",
+      "fg": "rgb(36, 61, 75)",
+      "bg": "rgb(231, 238, 240)",
+      "font": "13px",
+      "line": "23.4px",
+      "ratio": 9.698902930185428
+    },
+    {
+      "view": "parent-mode-note",
+      "theme": "kamakura",
+      "selector": "#main .muted",
+      "fg": "rgb(82, 100, 107)",
+      "bg": "rgb(255, 253, 247)",
+      "font": "13px",
+      "line": "23.4px",
+      "ratio": 6.082950794899546
+    },
+    {
+      "view": "parent-mode-note",
+      "theme": "kamakura",
+      "selector": "#main .note",
+      "fg": "rgb(36, 61, 75)",
+      "bg": "rgb(231, 238, 240)",
+      "font": "13px",
+      "line": "22.1px",
+      "ratio": 9.698902930185428
+    },
+    {
+      "view": "parent-mode-records",
+      "theme": "standard",
+      "selector": ".theme-description",
+      "fg": "rgb(35, 39, 51)",
+      "bg": "rgb(245, 246, 250)",
+      "font": "13px",
+      "line": "23.4px",
+      "ratio": 13.796070257990484
+    },
+    {
+      "view": "parent-mode-records",
+      "theme": "standard",
+      "selector": ".theme-choice[aria-pressed=true]",
+      "fg": "rgb(255, 255, 255)",
+      "bg": "rgb(35, 39, 51)",
+      "font": "16px",
+      "line": "27.2px",
+      "ratio": 14.899155591193585
+    },
+    {
+      "view": "parent-mode-records",
+      "theme": "standard",
+      "selector": ".theme-choice[aria-pressed=false]",
+      "fg": "rgb(35, 39, 51)",
+      "bg": "rgb(255, 255, 255)",
+      "font": "16px",
+      "line": "27.2px",
+      "ratio": 14.899155591193585
+    },
+    {
+      "view": "parent-mode-records",
+      "theme": "standard",
+      "selector": "#main h1",
+      "fg": "rgb(35, 39, 51)",
+      "bg": "rgb(245, 246, 250)",
+      "font": "34.56px",
+      "line": "50.112px",
+      "ratio": 13.796070257990484
+    },
+    {
+      "view": "parent-mode-records",
+      "theme": "standard",
+      "selector": "#main p",
+      "fg": "rgb(35, 39, 51)",
+      "bg": "rgb(255, 255, 255)",
+      "font": "13px",
+      "line": "23.4px",
+      "ratio": 14.899155591193585
+    },
+    {
+      "view": "parent-mode-records",
+      "theme": "standard",
+      "selector": "#main .note",
+      "fg": "rgb(35, 39, 51)",
+      "bg": "rgb(255, 255, 255)",
+      "font": "13px",
+      "line": "22.1px",
+      "ratio": 14.899155591193585
+    },
+    {
+      "view": "parent-mode-records",
+      "theme": "kamakura",
+      "selector": ".theme-description",
+      "fg": "rgb(36, 61, 75)",
+      "bg": "rgb(247, 242, 232)",
+      "font": "13px",
+      "line": "23.4px",
+      "ratio": 10.205959987890198
+    },
+    {
+      "view": "parent-mode-records",
+      "theme": "kamakura",
+      "selector": ".theme-choice[aria-pressed=true]",
+      "fg": "rgb(255, 255, 255)",
+      "bg": "rgb(36, 86, 107)",
+      "font": "16px",
+      "line": "27.2px",
+      "ratio": 8.02005359294393
+    },
+    {
+      "view": "parent-mode-records",
+      "theme": "kamakura",
+      "selector": ".theme-choice[aria-pressed=false]",
+      "fg": "rgb(36, 61, 75)",
+      "bg": "rgb(255, 255, 255)",
+      "font": "16px",
+      "line": "27.2px",
+      "ratio": 11.387601079398317
+    },
+    {
+      "view": "parent-mode-records",
+      "theme": "kamakura",
+      "selector": "#main h1",
+      "fg": "rgb(36, 61, 75)",
+      "bg": "rgb(247, 242, 232)",
+      "font": "34.56px",
+      "line": "50.112px",
+      "ratio": 10.205959987890198
+    },
+    {
+      "view": "parent-mode-records",
+      "theme": "kamakura",
+      "selector": "#main p",
+      "fg": "rgb(36, 61, 75)",
+      "bg": "rgb(231, 238, 240)",
+      "font": "13px",
+      "line": "23.4px",
+      "ratio": 9.698902930185428
+    },
+    {
+      "view": "parent-mode-records",
+      "theme": "kamakura",
+      "selector": "#main .note",
+      "fg": "rgb(36, 61, 75)",
+      "bg": "rgb(231, 238, 240)",
+      "font": "13px",
+      "line": "22.1px",
+      "ratio": 9.698902930185428
+    }
+  ],
+  "post_arrivals": [],
+  "pageerrors": [],
+  "blocked_external_assets": [
+    "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"
+  ],
+  "scope": "No theme_review.py, check_all, or export execution; independent parent/memory and baseline presentation only"
+}

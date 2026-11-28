@@ -1,0 +1,51 @@
+[
+  {
+    "number": 22,
+    "head": "bd4f48de0404614eb84275969bfccff0a368e866",
+    "base": "codex/review-17-19-quality",
+    "state": "open",
+    "draft": true
+  },
+  {
+    "number": 13,
+    "head": "139c8b8b56bcd979068b61984120d9f312efe182",
+    "base": "codex/cloud-handoff-hardening-20261108",
+    "state": "open",
+    "draft": true
+  },
+  {
+    "number": 12,
+    "head": "57171ad9cab02fec6a080ecbe317fe11d3f51dcf",
+    "base": "codex/cloud-automatic-bootstrap",
+    "state": "open",
+    "draft": true
+  },
+  {
+    "number": 11,
+    "head": "62f34de238e9d1d62c796aac3a4b43418043d17f",
+    "base": "main",
+    "state": "open",
+    "draft": true
+  },
+  {
+    "number": 10,
+    "head": "73fe2ee9d776b3e3360614752fb722ff4aee4f85",
+    "base": "main",
+    "state": "open",
+    "draft": true
+  },
+  {
+    "number": 9,
+    "head": "4207084a1ddc6b88e54a429c07e8ce0a2bfefdfa",
+    "base": "main",
+    "state": "open",
+    "draft": true
+  },
+  {
+    "number": 4,
+    "head": "ff211ee8e144e955fa5837e8b8ff5cabf51f60a4",
+    "base": "main",
+    "state": "open",
+    "draft": true
+  }
+]

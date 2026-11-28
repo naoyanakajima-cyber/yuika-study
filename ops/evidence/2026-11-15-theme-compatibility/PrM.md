@@ -1,0 +1,7 @@
+# PrM範囲確認
+
+担当root/coordinator。PdMのC1〜C8を既存THEME-MVP/PR12の互換性修正として採択。独立checkoutで旧PR履歴を保持しmainを取り込む。main更新/公開とは区別。現mainの保護者storage境界とDesign Cへ適合させ、既存問題/学習script/通知/共有asset/CSPを維持。実際にPdM、Engineer、独立QAを起動。新CEO返答0、D05方向性の再承認要求なし。
+
+## 2試行上限の適用
+
+Engineerによるtheme試験はJSON export期待値の移行不整合で2回停止。1回目は旧直下events、2回目はformat誤記。最後の期待値修正を保存したが、同原因3回目は許可しない。全必須suiteにも同じcaseが含まれるため今回未実行とし、assertやrunnerを省略せず次runへ引き継ぐ。独立QAは静的比較とexportを含まない限定境界に縮小し、候補を完全受入済みと扱わない。新CEO判断が必要な障害ではなく検証継続の作業項目。

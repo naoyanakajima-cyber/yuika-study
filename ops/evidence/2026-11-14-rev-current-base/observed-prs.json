@@ -1,0 +1,72 @@
+{
+  "main": "86514eda054a5a2e09204df3a0668e40624c16de",
+  "prs": [
+    {
+      "number": 22,
+      "head_sha": "bd4f48de0404614eb84275969bfccff0a368e866",
+      "state": "open",
+      "draft": true,
+      "base": "codex/review-17-19-quality",
+      "base_sha": "79d546891940b6f5e3030940f7c52c2ff7b3d36b"
+    },
+    {
+      "number": 13,
+      "head_sha": "139c8b8b56bcd979068b61984120d9f312efe182",
+      "state": "open",
+      "draft": true,
+      "base": "codex/cloud-handoff-hardening-20261108",
+      "base_sha": "4329daaeec15641289d7edbcb7f3237d0da1e0e3"
+    },
+    {
+      "number": 12,
+      "head_sha": "57171ad9cab02fec6a080ecbe317fe11d3f51dcf",
+      "state": "open",
+      "draft": true,
+      "base": "codex/cloud-automatic-bootstrap",
+      "base_sha": "edad8065c1f2b726e61c5cf405f8d9ff6d807480"
+    },
+    {
+      "number": 11,
+      "head_sha": "f1e84a7b998dfbcd71c6692974015bdd08e1877e",
+      "state": "open",
+      "draft": true,
+      "base": "main",
+      "base_sha": "86514eda054a5a2e09204df3a0668e40624c16de"
+    },
+    {
+      "number": 10,
+      "head_sha": "ba829a1176ff1ead7d312526890afe8792178c99",
+      "state": "open",
+      "draft": true,
+      "base": "codex/cloud-automatic-bootstrap",
+      "base_sha": "edad8065c1f2b726e61c5cf405f8d9ff6d807480"
+    },
+    {
+      "number": 9,
+      "head_sha": "03b48689be5ee25f5e76df1ee6e63a4c1fdf8acd",
+      "state": "open",
+      "draft": true,
+      "base": "main",
+      "base_sha": "d526d65fbae116f834d14ad994a27bc50ca23b62"
+    },
+    {
+      "number": 4,
+      "head_sha": "ff211ee8e144e955fa5837e8b8ff5cabf51f60a4",
+      "state": "open",
+      "draft": true,
+      "base": "main",
+      "base_sha": "d526d65fbae116f834d14ad994a27bc50ca23b62"
+    }
+  ],
+  "pr10_checks": [
+    {
+      "name": "Workers Builds: yuika-study",
+      "status": "completed",
+      "conclusion": "failure",
+      "completed_at": "2026-11-09T22:16:51Z",
+      "html_url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/129478193830"
+    }
+  ],
+  "recorded_at": "2026-11-14T19:23:47.313935+00:00",
+  "observation_window": "cycle-20261114T191016Z before implementation"
+}

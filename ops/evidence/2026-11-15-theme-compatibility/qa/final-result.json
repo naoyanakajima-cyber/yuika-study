@@ -1,0 +1,39 @@
+{
+  "head": "c81fb6b3a7e9c5c6c5d42431afe1d13a73c780d3",
+  "verified_at": "2026-11-15T00:14:03.412251+00:00",
+  "clean": true,
+  "reviewer": "qa_theme_compatibility",
+  "implementer": "engineer_theme_compatibility",
+  "decision": "partial_review_passed; required_checks_pending; not accepted for full QA",
+  "static_review": "PASS, first attempt",
+  "scoped_probe": {
+    "result": "PASS",
+    "checks": 14,
+    "color_samples": 68,
+    "minimum_text_contrast": 5.0101772139755,
+    "attempts": 2,
+    "first_failure": "QA harness returned the assigned enqueue spy to Playwright; the framework invoked it once. Repaired evaluation callback returns no function."
+  },
+  "mandatory_suites": {
+    "registered": 23,
+    "executed_by_this_QA": false,
+    "reason": "PrM stopped same-cause theme export expectation attempts at 2; no full suite or export bypass"
+  },
+  "export_verification": {
+    "executed": false,
+    "static_expectation": "yuika-review-prototype envelope, formatVersion 1, payload.events matches current main"
+  },
+  "product_blocking_findings": [],
+  "acceptance_blockers": [
+    "Final corrected theme suite including export and later cases not executed",
+    "Required 23-suite run not executed on final candidate"
+  ],
+  "limitations": [
+    "Chromium 768x1024 only; no Safari/WebKit/physical iPad or learner preference assessment",
+    "Theme/read-write error and unknown-value cases not independently executed in this scoped probe",
+    "Normal main appearance comparison limited to six sampled element styles; not a whole-page pixel equivalence claim",
+    "Six-view screenshots and contrast checks are parent-check mode; no native zoom or exhaustive long-diagram/font checks",
+    "Existing public font GET blocked; fallback font rendering, not loaded webfont verification",
+    "No deployment, production communication, private input or export download performed"
+  ]
+}

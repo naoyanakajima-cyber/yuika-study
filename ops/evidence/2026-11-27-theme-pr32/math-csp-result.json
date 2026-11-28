@@ -1,0 +1,13 @@
+{
+  "head": "b4deb0df131b1280ab2cc0647851e1d345d06143",
+  "status": 200,
+  "stage_controls": 5,
+  "csp": "connect-src 'none'; form-action 'none'; object-src 'none'",
+  "synthetic_fetch_rejected": true,
+  "violation_directives": [
+    "connect-src",
+    "connect-src"
+  ],
+  "post_arrivals": 0,
+  "completed_at": "2026-11-27T17:11:21.661723+00:00"
+}

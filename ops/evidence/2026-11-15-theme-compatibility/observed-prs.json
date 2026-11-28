@@ -1,0 +1,68 @@
+{
+  "observed_at": "2026-11-15T00:06:31.644Z",
+  "prs": [
+    {
+      "number": 22,
+      "head": "bd4f48de0404614eb84275969bfccff0a368e866",
+      "base": "codex/review-17-19-quality",
+      "base_sha": "79d546891940b6f5e3030940f7c52c2ff7b3d36b",
+      "draft": true,
+      "state": "open",
+      "title": "iPad相当WebKit自動テストとタップ領域の修正（#20上積み・OS依存待ち）"
+    },
+    {
+      "number": 13,
+      "head": "139c8b8b56bcd979068b61984120d9f312efe182",
+      "base": "codex/cloud-handoff-hardening-20261108",
+      "base_sha": "4329daaeec15641289d7edbcb7f3237d0da1e0e3",
+      "draft": true,
+      "state": "open",
+      "title": "AGENTS.mdに自律実行ルールを追加"
+    },
+    {
+      "number": 12,
+      "head": "57171ad9cab02fec6a080ecbe317fe11d3f51dcf",
+      "base": "codex/cloud-automatic-bootstrap",
+      "base_sha": "edad8065c1f2b726e61c5cf405f8d9ff6d807480",
+      "draft": true,
+      "state": "open",
+      "title": "鎌倉の復習画面に学習状態を保つテーマ切替を追加"
+    },
+    {
+      "number": 11,
+      "head": "ee51e68d7e1eeb21bd0e959ec58166a869947d0a",
+      "base": "main",
+      "base_sha": "86514eda054a5a2e09204df3a0668e40624c16de",
+      "draft": true,
+      "state": "open",
+      "title": "合成教材の確認・編集と保存しない試し解きを追加"
+    },
+    {
+      "number": 10,
+      "head": "73fe2ee9d776b3e3360614752fb722ff4aee4f85",
+      "base": "main",
+      "base_sha": "86514eda054a5a2e09204df3a0668e40624c16de",
+      "draft": true,
+      "state": "open",
+      "title": "理由が見えるおすすめ復習と日次の実問数表示を追加"
+    },
+    {
+      "number": 9,
+      "head": "b7e142a3a3f50fdfa3033a92e778c2b37c3e0ee9",
+      "base": "main",
+      "base_sha": "d526d65fbae116f834d14ad994a27bc50ca23b62",
+      "draft": true,
+      "state": "open",
+      "title": "CEOの朝夕判断で進める半自律開発チームの運用と初期バックログを定義"
+    },
+    {
+      "number": 4,
+      "head": "ff211ee8e144e955fa5837e8b8ff5cabf51f60a4",
+      "base": "main",
+      "base_sha": "d526d65fbae116f834d14ad994a27bc50ca23b62",
+      "draft": true,
+      "state": "open",
+      "title": "応仁の乱：徳政・一揆と村の自治の用語を区別しやすくする"
+    }
+  ]
+}

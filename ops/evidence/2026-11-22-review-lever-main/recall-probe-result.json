@@ -1,0 +1,697 @@
+{
+  "head": "566e4674e9d54482d3043d4be6ff10dcd780d303",
+  "completed_at": "2026-11-22T13:09:18.532658+00:00",
+  "cases": [
+    {
+      "daily_display": 5,
+      "daily_actual_ids": [
+        "medaka-07",
+        "ys2-029",
+        "medaka-12",
+        "lever-17",
+        "medaka-02"
+      ],
+      "daily_label": "今日の復習をはじめる（今回は5問）",
+      "file": "yuika-review-v2.html",
+      "question": "medaka-07",
+      "parent": false,
+      "starting_events": 1,
+      "after_final_events": 2,
+      "interrupted_event_not_saved": true,
+      "reload_no_duplicate": true,
+      "submit_guard_no_duplicate": true,
+      "saved_event": {
+        "recallOutcome": "assisted",
+        "firstResponse": "合成の誤答",
+        "questionVersion": 1,
+        "id": "704294c3-5458-4698-a984-8770d11ecf5b",
+        "sessionId": "f2a0f0f7-0fcb-4967-8101-b564f83d11ea",
+        "questionId": "medaka-07",
+        "datasetVersion": "yuika-science-2026-10-v2",
+        "unit": "メダカの飼育・ひれ・成長",
+        "type": "recall",
+        "question": "左右一対（右と左に1つずつ）ある2種類のひれは？ 「○びれと○びれ」と入力しよう。",
+        "response": "むなびれ・はらびれ",
+        "inputRaw": "むなびれ・はらびれ",
+        "expected": "むなびれ・はらびれ",
+        "correct": true,
+        "answeredAt": "2026-11-22T03:00:01.310Z",
+        "timezoneOffset": 0,
+        "localDay": "2026-11-22",
+        "hintUsed": true,
+        "mode": "unit",
+        "explanation": "左右一対なのは、むなびれとはらびれです。オス・メスを見分けるときは、せびれとしりびれを比べます。"
+      },
+      "projection": {
+        "events": [
+          {
+            "id": "synthetic-legacy-correct",
+            "sessionId": "synthetic-legacy",
+            "questionId": "ys2-001",
+            "datasetVersion": "yuika-science-2026-10-v2",
+            "unit": "水溶液と溶解",
+            "type": "choice",
+            "question": "砂糖水の「溶質」はどれ？",
+            "response": "砂糖",
+            "inputRaw": "砂糖",
+            "expected": "砂糖",
+            "correct": true,
+            "answeredAt": "2026-11-20T03:00:00.000Z",
+            "timezoneOffset": 0,
+            "localDay": "2026-11-20",
+            "hintUsed": false,
+            "mode": "normal",
+            "explanation": "溶質は砂糖、溶媒は水。できた砂糖水全体が水溶液です。",
+            "at": "2026-11-20T03:00:00.000Z",
+            "hint": false,
+            "variant": "normal"
+          },
+          {
+            "recallOutcome": "assisted",
+            "firstResponse": "合成の誤答",
+            "questionVersion": 1,
+            "id": "704294c3-5458-4698-a984-8770d11ecf5b",
+            "sessionId": "f2a0f0f7-0fcb-4967-8101-b564f83d11ea",
+            "questionId": "medaka-07",
+            "datasetVersion": "yuika-science-2026-10-v2",
+            "unit": "メダカの飼育・ひれ・成長",
+            "type": "recall",
+            "question": "左右一対（右と左に1つずつ）ある2種類のひれは？ 「○びれと○びれ」と入力しよう。",
+            "response": "むなびれ・はらびれ",
+            "inputRaw": "むなびれ・はらびれ",
+            "expected": "むなびれ・はらびれ",
+            "correct": false,
+            "answeredAt": "2026-11-22T03:00:01.310Z",
+            "timezoneOffset": 0,
+            "localDay": "2026-11-22",
+            "hintUsed": true,
+            "mode": "unit",
+            "explanation": "左右一対なのは、むなびれとはらびれです。オス・メスを見分けるときは、せびれとしりびれを比べます。",
+            "at": "2026-11-22T03:00:01.310Z",
+            "hint": true,
+            "variant": "normal"
+          }
+        ],
+        "weak": [
+          "medaka-07"
+        ],
+        "daily": [
+          "medaka-07",
+          "ys2-013",
+          "lever-04",
+          "microscope-10",
+          "lever-26"
+        ],
+        "retention": [
+          {
+            "originId": "medaka-07",
+            "variant": "normal",
+            "status": "weak",
+            "stage": 0,
+            "due": null,
+            "anchor": null
+          }
+        ],
+        "summary": {
+          "correct": 1,
+          "total": 112,
+          "due": 0,
+          "dueCount": 0,
+          "weakCount": 1,
+          "normalCount": 4,
+          "unavailable": false
+        }
+      },
+      "raw_and_state_unchanged_by_projection": true,
+      "legacy_event": {
+        "id": "synthetic-legacy-correct",
+        "sessionId": "synthetic-legacy",
+        "questionId": "ys2-001",
+        "datasetVersion": "yuika-science-2026-10-v2",
+        "unit": "水溶液と溶解",
+        "type": "choice",
+        "question": "砂糖水の「溶質」はどれ？",
+        "response": "砂糖",
+        "inputRaw": "砂糖",
+        "expected": "砂糖",
+        "correct": true,
+        "answeredAt": "2026-11-20T03:00:00.000Z",
+        "timezoneOffset": 0,
+        "localDay": "2026-11-20",
+        "hintUsed": false,
+        "mode": "normal",
+        "explanation": "溶質は砂糖、溶媒は水。できた砂糖水全体が水溶液です。"
+      },
+      "child_storage_unchanged": null,
+      "missing_firstResponse_rejected_without_write": {
+        "rejected": true,
+        "unchanged": true
+      }
+    },
+    {
+      "daily_display": 5,
+      "daily_actual_ids": [
+        "medaka-07",
+        "ys2-029",
+        "medaka-12",
+        "lever-17",
+        "medaka-02"
+      ],
+      "daily_label": "今日の復習をはじめる（今回は5問）",
+      "file": "yuika-review-v2.html",
+      "question": "medaka-07",
+      "parent": true,
+      "starting_events": 0,
+      "after_final_events": 1,
+      "interrupted_event_not_saved": true,
+      "reload_no_duplicate": true,
+      "submit_guard_no_duplicate": true,
+      "saved_event": {
+        "recallOutcome": "assisted",
+        "firstResponse": "合成の誤答",
+        "questionVersion": 1,
+        "id": "e79cd212-77c5-4d87-b098-a8890a7cee05",
+        "sessionId": "9deddb1b-89c0-4996-8061-6fdea9568b4d",
+        "questionId": "medaka-07",
+        "datasetVersion": "yuika-science-2026-10-v2",
+        "unit": "メダカの飼育・ひれ・成長",
+        "type": "recall",
+        "question": "左右一対（右と左に1つずつ）ある2種類のひれは？ 「○びれと○びれ」と入力しよう。",
+        "response": "むなびれ・はらびれ",
+        "inputRaw": "むなびれ・はらびれ",
+        "expected": "むなびれ・はらびれ",
+        "correct": true,
+        "answeredAt": "2026-11-22T03:00:01.312Z",
+        "timezoneOffset": 0,
+        "localDay": "2026-11-22",
+        "hintUsed": true,
+        "mode": "unit",
+        "explanation": "左右一対なのは、むなびれとはらびれです。オス・メスを見分けるときは、せびれとしりびれを比べます。"
+      },
+      "projection": {
+        "events": [
+          {
+            "recallOutcome": "assisted",
+            "firstResponse": "合成の誤答",
+            "questionVersion": 1,
+            "id": "e79cd212-77c5-4d87-b098-a8890a7cee05",
+            "sessionId": "9deddb1b-89c0-4996-8061-6fdea9568b4d",
+            "questionId": "medaka-07",
+            "datasetVersion": "yuika-science-2026-10-v2",
+            "unit": "メダカの飼育・ひれ・成長",
+            "type": "recall",
+            "question": "左右一対（右と左に1つずつ）ある2種類のひれは？ 「○びれと○びれ」と入力しよう。",
+            "response": "むなびれ・はらびれ",
+            "inputRaw": "むなびれ・はらびれ",
+            "expected": "むなびれ・はらびれ",
+            "correct": false,
+            "answeredAt": "2026-11-22T03:00:01.312Z",
+            "timezoneOffset": 0,
+            "localDay": "2026-11-22",
+            "hintUsed": true,
+            "mode": "unit",
+            "explanation": "左右一対なのは、むなびれとはらびれです。オス・メスを見分けるときは、せびれとしりびれを比べます。",
+            "at": "2026-11-22T03:00:01.312Z",
+            "hint": true,
+            "variant": "normal"
+          }
+        ],
+        "weak": [
+          "medaka-07"
+        ],
+        "daily": [
+          "medaka-07",
+          "ys2-013",
+          "lever-04",
+          "microscope-10",
+          "lever-26"
+        ],
+        "retention": [
+          {
+            "originId": "medaka-07",
+            "variant": "normal",
+            "status": "weak",
+            "stage": 0,
+            "due": null,
+            "anchor": null
+          }
+        ],
+        "summary": {
+          "correct": 0,
+          "total": 112,
+          "due": 0,
+          "dueCount": 0,
+          "weakCount": 1,
+          "normalCount": 4,
+          "unavailable": false
+        }
+      },
+      "raw_and_state_unchanged_by_projection": true,
+      "legacy_event": null,
+      "child_storage_unchanged": true,
+      "missing_firstResponse_rejected_without_write": {
+        "rejected": true,
+        "unchanged": true
+      }
+    },
+    {
+      "daily_display": 5,
+      "daily_actual_ids": [
+        "edo-01",
+        "edo-22",
+        "edo-08",
+        "edo-14",
+        "edo-10"
+      ],
+      "daily_label": "今日の復習をはじめる（今回は5問）",
+      "file": "edo-review.html",
+      "question": "edo-01",
+      "parent": false,
+      "starting_events": 0,
+      "after_final_events": 1,
+      "interrupted_event_not_saved": true,
+      "reload_no_duplicate": true,
+      "submit_guard_no_duplicate": true,
+      "saved_event": {
+        "recallOutcome": "assisted",
+        "firstResponse": "合成の誤答",
+        "questionVersion": 1,
+        "id": "4eace7bb-b83c-41e8-bcf4-dd1f4645d884",
+        "sessionId": "02a322b6-31ca-467c-88f4-a6e6cb3f2b77",
+        "questionId": "edo-01",
+        "datasetVersion": "shakai-edo-2026-11-v1",
+        "unit": "江戸幕府の成立・幕藩体制・鎖国",
+        "type": "recall",
+        "question": "1600年、徳川家康が石田三成らの軍を破った戦いは？",
+        "response": "関ヶ原の戦い",
+        "inputRaw": "関ヶ原の戦い",
+        "expected": "関ヶ原の戦い",
+        "correct": true,
+        "answeredAt": "2026-11-22T03:00:01.014Z",
+        "timezoneOffset": 0,
+        "localDay": "2026-11-22",
+        "hintUsed": true,
+        "mode": "unit",
+        "explanation": "1600年の関ヶ原の戦いで家康の東軍が、石田三成らの西軍を破りました。"
+      },
+      "projection": {
+        "events": [
+          {
+            "recallOutcome": "assisted",
+            "firstResponse": "合成の誤答",
+            "questionVersion": 1,
+            "id": "4eace7bb-b83c-41e8-bcf4-dd1f4645d884",
+            "sessionId": "02a322b6-31ca-467c-88f4-a6e6cb3f2b77",
+            "questionId": "edo-01",
+            "datasetVersion": "shakai-edo-2026-11-v1",
+            "unit": "江戸幕府の成立・幕藩体制・鎖国",
+            "type": "recall",
+            "question": "1600年、徳川家康が石田三成らの軍を破った戦いは？",
+            "response": "関ヶ原の戦い",
+            "inputRaw": "関ヶ原の戦い",
+            "expected": "関ヶ原の戦い",
+            "correct": false,
+            "answeredAt": "2026-11-22T03:00:01.014Z",
+            "timezoneOffset": 0,
+            "localDay": "2026-11-22",
+            "hintUsed": true,
+            "mode": "unit",
+            "explanation": "1600年の関ヶ原の戦いで家康の東軍が、石田三成らの西軍を破りました。",
+            "at": "2026-11-22T03:00:01.014Z",
+            "hint": true,
+            "variant": "normal"
+          }
+        ],
+        "weak": [
+          "edo-01"
+        ],
+        "daily": [
+          "edo-01",
+          "edo-21",
+          "edo-17",
+          "edo-16",
+          "edo-15"
+        ],
+        "retention": [
+          {
+            "originId": "edo-01",
+            "variant": "normal",
+            "status": "weak",
+            "stage": 0,
+            "due": null,
+            "anchor": null
+          }
+        ],
+        "summary": {
+          "correct": 0,
+          "total": 22,
+          "due": 0,
+          "dueCount": 0,
+          "weakCount": 1,
+          "normalCount": 4,
+          "unavailable": false
+        }
+      },
+      "raw_and_state_unchanged_by_projection": true,
+      "legacy_event": null,
+      "child_storage_unchanged": null,
+      "missing_firstResponse_rejected_without_write": {
+        "rejected": true,
+        "unchanged": true
+      }
+    },
+    {
+      "daily_display": 10,
+      "daily_actual_ids": [
+        "edo-01",
+        "edo-22",
+        "edo-08",
+        "edo-14",
+        "edo-10",
+        "edo-02",
+        "edo-21",
+        "edo-05",
+        "edo-09",
+        "edo-18"
+      ],
+      "daily_label": "今日の復習をはじめる（今回は10問）",
+      "file": "edo-review.html",
+      "question": "edo-01",
+      "parent": true,
+      "starting_events": 0,
+      "after_final_events": 1,
+      "interrupted_event_not_saved": true,
+      "reload_no_duplicate": true,
+      "submit_guard_no_duplicate": true,
+      "saved_event": {
+        "recallOutcome": "assisted",
+        "firstResponse": "合成の誤答",
+        "questionVersion": 1,
+        "id": "8d04d267-3a95-45e3-88ad-b7d0b56ba794",
+        "sessionId": "f93e0be8-97d8-440e-95d0-357d8192b39f",
+        "questionId": "edo-01",
+        "datasetVersion": "shakai-edo-2026-11-v1",
+        "unit": "江戸幕府の成立・幕藩体制・鎖国",
+        "type": "recall",
+        "question": "1600年、徳川家康が石田三成らの軍を破った戦いは？",
+        "response": "関ヶ原の戦い",
+        "inputRaw": "関ヶ原の戦い",
+        "expected": "関ヶ原の戦い",
+        "correct": true,
+        "answeredAt": "2026-11-22T03:00:01.061Z",
+        "timezoneOffset": 0,
+        "localDay": "2026-11-22",
+        "hintUsed": true,
+        "mode": "unit",
+        "explanation": "1600年の関ヶ原の戦いで家康の東軍が、石田三成らの西軍を破りました。"
+      },
+      "projection": {
+        "events": [
+          {
+            "recallOutcome": "assisted",
+            "firstResponse": "合成の誤答",
+            "questionVersion": 1,
+            "id": "8d04d267-3a95-45e3-88ad-b7d0b56ba794",
+            "sessionId": "f93e0be8-97d8-440e-95d0-357d8192b39f",
+            "questionId": "edo-01",
+            "datasetVersion": "shakai-edo-2026-11-v1",
+            "unit": "江戸幕府の成立・幕藩体制・鎖国",
+            "type": "recall",
+            "question": "1600年、徳川家康が石田三成らの軍を破った戦いは？",
+            "response": "関ヶ原の戦い",
+            "inputRaw": "関ヶ原の戦い",
+            "expected": "関ヶ原の戦い",
+            "correct": false,
+            "answeredAt": "2026-11-22T03:00:01.061Z",
+            "timezoneOffset": 0,
+            "localDay": "2026-11-22",
+            "hintUsed": true,
+            "mode": "unit",
+            "explanation": "1600年の関ヶ原の戦いで家康の東軍が、石田三成らの西軍を破りました。",
+            "at": "2026-11-22T03:00:01.061Z",
+            "hint": true,
+            "variant": "normal"
+          }
+        ],
+        "weak": [
+          "edo-01"
+        ],
+        "daily": [
+          "edo-01",
+          "edo-21",
+          "edo-17",
+          "edo-16",
+          "edo-15"
+        ],
+        "retention": [
+          {
+            "originId": "edo-01",
+            "variant": "normal",
+            "status": "weak",
+            "stage": 0,
+            "due": null,
+            "anchor": null
+          }
+        ],
+        "summary": {
+          "correct": 0,
+          "total": 22,
+          "due": 0,
+          "dueCount": 0,
+          "weakCount": 1,
+          "normalCount": 4,
+          "unavailable": false
+        }
+      },
+      "raw_and_state_unchanged_by_projection": true,
+      "legacy_event": null,
+      "child_storage_unchanged": true,
+      "missing_firstResponse_rejected_without_write": {
+        "rejected": true,
+        "unchanged": true
+      }
+    }
+  ],
+  "entry_cases": [
+    {
+      "case": "instruments",
+      "unit": "実験器具",
+      "upper": 10,
+      "summary": {
+        "correct": 0,
+        "total": 112,
+        "due": 0,
+        "dueCount": 0,
+        "weakCount": 0,
+        "normalCount": 8,
+        "unavailable": false
+      },
+      "label": "今日の復習をはじめる（今回は8問）",
+      "display": 8,
+      "actual": [
+        {
+          "id": "ys2-044",
+          "unit": "実験器具"
+        },
+        {
+          "id": "ys2-040",
+          "unit": "実験器具"
+        },
+        {
+          "id": "ys2-047",
+          "unit": "実験器具"
+        },
+        {
+          "id": "ys2-045",
+          "unit": "実験器具"
+        },
+        {
+          "id": "ys2-046",
+          "unit": "実験器具"
+        },
+        {
+          "id": "ys2-042",
+          "unit": "実験器具"
+        },
+        {
+          "id": "ys2-041",
+          "unit": "実験器具"
+        },
+        {
+          "id": "ys2-043",
+          "unit": "実験器具"
+        }
+      ],
+      "badges": [
+        "小５ 理科",
+        "解説つき・理科全112問",
+        "オフラインで使える"
+      ]
+    },
+    {
+      "case": "valid-medaka",
+      "unit": "メダカの飼育・ひれ・成長",
+      "upper": 5,
+      "summary": {
+        "correct": 0,
+        "total": 17,
+        "due": 0,
+        "dueCount": 0,
+        "weakCount": 0,
+        "normalCount": 5,
+        "unavailable": false
+      },
+      "label": "今日の復習をはじめる（今回は5問）",
+      "display": 5,
+      "actual": [
+        {
+          "id": "medaka-14",
+          "unit": "メダカの飼育・ひれ・成長"
+        },
+        {
+          "id": "medaka-12",
+          "unit": "メダカの飼育・ひれ・成長"
+        },
+        {
+          "id": "medaka-10",
+          "unit": "メダカの飼育・ひれ・成長"
+        },
+        {
+          "id": "medaka-02",
+          "unit": "メダカの飼育・ひれ・成長"
+        },
+        {
+          "id": "medaka-16",
+          "unit": "メダカの飼育・ひれ・成長"
+        }
+      ],
+      "badges": [
+        "小５ 理科",
+        "解説つき・理科全112問",
+        "オフラインで使える"
+      ]
+    },
+    {
+      "case": "unknown",
+      "unit": "all",
+      "upper": 5,
+      "summary": {
+        "correct": 0,
+        "total": 112,
+        "due": 0,
+        "dueCount": 0,
+        "weakCount": 0,
+        "normalCount": 5,
+        "unavailable": false
+      },
+      "label": "今日の復習をはじめる（今回は5問）",
+      "display": 5,
+      "actual": [
+        {
+          "id": "ys2-013",
+          "unit": "溶解度の計算"
+        },
+        {
+          "id": "lever-04",
+          "unit": "てこのつり合い"
+        },
+        {
+          "id": "microscope-10",
+          "unit": "顕微鏡の使い方"
+        },
+        {
+          "id": "lever-26",
+          "unit": "てこのつり合い"
+        },
+        {
+          "id": "ys2-031",
+          "unit": "中和と液性"
+        }
+      ],
+      "badges": [
+        "小５ 理科",
+        "解説つき・理科全112問",
+        "オフラインで使える"
+      ]
+    }
+  ],
+  "posts": [],
+  "errors": [],
+  "external_aborted": [
+    {
+      "method": "GET",
+      "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"
+    },
+    {
+      "method": "GET",
+      "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"
+    },
+    {
+      "method": "GET",
+      "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"
+    },
+    {
+      "method": "GET",
+      "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"
+    },
+    {
+      "method": "GET",
+      "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"
+    },
+    {
+      "method": "GET",
+      "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"
+    },
+    {
+      "method": "GET",
+      "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"
+    },
+    {
+      "method": "GET",
+      "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"
+    },
+    {
+      "method": "GET",
+      "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"
+    },
+    {
+      "method": "GET",
+      "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"
+    },
+    {
+      "method": "GET",
+      "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"
+    },
+    {
+      "method": "GET",
+      "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"
+    },
+    {
+      "method": "GET",
+      "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"
+    },
+    {
+      "method": "GET",
+      "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"
+    },
+    {
+      "method": "GET",
+      "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"
+    },
+    {
+      "method": "GET",
+      "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"
+    },
+    {
+      "method": "GET",
+      "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"
+    }
+  ],
+  "method": "7 fresh synthetic Chromium tablet contexts; controlled single-question session then actual input/tap controls; read-only projection and exact storage-byte checks",
+  "limitations": [
+    "single representative text recall per new unit; no second full question audit",
+    "old/new mixed events checked on science only; Edo has no old pre-recall question type",
+    "submit function guard called twice after disabled actual confirm button, not simultaneous multi-tab concurrency",
+    "no Safari/real-device or live deployed page test"
+  ]
+}

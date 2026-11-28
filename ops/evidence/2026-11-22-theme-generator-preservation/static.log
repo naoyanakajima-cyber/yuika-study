@@ -1,0 +1,51 @@
+{
+  "head": "00c4ccb3b501223366a5f0a736567231ea9b8043",
+  "base": "e89aa335936508c6e4984c523ec65da97f510cbd",
+  "changed_paths": [
+    "docs/history-compatibility.md",
+    "heian-review.html",
+    "kamakura-review.html",
+    "mock-focus-review.html",
+    "onin-review.html",
+    "scripts/check_all.sh",
+    "scripts/practice/science.js",
+    "scripts/prototype/runtime.js",
+    "tests/generator_preservation.py",
+    "tests/lever.py"
+  ],
+  "science_html_sha256": "54addcfe1f2491adcfb501a2525c476e2ded2d5d5c80062c0c124395cfa866f3",
+  "science_source_sha256": "ecacc812c8d18a1d496eac2090991b4a3e3d3a3bef5793865a256d359784f536",
+  "source_embedded_identity": true,
+  "prototype_source_embedded_identity": true,
+  "other_html": [
+    {
+      "path": "onin-review.html",
+      "changed_lines": 1,
+      "all_other_bytes_unchanged": true
+    },
+    {
+      "path": "kamakura-review.html",
+      "changed_lines": 1,
+      "all_other_bytes_unchanged": true
+    },
+    {
+      "path": "heian-review.html",
+      "changed_lines": 1,
+      "all_other_bytes_unchanged": true
+    },
+    {
+      "path": "mock-focus-review.html",
+      "changed_lines": 1,
+      "all_other_bytes_unchanged": true
+    }
+  ],
+  "theme_css_ui_js_diagram_print_preserved_by_exact_other_bytes": true,
+  "theme_spec_test_hashes": {
+    "docs/product/theme-spec.md": "39491c64bf6f0d2dbbee108eac48ba65b4fb2d10fd24ccb9324ed2759eab25a4",
+    "tests/theme_review.py": "f22b7bbdb01e2cf394dedb99ac038a0b3da7cdbc3d736dbb65f376a2f019c58e"
+  },
+  "other_unchanged_paths": 85,
+  "suite_count": 28,
+  "existing_suite_order_preserved": true,
+  "clean": true
+}

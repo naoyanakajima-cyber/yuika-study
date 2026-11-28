@@ -1,0 +1,142 @@
+{
+  "reviewer": "qa_content_import_guard",
+  "implementer": "engineer_content_import_guard",
+  "head": "62f34de238e9d1d62c796aac3a4b43418043d17f",
+  "clean_after_tests": true,
+  "verified_at": "2026-11-14T22:18:12Z",
+  "full_suite_exit": 0,
+  "suites": [
+    {
+      "suite": "tests/onin_review.py",
+      "exit": 0,
+      "seconds": 5
+    },
+    {
+      "suite": "tests/kamakura_review.py",
+      "exit": 0,
+      "seconds": 6
+    },
+    {
+      "suite": "tests/cloud_preview.py",
+      "exit": 0,
+      "seconds": 2
+    },
+    {
+      "suite": "notifications/test/worker.test.mjs",
+      "exit": 0,
+      "seconds": 1
+    },
+    {
+      "suite": "notifications/test/browser.py",
+      "exit": 0,
+      "seconds": 10
+    },
+    {
+      "suite": "tests/cloud_bootstrap.py",
+      "exit": 0,
+      "seconds": 2
+    },
+    {
+      "suite": "tests/adaptive_practice.py",
+      "exit": 0,
+      "seconds": 2
+    },
+    {
+      "suite": "tests/adaptive_daily.py",
+      "exit": 0,
+      "seconds": 4
+    },
+    {
+      "suite": "tests/adaptive_quality.py",
+      "exit": 0,
+      "seconds": 4
+    },
+    {
+      "suite": "tests/flash_grading.py",
+      "exit": 0,
+      "seconds": 9
+    },
+    {
+      "suite": "tests/spaced_daily.py",
+      "exit": 0,
+      "seconds": 5
+    },
+    {
+      "suite": "tests/history_compat.py",
+      "exit": 0,
+      "seconds": 3
+    },
+    {
+      "suite": "tests/science_adaptive.py",
+      "exit": 0,
+      "seconds": 8
+    },
+    {
+      "suite": "tests/registered_answers.py",
+      "exit": 0,
+      "seconds": 2
+    },
+    {
+      "suite": "tests/history_review_regression.py",
+      "exit": 0,
+      "seconds": 3
+    },
+    {
+      "suite": "tests/state_review_regression.py",
+      "exit": 0,
+      "seconds": 4
+    },
+    {
+      "suite": "tests/prototype_storage.py",
+      "exit": 0,
+      "seconds": 7
+    },
+    {
+      "suite": "tests/focus_data.py",
+      "exit": 0,
+      "seconds": 0
+    },
+    {
+      "suite": "tests/focus_practice.py",
+      "exit": 0,
+      "seconds": 12
+    },
+    {
+      "suite": "tests/parent_mode.py",
+      "exit": 0,
+      "seconds": 20
+    },
+    {
+      "suite": "tests/design_c.py",
+      "exit": 0,
+      "seconds": 20
+    },
+    {
+      "suite": "tests/responsive_subjects.py",
+      "exit": 0,
+      "seconds": 118
+    },
+    {
+      "suite": "tests/content_review.py",
+      "exit": 0,
+      "seconds": 4
+    },
+    {
+      "suite": "tests/content_guidance.py",
+      "exit": 0,
+      "seconds": 2
+    },
+    {
+      "suite": "tests/content_import_guard.py",
+      "exit": 0,
+      "seconds": 4
+    }
+  ],
+  "total_seconds": 257,
+  "full_suite_attempts": 1,
+  "probe_scenarios": 17,
+  "probe_attempts": 1,
+  "static_attempts": 1,
+  "blocking_findings": [],
+  "recommendation": "Accept into existing draft PR11 pending CEO product adoption; no merge/deploy authorization"
+}

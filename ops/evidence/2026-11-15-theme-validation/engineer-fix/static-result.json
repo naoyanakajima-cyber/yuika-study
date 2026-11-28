@@ -1,0 +1,25 @@
+{
+  "base": "c81fb6b3a7e9c5c6c5d42431afe1d13a73c780d3",
+  "only_html_delta": "two-line scoped CSS rule",
+  "main_learning_tail_identical": true,
+  "shared_and_other_pages_identical": [
+    "assets/design.css",
+    "assets/design.js",
+    "scripts/parent/runtime.js",
+    "notifications/client.js",
+    "onin-review.html",
+    "heian-review.html",
+    "index.html",
+    "yuika-review-v2.html",
+    "mock-focus-review.html"
+  ],
+  "focused_theme_attempts": 1,
+  "focused_exit": 0,
+  "contrast_each": 6.266,
+  "contrast_modes": [
+    "standard screen",
+    "standard print",
+    "kamakura screen",
+    "kamakura print"
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "observed_at": "2026-11-15 01:25:11 UTC",
+  "prs": [
+    {
+      "number": 9,
+      "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/9",
+      "title": "CEOの朝夕判断で進める半自律開発チームの運用と初期バックログを定義",
+      "head_sha": "11e08e4aa0497e326b8dbd35523109c09974d8a7",
+      "base": "main",
+      "base_sha": "d526d65fbae116f834d14ad994a27bc50ca23b62",
+      "state": "open",
+      "draft": true,
+      "merged": false,
+      "body": "回答記録による苦手復習、教材の確認・追加、好みに合わせたUIを進める運用正本・仕様・合成検証証拠です。自律範囲は要件整理・実装・テスト・draft PRまでです。\n\n今回、[既存テーマPR12](https://github.com/naoyanakajima-cyber/yuika-study/pull/12)の未完検証を再開し、追加QAで見つけた模式図2ラベルのコントラスト不足を改善しました。標準/鎌倉の両テーマ・画面/印刷で3.479から6.266へ改善し、学習・保存処理や図の意味を維持しています。最終HEAD **b416d3c08a0d3952e5f0153fdc691d6fa0e492b7**、独立固定clean checkoutの必須23suiteが初回すべて成功（267秒）。合成Chromiumの受入範囲でQA合格、CEO試用判断待ちへ戻しました。[今回の報告・証拠](https://github.com/naoyanakajima-cyber/yuika-study/blob/codex/agent-team-operations/ops/runs/2026-11-15-theme-validation.md)。\n\n- [苦手復習PR10](https://github.com/naoyanakajima-cyber/yuika-study/pull/10)：73fe2eeの既存独立検証を保持。「今日の復習」の理由と実際の開始問数。\n- [教材確認PR11](https://github.com/naoyanakajima-cyber/yuika-study/pull/11)：ee51e68の既存26suite/65ケースの独立検証を保持。確認済み合成教材を保存せず試し解きする候補。\n- PR12：現在の保存境界/共通表示へ適合し、図の読みにくさを修正。本人の好み・実機Safari/iPad・学習効果は未確認。\n\n製品CEO待ちは#10/#11/#12の3件。新規PRなし。追加既存#22、旧#4〜#8と運用#9/#13は別扱い。新CEO返答取り込み0、D05方向性採用と最終採用・公開承認を区別。D02実入力・保存先/接続は未決。具体的な新差分や再現がなければ同じQAや環境調査を反復せず、朝夕チェックで合成試用と改善指摘を受け取ります。返答を読める担当が台帳へ保存するまでworkerへ伝達済みとはしません。\n\n現在PR12 HEADの外部Workers Buildsは2026-11-15 01:21:45 UTCにfailure（[外部結果](https://github.com/naoyanakajima-cyber/yuika-study/runs/132655374833)）。原因未調査、手動再実行・デプロイなし。クラウド内QAと区別します。過去のexport試行失敗・c81でのC6未達と修正前後の証拠も保持。\n\n合成データのみ。依存は手動再利用、自動snapshot/platform実行成功とは呼びません。本番マージ・公開・実通知・課金・Secrets/権限/共有変更なし。旧停止中の自律更新は再開せず、通常報告は朝夕CEOチェックへ集約します。"
+    },
+    {
+      "number": 12,
+      "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/12",
+      "title": "標準/鎌倉テーマを保護者モードに対応し、模式図の文字を読みやすくする",
+      "head_sha": "b416d3c08a0d3952e5f0153fdc691d6fa0e492b7",
+      "base": "main",
+      "base_sha": "86514eda054a5a2e09204df3a0668e40624c16de",
+      "state": "open",
+      "draft": true,
+      "merged": false,
+      "body": "鎌倉の学習中に「標準／鎌倉」の見た目を選び、問題・入力・採点・記録を保ったまま標準へ戻せる候補です。現在の保護者確認モードにも対応し、合成試用のテーマ設定はセッション／一時メモリへ分離します。鎌倉単元が対象です。\n\n独立QAで見つかった模式図「将軍」「執権（北条氏）」の白13px文字の読みにくさも改善しました。両テーマ共通で対象2枠だけを濃い茶色にし、実コントラストは3.479:1から6.266:1へ改善。文字・配置・図の線・他の枠色を維持します。標準Design C維持に対する例外はこの2枠だけです。\n\n最終HEAD **b416d3c08a0d3952e5f0153fdc691d6fa0e492b7**、base main **86514eda054a5a2e09204df3a0668e40624c16de**。旧PR履歴を保持し、テーマはYuikaParent.storageを使用。mainの既存学習script・問題/採点/保存schema・親runtime・通知・CSP・共有asset・他画面は維持しています。未マージのPR10/11/22は取り込んでいません。\n\n独立Reviewer/QA **qa_theme_compatibility** が実装担当とは別checkoutの固定clean HEADで、`bash scripts/check_all.sh` **23suiteすべて初回成功（267秒）**を確認。JSON出力・テーマキー非混入、未知値・保存例外/回復、同runの入力/ヒント/採点/結果、親セッション/一時メモリ・通常領域保護、キーボード・focus・printを含みます。追加の実computed検査と4画像目視で、対象2枠を両テーマ×画面/印刷で確認し、図の全10白文字ノードの最低contrastは4.977でした。\n\n元候補c81の23suite成功（312秒）と、追加確認で見つけたC6未達は別の履歴として保存。最終HEADの成功へ転用せず、修正後に全suiteを再実行しました。前回の限定14検査/68色も過去証拠として区別しています。[仕様・実施範囲・失敗履歴・検証証拠](https://github.com/naoyanakajima-cyber/yuika-study/blob/codex/agent-team-operations/ops/runs/2026-11-15-theme-validation.md)。\n\n**合成Chromiumの検査範囲で試用候補としてQA合格、draft・未マージです。** 実機iPad/Safari・native zoom・本人の好み/学習効果・実プリンター・公開環境は未確認。全図の完全なアクセシビリティ監査やpixel一致を意味しません。font GETは遮断しfallback表示、全suite全通信0とはしていません。依存は既存venvの手動再利用で、自動snapshot引継ぎ成功ではありません。\n\n現在HEADの外部Workers Buildsは **2026-11-15 01:21:45 UTCにfailure**（[外部結果](https://github.com/naoyanakajima-cyber/yuika-study/runs/132655374833)）。原因未調査、手動再実行・デプロイなし。クラウド内QA成功と別扱いで、公開可能との判断はしていません。\n\n次はTHEME-MVPの合成試用で見やすさ・途中切替・標準復帰を確認することを推奨します。D05方向性採用は維持し、新CEO返答取り込み0。返答を読んだ担当が台帳へ反映するまで採用・merge/公開承認とは扱いません。本番マージ・公開・実通知・課金・Secrets/権限/共有変更なし。"
+    }
+  ]
+}

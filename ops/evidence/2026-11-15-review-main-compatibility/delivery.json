@@ -1,0 +1,28 @@
+{
+  "observed_at": "2026-11-15 08:28:28 UTC",
+  "pr": {
+    "number": 10,
+    "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/10",
+    "head_sha": "6d01386dba0bb3cdafa7e8f431a6a17bc81e913f",
+    "state": "open",
+    "draft": true,
+    "merged": false
+  },
+  "checks": [
+    {
+      "name": "Workers Builds: yuika-study",
+      "status": "completed",
+      "conclusion": "failure",
+      "head_sha": "6d01386dba0bb3cdafa7e8f431a6a17bc81e913f",
+      "completed_at": "2026-11-15T08:27:48Z",
+      "html_url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/132752305706"
+    }
+  ],
+  "combined_status": {
+    "state": "pending",
+    "total_count": 0
+  },
+  "manual_rerun": false,
+  "live_page_verified": false,
+  "reason": "check output supplied no actionable failure detail"
+}

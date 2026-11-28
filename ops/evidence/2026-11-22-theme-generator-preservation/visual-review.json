@@ -1,0 +1,12 @@
+{
+  "head": "00c4ccb3b501223366a5f0a736567231ea9b8043",
+  "reviewer": "qa_theme_generator",
+  "inspected": [
+    "normal-kamakura-hint.png",
+    "parent-kamakura-hint.png",
+    "kamakura-diagram-screen.png",
+    "normal-lever-28.png"
+  ],
+  "result": "No visual blocking issue in these limited synthetic views; parent banner, typed response, hint and main controls readable, hierarchy and lever labels visible",
+  "real_device": false
+}

@@ -1,0 +1,74 @@
+{
+  "head": "6d01386dba0bb3cdafa7e8f431a6a17bc81e913f",
+  "main": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
+  "old_pr10": "73fe2ee9d776b3e3360614752fb722ff4aee4f85",
+  "apps": [
+    {
+      "file": "yuika-review-v2.html",
+      "questions_count": 84,
+      "objects_ids_order_equal_main": true,
+      "key_definitions_equal_main": true
+    },
+    {
+      "file": "edo-review.html",
+      "questions_count": 22,
+      "objects_ids_order_equal_main": true,
+      "key_definitions_equal_main": true
+    },
+    {
+      "file": "onin-review.html",
+      "questions_count": 30,
+      "objects_ids_order_equal_main": true,
+      "key_definitions_equal_main": true
+    },
+    {
+      "file": "kamakura-review.html",
+      "questions_count": 38,
+      "objects_ids_order_equal_main": true,
+      "key_definitions_equal_main": true
+    },
+    {
+      "file": "heian-review.html",
+      "questions_count": 75,
+      "objects_ids_order_equal_main": true,
+      "key_definitions_equal_main": true
+    },
+    {
+      "file": "mock-focus-review.html",
+      "questions_count": 46,
+      "objects_ids_order_equal_main": true,
+      "key_definitions_equal_main": true
+    }
+  ],
+  "science_edo_outside_adaptive_exact_main": true,
+  "unchanged_from_main": [
+    "scripts/history/revisions.json",
+    "scripts/parent/runtime.js",
+    "scripts/medaka/runtime.js",
+    "scripts/history/runtime.js",
+    "scripts/prototype/runtime.js",
+    "assets/design.css",
+    "scripts/edo/build.py"
+  ],
+  "prior_pr10_test_files_exact": [
+    "tests/recommended_review.py",
+    "tests/review_entry.py",
+    "tests/daily_count.py"
+  ],
+  "summary_generator_main_diff_only_daily_mode_label": true,
+  "suite_union_count": 29,
+  "suite_union_exact": true,
+  "scope": "Read-only object/text comparison; generator execution parity is Engineer evidence, not independently rerun",
+  "at": "2026-11-15T08:21:30.665187+00:00",
+  "adaptive_equals_prior_pr10_plus_exact_main_recall_initial_weakness": true,
+  "independent_visual_inspection": [
+    "instruments-home.png",
+    "unknown-home.png"
+  ],
+  "prior_pr10_four_pages_exact_except_existing_main_recall_retention_and_validator_fields": [
+    "onin-review.html",
+    "kamakura-review.html",
+    "heian-review.html",
+    "mock-focus-review.html"
+  ]
+}

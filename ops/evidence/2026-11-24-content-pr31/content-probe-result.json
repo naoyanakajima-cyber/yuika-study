@@ -1,0 +1,66 @@
+{
+  "candidate": "feada5947b237310923f0aa1956487ac8af501af",
+  "started_at": "2026-11-24T11:11:48.483466+00:00",
+  "contexts": [
+    {
+      "parent_study_session": false,
+      "source": "text",
+      "confirmation_gate": true,
+      "correct_and_incorrect_trial": true,
+      "edit_invalidates": true,
+      "json_preserves_content_loses_confirmation": true,
+      "trial_answer_erased_exit_and_pagehide": true,
+      "local_and_session_storage_unchanged": true,
+      "storage_write_calls": 0
+    },
+    {
+      "parent_study_session": false,
+      "source": "image",
+      "confirmation_gate": true,
+      "correct_and_incorrect_trial": true,
+      "edit_invalidates": true,
+      "json_preserves_content_loses_confirmation": true,
+      "trial_answer_erased_exit_and_pagehide": true,
+      "local_and_session_storage_unchanged": true,
+      "storage_write_calls": 0
+    },
+    {
+      "parent_study_session": true,
+      "source": "text",
+      "confirmation_gate": true,
+      "correct_and_incorrect_trial": true,
+      "edit_invalidates": true,
+      "json_preserves_content_loses_confirmation": true,
+      "trial_answer_erased_exit_and_pagehide": true,
+      "local_and_session_storage_unchanged": true,
+      "storage_write_calls": 0
+    },
+    {
+      "parent_study_session": true,
+      "source": "image",
+      "confirmation_gate": true,
+      "correct_and_incorrect_trial": true,
+      "edit_invalidates": true,
+      "json_preserves_content_loses_confirmation": true,
+      "trial_answer_erased_exit_and_pagehide": true,
+      "local_and_session_storage_unchanged": true,
+      "storage_write_calls": 0
+    }
+  ],
+  "requests_blocked": [
+    {
+      "method": "GET",
+      "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"
+    },
+    {
+      "method": "GET",
+      "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"
+    }
+  ],
+  "page_errors": [],
+  "content_parent_runtime": false,
+  "parent_scope": "Actual study-page banner entry/exit; content is memory-only and preserves the existing parent session. A query parameter alone is not parent verification.",
+  "result": "passed",
+  "finished_at": "2026-11-24T11:11:57.000642+00:00",
+  "seconds": 8.52
+}

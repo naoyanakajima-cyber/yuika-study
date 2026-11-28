@@ -1,0 +1,6 @@
+{
+  "head": "f60f6b2bc7c8f0b21d0789b599edf5a13269f5e5",
+  "status": "",
+  "started_at": "2026-11-22T16:12:24.911386+00:00",
+  "environment": "Existing cloud venv manually reused through ignored .venv/bin link; no auto snapshot handoff claim"
+}

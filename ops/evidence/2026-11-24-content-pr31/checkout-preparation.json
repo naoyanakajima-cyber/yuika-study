@@ -1,0 +1,61 @@
+{
+  "candidate": "feada5947b237310923f0aa1956487ac8af501af",
+  "manual_venv_reuse": true,
+  "commands": [
+    {
+      "command": [
+        "git",
+        "-C",
+        "/workspace/yuika-content-pr31-compat",
+        "worktree",
+        "add",
+        "--detach",
+        "/workspace/qa-content-pr31",
+        "feada5947b237310923f0aa1956487ac8af501af"
+      ],
+      "started_at": "2026-11-24T11:10:45.626766+00:00",
+      "seconds": 0.068,
+      "exit_code": 0,
+      "output": "HEAD is now at feada59 Merge PR31 report handling into PR11 with generator preservation\nPreparing worktree (detached HEAD feada59)\n"
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "/workspace/qa-content-pr31",
+        "rev-parse",
+        "HEAD"
+      ],
+      "started_at": "2026-11-24T11:10:45.694627+00:00",
+      "seconds": 0.003,
+      "exit_code": 0,
+      "output": "feada5947b237310923f0aa1956487ac8af501af\n"
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "/workspace/qa-content-pr31",
+        "status",
+        "--porcelain"
+      ],
+      "started_at": "2026-11-24T11:10:45.697410+00:00",
+      "seconds": 0.016,
+      "exit_code": 0,
+      "output": ""
+    },
+    {
+      "command": [
+        "git",
+        "-C",
+        "/workspace/qa-content-pr31",
+        "check-ignore",
+        ".venv/bin"
+      ],
+      "started_at": "2026-11-24T11:10:45.713751+00:00",
+      "seconds": 0.004,
+      "exit_code": 0,
+      "output": ".venv/bin\n"
+    }
+  ]
+}

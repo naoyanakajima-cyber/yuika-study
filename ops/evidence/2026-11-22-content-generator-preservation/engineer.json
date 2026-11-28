@@ -1,0 +1,56 @@
+{
+  "head": "3920f1642692c88a8d6870480bc3f98f71558d24",
+  "base": "ee228ca0a1865d0a56f4302cd9342a4f66738561",
+  "clean": true,
+  "pushed": false,
+  "changed_paths": [
+    "docs/history-compatibility.md",
+    "heian-review.html",
+    "kamakura-review.html",
+    "mock-focus-review.html",
+    "onin-review.html",
+    "scripts/check_all.sh",
+    "scripts/practice/science.js",
+    "scripts/prototype/runtime.js",
+    "tests/generator_preservation.py",
+    "tests/lever.py"
+  ],
+  "all_other_baseline_paths_byte_identical": 99,
+  "science_html_unchanged": true,
+  "science_sha256": "54addcfe1f2491adcfb501a2525c476e2ded2d5d5c80062c0c124395cfa866f3",
+  "branch_adapter_matches_own_embedded_prefix": true,
+  "pr10_daily_count_features_imported": false,
+  "other_html_changes": "Four HTML: one science-only event allowlist line each; other bytes identical. prototypeScience false in non-science screens.",
+  "content_contracts_changed": false,
+  "checks": [
+    {
+      "command": "python tests/generator_preservation.py",
+      "exit_code": 0,
+      "attempt": 1,
+      "scope": "seven real generators in isolated tracked copy; first pass matches original and second pass unchanged; source checkout unchanged"
+    },
+    {
+      "command": "identical generator_preservation.py transplanted to temporary git archive of old PR11",
+      "head": "ee228ca0a1865d0a56f4302cd9342a4f66738561",
+      "exit_code": 1,
+      "attempt": 1,
+      "expected_failure": "Generator pass 1 changed tracked files: ['yuika-review-v2.html']",
+      "log": "/tmp/cycle191-generator-baseline.log"
+    },
+    {
+      "command": "source scripts/cloud/activate.sh && python tests/lever.py",
+      "exit_code": 0,
+      "attempt": 1,
+      "scope": "Existing staged progression/recheck/challenge/parent/mock and new unit/tag JSON download/import/reload-before-export and invalid-field rejection",
+      "execution": "precommit product/test bytes identical to candidate"
+    },
+    {
+      "command": "git diff --cached --check",
+      "exit_code": 0
+    }
+  ],
+  "required_suites": 32,
+  "full_suite": "Reserved independent QA, not executed by Engineer",
+  "runtime": "Existing /workspace/yuika-study/.venv manually reused via ignored .venv/bin link; not automatic snapshot handoff proof",
+  "data": "Synthetic only, mock notifications; no real external API or private input"
+}

@@ -1,0 +1,9 @@
+# CONTENT-MVP / PR32互換同期
+
+run cycle-20261127T160943Z。PdM pdm_content_pr32の既存仕様確認をPrM root/coordinatorが受理。
+PR11 feada5947b237310923f0aa1956487ac8af501afの履歴を保持し、main58b6d9e0a8e2761e5c446a11ceafa1afb1e832a5をtopic内統合。
+
+合成教材の原本/転記/生成案区別、編集でrevision増加と全確認失効、JSON再入力失効・不正入力拒否・非同期読込保全、非保存試し解き、画像text合成の境界を保持する。content/math両previewルート・CSP・ホーム22card・算数24問5段階・生成後の入口/親境界保持。既存33suiteとmain28の厳密和集合34を固定cleanHEADで独立QAする。768×1024通常/親で合成text/imageの確認/編集/再確認/非保存試用/JSON入出力と通常記録不変・通知POST0を確認する。
+
+実OCR・外部生成、実資料利用、新保存、教材内容変更、算数を確認室へ自動接続する機能、PR10/12変更、新PR、本番merge・公開・実通知は対象外。
+Engineer engineer_content_pr32は専用checkoutで焦点検証/localcommit、QA qa_content_pr32は別checkoutで固定HEAD検証、子pushなし。親がlease/refs再確認後に既存draftPR11更新。旧QAを新HEADへ流用せず、手動venv再利用を自動引継ぎ成功としない。

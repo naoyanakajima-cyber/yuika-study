@@ -1,0 +1,277 @@
+{
+  "candidate": "df7af2a205f44e8c76b50e96728685efcc7e57d8",
+  "reviewer": "qa_theme_pr31",
+  "implementer": "engineer_theme_pr31",
+  "result": "passed_pr31_theme_compatibility_and_generator_preservation",
+  "completed_at": "2026-11-24T12:18:07.345277+00:00",
+  "full_suite": {
+    "command": "source scripts/cloud/activate.sh && bash scripts/check_all.sh",
+    "cwd": "/workspace/yuika-theme-pr31-qa",
+    "head_before": "df7af2a205f44e8c76b50e96728685efcc7e57d8",
+    "status_before": "",
+    "started_at": "2026-11-24T12:11:49.035209+00:00",
+    "exit_code": 0,
+    "seconds": 368.253,
+    "finished_at": "2026-11-24T12:17:57.287878+00:00",
+    "head_after": "df7af2a205f44e8c76b50e96728685efcc7e57d8",
+    "status_after": ""
+  },
+  "suite_count": 29,
+  "suites": [
+    {
+      "suite": "tests/onin_review.py",
+      "exit_code": 0,
+      "seconds": 4,
+      "command": "python tests/onin_review.py"
+    },
+    {
+      "suite": "tests/kamakura_review.py",
+      "exit_code": 0,
+      "seconds": 3,
+      "command": "python tests/kamakura_review.py"
+    },
+    {
+      "suite": "tests/cloud_preview.py",
+      "exit_code": 0,
+      "seconds": 2,
+      "command": "python tests/cloud_preview.py"
+    },
+    {
+      "suite": "notifications/test/worker.test.mjs",
+      "exit_code": 0,
+      "seconds": 1,
+      "command": "node --test notifications/test/worker.test.mjs"
+    },
+    {
+      "suite": "notifications/test/browser.py",
+      "exit_code": 0,
+      "seconds": 13,
+      "command": "python notifications/test/browser.py"
+    },
+    {
+      "suite": "tests/study_reports.py",
+      "exit_code": 0,
+      "seconds": 31,
+      "command": "python tests/study_reports.py"
+    },
+    {
+      "suite": "tests/cloud_bootstrap.py",
+      "exit_code": 0,
+      "seconds": 4,
+      "command": "python tests/cloud_bootstrap.py"
+    },
+    {
+      "suite": "tests/generator_preservation.py",
+      "exit_code": 0,
+      "seconds": 1,
+      "command": "python tests/generator_preservation.py"
+    },
+    {
+      "suite": "tests/adaptive_practice.py",
+      "exit_code": 0,
+      "seconds": 4,
+      "command": "python tests/adaptive_practice.py"
+    },
+    {
+      "suite": "tests/adaptive_daily.py",
+      "exit_code": 0,
+      "seconds": 5,
+      "command": "python tests/adaptive_daily.py"
+    },
+    {
+      "suite": "tests/adaptive_quality.py",
+      "exit_code": 0,
+      "seconds": 4,
+      "command": "python tests/adaptive_quality.py"
+    },
+    {
+      "suite": "tests/flash_grading.py",
+      "exit_code": 0,
+      "seconds": 8,
+      "command": "python tests/flash_grading.py"
+    },
+    {
+      "suite": "tests/spaced_daily.py",
+      "exit_code": 0,
+      "seconds": 5,
+      "command": "python tests/spaced_daily.py"
+    },
+    {
+      "suite": "tests/history_compat.py",
+      "exit_code": 0,
+      "seconds": 4,
+      "command": "python tests/history_compat.py"
+    },
+    {
+      "suite": "tests/edo.py",
+      "exit_code": 0,
+      "seconds": 15,
+      "command": "python tests/edo.py"
+    },
+    {
+      "suite": "tests/medaka.py",
+      "exit_code": 0,
+      "seconds": 17,
+      "command": "python tests/medaka.py"
+    },
+    {
+      "suite": "tests/lever.py",
+      "exit_code": 0,
+      "seconds": 5,
+      "command": "python tests/lever.py"
+    },
+    {
+      "suite": "tests/microscope.py",
+      "exit_code": 0,
+      "seconds": 22,
+      "command": "python tests/microscope.py"
+    },
+    {
+      "suite": "tests/science_adaptive.py",
+      "exit_code": 0,
+      "seconds": 10,
+      "command": "python tests/science_adaptive.py"
+    },
+    {
+      "suite": "tests/registered_answers.py",
+      "exit_code": 0,
+      "seconds": 2,
+      "command": "python tests/registered_answers.py"
+    },
+    {
+      "suite": "tests/history_review_regression.py",
+      "exit_code": 0,
+      "seconds": 3,
+      "command": "python tests/history_review_regression.py"
+    },
+    {
+      "suite": "tests/state_review_regression.py",
+      "exit_code": 0,
+      "seconds": 5,
+      "command": "python tests/state_review_regression.py"
+    },
+    {
+      "suite": "tests/prototype_storage.py",
+      "exit_code": 0,
+      "seconds": 7,
+      "command": "python tests/prototype_storage.py"
+    },
+    {
+      "suite": "tests/focus_data.py",
+      "exit_code": 0,
+      "seconds": 0,
+      "command": "python tests/focus_data.py"
+    },
+    {
+      "suite": "tests/focus_practice.py",
+      "exit_code": 0,
+      "seconds": 13,
+      "command": "python tests/focus_practice.py"
+    },
+    {
+      "suite": "tests/parent_mode.py",
+      "exit_code": 0,
+      "seconds": 20,
+      "command": "python tests/parent_mode.py"
+    },
+    {
+      "suite": "tests/design_c.py",
+      "exit_code": 0,
+      "seconds": 23,
+      "command": "python tests/design_c.py"
+    },
+    {
+      "suite": "tests/responsive_subjects.py",
+      "exit_code": 0,
+      "seconds": 124,
+      "command": "python tests/responsive_subjects.py"
+    },
+    {
+      "suite": "tests/theme_review.py",
+      "exit_code": 0,
+      "seconds": 13,
+      "command": "python tests/theme_review.py"
+    }
+  ],
+  "supplemental_executions": {
+    "static-review": {
+      "command": "source scripts/cloud/activate.sh && python /workspace/yuika-ops-cycle234/ops/evidence/2026-11-24-theme-pr31/static-review.py /workspace/yuika-theme-pr31-qa df7af2a205f44e8c76b50e96728685efcc7e57d8",
+      "cwd": "/workspace/yuika-theme-pr31-qa",
+      "head_before": "df7af2a205f44e8c76b50e96728685efcc7e57d8",
+      "status_before": "",
+      "started_at": "2026-11-24T12:11:50.618131+00:00",
+      "exit_code": 0,
+      "seconds": 0.39,
+      "finished_at": "2026-11-24T12:11:51.007846+00:00",
+      "head_after": "df7af2a205f44e8c76b50e96728685efcc7e57d8",
+      "status_after": ""
+    },
+    "theme-probe": {
+      "command": "source scripts/cloud/activate.sh && python /workspace/yuika-ops-cycle234/ops/evidence/2026-11-24-theme-pr31/theme-probe.py /workspace/yuika-theme-pr31-qa",
+      "cwd": "/workspace/yuika-theme-pr31-qa",
+      "head_before": "df7af2a205f44e8c76b50e96728685efcc7e57d8",
+      "status_before": "",
+      "started_at": "2026-11-24T12:11:59.895266+00:00",
+      "exit_code": 0,
+      "seconds": 18.864,
+      "finished_at": "2026-11-24T12:12:18.758946+00:00",
+      "head_after": "df7af2a205f44e8c76b50e96728685efcc7e57d8",
+      "status_after": ""
+    },
+    "science-probe": {
+      "command": "source scripts/cloud/activate.sh && python /workspace/yuika-ops-cycle234/ops/evidence/2026-11-24-theme-pr31/science-probe.py /workspace/yuika-theme-pr31-qa",
+      "cwd": "/workspace/yuika-theme-pr31-qa",
+      "head_before": "df7af2a205f44e8c76b50e96728685efcc7e57d8",
+      "status_before": "",
+      "started_at": "2026-11-24T12:12:21.926117+00:00",
+      "exit_code": 0,
+      "seconds": 4.885,
+      "finished_at": "2026-11-24T12:12:26.811484+00:00",
+      "head_after": "df7af2a205f44e8c76b50e96728685efcc7e57d8",
+      "status_after": ""
+    },
+    "report-probe": {
+      "command": "source scripts/cloud/activate.sh && python /workspace/yuika-ops-cycle234/ops/evidence/2026-11-24-theme-pr31/report-probe.py /workspace/yuika-theme-pr31-qa",
+      "cwd": "/workspace/yuika-theme-pr31-qa",
+      "head_before": "df7af2a205f44e8c76b50e96728685efcc7e57d8",
+      "status_before": "",
+      "started_at": "2026-11-24T12:12:31.564693+00:00",
+      "exit_code": 0,
+      "seconds": 19.915,
+      "finished_at": "2026-11-24T12:12:51.479766+00:00",
+      "head_after": "df7af2a205f44e8c76b50e96728685efcc7e57d8",
+      "status_after": ""
+    },
+    "generator-contract": {
+      "command": "source scripts/cloud/activate.sh && python /workspace/yuika-ops-cycle234/ops/evidence/2026-11-24-theme-pr31/generator-contract-probe.py /workspace/yuika-theme-pr31-qa",
+      "cwd": "/workspace/yuika-theme-pr31-qa",
+      "head_before": "df7af2a205f44e8c76b50e96728685efcc7e57d8",
+      "status_before": "",
+      "started_at": "2026-11-24T12:11:57.964909+00:00",
+      "exit_code": 0,
+      "seconds": 1.512,
+      "finished_at": "2026-11-24T12:11:59.476967+00:00",
+      "head_after": "df7af2a205f44e8c76b50e96728685efcc7e57d8",
+      "status_after": ""
+    }
+  },
+  "theme_contexts": 2,
+  "science_contexts": 2,
+  "report_contexts": 8,
+  "mock_reports": 8,
+  "unexpected_posts": 0,
+  "page_errors": 0,
+  "generator_commands": 29,
+  "expected_negative_generator_exit1": 1,
+  "qa_harness_failures": 0,
+  "product_test_failures": 0,
+  "max_attempts_per_cause": 1,
+  "head_after": "df7af2a205f44e8c76b50e96728685efcc7e57d8",
+  "status_after": "",
+  "limitations": [
+    "Synthetic Chromium only; physical iPad/Safari/WebKit not tested",
+    "No personal trial, preference or learning-effectiveness evidence",
+    "Real delivery/deployment/external Workers build not tested",
+    "Public CDN fetched by portions of required suite; independent probes intercept external requests"
+  ]
+}

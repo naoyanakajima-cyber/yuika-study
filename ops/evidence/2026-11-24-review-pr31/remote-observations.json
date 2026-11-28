@@ -1,0 +1,64 @@
+{
+  "checks": [
+    {
+      "name": "Workers Builds: yuika-study",
+      "status": "completed",
+      "conclusion": "failure",
+      "head_sha": "0cd726f558d24999da80c37b1ecdbd2e6090c7bb",
+      "completed_at": "2026-11-24T10:21:04Z",
+      "url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/138375037865"
+    }
+  ],
+  "statuses": [],
+  "prs": [
+    {
+      "pr": 22,
+      "head": "bd4f48de0404614eb84275969bfccff0a368e866",
+      "state": "open",
+      "draft": true,
+      "updated_at": "2026-11-11T12:48:18Z"
+    },
+    {
+      "pr": 13,
+      "head": "139c8b8b56bcd979068b61984120d9f312efe182",
+      "state": "open",
+      "draft": true,
+      "updated_at": "2026-11-10T12:58:57Z"
+    },
+    {
+      "pr": 12,
+      "head": "00c4ccb3b501223366a5f0a736567231ea9b8043",
+      "state": "open",
+      "draft": true,
+      "updated_at": "2026-11-22T18:26:50Z"
+    },
+    {
+      "pr": 11,
+      "head": "3920f1642692c88a8d6870480bc3f98f71558d24",
+      "state": "open",
+      "draft": true,
+      "updated_at": "2026-11-22T17:23:22Z"
+    },
+    {
+      "pr": 10,
+      "head": "0cd726f558d24999da80c37b1ecdbd2e6090c7bb",
+      "state": "open",
+      "draft": true,
+      "updated_at": "2026-11-24T10:21:02Z"
+    },
+    {
+      "pr": 9,
+      "head": "9072bd15e267bc360c33abd5292e3bc592a82b4c",
+      "state": "open",
+      "draft": true,
+      "updated_at": "2026-11-24T10:20:36Z"
+    },
+    {
+      "pr": 4,
+      "head": "ff211ee8e144e955fa5837e8b8ff5cabf51f60a4",
+      "state": "open",
+      "draft": true,
+      "updated_at": "2026-11-05T07:01:00Z"
+    }
+  ]
+}

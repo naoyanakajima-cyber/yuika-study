@@ -1,0 +1,53 @@
+{
+  "head": "e89aa335936508c6e4984c523ec65da97f510cbd",
+  "main": "58f8b53b4da69806d15a126fc525b65893a0bf35",
+  "old_theme_head": "9fc4bbf3e6c72e09327b6610338f12937fc7aba5",
+  "status": "",
+  "parents": "9fc4bbf3e6c72e09327b6610338f12937fc7aba5 58f8b53b4da69806d15a126fc525b65893a0bf35",
+  "changed_from_main": [
+    "README.md",
+    "docs/product/theme-spec.md",
+    "kamakura-review.html",
+    "scripts/check_all.sh",
+    "tests/theme_review.py"
+  ],
+  "byte_identical_to_old_theme": [
+    "kamakura-review.html",
+    "tests/theme_review.py",
+    "docs/product/theme-spec.md"
+  ],
+  "main_suite_count": 26,
+  "candidate_suite_count": 27,
+  "suite_names": [
+    "tests/onin_review.py",
+    "tests/kamakura_review.py",
+    "tests/cloud_preview.py",
+    "notifications/test/worker.test.mjs",
+    "notifications/test/browser.py",
+    "tests/cloud_bootstrap.py",
+    "tests/adaptive_practice.py",
+    "tests/adaptive_daily.py",
+    "tests/adaptive_quality.py",
+    "tests/flash_grading.py",
+    "tests/spaced_daily.py",
+    "tests/history_compat.py",
+    "tests/edo.py",
+    "tests/medaka.py",
+    "tests/lever.py",
+    "tests/microscope.py",
+    "tests/science_adaptive.py",
+    "tests/registered_answers.py",
+    "tests/history_review_regression.py",
+    "tests/state_review_regression.py",
+    "tests/prototype_storage.py",
+    "tests/focus_data.py",
+    "tests/focus_practice.py",
+    "tests/parent_mode.py",
+    "tests/design_c.py",
+    "tests/responsive_subjects.py",
+    "tests/theme_review.py"
+  ],
+  "all_other_tracked_files_equal_main": true,
+  "generator_sources_and_science_output_equal_main": true,
+  "harness_note": "Initial clean assertion noticed untracked .venv symlink; replaced only runtime link with ignored .venv/bin link. No tracked/product change. check_all first header retains that runtime-only untracked entry."
+}

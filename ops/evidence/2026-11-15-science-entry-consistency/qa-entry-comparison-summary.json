@@ -1,0 +1,225 @@
+{
+  "original_head": "58c3fd4ba10ecfaa249cc3c808c3e8e5fcaf5359",
+  "main": "86514eda054a5a2e09204df3a0668e40624c16de",
+  "final_head": "69f77d671b66484b501f7a0f5c292bfa96a22273",
+  "original": [
+    {
+      "revision": "pr27",
+      "case": "valid",
+      "summary": {
+        "correct": 0,
+        "total": 20,
+        "due": 0,
+        "dueCount": 0,
+        "weakCount": 0,
+        "normalCount": 5,
+        "unavailable": false
+      },
+      "summary_actual_daily_count_equal": true
+    },
+    {
+      "revision": "pr27",
+      "case": "missing",
+      "summary": {
+        "correct": 0,
+        "total": 67,
+        "due": 0,
+        "dueCount": 0,
+        "weakCount": 0,
+        "normalCount": 5,
+        "unavailable": false
+      },
+      "summary_actual_daily_count_equal": true
+    },
+    {
+      "revision": "pr27",
+      "case": "empty",
+      "summary": {
+        "correct": 0,
+        "total": 67,
+        "due": 0,
+        "dueCount": 0,
+        "weakCount": 0,
+        "normalCount": 5,
+        "unavailable": false
+      },
+      "summary_actual_daily_count_equal": true
+    },
+    {
+      "revision": "pr27",
+      "case": "unknown",
+      "summary": {
+        "correct": 0,
+        "total": 0,
+        "due": 0,
+        "dueCount": 0,
+        "weakCount": 0,
+        "normalCount": 0,
+        "unavailable": false
+      },
+      "summary_actual_daily_count_equal": false
+    },
+    {
+      "revision": "main",
+      "case": "valid",
+      "summary": {
+        "correct": 0,
+        "total": 47,
+        "due": 0,
+        "dueCount": 0,
+        "weakCount": 0,
+        "normalCount": 5,
+        "unavailable": false
+      },
+      "summary_actual_daily_count_equal": true
+    },
+    {
+      "revision": "main",
+      "case": "missing",
+      "summary": {
+        "correct": 0,
+        "total": 47,
+        "due": 0,
+        "dueCount": 0,
+        "weakCount": 0,
+        "normalCount": 5,
+        "unavailable": false
+      },
+      "summary_actual_daily_count_equal": true
+    },
+    {
+      "revision": "main",
+      "case": "empty",
+      "summary": {
+        "correct": 0,
+        "total": 47,
+        "due": 0,
+        "dueCount": 0,
+        "weakCount": 0,
+        "normalCount": 5,
+        "unavailable": false
+      },
+      "summary_actual_daily_count_equal": true
+    },
+    {
+      "revision": "main",
+      "case": "unknown",
+      "summary": {
+        "correct": 0,
+        "total": 47,
+        "due": 0,
+        "dueCount": 0,
+        "weakCount": 0,
+        "normalCount": 5,
+        "unavailable": false
+      },
+      "summary_actual_daily_count_equal": true
+    }
+  ],
+  "final": [
+    {
+      "case": "valid",
+      "summary": {
+        "correct": 0,
+        "total": 20,
+        "due": 0,
+        "dueCount": 0,
+        "weakCount": 0,
+        "normalCount": 5,
+        "unavailable": false
+      },
+      "candidate_count": 20,
+      "scienceUnit": "顕微鏡の使い方",
+      "normal_count": 5,
+      "daily_count": 5,
+      "badges": [
+        "小５ 理科",
+        "解説つき・理科全67問",
+        "オフラインで使える"
+      ],
+      "global_stats": [
+        "0／67\nできた数",
+        "0\n今日の再確認",
+        "0\nにがて"
+      ]
+    },
+    {
+      "case": "missing",
+      "summary": {
+        "correct": 0,
+        "total": 67,
+        "due": 0,
+        "dueCount": 0,
+        "weakCount": 0,
+        "normalCount": 5,
+        "unavailable": false
+      },
+      "candidate_count": 67,
+      "scienceUnit": "all",
+      "normal_count": 5,
+      "daily_count": 5,
+      "badges": [
+        "小５ 理科",
+        "解説つき・理科全67問",
+        "オフラインで使える"
+      ],
+      "global_stats": [
+        "0／67\nできた数",
+        "0\n今日の再確認",
+        "0\nにがて"
+      ]
+    },
+    {
+      "case": "empty",
+      "summary": {
+        "correct": 0,
+        "total": 67,
+        "due": 0,
+        "dueCount": 0,
+        "weakCount": 0,
+        "normalCount": 5,
+        "unavailable": false
+      },
+      "candidate_count": 67,
+      "scienceUnit": "all",
+      "normal_count": 5,
+      "daily_count": 5,
+      "badges": [
+        "小５ 理科",
+        "解説つき・理科全67問",
+        "オフラインで使える"
+      ],
+      "global_stats": [
+        "0／67\nできた数",
+        "0\n今日の再確認",
+        "0\nにがて"
+      ]
+    },
+    {
+      "case": "unknown",
+      "summary": {
+        "correct": 0,
+        "total": 67,
+        "due": 0,
+        "dueCount": 0,
+        "weakCount": 0,
+        "normalCount": 5,
+        "unavailable": false
+      },
+      "candidate_count": 67,
+      "scienceUnit": "all",
+      "normal_count": 5,
+      "daily_count": 5,
+      "badges": [
+        "小５ 理科",
+        "解説つき・理科全67問",
+        "オフラインで使える"
+      ],
+      "global_stats": [
+        "0／67\nできた数",
+        "0\n今日の再確認",
+        "0\nにがて"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+# PrM採択
+
+root/coordinator、2026-11-14。PdM提案を確認し、既存PR11内で全G01〜G13/S01〜S13の保存しない合成text/choice試し解きを実装する範囲を採択した。既存CONTENT-MVPの改善であり製品PR枠を追加しない。新CEO返答なし、D02に依存する実入力/保存/接続は対象外。本番マージ・公開権限なし。
+
+基点62f34de、main86514ed、独立checkout codex/content-trial-delivery-20261114。前回import guard/全案確認/JSON schema/CSP/6学習HTML維持。UIと実行時の開始/編集遮断、セッションと問と状態世代、UTF-16/NFKC採点、回答非保存と次問/終了/離脱消去を必須とし、時間制約で受入条件を削らない。hash2箇所は候補に整合した固定HEADを独立QAが確認する。実機/BFCache実復帰の未観測は合成イベントと区別する。
+
+Engineerが唯一製品編集・commit、独立QAが固定候補の全suite/追加probeを実施、統括がlease再確認してpushする。手動venv再利用を自動snapshot引継ぎ成功と呼ばない。
+
+## 候補差分レビューと差戻し
+
+初回8e2111bのtrial専用状態・採点・世代guard・DOM消去・編集遮断をPrMが読取り確認。開始不可時の追加候補長さエラーに、disabled開始button以外の実UI移動導線がない可能性を独立QAへ照合依頼。QAがalias㍍×51で実UI再現し、既存『次の作業へ』がJSON保存欄へ進むことを観測したため契約未達として差戻し。初回全26suite成功を受入成功としなかった。
+
+初回QAの固定HEAD全試験が終了してからEngineerへ最小修正を委任し、同時編集を避けた。修正候補ee51e68d7e1eeb21bd0e959ec58166a869947d0aは原因がある時だけ『確認・修正する箇所へ』buttonを表示し、現在のtrialReadyの対象欄へ移動する。試行中は実行時にも拒否。追加DOM操作の回帰とhash整合を含み、許容表記の意味・採点・保存条件は変更していない。PrMの静的確認は独立QAの代わりではなく、最終固定HEADの再検証結果を受けて統合する。

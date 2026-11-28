@@ -1,0 +1,16 @@
+{
+  "command": [
+    "python",
+    "/workspace/yuika-ops-cycle310/ops/evidence/2026-11-27-content-pr32/edit-reconfirm-probe.py",
+    "/workspace/qa-content-pr32-cycle310"
+  ],
+  "cwd": "/workspace/qa-content-pr32-cycle310",
+  "started_at": "2026-11-27T16:15:53.484733+00:00",
+  "head_before": "f028aaf3ec973d62ac87839432794ab7644cdb99",
+  "status_before": "",
+  "completed_at": "2026-11-27T16:15:57.648428+00:00",
+  "exit_code": 0,
+  "seconds": 4.153,
+  "head_after": "f028aaf3ec973d62ac87839432794ab7644cdb99",
+  "status_after": ""
+}

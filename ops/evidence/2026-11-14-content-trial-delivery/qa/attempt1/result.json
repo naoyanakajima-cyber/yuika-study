@@ -1,0 +1,17 @@
+{
+  "head": "8e2111b4e9c535c4632976a6f384992e839d1329",
+  "verified_at": "2026-11-14T23:23:06.513707+00:00",
+  "clean": true,
+  "full_suite_exit": 0,
+  "full_suite_passed": 26,
+  "full_suite_attempt": 1,
+  "seconds": 296,
+  "independent_probe_cases": 65,
+  "probe_attempts": 2,
+  "harness_repairs": 1,
+  "static_attempts": 1,
+  "acceptance": "changes_requested",
+  "blocking_findings": [
+    "Normalized overlength candidate has no usable repair-navigation action while trial-start is disabled."
+  ]
+}

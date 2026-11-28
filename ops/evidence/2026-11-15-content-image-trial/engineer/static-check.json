@@ -1,0 +1,13 @@
+{
+  "base": "d75a5469fbf1e8c5011a6307308546e5ec669ceb",
+  "unchanged_base_files": 97,
+  "content_sha256": "b978ea0ebd725cbe0b0b45275ad19d7be4ee78e64fb5c7e40947fe05475560f4",
+  "hash_only_changes": [
+    "scripts/parent/embed.py",
+    "tests/parent_mode.py"
+  ],
+  "unchanged": "CSP, shape validator, async import and complete trial engine, main learning pages/assets/runtime, old fixtures",
+  "suite_union": 30,
+  "isolated_generator_html_unchanged": 8,
+  "unknown_boundary_and_mutated_content_rejection": true
+}

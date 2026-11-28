@@ -1,0 +1,161 @@
+{
+  "head": "804f9f648c8634ea26d4ca7fc26cf6b473029475",
+  "started_at": "2026-11-22T13:15:11.607048+00:00",
+  "finished_at": "2026-11-22T13:20:34.223585+00:00",
+  "elapsed_seconds": 322.62,
+  "exit_code": 0,
+  "dependency_setup": "manual existing validated venv symlink /workspace/yuika-study/.venv; not automatic snapshot handoff",
+  "suites": [
+    {
+      "suite": "tests/onin_review.py",
+      "exit_code": 0,
+      "seconds": 4
+    },
+    {
+      "suite": "tests/kamakura_review.py",
+      "exit_code": 0,
+      "seconds": 3
+    },
+    {
+      "suite": "tests/cloud_preview.py",
+      "exit_code": 0,
+      "seconds": 2
+    },
+    {
+      "suite": "notifications/test/worker.test.mjs",
+      "exit_code": 0,
+      "seconds": 0
+    },
+    {
+      "suite": "notifications/test/browser.py",
+      "exit_code": 0,
+      "seconds": 11
+    },
+    {
+      "suite": "tests/cloud_bootstrap.py",
+      "exit_code": 0,
+      "seconds": 2
+    },
+    {
+      "suite": "tests/adaptive_practice.py",
+      "exit_code": 0,
+      "seconds": 2
+    },
+    {
+      "suite": "tests/adaptive_daily.py",
+      "exit_code": 0,
+      "seconds": 4
+    },
+    {
+      "suite": "tests/adaptive_quality.py",
+      "exit_code": 0,
+      "seconds": 4
+    },
+    {
+      "suite": "tests/flash_grading.py",
+      "exit_code": 0,
+      "seconds": 8
+    },
+    {
+      "suite": "tests/spaced_daily.py",
+      "exit_code": 0,
+      "seconds": 5
+    },
+    {
+      "suite": "tests/history_compat.py",
+      "exit_code": 0,
+      "seconds": 4
+    },
+    {
+      "suite": "tests/edo.py",
+      "exit_code": 0,
+      "seconds": 15
+    },
+    {
+      "suite": "tests/medaka.py",
+      "exit_code": 0,
+      "seconds": 17
+    },
+    {
+      "suite": "tests/lever.py",
+      "exit_code": 0,
+      "seconds": 4
+    },
+    {
+      "suite": "tests/microscope.py",
+      "exit_code": 0,
+      "seconds": 22
+    },
+    {
+      "suite": "tests/science_adaptive.py",
+      "exit_code": 0,
+      "seconds": 9
+    },
+    {
+      "suite": "tests/registered_answers.py",
+      "exit_code": 0,
+      "seconds": 2
+    },
+    {
+      "suite": "tests/history_review_regression.py",
+      "exit_code": 0,
+      "seconds": 3
+    },
+    {
+      "suite": "tests/state_review_regression.py",
+      "exit_code": 0,
+      "seconds": 4
+    },
+    {
+      "suite": "tests/prototype_storage.py",
+      "exit_code": 0,
+      "seconds": 7
+    },
+    {
+      "suite": "tests/focus_data.py",
+      "exit_code": 0,
+      "seconds": 0
+    },
+    {
+      "suite": "tests/focus_practice.py",
+      "exit_code": 0,
+      "seconds": 11
+    },
+    {
+      "suite": "tests/parent_mode.py",
+      "exit_code": 0,
+      "seconds": 20
+    },
+    {
+      "suite": "tests/design_c.py",
+      "exit_code": 0,
+      "seconds": 20
+    },
+    {
+      "suite": "tests/responsive_subjects.py",
+      "exit_code": 0,
+      "seconds": 117
+    },
+    {
+      "suite": "tests/recommended_review.py",
+      "exit_code": 0,
+      "seconds": 6
+    },
+    {
+      "suite": "tests/review_entry.py",
+      "exit_code": 0,
+      "seconds": 4
+    },
+    {
+      "suite": "tests/daily_count.py",
+      "exit_code": 0,
+      "seconds": 5
+    },
+    {
+      "suite": "tests/science_daily_count.py",
+      "exit_code": 0,
+      "seconds": 8
+    }
+  ],
+  "shell_total_seconds": 323
+}

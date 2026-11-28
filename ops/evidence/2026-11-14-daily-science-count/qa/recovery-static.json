@@ -1,0 +1,17 @@
+{
+  "result": "PASS",
+  "base": "2428174",
+  "candidate": "f5aae8e",
+  "preserved_prior_runs": 129,
+  "tickets_all_equal": true,
+  "prior_run_changed_fields": [
+    "finalization_recovered_by",
+    "interrupted_before_finalization",
+    "interruption_reason",
+    "metadata_review_report",
+    "operations_metadata_reviewed_commit",
+    "updated_prs"
+  ],
+  "evidence_hashes_verified": 49,
+  "note": "Read-only static metadata review; prior cycle completion not backdated; no app tests"
+}

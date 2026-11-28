@@ -1,0 +1,21 @@
+{
+  "candidate": "132f9f59ebd23b6dab33e7d1e23bf4d077b8070d",
+  "parents": [
+    "ba829a1176ff1ead7d312526890afe8792178c99",
+    "86514eda054a5a2e09204df3a0668e40624c16de"
+  ],
+  "main": "86514eda054a5a2e09204df3a0668e40624c16de",
+  "main_relative_files": [
+    "README.md",
+    "assets/design.js",
+    "kamakura-review.html",
+    "onin-review.html",
+    "scripts/check_all.sh",
+    "tests/recommended_review.py",
+    "tests/review_entry.py"
+  ],
+  "all_other_main_files_unchanged": true,
+  "working_tree_clean_at_check": true,
+  "reviewer": "root/coordinator",
+  "scope": "static allowed paths/ancestry only; independent app QA pending"
+}

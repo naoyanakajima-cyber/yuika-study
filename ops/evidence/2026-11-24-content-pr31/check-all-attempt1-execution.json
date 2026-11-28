@@ -1,0 +1,12 @@
+{
+  "command": "source scripts/cloud/activate.sh && bash scripts/check_all.sh",
+  "cwd": "/workspace/qa-content-pr31",
+  "head_before": "feada5947b237310923f0aa1956487ac8af501af",
+  "status_before": "",
+  "started_at": "2026-11-24T11:10:52.571179+00:00",
+  "exit_code": 0,
+  "seconds": 367.568,
+  "finished_at": "2026-11-24T11:17:00.139137+00:00",
+  "head_after": "feada5947b237310923f0aa1956487ac8af501af",
+  "status_after": ""
+}

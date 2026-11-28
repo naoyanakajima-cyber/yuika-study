@@ -1,0 +1,114 @@
+{
+  "observed_at": "2026-11-22T19:08:13.803526+00:00",
+  "operations_commit": "2d1209876adb985acff4eb049640d55047a9e115",
+  "main": "58f8b53b4da69806d15a126fc525b65893a0bf35",
+  "product_prs": [
+    {
+      "pr": 10,
+      "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/10",
+      "head": "d26d10dea80b93cef7a47dbd814f76e3f69d3934",
+      "state": "open",
+      "draft": true,
+      "issue_comments": [
+        {
+          "id": 6742582466,
+          "author": "cloudflare-workers-and-pages[bot]",
+          "updated_at": "2026-11-22T16:32:39Z",
+          "classification": "existing build bot status only"
+        }
+      ],
+      "reviews_count": 0,
+      "checks": [
+        {
+          "id": 137273907811,
+          "name": "Workers Builds: yuika-study",
+          "status": "completed",
+          "conclusion": "failure",
+          "completed_at": "2026-11-22T16:26:13Z"
+        }
+      ]
+    },
+    {
+      "pr": 11,
+      "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/11",
+      "head": "3920f1642692c88a8d6870480bc3f98f71558d24",
+      "state": "open",
+      "draft": true,
+      "issue_comments": [
+        {
+          "id": 6745634116,
+          "author": "cloudflare-workers-and-pages[bot]",
+          "updated_at": "2026-11-22T17:23:22Z",
+          "classification": "existing build bot status only"
+        }
+      ],
+      "reviews_count": 0,
+      "checks": [
+        {
+          "id": 137287940523,
+          "name": "Workers Builds: yuika-study",
+          "status": "completed",
+          "conclusion": "failure",
+          "completed_at": "2026-11-22T17:15:24Z"
+        }
+      ]
+    },
+    {
+      "pr": 12,
+      "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/12",
+      "head": "00c4ccb3b501223366a5f0a736567231ea9b8043",
+      "state": "open",
+      "draft": true,
+      "issue_comments": [
+        {
+          "id": 6748192684,
+          "author": "cloudflare-workers-and-pages[bot]",
+          "updated_at": "2026-11-22T18:26:50Z",
+          "classification": "existing build bot status only"
+        }
+      ],
+      "reviews_count": 0,
+      "checks": [
+        {
+          "id": 137306380677,
+          "name": "Workers Builds: yuika-study",
+          "status": "completed",
+          "conclusion": "failure",
+          "completed_at": "2026-11-22T18:19:33Z"
+        }
+      ]
+    }
+  ],
+  "other_open_prs": [
+    {
+      "pr": 22,
+      "head": "bd4f48de0404614eb84275969bfccff0a368e866",
+      "state": "open",
+      "draft": true
+    },
+    {
+      "pr": 13,
+      "head": "139c8b8b56bcd979068b61984120d9f312efe182",
+      "state": "open",
+      "draft": true
+    },
+    {
+      "pr": 9,
+      "head": "2d1209876adb985acff4eb049640d55047a9e115",
+      "state": "open",
+      "draft": true
+    },
+    {
+      "pr": 4,
+      "head": "ff211ee8e144e955fa5837e8b8ff5cabf51f60a4",
+      "state": "open",
+      "draft": true
+    }
+  ],
+  "new_human_pr_feedback_observed": false,
+  "canonical_ceo_replies_read": 0,
+  "tests_executed": 0,
+  "subagents_started": 0,
+  "scope": "remote metadata reconciliation only; prior QA not rerun",
+  "timestamp_scope": "recorded after successful remote reads in this run"
+}

@@ -1,0 +1,74 @@
+{
+  "candidate": "e89aa335936508c6e4984c523ec65da97f510cbd",
+  "parents": [
+    "9fc4bbf3e6c72e09327b6610338f12937fc7aba5",
+    "58f8b53b4da69806d15a126fc525b65893a0bf35"
+  ],
+  "clean": true,
+  "push": false,
+  "all_suites": "Delegated to independent QA; not run by Engineer",
+  "venv": "Not used; generator scripts use existing system Python standard library",
+  "main_diff_paths": [
+    "README.md",
+    "docs/product/theme-spec.md",
+    "kamakura-review.html",
+    "scripts/check_all.sh",
+    "tests/theme_review.py"
+  ],
+  "old_theme_byte_identical_sha256": {
+    "docs/product/theme-spec.md": "39491c64bf6f0d2dbbee108eac48ba65b4fb2d10fd24ccb9324ed2759eab25a4",
+    "kamakura-review.html": "1de587d5488dac33148bdeb80c0b5c649c2aec26afbab5600939d6b039291fd9",
+    "tests/theme_review.py": "f22b7bbdb01e2cf394dedb99ac038a0b3da7cdbc3d736dbb65f376a2f019c58e"
+  },
+  "main_candidate_identical_git_blobs": {
+    "yuika-review-v2.html": {
+      "main": "6776fa03757b0d6ad652b8f4160873e26ff3043f",
+      "candidate": "6776fa03757b0d6ad652b8f4160873e26ff3043f"
+    },
+    "scripts/practice/embed_science.py": {
+      "main": "24a42e2106add33ea5cd3e49a6ec75da851b5a7e",
+      "candidate": "24a42e2106add33ea5cd3e49a6ec75da851b5a7e"
+    },
+    "scripts/prototype/embed.py": {
+      "main": "fa9753747732827e31fb42abc9432fb5086a11b4",
+      "candidate": "fa9753747732827e31fb42abc9432fb5086a11b4"
+    },
+    "scripts/practice/adaptive.js": {
+      "main": "8d9f91a5644aed1690a7b526792cf21e948e6128",
+      "candidate": "8d9f91a5644aed1690a7b526792cf21e948e6128"
+    },
+    "scripts/parent/runtime.js": {
+      "main": "5321bf6d64550c4fb840551a55d6bca665e26898",
+      "candidate": "5321bf6d64550c4fb840551a55d6bca665e26898"
+    }
+  },
+  "suites": {
+    "main": 26,
+    "candidate": 27,
+    "added": [
+      "tests/theme_review.py"
+    ]
+  },
+  "checks_passed": [
+    "git diff --check",
+    "git diff --cached --check before commit",
+    "bash -n scripts/check_all.sh",
+    "design/build_summary.py then design/embed.py then parent/embed.py preserved every tracked file byte",
+    "all paths outside existing five theme paths match main exactly"
+  ],
+  "generator_check": {
+    "command_sequence": [
+      "python scripts/practice/embed.py",
+      "python scripts/practice/embed_science.py",
+      "python scripts/history/embed.py",
+      "python scripts/prototype/embed.py",
+      "python scripts/design/build_summary.py",
+      "python scripts/design/embed.py",
+      "python scripts/parent/embed.py"
+    ],
+    "observed": "Only yuika-review-v2.html changed: 7 additions/29 removals, including lever last-daily-unit URL, lever unlock filters, daily selection/planning, challenge handling/session state and answerUnit/answerTag allowed fields removed or reverted. Theme HTML remained byte-identical.",
+    "response": "Generated science output was NOT adopted. git restore --worktree -- yuika-review-v2.html restored the staged merge/main science bytes before commit. No generator source modified.",
+    "attribution": "Executed on merged candidate working tree. A separate main generator run was NOT performed. Existing-main source/target blob equality supports attribution to pre-existing main source/output mismatch, not theme changes.",
+    "limitation": "Full generator sequence is not byte-idempotent for current main lever science content. Follow-up generator repair is out of this theme compatibility scope."
+  }
+}

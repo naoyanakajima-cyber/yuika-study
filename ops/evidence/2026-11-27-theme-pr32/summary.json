@@ -1,0 +1,216 @@
+{
+  "reviewer": "qa_theme_pr32",
+  "candidate": "b4deb0df131b1280ab2cc0647851e1d345d06143",
+  "commit": "b4deb0df131b1280ab2cc0647851e1d345d06143",
+  "head": "b4deb0df131b1280ab2cc0647851e1d345d06143",
+  "result": "passed_pr32_theme_compatibility_and_generator_preservation",
+  "completed_at": "2026-11-27T17:16:32.973867+00:00",
+  "full_suite": {
+    "command": "bash scripts/check_all.sh",
+    "started_at": "2026-11-27T17:09:47.019027+00:00",
+    "completed_at": "2026-11-27T17:16:16.485679+00:00",
+    "exit_code": 0,
+    "seconds": 389,
+    "head": "b4deb0df131b1280ab2cc0647851e1d345d06143",
+    "clean_before": true,
+    "clean_after": true,
+    "suite_count": 30,
+    "passed_count": 30,
+    "attempt": 1,
+    "retries": 0,
+    "suites": [
+      {
+        "name": "tests/onin_review.py",
+        "exit_code": 0,
+        "seconds": 3
+      },
+      {
+        "name": "tests/kamakura_review.py",
+        "exit_code": 0,
+        "seconds": 4
+      },
+      {
+        "name": "tests/cloud_preview.py",
+        "exit_code": 0,
+        "seconds": 2
+      },
+      {
+        "name": "notifications/test/worker.test.mjs",
+        "exit_code": 0,
+        "seconds": 0
+      },
+      {
+        "name": "notifications/test/browser.py",
+        "exit_code": 0,
+        "seconds": 11
+      },
+      {
+        "name": "tests/study_reports.py",
+        "exit_code": 0,
+        "seconds": 31
+      },
+      {
+        "name": "tests/cloud_bootstrap.py",
+        "exit_code": 0,
+        "seconds": 2
+      },
+      {
+        "name": "tests/generator_preservation.py",
+        "exit_code": 0,
+        "seconds": 1
+      },
+      {
+        "name": "tests/adaptive_practice.py",
+        "exit_code": 0,
+        "seconds": 3
+      },
+      {
+        "name": "tests/adaptive_daily.py",
+        "exit_code": 0,
+        "seconds": 4
+      },
+      {
+        "name": "tests/adaptive_quality.py",
+        "exit_code": 0,
+        "seconds": 5
+      },
+      {
+        "name": "tests/flash_grading.py",
+        "exit_code": 0,
+        "seconds": 8
+      },
+      {
+        "name": "tests/spaced_daily.py",
+        "exit_code": 0,
+        "seconds": 5
+      },
+      {
+        "name": "tests/history_compat.py",
+        "exit_code": 0,
+        "seconds": 5
+      },
+      {
+        "name": "tests/edo.py",
+        "exit_code": 0,
+        "seconds": 16
+      },
+      {
+        "name": "tests/medaka.py",
+        "exit_code": 0,
+        "seconds": 19
+      },
+      {
+        "name": "tests/lever.py",
+        "exit_code": 0,
+        "seconds": 4
+      },
+      {
+        "name": "tests/math_passage.py",
+        "exit_code": 0,
+        "seconds": 4
+      },
+      {
+        "name": "tests/microscope.py",
+        "exit_code": 0,
+        "seconds": 23
+      },
+      {
+        "name": "tests/science_adaptive.py",
+        "exit_code": 0,
+        "seconds": 10
+      },
+      {
+        "name": "tests/registered_answers.py",
+        "exit_code": 0,
+        "seconds": 3
+      },
+      {
+        "name": "tests/history_review_regression.py",
+        "exit_code": 0,
+        "seconds": 3
+      },
+      {
+        "name": "tests/state_review_regression.py",
+        "exit_code": 0,
+        "seconds": 4
+      },
+      {
+        "name": "tests/prototype_storage.py",
+        "exit_code": 0,
+        "seconds": 7
+      },
+      {
+        "name": "tests/focus_data.py",
+        "exit_code": 0,
+        "seconds": 0
+      },
+      {
+        "name": "tests/focus_practice.py",
+        "exit_code": 0,
+        "seconds": 14
+      },
+      {
+        "name": "tests/parent_mode.py",
+        "exit_code": 0,
+        "seconds": 21
+      },
+      {
+        "name": "tests/design_c.py",
+        "exit_code": 0,
+        "seconds": 30
+      },
+      {
+        "name": "tests/responsive_subjects.py",
+        "exit_code": 0,
+        "seconds": 134
+      },
+      {
+        "name": "tests/theme_review.py",
+        "exit_code": 0,
+        "seconds": 13
+      }
+    ]
+  },
+  "required_suites": 30,
+  "suite_count": 30,
+  "passed_count": 30,
+  "exit_code": 0,
+  "seconds": 389,
+  "attempt": 1,
+  "retries": 0,
+  "qa_harness_initial_failures": 0,
+  "checkout_before_after_clean": true,
+  "all_tracked_hashes_preserved": true,
+  "independent_theme_contexts": 2,
+  "independent_math_navigation_contexts": 2,
+  "independent_math_preview_csp_contexts": 1,
+  "independent_images_inspected": 6,
+  "diagram_contrast": 6.265720821251096,
+  "generator_contract_probe": "passed_in_full_suite_first_attempt",
+  "generator_steps_per_pass": 12,
+  "generator_passes": 2,
+  "generator_initial_all_tracked_bytes_preserved": true,
+  "generator_second_pass_unchanged": true,
+  "math_byte_equal_main": true,
+  "kamakura_byte_equal_old_pr12": true,
+  "exact_frozen_parent_suite_union": true,
+  "home_cards_asserted": 22,
+  "inherited_status_text_stale_counts": {
+    "design_c": 20,
+    "responsive_subjects": 21
+  },
+  "math_24_answers_recomputed_in_suite": true,
+  "mock_math_reports_in_suite": 2,
+  "probes": {
+    "theme": "probe-result.json",
+    "math_preview_csp": "math-csp-result.json",
+    "static": "static-review.json",
+    "visual": "visual-inspection.md"
+  },
+  "limitations": [
+    "Synthetic Chromium only; no Safari/WebKit or real iPad",
+    "No personal data, user preference or learning effectiveness verified",
+    "Existing runtime reused manually; no automatic snapshot handoff claim",
+    "No real notification, main merge, deployment or settings changes"
+  ]
+}

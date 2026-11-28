@@ -1,0 +1,112 @@
+{
+  "source_operations_commit": "11520c6d57c1b61b98a1c130f3329e65e23edeac",
+  "observed_main": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
+  "observed_at": "2026-11-16 02:12:10 UTC",
+  "cloud": {
+    "provider": "cloud",
+    "phase": "running",
+    "observations_current": true
+  },
+  "open_prs": [
+    {
+      "number": 22,
+      "draft": true,
+      "state": "open",
+      "head": "bd4f48de0404614eb84275969bfccff0a368e866",
+      "base": "codex/review-17-19-quality",
+      "title": "iPad相当WebKit自動テストとタップ領域の修正（#20上積み・OS依存待ち）"
+    },
+    {
+      "number": 13,
+      "draft": true,
+      "state": "open",
+      "head": "139c8b8b56bcd979068b61984120d9f312efe182",
+      "base": "codex/cloud-handoff-hardening-20261108",
+      "title": "AGENTS.mdに自律実行ルールを追加"
+    },
+    {
+      "number": 12,
+      "draft": true,
+      "state": "open",
+      "head": "9fc4bbf3e6c72e09327b6610338f12937fc7aba5",
+      "base": "main",
+      "title": "標準/鎌倉テーマを保護者モードに対応し、模式図の文字を読みやすくする"
+    },
+    {
+      "number": 11,
+      "draft": true,
+      "state": "open",
+      "head": "1678519f916471ba6e38044855de240bd6c4a807",
+      "base": "main",
+      "title": "合成教材の確認・試し解きと画像照合サンプルを追加"
+    },
+    {
+      "number": 10,
+      "draft": true,
+      "state": "open",
+      "head": "6d01386dba0bb3cdafa7e8f431a6a17bc81e913f",
+      "base": "main",
+      "title": "理由が見えるおすすめ復習と日次の実問数表示を追加"
+    },
+    {
+      "number": 9,
+      "draft": true,
+      "state": "open",
+      "head": "11520c6d57c1b61b98a1c130f3329e65e23edeac",
+      "base": "main",
+      "title": "CEOの朝夕判断で進める半自律開発チームの運用と初期バックログを定義"
+    },
+    {
+      "number": 4,
+      "draft": true,
+      "state": "open",
+      "head": "ff211ee8e144e955fa5837e8b8ff5cabf51f60a4",
+      "base": "main",
+      "title": "応仁の乱：徳政・一揆と村の自治の用語を区別しやすくする"
+    }
+  ],
+  "product_checks": [
+    {
+      "pr": 12,
+      "head": "9fc4bbf3e6c72e09327b6610338f12937fc7aba5",
+      "checks": [
+        {
+          "name": "Workers Builds: yuika-study",
+          "status": "completed",
+          "conclusion": "failure",
+          "head_sha": "9fc4bbf3e6c72e09327b6610338f12937fc7aba5",
+          "completed_at": "2026-11-15T11:15:31Z",
+          "url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/132793313794"
+        }
+      ]
+    },
+    {
+      "pr": 11,
+      "head": "1678519f916471ba6e38044855de240bd6c4a807",
+      "checks": [
+        {
+          "name": "Workers Builds: yuika-study",
+          "status": "completed",
+          "conclusion": "failure",
+          "head_sha": "1678519f916471ba6e38044855de240bd6c4a807",
+          "completed_at": "2026-11-15T10:17:24Z",
+          "url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/132779047651"
+        }
+      ]
+    },
+    {
+      "pr": 10,
+      "head": "6d01386dba0bb3cdafa7e8f431a6a17bc81e913f",
+      "checks": [
+        {
+          "name": "Workers Builds: yuika-study",
+          "status": "completed",
+          "conclusion": "failure",
+          "head_sha": "6d01386dba0bb3cdafa7e8f431a6a17bc81e913f",
+          "completed_at": "2026-11-15T08:27:48Z",
+          "url": "https://github.com/naoyanakajima-cyber/yuika-study/runs/132752305706"
+        }
+      ]
+    }
+  ]
+}

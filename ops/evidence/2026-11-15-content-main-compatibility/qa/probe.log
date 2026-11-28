@@ -1,0 +1,28 @@
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 32774)
+Traceback (most recent call last):
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/http/server.py", line 676, in __init__
+    super().__init__(*args, **kwargs)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/socketserver.py", line 766, in __init__
+    self.handle()
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/http/server.py", line 440, in handle
+    self.handle_one_request()
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/http/server.py", line 428, in handle_one_request
+    method()
+  File "/workspace/yuika-content-main-compat-20261115/scripts/cloud/serve.py", line 31, in do_GET
+    super().do_GET()
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/http/server.py", line 683, in do_GET
+    self.copyfile(f, self.wfile)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/http/server.py", line 882, in copyfile
+    shutil.copyfileobj(source, outputfile)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/shutil.py", line 204, in copyfileobj
+    fdst_write(buf)
+  File "/opt/codex/runtimes/codex-primary-runtime/dependencies/python/lib/python3.12/socketserver.py", line 845, in write
+    self._sock.sendall(b)
+BrokenPipeError: [Errno 32] Broken pipe
+----------------------------------------
+{"head": "d75a5469fbf1e8c5011a6307308546e5ec669ceb", "routes": [{"path": "/content-review.html", "method": "GET", "status": 200}, {"path": "/edo-review.html", "method": "GET", "status": 200}, {"path": "/unknown.html", "method": "GET", "status": 404}, {"path": "/.git/config", "method": "GET", "status": 404}, {"path": "/docs/product/fixtures/synthetic-content.json", "method": "GET", "status": 404}, {"path": "/api/notify", "method": "GET", "status": 404}, {"path": "/api/notify", "method": "POST", "status": 501}, {"path": "/content-review.html", "method": "HEAD", "status": 405}, {"path": "/edo-review.html", "method": "HEAD", "status": 405}], "real_ui": "sample\u2192confirm\u2192trial\u2192answer\u2192grade\u2192exit\u2192export\u2192restart-empty", "proposal_confirmation_unsaved_unchanged_during_trial": true, "export_json_no_trial_fields": true, "observed_storage_history_idb_cache_sw_writes": [], "nonallowed_browser_requests": [], "page_errors": [], "viewport": [768, 1024], "synthetic_only": true}

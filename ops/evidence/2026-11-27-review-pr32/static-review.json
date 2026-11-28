@@ -1,0 +1,52 @@
+{
+  "candidate": "792f438fe648e056ad83a423e55bebe9d53fe43f",
+  "base_main": "58b6d9e0a8e2761e5c446a11ceafa1afb1e832a5",
+  "previous_pr10": "0cd726f558d24999da80c37b1ecdbd2e6090c7bb",
+  "suite_counts": {
+    "old": 32,
+    "main": 28,
+    "candidate": 33
+  },
+  "exact_union": true,
+  "changed_paths": [
+    "docs/pr32-compatibility.md",
+    "index.html",
+    "math-passage-review.html",
+    "notifications/embed.py",
+    "scripts/check_all.sh",
+    "scripts/cloud/serve.py",
+    "tests/design_c.py",
+    "tests/math_passage.py",
+    "tests/responsive_subjects.py"
+  ],
+  "main_byte_identical": [
+    "math-passage-review.html",
+    "notifications/embed.py",
+    "scripts/cloud/serve.py",
+    "tests/design_c.py",
+    "tests/math_passage.py"
+  ],
+  "old_pr10_byte_identical": [
+    "onin-review.html",
+    "kamakura-review.html",
+    "heian-review.html",
+    "edo-review.html",
+    "mock-focus-review.html",
+    "yuika-review-v2.html",
+    "assets/progress.js",
+    "scripts/practice/science.js",
+    "scripts/prototype/runtime.js",
+    "tests/recommended_review.py",
+    "tests/daily_count.py",
+    "tests/science_daily_count.py",
+    "tests/generator_preservation.py"
+  ],
+  "index_additions_only": [
+    "  {subject:\"算数\",subjectIcon:\"\",subjectColor:T.green,id:\"math-passage\",name:\"通過算・旅人算　進む長さをつかむ\",textbook:\"24問（オリジナル）\",externalPage:\"math-passage-review.html\",externalNote:\"5段階の練習\",quizQuestions:[],flashDecks:[]},",
+    "  if(u.id==='math-passage')return u.textbook;"
+  ],
+  "math_question_count": 24,
+  "math_parent_before_reports": true,
+  "math_questions_sha256": "542c84f59f115dd59977aee96de48bb9c86dfe94d4ce5a168de0a31446c66fd2",
+  "diff_check": true
+}

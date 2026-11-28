@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/tmp/cycle192-qa-old-negative-jc_mwehs/tests/generator_preservation.py", line 54, in <module>
+    main()
+  File "/tmp/cycle192-qa-old-negative-jc_mwehs/tests/generator_preservation.py", line 47, in main
+    assert not changed, f'Generator pass {attempt} changed tracked files: {changed}'
+           ^^^^^^^^^^^
+AssertionError: Generator pass 1 changed tracked files: ['yuika-review-v2.html']

@@ -1,0 +1,43 @@
+{
+  "head": "ee228ca0a1865d0a56f4302cd9342a4f66738561",
+  "viewport": [
+    768,
+    1024
+  ],
+  "cases": [
+    "Real synthetic lever answer saved through science controls before CONTENT",
+    "triangle: explicit confirmation -> actual answer/grade -> exit clears -> schema1 export/reimport draft; edits refuse; proposal/confirmation/unsaved retained",
+    "text: explicit confirmation -> actual answer/grade -> exit clears -> schema1 export/reimport draft; edits refuse; proposal/confirmation/unsaved retained",
+    "CONTENT reload clears proposal/trial and preserves existing synthetic science bytes",
+    "Science reload reads identical real synthetic lever event and no extra history"
+  ],
+  "writes_during_content": [],
+  "blocked_requests": [
+    {
+      "phase": "seed",
+      "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap",
+      "method": "GET"
+    },
+    {
+      "phase": "readback",
+      "url": "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap",
+      "method": "GET"
+    }
+  ],
+  "post_attempts": [],
+  "page_errors": [],
+  "real_synthetic_science_record_preserved": true,
+  "no_private_data": true,
+  "attempt": 1,
+  "exit": 0,
+  "visual_review": {
+    "reviewed": [
+      "triangle-source-768.png",
+      "triangle-graded-768x1024.png",
+      "text-graded-768x1024.png"
+    ],
+    "source_and_pending_transcription_readable": true,
+    "graded_answers_explanation_exit_visible": true,
+    "blank_image": false
+  }
+}

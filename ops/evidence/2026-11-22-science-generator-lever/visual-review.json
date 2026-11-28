@@ -1,0 +1,8 @@
+{
+  "execution_head": "f60f6b2bc7c8f0b21d0789b599edf5a13269f5e5",
+  "reviewer": "qa_science_generator",
+  "opened_images": ["normal-lever-tag-answer.png", "parent-lever-tag-answer.png"],
+  "viewport": [768, 1024],
+  "result": "Unit-bearing response, five-step explanation and saved indication readable in scoped scrolled grading region; parent banner visible; no overlapping text observed in this region",
+  "limitations": "Not full-page/full-question visual review; native Safari/iPad and learning effect unverified"
+}

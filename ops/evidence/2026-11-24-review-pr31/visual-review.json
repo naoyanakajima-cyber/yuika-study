@@ -1,0 +1,20 @@
+{
+  "candidate": "0cd726f558d24999da80c37b1ecdbd2e6090c7bb",
+  "reviewed_at": "2026-11-24T10:14:52.756483+00:00",
+  "viewport": {
+    "width": 768,
+    "height": 1024
+  },
+  "visually_inspected": [
+    "yuika-review-v2-normal.png",
+    "mock-focus-review-parent-exited.png"
+  ],
+  "findings": [
+    "Science home renders experiment-apparatus selection with ten-question preference and actual daily count eight; header, counters and controls have no visible overlap within captured viewport.",
+    "Focus math home after parent exit has normal zero synthetic child records and five-question daily entry; header and controls readable."
+  ],
+  "limitations": [
+    "Screenshots show home after reload or parent exit, not active parent banner; parent banner visibility was separately asserted in every parent probe context.",
+    "Only these two PNGs were visually inspected; viewport review does not establish every screen or real iPad rendering."
+  ]
+}

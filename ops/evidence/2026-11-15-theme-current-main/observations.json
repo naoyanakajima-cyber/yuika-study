@@ -1,0 +1,82 @@
+{
+  "observed_at": "2026-11-15 11:06:36 UTC",
+  "source_commit": "35364fb8503b6e6cf2248f8c43c52e5be354d8fe",
+  "cloud": {
+    "provider": "cloud",
+    "phase": "running",
+    "connectivity": "connected",
+    "observations_current": true
+  },
+  "prs": [
+    {
+      "number": 22,
+      "head": "bd4f48de0404614eb84275969bfccff0a368e866",
+      "branch": "codex/ipad-webkit-tests",
+      "base": "codex/review-17-19-quality",
+      "draft": true,
+      "title": "iPad相当WebKit自動テストとタップ領域の修正（#20上積み・OS依存待ち）",
+      "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/22"
+    },
+    {
+      "number": 13,
+      "head": "139c8b8b56bcd979068b61984120d9f312efe182",
+      "branch": "codex/autonomous-execution-rules-20261110",
+      "base": "codex/cloud-handoff-hardening-20261108",
+      "draft": true,
+      "title": "AGENTS.mdに自律実行ルールを追加",
+      "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/13"
+    },
+    {
+      "number": 12,
+      "head": "b416d3c08a0d3952e5f0153fdc691d6fa0e492b7",
+      "branch": "codex/kamakura-theme-mvp",
+      "base": "main",
+      "draft": true,
+      "title": "標準/鎌倉テーマを保護者モードに対応し、模式図の文字を読みやすくする",
+      "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/12"
+    },
+    {
+      "number": 11,
+      "head": "1678519f916471ba6e38044855de240bd6c4a807",
+      "branch": "codex/content-review-mvp",
+      "base": "main",
+      "draft": true,
+      "title": "合成教材の確認・試し解きと画像照合サンプルを追加",
+      "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/11"
+    },
+    {
+      "number": 10,
+      "head": "6d01386dba0bb3cdafa7e8f431a6a17bc81e913f",
+      "branch": "codex/recommended-review-mvp",
+      "base": "main",
+      "draft": true,
+      "title": "理由が見えるおすすめ復習と日次の実問数表示を追加",
+      "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/10"
+    },
+    {
+      "number": 9,
+      "head": "35364fb8503b6e6cf2248f8c43c52e5be354d8fe",
+      "branch": "codex/agent-team-operations",
+      "base": "main",
+      "draft": true,
+      "title": "CEOの朝夕判断で進める半自律開発チームの運用と初期バックログを定義",
+      "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/9"
+    },
+    {
+      "number": 4,
+      "head": "ff211ee8e144e955fa5837e8b8ff5cabf51f60a4",
+      "branch": "agent/onin-term-hints-20261105",
+      "base": "main",
+      "draft": true,
+      "title": "応仁の乱：徳政・一揆と村の自治の用語を区別しやすくする",
+      "url": "https://github.com/naoyanakajima-cyber/yuika-study/pull/4"
+    }
+  ],
+  "previous_save": {
+    "operations_commit": "35364fb8503b6e6cf2248f8c43c52e5be354d8fe",
+    "lease": null,
+    "pr11_head": "1678519f916471ba6e38044855de240bd6c4a807",
+    "result": "remote persisted; not duplicated"
+  },
+  "ceo_new_replies_read": 0
+}

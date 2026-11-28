@@ -1,0 +1,255 @@
+{
+  "head": "566e4674e9d54482d3043d4be6ff10dcd780d303",
+  "completed_at": "2026-11-22T13:09:18.342937+00:00",
+  "seconds": 10.12,
+  "cases": [
+    {
+      "case": "initial daily stages",
+      "count": 5,
+      "questions": [
+        {
+          "id": "lever-01",
+          "step": 0,
+          "unit": "てこのつり合い"
+        },
+        {
+          "id": "lever-02",
+          "step": 0,
+          "unit": "てこのつり合い"
+        },
+        {
+          "id": "lever-03",
+          "step": 0,
+          "unit": "てこのつり合い"
+        },
+        {
+          "id": "lever-04",
+          "step": 0,
+          "unit": "てこのつり合い"
+        },
+        {
+          "id": "lever-05",
+          "step": 0,
+          "unit": "てこのつり合い"
+        }
+      ]
+    },
+    {
+      "case": "initial daily stages",
+      "count": 10,
+      "questions": [
+        {
+          "id": "lever-01",
+          "step": 0,
+          "unit": "てこのつり合い"
+        },
+        {
+          "id": "lever-02",
+          "step": 0,
+          "unit": "てこのつり合い"
+        },
+        {
+          "id": "lever-03",
+          "step": 0,
+          "unit": "てこのつり合い"
+        },
+        {
+          "id": "lever-04",
+          "step": 0,
+          "unit": "てこのつり合い"
+        },
+        {
+          "id": "lever-05",
+          "step": 0,
+          "unit": "てこのつり合い"
+        },
+        {
+          "id": "lever-06",
+          "step": 0,
+          "unit": "てこのつり合い"
+        },
+        {
+          "id": "lever-07",
+          "step": 1,
+          "unit": "てこのつり合い"
+        },
+        {
+          "id": "lever-08",
+          "step": 1,
+          "unit": "てこのつり合い"
+        },
+        {
+          "id": "lever-09",
+          "step": 1,
+          "unit": "てこのつり合い"
+        },
+        {
+          "id": "lever-10",
+          "step": 1,
+          "unit": "てこのつり合い"
+        }
+      ]
+    },
+    {
+      "case": "top-home resumes lever preference",
+      "url": "http://127.0.0.1:43395/yuika-review-v2.html?unit=%E3%81%A6%E3%81%93%E3%81%AE%E3%81%A4%E3%82%8A%E5%90%88%E3%81%84&daily=1",
+      "questions": [
+        {
+          "id": "lever-01",
+          "unit": "てこのつり合い",
+          "step": 0
+        },
+        {
+          "id": "lever-02",
+          "unit": "てこのつり合い",
+          "step": 0
+        },
+        {
+          "id": "lever-03",
+          "unit": "てこのつり合い",
+          "step": 0
+        },
+        {
+          "id": "lever-04",
+          "unit": "てこのつり合い",
+          "step": 0
+        },
+        {
+          "id": "lever-05",
+          "unit": "てこのつり合い",
+          "step": 0
+        }
+      ]
+    },
+    {
+      "case": "distinct unaided stage3 unlock and daily challenge",
+      "questions": [
+        {
+          "id": "lever-01",
+          "unit": "てこのつり合い",
+          "step": 0
+        },
+        {
+          "id": "lever-02",
+          "unit": "てこのつり合い",
+          "step": 0
+        },
+        {
+          "id": "lever-03",
+          "unit": "てこのつり合い",
+          "step": 0
+        },
+        {
+          "id": "lever-04",
+          "unit": "てこのつり合い",
+          "step": 0
+        },
+        {
+          "id": "lever-27",
+          "unit": "てこのつり合い",
+          "step": 4
+        }
+      ]
+    },
+    {
+      "case": "explicit challenge two questions",
+      "questions": [
+        {
+          "id": "lever-27",
+          "unit": "てこのつり合い",
+          "step": 4
+        },
+        {
+          "id": "lever-28",
+          "unit": "てこのつり合い",
+          "step": 4
+        }
+      ]
+    },
+    {
+      "case": "wrong inserts one lower-stage question; remedial wrong no recursion",
+      "initial_ids": [
+        "lever-15",
+        "lever-02"
+      ],
+      "expanded_queue": [
+        {
+          "id": "lever-15",
+          "step": 2,
+          "conceptId": "lever-balance"
+        },
+        {
+          "id": "lever-09",
+          "step": 1,
+          "conceptId": "lever-balance"
+        },
+        {
+          "id": "lever-02",
+          "step": 0,
+          "conceptId": "lever-rotation"
+        }
+      ],
+      "events": [
+        {
+          "answerUnit": "g",
+          "questionVersion": 1,
+          "id": "d476574e-3ed1-40c7-a22f-506e4633630e",
+          "sessionId": "27c4d0b0-9801-4ed2-9414-d408fe60d57c",
+          "questionId": "lever-15",
+          "datasetVersion": "yuika-science-2026-10-v2",
+          "unit": "てこのつり合い",
+          "type": "number",
+          "question": "棒を水平につり合わせるには、右のおもりを何gにすればよい？",
+          "response": 99999,
+          "inputRaw": "99999",
+          "expected": 18,
+          "correct": false,
+          "answeredAt": "2026-11-22T03:00:00.561Z",
+          "timezoneOffset": 0,
+          "localDay": "2026-11-22",
+          "hintUsed": false,
+          "mode": "unit",
+          "explanation": "図の「？」を見つける。 左と右のおもりは反対向きに棒を回そうとする。 左の回す力は12×3＝36。つり合うには右も36。 重さ×2＝36。重さの2倍が36だから、36÷2＝18g。 つり合う重さは、必要な回す力÷支点からの距離。"
+        },
+        {
+          "answerTag": "距離だけで判断",
+          "questionVersion": 1,
+          "id": "91430273-c64a-4096-8146-9f58dba4b90a",
+          "sessionId": "27c4d0b0-9801-4ed2-9414-d408fe60d57c",
+          "questionId": "lever-09",
+          "datasetVersion": "yuika-science-2026-10-v2",
+          "unit": "てこのつり合い",
+          "type": "choice",
+          "question": "図のようにおもりをつけた。棒はどうなる？",
+          "response": "左が下がる",
+          "inputRaw": "左が下がる",
+          "expected": "つり合う",
+          "correct": false,
+          "answeredAt": "2026-11-22T03:00:00.924Z",
+          "timezoneOffset": 0,
+          "localDay": "2026-11-22",
+          "hintUsed": false,
+          "mode": "unit",
+          "explanation": "三角の台から、それぞれのおもりまでの距離を見る。 左のおもりは左を、右のおもりは右を下げようとする。 右は8gで1cm。左は4gで2cm。 回す力＝重さ×距離。右は距離が1cmなので回す力は8。左の回す力は4×2＝8。同じ大きさなので、つり合う。 左右の回す力が同じなら、棒はつり合う。"
+        }
+      ]
+    }
+  ],
+  "posts": [],
+  "pageerrors": [],
+  "blocked_external": [
+    "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap",
+    "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap",
+    "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap",
+    "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap",
+    "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap",
+    "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap",
+    "https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&display=swap"
+  ],
+  "method": "three fresh synthetic Chromium 768x1024 touch contexts; PreviewHandler CSP; non-loopback requests aborted except three public libraries locally fulfilled; actual user controls, targeted sessions for unlock/remedial",
+  "limitations": [
+    "Chromium only; no actual iPad/Safari",
+    "no real notifications or deployed app",
+    "targeted stage3/stage2 session arrangement, not full learner progression"
+  ]
+}

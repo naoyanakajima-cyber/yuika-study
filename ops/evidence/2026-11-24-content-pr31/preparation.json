@@ -1,0 +1,7 @@
+{
+  "recorded_at": "2026-11-24T11:08:09.736623+00:00",
+  "activity": "Read-only instruction/contract and previous probe inspection; no product execution",
+  "known_read_error": "Initial review-pr31-compatibility.md path lacked runs/ prefix, cat exit 1; resolved to ops/runs/2026-11-24-review-pr31-compatibility.md without product test failure",
+  "previous_probe_reused": "Source harness only, not result evidence",
+  "candidate": "awaiting fixed SHA"
+}

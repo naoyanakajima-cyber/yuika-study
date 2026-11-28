@@ -1,0 +1,11 @@
+{
+  "recorded_at": "2026-11-24T11:11:48.324236+00:00",
+  "candidate": "feada5947b237310923f0aa1956487ac8af501af",
+  "first_exit": 1,
+  "first_seconds": 2.058,
+  "type": "QA harness instrumentation error before workflow assertions",
+  "cause": "evaluate expression ends with function assignment; Playwright auto-invokes returned function without Storage receiver, producing Illegal invocation",
+  "change": "Wrap same instrumentation in explicit arrow callback returning undefined; all workflow assertions retained",
+  "product_changed": false,
+  "next_attempt": 2
+}

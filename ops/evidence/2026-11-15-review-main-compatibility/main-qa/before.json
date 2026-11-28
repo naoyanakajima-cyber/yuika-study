@@ -1,0 +1,6 @@
+{
+  "head": "60d1a946cc02ed8acea54c0d7af7d6451fcc30ec",
+  "status": "",
+  "at": "2026-11-15T08:10:47.385667+00:00",
+  "preparation": "Ignored .venv/bin symlink manually reused from previously verified environment; requirements-dev identical; scripts/cloud/activate.sh used by runner; no automatic handoff claim"
+}

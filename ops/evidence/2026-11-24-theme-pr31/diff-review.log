@@ -1,0 +1,480 @@
+diff --git a/README.md b/README.md
+index e9a8295..c4ca082 100644
+--- a/README.md
++++ b/README.md
+@@ -52,7 +52,7 @@ iPadのSafari・ホーム画面からの起動・別端末では保存領域が
+ 
+ ## チャレンジごとの自動メール
+ 
+-社会・理科の結果通知に対応しています。初期状態では無効です。Cloudflare WorkersとResendの接続設定後、ページ下部から保護者が有効にします。失敗時は保留し、次回起動時などに同じ通知IDで再試行します。送信先・APIキーは公開HTMLには保存しません。
++チャレンジの結果通知に対応しています。初期状態では無効です。Cloudflare WorkersとResendの接続設定後、ページ下部から保護者が有効にします。失敗時は保留し、次回起動時などに同じ通知IDで再試行します。送信先・APIキーは公開HTMLには保存しません。
+ 
+ [接続手順・検証方法](notifications/README.md)
+ 
+@@ -144,7 +144,7 @@ iPadのSafari・ホーム画面からの起動・別端末では保存領域が
+ 弱点・再確認は問題IDごとに判定します。別問題の正解でほかの問題を習得済みにしません。
+ 記録は `yuika-prototype-v1:study-mock-focus-v1` に隔離し、問題版付きのJSON入出力に対応します。
+ 既存ID・履歴・保存先は維持します。再確認の1・3・7日は既存と同じ**仮案**です。
+-この新単元には通知処理を入れていません。問題ページは外部読込みなしで使えます。
++問題ページはオフラインで使えます。自動メールに接続した端末では、回答済みの結果をチャレンジ終了時に通知します。
+ 学習帳の既存React/Babel読込みは従来どおりです。
+ 
+ 編集元は `scripts/focus/questions.json`。氏名などの項目は設けず、重点分野だけを持ちます。
+@@ -154,6 +154,7 @@ iPadのSafari・ホーム画面からの起動・別端末では保存領域が
+ ```bash
+ source scripts/cloud/activate.sh
+ python scripts/focus/embed.py
++python notifications/embed.py
+ python scripts/practice/embed.py
+ python scripts/history/embed.py
+ python scripts/prototype/embed.py
+@@ -263,6 +264,10 @@ Safari/WebKit・iPad実機の確認は含みません。
+ 
+ #28の2段階回答を再利用し、まず文字入力、まちがえたときだけ選択肢で再回答します。年代順は6つの記号を入力します。自力正解・選択肢正解・不正解と最初の回答を分けて保存し、選択肢正解は自力正解になるまで弱点・再確認に残ります。今日の5問とホームの件数も同じ復習判定を使います。1・3・7日の再確認間隔は既存の仮案です。
+ 
+-保存キーは `yuika-prototype-v1:yuika-social-edo-v1`、問題IDは `edo-01〜22`、各問に概念ID・版番号・根拠/解説があります。既存単元のキー・問題・履歴は変更しません。このページには通知を接続していません。
++保存キーは `yuika-prototype-v1:yuika-social-edo-v1`、問題IDは `edo-01〜22`、各問に概念ID・版番号・根拠/解説があります。既存単元のキー・問題・履歴は変更しません。自動メールに接続した端末では、回答済みの結果をチャレンジ終了時に通知します。
+ 
+-再生成は `python scripts/edo/build.py` → `python scripts/history/embed.py` → `python scripts/design/build_summary.py` → `python scripts/design/embed.py` → `python scripts/parent/embed.py`。専用テストは `python tests/edo.py`、全体テストは `bash scripts/check_all.sh` です。
++再生成は `python scripts/edo/build.py` → `python notifications/embed.py` → `python scripts/history/embed.py` → `python scripts/design/build_summary.py` → `python scripts/design/embed.py` → `python scripts/parent/embed.py`。専用テストは `python tests/edo.py`、全体テストは `bash scripts/check_all.sh` です。
++
++江戸の生成元は既存の `edo-review.html` と `scripts/edo/questions.py` です。理科のてこ専用処理を複製しないため、science/prototypeアダプターの変更は江戸にも明示的に同期します。通知・履歴・共通デザイン・保護者境界は上記の共有生成列で再埋め込みします。
++
++鎌倉のテーマ試作は模試画面へ複製しません。`scripts/focus/embed.py` は鎌倉固有のテーマCSS・操作部・スクリプトを除いて共通エンジンを生成します。生成列全体の保持は `tests/generator_preservation.py` が初回の全追跡ファイル一致と2回目の不変を検証します。
+diff --git a/docs/theme-pr31-compatibility.md b/docs/theme-pr31-compatibility.md
+new file mode 100644
+index 0000000..d9d02e0
+--- /dev/null
++++ b/docs/theme-pr31-compatibility.md
+@@ -0,0 +1,46 @@
++# Theme branch and PR31 compatibility
++
++## Scope and candidate parents
++
++This topic merges observed main `101c64ef9be86cb7c3502d3eeec498f16e93e7fd` into PR12 head `00c4ccb3b501223366a5f0a736567231ea9b8043`. The merge had no textual conflicts. It preserves Kamakura appearance switching, in-progress input and hints, grading, history, reload, parent isolation, and diagram contrast while incorporating PR31 study-report lifecycle behavior and Edo/focus notification integration. No PR10 recommendation/count feature or PR11 content-review feature is included.
++
++The required suite union is 29: all 28 original PR12 suites plus main's added `tests/study_reports.py` (main has 27). Set equality was checked against both frozen parent scripts. The complete final-commit `bash scripts/check_all.sh` is assigned to independent QA; the results below are preliminary checks of the uncommitted candidate, not a claim that final-commit QA has passed.
++
++## Generator diagnosis and repair
++
++The original seven-step preservation test omitted Edo, focus and notification generation. Expanding it to the real 12-step sequence initially exited 1 on its first generation: `assets/progress.js`, `edo-review.html`, and `mock-focus-review.html` changed. This was an observed regression, not an expected test success.
++
++Inspection of the isolated generated copy found three causes:
++
++- Edo cloned current science HTML, importing science-only lever code and changing its derived progress projection.
++- Parent embedding placed the storage boundary inside the notification markers, allowing subsequent notification embedding to remove it.
++- On this theme branch, focus generation also cloned Kamakura-only theme CSS, controls and runtime, including an unintended focus theme preference key. This difference did not occur on the content branch and required its own repair.
++
++Edo now refreshes questions from `scripts/edo/questions.py` in its existing standalone engine. Future science/prototype adapter changes need explicit Edo synchronization; shared notification/history/design/parent generators still update their blocks. Parent embedding inserts before the entire reports block. Focus generation removes exactly one of each of the three Kamakura theme blocks before deriving its shared quiz engine; count assertions fail if that source structure changes. It does not strip unrelated recommendation features.
++
++After diagnosis and these repairs, the next preservation run exited 0: the first complete generation preserved every tracked file byte, and a second complete generation was unchanged. A final timed run after README clarification also passed (exit 0, 0.972 seconds). Checks run in isolated tracked-file copies and assert the source checkout is unchanged; no assertions were weakened.
++
++Original PR12 `scripts/practice/science.js`, `scripts/practice/embed_science.py`, `scripts/prototype/runtime.js`, `scripts/prototype/embed.py`, `tests/lever.py`, `tests/theme_review.py`, and shared design assets remain byte-identical to the original topic head. The merged HTML incorporates only PR31 behavior; the generators reproduce it exactly.
++
++## Preliminary verification
++
++Every shell sourced `scripts/cloud/activate.sh`. The existing cloud dependency environment was manually reused via an ignored `.venv/bin` symlink; this does not establish automatic environment handoff. Browser contexts and answer/configuration data are synthetic, notification endpoints and Worker delivery are mocked.
++
++| Focused suite | Exit | Seconds |
++| --- | ---: | ---: |
++| `tests/theme_review.py` | 0 | 12.581 |
++| `tests/study_reports.py` | 0 | 26.171 |
++| `tests/lever.py` | 0 | 4.201 |
++| `tests/prototype_storage.py` | 0 | 7.031 |
++| `tests/focus_data.py` | 0 | 0.046 |
++| `tests/generator_preservation.py` (final timed run) | 0 | 0.972 |
++
++Theme tests covered input/state preservation, reload, stored preference errors, parent isolation, keyboard controls and diagrams in both themes on screen and print. The two hierarchy label contrast ratios were 6.266 in all four theme/media combinations; unexpected external requests and POST arrivals were zero (15 existing font GETs blocked).
++
++Study reports exercised seven app/unit cases with daily planned count, early completion, cancelled navigation, unanswered completion, duplicate completion and parent isolation. Sixteen captured synthetic reports passed the Worker contract and mail stub checks. Cancellation leaves storage and queue unchanged; unanswered completion creates no job; parent checks leave normal localStorage byte-identical. The browser suite fetches existing public React/Babel CDN assets, so it is not completely offline.
++
++Lever tests passed 28 calculations/revisions, daily/recheck behavior, staged quiz and fallback, challenge gating, unit/error tags, reports and parent isolation. Prototype tests passed existing-record preservation, import/export and corrupt/quota behavior. Focus data passed all 46 original questions and privacy guards. `git diff --check` exited 0.
++
++## Limits
++
++Independent final-commit full-suite and manual operation verification are still pending at the time this document is committed. Chromium at iPad-equivalent size is not Safari/WebKit or real-iPad validation. No real records, textbook photos, delivery, personal trial, production publication or learning effectiveness were tested. No push, main merge, deployment, real notification, secret, account setting or sharing change was performed by the engineer.
+diff --git a/scripts/edo/build.py b/scripts/edo/build.py
+index d51f108..e844a79 100644
+--- a/scripts/edo/build.py
++++ b/scripts/edo/build.py
+@@ -1,30 +1,18 @@
+-"""Reuse task 18's validated two-stage engine with a separate social dataset/key.
+-Run this before history, summary, design, and parent embedding.
++"""Refresh Edo questions while preserving its validated standalone engine.
++Run this before notification, history, summary, design, and parent embedding.
+ """
+ import json,re,sys
+ from pathlib import Path
+ ROOT=Path(__file__).resolve().parents[2]
+ sys.path.insert(0,str(Path(__file__).parent))
+-from questions import build,UNIT
+-s=(ROOT/'yuika-review-v2.html').read_text()
++from questions import build
++# Keep Edo's standalone engine: science now includes lever-specific behavior.
++# Science/prototype adapter changes require an explicit Edo synchronization;
++# notification/history/design/parent blocks are re-embedded by their generators.
++s=(ROOT/'edo-review.html').read_text()
+ m=re.search(r'const QUESTIONS=(\[.*?\n\]);',s,re.S)
++assert m, 'Edo question block is missing'
+ s=s[:m.start(1)]+json.dumps(build(),ensure_ascii=False,indent=2)+s[m.end(1):]
+-s=re.sub(r'const QUESTION_REVISIONS=.*?;\n', 'const QUESTION_REVISIONS={};\n',s,count=1)
+-s=s.replace("yuika-science-2026-10-v2","shakai-edo-2026-11-v1").replace('yuika-science-review-v2','yuika-social-edo-v1').replace('yuika-science-v1','yuika-social-edo-legacy-unused')
+-s=s.replace('yuika-review-v2.html','edo-review.html')
+-s=s.replace('ゆいかの理科ノート',UNIT).replace('ゆいかの理科学習ノート','社会学習ノート').replace('おつかれさま、ゆいか！','おつかれさま！').replace('YUIKA’S SCIENCE NOTE','社会 · 江戸時代')
+-s=s.replace('ゆいか','学習者')
+-s=s.replace('理科','社会').replace('メダカの入力・図問題','この単元の入力問題').replace('メダカ：', '江戸時代：')
+-s=s.replace('像（ぞう）はレンズを通して見える姿、視野（しや）はのぞいたときに見える範囲です。','年号・政治のしくみ・外交を確かめよう。')
+-s=s.replace('ヒントを見てもだいじょうぶ。解説まで読んでみよう。','まず自分で答え、まちがえたら選択肢で再挑戦しよう。')
+-s=re.sub(r'<svg class="art".*?</svg>','',s,flags=re.S)
+-# No new notification integration; the existing apps and configuration stay intact.
+-s=re.sub(r'<!-- YUIKA_REPORTS_BEGIN -->.*?<!-- YUIKA_REPORTS_END -->','',s,flags=re.S)
+-s=re.sub(r'^ window.YuikaReports.enqueue\(.*\n','',s,flags=re.M)
+-s=re.sub(r'function medakaDiagram\(q\)\{.*?\n\}\n','',s,flags=re.S)
+-s=s.replace("q.diagram?medakaDiagram(q):",'')
+-s=s.replace("subject:'社会',code:'水溶液／顕微鏡'", "subject:'社会',code:'江戸時代'")
+-s=s.replace('data-subject="science"','data-subject="social"')
+ (ROOT/'edo-review.html').write_text(s)
+ archive=ROOT/'scripts/history/revisions.json';a=json.loads(archive.read_text());records=a.setdefault('edo-review.html',{})
+ for q in build():
+diff --git a/scripts/focus/embed.py b/scripts/focus/embed.py
+index 5d7b6b3..2551251 100644
+--- a/scripts/focus/embed.py
++++ b/scripts/focus/embed.py
+@@ -1,5 +1,5 @@
+ """Build the offline focus unit using the existing social quiz engine.
+-Run this before practice/embed.py, history/embed.py and prototype/embed.py.
++Run this before notifications/embed.py, practice/embed.py, history/embed.py and prototype/embed.py.
+ The question file is the editable source; generated HTML stays self-contained.
+ """
+ import json
+@@ -8,7 +8,16 @@ from pathlib import Path
+ ROOT=Path(__file__).resolve().parents[2]
+ qs=json.loads((ROOT/'scripts/focus/questions.json').read_text())
+ text=(ROOT/'kamakura-review.html').read_text()
+-# Notification integration is deliberately absent from this new mixed-subject unit.
++# The appearance prototype belongs only to Kamakura, not the shared quiz engine.
++# Strip its complete CSS, controls and runtime before deriving the focus page.
++for pattern in (
++ r'<style>\n/\* Appearance controls are independent of the learning views and records\. \*/.*?</style>',
++ r'<section class="theme-panel" aria-label="見た目">.*?</section>',
++ r'<script>\n/\* Theme preference never calls learning render/save or notification code\. \*/.*?</script>',
++):
++ text,count=re.subn(pattern,'',text,flags=re.S)
++ assert count==1, 'Kamakura appearance block changed; review focus derivation'
++# Re-embed the shared client after generating this standalone page.
+ text=re.sub(r'<!-- YUIKA_REPORTS_BEGIN -->.*?<!-- YUIKA_REPORTS_END -->','',text,flags=re.S)
+ for section in ('ADAPTIVE','HISTORY','PROTOTYPE','DESIGN_C'):
+  text=re.sub(r'// '+section+r'_START\n.*?// '+section+r'_END\n','',text,flags=re.S)
+@@ -42,9 +51,10 @@ function home(){
+ ''' +text[end:]
+ text=text.replace('<h1 class="question">${esc(promptOf(q,v))}</h1>','<h1 class="question">${esc(promptOf(q,v))}</h1>${focusMaterial(q)}')
+ text=text.replace('<p>③ 覚え方：${esc(q.pitfall)}</p>','<p>③ 考え方・根拠：${esc(q.basis)}</p>')
+-# Remove the inherited completion report; no outbound code is included.
+-text=re.sub(r'window.YuikaReports.enqueue\(.*?\);main.innerHTML=', 'main.innerHTML=',text)
+-text=text.replace('connect-src https://*.workers.dev','connect-src \'none\'')
++text=text.replace("app:'social',subject:'社会',unit:'540-25 鎌倉幕府の成立',mode:MODES[run.mode]+(run.variant!=='normal'?'・'+VARIANTS[run.variant]+'確認':'')",
++ "app:'legacy',subject:[...new Set(es.map(e=>Q.get(e.questionId).subject))].join('・'),unit:'模試の弱点対策',mode:modeLabel(es[0])")
++text=text.replace("question:e.question,response:e.response,expected:e.expected,explanation:e.explanation,correct:e.correct,hint:e.hint,mode:modeLabel(e)",
++ "question:e.unit+'：'+e.question,response:e.response,expected:e.expected,explanation:e.explanation,correct:e.correct,hint:e.hint,mode:modeLabel(e)")
+ text=text.replace('ゆいかの社会','学習ノート').replace('社会ノート','学習ノート').replace('ゆいか','みんな')
+ text=text.replace('鎌倉幕府の成立','模試の弱点対策').replace('540-25','重点分野').replace('kamakura','mock-focus')
+ text=text.replace('自動メールに接続した場合だけ、チャレンジ結果を送信サーバー経由で保護者へ送ります。','')
+diff --git a/scripts/parent/embed.py b/scripts/parent/embed.py
+index b74326d..9604915 100644
+--- a/scripts/parent/embed.py
++++ b/scripts/parent/embed.py
+@@ -10,6 +10,11 @@ for p in ROOT.glob('*.html'):
+   if text[b:b+1]=='\n':b+=1
+   text=text[:a]+text[b:]
+  # Keep charset within the first 1024 bytes and CSP before executable code.
+- pos=min(text.lower().index('</head>'), text.lower().index('<script'))
++ # Place the boundary before the whole notification block so re-embedding
++ # notifications cannot remove a parent runtime nested inside its markers.
++ positions=[text.lower().index('</head>'), text.lower().index('<script')]
++ if '<!-- YUIKA_REPORTS_BEGIN -->' in text:
++  positions.append(text.index('<!-- YUIKA_REPORTS_BEGIN -->'))
++ pos=min(positions)
+  text=text[:pos]+block+'\n'+text[pos:]
+  p.write_text(text)
+diff --git a/tests/generator_preservation.py b/tests/generator_preservation.py
+index 343d4c8..6e9074f 100644
+--- a/tests/generator_preservation.py
++++ b/tests/generator_preservation.py
+@@ -14,8 +14,13 @@ ROOT = Path(__file__).resolve().parents[1]
+ GENERATORS = (
+     'scripts/practice/embed.py',
+     'scripts/practice/embed_science.py',
++    'scripts/edo/build.py',
++    'scripts/focus/embed.py',
++    'notifications/embed.py',
++    'scripts/practice/embed.py',
+     'scripts/history/embed.py',
+     'scripts/prototype/embed.py',
++    'scripts/focus/subjects.py',
+     'scripts/design/build_summary.py',
+     'scripts/design/embed.py',
+     'scripts/parent/embed.py',
+@@ -47,7 +52,7 @@ def main():
+             assert not changed, f'Generator pass {attempt} changed tracked files: {changed}'
+             previous = actual
+     assert snapshot(ROOT, names) == expected, 'Test modified its source checkout'
+-    print('generator_preservation: seven generators preserve all tracked files; second pass unchanged PASS')
++    print('generator_preservation: notification/Edo/focus and existing generators preserve all tracked files; second pass unchanged PASS')
+ 
+ 
+ if __name__ == '__main__':
+diff --git a/tests/study_reports.py b/tests/study_reports.py
+new file mode 100644
+index 0000000..6683b5b
+--- /dev/null
++++ b/tests/study_reports.py
+@@ -0,0 +1,249 @@
++"""Exercise challenge endings through browser controls and validate mail with stubbed delivery."""
++
++import json
++import os
++import subprocess
++from functools import partial
++from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
++from pathlib import Path
++from threading import Thread
++from urllib.parse import urlencode
++
++from playwright.sync_api import expect, sync_playwright
++
++ROOT = Path(__file__).resolve().parents[1]
++MOCK = 'https://study-report.example.workers.dev'
++CONFIG = {'enabled': True, 'endpoint': MOCK, 'token': 'synthetic-study-key', 'recipient': 'parent@example.test'}
++CONFIG_KEY = 'yuika-mail-config-v1'
++JOBS = "() => Object.keys(localStorage).filter(k=>k.startsWith('yuika-mail-job-v1:')).map(k=>JSON.parse(localStorage[k]))"
++
++
++class QuietHandler(SimpleHTTPRequestHandler):
++    def log_message(self, *args):
++        pass
++
++
++def answer(page, science_engine):
++    if science_engine:
++        q = page.evaluate('session.questions[session.index]')
++        if q['type'] == 'number':
++            page.locator('#numeric').fill(str(q['answer']))
++        elif q.get('diagram'):
++            page.locator(f'[data-fin="{q["answer"]}"]').click()
++        elif q['type'] == 'recall':
++            page.locator('#recall-text').fill(q['answer'])
++        else:
++            page.locator(f'[data-choice="{q["options"].index(q["answer"])}"]').click()
++    else:
++        # Focus and social engines may shuffle their displayed choices.
++        page.evaluate("""() => {
++            const q=run.qs[run.index];
++            const input=document.querySelector('#response');
++            if(input)input.value=q.answer;
++            else if(q.type==='choice')document.querySelectorAll('[data-choice]')[run.options.indexOf(q.answer)].click();
++            else {
++                q.items.forEach((_,i)=>document.querySelector('[data-step="'+i+'"]').click());
++                document.querySelectorAll('[data-fill]').forEach((el,i)=>el.value=q.blanks[i].answer);
++            }
++        }""")
++    page.locator('#check').click()
++    expect(page.locator('#next')).to_be_visible()
++
++
++def finish(page, science_engine, partial_run, before_end):
++    answered = 0
++    while True:
++        answer(page, science_engine)
++        answered += 1
++        if partial_run:
++            before_end()
++            page.locator('#end').click()
++            break
++        last = page.evaluate('session.index + 1 === session.questions.length' if science_engine
++                             else 'run.index + 1 === run.qs.length')
++        if last:
++            before_end()
++        page.locator('#next').click()
++        if last:
++            break
++    return answered
++
++
++def verify_mail(reports):
++    subprocess.run(['node', '--input-type=module', '-e', """
++        import assert from 'node:assert/strict';
++        import fs from 'node:fs';
++        import {validateReport, deliver} from './notifications/worker.mjs';
++        const cache=new Map();
++        const storage={get:key=>cache.get(key),put:(key,value)=>cache.set(key,value)};
++        for (const raw of JSON.parse(fs.readFileSync(0, 'utf8'))) {
++            const report=validateReport(raw);
++            let mails=0;
++            const result=await deliver(report, {REPORT_FROM:'sender@example.test',
++                REPORT_TO:'parent@example.test',RESEND_API_KEY:'fake-test-key'}, storage,
++                async (_,init)=>{
++                    mails++;
++                    const mail=JSON.parse(init.body);
++                    assert.equal(mail.subject,
++                        `[ゆいか学習] ゆいか学習帳 ${report.subject} ${report.correct}/${report.total}問`);
++                    assert.ok(mail.text.includes(`教科・単元：${report.subject} / ${report.unit}`));
++                    return Response.json({id:'synthetic-delivery'});
++                });
++            assert.equal(mails,1);
++            assert.equal((await result.json()).accepted,true);
++        }
++    """], input=json.dumps(reports), text=True, check=True, cwd=ROOT)
++
++
++def main(base, browser):
++    cdn = {}
++    for path in ('react@18/umd/react.production.min.js', 'react-dom@18/umd/react-dom.production.min.js',
++                 '@babel/standalone@7/babel.min.js'):
++        url = 'https://unpkg.com/' + path
++        cdn[url] = subprocess.check_output(['curl', '-fsSL', '--max-time', '30', url])
++
++    reports = []
++    cases = [
++        ('heian-review.html', {}, '社会', '540-24 貴族の世の中'),
++        ('onin-review.html', {}, '社会', '540-27 応仁の乱'),
++        ('kamakura-review.html', {}, '社会', '540-25 鎌倉幕府の成立'),
++        ('edo-review.html', {}, '社会', '江戸幕府の成立・幕藩体制・鎖国'),
++        ('mock-focus-review.html', {'subject': 'math'}, '算数', '模試の弱点対策'),
++        ('yuika-review-v2.html', {'unit': 'てこのつり合い'}, '理科', 'てこのつり合い'),
++        ('yuika-review-v2.html', {'unit': 'メダカの飼育・ひれ・成長'}, '理科', 'メダカの飼育・ひれ・成長'),
++    ]
++    for name, query, subject, unit in cases:
++        ctx = browser.new_context(viewport={'width': 768, 'height': 1024}, timezone_id='Asia/Tokyo')
++        ctx.add_init_script(path=ROOT / 'tests/seed_random.js')
++        daily_unit = name + ('?' + '&'.join(f'{k}={v}' for k, v in query.items()) if query else '')
++        page = ctx.new_page()
++        errors, posts = [], []
++        page.on('pageerror', lambda err: errors.append(str(err)))
++        accept_dialog = [True]
++        page.on('dialog', lambda dialog: dialog.accept() if accept_dialog[0] else dialog.dismiss())
++
++        def route(r):
++            url = r.request.url
++            if url == base + '__study-report-fixture__':
++                r.fulfill(content_type='text/html', body='<!doctype html><title>Study report fixture</title>')
++            elif url.startswith(base):
++                r.continue_()
++            elif url in cdn:
++                r.fulfill(body=cdn[url], content_type='application/javascript')
++            elif url == MOCK + '/reports' and r.request.method == 'POST':
++                jobs = page.evaluate(JOBS)
++                report = r.request.post_data_json
++                pending = [job for job in jobs if job['id'] == report['id']]
++                assert len(pending) == 1 and pending[0]['status'] == 'pending'
++                assert pending[0]['report'] == report
++                posts.append(report)
++                r.fulfill(json={'accepted': True}, headers={'Access-Control-Allow-Origin': '*'})
++            else:
++                r.abort()
++
++        page.route('**/*', route)
++        page.goto(base + '__study-report-fixture__')
++        page.evaluate("([key,config,lastUnit])=>{localStorage.setItem(key,JSON.stringify(config));localStorage.setItem('yuika-prototype-v1:last-daily-unit',lastUnit);}", [CONFIG_KEY, CONFIG, daily_unit])
++        url = base + name + ('?' + urlencode(query) if query else '')
++        science_engine = name in ('yuika-review-v2.html', 'edo-review.html')
++        for partial_run in (False, True):
++            before = len(posts)
++            if partial_run:
++                page.goto(url)
++                page.locator('#start').click()
++            elif query.get('unit', '').startswith('メダカ'):
++                page.goto(url + '&daily=1')
++            else:
++                page.goto(base + 'index.html')
++                page.get_by_role('button', name='今日の5問をはじめる').click()
++                page.wait_for_url('**/' + name + '*daily=1')
++
++            planned = page.evaluate('session.questions.length' if science_engine else 'run.qs.length')
++
++            def before_end():
++                assert len(posts) == before
++                assert len(page.evaluate(JOBS)) == before
++                if partial_run:
++                    saved = page.evaluate('JSON.stringify(localStorage)')
++                    accept_dialog[0] = False
++                    page.locator('[data-view="home"]').click()
++                    accept_dialog[0] = True
++                    expect(page.locator('#next')).to_be_visible()
++                    assert page.evaluate('JSON.stringify(localStorage)') == saved
++                    assert len(posts) == len(page.evaluate(JOBS)) == before
++
++            total = finish(page, science_engine, partial_run, before_end)
++            expect(page.locator('#yuika-mail-status')).to_contain_text('受け付けました')
++            assert len(posts) == before + 1
++            report = posts[-1]
++            assert total == (1 if partial_run else planned)
++            assert report['total'] == len(report['answers']) == report['correct'] == total, report
++            assert report['unit'] == unit and report['subject'] == subject, report
++            if not partial_run:
++                assert report['mode'] == '今日の5問'
++                page.evaluate('result();result()')
++            page.reload()
++            assert len(page.evaluate(JOBS)) == before + 1
++            assert len(posts) == before + 1
++
++        # Ending without an answer must not create a job in any engine.
++        page.goto(url)
++        page.locator('#start').click()
++        saved = page.evaluate('JSON.stringify(localStorage)')
++        page.locator('#end').click()
++        assert len(page.evaluate(JOBS)) == len(posts) == 2
++        assert page.evaluate('JSON.stringify(localStorage)') == saved
++
++        # Use the same connected device, and even seed a config inside the sandbox.
++        normal_storage = page.evaluate('JSON.stringify(localStorage)')
++        page.goto(url + ('&' if query else '?') + 'parent-check=1')
++        page.evaluate('c=>YuikaParent.storage.setItem("yuika-mail-config-v1",JSON.stringify(c))', CONFIG)
++        page.locator('#start').click()
++        finish(page, science_engine, True, lambda: None)
++        assert page.evaluate("Object.keys(sessionStorage).every(k=>!k.includes('yuika-mail-job-v1:'))")
++        assert len(page.evaluate(JOBS)) == len(posts) == 2
++        assert page.evaluate('JSON.stringify(localStorage)') == normal_storage
++        page.locator('#parent-exit').click()
++        expect(page.locator('#yuika-mail-status')).to_contain_text('接続済み')
++        assert page.evaluate('k=>JSON.parse(localStorage.getItem(k))', CONFIG_KEY) == CONFIG
++
++        if name == 'onin-review.html':
++            page.goto(base + 'index.html')
++            page.get_by_role('button', name='環境問題・公害', exact=False).click()
++            page.get_by_role('button', name='復習クイズ', exact=False).click()
++            page.get_by_role('button', name='わからない（正解を見る）').click()
++            page.get_by_role('button', name='← 戻る', exact=True).click()
++            expect(page.locator('#yuika-mail-status')).to_contain_text('受け付けました')
++            assert len(posts) == 3 and posts[-1]['total'] == 1 and posts[-1]['correct'] == 0
++            page.get_by_role('button', name='暗記カード', exact=False).click()
++            page.get_by_role('button', name='条約・制度', exact=False).click()
++            page.get_by_role('button', name='わからない').click()
++            page.get_by_role('button', name='← 戻る', exact=True).click()
++            expect(page.locator('#yuika-mail-status')).to_contain_text('受け付けました')
++            assert len(posts) == 4 and posts[-1]['total'] == 1 and posts[-1]['correct'] == 0
++
++            page.goto(url)
++            page.locator('#start').click()
++            page.locator('#end').click()
++            assert len(page.evaluate(JOBS)) == len(posts) == 4
++            page.evaluate('key=>localStorage.removeItem(key)', CONFIG_KEY)
++            page.reload()
++            expect(page.locator('#yuika-mail-status')).to_contain_text('未接続')
++
++        assert not errors, errors
++        reports.extend(posts)
++        ctx.close()
++        print(f'PASS {name} {query}: daily count, early end, cancelled navigation, unanswered end, dedup, parent isolation', flush=True)
++    verify_mail(reports)
++    print(f'PASS {len(reports)} captured reports accepted by Worker contract; subjects verified with mail stub')
++
++
++if __name__ == '__main__':
++    server = ThreadingHTTPServer(('127.0.0.1', 0), partial(QuietHandler, directory=ROOT))
++    Thread(target=server.serve_forever, daemon=True).start()
++    try:
++        with sync_playwright() as pw:
++            with pw.chromium.launch(executable_path=os.environ.get('PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH')) as browser:
++                main(f'http://127.0.0.1:{server.server_port}/', browser)
++    finally:
++        server.shutdown()

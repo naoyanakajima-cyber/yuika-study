@@ -1,0 +1,12 @@
+{
+  "command": "git diff 3920f16 HEAD -- README.md scripts/edo/build.py scripts/focus/embed.py scripts/parent/embed.py tests/parent_mode.py tests/study_reports.py tests/generator_preservation.py scripts/check_all.sh && cat docs/content-pr31-compatibility.md docs/verification/content-pr31-engineer.json",
+  "cwd": "/workspace/qa-content-pr31",
+  "head_before": "feada5947b237310923f0aa1956487ac8af501af",
+  "status_before": "",
+  "started_at": "2026-11-24T11:11:12.538535+00:00",
+  "exit_code": 0,
+  "seconds": 0.02,
+  "finished_at": "2026-11-24T11:11:12.558758+00:00",
+  "head_after": "feada5947b237310923f0aa1956487ac8af501af",
+  "status_after": ""
+}

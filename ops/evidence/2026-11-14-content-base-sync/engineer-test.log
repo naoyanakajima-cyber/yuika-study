@@ -1,0 +1,7 @@
+HEAD: 2f5cb14fd8ab3711752e725536288da47bf0d90e
+Start UTC: 2026-11-14T17:09:57.777113+00:00
+Command: python tests/cloud_preview.py
+cloud-preview: startup, private path protection, and API blocking passed
+Exit: 0
+Seconds: 3.190
+End UTC: 2026-11-14T17:10:00.967085+00:00

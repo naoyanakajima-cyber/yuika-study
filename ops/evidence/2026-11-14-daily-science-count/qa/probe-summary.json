@@ -1,0 +1,531 @@
+{
+  "head": "73fe2ee9d776b3e3360614752fb722ff4aee4f85",
+  "result": "PASS",
+  "ui_unique_cases": [
+    {
+      "case": "all5",
+      "before": {
+        "count": 5,
+        "scienceUnit": "all",
+        "view": "home",
+        "events": 0,
+        "history": null,
+        "localHistory": null,
+        "parent": false,
+        "session": null,
+        "notice": ""
+      },
+      "after_start": {
+        "count": 5,
+        "scienceUnit": "all",
+        "view": "quiz",
+        "events": 0,
+        "history": null,
+        "localHistory": null,
+        "parent": false,
+        "session": {
+          "mode": "daily",
+          "count": 5,
+          "ids": [
+            "ys2-027",
+            "ys2-046",
+            "ys2-005",
+            "ys2-041",
+            "ys2-040"
+          ],
+          "results": 0
+        },
+        "notice": ""
+      }
+    },
+    {
+      "case": "all10",
+      "before": {
+        "count": 10,
+        "scienceUnit": "all",
+        "view": "home",
+        "events": 0,
+        "history": null,
+        "localHistory": null,
+        "parent": false,
+        "session": null,
+        "notice": ""
+      },
+      "after_start": {
+        "count": 10,
+        "scienceUnit": "all",
+        "view": "quiz",
+        "events": 0,
+        "history": null,
+        "localHistory": null,
+        "parent": false,
+        "session": {
+          "mode": "daily",
+          "count": 10,
+          "ids": [
+            "ys2-005",
+            "ys2-024",
+            "ys2-001",
+            "ys2-044",
+            "ys2-035",
+            "ys2-014",
+            "ys2-012",
+            "ys2-008",
+            "ys2-009",
+            "ys2-037"
+          ],
+          "results": 0
+        },
+        "notice": ""
+      }
+    },
+    {
+      "case": "equipment8",
+      "before": {
+        "count": 10,
+        "scienceUnit": "実験器具",
+        "view": "home",
+        "events": 0,
+        "history": null,
+        "localHistory": null,
+        "parent": false,
+        "session": null,
+        "notice": ""
+      },
+      "after_start": {
+        "count": 10,
+        "scienceUnit": "実験器具",
+        "view": "quiz",
+        "events": 0,
+        "history": null,
+        "localHistory": null,
+        "parent": false,
+        "session": {
+          "mode": "daily",
+          "count": 8,
+          "ids": [
+            "ys2-046",
+            "ys2-047",
+            "ys2-042",
+            "ys2-041",
+            "ys2-040",
+            "ys2-045",
+            "ys2-044",
+            "ys2-043"
+          ],
+          "results": 0
+        },
+        "notice": ""
+      },
+      "after_answer": {
+        "count": 10,
+        "scienceUnit": "実験器具",
+        "view": "quiz",
+        "events": 1,
+        "history": "{\"schemaVersion\":2,\"datasetVersion\":\"yuika-science-2026-10-v2\",\"events\":[{\"questionVersion\":1,\"id\":\"b6106e2e-3262-4a2a-9b6e-557177fcd9dd\",\"sessionId\":\"ce94e8f3-8566-4604-a440-0bbd6220f833\",\"questionId\":\"ys2-046\",\"datasetVersion\":\"yuika-science-2026-10-v2\",\"unit\":\"実験器具\",\"type\":\"choice\",\"question\":\"管の先が受ける水につかる蒸留装置で、火を消す前にすることは？\",\"response\":\"管の先を水から出す\",\"inputRaw\":\"管の先を水から出す\",\"expected\":\"管の先を水から出す\",\"correct\":true,\"answeredAt\":\"2026-11-14T21:08:50.289Z\",\"timezoneOffset\":0,\"localDay\":\"2026-11-14\",\"hintUsed\":false,\"mode\":\"daily\",\"explanation\":\"管の先を水から出してから火を消し、逆流を防ぎます。実験は必ず先生の指示に従います。\"}],\"legacy\":[]}",
+        "localHistory": "{\"schemaVersion\":2,\"datasetVersion\":\"yuika-science-2026-10-v2\",\"events\":[{\"questionVersion\":1,\"id\":\"b6106e2e-3262-4a2a-9b6e-557177fcd9dd\",\"sessionId\":\"ce94e8f3-8566-4604-a440-0bbd6220f833\",\"questionId\":\"ys2-046\",\"datasetVersion\":\"yuika-science-2026-10-v2\",\"unit\":\"実験器具\",\"type\":\"choice\",\"question\":\"管の先が受ける水につかる蒸留装置で、火を消す前にすることは？\",\"response\":\"管の先を水から出す\",\"inputRaw\":\"管の先を水から出す\",\"expected\":\"管の先を水から出す\",\"correct\":true,\"answeredAt\":\"2026-11-14T21:08:50.289Z\",\"timezoneOffset\":0,\"localDay\":\"2026-11-14\",\"hintUsed\":false,\"mode\":\"daily\",\"explanation\":\"管の先を水から出してから火を消し、逆流を防ぎます。実験は必ず先生の指示に従います。\"}],\"legacy\":[]}",
+        "parent": false,
+        "session": {
+          "mode": "daily",
+          "count": 8,
+          "ids": [
+            "ys2-046",
+            "ys2-047",
+            "ys2-042",
+            "ys2-041",
+            "ys2-040",
+            "ys2-045",
+            "ys2-044",
+            "ys2-043"
+          ],
+          "results": 1
+        },
+        "notice": ""
+      },
+      "after_reload": {
+        "count": 10,
+        "scienceUnit": "実験器具",
+        "view": "home",
+        "events": 1,
+        "history": "{\"schemaVersion\":2,\"datasetVersion\":\"yuika-science-2026-10-v2\",\"events\":[{\"questionVersion\":1,\"id\":\"b6106e2e-3262-4a2a-9b6e-557177fcd9dd\",\"sessionId\":\"ce94e8f3-8566-4604-a440-0bbd6220f833\",\"questionId\":\"ys2-046\",\"datasetVersion\":\"yuika-science-2026-10-v2\",\"unit\":\"実験器具\",\"type\":\"choice\",\"question\":\"管の先が受ける水につかる蒸留装置で、火を消す前にすることは？\",\"response\":\"管の先を水から出す\",\"inputRaw\":\"管の先を水から出す\",\"expected\":\"管の先を水から出す\",\"correct\":true,\"answeredAt\":\"2026-11-14T21:08:50.289Z\",\"timezoneOffset\":0,\"localDay\":\"2026-11-14\",\"hintUsed\":false,\"mode\":\"daily\",\"explanation\":\"管の先を水から出してから火を消し、逆流を防ぎます。実験は必ず先生の指示に従います。\"}],\"legacy\":[]}",
+        "localHistory": "{\"schemaVersion\":2,\"datasetVersion\":\"yuika-science-2026-10-v2\",\"events\":[{\"questionVersion\":1,\"id\":\"b6106e2e-3262-4a2a-9b6e-557177fcd9dd\",\"sessionId\":\"ce94e8f3-8566-4604-a440-0bbd6220f833\",\"questionId\":\"ys2-046\",\"datasetVersion\":\"yuika-science-2026-10-v2\",\"unit\":\"実験器具\",\"type\":\"choice\",\"question\":\"管の先が受ける水につかる蒸留装置で、火を消す前にすることは？\",\"response\":\"管の先を水から出す\",\"inputRaw\":\"管の先を水から出す\",\"expected\":\"管の先を水から出す\",\"correct\":true,\"answeredAt\":\"2026-11-14T21:08:50.289Z\",\"timezoneOffset\":0,\"localDay\":\"2026-11-14\",\"hintUsed\":false,\"mode\":\"daily\",\"explanation\":\"管の先を水から出してから火を消し、逆流を防ぎます。実験は必ず先生の指示に従います。\"}],\"legacy\":[]}",
+        "parent": false,
+        "session": null,
+        "notice": ""
+      }
+    },
+    {
+      "case": "solution9",
+      "before": {
+        "count": 10,
+        "scienceUnit": "水溶液と溶解",
+        "view": "home",
+        "events": 0,
+        "history": null,
+        "localHistory": null,
+        "parent": false,
+        "session": null,
+        "notice": ""
+      },
+      "after_start": {
+        "count": 10,
+        "scienceUnit": "水溶液と溶解",
+        "view": "quiz",
+        "events": 0,
+        "history": null,
+        "localHistory": null,
+        "parent": false,
+        "session": {
+          "mode": "daily",
+          "count": 9,
+          "ids": [
+            "ys2-008",
+            "ys2-001",
+            "ys2-007",
+            "ys2-004",
+            "ys2-005",
+            "ys2-002",
+            "ys2-006",
+            "ys2-009",
+            "ys2-003"
+          ],
+          "results": 0
+        },
+        "notice": ""
+      }
+    },
+    {
+      "case": "parent8",
+      "before": {
+        "count": 10,
+        "scienceUnit": "実験器具",
+        "view": "home",
+        "events": 0,
+        "history": null,
+        "localHistory": null,
+        "parent": true,
+        "session": null,
+        "notice": ""
+      },
+      "after_start": {
+        "count": 10,
+        "scienceUnit": "実験器具",
+        "view": "quiz",
+        "events": 0,
+        "history": null,
+        "localHistory": null,
+        "parent": true,
+        "session": {
+          "mode": "daily",
+          "count": 8,
+          "ids": [
+            "ys2-044",
+            "ys2-045",
+            "ys2-041",
+            "ys2-047",
+            "ys2-042",
+            "ys2-043",
+            "ys2-046",
+            "ys2-040"
+          ],
+          "results": 0
+        },
+        "notice": ""
+      },
+      "after_answer": {
+        "count": 10,
+        "scienceUnit": "実験器具",
+        "view": "quiz",
+        "events": 1,
+        "history": "{\"schemaVersion\":2,\"datasetVersion\":\"yuika-science-2026-10-v2\",\"events\":[{\"questionVersion\":1,\"id\":\"529b68bb-bd64-4db2-807d-81633d639b82\",\"sessionId\":\"1bd322c4-ae20-44b9-b175-eb8c58b1c01c\",\"questionId\":\"ys2-044\",\"datasetVersion\":\"yuika-science-2026-10-v2\",\"unit\":\"実験器具\",\"type\":\"choice\",\"question\":\"蒸発皿の下にセラミック付き金網をしく主な理由は？\",\"response\":\"熱をまんべんなく伝えるため\",\"inputRaw\":\"熱をまんべんなく伝えるため\",\"expected\":\"熱をまんべんなく伝えるため\",\"correct\":true,\"answeredAt\":\"2026-11-14T21:08:52.138Z\",\"timezoneOffset\":0,\"localDay\":\"2026-11-14\",\"hintUsed\":false,\"mode\":\"daily\",\"explanation\":\"熱をまんべんなく、おだやかに伝えます。蒸発皿が部分的に熱くなるのを防ぐ役割があります。\"}],\"legacy\":[]}",
+        "localHistory": null,
+        "parent": true,
+        "session": {
+          "mode": "daily",
+          "count": 8,
+          "ids": [
+            "ys2-044",
+            "ys2-045",
+            "ys2-041",
+            "ys2-047",
+            "ys2-042",
+            "ys2-043",
+            "ys2-046",
+            "ys2-040"
+          ],
+          "results": 1
+        },
+        "notice": ""
+      },
+      "after_reload": {
+        "count": 10,
+        "scienceUnit": "実験器具",
+        "view": "home",
+        "events": 1,
+        "history": "{\"schemaVersion\":2,\"datasetVersion\":\"yuika-science-2026-10-v2\",\"events\":[{\"questionVersion\":1,\"id\":\"529b68bb-bd64-4db2-807d-81633d639b82\",\"sessionId\":\"1bd322c4-ae20-44b9-b175-eb8c58b1c01c\",\"questionId\":\"ys2-044\",\"datasetVersion\":\"yuika-science-2026-10-v2\",\"unit\":\"実験器具\",\"type\":\"choice\",\"question\":\"蒸発皿の下にセラミック付き金網をしく主な理由は？\",\"response\":\"熱をまんべんなく伝えるため\",\"inputRaw\":\"熱をまんべんなく伝えるため\",\"expected\":\"熱をまんべんなく伝えるため\",\"correct\":true,\"answeredAt\":\"2026-11-14T21:08:52.138Z\",\"timezoneOffset\":0,\"localDay\":\"2026-11-14\",\"hintUsed\":false,\"mode\":\"daily\",\"explanation\":\"熱をまんべんなく、おだやかに伝えます。蒸発皿が部分的に熱くなるのを防ぐ役割があります。\"}],\"legacy\":[]}",
+        "localHistory": null,
+        "parent": true,
+        "session": null,
+        "notice": ""
+      }
+    },
+    {
+      "case": "top-normal",
+      "url_query": "daily=1",
+      "after_start": {
+        "count": 10,
+        "scienceUnit": "実験器具",
+        "view": "quiz",
+        "events": 0,
+        "history": null,
+        "localHistory": null,
+        "parent": false,
+        "session": {
+          "mode": "daily",
+          "count": 8,
+          "ids": [
+            "ys2-040",
+            "ys2-047",
+            "ys2-044",
+            "ys2-043",
+            "ys2-041",
+            "ys2-042",
+            "ys2-045",
+            "ys2-046"
+          ],
+          "results": 0
+        },
+        "notice": ""
+      }
+    },
+    {
+      "case": "top-parent",
+      "url_query": "daily=1",
+      "top_panel": "今日の復習\n\n再確認0問＋弱点の練習0問＋通常8問\n\n前回の単元から（問数は単元の設定）\n\nはじめる ",
+      "after_start": {
+        "count": 10,
+        "scienceUnit": "実験器具",
+        "view": "quiz",
+        "events": 0,
+        "history": null,
+        "localHistory": null,
+        "parent": true,
+        "session": {
+          "mode": "daily",
+          "count": 8,
+          "ids": [
+            "ys2-042",
+            "ys2-046",
+            "ys2-044",
+            "ys2-040",
+            "ys2-047",
+            "ys2-045",
+            "ys2-041",
+            "ys2-043"
+          ],
+          "results": 0
+        },
+        "notice": ""
+      }
+    }
+  ],
+  "defensive_boundary_cases": [
+    {
+      "case": "stale-count-no-start",
+      "result": {
+        "draws": 0,
+        "view": "home",
+        "session": null,
+        "button": "今日の復習をはじめる（今回は10問）",
+        "notice": "問題数が変わりました。今回の問数を確認して、もう一度はじめてください。"
+      }
+    },
+    {
+      "case": "blocked",
+      "status": "記録を保存・読み取りできないため、弱点の復習と今日の復習は休止しています。「記録の引きつぎ」で保管してください。"
+    },
+    {
+      "case": "dirty",
+      "status": "記録を保存・読み取りできないため、弱点の復習と今日の復習は休止しています。「記録の引きつぎ」で保管してください。"
+    },
+    {
+      "case": "synthetic-zero-not-real-ui",
+      "status": "この条件では候補がありません。単元を見直してください。"
+    },
+    {
+      "case": "future-valid-event",
+      "status": "今より5分以上先の回答記録があります。端末の日付と時刻を確認してください。弱点の判定と今日の復習はお休みします。記録の時刻は自動で直しません。"
+    }
+  ],
+  "selection_cases": [
+    {
+      "history": false,
+      "unit": "all",
+      "limit": 5,
+      "count": 5,
+      "draws": 46,
+      "ids_equal": true,
+      "render_draws": 0
+    },
+    {
+      "history": false,
+      "unit": "all",
+      "limit": 10,
+      "count": 10,
+      "draws": 46,
+      "ids_equal": true,
+      "render_draws": 0
+    },
+    {
+      "history": false,
+      "unit": "実験器具",
+      "limit": 5,
+      "count": 5,
+      "draws": 7,
+      "ids_equal": true,
+      "render_draws": 0
+    },
+    {
+      "history": false,
+      "unit": "実験器具",
+      "limit": 10,
+      "count": 8,
+      "draws": 7,
+      "ids_equal": true,
+      "render_draws": 0
+    },
+    {
+      "history": false,
+      "unit": "水溶液と溶解",
+      "limit": 5,
+      "count": 5,
+      "draws": 8,
+      "ids_equal": true,
+      "render_draws": 0
+    },
+    {
+      "history": false,
+      "unit": "水溶液と溶解",
+      "limit": 10,
+      "count": 9,
+      "draws": 8,
+      "ids_equal": true,
+      "render_draws": 0
+    },
+    {
+      "history": false,
+      "unit": "synthetic-no-unit",
+      "limit": 5,
+      "count": 0,
+      "draws": 0,
+      "ids_equal": true,
+      "render_draws": 0
+    },
+    {
+      "history": false,
+      "unit": "synthetic-no-unit",
+      "limit": 10,
+      "count": 0,
+      "draws": 0,
+      "ids_equal": true,
+      "render_draws": 0
+    },
+    {
+      "history": true,
+      "unit": "all",
+      "limit": 5,
+      "count": 5,
+      "draws": 46,
+      "ids_equal": true,
+      "render_draws": 0
+    },
+    {
+      "history": true,
+      "unit": "all",
+      "limit": 10,
+      "count": 10,
+      "draws": 46,
+      "ids_equal": true,
+      "render_draws": 0
+    },
+    {
+      "history": true,
+      "unit": "実験器具",
+      "limit": 5,
+      "count": 5,
+      "draws": 7,
+      "ids_equal": true,
+      "render_draws": 0
+    },
+    {
+      "history": true,
+      "unit": "実験器具",
+      "limit": 10,
+      "count": 8,
+      "draws": 7,
+      "ids_equal": true,
+      "render_draws": 0
+    },
+    {
+      "history": true,
+      "unit": "水溶液と溶解",
+      "limit": 5,
+      "count": 5,
+      "draws": 8,
+      "ids_equal": true,
+      "render_draws": 0
+    },
+    {
+      "history": true,
+      "unit": "水溶液と溶解",
+      "limit": 10,
+      "count": 9,
+      "draws": 8,
+      "ids_equal": true,
+      "render_draws": 0
+    },
+    {
+      "history": true,
+      "unit": "synthetic-no-unit",
+      "limit": 5,
+      "count": 0,
+      "draws": 0,
+      "ids_equal": true,
+      "render_draws": 0
+    },
+    {
+      "history": true,
+      "unit": "synthetic-no-unit",
+      "limit": 10,
+      "count": 0,
+      "draws": 0,
+      "ids_equal": true,
+      "render_draws": 0
+    }
+  ],
+  "probe_starts": 3,
+  "harness_failures": [
+    {
+      "attempt": 1,
+      "cause": "Expected parent-check URL flag, but existing sessionStorage parent mode deliberately removes it; parent active/state correct.",
+      "repair": "Assert banner, active mode and isolated storage instead; preserve original proof; continue only remaining cases."
+    },
+    {
+      "attempt": 2,
+      "cause": "Synthetic selection fixture sessionId qa-rng shorter than existing 8-character minimum.",
+      "repair": "Use synthetic-rng-session; continue selection only."
+    }
+  ],
+  "product_failures": 0,
+  "blocked_requests_total": 22,
+  "public_asset_fetches": 9,
+  "server_posts_total": 0,
+  "page_errors_total": 0,
+  "limits": [
+    "Chromium only",
+    "Real UI cases use empty synthetic histories; selection oracle separately injects synthetic histories, clock and RNG",
+    "Zero science candidate is synthetic defensive case, not real UI condition",
+    "No full multi-tab/deletion sync claim",
+    "Public CDN library GET fetches used for top UI"
+  ]
+}
